@@ -2,6 +2,10 @@
 
 自己変革を志すWebサービス a.k.a. 地獄から天国へ
 
+## ビジョン
+
+死の欲動(タナトス)を排し、生の欲動(リビドー)を高めるサービス。
+
 ## Development Info
 
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
