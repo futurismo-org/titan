@@ -10,7 +10,7 @@
 
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
 * 課題管理 https://github.com/peach-hack/titan/issues
-* 進捗管理 https://trello.com/b/kbp1pXM1
+* 進捗管理 https://app.zenhub.com/workspaces/titan-5ca57a0012380971eb9c8f69/board?repos=164043851
 
 ## Inspired by
 
