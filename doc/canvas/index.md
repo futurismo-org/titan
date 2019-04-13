@@ -1,8 +1,13 @@
 # PROBLEM
 
+* オナ禁が性欲によって継続しない
 
 # CUSTOMER SEGMENTS
 
+* 日本人
+* 20代男性
+* 性依存症
+* オナ禁にポジティブな感情を抱いている
 
 # UNIQUE VALUE PROPOSITION
 
