@@ -7,7 +7,7 @@
 # CUSTOMER SEGMENTS
 
 * 日本人
-* 20代男性
+* 18歳以上の男性
 * 性依存症
 
 # UNIQUE VALUE PROPOSITION
@@ -18,8 +18,11 @@
 
 # CHANNELS
 
+* Twitter
+* ネット検索
+* LINE@登録
 
-# REVENUE STREAMS
+# REVENUE TREAMS
 
 
 # COST STRUCTURE
