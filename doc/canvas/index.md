@@ -7,8 +7,8 @@
 # CUSTOMER SEGMENTS
 
 * 日本人
-* 18歳以上の男性
-* 性依存症
+* 高校生以上（中学生はさすがにいいかな）
+* インターネットボルノ中毒、オナニー依存症
 
 # UNIQUE VALUE PROPOSITION
 
