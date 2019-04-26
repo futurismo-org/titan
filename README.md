@@ -14,5 +14,8 @@
 
 ## Inspired by
 
-[![Titan(巨人)](http://img.youtube.com/vi/IIykYnoKKt8/0.jpg)](http://www.youtube.com/watch?v=IIykYnoKKt8)
+Titanの名前の由来は、マーラー作曲の交響曲第1番の第4楽章。この副題は、地獄から天国へ、です。嵐のように激しい激情の描写からはじまり、最後には天まで届く圧倒的な勝利のファンファーレで終わります。
 
+みなさん、Titanは、Webサービスでこの世界感を目指します。
+
+[![Titan(巨人)](http://img.youtube.com/vi/yb6J5BrPRdo/0.jpg)](https://www.youtube.com/watch?v=yb6J5BrPRdo)
