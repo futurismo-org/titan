@@ -9,7 +9,7 @@
 ## Development Info
 
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
-* 課題管理 https://github.com/peach-hack/titan/issues
+* 課題管理 https://github.com/futurismo-org/titan/issues
 * 進捗管理 https://trello.com/b/N5zxzOpB/service
 
 ## Inspired by
