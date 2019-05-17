@@ -1,4 +1,5 @@
 Titan
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 ===
 
 ![](https://img.shields.io/github/issues/futurismo-org/titan.svg)
@@ -45,3 +46,15 @@ Titanの名前の由来は、マーラー作曲の交響曲第1番の第4楽章�
 みなさん、Titanは、Webサービスでこの世界感を目指します。
 
 [![Titan(巨人)](http://img.youtube.com/vi/yb6J5BrPRdo/0.jpg)](https://www.youtube.com/watch?v=yb6J5BrPRdo)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://futurismo.biz/"><img src="https://avatars1.githubusercontent.com/u/760627?v=4" width="100px;" alt="Tsunemichi Harada"/><br /><sub><b>Tsunemichi Harada</b></sub></a><br /><a href="https://github.com/futurismo-org/titan/commits?author=tsu-nera" title="Code">💻</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
