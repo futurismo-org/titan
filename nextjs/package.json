@@ -4,8 +4,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "export": "npm run build && next export",
-    "deploy:firebase": "npm run export && firebase deploy"
+    "deploy:netlify": "npm run build && next export",
+    "deploy:firebase": "npm run build && next export && firebase deploy"
   },
   "dependencies": {
     "next": "^8.1.0",
