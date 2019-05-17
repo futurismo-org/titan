@@ -6,11 +6,9 @@ Titan
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 
-自己変革を志すWebサービス a.k.a. 地獄から天国へ
-
 ## 概要
 
-自己変革の火をつけるWebサービス。
+自己変革の火をつけるWebサービス a.k.a. 地獄から天国へ
 
 具体的には、インターネットポルノ依存症の克服(以下、オナ禁)をIT技術で支援するWebサービスの立ち上げ。オナ禁ユーザの、禁欲が継続できない、性欲に負けた自己嫌悪感、ネット上の禁欲情報の不足、を解決する。禁欲チャレンジ大会を定期開催する。一言でいうと、オナ禁をテーマにしたKaggleをつくる。
 
