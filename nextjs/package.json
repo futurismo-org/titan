@@ -1,9 +1,11 @@
 {
-  "name": "create-next-example-app",
+  "name": "titan",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy:netlify": "npm run build && next export",
+    "deploy:firebase": "npm run build && next export && firebase deploy"
   },
   "dependencies": {
     "next": "^8.1.0",
