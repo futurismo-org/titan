@@ -1,4 +1,9 @@
 # Titan
+===
+
+![](https://img.shields.io/github/issues/futurismo-org/titan.svg)
+![](https://img.shields.io/github/license/futurismo-org/titan.svg)
+[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 
 自己変革を志すWebサービス a.k.a. 地獄から天国へ
 
