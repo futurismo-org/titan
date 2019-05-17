@@ -3,7 +3,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "npm run build && next export",
+    "deploy": "npm run export && firebase deploy"
   },
   "dependencies": {
     "next": "^8.1.0",
