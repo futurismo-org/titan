@@ -1,4 +1,4 @@
-# Titan
+Titan
 ===
 
 ![](https://img.shields.io/github/issues/futurismo-org/titan.svg)
@@ -17,7 +17,9 @@
 
 ゴールは、世界制覇。Facebookの次にくるSNSをつくること。世界中の人々の希望を支配すること。
 
-## Development Info
+## 開発スタートガイド
+
+### Development Info
 
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
 * 課題管理 https://github.com/futurismo-org/titan/issues
@@ -25,7 +27,18 @@
 * Blog https://note.mu/titan_dev
 * Twitter https://twitter.com/
 
-## Inspired by
+### How to Contribute
+
+T.B.D.
+
+### ライセンス
+
+このプロジェクトは MIT ライセンスの元にライセンスされています。 
+詳細は[LICENSE](https://github.com/futurismo-org/titan/blob/master/LICENSE)をご覧ください。
+
+## その他
+
+### 背景
 
 Titanの名前の由来は、マーラー作曲の交響曲第1番の第4楽章。この副題は、地獄から天国へ、です。嵐のように激しい激情の描写からはじまり、最後には天まで届く圧倒的な勝利のファンファーレで終わります。
 
