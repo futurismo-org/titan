@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "tsu-nera",
+      "name": "Tsunemichi Harada",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/760627?v=4",
+      "profile": "https://futurismo.biz/",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "titan",
+  "projectOwner": "futurismo-org",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
