@@ -20,6 +20,18 @@ Titan
 
 ## 開発スタートガイド
 
+### Environment
+
+開発用サーバはNetlify, 本番用はFirebase Hostingにデプロイします。
+
+* (開発用) https://titan-dev-1234.firebaseapp.com/
+* (本番用) https://titan-dev-1234.netlify.com/
+
+```
+$ yarn deploy:netlify
+$ yarn deploy:firebase
+```
+
 ### Development Info
 
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
