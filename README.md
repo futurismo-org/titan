@@ -24,8 +24,8 @@ Titan
 
 開発用サーバはNetlify, 本番用はFirebase Hostingにデプロイします。
 
-* (開発用) https://titan-dev-1234.firebaseapp.com/
-* (本番用) https://titan-dev-1234.netlify.com/
+* (開発用) https://titan-dev-1234.netlify.com/
+* (本番用) https://titan-dev-1234.firebaseapp.com/
 
 ```
 $ yarn deploy:netlify
