@@ -3,7 +3,7 @@
   "description": "Server App for Titan",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "source ./.production.env; next build",
     "start": "next start",
     "deploy:netlify": "npm run build && next export",
     "deploy:firebase": "npm run build && next export && firebase deploy",

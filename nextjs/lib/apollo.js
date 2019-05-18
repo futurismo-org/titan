@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: "https://asia-northeast1-titan-dev-1234.cloudfunctions.net/api",
+    uri: process.env.TARGET_URI || "http://localhost:5000",
     fetch
   }),
   cache: new InMemoryCache()
