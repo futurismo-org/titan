@@ -3,7 +3,7 @@
   "description": "Server App for Titan",
   "scripts": {
     "dev": "next",
-    "build": ". ./.production.env; next build",
+    "build": "env TARGET_URI=https://asia-northeast1-titan-dev-1234.cloudfunctions.net/api next build",
     "start": "next start",
     "deploy:netlify": "npm run build && next export",
     "deploy:firebase": "npm run build && next export && firebase deploy",
