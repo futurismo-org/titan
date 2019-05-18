@@ -3,10 +3,11 @@
   "description": "Server App for Titan",
   "scripts": {
     "dev": "next",
-    "build": "env TARGET_URI=https://asia-northeast1-titan-dev-1234.cloudfunctions.net/api next build",
+    "build": "next build",
+    "export": "next export",
     "start": "next start",
-    "deploy:netlify": "npm run build && next export",
-    "deploy:firebase": "npm run build && next export && firebase deploy",
+    "deploy:netlify": "npm run build && npm run export",
+    "deploy:firebase": "npm run build && npm run export && firebase deploy",
     "lint": "eslint . --ext .js,.jsx,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
