@@ -20,7 +20,7 @@ const Home = () => (
         if (error) return `Error! ${error.message}`;
 
         const { groups } = data;
-        return <div>{groups}</div>;
+        return <div>{groups.name}</div>;
       }}
     </Query>
   </ApolloProvider>

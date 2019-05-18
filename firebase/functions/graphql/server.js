@@ -18,8 +18,7 @@ const setupGraphQLServer = () => {
     }
   };
 
-  // return server.createHandler(corsConfig);
-  return server.createHandler();
+  return server.createHandler(corsConfig);
 };
 
 module.exports = setupGraphQLServer;
