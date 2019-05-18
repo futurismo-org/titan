@@ -1,5 +1,7 @@
 {
   "scripts": {
-    "install:all": "cd nextjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../"
+    "install:all": "cd nextjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
+    "lint": "cd nextjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
+    "lint:fix": "cd nextjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
   }
 }

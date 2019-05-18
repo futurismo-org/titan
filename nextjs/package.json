@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "next start",
     "deploy:netlify": "npm run build && next export",
-    "deploy:firebase": "npm run build && next export && firebase deploy"
+    "deploy:firebase": "npm run build && next export && firebase deploy",
+    "lint": "eslint . --ext .js,.jsx,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
   "dependencies": {
     "apollo-cache-inmemory": "^1.5.1",
