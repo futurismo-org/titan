@@ -1,11 +1,25 @@
-// require both the firebase function package to define function   // behavior and your local server config function
 const functions = require('firebase-functions');
-const configureServer = require('./server');
+const { ApolloServer, gql } = require('apollo-server-cloud-functions');
 
-// initialize the server
-const server = configureServer();
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  type Query {
+    hello: String
+  }
+`;
 
-// create and export the api
-const api = functions.https.onRequest(server);
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: () => 'Hello world!'
+  }
+};
 
-module.exports = { api };
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  playground: true,
+  introspection: true
+});
+
+exports.graphql = functions.https.onRequest(server.createHandler());
