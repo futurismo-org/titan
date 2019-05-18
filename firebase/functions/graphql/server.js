@@ -1,27 +1,24 @@
-const { ApolloServer, gql } = require('apollo-server-cloud-functions');
+const { ApolloServer } = require('apollo-server-cloud-functions');
+const schema = require('./data/schema');
+const resolvers = require('./data/resolvers');
 
 const setupGraphQLServer = () => {
-  // Construct a schema, using GraphQL schema language
-  const typeDefs = gql`
-    type Query {
-      hello: String
-    }
-  `;
-
   // Provide resolver functions for your schema fields
-  const resolvers = {
-    Query: {
-      hello: () => 'Hello world!'
-    }
-  };
-
   const server = new ApolloServer({
-    typeDefs,
+    schema,
     resolvers,
     playground: true,
     introspection: true
   });
 
+  const corsConfig = {
+    cors: {
+      origin: true,
+      credentials: true
+    }
+  };
+
+  // return server.createHandler(corsConfig);
   return server.createHandler();
 };
 
