@@ -4,7 +4,11 @@ const resolvers = require('./resolvers');
 
 const schema = gql`
   type Query {
-    hello: String
+    groups: [Group]
+  }
+  type Group {
+    name: String!
+    count: Int!
   }
 `;
 

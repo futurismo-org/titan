@@ -1,6 +1,14 @@
+const admin = require('firebase-admin');
+
 const resolveFunctions = {
   Query: {
-    hello: () => 'Hello world!'
+    async groups() {
+      const groups = await admin
+        .firestore()
+        .collection('groups')
+        .get();
+      return groups.docs.map(group => group.data());
+    }
   }
 };
 
