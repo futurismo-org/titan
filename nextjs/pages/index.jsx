@@ -6,6 +6,7 @@ import client from "../lib/apollo";
 const GET_GROUPS = gql`
   {
     groups {
+      id
       name
       count
     }
@@ -14,15 +15,16 @@ const GET_GROUPS = gql`
 
 const Home = () => (
   <ApolloProvider client={client}>
-    <Query query={GET_GROUPS}>
-      {({ loading, error, data }) => {
-        if (loading) return "Loading...";
-        if (error) return `Error! ${error.message}`;
+    <ul>
+      <Query query={GET_GROUPS}>
+        {({ loading, error, data }) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
 
-        const { groups } = data;
-        return <div>{groups.name}</div>;
-      }}
-    </Query>
+          return data.groups.map(group => <li key={group.id}>{group.name}</li>);
+        }}
+      </Query>
+    </ul>
   </ApolloProvider>
 );
 

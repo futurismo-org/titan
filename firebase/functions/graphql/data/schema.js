@@ -7,6 +7,7 @@ const schema = gql`
     groups: [Group]
   }
   type Group {
+    id: ID!
     name: String!
     count: Int!
   }

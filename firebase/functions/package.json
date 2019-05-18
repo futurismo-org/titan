@@ -2,7 +2,7 @@
   "name": "titan-client-app",
   "description": "Client App for Titan",
   "scripts": {
-    "serve": "firebase serve --only functions",
+    "dev": "firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
