@@ -1,11 +1,5 @@
 {
   "scripts": {
     "install:all": "cd nextjs && yarn install && cd ../ && cd firebase && yarn install && cd ../"
-  },
-  "dependencies": {
-    "apollo-server-express": "^2.5.0",
-    "cors": "^2.8.5",
-    "express": "^4.17.0",
-    "graphql": "^14.3.0"
   }
 }
