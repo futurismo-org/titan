@@ -1,6 +1,6 @@
 {
-  "name": "functions",
-  "description": "Titan Client App",
+  "name": "titan-client-app",
+  "description": "Client App for Titan",
   "scripts": {
     "lint": "eslint .",
     "serve": "firebase serve --only functions",

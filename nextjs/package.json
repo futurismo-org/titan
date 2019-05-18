@@ -1,5 +1,6 @@
 {
-  "name": "Titan Server App",
+  "name": "titan-server-app",
+  "description": "Server App for Titan",
   "scripts": {
     "dev": "next",
     "build": "next build",
