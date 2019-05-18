@@ -1,25 +1,8 @@
 const functions = require('firebase-functions');
-const { ApolloServer, gql } = require('apollo-server-cloud-functions');
+const setupGraphQLServer = require('./graphql/server');
 
-// Construct a schema, using GraphQL schema language
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
+const graphQLServer = setupGraphQLServer();
 
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => 'Hello world!'
-  }
-};
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  playground: true,
-  introspection: true
-});
-
-exports.graphql = functions.https.onRequest(server.createHandler());
+exports.api = functions
+  .region('asia-northeast1')
+  .https.onRequest(graphQLServer);
