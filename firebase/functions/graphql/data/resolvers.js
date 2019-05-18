@@ -1,13 +1,12 @@
-const admin = require('firebase-admin');
+const { db } = require('../../utils/admin');
 
 const resolveFunctions = {
   Query: {
-    async groups() {
-      const groups = await admin
-        .firestore()
+    groups() {
+      return db
         .collection('groups')
-        .get();
-      return groups.docs.map(group => group.data());
+        .get()
+        .then(groups => groups.docs.map(group => group.data()));
     }
   }
 };
