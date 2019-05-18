@@ -1,8 +1,11 @@
-const { https } = require('firebase-functions');
-const { setupGraphQLServer } = require('./graphql/server');
+// require both the firebase function package to define function   // behavior and your local server config function
+const functions = require('firebase-functions');
+const configureServer = require('./server');
 
-/* CF for Firebase with graphql-server-express */
-const graphQLServer = setupGraphQLServer();
+// initialize the server
+const server = configureServer();
 
-// https://us-central1-<project-name>.cloudfunctions.net/
-const api = https.onRequest(graphQLServer);
+// create and export the api
+const api = functions.https.onRequest(server);
+
+module.exports = { api };
