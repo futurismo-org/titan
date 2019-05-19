@@ -28,9 +28,7 @@
 
 # CHANNELS
 
-* Twitter
-* Google検索
-* ランディングページからのLINE@登録
+* Twitterでの口コミ拡散に注力する。SNS拡散機能を充実させる。
 
 # REVENUE STREAMS
 
