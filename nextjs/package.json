@@ -7,7 +7,7 @@
     "export": "next export",
     "start": "next start",
     "deploy:netlify": "npm run build && npm run export",
-    "deploy:firebase": "npm run build && npm run export && firebase deploy",
+    "deploy": "npm run build && npm run export && firebase deploy",
     "lint": "eslint . --ext .js,.jsx,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
