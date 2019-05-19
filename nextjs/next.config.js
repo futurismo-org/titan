@@ -2,14 +2,17 @@ module.exports = {
   webpack: config => {
     // Fixes npm packages that depend on `fs` module
     config.node = {
-      fs: 'empty'
-    }
+      fs: "empty"
+    };
 
-    return config
+    return config;
   },
-  exportPathMap: async function (defaultPathMap) {
+  async exportPathMap(defaultPathMap) {
     return {
-      '/': { page: '/' },
-    }
+      "/": { page: "/" }
+    };
+  },
+  env: {
+    ENV: "production"
   }
-}
+};
