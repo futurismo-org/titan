@@ -1,3 +1,5 @@
+const admin = require('firebase-admin');
+
 module.exports = {
   apiKey: 'AIzaSyBAOF5ih35uKsTVIijD_JCpQAqIxNqiHPk',
   authDomain: 'titan-dev-1234.firebaseapp.com',
@@ -5,5 +7,6 @@ module.exports = {
   projectId: 'titan-dev-1234',
   storageBucket: 'titan-dev-1234.appspot.com',
   messagingSenderId: '942583859110',
-  appId: '1:942583859110:web:70f4583610955abd'
+  appId: '1:942583859110:web:70f4583610955abd',
+  credential: admin.credential.applicationDefault()
 };
