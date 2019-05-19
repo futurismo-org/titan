@@ -10,6 +10,7 @@ module.exports = {
     radix: 0,
     'no-unused-vars': 0,
     'no-underscore-dangle': 0,
-    'react/prop-types': 0
+    'react/prop-types': 0,
+    'import/no-absolute-path': 0
   }
 };
