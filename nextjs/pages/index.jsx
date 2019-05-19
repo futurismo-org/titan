@@ -1,11 +1,21 @@
 import React from "react";
-import { Query, ApolloProvider } from "react-apollo";
+import { Query, ApolloProvider, Mutation } from "react-apollo";
 import gql from "graphql-tag";
 import client from "../lib/apollo";
 
 const GET_GROUPS = gql`
   {
     groups {
+      id
+      name
+      count
+    }
+  }
+`;
+
+const ADD_GROUP = gql`
+  mutation addGroup {
+    addGroup(name: "オナ禁") {
       id
       name
       count
@@ -25,6 +35,13 @@ const Home = () => (
         }}
       </Query>
     </ul>
+    <Mutation mutation={ADD_GROUP}>
+      {(addGroup, { data, loading, error }) => (
+        <button type="button" onClick={addGroup}>
+          Add
+        </button>
+      )}
+    </Mutation>
   </ApolloProvider>
 );
 
