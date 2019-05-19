@@ -11,6 +11,9 @@ const schema = gql`
     name: String!
     count: Int!
   }
+  type Mutation {
+    addGroup(name: String!): Group
+  }
 `;
 
 module.exports = makeExecutableSchema({

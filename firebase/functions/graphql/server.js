@@ -8,7 +8,12 @@ const setupGraphQLServer = () => {
     schema,
     resolvers,
     playground: true,
-    introspection: true
+    introspection: true,
+    context: ({ req, res }) => ({
+      headers: req.headers,
+      req,
+      res
+    })
   });
 
   const corsConfig = {
