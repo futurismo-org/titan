@@ -9,6 +9,11 @@ const nextConfig = {
 
     return config;
   },
+  async exportPathMap(defaultPathMap) {
+    return {
+      "/": { page: "/" }
+    };
+  },
   env: {
     ENV: "production"
   }
