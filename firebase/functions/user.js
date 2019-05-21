@@ -1,12 +1,10 @@
 const { db } = require('./utils/admin');
 
-const createUser = evt => {
-  const user = evt.data; // The Firebase user. Type: functions.auth.UserRecord
-
+const createUser = user => {
   const { uid } = user;
   const displayName = user.displayName || 'Anonymous';
   const email = user.email || '';
-  const photoURL = user.photoURL || '/assets/img/default_profile.svg';
+  const photoURL = user.photoURL || '';
 
   return db
     .collection('users')
