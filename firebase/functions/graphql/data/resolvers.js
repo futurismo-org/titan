@@ -1,4 +1,5 @@
-const { auth, db } = require('../../utils/admin');
+const { db } = require('../../utils/admin');
+const { firebase } = require('../../utils/firebase');
 
 const resolveFunctions = {
   Query: {
@@ -21,9 +22,7 @@ const resolveFunctions = {
         .collection('groups')
         .add(newGroup)
         .then(() => newGroup);
-    }
-  },
-  Auth: {
+    },
     signUp: (headers, req, res) => {
       const newUser = {
         email: req.email,
@@ -34,7 +33,8 @@ const resolveFunctions = {
 
       // TODO validate user
 
-      return auth
+      return firebase
+        .auth()
         .createUserWithEmailAndPassword(newUser.email, newUser.password)
         .then(data => `user ${data.user.uid} signup up successfully`)
         .catch(err => err.code);

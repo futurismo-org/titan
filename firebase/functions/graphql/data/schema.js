@@ -13,9 +13,12 @@ const schema = gql`
   }
   type Mutation {
     addGroup(name: String!): Group
-  }
-  type Auth {
-    signUp(email: String!, password: String!, confirmPassword: String!, handle: String!)
+    signUp(
+      email: String!
+      password: String!
+      confirmPassword: String!
+      handle: String!
+    ): String!
   }
 `;
 
