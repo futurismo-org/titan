@@ -1,11 +1,12 @@
-const functions = require('firebase-functions');
-const { db } = require('./admin');
+import { db } from './utils/admin';
 
-exports.registerUsers = functions.auth.user().onCreate(user => {
+const createUser = evt => {
+  const user = evt.data; // The Firebase user. Type: functions.auth.UserRecord
+
   const { uid } = user;
   const displayName = user.displayName || 'Anonymous';
   const email = user.email || '';
-  const photoURL = user.photoURL || '';
+  const photoURL = user.photoURL || '/assets/img/default_profile.svg';
 
   return db
     .collection('users')
@@ -22,4 +23,8 @@ exports.registerUsers = functions.auth.user().onCreate(user => {
     .catch(err => {
       console.log(err); // eslint-disable-line no-console
     });
-});
+};
+
+module.exports = {
+  createUser
+};

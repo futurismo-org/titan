@@ -1,9 +1,16 @@
 const functions = require('firebase-functions');
 const setupGraphQLServer = require('./graphql/server');
 
-const graphQLServer = setupGraphQLServer();
-require('./utils/auth');
+const user = require('./user');
 
-exports.api = functions
-  .region('asia-northeast1')
-  .https.onRequest(graphQLServer);
+// End Point for GraphQL
+const graphQLServer = setupGraphQLServer();
+const api = functions.region('asia-northeast1').https.onRequest(graphQLServer);
+
+// Firebase Auth handlers
+const authNewUser = functions.auth.user().onCreate(user.createUser);
+
+module.exports = {
+  api,
+  authNewUser
+};
