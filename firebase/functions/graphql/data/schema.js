@@ -19,6 +19,7 @@ const schema = gql`
       confirmPassword: String!
       handle: String!
     ): String!
+    signUpWithTwitter: String!
   }
 `;
 
