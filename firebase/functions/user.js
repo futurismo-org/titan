@@ -1,4 +1,4 @@
-import { db } from './utils/admin';
+const { db } = require('./utils/admin');
 
 const createUser = evt => {
   const user = evt.data; // The Firebase user. Type: functions.auth.UserRecord
