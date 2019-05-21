@@ -12,9 +12,12 @@
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link-http": "^1.5.14",
+    "firebase": "4.12.1",
+    "firebaseui": "^4.0.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
     "next": "^8.1.0",
