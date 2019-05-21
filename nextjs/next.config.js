@@ -9,9 +9,10 @@ const nextConfig = {
 
     return config;
   },
-  async exportPathMap(defaultPathMap) {
+  exportPathMap: () => {
     return {
-      "/": { page: "/" }
+      "/": { page: "/" },
+      "/challenges": { page: "/challenges" }
     };
   },
   env: {
