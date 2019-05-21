@@ -1,4 +1,4 @@
-const { db } = require('../../utils/admin');
+const { auth, db } = require('../../utils/admin');
 
 const resolveFunctions = {
   Query: {
@@ -21,6 +21,23 @@ const resolveFunctions = {
         .collection('groups')
         .add(newGroup)
         .then(() => newGroup);
+    }
+  },
+  Auth: {
+    signUp: (headers, req, res) => {
+      const newUser = {
+        email: req.email,
+        password: req.password,
+        confirmPassword: req.confirmPassword,
+        handle: req.handle
+      };
+
+      // TODO validate user
+
+      return auth
+        .createUserWithEmailAndPassword(newUser.email, newUser.password)
+        .then(data => `user ${data.user.uid} signup up successfully`)
+        .catch(err => err.code);
     }
   }
 };
