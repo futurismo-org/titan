@@ -13,6 +13,13 @@ const schema = gql`
   }
   type Mutation {
     addGroup(name: String!): Group
+    signUp(
+      email: String!
+      password: String!
+      confirmPassword: String!
+      handle: String!
+    ): String!
+    signUpWithTwitter: String!
   }
 `;
 
