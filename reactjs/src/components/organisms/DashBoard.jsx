@@ -3,9 +3,9 @@ import { Switch, Route } from "react-router-dom";
 import Layout from "../templates/DefaultLayout";
 import PlayGround from "./PlayGround";
 import Singin from "./Signin";
+import Challenges from "./Challenges";
 
 const Home = () => <p>Home</p>;
-const Challenges = () => <p>Challenges</p>;
 
 const DashBoard = () => (
   <Layout>
