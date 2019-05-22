@@ -13,7 +13,7 @@ const Header = () => (
     <Link to="/challenges" style={linkStyle}>
       チャレンジ
     </Link>
-    <Link to="/singin" style={linkStyle}>
+    <Link to="/signin" style={linkStyle}>
       サインイン
     </Link>
     <Link to="/playground" style={linkStyle}>

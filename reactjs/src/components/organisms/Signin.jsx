@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import firebase from "firebase";
 import config from "../../lib/config";
 
-class Signin extends React.Component {
-  componentDidMount() {
+const Signin = props => {
+  useEffect(() => {
     firebase.initializeApp(config);
 
     const firebaseui = require("firebaseui");
@@ -33,16 +33,14 @@ class Signin extends React.Component {
       privacyPolicyUrl: "policy"
     };
     ui.start("#firebaseui-auth-container", uiConfig);
-  }
+  }, []);
 
-  render() {
-    return (
-      <div>
-        <div id="firebaseui-auth-container" />
-        <div id="loader">Now Loading...</div>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <div id="firebaseui-auth-container" />
+      <div id="loader">Now Loading...</div>
+    </div>
+  );
+};
 
 export default Signin;
