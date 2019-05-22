@@ -16,6 +16,9 @@ const Header = () => (
     <Link to="/singin">
       <a style={linkStyle}>サインイン</a>
     </Link>
+    <Link to="/playground">
+      <a style={linkStyle}>実験</a>
+    </Link>
   </div>
 );
 
