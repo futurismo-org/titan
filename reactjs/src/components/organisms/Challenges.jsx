@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
 import fetch from "isomorphic-unfetch";
 import { Link } from "react-router-dom";
+import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks";
+
+const GET_CHALLENGES = gql`
+  {
+    challenges {
+      id
+      title
+    }
+  }
+`;
 
 const Challenges = props => {
-  const [shows, updateShows] = useState(Array(0));
+  const { data, error, loading } = useQuery(GET_CHALLENGES);
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-      const data = await res.json();
-      updateShows(data);
-    }
-    fetchData();
-  }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
 
   return (
     <div>
-      <h1>Batman TV Shows</h1>
+      <h1>チャレンジ一覧</h1>
       <ul>
-        {shows.map(({ show }) => (
-          <li key={show.id}>
-            <Link to={`/c/${show.id}`}>{show.name}</Link>
+        {data.challenges.map(challenge => (
+          <li key={challenge.id}>
+            <Link to={`/c/${challenge.id}`}>{challenge.title}</Link>
           </li>
         ))}
       </ul>

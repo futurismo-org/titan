@@ -14,6 +14,7 @@ const schema = gql`
   }
   type Challenge {
     id: ID!
+    title: String!
   }
   type Mutation {
     addGroup(name: String!): Group
