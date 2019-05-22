@@ -4,7 +4,9 @@ import config from "../../lib/config";
 
 const Signin = props => {
   useEffect(() => {
-    firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
 
     const firebaseui = require("firebaseui");
     require("firebaseui/dist/firebaseui.css");
