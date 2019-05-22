@@ -8,6 +8,12 @@ const resolveFunctions = {
         .collection('groups')
         .get()
         .then(groups => groups.docs.map(group => group.data()));
+    },
+    challenges() {
+      return db
+        .collection('challenges')
+        .get()
+        .then(challenges => challenges.docs.map(challenge => challenge.data()));
     }
   },
   Mutation: {

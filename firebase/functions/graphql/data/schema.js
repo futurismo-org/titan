@@ -5,11 +5,15 @@ const resolvers = require('./resolvers');
 const schema = gql`
   type Query {
     groups: [Group]
+    challenges: [Challenge]
   }
   type Group {
     id: ID!
     name: String!
     count: Int!
+  }
+  type Challenge {
+    id: ID!
   }
   type Mutation {
     addGroup(name: String!): Group
