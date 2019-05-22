@@ -20,7 +20,7 @@ const Challenges = props => {
       <ul>
         {shows.map(({ show }) => (
           <li key={show.id}>
-            <Link to="/challenges">{show.name}</Link>
+            <Link to={`/c/${show.id}`}>{show.name}</Link>
           </li>
         ))}
       </ul>
