@@ -1,9 +1,9 @@
 {
   "scripts": {
     "up": "nf start",
-    "install:all": "cd nextjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
-    "deploy": "cd nextjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
-    "lint": "cd nextjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
-    "lint:fix": "cd nextjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
+    "install:all": "cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
+    "deploy": "cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
+    "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
+    "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
   }
 }
