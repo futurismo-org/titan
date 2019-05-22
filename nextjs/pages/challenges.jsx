@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";
 import fetch from "isomorphic-unfetch";
+import { Link } from "../routes";
 import Layout from "../components/templates/MyLayout";
 
 const Index = props => (
@@ -9,7 +9,7 @@ const Index = props => (
     <ul>
       {props.shows.map(({ show }) => (
         <li key={show.id}>
-          <Link as={`/c/${show.id}`} href={`/challenge?id=${show.id}`}>
+          <Link route="challenges" passHref>
             <a>{show.name}</a>
           </Link>
         </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import { Link } from "../../routes";
 
 const linkStyle = {
   marginRight: 15
@@ -7,11 +7,14 @@ const linkStyle = {
 
 const Header = () => (
   <div>
-    <Link href="/">
+    <Link route="home">
       <a style={linkStyle}>ホーム</a>
     </Link>
-    <Link href="/sample">
-      <a style={linkStyle}>サンプル</a>
+    <Link route="signin">
+      <a style={linkStyle}>サインイン</a>
+    </Link>
+    <Link route="challenges">
+      <a style={linkStyle}>チャレンジ</a>
     </Link>
   </div>
 );
