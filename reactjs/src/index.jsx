@@ -1,5 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { HashRouter as Router } from "react-router-dom";
 import DashBoard from "./components/organisms/DashBoard";
 
-ReactDOM.render(<DashBoard />, document.getElementById('root')); // eslint-disable-line
+/* eslint-disable */
+ReactDOM.render(
+  <Router>
+    <DashBoard />
+  </Router>,
+  document.getElementById('root')
+);

@@ -11,10 +11,6 @@
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "react-apollo": "^2.5.5",
     "apollo-cache-inmemory": "^1.5.1",
     "apollo-client": "^2.5.1",
     "apollo-link-http": "^1.5.14",
@@ -24,7 +20,12 @@
     "firebaseui": "^4.0.0",
     "graphql": "^14.3.0",
     "graphql-tag": "^2.10.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.5",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "3.0.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
