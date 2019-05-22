@@ -1,4 +1,6 @@
 const withCSS = require("@zeit/next-css");
+const processContent = require("next-graphql-static-export");
+const { typeParams } = require("./config-export");
 
 const nextConfig = {
   webpack: config => {
@@ -8,6 +10,19 @@ const nextConfig = {
     };
 
     return config;
+  },
+  async exportPathMap() {
+    if (process.env.NODE_ENV !== "production") return {};
+
+    // Create our static export data
+    // const [challenges] = await processContent(typeParams);
+
+    // Create the static pages with Next
+    return {
+      "/": { page: "/" },
+      "/challenges": { page: "/challenges" }
+      // ...challenges
+    };
   },
   env: {
     ENV: "production"
