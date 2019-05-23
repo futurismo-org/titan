@@ -6,7 +6,7 @@ import ChallengeRules from "./ChallengeRules";
 import ChallengeLeaderBoard from "./ChallengeLeaderBoard";
 
 const ChallengeBody = props => {
-  const { challenge } = props;
+  // const { challenge } = props;
 
   return (
     <React.Fragment>
