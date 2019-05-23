@@ -1,15 +1,21 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { Typography } from "@material-ui/core";
+import styled from "styled-components";
 import ChallengeOverview from "./ChallengeOverview";
 import ChallengeDiscussion from "./ChallengeDIscussion";
 import ChallengeRules from "./ChallengeRules";
 import ChallengeLeaderBoard from "./ChallengeLeaderBoard";
 
-const ChallengeBody = () => {
-  // const { challenge } = props;
+import theme from "../../../lib/theme";
 
+const ChallengeContent = styled.div`
+  padding: ${theme.spacing(2)}px;
+`;
+
+const ChallengeBody = () => {
   return (
-    <React.Fragment>
+    <ChallengeContent>
       <Switch>
         <Route path="/challenges/:id/overview" component={ChallengeOverview} />
         <Route
@@ -22,7 +28,7 @@ const ChallengeBody = () => {
           component={ChallengeLeaderBoard}
         />
       </Switch>
-    </React.Fragment>
+    </ChallengeContent>
   );
 };
 
