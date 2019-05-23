@@ -6,7 +6,7 @@ const linkStyle = {
 };
 
 const ChallengeHeader = props => (
-  <div>
+  <React.Fragment>
     <Link to={`/challenges/${props.id}/overview`} style={linkStyle}>
       概要
     </Link>
@@ -19,7 +19,7 @@ const ChallengeHeader = props => (
     <Link to={`/challenges/${props.id}/rules`} style={linkStyle}>
       ルール
     </Link>
-  </div>
+  </React.Fragment>
 );
 
 export default ChallengeHeader;

@@ -23,7 +23,7 @@ const Challenges = props => {
   }
 
   return (
-    <div>
+    <React.Fragment>
       <h1>チャレンジ一覧</h1>
       <ul>
         {data.challenges.map(challenge => (
@@ -32,7 +32,7 @@ const Challenges = props => {
           </li>
         ))}
       </ul>
-    </div>
+    </React.Fragment>
   );
 };
 

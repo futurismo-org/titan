@@ -4,10 +4,10 @@ const ChallengeHeader = props => {
   const { challenge } = props;
 
   return (
-    <div>
+    <React.Fragment>
       <h1>{challenge.title}</h1>
       <p>{challenge.discription}</p>
-    </div>
+    </React.Fragment>
   );
 };
 

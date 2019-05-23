@@ -6,7 +6,7 @@ const linkStyle = {
 };
 
 const Header = () => (
-  <div>
+  <React.Fragment>
     <Link to="/" style={linkStyle}>
       ホーム
     </Link>
@@ -19,7 +19,7 @@ const Header = () => (
     <Link to="/playground" style={linkStyle}>
       実験
     </Link>
-  </div>
+  </React.Fragment>
 );
 
 export default Header;

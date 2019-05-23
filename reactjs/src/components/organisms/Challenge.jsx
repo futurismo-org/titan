@@ -30,11 +30,11 @@ const Challenge = props => {
   const { challenge } = data;
 
   return (
-    <div>
+    <React.Fragment>
       <Header challenge={challenge} />
       <Navbar id={challenge.id} />
       <Body />
-    </div>
+    </React.Fragment>
   );
 };
 
