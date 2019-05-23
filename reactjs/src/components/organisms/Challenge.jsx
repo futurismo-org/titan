@@ -2,9 +2,9 @@ import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 import { makeStyles } from "@material-ui/core/styles";
-import Header from "../molecules/ChallengeHeader";
-import Body from "../molecules/ChallengeBody";
-import Navbar from "../molecules/ChallengeNavbar";
+import Header from "../molecules/challenges/ChallengeHeader";
+import Body from "../molecules/challenges/ChallengeBody";
+import Navbar from "../molecules/challenges/ChallengeNavbar";
 
 const useStyles = makeStyles(theme => ({
   toolbar: {
