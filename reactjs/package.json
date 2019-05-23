@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "PORT=3000 react-scripts start",
     "build": "react-scripts build",
-    "deploy:netlify": "npm run build && npm run export",
-    "deploy": "npm run build && firebase deploy",
+    "deploy:netlify": "NODE_ENV=production npm run build && npm run export",
+    "deploy": "NODE_ENV=production npm run build && firebase deploy",
     "lint": "eslint . --ext .js,.jsx,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
