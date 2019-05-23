@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
-import fetch from "isomorphic-unfetch";
+import React from "react";
+import gql from "graphql-tag";
+import { useQuery } from "react-apollo-hooks";
+
+const GET_CHALLENGE = gql`
+  query GetChallenge($id: ID!) {
+    challenge(id: $id) {
+      id
+      title
+      discription
+    }
+  }
+`;
 
 const Challenge = props => {
-  const [show, updateShow] = useState({
-    name: "",
-    summary: "",
-    image: ""
+  const { data, error, loading } = useQuery(GET_CHALLENGE, {
+    variables: { id: props.match.params.id }
   });
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(
-        `https://api.tvmaze.com/shows/${props.match.params.id}`
-      );
-      const data = await res.json();
-      updateShow(data);
-    }
-    fetchData();
-  }, [props]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error! {error.message}</div>;
+  }
+
+  const { challenge } = data;
 
   return (
     <div>
-      <h1>{show.name}</h1>
-      <p>{show.summary.replace(/<[/]?p>/g, "")}</p>
-      <img src={show.image.medium} alt="challenge" />
+      <h1>{challenge.name}</h1>
+      <p>{challenge.discription}</p>
     </div>
   );
 };

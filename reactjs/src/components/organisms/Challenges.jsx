@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import fetch from "isomorphic-unfetch";
+import React from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";

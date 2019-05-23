@@ -14,6 +14,14 @@ const resolveFunctions = {
         .collection('challenges')
         .get()
         .then(challenges => challenges.docs.map(challenge => challenge.data()));
+    },
+    challenge: (headers, req, res) => {
+      const id = parseInt(req.id);
+      return db
+        .collection('challenges')
+        .where('id', '==', id)
+        .get()
+        .then(doc => doc.docs[0].data());
     }
   },
   Mutation: {
