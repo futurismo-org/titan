@@ -49,7 +49,7 @@ $ yarn install:all
 $ yarn up
 ```
 
-http://localhost:3000　にアクセスする。
+access to http://localhost:3000
 
 注意: node.jsのバージョンは、8(Firebaseにあわせている）
 
