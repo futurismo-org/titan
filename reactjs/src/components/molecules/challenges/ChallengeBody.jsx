@@ -5,7 +5,7 @@ import ChallengeDiscussion from "./ChallengeDIscussion";
 import ChallengeRules from "./ChallengeRules";
 import ChallengeLeaderBoard from "./ChallengeLeaderBoard";
 
-const ChallengeBody = props => {
+const ChallengeBody = () => {
   // const { challenge } = props;
 
   return (

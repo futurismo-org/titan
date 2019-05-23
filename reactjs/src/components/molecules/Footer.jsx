@@ -17,8 +17,7 @@ const StyledLink = props => (
 const StyledFooter = styled.footer`
   background-color: ${theme.palette.background.paper};
   margin-top: auto;
-  margin-bottom: 20px;
-  padding: ${theme.spacing(6, 0)}px;
+  padding: ${theme.spacing(6, 0)};
 `;
 
 const MadeWithLove = () => {
