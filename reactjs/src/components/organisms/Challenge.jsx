@@ -28,7 +28,7 @@ const Challenge = props => {
 
   return (
     <div>
-      <h1>{challenge.name}</h1>
+      <h1>{challenge.title}</h1>
       <p>{challenge.discription}</p>
     </div>
   );
