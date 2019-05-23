@@ -1,9 +1,9 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
-import Header from "../molecules/ChallengeHeader";
-import Body from "../molecules/ChallengeBody";
-import Navbar from "../molecules/ChallengeNavbar";
+import Header from "../molecules/challenges/ChallengeHeader";
+import Body from "../molecules/challenges/ChallengeBody";
+import Navbar from "../molecules/challenges/ChallengeNavbar";
 
 const GET_CHALLENGE = gql`
   query GetChallenge($id: ID!) {
@@ -30,11 +30,11 @@ const Challenge = props => {
   const { challenge } = data;
 
   return (
-    <div>
+    <React.Fragment>
       <Header challenge={challenge} />
       <Navbar id={challenge.id} />
       <Body />
-    </div>
+    </React.Fragment>
   );
 };
 

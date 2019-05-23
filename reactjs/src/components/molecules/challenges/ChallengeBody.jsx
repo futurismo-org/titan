@@ -6,10 +6,10 @@ import ChallengeRules from "./ChallengeRules";
 import ChallengeLeaderBoard from "./ChallengeLeaderBoard";
 
 const ChallengeBody = props => {
-  const { challenge } = props;
+  // const { challenge } = props;
 
   return (
-    <div>
+    <React.Fragment>
       <Switch>
         <Route path="/challenges/:id/overview" component={ChallengeOverview} />
         <Route
@@ -22,7 +22,7 @@ const ChallengeBody = props => {
           component={ChallengeLeaderBoard}
         />
       </Switch>
-    </div>
+    </React.Fragment>
   );
 };
 

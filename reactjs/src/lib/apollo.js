@@ -8,9 +8,12 @@ const API_URL_LOCAL =
 const API_URL_REMOTE =
   "https://asia-northeast1-titan-dev-1234.cloudfunctions.net/api";
 
+const API_URL =
+  process.env.NODE_ENV === "production" ? API_URL_REMOTE : API_URL_LOCAL;
+
 const client = new ApolloClient({
   link: createHttpLink({
-    uri: API_URL_LOCAL,
+    uri: API_URL,
     fetch
   }),
   cache: new InMemoryCache()
