@@ -27,7 +27,7 @@ Titan
 
 ```
 $ yarn deploy:netlify
-$ yarn deploy:firebase
+$ yarn deploy
 ```
 
 ### Development Info
@@ -40,7 +40,18 @@ $ yarn deploy:firebase
 
 ### How to Contribute
 
-T.B.D.
+環境構築は以下の手順で。
+
+```
+$ git clone git@github.com:futurismo-org/titan.git
+$ cd titan
+$ yarn install:all
+$ yarn up
+```
+
+http://localhost:3000　にアクセスする。
+
+注意: node.jsのバージョンは、8(Firebaseにあわせている）
 
 ### ライセンス
 
