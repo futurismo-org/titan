@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
+import ChallengeHeader from "../molecules/ChallengeHeader";
 
 const GET_CHALLENGE = gql`
   query GetChallenge($id: ID!) {
@@ -26,12 +27,7 @@ const Challenge = props => {
 
   const { challenge } = data;
 
-  return (
-    <div>
-      <h1>{challenge.title}</h1>
-      <p>{challenge.discription}</p>
-    </div>
-  );
+  return <ChallengeHeader challenge={challenge} />;
 };
 
 export default Challenge;
