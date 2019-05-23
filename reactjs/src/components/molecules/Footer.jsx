@@ -16,7 +16,8 @@ const StyledLink = props => (
 
 const StyledFooter = styled.footer`
   background-color: ${theme.palette.background.paper};
-  margin-top: ${theme.spacing(8)}px;
+  margin-top: auto;
+  margin-bottom: 20px;
   padding: ${theme.spacing(6, 0)}px;
 `;
 
@@ -42,7 +43,8 @@ const Footer = () => (
         component="p"
         align="center"
       >
-        自己変革の火をつけるWebサービス <br /> a.k.a. 地獄から天国へ
+        自己変革の火をつけるWebサービス <br />
+        a.k.a. 地獄から天国へ
       </Typography>
       <MadeWithLove />
     </Container>
