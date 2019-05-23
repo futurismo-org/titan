@@ -14,7 +14,7 @@ const StyledToolbar = styled(Toolbar)`
 
 const StyledLink = styled(MaterialLink)`
   && {
-    padding: ${theme.spacing(1)};
+    padding: ${theme.spacing(1)}px;
     flex-shrink: 0;
   }
 `;
