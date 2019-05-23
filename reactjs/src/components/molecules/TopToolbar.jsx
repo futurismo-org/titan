@@ -33,7 +33,7 @@ const TopToolbar = () => (
       align="center"
       noWrap
     >
-      <NoStyledLink to="/">Titan</NoStyledLink>
+      Titan
     </StyledTypography>
     <IconButton>
       <SearchIcon />
