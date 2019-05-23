@@ -6,14 +6,16 @@ import styled from "styled-components";
 import theme from "../../../lib/theme";
 
 const MainFeaturedPost = styled(Paper)`
-  position: relative;
-  background-color: ${theme.palette.grey[800]};
-  color: ${theme.palette.common.white};
-  margin-bottom: ${theme.spacing(4)};
-  background-image: url(https://source.unsplash.com/user/erondu);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  && {
+    position: relative;
+    background-color: ${theme.palette.grey[800]};
+    color: ${theme.palette.common.white};
+    margin-bottom: ${theme.spacing(4)};
+    background-image: url(https://source.unsplash.com/user/erondu);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 `;
 
 const Overlay = styled.div`

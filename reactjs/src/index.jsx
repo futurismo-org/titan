@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HashRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "react-apollo-hooks";
-import DashBoard from "./components/organisms/DashBoard";
+import App from "./components/organisms/App";
 import client from "./lib/apollo";
 import Head from "./components/templates/Head";
 
@@ -12,7 +12,7 @@ ReactDOM.render(
     <Head />
     <Router>
       <ApolloProvider client={client}>
-        <DashBoard />
+        <App />
       </ApolloProvider>
     </Router>
   </React.Fragment>,

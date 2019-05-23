@@ -1,9 +1,10 @@
 import React from "react";
+import Helmet from "react-helmet";
 
 const Head = () => (
-  <head>
+  <Helmet>
     <noscript id="jss-insertion-point" />
-  </head>
+  </Helmet>
 );
 
 export default Head;
