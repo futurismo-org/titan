@@ -43,6 +43,7 @@ $ yarn deploy
 環境構築は以下の手順で。
 
 ```
+$ npm i -g foreman
 $ git clone git@github.com:futurismo-org/titan.git
 $ cd titan
 $ yarn install:all
@@ -52,6 +53,15 @@ $ yarn up
 access to http://localhost:3000
 
 注意: node.jsのバージョンは、8(Firebaseにあわせている）
+
+#### Firebaseへの登録
+
+tsu-neraから招待メールをもらう。
+
+```
+$ npm install -g firebase-tools
+$ firebase login
+```
 
 ### ライセンス
 
