@@ -1,16 +1,15 @@
 import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
 import Header from "../molecules/Header";
 
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: "1px solid #DDD"
-};
-
 const Layout = props => (
-  <div style={layoutStyle}>
-    <Header />
-    {props.children}
+  <div>
+    <CssBaseline />
+    <Container maxWidth="lg">
+      <Header />
+      <main>{props.children}</main>
+    </Container>
   </div>
 );
 

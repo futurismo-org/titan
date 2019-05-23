@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TopToolbar from "./TopToolbar";
 
 const linkStyle = {
   marginRight: 15
@@ -7,6 +8,7 @@ const linkStyle = {
 
 const Header = () => (
   <React.Fragment>
+    <TopToolbar />
     <Link to="/" style={linkStyle}>
       ホーム
     </Link>
