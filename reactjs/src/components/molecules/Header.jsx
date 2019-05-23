@@ -15,11 +15,14 @@ const Header = () => (
     <Link to="/challenges" style={linkStyle}>
       チャレンジ
     </Link>
-    <Link to="/signin" style={linkStyle}>
-      サインイン
+    <Link to="/categories" style={linkStyle}>
+      カテゴリ
     </Link>
-    <Link to="/playground" style={linkStyle}>
-      実験
+    <Link to="/ranking" style={linkStyle}>
+      ランキング
+    </Link>
+    <Link to="/topics" style={linkStyle}>
+      トピック
     </Link>
   </React.Fragment>
 );

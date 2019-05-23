@@ -7,6 +7,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import styled from "styled-components";
 import { createMuiTheme } from "@material-ui/core/styles";
 
+import { Link } from "react-router-dom";
+
 const theme = createMuiTheme();
 
 const StyledToolbar = styled(Toolbar)`
@@ -15,6 +17,11 @@ const StyledToolbar = styled(Toolbar)`
 
 const StyledTypography = styled(Typography)`
   flex: 1;
+`;
+
+const NoStyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const TopToolbar = () => (
@@ -26,13 +33,13 @@ const TopToolbar = () => (
       align="center"
       noWrap
     >
-      Titan
+      <NoStyledLink to="/">Titan</NoStyledLink>
     </StyledTypography>
     <IconButton>
       <SearchIcon />
     </IconButton>
     <Button variant="outlined" size="small">
-      Sign up
+      <NoStyledLink to="/signin">Sign in</NoStyledLink>
     </Button>
   </StyledToolbar>
 );
