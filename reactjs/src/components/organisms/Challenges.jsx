@@ -28,7 +28,7 @@ const Challenges = props => {
       <ul>
         {data.challenges.map(challenge => (
           <li key={challenge.id}>
-            <Link to={`/c/${challenge.id}`}>{challenge.title}</Link>
+            <Link to={`/challenges/${challenge.id}`}>{challenge.title}</Link>
           </li>
         ))}
       </ul>

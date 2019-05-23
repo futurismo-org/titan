@@ -12,8 +12,8 @@ const DashBoard = () => (
   <Layout>
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route path="/challenges" component={Challenges} />
-      <Route path="/c/:id" component={Challenge} />
+      <Route exact path="/challenges" component={Challenges} />
+      <Route path="/challenges/:id" component={Challenge} />
       <Route path="/signin" component={Singin} />
       <Route path="/playground" component={PlayGround} />
     </Switch>
