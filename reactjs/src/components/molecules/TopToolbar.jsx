@@ -29,13 +29,7 @@ const NoStyledLink = styled(Link)`
 
 const TopToolbar = () => (
   <StyledToolbar>
-    <StyledTypography
-      component="h2"
-      variant="h5"
-      color="inherit"
-      align="center"
-      noWrap
-    >
+    <StyledTypography component="h2" variant="h5" color="inherit" noWrap>
       Titan
     </StyledTypography>
     <IconButton>

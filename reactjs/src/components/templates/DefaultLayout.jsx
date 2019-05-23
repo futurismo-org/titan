@@ -3,6 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Header from "../molecules/Header";
+import Footer from "../molecules/Footer";
 
 import theme from "../../lib/theme";
 
@@ -14,6 +15,7 @@ const Layout = props => (
         <Header />
         <main>{props.children}</main>
       </Container>
+      <Footer />
     </MuiThemeProvider>
   </React.Fragment>
 );
