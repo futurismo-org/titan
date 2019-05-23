@@ -5,23 +5,26 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import styled from "styled-components";
-import { createMuiTheme } from "@material-ui/core/styles";
-
 import { Link } from "react-router-dom";
-
-const theme = createMuiTheme();
+import theme from "../../lib/theme";
 
 const StyledToolbar = styled(Toolbar)`
-  border-bottom: 1px solid ${theme.palette.divider};
+  && {
+    border-bottom: 1px solid ${theme.palette.divider};
+  }
 `;
 
 const StyledTypography = styled(Typography)`
-  flex: 1;
+  && {
+    flex: 1;
+  }
 `;
 
 const NoStyledLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
+  && {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const TopToolbar = () => (

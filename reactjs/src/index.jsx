@@ -4,13 +4,17 @@ import { HashRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "react-apollo-hooks";
 import DashBoard from "./components/organisms/DashBoard";
 import client from "./lib/apollo";
+import Head from "./components/templates/Head";
 
 /* eslint-disable */
 ReactDOM.render(
-  <Router>
-    <ApolloProvider client={client}>
-      <DashBoard />
-    </ApolloProvider>
-  </Router>,
+  <React.Fragment>
+    <Head />
+    <Router>
+      <ApolloProvider client={client}>
+        <DashBoard />
+      </ApolloProvider>
+    </Router>
+  </React.Fragment>,
   document.getElementById('root')
 );

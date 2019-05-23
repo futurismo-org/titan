@@ -3,24 +3,27 @@ import Toolbar from "@material-ui/core/Toolbar";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import MaterialLink from "@material-ui/core/Link";
-
-import { createMuiTheme } from "@material-ui/core/styles";
-
-const theme = createMuiTheme();
+import theme from "../../lib/theme";
 
 const StyledToolbar = styled(Toolbar)`
-  justify-content: space-between;
-  overflow-x: auto;
+  && {
+    justify-content: space-between;
+    overflow-x: auto;
+  }
 `;
 
 const StyledLink = styled(MaterialLink)`
-  padding: ${theme.spacing(1)};
-  flex-shrink: 0;
+  && {
+    padding: ${theme.spacing(1)};
+    flex-shrink: 0;
+  }
 `;
 
 const NoStyledRouterLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
+  && {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const NavLink = props => (
