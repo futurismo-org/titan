@@ -63,6 +63,13 @@ $ npm install -g firebase-tools
 $ firebase login
 ```
 
+鍵？生成
+
+```
+$ curl https://sdk.cloud.google.com | bash
+$ gcloud auth application-default login
+```
+
 ### ライセンス
 
 このプロジェクトは MIT ライセンスの元にライセンスされています。 
