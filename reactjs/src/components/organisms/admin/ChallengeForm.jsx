@@ -4,8 +4,6 @@ import TextField from "@material-ui/core/TextField";
 import gql from "graphql-tag";
 import { useMutation } from "react-apollo-hooks";
 
-import client from "../../../lib/apollo";
-
 const ChallengeForm = props => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");

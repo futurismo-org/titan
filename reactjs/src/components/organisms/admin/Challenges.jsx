@@ -1,8 +1,9 @@
 import React from "react";
 import gql from "graphql-tag";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery, useMutation } from "react-apollo-hooks";
 
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const GET_CHALLENGES = gql`
   {
@@ -13,8 +14,18 @@ const GET_CHALLENGES = gql`
   }
 `;
 
+const DELETE_CHALLENGE = gql`
+  query DeleteChallenge($id: ID!) {
+    challenge(id: $id) {
+      id
+    }
+  }
+`;
+
 const Challenges = props => {
   const { data, error, loading } = useQuery(GET_CHALLENGES);
+
+  const onDeleteHandler = useMutation(DELETE_CHALLENGE);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -31,7 +42,19 @@ const Challenges = props => {
       </Link>
       <ul>
         {data.challenges.map(challenge => {
-          return <li key={challenge.id}>{challenge.title} 編集 削除</li>;
+          return (
+            <li key={challenge.id}>
+              {challenge.title}
+              編集
+              <Button
+                onClick={() =>
+                  onDeleteHandler({ variables: { id: challenge.id } })
+                }
+              >
+                削除
+              </Button>
+            </li>
+          );
         })}
       </ul>
     </React.Fragment>

@@ -28,7 +28,6 @@ const resolveFunctions = {
         .doc(req.id)
         .get()
         .then(doc => {
-          console.log(doc);
           const data = doc.data();
           const { id } = doc;
           data.id = id;
