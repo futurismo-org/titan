@@ -16,10 +16,19 @@ const schema = gql`
   type Challenge {
     id: ID!
     title: String!
-    discription: String!
+    description: String!
+    overview: String!
+    rules: String!
   }
   type Mutation {
     addGroup(name: String!): Group
+    updateChallenge(
+      title: String!
+      description: String!
+      overview: String!
+      rules: String!
+    ): Challenge
+    deleteChallenge(id: ID!): ID!
     signUp(
       email: String!
       password: String!

@@ -5,3 +5,4 @@ webpack.config.extend.js
 build
 dist
 out
+ServiceWorker.js
