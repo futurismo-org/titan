@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { Typography } from "@material-ui/core";
 import styled from "styled-components";
 import ChallengeOverview from "./ChallengeOverview";
 import ChallengeDiscussion from "./ChallengeDIscussion";
