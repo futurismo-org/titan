@@ -9,17 +9,26 @@ import client from "../../../lib/apollo";
 const ChallengeForm = props => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [overview, setOverview] = useState("");
+  const [rules, setRules] = useState("");
 
   const onTilteChange = e => setTitle(e.target.value);
   const onDescriptionChange = e => setDescription(e.target.value);
+  const onOverviewChange = e => setOverview(e.target.value);
+  const onRulesChange = e => setRules(e.target.value);
 
   const UPDATE_CHALLENGE = gql`
-    mutation updateChallenge($title: String!, $description: String!) {
+    mutation updateChallenge(
+      $title: String!
+      $description: String!
+      $overview: String!
+      $rules: String!
+    ) {
       updateChallenge(
         title: $title
         description: $description
-        overview: ""
-        rules: ""
+        overview: $overview
+        rules: $rules
       ) {
         id
       }
@@ -27,7 +36,7 @@ const ChallengeForm = props => {
   `;
 
   const updateChallenge = useMutation(UPDATE_CHALLENGE, {
-    variables: { title, description }
+    variables: { title, description, overview, rules }
   });
 
   return (
@@ -55,7 +64,24 @@ const ChallengeForm = props => {
           label="説明"
           onChange={onDescriptionChange}
         />
-        {/* TODO overview and Rules with Markdown */}
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="overview"
+          name="overview"
+          label="概要"
+          onChange={onOverviewChange}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          id="rules"
+          name="rules"
+          label="ルール"
+          onChange={onRulesChange}
+        />
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>
