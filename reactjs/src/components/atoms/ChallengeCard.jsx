@@ -50,7 +50,7 @@ const ChallengeCard = props => {
                   {challeng.date}
                 </Typography> */}
                 <Typography variant="subtitle1" paragraph>
-                  {challenge.discription}
+                  {challenge.description}
                 </Typography>
                 <Typography variant="subtitle1" color="primary">
                   もっと読む...

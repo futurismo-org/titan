@@ -37,6 +37,12 @@ const resolveFunctions = {
         .add(newGroup)
         .then(() => newGroup);
     },
+    updateChallenge: (headers, req, res) => {
+      return db
+        .collection('challenges')
+        .add(req)
+        .then(() => req);
+    },
     signUp: (headers, req, res) => {
       const newUser = {
         email: req.email,

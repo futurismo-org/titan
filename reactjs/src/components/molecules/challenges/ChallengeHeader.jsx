@@ -62,7 +62,7 @@ const ChallengeHeader = props => {
               {challenge.title}
             </Typography>
             <Typography variant="h5" color="inherit" paragraph>
-              {challenge.discription}
+              {challenge.description}
             </Typography>
           </MainFeaturedPostContent>
         </Grid>

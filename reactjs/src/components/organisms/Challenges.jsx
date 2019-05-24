@@ -12,7 +12,7 @@ const GET_CHALLENGES = gql`
     challenges {
       id
       title
-      discription
+      description
     }
   }
 `;
