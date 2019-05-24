@@ -1,6 +1,6 @@
-import React from "react";
-import TopToolbar from "./TopToolbar";
-import NavToolbar from "./NavToolbar";
+import React from 'react';
+import TopToolbar from './TopToolbar';
+import NavToolbar from './NavToolbar';
 
 const Header = () => (
   <React.Fragment>

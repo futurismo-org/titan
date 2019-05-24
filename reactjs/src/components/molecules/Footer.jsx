@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import Container from "@material-ui/core/Container";
-import Typography from "@material-ui/core/Typography";
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
-import Link from "@material-ui/core/Link";
+import Link from '@material-ui/core/Link';
 
-import styled from "styled-components";
-import theme from "../../lib/theme";
+import styled from 'styled-components';
+import theme from '../../lib/theme';
 
 const StyledLink = props => (
   <Link color="inherit" href="https://github.com/futurismo-org/">
@@ -23,9 +23,9 @@ const StyledFooter = styled.footer`
 const MadeWithLove = () => {
   return (
     <Typography align="center" variant="body2" color="textSecondary">
-      {"Built with fire by the "}
+      {'Built with fire by the '}
       <StyledLink text="Futurismo" />
-      {" team."}
+      {' team.'}
     </Typography>
   );
 };

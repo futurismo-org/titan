@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "react-apollo-hooks";
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import gql from "graphql-tag";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import gql from 'graphql-tag';
 
 const ChallengeForm = props => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [overview, setOverview] = useState("");
-  const [rules, setRules] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [overview, setOverview] = useState('');
+  const [rules, setRules] = useState('');
 
   const onTilteChange = e => setTitle(e.target.value);
   const onDescriptionChange = e => setDescription(e.target.value);
@@ -64,8 +64,8 @@ const ChallengeForm = props => {
 
   const pageTitle =
     props.match.params.id === undefined
-      ? "チャレンジ新規投稿"
-      : "チャレンジ編集";
+      ? 'チャレンジ新規投稿'
+      : 'チャレンジ編集';
 
   const updateChallenge = useMutation(UPDATE_CHALLENGE, {
     variables: { title, description, overview, rules }

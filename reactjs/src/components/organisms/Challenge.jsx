@@ -1,12 +1,12 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import gql from "graphql-tag";
-import styled from "styled-components";
-import { useQuery } from "react-apollo-hooks";
-import Body from "../molecules/challenges/ChallengeBody";
-import Header from "../molecules/challenges/ChallengeHeader";
-import Navbar from "../molecules/challenges/ChallengeNavbar";
-import theme from "../../lib/theme";
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import gql from 'graphql-tag';
+import styled from 'styled-components';
+import { useQuery } from 'react-apollo-hooks';
+import Body from '../molecules/challenges/ChallengeBody';
+import Header from '../molecules/challenges/ChallengeHeader';
+import Navbar from '../molecules/challenges/ChallengeNavbar';
+import theme from '../../lib/theme';
 
 const GET_CHALLENGE = gql`
   query GetChallenge($id: ID!) {

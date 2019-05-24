@@ -1,9 +1,9 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import styled from "styled-components";
-import theme from "../../../lib/theme";
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import styled from 'styled-components';
+import theme from '../../../lib/theme';
 
 const MainFeaturedPost = styled(Paper)`
   && {
@@ -30,7 +30,7 @@ const Overlay = styled.div`
 const MainFeaturedPostContent = styled.div`
   position: relative;
   padding: ${theme.spacing(3)}px;
-  ${theme.breakpoints.up("md")} {
+  ${theme.breakpoints.up('md')} {
     padding: ${theme.spacing(6)}px;
     padding-right: 0;
   }
@@ -44,7 +44,7 @@ const ChallengeHeader = props => {
       {/* Increase the priority of the hero background image */}
       {
         <img
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           src="https://source.unsplash.com/user/erondu"
           alt="background"
         />

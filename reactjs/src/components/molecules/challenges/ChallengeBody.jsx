@@ -1,12 +1,12 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import styled from "styled-components";
-import ChallengeOverview from "./ChallengeOverview";
-import ChallengeDiscussion from "./ChallengeDIscussion";
-import ChallengeRules from "./ChallengeRules";
-import ChallengeLeaderBoard from "./ChallengeLeaderBoard";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
+import ChallengeOverview from './ChallengeOverview';
+import ChallengeDiscussion from './ChallengeDIscussion';
+import ChallengeRules from './ChallengeRules';
+import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 
-import theme from "../../../lib/theme";
+import theme from '../../../lib/theme';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;

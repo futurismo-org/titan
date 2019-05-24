@@ -1,9 +1,9 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch } from 'react-router-dom';
 
-import React from "react";
-import ChallengeForm from "./ChallengeForm";
-import DashBoard from "./DashBoard";
-import Layout from "../../templates/AdminLayout";
+import React from 'react';
+import ChallengeForm from './ChallengeForm';
+import DashBoard from './DashBoard';
+import Layout from '../../templates/AdminLayout';
 
 const Admin = () => (
   <Layout>

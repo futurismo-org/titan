@@ -1,12 +1,12 @@
-import React from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Container from "@material-ui/core/Container";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import styled from "styled-components";
-import Header from "../molecules/Header";
-import Footer from "../molecules/Footer";
+import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import styled from 'styled-components';
+import Header from '../molecules/Header';
+import Footer from '../molecules/Footer';
 
-import theme from "../../lib/theme";
+import theme from '../../lib/theme';
 
 const LayoutWrapper = styled.div`
   display: flex;
