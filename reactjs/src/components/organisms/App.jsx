@@ -1,22 +1,14 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Layout from "../templates/DefaultLayout";
-import PlayGround from "./PlayGround";
-import Singin from "./Signin";
-import Challenges from "./Challenges";
-import Challenge from "./Challenge";
+import { Route, Switch } from "react-router-dom";
+import Admin from "./admin/Admin";
+import Home from "./Home";
 
-const Home = () => <p>Home</p>;
-
-const DashBoard = () => (
-  <Layout>
+const App = () => (
+  <React.Fragment>
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/challenges" component={Challenges} />
-      <Route path="/challenges/:id" component={Challenge} />
-      <Route path="/signin" component={Singin} />
-      <Route path="/playground" component={PlayGround} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/" component={Home} />
     </Switch>
-  </Layout>
+  </React.Fragment>
 );
-export default DashBoard;
+export default App;

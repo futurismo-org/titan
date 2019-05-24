@@ -38,10 +38,10 @@ const Signin = props => {
   }, []);
 
   return (
-    <div>
+    <React.Fragment>
       <div id="firebaseui-auth-container" />
       <div id="loader">Now Loading...</div>
-    </div>
+    </React.Fragment>
   );
 };
 
