@@ -15,10 +15,8 @@ const GET_CHALLENGES = gql`
 `;
 
 const DELETE_CHALLENGE = gql`
-  query DeleteChallenge($id: ID!) {
-    challenge(id: $id) {
-      id
-    }
+  mutation deleteChallenge($id: ID!) {
+    deleteChallenge(id: $id)
   }
 `;
 

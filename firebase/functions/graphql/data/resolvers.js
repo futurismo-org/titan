@@ -55,6 +55,16 @@ const resolveFunctions = {
         .add(req)
         .then(() => req);
     },
+    deleteChallenge: (headers, req, res) => {
+      const { id } = req;
+      return db
+        .collection('challenges')
+        .doc(id)
+        .delete()
+        .then(() => console.log('delete success'))
+        .then(() => id)
+        .catch(() => console.log('delete error'));
+    },
     signUp: (headers, req, res) => {
       const newUser = {
         email: req.email,

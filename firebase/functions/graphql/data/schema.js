@@ -28,6 +28,7 @@ const schema = gql`
       overview: String!
       rules: String!
     ): Challenge
+    deleteChallenge(id: ID!): ID!
     signUp(
       email: String!
       password: String!
