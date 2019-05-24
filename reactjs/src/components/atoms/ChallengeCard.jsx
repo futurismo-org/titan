@@ -8,7 +8,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const StyledCard = styled(Card)`
   && {
@@ -26,46 +25,40 @@ const StyledCardMedia = styled(CardMedia)`
   }
 `;
 
-const NoStyledLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
-
 const ChallengeCard = props => {
   const { challenge } = props;
 
   return (
     <Grid item key={challenge.title} xs={12} md={6}>
-      <NoStyledLink to={`/challenges/${challenge.id}/overview`}>
-        <CardActionArea component="a" href="#">
-          <StyledCard>
-            <StyledCardDetails>
-              <CardContent>
-                <Typography component="h2" variant="h5">
-                  {challenge.title}
-                </Typography>
-                {/* <Typography variant="subtitle1" color="textSecondary">
+      <CardActionArea
+        component="a"
+        href={`/challenges/${challenge.id}/overview`}
+      >
+        <StyledCard>
+          <StyledCardDetails>
+            <CardContent>
+              <Typography component="h2" variant="h5">
+                {challenge.title}
+              </Typography>
+              {/* <Typography variant="subtitle1" color="textSecondary">
                   {challeng.date}
                 </Typography> */}
-                <Typography variant="subtitle1" paragraph>
-                  {challenge.discription}
-                </Typography>
-                <Typography variant="subtitle1" color="primary">
-                  もっと読む...
-                </Typography>
-              </CardContent>
-            </StyledCardDetails>
-            <Hidden xsDown>
-              <StyledCardMedia
-                image="https://source.unsplash.com/random"
-                title="Image title"
-              />
-            </Hidden>
-          </StyledCard>
-        </CardActionArea>
-      </NoStyledLink>
+              <Typography variant="subtitle1" paragraph>
+                {challenge.discription}
+              </Typography>
+              <Typography variant="subtitle1" color="primary">
+                もっと読む...
+              </Typography>
+            </CardContent>
+          </StyledCardDetails>
+          <Hidden xsDown>
+            <StyledCardMedia
+              image="https://source.unsplash.com/random"
+              title="Image title"
+            />
+          </Hidden>
+        </StyledCard>
+      </CardActionArea>
     </Grid>
   );
 };
