@@ -50,6 +50,7 @@ const resolveFunctions = {
         .then(() => newGroup);
     },
     updateChallenge: (headers, req, res) => {
+      req.created_at = Date.now();
       return db
         .collection('challenges')
         .add(req)
