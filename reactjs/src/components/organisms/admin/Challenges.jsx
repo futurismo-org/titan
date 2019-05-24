@@ -36,15 +36,27 @@ const Challenges = props => {
     <React.Fragment>
       <h2>チャレンジ一覧</h2>
       <Link to="/admin/challenges/new">
-        <button type="button">新規投稿</button>
+        <Button type="button" variant="contained" color="primary">
+          新規投稿
+        </Button>
       </Link>
       <ul>
         {data.challenges.map(challenge => {
           return (
             <li key={challenge.id}>
               {challenge.title}
-              編集
               <Button
+                type="button"
+                color="primary"
+                onClick={() =>
+                  onDeleteHandler({ variables: { id: challenge.id } })
+                }
+              >
+                編集
+              </Button>
+              <Button
+                type="button"
+                color="secondary"
                 onClick={() =>
                   onDeleteHandler({ variables: { id: challenge.id } })
                 }
