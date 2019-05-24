@@ -8,7 +8,7 @@ import Challenge from "./Challenge";
 
 const Home = () => <p>Home</p>;
 
-const DashBoard = () => (
+const App = () => (
   <Layout>
     <Switch>
       <Route exact path="/" component={Home} />
@@ -19,4 +19,4 @@ const DashBoard = () => (
     </Switch>
   </Layout>
 );
-export default DashBoard;
+export default App;

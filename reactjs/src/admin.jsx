@@ -14,5 +14,5 @@ ReactDOM.render(
       </ApolloProvider>
     </Router>
   </React.Fragment>,
-  document.getElementById('root')
+  document.getElementById('admin')
 );

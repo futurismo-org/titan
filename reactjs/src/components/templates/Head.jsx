@@ -1,7 +1,7 @@
 import React from "react";
 import Helmet from "react-helmet";
 
-const PUBLIC_URL = "https://titan-dev-1234.firebaseapp.com";
+const { PUBLIC_URL } = process.env;
 
 const Head = () => (
   <Helmet>
