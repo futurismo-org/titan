@@ -1,14 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
+import Grid from "@material-ui/core/Grid";
+import styled from "styled-components";
+
+import theme from "../../lib/theme";
+import ChallengeCard from "../atoms/ChallengeCard";
 
 const GET_CHALLENGES = gql`
   {
     challenges {
       id
       title
+      discription
     }
+  }
+`;
+
+const StyledCardGrid = styled(Grid)`
+  && {
+    margin-top: ${theme.spacing(3)}px;
   }
 `;
 
@@ -24,16 +35,11 @@ const Challenges = props => {
 
   return (
     <React.Fragment>
-      <h1>チャレンジ一覧</h1>
-      <ul>
+      <StyledCardGrid container spacing={4}>
         {data.challenges.map(challenge => (
-          <li key={challenge.id}>
-            <Link to={`/challenges/${challenge.id}/overview`}>
-              {challenge.title}
-            </Link>
-          </li>
+          <ChallengeCard challenge={challenge} key={challenge.id} />
         ))}
-      </ul>
+      </StyledCardGrid>
     </React.Fragment>
   );
 };
