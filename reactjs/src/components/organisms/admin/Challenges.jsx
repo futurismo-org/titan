@@ -2,6 +2,8 @@ import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "react-apollo-hooks";
 
+import { Link } from "react-router-dom";
+
 const GET_CHALLENGES = gql`
   {
     challenges {
@@ -24,7 +26,9 @@ const Challenges = props => {
   return (
     <React.Fragment>
       <h2>チャレンジ一覧</h2>
-      <button type="button">新規追加</button>
+      <Link to="/admin/challenges/new">
+        <button type="button">新規投稿</button>
+      </Link>
       <ul>
         {data.challenges.map(challenge => {
           return <li key={challenge.id}>{challenge.title} 編集 削除</li>;
