@@ -13,15 +13,27 @@ const resolveFunctions = {
       return db
         .collection('challenges')
         .get()
-        .then(challenges => challenges.docs.map(challenge => challenge.data()));
+        .then(challenges =>
+          challenges.docs.map(challenge => {
+            const data = challenge.data();
+            const { id } = challenge;
+            data.id = id;
+            return data;
+          })
+        );
     },
     challenge: (headers, req, res) => {
-      const id = parseInt(req.id);
       return db
         .collection('challenges')
-        .where('id', '==', id)
+        .doc(req.id)
         .get()
-        .then(doc => doc.docs[0].data());
+        .then(doc => {
+          console.log(doc);
+          const data = doc.data();
+          const { id } = doc;
+          data.id = id;
+          return data;
+        });
     }
   },
   Mutation: {
