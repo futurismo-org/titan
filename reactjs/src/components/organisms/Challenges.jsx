@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import theme from "../../lib/theme";
 import ChallengeCard from "../atoms/ChallengeCard";
+import Layout from "../templates/DefaultLayout";
 
 const GET_CHALLENGES = gql`
   {
