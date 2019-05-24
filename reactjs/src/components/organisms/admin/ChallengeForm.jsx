@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import gql from "graphql-tag";
@@ -37,10 +38,16 @@ const ChallengeForm = props => {
     variables: { title, description, overview, rules }
   });
 
+  const updateHandler = e => {
+    e.preventDefault();
+    updateChallenge();
+    window.location = '/#/admin'; // eslint-disable-line
+  };
+
   return (
     <React.Fragment>
       <h2>チャレンジ新規投稿</h2>
-      <form noValidate onSubmit={updateChallenge}>
+      <form noValidate onSubmit={updateHandler}>
         <TextField
           variant="outlined"
           margin="normal"
