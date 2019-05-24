@@ -61,9 +61,7 @@ const resolveFunctions = {
         .collection('challenges')
         .doc(id)
         .delete()
-        .then(() => console.log('delete success'))
-        .then(() => id)
-        .catch(() => console.log('delete error'));
+        .then(() => id);
     },
     signUp: (headers, req, res) => {
       const newUser = {

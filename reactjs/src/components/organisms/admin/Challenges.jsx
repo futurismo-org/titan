@@ -1,9 +1,9 @@
-import { useMutation, useQuery } from "react-apollo-hooks";
+import { useMutation, useQuery } from 'react-apollo-hooks';
 
-import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
-import React from "react";
-import gql from "graphql-tag";
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import React from 'react';
+import gql from 'graphql-tag';
 
 const GET_CHALLENGES = gql`
   {
@@ -47,7 +47,7 @@ const Challenges = props => {
               {challenge.title}
               <Link
                 to={`/admin/challenges/new/${challenge.id}`}
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: 'none' }}
               >
                 <Button type="button" color="primary">
                   編集

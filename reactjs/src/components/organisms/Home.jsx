@@ -1,12 +1,12 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import Layout from "../templates/DefaultLayout";
-import DashBoard from "./DashBoard";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import Layout from '../templates/DefaultLayout';
+import DashBoard from './DashBoard';
 
-import PlayGround from "./PlayGround";
-import Singin from "./Signin";
-import Challenges from "./Challenges";
-import Challenge from "./Challenge";
+import PlayGround from './PlayGround';
+import Singin from './Signin';
+import Challenges from './Challenges';
+import Challenge from './Challenge';
 
 const Home = props => (
   <Layout>

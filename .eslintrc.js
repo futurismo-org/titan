@@ -11,6 +11,7 @@ module.exports = {
     'no-unused-vars': 0,
     'no-underscore-dangle': 0,
     'react/prop-types': 0,
+    'import/no-absolute-path': 0,
     'global-require': 0,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'

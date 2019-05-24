@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const ChallengeDiscussion = props => <div>準備中...</div>;
 

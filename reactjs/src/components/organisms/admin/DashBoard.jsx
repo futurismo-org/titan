@@ -1,5 +1,5 @@
-import React from "react";
-import Challenges from "./Challenges";
+import React from 'react';
+import Challenges from './Challenges';
 
 const DashBoard = () => (
   <React.Fragment>

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Hidden from "@material-ui/core/Hidden";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Hidden from '@material-ui/core/Hidden';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const StyledCard = styled(Card)`
   && {
