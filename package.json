@@ -5,5 +5,8 @@
     "deploy": "cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
     "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
     "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
+  },
+  "dependencies": {
+    "foreman": "^3.0.1"
   }
 }
