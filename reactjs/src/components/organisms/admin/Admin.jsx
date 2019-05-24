@@ -6,7 +6,9 @@ const Home = () => <div>test</div>;
 
 const Admin = () => (
   <Layout>
-    <Route path="/admin" component={Home} />
+    <Switch>
+      <Route path="/admin" component={Home} />
+    </Switch>
   </Layout>
 );
 
