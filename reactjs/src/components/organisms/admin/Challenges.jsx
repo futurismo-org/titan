@@ -45,13 +45,7 @@ const Challenges = props => {
           return (
             <li key={challenge.id}>
               {challenge.title}
-              <Button
-                type="button"
-                color="primary"
-                onClick={() =>
-                  onDeleteHandler({ variables: { id: challenge.id } })
-                }
-              >
+              <Button type="button" color="primary">
                 編集
               </Button>
               <Button
