@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "react-apollo-hooks";
 
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import gql from "graphql-tag";
-import { useMutation } from "react-apollo-hooks";
 
 const ChallengeForm = props => {
   const [title, setTitle] = useState("");
@@ -34,6 +34,39 @@ const ChallengeForm = props => {
     }
   `;
 
+  const GET_CHALLENGE = gql`
+    query GetChallenge($id: ID!) {
+      challenge(id: $id) {
+        id
+        title
+        description
+        overview
+        rules
+      }
+    }
+  `;
+
+  const getHandler = useQuery(GET_CHALLENGE, {
+    variables: { id: props.match.params.id }
+  });
+
+  useEffect(() => {
+    const { data } = getHandler;
+    const { challenge } = data;
+
+    if (challenge !== undefined) {
+      setTitle(challenge.title);
+      setDescription(challenge.description);
+      setOverview(challenge.overview);
+      setRules(challenge.rules);
+    }
+  }, [getHandler]);
+
+  const pageTitle =
+    props.match.params.id === undefined
+      ? "チャレンジ新規投稿"
+      : "チャレンジ編集";
+
   const updateChallenge = useMutation(UPDATE_CHALLENGE, {
     variables: { title, description, overview, rules }
   });
@@ -46,9 +79,10 @@ const ChallengeForm = props => {
 
   return (
     <React.Fragment>
-      <h2>チャレンジ新規投稿</h2>
+      <h2>{pageTitle}</h2>
       <form noValidate onSubmit={updateHandler}>
         <TextField
+          value={title}
           variant="outlined"
           margin="normal"
           required
@@ -60,6 +94,7 @@ const ChallengeForm = props => {
           onChange={onTilteChange}
         />
         <TextField
+          value={description}
           variant="outlined"
           margin="normal"
           required
@@ -70,6 +105,7 @@ const ChallengeForm = props => {
           onChange={onDescriptionChange}
         />
         <TextField
+          value={overview}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -79,6 +115,7 @@ const ChallengeForm = props => {
           onChange={onOverviewChange}
         />
         <TextField
+          value={rules}
           variant="outlined"
           margin="normal"
           fullWidth
