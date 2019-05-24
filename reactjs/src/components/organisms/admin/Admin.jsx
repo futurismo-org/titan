@@ -1,13 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Layout from "../../templates/AdminLayout";
-
-const Home = () => <div>test</div>;
+import DashBoard from "./DashBoard";
 
 const Admin = () => (
   <Layout>
     <Switch>
-      <Route path="/admin" component={Home} />
+      <Route path="/admin" component={DashBoard} />
     </Switch>
   </Layout>
 );
