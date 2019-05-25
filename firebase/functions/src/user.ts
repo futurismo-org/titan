@@ -1,6 +1,6 @@
 const { db } = require('./utils/admin');
 
-const createUser = user => {
+const createUser = (user: any) => {
   const { uid } = user;
   const displayName = user.displayName || 'Anonymous';
   const email = user.email || '';
@@ -17,9 +17,6 @@ const createUser = user => {
     })
     .then(() => {
       console.log('Success'); // eslint-disable-line no-console
-    })
-    .catch(err => {
-      console.log(err); // eslint-disable-line no-console
     });
 };
 

@@ -6,3 +6,4 @@ if (!admin.length) admin.initializeApp(config);
 const db = admin.firestore();
 
 module.exports = { admin, db };
+export {};

@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server-cloud-functions');
 const schema = require('./data/schema');
-const resolvers = require('./data/resolvers.ts');
+const resolvers = require('./data/resolvers');
 
 const setupGraphQLServer = () => {
   // Provide resolver functions for your schema fields
@@ -9,7 +9,7 @@ const setupGraphQLServer = () => {
     resolvers,
     playground: true,
     introspection: true,
-    context: ({ req, res }) => ({
+    context: (req: any, res: any) => ({
       headers: req.headers,
       req,
       res
@@ -27,3 +27,4 @@ const setupGraphQLServer = () => {
 };
 
 module.exports = setupGraphQLServer;
+export {};
