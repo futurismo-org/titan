@@ -7,6 +7,8 @@ import PlayGround from './PlayGround';
 import Singin from './Signin';
 import Challenges from './Challenges';
 import Challenge from './Challenge';
+import Categories from './Categories';
+import Category from './Category';
 
 const Home = props => (
   <Layout>
@@ -15,6 +17,8 @@ const Home = props => (
       <Route path="/playground" component={PlayGround} />
       <Route path="/challenges/:id" component={Challenge} />
       <Route path="/challenges" component={Challenges} />
+      <Route path="/categories/:id" component={Category} />
+      <Route path="/categories" component={Categories} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
