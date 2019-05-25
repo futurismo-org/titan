@@ -27,6 +27,13 @@ const schema = gql`
   }
   type Mutation {
     addGroup(name: String!): Group
+    updateChallenge(
+      title: String!
+      description: String!
+      overview: String!
+      rules: String!
+    ): Challenge
+    deleteChallenge(id: ID!): ID!
     signUp(
       email: String!
       password: String!

@@ -1,9 +1,12 @@
-import React from "react";
-import gql from "graphql-tag";
-import { useQuery } from "react-apollo-hooks";
-import Header from "../molecules/ChallengeHeader";
-import Body from "../molecules/ChallengeBody";
-import Navbar from "../molecules/ChallengeNavbar";
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import gql from 'graphql-tag';
+import styled from 'styled-components';
+import { useQuery } from 'react-apollo-hooks';
+import Body from '../molecules/challenges/ChallengeBody';
+import Header from '../molecules/challenges/ChallengeHeader';
+import Navbar from '../molecules/challenges/ChallengeNavbar';
+import theme from '../../lib/theme';
 
 const GET_CHALLENGE = gql`
   query GetChallenge($id: ID!) {
@@ -13,6 +16,10 @@ const GET_CHALLENGE = gql`
       description
     }
   }
+`;
+
+const StyledPaper = styled(Paper)`
+  padding: ${theme.spacing(3, 2)};
 `;
 
 const Challenge = props => {
@@ -30,11 +37,13 @@ const Challenge = props => {
   const { challenge } = data;
 
   return (
-    <div>
+    <React.Fragment>
       <Header challenge={challenge} />
-      <Navbar id={challenge.id} />
-      <Body />
-    </div>
+      <StyledPaper>
+        <Navbar id={challenge.id} />
+        <Body />
+      </StyledPaper>
+    </React.Fragment>
   );
 };
 

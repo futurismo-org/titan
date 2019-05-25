@@ -5,4 +5,5 @@ webpack.config.extend.js
 next.config.js
 build
 dist
-outn
+out
+ServiceWorker.js

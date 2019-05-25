@@ -1,9 +1,38 @@
 {
+  "name": "titan",
+  "description": "自己変革の火をつけるWebサービス",
   "scripts": {
     "up": "nf start",
-    "install:all": "cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
+    "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
     "deploy": "cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
     "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
     "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "prettier": "^1.17.1",
+    "typescript": "^3.4.5",
+    "foreman": "^3.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

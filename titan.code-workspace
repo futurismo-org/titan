@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "react",
+      "path": "reactjs"
+    },
+    {
+      "name": "firebase",
+      "path": "firebase"
+    },
+    {
+      "name": "root",
+      "path": "."
+    }
+  ],
+  "settings": {
+    // General Config
+    "files.autoSave": "afterDelay",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveTimeout": 5000,
+    "editor.formatOnType": true,
+    // eslint
+    "eslint.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "yarn",
+    "prettier.singleQuote": true
+  }
+}

@@ -3,7 +3,7 @@ Titan
 
 ![](https://img.shields.io/github/issues/futurismo-org/titan.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 
 ## 概要
@@ -27,7 +27,7 @@ Titan
 
 ```
 $ yarn deploy:netlify
-$ yarn deploy:firebase
+$ yarn deploy
 ```
 
 ### Development Info
@@ -40,7 +40,35 @@ $ yarn deploy:firebase
 
 ### How to Contribute
 
-T.B.D.
+環境構築は以下の手順で。
+
+```
+$ npm i -g foreman
+$ git clone git@github.com:futurismo-org/titan.git
+$ cd titan
+$ yarn install:all
+$ yarn up
+```
+
+access to http://localhost:3000
+
+注意: node.jsのバージョンは、8(Firebaseにあわせている）
+
+#### Firebaseへの登録
+
+tsu-neraから招待メールをもらう。
+
+```
+$ npm install -g firebase-tools
+$ firebase login
+```
+
+鍵？生成
+
+```
+$ curl https://sdk.cloud.google.com | bash
+$ gcloud auth application-default login
+```
 
 ### ライセンス
 
@@ -63,7 +91,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://futurismo.biz/"><img src="https://avatars1.githubusercontent.com/u/760627?v=4" width="100px;" alt="Tsunemichi Harada"/><br /><sub><b>Tsunemichi Harada</b></sub></a><br /><a href="https://github.com/futurismo-org/titan/commits?author=tsu-nera" title="Code">💻</a></td></tr></table>
+<table><tr><td align="center"><a href="https://github.com/tsu-nera"><img src="https://avatars1.githubusercontent.com/u/760627?v=4" width="100px;" alt="Tsunemichi Harada"/><br /><sub><b>tsu-nera</b></sub></a><br /><a href="https://github.com/futurismo-org/titan/commits?author=tsu-nera" title="Code">💻</a></td><td align="center"><a href="https://github.com/Goi666"><img src="https://avatars2.githubusercontent.com/u/40140038?v=4" width="100px;" alt="Goi"/><br /><sub><b>Goi</b></sub></a><br /><a href="https://github.com/futurismo-org/titan/commits?author=Goi666" title="Code">💻</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
