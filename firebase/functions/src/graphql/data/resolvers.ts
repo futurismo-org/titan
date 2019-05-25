@@ -1,6 +1,6 @@
 import * as _ from 'firebase';
 
-const { db } = require('../../utils/admin');
+const { db } = require('./../../utils/admin');
 const { firebase } = require('../../utils/firebase');
 
 const resolveFunctions = {
