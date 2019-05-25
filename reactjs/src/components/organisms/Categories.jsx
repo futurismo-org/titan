@@ -1,7 +1,7 @@
-import React from "react";
-import gql from "graphql-tag";
-import { useQuery } from "react-apollo-hooks";
-import { Link } from "react-router-dom";
+import React from 'react';
+import gql from 'graphql-tag';
+import { useQuery } from 'react-apollo-hooks';
+import { Link } from 'react-router-dom';
 
 const GET_CATEGORIES = gql`
   {

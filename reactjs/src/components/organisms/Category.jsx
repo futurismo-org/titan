@@ -1,9 +1,9 @@
-import React from "react";
-import gql from "graphql-tag";
-import { useQuery } from "react-apollo-hooks";
-import Header from "../molecules/CategoryHeader";
-import Body from "../molecules/CategoryBody";
-import Navbar from "../molecules/CategoryNavbar";
+import React from 'react';
+import gql from 'graphql-tag';
+import { useQuery } from 'react-apollo-hooks';
+import Header from '../molecules/CategoryHeader';
+import Body from '../molecules/CategoryBody';
+import Navbar from '../molecules/CategoryNavbar';
 
 const GET_CATEGORY = gql`
   query GetCategories($id: ID!) {

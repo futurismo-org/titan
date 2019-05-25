@@ -1,9 +1,9 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import CategoryOverview from "./CategoryOverview";
-import CategoryDiscussion from "./CategoryDIscussion";
-import CategoryRules from "./CategoryRules";
-import CategoryLeaderBoard from "./CategoryLeaderBoard";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import CategoryOverview from './CategoryOverview';
+import CategoryDiscussion from './CategoryDIscussion';
+import CategoryRules from './CategoryRules';
+import CategoryLeaderBoard from './CategoryLeaderBoard';
 
 const CategoryBody = props => {
   const { category } = props;

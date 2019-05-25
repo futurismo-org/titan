@@ -38,7 +38,7 @@ const resolveFunctions = {
     category: (headers, req, res) => {
       return db
         .collection('categories')
-        .doc(req.id
+        .doc(req.id)
         .get()
         .then(doc => doc.docs[0].data());
     }

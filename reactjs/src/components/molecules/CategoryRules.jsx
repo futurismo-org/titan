@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const CategoryRules = props => <div>テスト</div>;
 
