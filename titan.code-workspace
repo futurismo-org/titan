@@ -16,9 +16,7 @@
   "settings": {
     // General Config
     "files.autoSave": "afterDelay",
-    "editor.formatOnSave": true,
     "editor.formatOnSaveTimeout": 5000,
-    "editor.formatOnType": true,
     // eslint
     "eslint.enable": true,
     "eslint.alwaysShowStatus": true,
@@ -39,3 +37,5 @@
     "prettier.singleQuote": true
   }
 }
+
+// "editor.formatOnSave": false,
