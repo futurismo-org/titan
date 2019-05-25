@@ -1,6 +1,6 @@
 const { makeExecutableSchema } = require('graphql-tools');
 const { gql } = require('apollo-server-cloud-functions');
-const resolvers = require('./resolvers');
+const resolvers = require('./resolvers.ts');
 
 const schema = gql`
   type Query {
@@ -21,7 +21,6 @@ const schema = gql`
     rules: String!
   }
   type Mutation {
-    addGroup(name: String!): Group
     updateChallenge(
       title: String!
       description: String!
@@ -29,13 +28,6 @@ const schema = gql`
       rules: String!
     ): Challenge
     deleteChallenge(id: ID!): ID!
-    signUp(
-      email: String!
-      password: String!
-      confirmPassword: String!
-      handle: String!
-    ): String!
-    signUpWithTwitter: String!
   }
 `;
 
