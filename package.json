@@ -3,48 +3,15 @@
   "description": "自己変革の火をつけるWebサービス",
   "scripts": {
     "up": "nf start",
-    "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
-    "deploy": "npm run chekc && cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
-    "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
-    "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../",
+    "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install",
+    "deploy:all": "npm run verify && npm run deploy --prefix reactjs && npm run deploy --prefix firebase/functions",
+    "lint": "npm run lint --prefix reactjs && npm run lint --prefix firebase/functions",
+    "lint:fix": "npm run lint:fix --prefix reactjs && npm run lint:fix --prefix firebase/functions",    
+    "tsc": "npm run tsc --& reactjs & npm run tsc --prefix firebase/functions",
     "sync": "git pull && git fetch -p && npm run install:all",
-    "build": "tsc",
-    "watch": "tsc -w",
-    "pre": "npm run lint && npm run build"
+    "verify": "npm run lint && npm run tsc"
   },
   "devDependencies": {
-    "@types/graphql": "^14.2.0",
-    "@types/node": "^12.0.2",
-    "@types/react": "^16.8.18",
-    "@types/react-dom": "^16.8.4",
-    "@typescript-eslint/eslint-plugin": "^1.9.0",
-    "@typescript-eslint/parser": "^1.9.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.3.0",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
-    "foreman": "^3.0.1",
-    "husky": "^2.2.0",
-    "lint-staged": "^8.1.6",
-    "prettier": "^1.17.1",
-    "react-scripts": "^3.0.1",
-    "typescript": "^3.4.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "foreman": "^3.0.1"
   }
 }

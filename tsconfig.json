@@ -19,12 +19,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "references": [
-      {
-      "path": "./"
-      }
-    ]
+    "noEmit": true
   },
   "include": [
     "reactjs/src/**/*.tsx",
