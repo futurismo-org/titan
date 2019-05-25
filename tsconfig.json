@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "target": "esnext",
     "module": "commonjs",
     "noImplicitAny": true,
@@ -8,8 +9,12 @@
     "sourceMap": true,
     "outDir": "./build",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "types": ["node"]
   },
-  "include": ["reactjs/src/**/*", "firebase/functions/**/*"],
+  "include": [
+    "reactjs/src/**/*.tsx",
+    "reactjs/src/**/*.ts",
+    "firebase/functions/**/*.ts"
+  ],
   "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "build"]
 }

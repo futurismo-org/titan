@@ -10,10 +10,10 @@ const createUser = user => {
     .collection('users')
     .doc(uid)
     .set({
-      user_name: displayName,
-      photo_url: photoURL,
+      userName: displayName,
+      photoUrl: photoURL,
       email,
-      create_on: new Date()
+      createOn: new Date()
     })
     .then(() => {
       console.log('Success'); // eslint-disable-line no-console

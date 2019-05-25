@@ -4,17 +4,24 @@
   "scripts": {
     "up": "nf start",
     "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
-    "deploy": "cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
+    "deploy": "npm run chekc && cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
     "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
     "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../",
-    "sync": "git pull && git fetch -p && npm run install:all"
+    "sync": "git pull && git fetch -p && npm run install:all",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "pre": "npm run lint && npm run build"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.0",
     "@types/node": "^12.0.2",
+    "@types/react": "^16.8.18",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.3.0",
+    "eslint-config-react": "^1.1.7",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.1.0",

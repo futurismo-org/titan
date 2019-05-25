@@ -10,7 +10,7 @@ const resolveFunctions = {
         .collection('challenges')
         .get()
         .then((challenges: _.firestore.QuerySnapshot) =>
-          challenges.docs.map(challenge => {
+          challenges.docs.map((challenge: _.firestore.DocumentSnapshot) => {
             const data = challenge.data();
             const { id } = challenge;
             return data;
@@ -23,7 +23,7 @@ const resolveFunctions = {
         .doc(req.id)
         .get()
         .then((doc: _.firestore.DocumentSnapshot) => {
-          const data = doc.data();
+          const data: any = doc.data(); // TODO Challengeの型定義
           const { id } = doc;
           data.id = id;
           return data;
@@ -32,7 +32,7 @@ const resolveFunctions = {
   },
   Mutation: {
     updateChallenge: (req: any) => {
-      req.created_at = Date.now();
+      req.createdAt = Date.now();
       return db
         .collection('challenges')
         .add(req)
