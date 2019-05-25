@@ -13,6 +13,9 @@ const Header = () => (
     <Link to="/challenges" style={linkStyle}>
       チャレンジ
     </Link>
+    <Link to="/categories" style={linkStyle}>
+      カテゴリ
+    </Link>
     <Link to="/signin" style={linkStyle}>
       サインイン
     </Link>

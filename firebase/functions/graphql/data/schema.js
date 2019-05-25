@@ -7,6 +7,8 @@ const schema = gql`
     groups: [Group]
     challenges: [Challenge]
     challenge(id: ID!): Challenge
+    categories: [Category]
+    category(id: ID!): Category
   }
   type Group {
     id: ID!
@@ -16,7 +18,12 @@ const schema = gql`
   type Challenge {
     id: ID!
     title: String!
-    discription: String!
+    description: String!
+  }
+  type Category {
+    id: ID!
+    title: String!
+    description: String!
   }
   type Mutation {
     addGroup(name: String!): Group

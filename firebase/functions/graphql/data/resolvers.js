@@ -22,6 +22,20 @@ const resolveFunctions = {
         .where('id', '==', id)
         .get()
         .then(doc => doc.docs[0].data());
+    },
+    categories() {
+      return db
+        .collection('categories')
+        .get()
+        .then(categories => categories.docs.map(category => category.data()));
+    },
+    category: (headers, req, res) => {
+      const id = parseInt(req.id);
+      return db
+        .collection('categories')
+        .where('id', '==', id)
+        .get()
+        .then(doc => doc.docs[0].data());
     }
   },
   Mutation: {

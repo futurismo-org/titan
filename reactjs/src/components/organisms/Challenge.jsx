@@ -10,7 +10,7 @@ const GET_CHALLENGE = gql`
     challenge(id: $id) {
       id
       title
-      discription
+      description
     }
   }
 `;
