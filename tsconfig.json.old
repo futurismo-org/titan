@@ -9,7 +9,10 @@
     "sourceMap": true,
     "outDir": "./build",
     "esModuleInterop": true,
-    "types": ["node"]
+    "types": ["node"],
+    "lib": ["esnext", "dom"],
+    "allowJs": true,
+    "jsx": "react",
   },
   "include": [
     "reactjs/src/**/*.tsx",
