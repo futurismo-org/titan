@@ -9,13 +9,14 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
-  plugins: ['prettier', 'react-hooks', 'react', '@typescript-eslint'],
+  plugins: ['prettier', 'react-hooks', 'react', '@typescript-eslint', 'import'],
   rules: {
     'global-require': 0,
     'prettier/prettier': 'error',
     'jsx-a11y/anchor-is-valid': 0,
     'no-param-reassign': 0,
     radix: 0,
+    'import/no-unresolved': 'error',
     'no-unused-vars': 0,
     'no-underscore-dangle': 0,
     'import/no-absolute-path': 0,
@@ -27,7 +28,17 @@ module.exports = {
     'react/destructuring-assignment': 0,
     'react/require-default-props': 0,
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': 'warn',
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
   },
-  parser: '@typescript-eslint/parser'
+  parser: '@typescript-eslint/parser',
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+
 };
