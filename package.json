@@ -6,7 +6,8 @@
     "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install && cd ../../",
     "deploy": "cd reactjs && yarn deploy && cd ../ && cd firebase/functions && yarn deploy && cd ../../",
     "lint": "cd reactjs && yarn lint && cd ../ && cd firebase/functions && yarn lint && cd ../../",
-    "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../"
+    "lint:fix": "cd reactjs && yarn lint:fix && cd ../ && cd firebase/functions && yarn lint:fix && cd ../../",
+    "sync": "git pull && git fetch -p && npm run install:all"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
