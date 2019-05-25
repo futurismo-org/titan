@@ -1,26 +1,28 @@
 {
-  // create-react-appによって自動生成された
   "compilerOptions": {
-    "target": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "esnext",
     "module": "esnext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "types": ["node"],
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "allowJs": false,
+    "jsx": "react",
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve"
+    "noEmit": true
   },
   "include": [
-    "src"
-  ]
+    "src",
+  ],
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.spec.tsx", "build"]
 }
