@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import firebase from 'firebase';
 import config from '../../lib/config';
 
-const Signin = props => {
+const Signin = (props: any) => {
   useEffect(() => {
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
@@ -17,12 +17,12 @@ const Signin = props => {
 
     const uiConfig = {
       callbacks: {
-        signInSuccessWithAuthResult: (authResult, redirectUrl) => {
+        signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => {
           return true;
-        },
-        uiShown: () => {
-          document.getElementById('loader').style.display = 'none'; // eslint-disable-line no-undef
         }
+        // uiShown: () => {
+        // document.getElementById('loader').style.display = 'none'; // eslint-disable-line no-undef
+        // }
       },
       signInFlow: 'popup',
       signInSuccessUrl: 'mypage',

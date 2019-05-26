@@ -23,7 +23,7 @@ const StyledCardGrid = styled(Grid)`
   }
 `;
 
-const Challenges = props => {
+const Challenges = () => {
   const { data, error, loading } = useQuery(GET_CHALLENGES);
 
   if (loading) {
@@ -36,7 +36,7 @@ const Challenges = props => {
   return (
     <React.Fragment>
       <StyledCardGrid container spacing={4}>
-        {data.challenges.map(challenge => (
+        {data.challenges.map((challenge: any) => (
           <ChallengeCard challenge={challenge} key={challenge.id} />
         ))}
       </StyledCardGrid>
