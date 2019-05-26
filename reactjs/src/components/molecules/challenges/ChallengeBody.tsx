@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import ChallengeOverview from './ChallengeOverview';
-import ChallengeDiscussion from './ChallengeDIscussion';
+import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 

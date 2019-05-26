@@ -7,12 +7,11 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "outDir": "./build",
     "esModuleInterop": true,
     "types": ["node"],
     "lib": ["esnext", "dom", "dom.iterable"],
     "allowJs": false, // JavaScriptはゆるさん
-    "jsx": "react",
+    "jsx": "preserve",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -24,7 +23,8 @@
       {
         "name": "typescript-styled-plugin"
       }
-    ]
+    ],
+    "outDir": "./out"
   },
   "include": [
     "src",

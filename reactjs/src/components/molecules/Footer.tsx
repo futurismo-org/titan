@@ -8,7 +8,11 @@ import Link from '@material-ui/core/Link';
 import styled from 'styled-components';
 import theme from '../../lib/theme';
 
-const StyledLink = props => (
+interface LinkProps {
+  text?: string;
+}
+
+const StyledLink = (props: LinkProps) => (
   <Link color="inherit" href="https://github.com/futurismo-org/">
     {props.text}
   </Link>

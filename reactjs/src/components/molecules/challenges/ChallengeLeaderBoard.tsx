@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-const ChallengeLeaderBoard = props => <div>準備中...</div>;
+const ChallengeLeaderBoard = () => <div>準備中...</div>;
 
 export default ChallengeLeaderBoard;

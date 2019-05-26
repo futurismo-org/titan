@@ -17,7 +17,12 @@ const GET_CHALLENGES = gql`
   }
 `;
 
-const StyledCardGrid = styled(Grid)`
+interface Props {
+  container?: any;
+  spacing?: number;
+}
+
+const StyledCardGrid = styled(Grid as React.SFC<Props>)`
   && {
     margin-top: ${theme.spacing(3)}px;
   }

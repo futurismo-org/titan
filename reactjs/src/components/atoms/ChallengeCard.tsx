@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-import Card from '@material-ui/core/Card';
+import Card, { CardProps } from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import CardMedia, { CardMediaProps } from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +14,7 @@ const StyledCard = styled(Card)`
   && {
     display: flex;
   }
-`;
+` as React.ComponentType<CardProps>;
 
 const StyledCardDetails = styled.div`
   flex: 1;
@@ -24,7 +24,7 @@ const StyledCardMedia = styled(CardMedia)`
   && {
     width: 160px;
   }
-`;
+` as React.ComponentType<CardMediaProps>;
 
 const NoStyledLink = styled(Link)`
   && {
@@ -33,7 +33,7 @@ const NoStyledLink = styled(Link)`
   }
 `;
 
-const ChallengeCard = props => {
+const ChallengeCard = (props: any) => {
   const { challenge } = props;
 
   return (

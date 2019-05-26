@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Toolbar from '@material-ui/core/Toolbar';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
+import Link, { LinkProps } from '@material-ui/core/Link';
 import theme from '../../lib/theme';
 
 const StyledToolbar = styled(Toolbar)`
@@ -10,14 +10,22 @@ const StyledToolbar = styled(Toolbar)`
     justify-content: space-between;
     overflow-x: auto;
   }
-`;
+` as React.ComponentType<ToolbarProps>;
+
+type StyledLinkProps = LinkProps & {
+  color: string;
+  to: string;
+  noWrap: any;
+  variant: string;
+  component: any;
+};
 
 const StyledLink = styled(Link)`
   && {
     padding: ${theme.spacing(1)}px;
     flex-shrink: 0;
   }
-`;
+` as React.ComponentType<StyledLinkProps>;
 
 const NoStyledRouterLink = styled(RouterLink)`
   && {
@@ -26,7 +34,12 @@ const NoStyledRouterLink = styled(RouterLink)`
   }
 `;
 
-const NavLink = props => (
+interface Props {
+  text: string;
+  to: string;
+}
+
+const NavLink = (props: Props) => (
   <StyledLink
     component={NoStyledRouterLink}
     noWrap

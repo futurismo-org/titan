@@ -18,11 +18,19 @@ const GET_CHALLENGE = gql`
   }
 `;
 
-const StyledPaper = styled(Paper)`
+const StyledPaper = styled(Paper as React.SFC)`
   padding: ${theme.spacing(3, 2)};
 `;
 
-const Challenge = (props: any) => {
+interface Props {
+  match: {
+    params: {
+      id?: string;
+    };
+  };
+}
+
+const Challenge = (props: Props) => {
   const { data, error, loading } = useQuery(GET_CHALLENGE, {
     variables: { id: props.match.params.id }
   });

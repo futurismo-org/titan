@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ const MainFeaturedPost = styled(Paper)`
     background-repeat: no-repeat;
     background-position: center;
   }
-`;
+` as React.ComponentType<PaperProps>;
 
 const Overlay = styled.div`
   position: absolute;
@@ -36,7 +36,7 @@ const MainFeaturedPostContent = styled.div`
   }
 `;
 
-const ChallengeHeader = props => {
+const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
   return (
