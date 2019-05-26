@@ -22,7 +22,7 @@ const StyledPaper = styled(Paper)`
   padding: ${theme.spacing(3, 2)};
 `;
 
-const Challenge = props => {
+const Challenge = (props: any) => {
   const { data, error, loading } = useQuery(GET_CHALLENGE, {
     variables: { id: props.match.params.id }
   });

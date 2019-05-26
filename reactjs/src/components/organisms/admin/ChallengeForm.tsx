@@ -5,16 +5,16 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import gql from 'graphql-tag';
 
-const ChallengeForm = props => {
+const ChallengeForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
   const [rules, setRules] = useState('');
 
-  const onTilteChange = e => setTitle(e.target.value);
-  const onDescriptionChange = e => setDescription(e.target.value);
-  const onOverviewChange = e => setOverview(e.target.value);
-  const onRulesChange = e => setRules(e.target.value);
+  const onTilteChange = (e: any) => setTitle(e.target.value);
+  const onDescriptionChange = (e: any) => setDescription(e.target.value);
+  const onOverviewChange = (e: any) => setOverview(e.target.value);
+  const onRulesChange = (e: any) => setRules(e.target.value);
 
   const UPDATE_CHALLENGE = gql`
     mutation updateChallenge(
@@ -71,10 +71,10 @@ const ChallengeForm = props => {
     variables: { title, description, overview, rules }
   });
 
-  const updateHandler = e => {
+  const updateHandler = (e: any) => {
     e.preventDefault();
     updateChallenge();
-    window.location = '/#/admin'; // eslint-disable-line
+    window.location.href = '/#/admin'; // eslint-disable-line
   };
 
   return (

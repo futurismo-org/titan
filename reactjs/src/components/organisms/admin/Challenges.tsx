@@ -20,7 +20,7 @@ const DELETE_CHALLENGE = gql`
   }
 `;
 
-const Challenges = props => {
+const Challenges = () => {
   const { data, error, loading } = useQuery(GET_CHALLENGES);
 
   const onDeleteHandler = useMutation(DELETE_CHALLENGE);
@@ -41,7 +41,7 @@ const Challenges = props => {
         </Button>
       </Link>
       <ul>
-        {data.challenges.map(challenge => {
+        {data.challenges.map((challenge: any) => {
           return (
             <li key={challenge.id}>
               {challenge.title}
