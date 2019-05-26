@@ -33,6 +33,31 @@ const resolveFunctions = {
           data.id = id;
           return data;
         });
+    },
+    categories() {
+      return db
+        .collection('categories')
+        .get()
+        .then(categories =>
+          categories.docs.map(category => {
+            const data = category.data();
+            const { id } = category;
+            data.id = id;
+            return data;
+          })
+        );
+    },
+    category: (headers, req, res) => {
+      return db
+        .collection('categories')
+        .doc(req.id)
+        .get()
+        .then(doc => {
+          const data = doc.data();
+          const { id } = doc;
+          data.id = id;
+          return data;
+        });
     }
   },
   Mutation: {

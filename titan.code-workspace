@@ -20,6 +20,13 @@
     "editor.formatOnSaveTimeout": 5000,
     "editor.formatOnType": true,
     // eslint
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      }
+    },
     "eslint.enable": true,
     "eslint.alwaysShowStatus": true,
     "eslint.autoFixOnSave": true,
