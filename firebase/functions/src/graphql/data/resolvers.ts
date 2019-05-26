@@ -28,6 +28,31 @@ const resolveFunctions = {
           data.id = id;
           return data;
         });
+    },
+    categories() {
+      return db
+        .collection('categories')
+        .get()
+        .then((categories: _.firestore.QuerySnapshot) =>
+          categories.docs.map(category => {
+            const data = category.data();
+            const { id } = category;
+            data.id = id;
+            return data;
+          })
+        );
+    },
+    category: (req: any) => {
+      return db
+        .collection('categories')
+        .doc(req.id)
+        .get()
+        .then((doc: _.firestore.DocumentSnapshot) => {
+          const data: any = doc.data();
+          const { id } = doc;
+          data.id = id;
+          return data;
+        });
     }
   },
   Mutation: {
