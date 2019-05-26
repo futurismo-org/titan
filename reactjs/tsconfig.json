@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "types": ["node"],
     "lib": ["esnext", "dom", "dom.iterable"],
-    "allowJs": false,
+    "allowJs": false, // JavaScriptはゆるさん
     "jsx": "react",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
