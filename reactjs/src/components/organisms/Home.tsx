@@ -1,13 +1,13 @@
 import { Route, Switch } from 'react-router-dom';
 
-import React from 'react';
+import * as React from 'react';
 import Challenge from './Challenge';
 import Challenges from './Challenges';
 import DashBoard from './DashBoard';
 import Layout from '../templates/DefaultLayout';
 import Singin from './Signin';
 
-const Home = props => (
+const Home = () => (
   <Layout>
     <Switch>
       <Route path="/signin" component={Singin} />

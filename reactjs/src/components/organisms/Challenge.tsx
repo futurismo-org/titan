@@ -1,5 +1,5 @@
 import Paper from '@material-ui/core/Paper';
-import React from 'react';
+import * as React from 'react';
 import gql from 'graphql-tag';
 import styled from 'styled-components';
 import { useQuery } from 'react-apollo-hooks';

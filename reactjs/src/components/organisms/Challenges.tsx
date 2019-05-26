@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from 'react-apollo-hooks';
 import Grid from '@material-ui/core/Grid';

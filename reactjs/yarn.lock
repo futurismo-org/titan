@@ -1723,6 +1723,16 @@
   resolved "https://registry.yarnpkg.com/@types/graphql/-/graphql-14.2.0.tgz#74e1da5f2a4a744ac6eb3ed57b48242ea9367202"
   integrity sha512-lELg5m6eBOmATWyCZl8qULEOvnPIUG6B443yXKj930glXIgwQirIBPp5rthP2amJW0YSzUg2s5sfgba4mRRCNw==
 
+"@types/history@*":
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.2.tgz#0e670ea254d559241b6eeb3894f8754991e73220"
+  integrity sha512-ui3WwXmjTaY73fOQ3/m3nnajU/Orhi6cEu5rzX+BrAAJxa3eITXZ5ch9suPqtM03OWhAHhPSyBGCN4UKoxO20Q==
+
+"@types/isomorphic-fetch@^0.0.35":
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/@types/isomorphic-fetch/-/isomorphic-fetch-0.0.35.tgz#c1c0d402daac324582b6186b91f8905340ea3361"
+  integrity sha512-DaZNUvLDCAnCTjgwxgiL1eQdxIKEpNLOlTNtAgnZc50bG2copGhRrFN9/PxPBuJe+tZVLCbQ7ls0xveXVRPkvw==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1769,6 +1779,13 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
+
+"@types/node-fetch@^2.3.4":
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/@types/node-fetch/-/node-fetch-2.3.4.tgz#a46fc4fe9f94b491bf551b6bb7f0f493b9bacd1a"
+  integrity sha512-ZwGXz5osL88SF+jlbbz0WJlINlOZHoSWPrLytQRWRdB6j/KVLup1OoqIxnjO6q9ToqEEP3MZFzJCotgge+IiRw==
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*", "@types/node@^12.0.2":
   version "12.0.2"
@@ -1820,6 +1837,38 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-helmet@^5.0.8":
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-5.0.8.tgz#f080eea6652e44f60b4574463d238f268d81d9af"
+  integrity sha512-ZTr12eDAYI0yUiMx1K82EHqRYa8J1BOOLus+0gL+AkksUiIPwLE0wLiXa9FNqD8r9GXAi+yRPZImkRh1JNlTkQ==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-native@*":
+  version "0.57.60"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.57.60.tgz#61e97a84e2f64ed971e7d238bb30cec188898235"
+  integrity sha512-zObrnRsCbpM7qDm97d8+5qiSIMMYRaWgpqu6orjbjzLUAcJaKnpBMXgW6bRXWkFBjHgm3hjDAdVVGMWlrYJBdw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/react" "*"
+
+"@types/react-router-dom@^4.3.3":
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.3.3.tgz#7837e3e9fefbc84a8f6c8a51dca004f4e83e94e3"
+  integrity sha512-xj0DmFjgvAqRfh/kJPO7apD5G30yPQe+8slu/dugioQOkdKpyzc4Fgk4hoTelm6CSHz7pI2PPsW5+Y6GRBF2zw==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.0.1.tgz#9f4548c75755c55b0cffdd743080e5afa87da6dd"
+  integrity sha512-vOyVO0u3Cs0w6G5DzYqNVqcTsurEnDgOmmkJf2s7VwtunWzpPgI6dHsCBX68vXqeICpP6jCfojgJcHkm5BV7hQ==
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
 "@types/react-transition-group@^2.0.16":
   version "2.9.1"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-2.9.1.tgz#66c9ca5d0b20bae72fe6b797e0d362b996d55e9f"
@@ -1857,6 +1906,15 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
+
+"@types/styled-components@^4.1.15":
+  version "4.1.15"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.15.tgz#532b6738ec633b2911e0470522c23e3c658952f2"
+  integrity sha512-DMr4Kq3i5Em2K1ThlqZlC8nrsiO3VaiQS2M+7cOPnseHLtfDUrDjHx6Jv11V6uVIoK8ERYhmfn42RvSIg47rnA==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    csstype "^2.2.0"
 
 "@types/tough-cookie@*":
   version "2.3.5"
@@ -2318,6 +2376,15 @@ apollo-client@^2.5.1:
     ts-invariant "^0.4.0"
     tslib "^1.9.3"
     zen-observable "^0.8.0"
+
+apollo-link-error@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/apollo-link-error/-/apollo-link-error-1.1.10.tgz#ce57f0793f0923b598655de5bf5e028d4cf4fba6"
+  integrity sha512-itG5UV7mQqaalmRkuRsF0cUS4zW2ja8XCbxkMZnIEeN24X3yoJi5hpJeAaEkXf0KgYNsR0+rmtCQNruWyxDnZQ==
+  dependencies:
+    apollo-link "^1.2.11"
+    apollo-link-http-common "^0.2.13"
+    tslib "^1.9.3"
 
 apollo-link-http-common@^0.2.13:
   version "0.2.13"
@@ -8067,7 +8134,7 @@ node-fetch@^1.0.1:
     encoding "^0.1.11"
     is-stream "^1.0.1"
 
-node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.6.0:
+node-fetch@^2.2.0, node-fetch@^2.3.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
   integrity sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';

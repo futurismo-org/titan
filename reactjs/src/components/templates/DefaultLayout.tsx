@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ const LayoutWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const Layout = props => (
+const Layout = (props: any) => (
   <LayoutWrapper>
     <CssBaseline />
     <MuiThemeProvider theme={theme}>

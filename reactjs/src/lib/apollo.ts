@@ -1,7 +1,7 @@
-import { ApolloClient } from './node_modules/apollo-client';
-import { InMemoryCache } from './node_modules/apollo-cache-inmemory';
-import { createHttpLink } from './node_modules/apollo-link-http';
-import fetch from './node_modules/node-fetch';
+import { ApolloClient } from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+import fetch from 'isomorphic-fetch';
 
 const API_URL_LOCAL =
   'http://localhost:5000/titan-dev-1234/asia-northeast1/api';

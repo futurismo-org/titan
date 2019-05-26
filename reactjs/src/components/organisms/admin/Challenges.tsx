@@ -2,7 +2,7 @@ import { useMutation, useQuery } from 'react-apollo-hooks';
 
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import React from 'react';
+import * as React from 'react';
 import gql from 'graphql-tag';
 
 const GET_CHALLENGES = gql`
