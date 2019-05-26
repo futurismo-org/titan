@@ -13,6 +13,7 @@
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx"
   },
   "dependencies": {
+    "typescript": "^3.4.5",
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
     "apollo-cache-inmemory": "^1.5.1",
@@ -63,7 +64,6 @@
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
     "prettier": "^1.17.1",
-    "typescript": "^3.4.5",
     "typescript-styled-plugin": "^0.14.0"
   },
   "husky": {

@@ -11,7 +11,7 @@
     "logs": "firebase functions:log",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --fix --ext .js,.ts",
-    "verify": "npm run lint && tsc"
+    "verify": "npm run lint && yarn tsc"
   },
   "engines": {
     "node": "8"
