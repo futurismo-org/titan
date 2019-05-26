@@ -1,10 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import CategoryOverview from './CategoryOverview';
-import CategoryDiscussion from './CategoryDIscussion';
-import CategoryRules from './CategoryRules';
-import CategoryLeaderBoard from './CategoryLeaderBoard';
+import CategoryChallenges from './CategoryChallenges';
 
 import theme from '../../../lib/theme';
 
@@ -16,15 +13,9 @@ const CategoryBody = () => {
   return (
     <CategoryContent>
       <Switch>
-        <Route path="/categories/:id/overview" component={CategoryOverview} />
         <Route
-          path="/categories/:id/discussion"
-          component={CategoryDiscussion}
-        />
-        <Route path="/categories/:id/rules" component={CategoryRules} />
-        <Route
-          path="/categories/:id/leaderboard"
-          component={CategoryLeaderBoard}
+          path="/categories/:id/challenges"
+          component={CategoryChallenges}
         />
       </Switch>
     </CategoryContent>

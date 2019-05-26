@@ -6,6 +6,7 @@ import { useQuery } from 'react-apollo-hooks';
 import Body from '../molecules/categories/CategoryBody';
 import Header from '../molecules/categories/CategoryHeader';
 import Navbar from '../molecules/categories/CategoryNavbar';
+import Challenges from '../molecules/categories/CategoryChallenges';
 import theme from '../../lib/theme';
 
 const GET_CATEGORY = gql`

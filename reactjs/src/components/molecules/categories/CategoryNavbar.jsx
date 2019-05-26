@@ -40,10 +40,9 @@ const NavLink = props => (
 
 const CategoryHeader = props => (
   <StyledToolbar component="nav" variant="dense">
-    <NavLink to={`/categories/${props.id}/overview`} text="概要" />
-    <NavLink to={`/categories/${props.id}/discussion`} text="掲示板" />
-    <NavLink to={`/categories/${props.id}/leaderboard`} text="リーダーボード" />
-    <NavLink to={`/categories/${props.id}/rules`} text="ルール" />
+    <NavLink to={`/categories/${props.id}/challenges`} text="大会１" />
+    <NavLink to={`/categories/${props.id}/challenges`} text="大会２" />
+    <NavLink to={`/categories/${props.id}/challenges`} text="大会３" />
   </StyledToolbar>
 );
 
