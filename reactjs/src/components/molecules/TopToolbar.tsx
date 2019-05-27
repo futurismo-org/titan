@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
-import Button, { ButtonProps } from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 // import IconButton from "@material-ui/core/IconButton";
 // import SearchIcon from "@material-ui/icons/Search";
