@@ -47,7 +47,7 @@ const ChallengeCard = (props: any) => {
                   {challenge.title}
                 </Typography>
                 {/* <Typography variant="subtitle1" color="textSecondary">
-                  {challeng.date}
+                  {challenge.date}
                 </Typography> */}
                 <Typography variant="subtitle1" paragraph>
                   {challenge.description}
