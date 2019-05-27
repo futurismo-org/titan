@@ -24,7 +24,7 @@ const { db } = require('./../../../utils/admin');
 // class Challenge extends Pring.Base {
 @ObjectType()
 class Challenge {
-  @Field((type: string) => ID)
+  @Field((type: any) => ID)
   id?: string;
 
   @Field()

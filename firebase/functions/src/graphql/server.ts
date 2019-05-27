@@ -3,8 +3,7 @@ const path = require('path');
 require('../utils/admin');
 const { buildSchema } = require('type-graphql');
 const { ApolloServer } = require('apollo-server-cloud-functions');
-const resolvers = require('./data/resolvers');
-const { ChallengeResolver } = require('./data/resolvers/challenge-resolver');
+const ChallengeResolver = require('./data/resolvers/challenge-resolver');
 
 const setupGraphQLServer = async () => {
   // Provide resolver functions for your schema fields
@@ -13,9 +12,12 @@ const setupGraphQLServer = async () => {
     emitSchemaFile: path.resolve(__dirname, 'schema.gql')
   });
 
+  // console.log(require('./data/schema')); // eslint-disable-line
+  // console.log(schema); // eslint-disable-line
+
   const server = new ApolloServer({
+    // schema: require('./data/schema'),
     schema: schema,
-    resolvers: resolvers,
     playground: true,
     introspection: true,
     context: (req: any, res: any) => ({
@@ -31,7 +33,6 @@ const setupGraphQLServer = async () => {
       credentials: true
     }
   };
-
   return server.createHandler(corsConfig);
 };
 
