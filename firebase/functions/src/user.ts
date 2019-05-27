@@ -23,3 +23,4 @@ const createUser = (user: any) => {
 module.exports = {
   createUser
 };
+export {};

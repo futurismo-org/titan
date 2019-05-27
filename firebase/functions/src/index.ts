@@ -4,7 +4,9 @@ const setupGraphQLServer = require('./graphql/server');
 const user = require('./user');
 
 // End Point for GraphQL
-const graphQLServer = setupGraphQLServer();
+const graphQLServer = setupGraphQLServer().catch(
+  (err: any) => console.log(err) // eslint-disable-line
+);
 const api = functions.https.onRequest(graphQLServer);
 
 // Firebase Auth handlers

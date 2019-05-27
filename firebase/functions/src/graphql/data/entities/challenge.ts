@@ -1,18 +1,22 @@
 const { Field, ID, ObjectType } = require('type-graphql');
-const { GetRepository, Collection } = require('fireorm');
+const Pring = require('pring');
 
-@Collection('challenges')
-@ObjectType
-class Challenge {
-  @Field((type: any) => ID)
-  readonly id: string;
+const property = Pring.property;
+
+@ObjectType()
+class Challenge extends Pring.Base {
+  @Field((type: string) => ID)
+  @property
+  id?: string;
 
   @Field()
-  title: string;
+  @property
+  title?: string;
 
   @Field()
-  description: string;
+  @property
+  description?: string;
 }
 
-const challengeModel = GetRepository(Challenge);
+module.exports = Challenge;
 export {};
