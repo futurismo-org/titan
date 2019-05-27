@@ -21,7 +21,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/explicit-function-return-type': 0, // TODO あとで消す
-    '@typescript-eslint/no-explicit-any': 0, // TODO あとで消す
+    '@typescript-eslint/no-explicit-any': 0, // TODO あとで消す,
+    '@typescript-eslint/explicit-member-accessibility': 0
   },
   parser: '@typescript-eslint/parser',
   "settings": {

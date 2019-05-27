@@ -1,12 +1,16 @@
+const { buildSchema } = require('type-graphql');
+
+require('../utils/admin');
 const { ApolloServer } = require('apollo-server-cloud-functions');
-const schema = require('./data/schema');
-const resolvers = require('./data/resolvers');
+const { ChallengeResolver } = require('./data/resolvers/challenge-resolver');
 
 const setupGraphQLServer = () => {
   // Provide resolver functions for your schema fields
   const server = new ApolloServer({
-    schema,
-    resolvers,
+    schema: buildSchema({
+      resolvers: [ChallengeResolver],
+      emitSchemaFile: './schema.gql'
+    }),
     playground: true,
     introspection: true,
     context: (req: any, res: any) => ({

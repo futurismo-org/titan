@@ -1,9 +1,17 @@
 const admin = require('firebase-admin');
+const fireorm = require('fireorm');
 const config = require('./config');
 
-if (!admin.length) admin.initializeApp(config);
+if (!admin.length) {
+  admin.initializeApp(config);
 
-const db = admin.firestore();
+  const firestore = admin.firestore();
+  firestore.settings({
+    timestampsInSnapshots: true
+  });
 
-module.exports = { admin, db };
+  fireorm.Initialize(firestore);
+}
+
+module.exports = { admin };
 export {};
