@@ -1,9 +1,0 @@
-node_modules
-storybook-static
-*sw.js
-webpack.config.extend.js
-next.config.js
-build
-dist
-out
-ServiceWorker.js

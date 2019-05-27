@@ -16,21 +16,24 @@
   "settings": {
     // General Config
     "files.autoSave": "afterDelay",
-    "editor.formatOnSave": true,
     "editor.formatOnSaveTimeout": 5000,
-    "editor.formatOnType": true,
     // eslint
-    "import/resolver": {
-      "node": {
-        "paths": [
-          "src"
-        ]
-      }
-    },
     "eslint.enable": true,
     "eslint.alwaysShowStatus": true,
     "eslint.autoFixOnSave": true,
     "eslint.packageManager": "yarn",
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      {
+        "language": "typescript",
+        "autoFix": true
+      },
+      {
+        "language": "typescriptreact",
+        "autoFix": true
+      }
+    ],
     "prettier.singleQuote": true
   }
 }
