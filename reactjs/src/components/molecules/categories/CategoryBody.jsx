@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import CategoryOverview from './CategoryOverview';
-import CategoryDiscussion from './CategoryDIscussion';
+import CategoryDiscussion from './CategoryDiscussion';
 import CategoryRules from './CategoryRules';
 import CategoryLeaderBoard from './CategoryLeaderBoard';
 

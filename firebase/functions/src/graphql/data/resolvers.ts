@@ -11,8 +11,9 @@ const resolveFunctions = {
         .get()
         .then((challenges: _.firestore.QuerySnapshot) =>
           challenges.docs.map((challenge: _.firestore.DocumentSnapshot) => {
-            const data = challenge.data();
+            const data: any = challenge.data();
             const { id } = challenge;
+            data.id = id;
             return data;
           })
         );
