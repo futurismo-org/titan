@@ -18,7 +18,7 @@ const resolveFunctions = {
           })
         );
     },
-    challenge: (req: any) => {
+    challenge: (headers: any, req: any, res: any) => {
       return db
         .collection('challenges')
         .doc(req.id)
@@ -43,7 +43,7 @@ const resolveFunctions = {
           })
         );
     },
-    category: (req: any) => {
+    category: (headers: any, req: any, res: any) => {
       return db
         .collection('categories')
         .doc(req.id)
