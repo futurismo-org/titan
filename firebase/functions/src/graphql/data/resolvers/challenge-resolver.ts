@@ -1,8 +1,8 @@
 import * as _ from 'firebase';
 
-require('reflect-metadata');
+import 'reflect-metadata';
 
-const {
+import {
   Resolver,
   Query,
   FieldResolver,
@@ -11,10 +11,12 @@ const {
   Mutation,
   Float,
   Int,
-  ResolverInterface
-} = require('type-graphql');
+  ResolverInterface,
+  Field,
+  ID,
+  ObjectType
+} from 'type-graphql';
 
-const { Field, ID, ObjectType } = require('type-graphql');
 const { db } = require('./../../../utils/admin');
 
 // const Pring = require('pring');
@@ -63,5 +65,4 @@ class ChallengeResolver {
 //   }
 // }
 
-module.exports = { ChallengeResolver };
-export {};
+export default ChallengeResolver;

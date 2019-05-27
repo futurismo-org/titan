@@ -1,9 +1,8 @@
-const path = require('path');
+import { buildSchema } from 'type-graphql';
+import { ApolloServer } from 'apollo-server-cloud-functions';
+import ChallengeResolver from './data/resolvers/challenge-resolver';
 
-require('../utils/admin');
-const { buildSchema } = require('type-graphql');
-const { ApolloServer } = require('apollo-server-cloud-functions');
-const ChallengeResolver = require('./data/resolvers/challenge-resolver');
+const path = require('path');
 
 const setupGraphQLServer = async () => {
   // Provide resolver functions for your schema fields

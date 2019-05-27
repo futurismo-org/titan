@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-module.exports = {
+const config: any = {
   apiKey: 'AIzaSyBAOF5ih35uKsTVIijD_JCpQAqIxNqiHPk',
   authDomain: 'titan-dev-1234.firebaseapp.com',
   databaseURL: 'https://titan-dev-1234.firebaseio.com',
@@ -10,3 +10,5 @@ module.exports = {
   appId: '1:942583859110:web:70f4583610955abd',
   credential: admin.credential.applicationDefault()
 };
+
+export default config;
