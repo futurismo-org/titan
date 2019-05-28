@@ -1,4 +1,5 @@
 import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
+import { ulid } from 'ulid';
 import { db } from '../../utils/admin';
 
 import {
@@ -15,12 +16,9 @@ const Query: QueryResolvers = {
       .collection('challenges')
       .get()
       .then((challenges: QuerySnapshot) =>
-        challenges.docs.map((challenge: DocumentSnapshot) => {
-          const data = challenge.data() as Challenge;
-          const { id } = challenge;
-          data.id = id;
-          return data;
-        })
+        challenges.docs.map(
+          (challenge: DocumentSnapshot) => challenge.data() as Challenge
+        )
       );
   },
   challenge: (headers: any, req: any, res: any) => {
@@ -28,24 +26,16 @@ const Query: QueryResolvers = {
       .collection('challenges')
       .doc(req.id)
       .get()
-      .then((doc: DocumentSnapshot) => {
-        const data = doc.data() as Challenge; // TODO Challengeの型定義
-        const { id } = doc;
-        data.id = id;
-        return data;
-      });
+      .then((doc: DocumentSnapshot) => doc.data() as Challenge);
   },
   categories() {
     return db
       .collection('categories')
       .get()
       .then((categories: QuerySnapshot) =>
-        categories.docs.map((category: DocumentSnapshot) => {
-          const data = category.data() as Category;
-          const { id } = category;
-          data.id = id;
-          return data;
-        })
+        categories.docs.map(
+          (category: DocumentSnapshot) => category.data() as Category
+        )
       );
   },
   category: (headers: any, req: any, res: any) => {
@@ -53,21 +43,19 @@ const Query: QueryResolvers = {
       .collection('categories')
       .doc(req.id)
       .get()
-      .then((doc: DocumentSnapshot) => {
-        const data = doc.data() as Category;
-        const { id } = doc;
-        data.id = id;
-        return data;
-      });
+      .then((doc: DocumentSnapshot) => doc.data() as Category);
   }
 };
 
 const Mutation: MutationResolvers = {
   updateChallenge: (headers: any, req: any, res: any) => {
     req.createdAt = Date.now();
+    req.id = ulid();
+
     return db
       .collection('challenges')
-      .add(req)
+      .doc(req.id)
+      .set(req)
       .then(() => req);
   },
   deleteChallenge: (headers: any, req: any, res: any) => {

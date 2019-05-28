@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@firebase/app-types": "^0.4.0",
+    "@google-cloud/firestore": "^2.0.0",
     "apollo-server-cloud-functions": "^2.5.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -31,7 +32,7 @@
     "firebase-functions": "^2.3.0",
     "graphql": "^14.3.0",
     "graphql-tools": "^4.0.4",
-    "@google-cloud/firestore": "^2.0.0"
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.0",
