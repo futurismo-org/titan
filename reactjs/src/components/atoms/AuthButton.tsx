@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import AuthModal from './AuthModal';
@@ -12,47 +12,40 @@ const StyledContainer = styled.div`
 `;
 
 const AuthButton = (props: any) => {
-  constructor(props) {
-    super(props);
+  const [visibleModal, setVisibleModal] = useState(false);
+  const [title, setTitle] = useState('');
 
-    this.state = { visibleModal: false, title: '' };
-  }
-
-  openModal = modalTitle => {
-    this.setState({ visibleModal: true, title: modalTitle });
+  const openModal = (modalTitle: string) => {
+    setVisibleModal(true);
+    setTitle(modalTitle);
   };
 
-  closeModal = () => {
-    this.setState({ visibleModal: false, modalTitle: '' });
+  const closeModal = () => {
+    setVisibleModal(false);
+    setTitle('');
   };
 
-  render() {
-    const { classes } = this.props;
+  const { classes } = props;
 
-    return (
-      <StyledContainer>
-        <Button
-          color="inherit"
-          className={classes.button}
-          onClick={() => this.openModal('登録')}
-        >
-          登録
-        </Button>
-        <Button
-          color="inherit"
-          className={classes.button}
-          onClick={() => this.openModal('ログイン')}
-        >
-          ログイン
-        </Button>
-        <AuthModal
-          open={this.state.visibleModal}
-          onClose={this.closeModal}
-          title={this.state.title}
-        />
-      </StyledContainer>
-    );
-  }
-}
+  return (
+    <StyledContainer>
+      <Button
+        color="inherit"
+        className={classes.button}
+        onClick={() => openModal('登録')}
+      >
+        登録
+      </Button>
+      <Button
+        color="inherit"
+        className={classes.button}
+        onClick={() => openModal('ログイン')}
+      >
+        ログイン
+      </Button>
+      <AuthModal open={visibleModal} onClose={closeModal} title={title} />
+    </StyledContainer>
+  );
+};
 
 export default AuthButton;
