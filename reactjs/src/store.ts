@@ -3,12 +3,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
-import firebase from 'firebase';
+import firebase from './lib/firebase';
 import rootReducer from './reducers';
-
-const config = require('./lib/config');
-
-firebase.initializeApp(config);
 
 const rrfConfig = {
   userProfile: 'users',
