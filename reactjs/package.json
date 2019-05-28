@@ -32,6 +32,7 @@
     "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
+    "react-firebaseui": "^3.1.2",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.0.3",
     "react-redux-firebase": "^2.2.6",
