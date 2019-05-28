@@ -4,14 +4,21 @@
   "scripts": {
     "up": "nf start",
     "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install",
-    "deploy:all": "npm run verify && npm run deploy --prefix reactjs && npm run deploy --prefix firebase/functions",
-    "lint": "npm run lint --prefix reactjs && npm run lint --prefix firebase/functions",
-    "lint:fix": "npm run lint:fix --prefix reactjs && npm run lint:fix --prefix firebase/functions",    
-    "tsc": "cd reactjs && yarn tsc && cd ../ &&  cd firebase/functions && yarn tsc",
+    "deploy:all": "npm run verify && cd reactjs && npm run deploy && cd ../firebase/functions && npm run deploy",
+    "lint": "cd reactjs && npm run lint && cd ../firebase/functions && npm run lint",    
+    "lint:fix": "cd reactjs && npm run lint:fix && cd ../firebase/functions && npm run lint:fix",
+    "tsc": "cd reactjs && yarn tsc && cd ../firebase/functions && yarn tsc",
     "sync": "git pull && git fetch -p && npm run install:all",
-    "verify": "npm run lint && npm run tsc"
+    "verify": "npm run lint && npm run tsc",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "devDependencies": {
-    "foreman": "^3.0.1"
+    "@graphql-codegen/cli": "^1.2.0",
+    "foreman": "^3.0.1",
+    "graphql": "^14.3.1",
+    "@graphql-codegen/typescript": "1.2.0",
+    "@graphql-codegen/typescript-operations": "1.2.0",
+    "@graphql-codegen/typescript-resolvers": "1.2.0",
+    "@graphql-codegen/typescript-react-apollo": "1.2.0"
   }
 }

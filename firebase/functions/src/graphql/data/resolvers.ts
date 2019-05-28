@@ -1,78 +1,74 @@
-import * as _ from 'firebase';
+import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
+import { ulid } from 'ulid';
+import { db } from '../../utils/admin';
 
-const { db } = require('./../../utils/admin');
-const { firebase } = require('../../utils/firebase');
+import {
+  MutationResolvers,
+  QueryResolvers,
+  Resolvers,
+  Challenge,
+  Category
+} from '../gen/graphql-resolver-types';
 
-const resolveFunctions = {
-  Query: {
-    challenges() {
-      return db
-        .collection('challenges')
-        .get()
-        .then((challenges: _.firestore.QuerySnapshot) =>
-          challenges.docs.map((challenge: _.firestore.DocumentSnapshot) => {
-            const data: any = challenge.data();
-            const { id } = challenge;
-            data.id = id;
-            return data;
-          })
-        );
-    },
-    challenge: (headers: any, req: any, res: any) => {
-      return db
-        .collection('challenges')
-        .doc(req.id)
-        .get()
-        .then((doc: _.firestore.DocumentSnapshot) => {
-          const data: any = doc.data(); // TODO Challengeの型定義
-          const { id } = doc;
-          data.id = id;
-          return data;
-        });
-    },
-    categories() {
-      return db
-        .collection('categories')
-        .get()
-        .then((categories: _.firestore.QuerySnapshot) =>
-          categories.docs.map(category => {
-            const data = category.data();
-            const { id } = category;
-            data.id = id;
-            return data;
-          })
-        );
-    },
-    category: (headers: any, req: any, res: any) => {
-      return db
-        .collection('categories')
-        .doc(req.id)
-        .get()
-        .then((doc: _.firestore.DocumentSnapshot) => {
-          const data: any = doc.data();
-          const { id } = doc;
-          data.id = id;
-          return data;
-        });
-    }
+const Query: QueryResolvers = {
+  challenges() {
+    return db
+      .collection('challenges')
+      .get()
+      .then((challenges: QuerySnapshot) =>
+        challenges.docs.map(
+          (challenge: DocumentSnapshot) => challenge.data() as Challenge
+        )
+      );
   },
-  Mutation: {
-    updateChallenge: (req: any) => {
-      req.createdAt = Date.now();
-      return db
-        .collection('challenges')
-        .add(req)
-        .then(() => req);
-    },
-    deleteChallenge: (req: any) => {
-      const { id } = req;
-      return db
-        .collection('challenges')
-        .doc(id)
-        .delete()
-        .then(() => id);
-    }
+  challenge: (headers: any, req: any, res: any) => {
+    return db
+      .collection('challenges')
+      .doc(req.id)
+      .get()
+      .then((doc: DocumentSnapshot) => doc.data() as Challenge);
+  },
+  categories() {
+    return db
+      .collection('categories')
+      .get()
+      .then((categories: QuerySnapshot) =>
+        categories.docs.map(
+          (category: DocumentSnapshot) => category.data() as Category
+        )
+      );
+  },
+  category: (headers: any, req: any, res: any) => {
+    return db
+      .collection('categories')
+      .doc(req.id)
+      .get()
+      .then((doc: DocumentSnapshot) => doc.data() as Category);
   }
 };
 
-module.exports = resolveFunctions;
+const Mutation: MutationResolvers = {
+  updateChallenge: (headers: any, req: any, res: any) => {
+    req.createdAt = Date.now();
+    req.id = ulid();
+
+    return db
+      .collection('challenges')
+      .doc(req.id)
+      .set(req)
+      .then(() => req);
+  },
+  deleteChallenge: (headers: any, req: any, res: any) => {
+    const { id } = req;
+    return db
+      .collection('challenges')
+      .doc(id)
+      .delete()
+      .then(() => id);
+  }
+};
+
+export const resolvers: Resolvers = {
+  Query,
+  Mutation
+};

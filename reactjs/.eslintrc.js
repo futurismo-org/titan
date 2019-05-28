@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/explicit-function-return-type': 0, // TODO あとで消す
     '@typescript-eslint/no-explicit-any': 0, // TODO あとで消す
+    '@typescript-eslint/no-non-null-assertion': 0,
     'react/prop-types': 0,
     'react/destructuring-assignment': 0,
     'react/require-default-props': 0,

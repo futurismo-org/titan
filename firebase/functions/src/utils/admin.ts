@@ -1,9 +1,7 @@
 const admin = require('firebase-admin');
 const config = require('./config');
 
-if (!admin.length) admin.initializeApp(config);
-
-const db = admin.firestore();
-
-module.exports = { admin, db };
-export {};
+export const initializeApp = () => {
+  if (!admin.app.length) admin.initializeApp(config);
+};
+export const db = admin.firestore();

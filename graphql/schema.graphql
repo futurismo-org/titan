@@ -1,0 +1,31 @@
+type Query {
+  challenges: [Challenge!]
+  challenge(id: ID!): Challenge
+  categories: [Category!]
+  category(id: ID!): Category
+}
+
+type Mutation {
+  updateChallenge(
+    title: String!
+    description: String!
+    overview: String!
+    rules: String!
+  ): Challenge!
+  deleteChallenge(id: ID!): Challenge!
+}
+
+type Challenge {
+  id: ID!
+  title: String!
+  description: String!
+  overview: String!
+  rules: String!
+  createdAt: Int!
+}
+
+type Category {
+  id: ID!
+  title: String!
+  description: String!
+}

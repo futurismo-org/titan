@@ -1,21 +1,11 @@
 import * as React from 'react';
-import gql from 'graphql-tag';
-import { useQuery } from 'react-apollo-hooks';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 import theme from '../../lib/theme';
 import ChallengeCard from '../atoms/ChallengeCard';
 
-const GET_CHALLENGES = gql`
-  {
-    challenges {
-      id
-      title
-      description
-    }
-  }
-`;
+import { useChallengesQuery } from '../../gen/graphql-client-api';
 
 interface Props {
   container?: any;
@@ -29,7 +19,7 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
 `;
 
 const Challenges = () => {
-  const { data, error, loading } = useQuery(GET_CHALLENGES);
+  const { data, error, loading } = useChallengesQuery();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -38,10 +28,12 @@ const Challenges = () => {
     return <div>Error! {error.message}</div>;
   }
 
+  const challenges = data && data.challenges;
+
   return (
     <React.Fragment>
       <StyledCardGrid container spacing={4}>
-        {data.challenges.map((challenge: any) => (
+        {challenges!.map((challenge: any) => (
           <ChallengeCard challenge={challenge} key={challenge.id} />
         ))}
       </StyledCardGrid>

@@ -1,7 +1,7 @@
 {
   "name": "titan-client-app",
   "description": "Client App for Titan",
-  "main": "lib/index.js",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "dev": "firebase serve --only functions",

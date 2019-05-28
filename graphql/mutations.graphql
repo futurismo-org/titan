@@ -1,0 +1,21 @@
+mutation deleteChallenge($id: ID!) {
+  deleteChallenge(id: $id) {
+    id
+  }
+}
+
+mutation updateChallenge(
+  $title: String!
+  $description: String!
+  $overview: String!
+  $rules: String!
+) {
+  updateChallenge(
+    title: $title
+    description: $description
+    overview: $overview
+    rules: $rules
+  ) {
+    id
+  }
+}

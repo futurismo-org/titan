@@ -1,0 +1,31 @@
+query challenge($id: ID!) {
+  challenge(id: $id) {
+    id
+    title
+    description
+  }
+}
+
+query challenges {
+  challenges {
+    id
+    title
+    description
+  }
+}
+
+query category($id: ID!) {
+  category(id: $id) {
+    id
+    title
+    description
+  }
+}
+
+query categories {
+  categories {
+    id
+    title
+    description
+  }
+}

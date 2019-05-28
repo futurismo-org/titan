@@ -1,12 +1,12 @@
-const { ApolloServer } = require('apollo-server-cloud-functions');
-const schema = require('./data/schema');
-const resolvers = require('./data/resolvers');
+import { resolvers } from './data/resolvers';
+import typeDefs from './data/schema';
+
+const { ApolloServer, gql } = require('apollo-server-cloud-functions');
 
 const setupGraphQLServer = () => {
-  // Provide resolver functions for your schema fields
   const server = new ApolloServer({
-    schema,
-    resolvers,
+    typeDefs: typeDefs,
+    resolvers: resolvers as any,
     playground: true,
     introspection: true,
     context: (req: any, res: any) => ({
