@@ -31,7 +31,8 @@
       }
     ],
     "outDir": "./out",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strictNullChecks": true
   },
   "include": [
     "src"

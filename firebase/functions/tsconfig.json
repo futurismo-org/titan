@@ -19,7 +19,8 @@
     "resolveJsonModule": true,
     // "isolatedModules": true,
     // "noEmit": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "strictNullChecks": true
   },
   "include": [
     "src"
