@@ -17,6 +17,7 @@ module.exports = {
     'no-param-reassign': 0,
     radix: 0,
     'import/no-unresolved': 'error',
+    "import/prefer-default-export": 0,
     'no-unused-vars': 0,
     'no-underscore-dangle': 0,
     'import/no-absolute-path': 0,
