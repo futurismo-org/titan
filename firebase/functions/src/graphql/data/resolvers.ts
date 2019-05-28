@@ -1,19 +1,22 @@
+import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
+import { db } from '../../utils/admin';
+
 import {
   MutationResolvers,
   QueryResolvers,
-  Resolvers
+  Resolvers,
+  Challenge,
+  Category
 } from '../gen/graphql-resolver-types';
-
-import { db } from '../../utils/admin';
 
 const Query: QueryResolvers = {
   challenges() {
     return db
       .collection('challenges')
       .get()
-      .then((challenges: any) =>
-        challenges.docs.map((challenge: any) => {
-          const data: any = challenge.data();
+      .then((challenges: QuerySnapshot) =>
+        challenges.docs.map((challenge: DocumentSnapshot) => {
+          const data = challenge.data() as Challenge;
           const { id } = challenge;
           data.id = id;
           return data;
@@ -25,8 +28,33 @@ const Query: QueryResolvers = {
       .collection('challenges')
       .doc(req.id)
       .get()
-      .then((doc: any) => {
-        const data: any = doc.data(); // TODO Challengeの型定義
+      .then((doc: DocumentSnapshot) => {
+        const data = doc.data() as Challenge; // TODO Challengeの型定義
+        const { id } = doc;
+        data.id = id;
+        return data;
+      });
+  },
+  categories() {
+    return db
+      .collection('categories')
+      .get()
+      .then((categories: QuerySnapshot) =>
+        categories.docs.map((category: DocumentSnapshot) => {
+          const data = category.data() as Category;
+          const { id } = category;
+          data.id = id;
+          return data;
+        })
+      );
+  },
+  category: (headers: any, req: any, res: any) => {
+    return db
+      .collection('categories')
+      .doc(req.id)
+      .get()
+      .then((doc: DocumentSnapshot) => {
+        const data = doc.data() as Category;
         const { id } = doc;
         data.id = id;
         return data;
@@ -34,81 +62,25 @@ const Query: QueryResolvers = {
   }
 };
 
-const resolveFunctions = {
-  Query: {
-    challenges() {
-      return db
-        .collection('challenges')
-        .get()
-        .then((challenges: any) =>
-          challenges.docs.map((challenge: any) => {
-            const data: any = challenge.data();
-            const { id } = challenge;
-            data.id = id;
-            return data;
-          })
-        );
-    },
-    challenge: (headers: any, req: any, res: any) => {
-      return db
-        .collection('challenges')
-        .doc(req.id)
-        .get()
-        .then((doc: any) => {
-          const data: any = doc.data(); // TODO Challengeの型定義
-          const { id } = doc;
-          data.id = id;
-          return data;
-        });
-    },
-    categories() {
-      return db
-        .collection('categories')
-        .get()
-        .then((categories: any) =>
-          categories.docs.map((category: any) => {
-            const data = category.data();
-            const { id } = category;
-            data.id = id;
-            return data;
-          })
-        );
-    },
-    category: (headers: any, req: any, res: any) => {
-      return db
-        .collection('categories')
-        .doc(req.id)
-        .get()
-        .then((doc: any) => {
-          const data: any = doc.data();
-          const { id } = doc;
-          data.id = id;
-          return data;
-        });
-    }
+const Mutation: MutationResolvers = {
+  updateChallenge: (headers: any, req: any, res: any) => {
+    req.createdAt = Date.now();
+    return db
+      .collection('challenges')
+      .add(req)
+      .then(() => req);
   },
-  Mutation: {
-    updateChallenge: (req: any) => {
-      req.createdAt = Date.now();
-      return db
-        .collection('challenges')
-        .add(req)
-        .then(() => req);
-    },
-    deleteChallenge: (req: any) => {
-      const { id } = req;
-      return db
-        .collection('challenges')
-        .doc(id)
-        .delete()
-        .then(() => id);
-    }
+  deleteChallenge: (headers: any, req: any, res: any) => {
+    const { id } = req;
+    return db
+      .collection('challenges')
+      .doc(id)
+      .delete()
+      .then(() => id);
   }
 };
 
-const resolvers: Resolvers = {
-  Query
-  // Mutation
+export const resolvers: Resolvers = {
+  Query,
+  Mutation
 };
-
-export default resolvers;

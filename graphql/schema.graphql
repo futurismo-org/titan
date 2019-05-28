@@ -1,6 +1,8 @@
 type Query {
-  challenges: [Challenge]
+  challenges: [Challenge!]
   challenge(id: ID!): Challenge
+  categories: [Category!]
+  category(id: ID!): Category
 }
 
 type Mutation {
@@ -19,4 +21,11 @@ type Challenge {
   description: String!
   overview: String!
   rules: String!
+  createdAt: Int!
+}
+
+type Category {
+  id: ID!
+  title: String!
+  description: String!
 }

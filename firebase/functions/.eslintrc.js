@@ -10,6 +10,7 @@ module.exports = {
   plugins: ['prettier','@typescript-eslint', 'import'],
   rules: {
     "import/no-unresolved": 'error',
+    'import/prefer-default-export': 0,
     'global-require': 0,
     'prettier/prettier': 'error',
     'jsx-a11y/anchor-is-valid': 0,

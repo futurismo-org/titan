@@ -1,6 +1,10 @@
-const functions = require('firebase-functions').region('asia-northeast1');
-const setupGraphQLServer = require('./graphql/server');
+const admin = require('firebase-admin');
+const config = require('./utils/config');
 
+admin.initializeApp(config);
+
+const functions = require('firebase-functions').region('asia-northeast1'); // eslint-disable-line
+const setupGraphQLServer = require('./graphql/server');
 const user = require('./user');
 
 // End Point for GraphQL
@@ -14,3 +18,4 @@ module.exports = {
   api,
   authNewUser
 };
+export {};

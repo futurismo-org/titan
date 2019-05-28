@@ -1,9 +1,7 @@
-import admin from 'firebase-admin';
-
+const admin = require('firebase-admin');
 const config = require('./config');
 
-if (!admin.app.length) admin.initializeApp(config);
-
+export const initializeApp = () => {
+  if (!admin.app.length) admin.initializeApp(config);
+};
 export const db = admin.firestore();
-
-export default { admin };
