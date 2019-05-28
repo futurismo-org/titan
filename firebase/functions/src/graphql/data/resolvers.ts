@@ -1,7 +1,38 @@
-import * as _ from 'firebase';
+import {
+  MutationResolvers,
+  QueryResolvers,
+  Resolvers
+} from '../gen/graphql-resolver-types';
 
-const { db } = require('./../../utils/admin');
-const { firebase } = require('../../utils/firebase');
+import { db } from '../../utils/admin';
+
+const Query: QueryResolvers = {
+  challenges() {
+    return db
+      .collection('challenges')
+      .get()
+      .then((challenges: any) =>
+        challenges.docs.map((challenge: any) => {
+          const data: any = challenge.data();
+          const { id } = challenge;
+          data.id = id;
+          return data;
+        })
+      );
+  },
+  challenge: (headers: any, req: any, res: any) => {
+    return db
+      .collection('challenges')
+      .doc(req.id)
+      .get()
+      .then((doc: any) => {
+        const data: any = doc.data(); // TODO Challengeの型定義
+        const { id } = doc;
+        data.id = id;
+        return data;
+      });
+  }
+};
 
 const resolveFunctions = {
   Query: {
@@ -9,8 +40,8 @@ const resolveFunctions = {
       return db
         .collection('challenges')
         .get()
-        .then((challenges: _.firestore.QuerySnapshot) =>
-          challenges.docs.map((challenge: _.firestore.DocumentSnapshot) => {
+        .then((challenges: any) =>
+          challenges.docs.map((challenge: any) => {
             const data: any = challenge.data();
             const { id } = challenge;
             data.id = id;
@@ -23,7 +54,7 @@ const resolveFunctions = {
         .collection('challenges')
         .doc(req.id)
         .get()
-        .then((doc: _.firestore.DocumentSnapshot) => {
+        .then((doc: any) => {
           const data: any = doc.data(); // TODO Challengeの型定義
           const { id } = doc;
           data.id = id;
@@ -34,8 +65,8 @@ const resolveFunctions = {
       return db
         .collection('categories')
         .get()
-        .then((categories: _.firestore.QuerySnapshot) =>
-          categories.docs.map(category => {
+        .then((categories: any) =>
+          categories.docs.map((category: any) => {
             const data = category.data();
             const { id } = category;
             data.id = id;
@@ -48,7 +79,7 @@ const resolveFunctions = {
         .collection('categories')
         .doc(req.id)
         .get()
-        .then((doc: _.firestore.DocumentSnapshot) => {
+        .then((doc: any) => {
           const data: any = doc.data();
           const { id } = doc;
           data.id = id;
@@ -75,4 +106,9 @@ const resolveFunctions = {
   }
 };
 
-module.exports = resolveFunctions;
+const resolvers: Resolvers = {
+  Query
+  // Mutation
+};
+
+export default resolvers;
