@@ -19,13 +19,14 @@ const Signin = (props: any) => {
       callbacks: {
         signInSuccessWithAuthResult: (authResult: any, redirectUrl: any) => {
           return true;
+        },
+        uiShown: () => {
+          const loader = document.getElementById('loader'); // eslint-disable-line no-undef
+          if (loader) loader.style.display = 'none';
         }
-        // uiShown: () => {
-        // document.getElementById('loader').style.display = 'none'; // eslint-disable-line no-undef
-        // }
       },
       signInFlow: 'popup',
-      signInSuccessUrl: 'mypage',
+      signInSuccessUrl: '/',
       signInOptions: [
         firebase.auth.EmailAuthProvider.PROVIDER_ID,
         firebase.auth.TwitterAuthProvider.PROVIDER_ID,
