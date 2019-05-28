@@ -7,6 +7,7 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import theme from '../../lib/theme';
+import AuthContainer from '../../containers/authContainer';
 
 const StyledToolbar = styled(Toolbar)`
   && {
@@ -35,6 +36,7 @@ const TopToolbar = () => (
     {/* <IconButton>
       <SearchIcon />
     </IconButton> */}
+    <AuthContainer />>
     <Button variant="outlined" size="small">
       <NoStyledLink to="/signin">Sign in</NoStyledLink>
     </Button>
