@@ -3,5 +3,5 @@ linter:
     root_dir: 'reactjs'
     npm_install: true
     options:
-      config: 'reactjs/.eslintrc.js'
+      config: '.eslintrc.js'
       ext: 'js, jsx, ts, tsx'
