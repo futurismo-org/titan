@@ -5,3 +5,9 @@ linter:
     options:
       config: '.eslintrc.js'
       ext: 'js, jsx, ts, tsx'
+  eslint:
+    root_dir: 'firebase/functions'
+    npm_install: true
+    options:
+      config: '.eslintrc.js'
+      ext: 'js, jsx, ts, tsx'
