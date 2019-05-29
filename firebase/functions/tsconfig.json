@@ -20,8 +20,7 @@
     // "noEmit": true,
     "outDir": "./lib",
     "strictNullChecks": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
-
+    "lib": ["esnext", "dom", "dom.iterable"]
   },
   "include": [
     "src"
