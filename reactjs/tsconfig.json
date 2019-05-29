@@ -11,7 +11,7 @@
     "types": [
       "node"
     ],
-    "allowJs": true,
+    "allowJs": false, // JS許さん
     "jsx": "preserve",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,

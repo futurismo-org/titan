@@ -51,7 +51,7 @@ const NavLink = (props: NavLinkProps) => (
   </StyledLink>
 );
 
-const ChallengeHeader = (props: any) => (
+const ChallengeNavbar = (props: any) => (
   <StyledToolbar component="nav" variant="dense">
     <NavLink to={`/challenges/${props.id}/overview`} text="概要" />
     <NavLink to={`/challenges/${props.id}/discussion`} text="掲示板" />
@@ -60,4 +60,4 @@ const ChallengeHeader = (props: any) => (
   </StyledToolbar>
 );
 
-export default ChallengeHeader;
+export default ChallengeNavbar;

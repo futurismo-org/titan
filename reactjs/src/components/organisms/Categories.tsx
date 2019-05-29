@@ -2,9 +2,9 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import theme from '../../lib/theme';
 import CategoryCard from '../atoms/CategoryCard';
 import firebase from '../../lib/firebase';
+import theme from '../../lib/theme';
 
 interface Props {
   container?: any;
