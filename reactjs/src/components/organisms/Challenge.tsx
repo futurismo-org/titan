@@ -23,7 +23,10 @@ interface Props {
 
 const Challenge = (props: Props) => {
   const [value, loading, error] = useDocument(
-    firebase.firestore().doc(`challenges/${props.match.params.id}`)
+    firebase
+      .firestore()
+      .collection('challenges')
+      .doc(props.match.params.id)
   );
 
   return (

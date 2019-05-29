@@ -43,7 +43,8 @@
     "redux-firestore": "^0.8.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.2.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.0",
