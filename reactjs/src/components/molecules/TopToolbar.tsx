@@ -36,7 +36,7 @@ const TopToolbar = () => (
     {/* <IconButton>
       <SearchIcon />
     </IconButton> */}
-    <AuthContainer />>
+    <AuthContainer />
     <Button variant="outlined" size="small">
       <NoStyledLink to="/signin">Sign in</NoStyledLink>
     </Button>

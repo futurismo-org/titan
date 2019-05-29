@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import styled from 'styled-components';
 import AuthModal from './AuthModal';
 
 import theme from '../../lib/theme';
 
-const StyledContainer = styled.div`
+const StyledButton = styled(Button)`
   && {
     margin: ${theme.spacing(1)}px;
   }
-`;
+` as React.ComponentType<ButtonProps>;
 
 const AuthButton = (props: any) => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -25,26 +25,16 @@ const AuthButton = (props: any) => {
     setTitle('');
   };
 
-  const { classes } = props;
-
   return (
-    <StyledContainer>
-      <Button
-        color="inherit"
-        className={classes.button}
-        onClick={() => openModal('登録')}
-      >
+    <React.Fragment>
+      <StyledButton color="inherit" onClick={() => openModal('登録')}>
         登録
-      </Button>
-      <Button
-        color="inherit"
-        className={classes.button}
-        onClick={() => openModal('ログイン')}
-      >
+      </StyledButton>
+      <StyledButton color="inherit" onClick={() => openModal('ログイン')}>
         ログイン
-      </Button>
+      </StyledButton>
       <AuthModal open={visibleModal} onClose={closeModal} title={title} />
-    </StyledContainer>
+    </React.Fragment>
   );
 };
 

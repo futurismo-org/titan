@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import theme from '../../lib/theme'
+import theme from '../../lib/theme';
 
 const StyledSubmitButton = styled(Button)`
   text-align: center;
