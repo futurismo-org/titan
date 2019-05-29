@@ -2,7 +2,7 @@ import React from 'react';
 import UserItem from '../atoms/UserItem';
 import AuthButton from '../atoms/AuthButton';
 
-const NavigationItem = props => {
+const NavigationItem = (props: any) => {
   const { auth, profile } = props;
   const authenticated = auth.isLoaded && !auth.isEmpty;
 
@@ -10,7 +10,7 @@ const NavigationItem = props => {
     return <AuthButton />;
   };
 
-  const renderUserItem = user => {
+  const renderUserItem = (user: any) => {
     return <UserItem user={user} />;
   };
 
