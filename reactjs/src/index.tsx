@@ -1,10 +1,8 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
-import { ApolloProvider } from 'react-apollo-hooks';
 import { Provider } from 'react-redux';
 import App from './components/organisms/App';
-import client from './lib/apollo';
 import Head from './components/templates/Head';
 import { store } from './store';
 
@@ -13,11 +11,9 @@ ReactDOM.render(
   <React.Fragment>
     <Head />
     <Router>
-      <ApolloProvider client={client}>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </ApolloProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </Router>
   </React.Fragment>,
   document.getElementById('root')

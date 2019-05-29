@@ -39,7 +39,6 @@
   "exclude": [
     "node_modules",
     "build",
-    "out",
-    "gen"
+    "out"
   ]
 }

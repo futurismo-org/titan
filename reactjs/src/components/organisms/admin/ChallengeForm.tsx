@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-apollo-hooks';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import gql from 'graphql-tag';
+
+import { ulid } from 'ulid';
+import firebase from '../../../lib/firebase';
 
 const ChallengeForm = (props: any) => {
   const [title, setTitle] = useState('');
@@ -11,123 +12,104 @@ const ChallengeForm = (props: any) => {
   const [overview, setOverview] = useState('');
   const [rules, setRules] = useState('');
 
-  const onTilteChange = (e: any) => setTitle(e.target.value);
+  const onTitleChange = (e: any) => setTitle(e.target.value);
   const onDescriptionChange = (e: any) => setDescription(e.target.value);
   const onOverviewChange = (e: any) => setOverview(e.target.value);
   const onRulesChange = (e: any) => setRules(e.target.value);
 
-  const UPDATE_CHALLENGE = gql`
-    mutation updateChallenge(
-      $title: String!
-      $description: String!
-      $overview: String!
-      $rules: String!
-    ) {
-      updateChallenge(
-        title: $title
-        description: $description
-        overview: $overview
-        rules: $rules
-      ) {
-        id
-      }
-    }
-  `;
+  const isCreate = props.match.params.id === undefined;
 
-  const GET_CHALLENGE = gql`
-    query GetChallenge($id: ID!) {
-      challenge(id: $id) {
-        id
-        title
-        description
-        overview
-        rules
-      }
-    }
-  `;
-
-  const getHandler = useQuery(GET_CHALLENGE, {
-    variables: { id: props.match.params.id }
-  });
-
-  useEffect(() => {
-    const { data } = getHandler;
-    const { challenge } = data;
-
-    if (challenge !== undefined) {
-      setTitle(challenge.title);
-      setDescription(challenge.description);
-      setOverview(challenge.overview);
-      setRules(challenge.rules);
-    }
-  }, [getHandler]);
-
-  const pageTitle =
-    props.match.params.id === undefined
-      ? 'チャレンジ新規投稿'
-      : 'チャレンジ編集';
-
-  const updateChallenge = useMutation(UPDATE_CHALLENGE, {
-    variables: { title, description, overview, rules }
-  });
+  const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
 
   const updateHandler = (e: any) => {
     e.preventDefault();
-    updateChallenge();
+
+    const id = isCreate ? ulid() : props.match.params.id;
+    const newData = {
+      id: id,
+      title: title,
+      description: description,
+      overview: overview,
+      rules: rules
+    };
+    firebase
+      .firestore()
+      .collection('challenges')
+      .doc(id)
+      .set(newData);
     window.location.href = '/#/admin'; // eslint-disable-line
   };
 
+  useEffect(() => {
+    if (!isCreate) {
+      firebase
+        .firestore()
+        .collection('challenges')
+        .doc(props.match.params.id)
+        .get()
+        .then(doc => doc.data())
+        .then(challenge => {
+          setTitle(challenge!.title);
+          setDescription(challenge!.description);
+          setOverview(challenge!.overview);
+          setRules(challenge!.rules);
+        });
+    }
+  }, [isCreate, props.match.params.id]);
+
   return (
     <React.Fragment>
-      <h2>{pageTitle}</h2>
-      <form noValidate onSubmit={updateHandler}>
-        <TextField
-          value={title}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="title"
-          label="タイトル"
-          name="title"
-          autoFocus
-          onChange={onTilteChange}
-        />
-        <TextField
-          value={description}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="description"
-          name="description"
-          label="説明"
-          onChange={onDescriptionChange}
-        />
-        <TextField
-          value={overview}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="overview"
-          name="overview"
-          label="概要"
-          onChange={onOverviewChange}
-        />
-        <TextField
-          value={rules}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="rules"
-          name="rules"
-          label="ルール"
-          onChange={onRulesChange}
-        />
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          投稿
-        </Button>
-      </form>
+      <React.Fragment>
+        <h2>{pageTitle}</h2>
+        <form noValidate onSubmit={updateHandler}>
+          <TextField
+            value={title}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="title"
+            label="タイトル"
+            name="title"
+            autoFocus
+            onChange={onTitleChange}
+          />
+          <TextField
+            value={description}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="description"
+            name="description"
+            label="説明"
+            onChange={onDescriptionChange}
+          />
+          <TextField
+            value={overview}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="overview"
+            name="overview"
+            label="概要"
+            onChange={onOverviewChange}
+          />
+          <TextField
+            value={rules}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="rules"
+            name="rules"
+            label="ルール"
+            onChange={onRulesChange}
+          />
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            投稿
+          </Button>
+        </form>
+      </React.Fragment>
     </React.Fragment>
   );
 };

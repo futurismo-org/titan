@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import ChallengeCard from '../atoms/ChallengeCard';
-import firebase from '../../lib/firebase';
 import theme from '../../lib/theme';
+import CategoryCard from '../atoms/CategoryCard';
+import firebase from '../../lib/firebase';
 
 interface Props {
   container?: any;
@@ -17,7 +17,7 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
   }
 `;
 
-const Challenges = () => {
+const Categories = () => {
   const [value, loading, error] = useCollection(
     firebase.firestore().collection('challenges')
   );
@@ -29,7 +29,7 @@ const Challenges = () => {
       {value && (
         <StyledCardGrid container spacing={4}>
           {value!.docs.map((doc: any) => (
-            <ChallengeCard challenge={doc.data()} key={doc.id} />
+            <CategoryCard category={doc.data()} key={doc.id} />
           ))}
         </StyledCardGrid>
       )}
@@ -37,4 +37,4 @@ const Challenges = () => {
   );
 };
 
-export default Challenges;
+export default Categories;
