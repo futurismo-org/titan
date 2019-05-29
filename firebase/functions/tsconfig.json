@@ -9,7 +9,6 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "types": ["node"],
-    "lib": ["esnext", "dom", "dom.iterable"],
     "allowJs": false, //  許さん
     "jsx": "preserve",
     "skipLibCheck": true,
@@ -19,7 +18,10 @@
     "resolveJsonModule": true,
     // "isolatedModules": true,
     // "noEmit": true,
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "strictNullChecks": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+
   },
   "include": [
     "src"

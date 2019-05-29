@@ -17,6 +17,7 @@ module.exports = {
     'no-param-reassign': 0,
     radix: 0,
     'import/no-unresolved': 'error',
+    "import/prefer-default-export": 0,
     'no-unused-vars': 0,
     'no-underscore-dangle': 0,
     'import/no-absolute-path': 0,
@@ -31,6 +32,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    'no-console': 0
   },
   parser: '@typescript-eslint/parser',
   "settings": {

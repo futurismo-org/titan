@@ -11,11 +11,6 @@
     "types": [
       "node"
     ],
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
     "allowJs": true,
     "jsx": "preserve",
     "skipLibCheck": true,
@@ -30,7 +25,13 @@
       }
     ],
     "outDir": "./out",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "strictNullChecks": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ]
   },
   "include": [
     "src"

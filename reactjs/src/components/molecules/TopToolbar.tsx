@@ -1,12 +1,11 @@
 import * as React from 'react';
 import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 // import IconButton from "@material-ui/core/IconButton";
 // import SearchIcon from "@material-ui/icons/Search";
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import theme from '../../lib/theme';
+import AuthContainer from '../../containers/authContainer';
 
 const StyledToolbar = styled(Toolbar)`
   && {
@@ -20,13 +19,6 @@ const StyledTypography = styled(Typography)`
   }
 ` as React.ComponentType<TypographyProps>;
 
-const NoStyledLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
-
 const TopToolbar = () => (
   <StyledToolbar>
     <StyledTypography component="h2" variant="h5" color="inherit" noWrap>
@@ -35,9 +27,7 @@ const TopToolbar = () => (
     {/* <IconButton>
       <SearchIcon />
     </IconButton> */}
-    <Button variant="outlined" size="small">
-      <NoStyledLink to="/signin">Sign in</NoStyledLink>
-    </Button>
+    <AuthContainer />
   </StyledToolbar>
 );
 
