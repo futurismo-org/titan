@@ -1,11 +1,13 @@
 import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
 import styled from 'styled-components';
+import { useDocument } from 'react-firebase-hooks/firestore';
 import theme from '../../lib/theme';
 import Navbar from '../molecules/challenges/ChallengeNavbar';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
-import { useChallengeQuery } from '../../gen/graphql-client-api';
+
+import firebase from '../../lib/firebase';
 
 const StyledPaper = styled(Paper as React.SFC)`
   padding: ${theme.spacing(3, 2)};
@@ -20,26 +22,23 @@ interface Props {
 }
 
 const Challenge = (props: Props) => {
-  const { data, error, loading } = useChallengeQuery({
-    variables: { id: props.match.params.id as string }
-  });
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error! {error.message}</div>;
-  }
-
-  const challenge = data && data.challenge;
+  const [value, loading, error] = useDocument(
+    firebase.firestore().doc(`challenges/${props.match.params.id}`)
+  );
 
   return (
     <React.Fragment>
-      <Header challenge={challenge} />
-      <StyledPaper>
-        <Navbar id={challenge!.id} />
-        <Body />
-      </StyledPaper>
+      {error && <strong>Error: {error}</strong>}
+      {loading && <span>Collection: Loading...</span>}
+      {value && (
+        <React.Fragment>
+          <Header challenge={value.data()} />
+          <StyledPaper>
+            <Navbar id={value.id} />
+            <Body />
+          </StyledPaper>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
