@@ -22,8 +22,6 @@ const Categories = () => {
     firebase.firestore().collection('categories')
   );
 
-  console.log(value);
-
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
