@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import {InputAdornment } from '@material-ui/core';
+import { InputAdornment } from '@material-ui/core';
 import { MailOutline, VpnKey } from '@material-ui/icons';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-import styled from 'styled-components'
-import theme from '../../lib/theme'
+import styled from 'styled-components';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import FormControl, { FormControlProps } from '@material-ui/core/FormControl';
 import TextField, { TextFieldProps } from '@material-ui/core/TextField';
+import theme from '../../lib/theme'
 
 const StyledSubmitButton = styled(Button)`
   text-align: center;
@@ -46,22 +46,18 @@ const SignUpForm = () => {
     } catch (err) {
       switch (err.code) {
         case 'auth/email-already-in-use':
-          window.error = err;  // eslint-disable-line no-undef
           console.log(err);
           console.log(err.message);
           break;
         case 'auth/invalid-email':
-          window.error = err;  // eslint-disable-line no-undef
           console.log(err);
           console.log(err.message);
           break;
         case 'auth/operation-not-allowed':
-          window.error = err;  // eslint-disable-line no-undef
           console.log(err);
           console.log(err.message);
           break;
         case 'auth/weak-password':
-          window.error = err;  // eslint-disable-line no-undef
           console.log(err);
           console.log(err.message);
           break;
