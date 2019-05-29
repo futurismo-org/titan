@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Dialog, DialogContent } from '@material-ui/core';
 import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
@@ -36,13 +36,11 @@ const uiConfig = {
 };
 
 const AuthModal = (props: any) => {
-  const [open, setOpen] = useState(false);
-
   const handleClose = () => {
     props.onClose();
   };
 
-  const { classes, onClose, title, ...other } = props;
+  const { onClose, title, ...other } = props;
 
   return (
     <StyledContainer>
