@@ -1,8 +1,8 @@
-import React from 'react';
-import Toolbar from '@material-ui/core/Toolbar';
+import * as React from 'react';
+import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
+import Link, { LinkProps } from '@material-ui/core/Link';
 import theme from '../../../lib/theme';
 
 const StyledToolbar = styled(Toolbar)`
@@ -10,14 +10,22 @@ const StyledToolbar = styled(Toolbar)`
     justify-content: start;
     overflow-x: auto;
   }
-`;
+` as React.ComponentType<ToolbarProps>;
+
+type StyledLinkProps = LinkProps & {
+  component: any;
+  noWrap: any;
+  color: string;
+  variant: string;
+  to: string;
+};
 
 const StyledLink = styled(Link)`
   && {
     padding-right: ${theme.spacing(3)}px;
     flex-shrink: 0;
   }
-`;
+` as React.ComponentType<StyledLinkProps>;
 
 const NoStyledRouterLink = styled(RouterLink)`
   && {
@@ -26,7 +34,12 @@ const NoStyledRouterLink = styled(RouterLink)`
   }
 `;
 
-const NavLink = props => (
+interface NavLinkProps {
+  to: string;
+  text: string;
+}
+
+const NavLink = (props: NavLinkProps) => (
   <StyledLink
     component={NoStyledRouterLink}
     noWrap
@@ -38,7 +51,7 @@ const NavLink = props => (
   </StyledLink>
 );
 
-const CategoryHeader = props => (
+const CategoryHeader = (props: any) => (
   <StyledToolbar component="nav" variant="dense">
     <NavLink to={`/categories/${props.id}/overview`} text="概要" />
     <NavLink to={`/categories/${props.id}/discussion`} text="掲示板" />

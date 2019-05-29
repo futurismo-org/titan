@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import theme from '../../lib/theme';
-import Navbar from '../molecules/categories/CategoryNavbar';
+import Navbar from '../molecules/categories/challenges';
 import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
