@@ -3,9 +3,9 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import theme from '../../lib/theme';
-import Navbar from '../molecules/challenges/categories';
-import Header from '../molecules/challenges/ChallengeHeader';
-import Body from '../molecules/challenges/ChallengeBody';
+import Navbar from '../molecules/categories/CategoryNavbar';
+import Header from '../molecules/categories/CategoryHeader';
+import Body from '../molecules/categories/CategoryBody';
 
 import firebase from '../../lib/firebase';
 
@@ -21,11 +21,11 @@ interface Props {
   };
 }
 
-const Challenge = (props: Props) => {
+const Category = (props: Props) => {
   const [value, loading, error] = useDocument(
     firebase
       .firestore()
-      .collection('challenges')
+      .collection('categories')
       .doc(props.match.params.id)
   );
 
@@ -35,7 +35,7 @@ const Challenge = (props: Props) => {
       {loading && <span>Collection: Loading...</span>}
       {value && (
         <React.Fragment>
-          <Header challenge={value.data()} />
+          <Header category={value.data()} />
           <StyledPaper>
             <Navbar id={value.id} />
             <Body />
@@ -46,4 +46,4 @@ const Challenge = (props: Props) => {
   );
 };
 
-export default Challenge;
+export default Category;
