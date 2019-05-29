@@ -1,36 +1,22 @@
-import { useMutation, useQuery } from 'react-apollo-hooks';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import * as React from 'react';
-import gql from 'graphql-tag';
 
-const GET_CHALLENGES = gql`
-  {
-    challenges {
-      id
-      title
-    }
-  }
-`;
-
-const DELETE_CHALLENGE = gql`
-  mutation deleteChallenge($id: ID!) {
-    deleteChallenge(id: $id)
-  }
-`;
+import firebase from '../../../lib/firebase';
 
 const Challenges = () => {
-  const { data, error, loading } = useQuery(GET_CHALLENGES);
+  const [value, loading, error] = useCollection(
+    firebase.firestore().collection('challenges')
+  );
 
-  const onDeleteHandler = useMutation(DELETE_CHALLENGE);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error! {error.message}</div>;
-  }
+  const onDeleteHandler = (id: string) =>
+    firebase
+      .firestore()
+      .collection('challenges')
+      .doc(id)
+      .delete();
 
   return (
     <React.Fragment>
@@ -41,30 +27,32 @@ const Challenges = () => {
         </Button>
       </Link>
       <ul>
-        {data.challenges.map((challenge: any) => {
-          return (
-            <li key={challenge.id}>
-              {challenge.title}
-              <Link
-                to={`/admin/challenges/new/${challenge.id}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button type="button" color="primary">
-                  編集
+        {error && <strong>Error: {error}</strong>}
+        {loading && <span>Collection: Loading...</span>}
+        {value && (
+          <React.Fragment>
+            {value!.docs.map((doc: any) => (
+              <li key={doc.id}>
+                {doc.data().title}
+                <Link
+                  to={`/admin/challenges/new/${doc.id}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button type="button" color="primary">
+                    編集
+                  </Button>
+                </Link>
+                <Button
+                  type="button"
+                  color="secondary"
+                  onClick={() => onDeleteHandler(doc.id)}
+                >
+                  削除
                 </Button>
-              </Link>
-              <Button
-                type="button"
-                color="secondary"
-                onClick={() =>
-                  onDeleteHandler({ variables: { id: challenge.id } })
-                }
-              >
-                削除
-              </Button>
-            </li>
-          );
-        })}
+              </li>
+            ))}
+          </React.Fragment>
+        )}
       </ul>
     </React.Fragment>
   );
