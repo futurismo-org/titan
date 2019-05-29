@@ -27,10 +27,20 @@ const AuthButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <StyledButton color="inherit" onClick={() => openModal('登録')}>
+      <StyledButton
+        color="inherit"
+        variant="outlined"
+        size="small"
+        onClick={() => openModal('登録')}
+      >
         登録
       </StyledButton>
-      <StyledButton color="inherit" onClick={() => openModal('ログイン')}>
+      <StyledButton
+        color="inherit"
+        variant="outlined"
+        size="small"
+        onClick={() => openModal('ログイン')}
+      >
         ログイン
       </StyledButton>
       <AuthModal open={visibleModal} onClose={closeModal} title={title} />

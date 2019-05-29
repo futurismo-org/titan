@@ -30,8 +30,7 @@ const UserItem = (props: any) => {
 
   const { user } = props;
   const defaultUserName = 'anonymous';
-  const defaultUserIcon =
-    'https://firebasestorage.googleapis.com/v0/b/fir-clone-1a266.appspot.com/o/default-user-icons%2F1.png?alt=media&token=b5e090f4-d2b1-4544-92bd-379a3d22b470';
+  const defaultUserIcon = `${process.env.PUBLIC_URL}/anonymous.png`;
 
   return (
     <div>
@@ -42,7 +41,12 @@ const UserItem = (props: any) => {
         />
         {user.displayName || defaultUserName}
       </StyledButton>
-      <StyledButton color="inherit" onClick={googleSignOut}>
+      <StyledButton
+        variant="outlined"
+        size="small"
+        color="inherit"
+        onClick={googleSignOut}
+      >
         ログアウト
       </StyledButton>
     </div>

@@ -97,7 +97,7 @@ const LoginForm = () => {
         type="submit"
         onClick={() => loginWithEmailAndPassword(email, password)}
       >
-        登録する
+        ログイン
       </StyledSubmitButton>
     </StyledItemContainer>
   );
