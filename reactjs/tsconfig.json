@@ -40,6 +40,5 @@
     "node_modules",
     "build",
     "out",
-    "gen"
   ]
 }
