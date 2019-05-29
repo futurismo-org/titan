@@ -19,8 +19,10 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
 
 const Categories = () => {
   const [value, loading, error] = useCollection(
-    firebase.firestore().collection('challenges')
+    firebase.firestore().collection('categories')
   );
+
+  console.log(value);
 
   return (
     <React.Fragment>
