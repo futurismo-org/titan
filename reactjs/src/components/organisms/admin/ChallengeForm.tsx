@@ -12,10 +12,22 @@ const ChallengeForm = (props: any) => {
   const [overview, setOverview] = useState('');
   const [rules, setRules] = useState('');
 
-  const onTitleChange = (e: any) => setTitle(e.target.value);
-  const onDescriptionChange = (e: any) => setDescription(e.target.value);
-  const onOverviewChange = (e: any) => setOverview(e.target.value);
-  const onRulesChange = (e: any) => setRules(e.target.value);
+  const onTitleChange = (e: any) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
+  const onDescriptionChange = (e: any) => {
+    e.preventDefault();
+    setDescription(e.target.value);
+  };
+  const onOverviewChange = (e: any) => {
+    e.preventDefault();
+    setOverview(e.target.value);
+  };
+  const onRulesChange = (e: any) => {
+    e.preventDefault();
+    setRules(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -93,6 +105,8 @@ const ChallengeForm = (props: any) => {
             id="overview"
             name="overview"
             label="概要"
+            rows={8}
+            multiline
             onChange={onOverviewChange}
           />
           <TextField
@@ -103,6 +117,8 @@ const ChallengeForm = (props: any) => {
             id="rules"
             name="rules"
             label="ルール"
+            rows={8}
+            multiline
             onChange={onRulesChange}
           />
           <Button type="submit" fullWidth variant="contained" color="primary">
