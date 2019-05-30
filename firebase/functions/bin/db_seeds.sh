@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn ts-node -e "require('./src/cli/seeds').createChallenges()"
+yarn ts-node -e "require('./src/cli/seeds').createCollections()"
