@@ -5,7 +5,6 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import styled from 'styled-components';
-import firebaseui from 'firebaseui';
 import SignUpForm from './SignUpForm';
 import LoginForm from './LoginForm';
 
@@ -31,8 +30,8 @@ const uiConfig = {
   signInFlow: 'popup',
   signInSuccessUrl: '/',
   signInOptions: [
-    firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID
   ]
 };
 
