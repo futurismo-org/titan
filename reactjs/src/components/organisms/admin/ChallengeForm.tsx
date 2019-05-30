@@ -42,7 +42,8 @@ const ChallengeForm = (props: any) => {
       title: title,
       description: description,
       overview: overview,
-      rules: rules
+      rules: rules,
+      updatedAt: new Date()
     };
     firebase
       .firestore()
