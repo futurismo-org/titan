@@ -2,18 +2,19 @@ const { db } = require('./utils/admin');
 
 const createUser = (user: any) => {
   const { uid } = user;
-  const displayName = user.displayName || 'Anonymous';
+  const displayName = user.displayName || 'anonymous';
   const email = user.email || '';
-  const photoURL = user.photoURL || '';
+  const photoURL = user.photoURL || `${process.env.PUBLIC_URL}/anonymous.png`;
 
   return db
     .collection('users')
     .doc(uid)
     .set({
-      userName: displayName,
-      photoUrl: photoURL,
+      displayName,
+      photoURL,
       email,
-      createOn: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date()
     })
     .then(() => {
       console.log('Success'); // eslint-disable-line no-console
