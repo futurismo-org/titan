@@ -1,5 +1,5 @@
 import * as React from 'react';
 
-const ChallengeOverview = () => <div>テスト</div>;
+const ChallengeOverview = (props: any) => <p>{props.text}</p>;
 
 export default ChallengeOverview;
