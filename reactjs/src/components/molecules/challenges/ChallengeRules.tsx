@@ -1,5 +1,7 @@
 import * as React from 'react';
 
-const ChallengeRules = (props: any) => <p>{props.text}</p>;
+const ChallengeRules = (props: any) => (
+  <div style={{ whiteSpace: 'pre-line' }}>{props.text}</div>
+);
 
 export default ChallengeRules;
