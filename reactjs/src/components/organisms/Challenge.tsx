@@ -38,7 +38,7 @@ const Challenge = (props: Props) => {
           <Header challenge={value.data()} />
           <StyledPaper>
             <Navbar id={value.id} />
-            <Body />
+            <Body challenge={value.data()} />
           </StyledPaper>
         </React.Fragment>
       )}

@@ -12,16 +12,23 @@ const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
 `;
 
-const ChallengeBody = () => {
+const ChallengeBody = (props: any) => {
+  const { challenge } = props;
   return (
     <ChallengeContent>
       <Switch>
-        <Route path="/challenges/:id/overview" component={ChallengeOverview} />
+        <Route
+          path="/challenges/:id/overview"
+          render={() => <ChallengeOverview text={challenge.overview} />}
+        />
         <Route
           path="/challenges/:id/discussion"
           component={ChallengeDiscussion}
         />
-        <Route path="/challenges/:id/rules" component={ChallengeRules} />
+        <Route
+          path="/challenges/:id/rules"
+          render={() => <ChallengeRules text={challenge.rules} />}
+        />
         <Route
           path="/challenges/:id/leaderboard"
           component={ChallengeLeaderBoard}

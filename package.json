@@ -5,13 +5,14 @@
     "up": "nf start",
     "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install",
     "deploy:all": "npm run verify && cd reactjs && npm run deploy && cd ../firebase/functions && npm run deploy",
-    "lint": "cd reactjs && npm run lint && cd ../firebase/functions && npm run lint",    
+    "lint": "cd reactjs && npm run lint && cd ../firebase/functions && npm run lint",
     "lint:fix": "cd reactjs && npm run lint:fix && cd ../firebase/functions && npm run lint:fix",
     "tsc": "cd reactjs && yarn tsc && cd ../firebase/functions && yarn tsc",
     "sync": "git pull && git fetch -p && npm run install:all",
     "verify": "npm run lint && npm run tsc"
   },
   "devDependencies": {
+    "@types/react-router-dom": "^4.3.3",
     "foreman": "^3.0.1"
   }
 }
