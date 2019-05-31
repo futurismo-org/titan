@@ -5,8 +5,8 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import styled from 'styled-components';
-import SignUpForm from './SignUpForm';
-import LoginForm from './LoginForm';
+// import SignUpForm from './SignUpForm';
+// import LoginForm from './LoginForm';
 
 import theme from '../../lib/theme';
 
@@ -22,16 +22,16 @@ const StyledDialogTitle = styled(DialogTitle)`
   }
 ` as React.ComponentType<DialogTitleProps>;
 
-const StyledAuthBasicForm = styled.div`
-  text-align: center;
-`;
+// const StyledAuthBasicForm = styled.div`
+//   text-align: center;
+// `;
 
 const uiConfig = {
   signInFlow: 'popup',
   signInSuccessUrl: '/',
   signInOptions: [
     // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    // firebase.auth.TwitterAuthProvider.PROVIDER_ID
+    firebase.auth.TwitterAuthProvider.PROVIDER_ID
   ]
 };
 
@@ -51,9 +51,9 @@ const AuthModal = (props: any) => {
       >
         <StyledDialogTitle>{title}</StyledDialogTitle>
         <DialogContent>
-          <StyledAuthBasicForm>
+          {/* <StyledAuthBasicForm>
             {title === '登録' ? <SignUpForm /> : <LoginForm />}
-          </StyledAuthBasicForm>
+          </StyledAuthBasicForm> */}
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}

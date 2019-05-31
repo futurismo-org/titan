@@ -21,7 +21,7 @@ const StyledAvatar = styled(Avatar)`
 ` as React.ComponentType<AvatarProps>;
 
 const UserItem = (props: any) => {
-  const googleSignOut = () => {
+  const signOut = () => {
     firebase
       .auth()
       .signOut()
@@ -45,7 +45,7 @@ const UserItem = (props: any) => {
         variant="outlined"
         size="small"
         color="inherit"
-        onClick={googleSignOut}
+        onClick={signOut}
       >
         ログアウト
       </StyledButton>

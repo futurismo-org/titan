@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '../../../lib/theme';
+import JoinButton from '../../atoms/JoinButton';
 
 const MainFeaturedPost = styled(Paper)`
   && {
@@ -64,6 +65,7 @@ const ChallengeHeader = (props: any) => {
             <Typography variant="h5" color="inherit" paragraph>
               {challenge.description}
             </Typography>
+            <JoinButton challengeId={challenge.id} />
           </MainFeaturedPostContent>
         </Grid>
       </Grid>

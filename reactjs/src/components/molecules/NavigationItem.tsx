@@ -3,8 +3,8 @@ import UserItem from '../atoms/UserItem';
 import AuthButton from '../atoms/AuthButton';
 
 const NavigationItem = (props: any) => {
-  const { auth, profile } = props;
-  const authenticated = auth.isLoaded && !auth.isEmpty;
+  const { profile } = props;
+  const authenticated = profile.isLoaded && !profile.isEmpty;
 
   const renderAuthButton = () => {
     return <AuthButton />;
