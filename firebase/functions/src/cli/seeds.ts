@@ -15,7 +15,7 @@ faker.locale = 'ja';
 const createChallengeSeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: faker.date.recent(),
+    createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
@@ -27,10 +27,19 @@ const createChallengeSeed = (args: any) => {
 const createCategorySeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: faker.date.recent(),
+    createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
+    ...args
+  });
+};
+
+const createUserSeed = (args: any) => {
+  const { id } = args;
+  return seed.doc(id, {
+    createdAt: new Date(),
+    updatedAt: faker.date.recent(),
     ...args
   });
 };
@@ -99,6 +108,23 @@ const categorySeeds = seed.collection('categories', [
   })
 ]);
 
+const userSeeds = seed.collection('users', [
+  createUserSeed({
+    email: '',
+    displayName: 'Titan',
+    id: 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
+  }),
+  createUserSeed({
+    email: '',
+    displayName: 'tsu-nera',
+    id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg'
+  })
+]);
+
 const createCategories = () => {
   categorySeeds.importDocuments(cli).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
@@ -107,6 +133,12 @@ const createCategories = () => {
 
 const createChallenges = () => {
   challengeSeeds.importDocuments(cli).catch((e: any) => {
+    console.log('Failed to impzort documents: ' + e);
+  });
+};
+
+const createCollection = (seeds: any) => {
+  seeds.importDocuments(cli).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
   });
 };
@@ -114,6 +146,7 @@ const createChallenges = () => {
 export const createCollections = () => {
   createCategories();
   createChallenges();
+  createCollection(userSeeds);
 };
 
 const deleteCollection = (title: string) => {
@@ -132,4 +165,6 @@ const deleteCollection = (title: string) => {
 export const deleteCollections = () => {
   deleteCollection('categories');
   deleteCollection('challenges');
+  deleteCollection('users');
+  deleteCollection('user_challenge_relations');
 };
