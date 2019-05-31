@@ -65,7 +65,7 @@ const ChallengeHeader = (props: any) => {
             <Typography variant="h5" color="inherit" paragraph>
               {challenge.description}
             </Typography>
-            <JoinButton />
+            <JoinButton challengeId={challenge.id} />
           </MainFeaturedPostContent>
         </Grid>
       </Grid>

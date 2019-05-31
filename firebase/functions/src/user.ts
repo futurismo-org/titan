@@ -10,6 +10,7 @@ const createUser = (user: any) => {
     .collection('users')
     .doc(uid)
     .set({
+      id: uid,
       displayName,
       photoURL,
       email,
