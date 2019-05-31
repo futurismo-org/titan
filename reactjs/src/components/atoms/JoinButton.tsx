@@ -23,6 +23,16 @@ const joinHandler = (props: any) => {
     .set(newData);
 };
 
+const leaveHandler = (props: any) => {
+  const { challengeId, userId } = props;
+  const id = createId(userId, challengeId);
+  firebase
+    .firestore()
+    .collection('user_challenge_relations')
+    .doc(id)
+    .delete();
+};
+
 const renderJoinButton = (props: any) => (
   <Button
     color="inherit"
@@ -34,8 +44,13 @@ const renderJoinButton = (props: any) => (
   </Button>
 );
 
-const renderLeaveButton = () => (
-  <Button color="inherit" variant="outlined" size="small">
+const renderLeaveButton = (props: any) => (
+  <Button
+    color="inherit"
+    variant="outlined"
+    size="small"
+    onClick={() => leaveHandler(props)}
+  >
     参加中
   </Button>
 );
@@ -65,7 +80,9 @@ const JoinButton = (props: any) => {
       .get()
       .then((snapshot: any) => setJoin(!snapshot.empty));
 
-  return join ? renderLeaveButton() : renderJoinButton({ userId, challengeId });
+  return join
+    ? renderLeaveButton({ userId, challengeId })
+    : renderJoinButton({ userId, challengeId });
 };
 
 const mapStateToProps = (state: any, props: {}) => ({
