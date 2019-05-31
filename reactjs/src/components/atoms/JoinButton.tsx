@@ -55,6 +55,12 @@ const renderLeaveButton = (props: any) => (
   </Button>
 );
 
+const renderPostButton = (props: any) => (
+  <Button color="inherit" variant="outlined" size="small">
+    投稿
+  </Button>
+);
+
 const JoinButton = (props: any) => {
   const { challengeId, userId } = props;
   const [join, setJoin] = useState(false);
@@ -80,9 +86,14 @@ const JoinButton = (props: any) => {
       .get()
       .then((snapshot: any) => setJoin(!snapshot.empty));
 
-  return join
-    ? renderLeaveButton({ userId, challengeId })
-    : renderJoinButton({ userId, challengeId });
+  return join ? (
+    <React.Fragment>
+      {renderLeaveButton({ userId, challengeId })}
+      {renderPostButton()}
+    </React.Fragment>
+  ) : (
+    renderJoinButton({ userId, challengeId })
+  );
 };
 
 const mapStateToProps = (state: any, props: {}) => ({

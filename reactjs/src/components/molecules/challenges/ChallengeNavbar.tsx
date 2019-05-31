@@ -57,7 +57,6 @@ const ChallengeNavbar = (props: any) => (
     <NavLink to={`/challenges/${props.id}/discussion`} text="掲示板" />
     <NavLink to={`/challenges/${props.id}/leaderboard`} text="リーダーボード" />
     <NavLink to={`/challenges/${props.id}/rules`} text="ルール" />
-    <NavLink to={`/challenges/${props.id}/posts`} text="投稿" />
   </StyledToolbar>
 );
 
