@@ -4,6 +4,42 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { connect } from 'react-redux';
 import firebase from '../../lib/firebase';
 
+const createId = (userId: string, challengeId: string) =>
+  `${userId}_${challengeId}`;
+
+const joinHandler = (props: any) => {
+  const { challengeId, userId } = props;
+  const id = createId(userId, challengeId);
+  const newData = {
+    id,
+    userId,
+    challengeId,
+    createdAt: new Date()
+  };
+  firebase
+    .firestore()
+    .collection('user_challenge_relations')
+    .doc(id)
+    .set(newData);
+};
+
+const renderJoinButton = (props: any) => (
+  <Button
+    color="inherit"
+    variant="outlined"
+    size="small"
+    onClick={() => joinHandler(props)}
+  >
+    参加する
+  </Button>
+);
+
+const renderLeaveButton = () => (
+  <Button color="inherit" variant="outlined" size="small">
+    参加中
+  </Button>
+);
+
 const JoinButton = (props: any) => {
   const { challengeId, userId } = props;
   const [join, setJoin] = useState(false);
@@ -29,19 +65,7 @@ const JoinButton = (props: any) => {
       .get()
       .then((snapshot: any) => setJoin(!snapshot.empty));
 
-  const renderJoinButton = () => (
-    <Button color="inherit" variant="outlined" size="small">
-      参加する
-    </Button>
-  );
-
-  const renderLeaveButton = () => (
-    <Button color="inherit" variant="outlined" size="small">
-      参加中
-    </Button>
-  );
-
-  return join ? renderLeaveButton() : renderJoinButton();
+  return join ? renderLeaveButton() : renderJoinButton({ userId, challengeId });
 };
 
 const mapStateToProps = (state: any, props: {}) => ({
