@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import firebase from '../../lib/firebase';
 
 const createId = (userId: string, challengeId: string) =>
@@ -55,10 +57,20 @@ const renderLeaveButton = (props: any) => (
   </Button>
 );
 
+const StyledLink = styled(Link)`
+  && {
+    text-decoration: none;
+    color: inherit;
+    margin-left: 10px;
+  }
+`;
+
 const renderPostButton = (props: any) => (
-  <Button color="inherit" variant="outlined" size="small">
-    投稿
-  </Button>
+  <StyledLink to={`/challenges/${props.id}/posts`}>
+    <Button color="inherit" variant="outlined" size="small">
+      投稿
+    </Button>
+  </StyledLink>
 );
 
 const JoinButton = (props: any) => {
@@ -89,7 +101,7 @@ const JoinButton = (props: any) => {
   return join ? (
     <React.Fragment>
       {renderLeaveButton({ userId, challengeId })}
-      {renderPostButton({ userId, challengeId })}
+      {renderPostButton({ id: challengeId })}
     </React.Fragment>
   ) : (
     renderJoinButton({ userId, challengeId })
