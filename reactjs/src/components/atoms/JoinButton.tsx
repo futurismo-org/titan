@@ -89,7 +89,7 @@ const JoinButton = (props: any) => {
   return join ? (
     <React.Fragment>
       {renderLeaveButton({ userId, challengeId })}
-      {renderPostButton()}
+      {renderPostButton({ userId, challengeId })}
     </React.Fragment>
   ) : (
     renderJoinButton({ userId, challengeId })
