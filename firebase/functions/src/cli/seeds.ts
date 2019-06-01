@@ -61,7 +61,7 @@ const challengeSeeds = seed.collection('challenges', [
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
-    participants: [titanUserId]
+    participants: []
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
