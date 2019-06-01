@@ -9,6 +9,7 @@ module.exports = {
   ],
   plugins: ['prettier','@typescript-eslint', 'import'],
   rules: {
+    "no-console": 0,
     "import/no-unresolved": 'error',
     'import/prefer-default-export': 0,
     'global-require': 0,

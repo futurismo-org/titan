@@ -10,7 +10,18 @@ const cliConfig = require('../utils/config');
 cli.initializeApp(cliConfig);
 faker.locale = 'ja';
 
-/* eslint-disable no-console */
+const muscleCategoryId = ulid();
+const meditationCategoryId = ulid();
+const getUpCategoryId = ulid();
+const noFapCategoryId = ulid();
+
+const muscleChallngeId = ulid();
+const muscleChallngeIds = [muscleChallngeId, ulid()];
+const meditationChallngeIds = [ulid()];
+const getUpChallngeIds = [ulid()];
+const noFapChallengeIds: string[] = [];
+
+const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
 
 const createChallengeSeed = (args: any) => {
   const { id } = args;
@@ -44,35 +55,13 @@ const createUserSeed = (args: any) => {
   });
 };
 
-const createUserChallengeRelationSeed = (args: any) => {
-  const { id } = args;
-  return seed.doc(id, {
-    createdAt: new Date(),
-    ...args
-  });
-};
-
-const muscleCategoryId = ulid();
-const meditationCategoryId = ulid();
-const getUpCategoryId = ulid();
-const noFapCategoryId = ulid();
-
-const muscleChallngeId = ulid();
-const muscleChallngeIds = [muscleChallngeId, ulid()];
-const meditationChallngeIds = [ulid()];
-const getUpChallngeIds = [ulid()];
-const noFapChallengeIds: string[] = [];
-
-const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
-
-const titanMuscleRelationId = `${titanUserId}_${muscleChallngeIds[0]}`;
-
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: muscleChallngeIds[0],
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
-    description: '筋肉は裏切らない'
+    description: '筋肉は裏切らない',
+    participants: [titanUserId]
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -138,14 +127,6 @@ const userSeeds = seed.collection('users', [
   })
 ]);
 
-const userChallengeRelationSeess = seed.collection('user_challenge_relations', [
-  createUserChallengeRelationSeed({
-    id: titanMuscleRelationId,
-    userId: titanUserId,
-    challengeId: muscleChallngeId
-  })
-]);
-
 const createCollection = (seeds: any) => {
   seeds.importDocuments(cli).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
@@ -156,7 +137,6 @@ export const createCollections = () => {
   createCollection(categorySeeds);
   createCollection(challengeSeeds);
   createCollection(userSeeds);
-  createCollection(userChallengeRelationSeess);
 };
 
 const deleteCollection = (title: string) => {
@@ -176,5 +156,4 @@ export const deleteCollections = () => {
   deleteCollection('categories');
   deleteCollection('challenges');
   deleteCollection('users');
-  deleteCollection('user_challenge_relations');
 };

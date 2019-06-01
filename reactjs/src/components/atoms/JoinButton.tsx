@@ -7,14 +7,18 @@ import firebase from '../../lib/firebase';
 
 const joinHandler = (props: any) => {
   const { challengeId, userId } = props;
-  const userUnion = firebase.firestore.FieldValue.arrayUnion(userId);
+  const newData = {
+    id: userId,
+    histories: [],
+    createdAt: new Date()
+  };
   firebase
     .firestore()
     .collection('challenges')
     .doc(challengeId)
-    .update({
-      participants: userUnion
-    });
+    .collection('participants')
+    .doc(userId)
+    .set(newData);
 };
 
 const renderJoinButton = (props: any) => (
@@ -45,24 +49,22 @@ const renderPostButton = (props: any) => (
 );
 
 const JoinButton = (props: any) => {
-  const isJoin = (args: {
-    participants: string[];
-    userId: string;
-  }): boolean => {
-    return args.participants && args.participants.includes(args.userId);
-  };
-
   const { challengeId, userId } = props;
   const [join, setJoin] = useState(false);
+
+  if (challengeId === undefined || userId === undefined) {
+    console.log('loading...');
+    return <div />;
+  }
 
   firebase
     .firestore()
     .collection('challenges')
     .doc(challengeId)
+    .collection('participants')
+    .where('id', '==', userId)
     .get()
-    .then((doc: any) => {
-      setJoin(isJoin({ participants: doc.data().participants, userId }));
-    });
+    .then((s: any) => setJoin(!s.empty));
 
   return join
     ? renderPostButton({ id: challengeId })
