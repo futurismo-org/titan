@@ -44,15 +44,28 @@ const createUserSeed = (args: any) => {
   });
 };
 
+const createUserChallengeRelationSeed = (args: any) => {
+  const { id } = args;
+  return seed.doc(id, {
+    createdAt: new Date(),
+    ...args
+  });
+};
+
 const muscleCategoryId = ulid();
 const meditationCategoryId = ulid();
 const getUpCategoryId = ulid();
 const noFapCategoryId = ulid();
 
-const muscleChallngeIds = [ulid(), ulid()];
+const muscleChallngeId = ulid();
+const muscleChallngeIds = [muscleChallngeId, ulid()];
 const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
 const noFapChallengeIds: string[] = [];
+
+const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
+
+const titanMuscleRelationId = `${titanUserId}_${muscleChallngeIds[0]}`;
 
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
@@ -112,7 +125,7 @@ const userSeeds = seed.collection('users', [
   createUserSeed({
     email: '',
     displayName: 'Titan',
-    id: 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2',
+    id: titanUserId,
     photoURL:
       'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
   }),
@@ -122,6 +135,14 @@ const userSeeds = seed.collection('users', [
     id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
     photoURL:
       'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg'
+  })
+]);
+
+const userChallengeRelationSeess = seed.collection('user_challenge_relations', [
+  createUserChallengeRelationSeed({
+    id: titanMuscleRelationId,
+    userId: titanUserId,
+    challengeId: muscleChallngeId
   })
 ]);
 
@@ -135,6 +156,7 @@ export const createCollections = () => {
   createCollection(categorySeeds);
   createCollection(challengeSeeds);
   createCollection(userSeeds);
+  createCollection(userChallengeRelationSeess);
 };
 
 const deleteCollection = (title: string) => {
