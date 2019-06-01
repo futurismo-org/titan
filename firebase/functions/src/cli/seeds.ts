@@ -125,18 +125,6 @@ const userSeeds = seed.collection('users', [
   })
 ]);
 
-const createCategories = () => {
-  categorySeeds.importDocuments(cli).catch((e: any) => {
-    console.log('Failed to import documents: ' + e);
-  });
-};
-
-const createChallenges = () => {
-  challengeSeeds.importDocuments(cli).catch((e: any) => {
-    console.log('Failed to impzort documents: ' + e);
-  });
-};
-
 const createCollection = (seeds: any) => {
   seeds.importDocuments(cli).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
@@ -144,8 +132,8 @@ const createCollection = (seeds: any) => {
 };
 
 export const createCollections = () => {
-  createCategories();
-  createChallenges();
+  createCollection(categorySeeds);
+  createCollection(challengeSeeds);
   createCollection(userSeeds);
 };
 
