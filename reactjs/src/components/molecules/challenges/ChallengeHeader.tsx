@@ -52,7 +52,7 @@ const ChallengeHeader = (props: any) => {
       }
       <Overlay />
       <Grid container>
-        <Grid item md={6}>
+        <Grid item md={9}>
           <MainFeaturedPostContent>
             <Typography
               component="h1"

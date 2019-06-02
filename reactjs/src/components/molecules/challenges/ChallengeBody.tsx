@@ -5,6 +5,7 @@ import ChallengeOverview from './ChallengeOverview';
 import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
+import ChallengePosts from './ChallengePosts';
 
 import theme from '../../../lib/theme';
 
@@ -33,6 +34,7 @@ const ChallengeBody = (props: any) => {
           path="/challenges/:id/leaderboard"
           component={ChallengeLeaderBoard}
         />
+        <Route path="/challenges/:id/posts" component={ChallengePosts} />
       </Switch>
     </ChallengeContent>
   );

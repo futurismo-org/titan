@@ -10,12 +10,23 @@ const cliConfig = require('../utils/config');
 cli.initializeApp(cliConfig);
 faker.locale = 'ja';
 
-/* eslint-disable no-console */
+const muscleCategoryId = ulid();
+const meditationCategoryId = ulid();
+const getUpCategoryId = ulid();
+const noFapCategoryId = ulid();
+
+const muscleChallngeId = ulid();
+const muscleChallngeIds = [muscleChallngeId, ulid()];
+const meditationChallngeIds = [ulid()];
+const getUpChallngeIds = [ulid()];
+const noFapChallengeIds: string[] = [];
+
+const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
 
 const createChallengeSeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: faker.date.recent(),
+    createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
@@ -27,7 +38,7 @@ const createChallengeSeed = (args: any) => {
 const createCategorySeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: faker.date.recent(),
+    createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
@@ -35,22 +46,22 @@ const createCategorySeed = (args: any) => {
   });
 };
 
-const muscleCategoryId = ulid();
-const meditationCategoryId = ulid();
-const getUpCategoryId = ulid();
-const noFapCategoryId = ulid();
-
-const muscleChallngeIds = [ulid(), ulid()];
-const meditationChallngeIds = [ulid()];
-const getUpChallngeIds = [ulid()];
-const noFapChallengeIds: string[] = [];
+const createUserSeed = (args: any) => {
+  const { id } = args;
+  return seed.doc(id, {
+    createdAt: new Date(),
+    updatedAt: faker.date.recent(),
+    ...args
+  });
+};
 
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: muscleChallngeIds[0],
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
-    description: '筋肉は裏切らない'
+    description: '筋肉は裏切らない',
+    participants: []
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -99,21 +110,33 @@ const categorySeeds = seed.collection('categories', [
   })
 ]);
 
-const createCategories = () => {
-  categorySeeds.importDocuments(cli).catch((e: any) => {
-    console.log('Failed to import documents: ' + e);
-  });
-};
+const userSeeds = seed.collection('users', [
+  createUserSeed({
+    email: '',
+    displayName: 'Titan',
+    id: titanUserId,
+    photoURL:
+      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
+  }),
+  createUserSeed({
+    email: '',
+    displayName: 'tsu-nera',
+    id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg'
+  })
+]);
 
-const createChallenges = () => {
-  challengeSeeds.importDocuments(cli).catch((e: any) => {
+const createCollection = (seeds: any) => {
+  seeds.importDocuments(cli).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
   });
 };
 
 export const createCollections = () => {
-  createCategories();
-  createChallenges();
+  createCollection(categorySeeds);
+  createCollection(challengeSeeds);
+  createCollection(userSeeds);
 };
 
 const deleteCollection = (title: string) => {
@@ -132,4 +155,5 @@ const deleteCollection = (title: string) => {
 export const deleteCollections = () => {
   deleteCollection('categories');
   deleteCollection('challenges');
+  deleteCollection('users');
 };
