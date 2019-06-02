@@ -7,18 +7,24 @@ import firebase from '../../lib/firebase';
 
 const joinHandler = (props: any) => {
   const { challengeId, userId } = props;
+
   const newData = {
     id: userId,
     histories: [],
     createdAt: new Date()
   };
+
   firebase
     .firestore()
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
     .doc(userId)
-    .set(newData);
+    .set(newData)
+    .then(() => {
+      window.alert('チャレンジに参加しました'); // eslint-disable-line
+    })
+    .then(() => (window.location.href = `/#/challenges/${challengeId}/posts`));// eslint-disable-line
 };
 
 const renderJoinButton = (props: any) => (
