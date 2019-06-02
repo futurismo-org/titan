@@ -15,7 +15,8 @@
     "build": "npm run verify",
     "watch": "TSC_NONPOLLING_WATCHER=1 yarn tsc -w",
     "db:seeds": "./bin/db_seeds.sh",
-    "db:clear": "./bin/db_clear.sh"
+    "db:clear": "./bin/db_clear.sh",
+    "search": "./bin/rg_fzf.sh"
   },
   "engines": {
     "node": "8"

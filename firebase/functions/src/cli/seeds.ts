@@ -70,7 +70,7 @@ const createParticipationSeed = (args: any) => {
   });
 };
 
-const challengeParticipantsSeeds = seed.subcollection('participants', [
+const challenge1sSeeds = seed.subcollection('participants', [
   createParticipationSeed({
     id: titanUserId,
     histories: [1, 2, 3, 4, 5].map(n =>
