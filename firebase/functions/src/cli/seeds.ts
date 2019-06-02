@@ -3,6 +3,10 @@ import faker from 'faker';
 import cli from 'firebase-admin';
 import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
 
+import moment from 'moment';
+
+var client = require('firebase-tools');
+
 const seed = require('firestore-seed');
 
 const cliConfig = require('../utils/config');
@@ -55,13 +59,36 @@ const createUserSeed = (args: any) => {
   });
 };
 
+const createParticipationSeed = (args: any) => {
+  const { id } = args;
+  const now = Date();
+  seed.doc(id, {
+    createdAt: now,
+    startDate: now,
+    updatedDate: now,
+    ...args
+  });
+};
+
+const challengeParticipantsSeeds = seed.subcollection('participants', [
+  createParticipationSeed({
+    id: titanUserId,
+    histories: [1, 2, 3, 4, 5].map(n =>
+      moment()
+        .subtract(n, 'days')
+        .toDate()
+    ),
+    days: 5
+  })
+]);
+
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: muscleChallngeIds[0],
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
-    participants: []
+    participants: challengeParticipantsSeeds[0]
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -152,8 +179,19 @@ const deleteCollection = (title: string) => {
     });
 };
 
+const deletePathResource = (path: string) => {
+  client.firestore
+    .delete(path, {
+      recursive: true,
+      yes: true
+    })
+    .catch((e: any) => {
+      console.log('Failed to delete documents: ' + e);
+    });
+};
+
 export const deleteCollections = () => {
-  deleteCollection('categories');
-  deleteCollection('challenges');
-  deleteCollection('users');
+  deletePathResource('/categories');
+  deletePathResource('/challenges');
+  deletePathResource('/users');
 };
