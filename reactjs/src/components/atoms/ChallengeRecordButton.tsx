@@ -2,19 +2,21 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
-const StyledTimerButton = styled(Button)`
-  font-size: 30px;
+const StyledRecordButton = styled(Button)`
+  && {
+    font-size: 20px;
+    margin: 10px;
+  }
 `;
 
-const TimerButton = (props: any) => (
-  <StyledTimerButton
-    className="timer-button"
+const RecordButton = (props: any) => (
+  <StyledRecordButton
     variant="contained"
     color={props.color}
     onClick={props.handleClick}
   >
     {props.text}
-  </StyledTimerButton>
+  </StyledRecordButton>
 );
 
-export default TimerButton;
+export default RecordButton;

@@ -106,7 +106,7 @@ const ChallengePosts = (props: any) => {
             />
             <RecordButton
               text="リセット"
-              color="secondary"
+              color="inherit"
               handleClick={() => confirm(data.days)}
             />
           </StyledTimerButtonContainer>
