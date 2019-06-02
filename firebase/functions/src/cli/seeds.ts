@@ -61,7 +61,7 @@ const createUserSeed = (args: any) => {
 
 const createParticipationSeed = (args: any) => {
   const { id } = args;
-  const now = Date();
+  const now = new Date();
   return seed.doc(id, {
     createdAt: now,
     startDate: now,
