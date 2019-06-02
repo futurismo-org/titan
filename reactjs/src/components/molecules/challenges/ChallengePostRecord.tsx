@@ -12,9 +12,9 @@ const StyledDays = styled.span`
 
 const StyledDaysText = styled.span`
   @media screen and (min-width: 768px) {
-    font-size: 6vw;
+    font-size: 5vw;
   }
-  font-size: 10vw;
+  font-size: 8vw;
 `;
 
 const StyledCard = styled(Card)`
@@ -33,7 +33,7 @@ const RecordBoard = (props: any) => (
         <StyledDays>{props.days}</StyledDays>
         <StyledDaysText>days</StyledDaysText>
       </div>
-      <StyledDaysText>達成しました！</StyledDaysText>
+      <StyledDaysText>連続達成しました！</StyledDaysText>
     </CardContent>
   </StyledCard>
 );

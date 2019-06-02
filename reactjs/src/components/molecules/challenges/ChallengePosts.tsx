@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -31,6 +31,9 @@ const ChallengePosts = (props: any) => {
   );
 
   const now = new Date();
+  const isDaysValid = (days: number) => {
+    return days !== undefined && days !== null && !isNaN(days);
+  };
 
   const writeRecord = (props: any) => {
     const { days, updatedAt } = props;
@@ -39,14 +42,14 @@ const ChallengePosts = (props: any) => {
       return;
     }
 
-    const tomorrow = days === undefined || isNaN(days) ? 1 : days + 1;
+    const tomorrow = !isDaysValid(days) ? 1 : days + 1;
 
     const updateData: any = {
       days: tomorrow,
       updatedAt: now
     };
 
-    if (days === 0) updateData.startDate = now;
+    if (!isDaysValid(days)) updateData.startDate = now;
 
     firebase
       .firestore()
@@ -60,13 +63,13 @@ const ChallengePosts = (props: any) => {
       .doc(resourceId)
       .update({
         days: 0,
-        startDate: now,
+        startDate: null,
         updatedAt: now
       });
   };
 
   const confirm = (days: any) => {
-    if (days === undefined) return;
+    if (!isDaysValid(days)) return;
 
     if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
       resetRecord();
@@ -74,7 +77,7 @@ const ChallengePosts = (props: any) => {
   };
 
   const formatDays = (days: any) => {
-    if (isNaN(days)) {
+    if (!isDaysValid(days)) {
       return 0;
     }
     return days;
@@ -82,13 +85,37 @@ const ChallengePosts = (props: any) => {
 
   const formatDate = (props: any): string => {
     const { days, startDate } = props;
-    if (days === undefined || days === 0 || startDate === undefined) {
+    if (
+      !isDaysValid(days) ||
+      days === 0 ||
+      startDate === undefined ||
+      startDate === null
+    ) {
       return 'なし';
     }
     return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
   };
 
   const data = value && value.data();
+
+  useEffect(() => {
+    if (
+      data !== undefined &&
+      data.updatedAt !== undefined &&
+      data.updatedAt !== null &&
+      moment(now).diff(moment(data.updatedAt.toDate()), 'days') > 1
+    ) {
+      firebase
+        .firestore()
+        .doc(resourceId)
+        .update({
+          days: NaN,
+          startDate: null,
+          updatedAt: null
+        })
+        .then(() => window.alert('記録をリセットしました'));　// eslint-disable-line
+    }
+  }, [data, now, resourceId]);
 
   return (
     <StyledCenterContainer>
