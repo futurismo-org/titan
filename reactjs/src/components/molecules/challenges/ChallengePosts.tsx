@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -31,34 +31,27 @@ const ChallengePosts = (props: any) => {
   );
 
   const now = new Date();
-  const initDate = new Date(0);
 
-  const [startDate, setStartDate] = useState(initDate);
-  const [days, setDays] = useState(0);
-  const [updatedAt, setUpdatedAt] = useState(initDate);
-
-  const writeRecord = () => {
-    if (updatedAt !== initDate && moment(updatedAt).isSame(now, 'day')) {
-      window.alert('記録の投稿は1日１回までです。'); // eslint-disable-line
+  const writeRecord = (props: any) => {
+    const { days, updatedAt } = props;
+    if (updatedAt && moment(updatedAt.toDate()).isSame(now, 'day')) {
+      window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
     }
 
-    const _days = days + 1;
-    const _startDate = days === 0 ? now : startDate;
+    const tomorrow = days === undefined || isNaN(days) ? 1 : days + 1;
+
+    const updateData: any = {
+      days: tomorrow,
+      updatedAt: now
+    };
+
+    if (days === 0) updateData.startDate = now;
 
     firebase
       .firestore()
       .doc(resourceId)
-      .update({
-        days: _days,
-        startDate: _startDate,
-        updatedAt: now
-      })
-      .then(() => {
-        setDays(_days);
-        setStartDate(_startDate);
-        setUpdatedAt(now);
-      });
+      .update(updateData);
   };
 
   const resetRecord = () => {
@@ -69,68 +62,52 @@ const ChallengePosts = (props: any) => {
         days: 0,
         startDate: now,
         updatedAt: now
-      })
-      .then(() => {
-        setDays(0);
-        setStartDate(now);
-        setUpdatedAt(now);
       });
   };
 
-  const confirm = () => {
+  const confirm = (days: any) => {
+    if (days === undefined) return;
+
     if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
       resetRecord();
     }
   };
 
-  const formatDate = (day: Date): string => {
-    if (
-      days === 0 ||
-      (day === undefined || moment(day).isSame(initDate, 'day'))
-    ) {
-      return 'なし';
+  const formatDays = (days: any) => {
+    if (isNaN(days)) {
+      return 0;
     }
-    return moment(day).format('YYYY年MM月DD日 HH:mm');
+    return days;
   };
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .get()
-      .then((doc: any) => doc.data())
-      .then((data: any) => {
-        if (data === undefined || data.days === undefined) {
-          setStartDate(initDate);
-          setDays(0);
-          setUpdatedAt(initDate);
-        } else {
-          console.log(data);
-          setStartDate(data.startDate);
-          setDays(data.days);
-          setUpdatedAt(data.updatedAt);
-        }
-      });
-  }, [initDate, resourceId]);
+  const formatDate = (props: any): string => {
+    const { days, startDate } = props;
+    if (days === undefined || days === 0 || startDate === undefined) {
+      return 'なし';
+    }
+    return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
+  };
+
+  const data = value && value.data();
 
   return (
     <StyledCenterContainer>
       {error && <strong>Error: {error}</strong>}
       {loading && <span>Collection: Loading...</span>}
-      {value && (
+      {data && (
         <React.Fragment>
-          <Record days={days} />
-          <h3>開始日: {formatDate(startDate)}</h3>
+          <Record days={formatDays(data.days)} />
+          <h3>開始日: {formatDate(data)}</h3>
           <StyledTimerButtonContainer>
             <RecordButton
               text="記録する"
               color="primary"
-              handleClick={writeRecord}
+              handleClick={() => writeRecord(data)}
             />
             <RecordButton
               text="リセット"
               color="secondary"
-              handleClick={confirm}
+              handleClick={() => confirm(data.days)}
             />
           </StyledTimerButtonContainer>
         </React.Fragment>
