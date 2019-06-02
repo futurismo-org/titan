@@ -7,6 +7,7 @@ import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
 import RecordButton from '../../atoms/ChallengeRecordButton';
+import ChallengeHistories from './ChallengeHistories';
 
 const StyledCenterContainer = styled.div`
   margin-top: 80px;
@@ -137,6 +138,7 @@ const ChallengePosts = (props: any) => {
               handleClick={() => confirm(data.days)}
             />
           </StyledTimerButtonContainer>
+          <ChallengeHistories histories={data.histories} />
         </React.Fragment>
       )}
     </StyledCenterContainer>
