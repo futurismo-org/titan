@@ -62,7 +62,7 @@ const createUserSeed = (args: any) => {
 const createParticipationSeed = (args: any) => {
   const { id } = args;
   const now = Date();
-  seed.doc(id, {
+  return seed.doc(id, {
     createdAt: now,
     startDate: now,
     updatedDate: now,
@@ -70,7 +70,7 @@ const createParticipationSeed = (args: any) => {
   });
 };
 
-const challenge1sSeeds = seed.subcollection('participants', [
+const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanUserId,
     histories: [1, 2, 3, 4, 5].map(n =>
@@ -88,7 +88,7 @@ const challengeSeeds = seed.collection('challenges', [
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
-    participants: challengeParticipantsSeeds[0]
+    participants: challengeParticipantsSeeds
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
