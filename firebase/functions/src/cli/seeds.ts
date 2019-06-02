@@ -70,14 +70,20 @@ const createParticipationSeed = (args: any) => {
   });
 };
 
+const createChallengeHistorySeed = (n: number) => {
+  return {
+    id: n,
+    date: moment()
+      .subtract(n, 'days')
+      .toDate(),
+    content: ''
+  };
+};
+
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanUserId,
-    histories: [1, 2, 3, 4, 5].map(n =>
-      moment()
-        .subtract(n, 'days')
-        .toDate()
-    ),
+    histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5
   })
 ]);
