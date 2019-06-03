@@ -34,9 +34,11 @@ const ChallengeHistories = (props: any) => {
         過去の記録
       </Typography>
       <List>
-        {histories.map((history: any) => {
-          return <History key={history.id} timestamp={history.timestamp} />;
-        })}
+        {histories
+          .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
+          .map((history: any) => {
+            return <History key={history.id} timestamp={history.timestamp} />;
+          })}
       </List>
     </React.Fragment>
   );
