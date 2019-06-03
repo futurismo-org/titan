@@ -90,7 +90,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     score: 5
   }),
   ...dummyUserIds.map((id: string) => {
-    createParticipationSeed({
+    return createParticipationSeed({
       id: id,
       histories: [
         ...Array(faker.random.number({ min: 3, max: 10 })).keys()
