@@ -73,7 +73,7 @@ const createParticipationSeed = (args: any) => {
 const createChallengeHistorySeed = (n: number) => {
   return {
     id: n,
-    date: moment()
+    timestamp: moment()
       .subtract(n, 'days')
       .toDate(),
     content: ''

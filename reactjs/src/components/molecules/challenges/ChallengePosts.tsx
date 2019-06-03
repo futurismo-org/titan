@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
@@ -45,9 +46,16 @@ const ChallengePosts = (props: any) => {
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
 
+    const newHistory = {
+      id: ulid(),
+      timestamp: new Date(),
+      content: ''
+    };
+
     const updateData: any = {
       days: tomorrow,
-      updatedAt: now
+      updatedAt: now,
+      histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
     if (!isDaysValid(days)) updateData.startDate = now;
@@ -59,14 +67,16 @@ const ChallengePosts = (props: any) => {
   };
 
   const resetRecord = () => {
+    const resetData = {
+      days: 0,
+      startDate: null,
+      updatedAt: now
+    };
+
     firebase
       .firestore()
       .doc(resourceId)
-      .update({
-        days: 0,
-        startDate: null,
-        updatedAt: now
-      });
+      .update(resetData);
   };
 
   const confirm = (days: any) => {

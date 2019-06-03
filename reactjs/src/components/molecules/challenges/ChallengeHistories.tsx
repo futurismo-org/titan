@@ -12,15 +12,15 @@ const formatDate = (date: string): string => {
 };
 
 interface Props {
-  date: firestore.Timestamp;
+  timestamp: firestore.Timestamp;
 }
 
 const History = (props: Props) => {
-  const { date } = props;
+  const { timestamp } = props;
 
   return (
     <ListItem button>
-      <ListItemText primary={formatDate(date.toDate().toISOString())} />
+      <ListItemText primary={formatDate(timestamp.toDate().toISOString())} />
     </ListItem>
   );
 };
@@ -35,7 +35,7 @@ const ChallengeHistories = (props: any) => {
       </Typography>
       <List>
         {histories.map((history: any) => {
-          return <History key={history.id} date={history.date} />;
+          return <History key={history.id} timestamp={history.timestamp} />;
         })}
       </List>
     </React.Fragment>
