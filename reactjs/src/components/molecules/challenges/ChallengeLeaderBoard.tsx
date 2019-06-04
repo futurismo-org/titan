@@ -33,6 +33,7 @@ const ChallengeLeaderBoard = (props: any) => {
               <TableCell>名前</TableCell>
               <TableCell>スコア</TableCell>
               <TableCell>連続日数</TableCell>
+              <TableCell>最新</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,6 +54,7 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell>{doc.data().displayName}</TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <TableCell>{doc.data().days}</TableCell>
+                  <TableCell>{doc.data().updatedAt}</TableCell>
                 </TableRow>
               ))}
           </TableBody>
