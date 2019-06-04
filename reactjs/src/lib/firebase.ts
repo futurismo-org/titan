@@ -1,15 +1,13 @@
 import firebase from 'firebase/app';
+import { configDev, configProd } from './config';
 
 import 'firebase/auth';
 import 'firebase/firestore';
 
-let config;
-if (process.env.development) {
-  config = require('./config');
+if (process.env.NODE_ENV === 'development') {
+  firebase.initializeApp(configDev);
 } else {
-  config = require('./config.prod');
+  firebase.initializeApp(configProd);
 }
-
-firebase.initializeApp(config);
 
 export default firebase;

@@ -1,11 +1,11 @@
+import { configDev, configProd } from './config';
+
 const firebase = require('firebase');
 
-let config: any;
-if (process.env.development) {
-  config = require('./config');
+if (process.env.NODE_ENV === 'development') {
+  if (!firebase.app.length) firebase.initializeApp(configDev);
 } else {
-  config = require('./config.prod');
+  if (!firebase.app.length) firebase.initializeApp(configProd);
 }
-if (!firebase.app.length) firebase.initializeApp(config);
 
 module.exports = { firebase };
