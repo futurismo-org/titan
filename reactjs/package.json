@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .js,.jsx,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx",
     "watch": "TSC_NONPOLLING_WATCHER=1 yarn tsc -w",
-    "search": "./bin/rg_fzf.sh"
+    "rrg": "./bin/rg_fzf_remote.sh",
+    "rg": "./bin/rg_fzf.sh"
   },
   "dependencies": {
     "@material-ui/core": "^4.0.0",

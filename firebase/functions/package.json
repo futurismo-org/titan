@@ -17,7 +17,8 @@
     "db:seeds": "./bin/db_seeds.sh",
     "db:clear": "./bin/db_clear.sh",
     "db:generate": "npm run db:clear && npm run db:seeds",
-    "search": "./bin/rg_fzf.sh"
+    "rrg": "./bin/rg_fzf_remote.sh",
+    "rg": "./bin/rg_fzf.sh"
   },
   "engines": {
     "node": "8"

@@ -1,7 +1,6 @@
 import { ulid } from 'ulid';
 import faker from 'faker';
 import cli from 'firebase-admin';
-import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
 
 import moment from 'moment';
 
@@ -26,6 +25,8 @@ const getUpChallngeIds = [ulid()];
 const noFapChallengeIds: string[] = [];
 
 const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
+
+const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
 
 const createChallengeSeed = (args: any) => {
   const { id } = args;
@@ -84,7 +85,20 @@ const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanUserId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
-    days: 5
+    days: 5,
+    score: 5
+  }),
+  ...dummyUserIds.map((id: string) => {
+    return createParticipationSeed({
+      id: id,
+      histories: [
+        ...Array(faker.random.number({ min: 3, max: 10 })).keys()
+      ].map((n: number) => createChallengeHistorySeed(n)),
+      days: faker.random.number({ min: 0, max: 30 }),
+      score: faker.random.number({ min: 0, max: 30 }),
+      displayName: faker.name.firstName(),
+      photoURL: faker.image.imageUrl()
+    });
   })
 ]);
 
@@ -157,6 +171,14 @@ const userSeeds = seed.collection('users', [
     id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
     photoURL:
       'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg'
+  }),
+  ...dummyUserIds.map((id: string) => {
+    return createUserSeed({
+      id: id,
+      email: faker.internet.email(),
+      displayName: faker.name.firstName(),
+      photoURL: faker.image.imageUrl()
+    });
   })
 ]);
 
@@ -167,22 +189,9 @@ const createCollection = (seeds: any) => {
 };
 
 export const createCollections = () => {
+  createCollection(userSeeds);
   createCollection(categorySeeds);
   createCollection(challengeSeeds);
-  createCollection(userSeeds);
-};
-
-const deleteCollection = (title: string) => {
-  cli
-    .firestore()
-    .collection(title)
-    .get()
-    .then((query: QuerySnapshot) =>
-      query.docs.map((doc: DocumentSnapshot) => doc.ref.delete())
-    )
-    .catch((e: any) => {
-      console.log('Failed to delete documents: ' + e);
-    });
 };
 
 const deletePathResource = (path: string) => {
