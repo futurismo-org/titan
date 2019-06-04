@@ -27,6 +27,7 @@ const ChallengeLeaderBoard = (props: any) => {
           <TableHead>
             <TableRow>
               <TableCell>順位</TableCell>
+              <TableCell>名前</TableCell>
               <TableCell>スコア</TableCell>
               <TableCell>連続日数</TableCell>
             </TableRow>
@@ -43,6 +44,7 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell component="th" scope="row">
                     {index + 1}位
                   </TableCell>
+                  <TableCell>{doc.data().displayName}</TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <TableCell>{doc.data().days}</TableCell>
                 </TableRow>

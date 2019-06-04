@@ -3,7 +3,6 @@
   "description": "自己変革の火をつけるWebサービス",
   "scripts": {
     "up": "nf start",
-    "open": "ngrok http 3000",
     "install:all": "yarn install && cd reactjs && yarn install && cd ../ && cd firebase/functions && yarn install",
     "deploy:all": "npm run verify && cd reactjs && npm run deploy && cd ../firebase/functions && npm run deploy",
     "lint": "cd reactjs && npm run lint && cd ../firebase/functions && npm run lint",
