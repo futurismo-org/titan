@@ -1,16 +1,12 @@
 import { ulid } from 'ulid';
 import faker from 'faker';
-import cli from 'firebase-admin';
-
 import moment from 'moment';
 
-var client = require('firebase-tools');
+import admin from '../utils/admin';
 
+const client = require('firebase-tools');
 const seed = require('firestore-seed');
 
-const cliConfig = require('../utils/config');
-
-cli.initializeApp(cliConfig);
 faker.locale = 'ja';
 
 const muscleCategoryId = ulid();
@@ -66,7 +62,7 @@ const createParticipationSeed = (args: any) => {
   return seed.doc(id, {
     createdAt: now,
     startDate: now,
-    updatedDate: now,
+    updatedAt: now,
     ...args
   });
 };
@@ -183,7 +179,7 @@ const userSeeds = seed.collection('users', [
 ]);
 
 const createCollection = (seeds: any) => {
-  seeds.importDocuments(cli).catch((e: any) => {
+  seeds.importDocuments(admin).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
   });
 };
