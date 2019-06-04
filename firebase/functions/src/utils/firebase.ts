@@ -1,6 +1,11 @@
 const firebase = require('firebase');
-const config = require('./config');
 
+let config: any;
+if (process.env.development) {
+  config = require('./config');
+} else {
+  config = require('./config.prod');
+}
 if (!firebase.app.length) firebase.initializeApp(config);
 
 module.exports = { firebase };

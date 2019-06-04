@@ -1,5 +1,11 @@
 const admin = require('firebase-admin');
-const config = require('./config');
+
+let config: any;
+if (process.env.development) {
+  config = require('./config');
+} else {
+  config = require('./config.prod');
+}
 
 export const initializeApp = () => {
   if (!admin.app.length) admin.initializeApp(config);
