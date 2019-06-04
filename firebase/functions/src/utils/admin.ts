@@ -1,11 +1,12 @@
+import admin from 'firebase-admin';
 import { configDev, configProd } from './config';
 
-const admin = require('firebase-admin');
-
-if (process.env.NODE_ENV === 'development') {
-  if (!admin.app.length) admin.initializeApp(configDev);
-} else {
-  if (!admin.app.length) admin.initializeApp(configProd);
+if (admin.apps.length === 0) {
+  if (process.env.APP_ENV === 'development') {
+    admin.initializeApp(configDev);
+  } else {
+    admin.initializeApp(configProd);
+  }
 }
 
 export const db = admin.firestore();
