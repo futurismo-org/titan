@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
+import moment from 'moment';
 import Avatar from '../../atoms/Avatar';
 
 import firebase from '../../../lib/firebase';
@@ -54,7 +55,9 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell>{doc.data().displayName}</TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <TableCell>{doc.data().days}</TableCell>
-                  <TableCell>{doc.data().updatedAt}</TableCell>
+                  <TableCell>
+                    {moment(doc.data().updatedAt.toDate()).fromNow()}
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

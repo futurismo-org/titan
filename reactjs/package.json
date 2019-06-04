@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "PORT=3000 REACT_APP_ENV=development react-scripts start",
     "build": "react-scripts build",
-    "deploy:netlify": "REACT_APP_ENV=development npm run build && npm run export", 
+    "deploy:netlify": "REACT_APP_ENV=development npm run build && npm run export",
     "deploy:development": "REACT_APP_ENV=development npm run build && firebase deploy -P development",
     "deploy:production": "REACT_APP_ENV=production npm run build && firebase deploy -P production",
     "lint": "eslint . --ext .js,.jsx,.tsx",
@@ -22,6 +22,7 @@
     "firebase-functions": "^2.3.1",
     "firebaseui": "^4.0.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.25",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
@@ -43,6 +44,7 @@
   },
   "devDependencies": {
     "@types/material-ui": "^0.21.6",
+    "@types/moment-timezone": "^0.5.12",
     "@types/node": "^12.0.2",
     "@types/node-fetch": "^2.3.4",
     "@types/react": "^16.8.19",
