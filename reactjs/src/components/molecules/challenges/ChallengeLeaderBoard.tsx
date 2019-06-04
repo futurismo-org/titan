@@ -6,6 +6,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
+import Avatar from '../../atoms/Avatar';
+
 import firebase from '../../../lib/firebase';
 
 const ChallengeLeaderBoard = (props: any) => {
@@ -27,6 +29,7 @@ const ChallengeLeaderBoard = (props: any) => {
           <TableHead>
             <TableRow>
               <TableCell>順位</TableCell>
+              <TableCell />
               <TableCell>名前</TableCell>
               <TableCell>スコア</TableCell>
               <TableCell>連続日数</TableCell>
@@ -43,6 +46,9 @@ const ChallengeLeaderBoard = (props: any) => {
                 <TableRow key={doc.data().id}>
                   <TableCell component="th" scope="row">
                     {index + 1}位
+                  </TableCell>
+                  <TableCell>
+                    <Avatar src={doc.data().photoURL} />
                   </TableCell>
                   <TableCell>{doc.data().displayName}</TableCell>
                   <TableCell>{doc.data().score}</TableCell>

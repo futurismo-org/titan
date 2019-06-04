@@ -7,7 +7,6 @@ const defaultUserIcon = `${process.env.PUBLIC_URL}/anonymous.png`;
 
 const StyledAvatar = styled(Avatar)`
   && {
-    margin: 10px;
     background-color: white;
   }
 ` as React.ComponentType<AvatarProps>;

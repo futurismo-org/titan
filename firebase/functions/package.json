@@ -16,7 +16,7 @@
     "watch": "TSC_NONPOLLING_WATCHER=1 yarn tsc -w",
     "db:seeds": "./bin/db_seeds.sh",
     "db:clear": "./bin/db_clear.sh",
-    "db:rgenerate": "npm run db:clear && npm run db:seeds",
+    "db:generate": "npm run db:clear && npm run db:seeds",
     "rrg": "./bin/rg_fzf_remote.sh",
     "rg": "./bin/rg_fzf.sh"
   },
