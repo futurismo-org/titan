@@ -1,7 +1,6 @@
 import { ulid } from 'ulid';
 import faker from 'faker';
 import cli from 'firebase-admin';
-import { DocumentSnapshot, QuerySnapshot } from '@google-cloud/firestore';
 
 import moment from 'moment';
 
@@ -96,7 +95,9 @@ const challengeParticipantsSeeds = seed.subcollection([
         ...Array(faker.random.number({ min: 3, max: 10 })).keys()
       ].map((n: number) => createChallengeHistorySeed(n)),
       days: faker.random.number({ min: 0, max: 30 }),
-      score: faker.random.number({ min: 0, max: 30 })
+      score: faker.random.number({ min: 0, max: 30 }),
+      displayName: faker.name.firstName(),
+      photoURL: faker.image.imageUrl()
     });
   })
 ]);

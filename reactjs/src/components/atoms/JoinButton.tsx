@@ -6,12 +6,16 @@ import styled from 'styled-components';
 import firebase from '../../lib/firebase';
 
 const joinHandler = (props: any) => {
-  const { challengeId, userId } = props;
+  const { challengeId, user } = props;
 
   const newData = {
-    id: userId,
+    id: user.id,
     histories: [],
-    createdAt: new Date()
+    createdAt: new Date(),
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    score: 0,
+    days: 0
   };
 
   firebase
@@ -19,7 +23,7 @@ const joinHandler = (props: any) => {
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
-    .doc(userId)
+    .doc(user.id)
     .set(newData)
     .then(() => {
       window.alert('チャレンジに参加しました'); // eslint-disable-line
@@ -55,10 +59,10 @@ const renderPostButton = (props: any) => (
 );
 
 const JoinButton = (props: any) => {
-  const { challengeId, userId } = props;
+  const { challengeId, user } = props;
   const [join, setJoin] = useState(false);
 
-  if (challengeId === undefined || userId === undefined) {
+  if (challengeId === undefined || user.id === undefined) {
     console.log('loading...');
     return <div />;
   }
@@ -68,17 +72,17 @@ const JoinButton = (props: any) => {
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
-    .where('id', '==', userId)
+    .where('id', '==', user.id)
     .get()
     .then((s: any) => setJoin(!s.empty));
 
   return join
     ? renderPostButton({ id: challengeId })
-    : renderJoinButton({ userId, challengeId });
+    : renderJoinButton({ user, challengeId });
 };
 
 const mapStateToProps = (state: any, props: {}) => ({
-  userId: state.firebase.profile.id,
+  user: state.firebase.profile,
   ...props
 });
 
