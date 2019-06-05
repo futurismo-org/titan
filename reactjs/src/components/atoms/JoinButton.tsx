@@ -7,14 +7,14 @@ import firebase from '../../lib/firebase';
 
 interface Props {
   challengeId: string;
-  user: firebase.User;
+  user: any;
 }
 
 const joinHandler = (props: Props) => {
   const { challengeId, user } = props;
 
   const newData = {
-    id: user.uid,
+    id: user.id,
     histories: [],
     createdAt: new Date(),
     displayName: user.displayName,
@@ -28,7 +28,7 @@ const joinHandler = (props: Props) => {
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
-    .doc(user.uid)
+    .doc(user.id)
     .set(newData)
     .then(() => {
       window.alert('チャレンジに参加しました'); // eslint-disable-line

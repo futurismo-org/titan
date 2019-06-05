@@ -19,29 +19,27 @@ const StyledDialogTitle = styled(DialogTitle)`
   }
 ` as React.ComponentType<DialogTitleProps>;
 
-const uiConfig = {
-  signInFlow: 'popup',
-  signInSuccessUrl: '/',
-  signInOptions: [
-    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.TwitterAuthProvider.PROVIDER_ID
-  ],
-  callbacks: {
-    // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: (
-      credentials: firebase.auth.UserCredential
-    ) => {
-      if (credentials.additionalUserInfo) {
-        // const twitterProfile = credentials.additionalUserInfo.profile;
-      }
-      return false;
-    }
-  }
-};
-
 const AuthModal = (props: any) => {
   const handleClose = () => {
     props.onClose();
+  };
+
+  const uiConfig = {
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      // Avoid redirects after sign-in.
+      signInSuccessWithAuthResult: (
+        credentials: firebase.auth.UserCredential
+      ) => {
+        props.setUserInfo(credentials!.additionalUserInfo!.profile);
+        return false;
+      }
+    }
   };
 
   const { onClose, title, ...other } = props;
@@ -55,9 +53,6 @@ const AuthModal = (props: any) => {
       >
         <StyledDialogTitle>{title}</StyledDialogTitle>
         <DialogContent>
-          {/* <StyledAuthBasicForm>
-            {title === '登録' ? <SignUpForm /> : <LoginForm />}
-          </StyledAuthBasicForm> */}
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
