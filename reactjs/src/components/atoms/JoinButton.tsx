@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { firestore } from 'firebase';
 import firebase from '../../lib/firebase';
 
 interface Props {
@@ -26,15 +27,29 @@ const joinHandler = (props: Props) => {
 
   firebase
     .firestore()
-    .collection('challenges')
-    .doc(challengeId)
-    .collection('participants')
-    .doc(user.id)
-    .set(newData)
-    .then(() => {
-      window.alert('チャレンジに参加しました'); // eslint-disable-line
+    .runTransaction(async (transaction: firestore.Transaction) => {
+      await firebase
+        .firestore()
+        .collection('challenges')
+        .doc(challengeId)
+        .get()
+        .then((doc: firestore.DocumentSnapshot) => {
+          const current: number = doc.data()!.participantsCount;
+          doc.ref.update({ participantsCount: current + 1 });
+        });
+      await firebase
+        .firestore()
+        .collection('challenges')
+        .doc(challengeId)
+        .collection('participants')
+        .doc(user.id)
+        .set(newData)
+        .then(() => {
+        window.alert('チャレンジに参加しました'); // eslint-disable-line
+        })
+      .then(() => (window.location.href = `/#/challenges/${challengeId}/posts`));// eslint-disable-line
     })
-    .then(() => (window.location.href = `/#/challenges/${challengeId}/posts`));// eslint-disable-line
+    .then(() => console.log('successfully updated'));
 };
 
 const renderJoinButton = (props: any) => (

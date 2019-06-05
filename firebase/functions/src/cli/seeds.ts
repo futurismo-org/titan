@@ -104,25 +104,29 @@ const challengeSeeds = seed.collection('challenges', [
     category: muscleCategoryId,
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
-    participants: challengeParticipantsSeeds
+    participants: challengeParticipantsSeeds,
+    participantsCount: 30
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
     category: muscleCategoryId,
     title: '体重計測３０日チャレンジ',
-    description: '毎日元気に体重計'
+    description: '毎日元気に体重計',
+    participantsCount: 0
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
     category: meditationCategoryId,
     title: '瞑想7日間チャレンジ',
-    description: '瞑想は怪しくないよ'
+    description: '瞑想は怪しくないよ',
+    participantsCount: 0
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
     category: getUpCategoryId,
     title: '早起きチャレンジ',
-    description: '朝だ夜明けだ潮の息吹'
+    description: '朝だ夜明けだ潮の息吹',
+    participantsCount: 0
   })
 ]);
 

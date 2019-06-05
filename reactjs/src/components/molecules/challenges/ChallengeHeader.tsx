@@ -6,6 +6,10 @@ import styled from 'styled-components';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
 
+const HeaderInfo = styled.div`
+  display: flex;
+`;
+
 const MainFeaturedPost = styled(Paper)`
   && {
     position: relative;
@@ -37,6 +41,12 @@ const MainFeaturedPostContent = styled.div`
   }
 `;
 
+const ParticipantsCount = styled.h3`
+  margin: 10px;
+  vertical-align: middle;
+  text-align: center;
+`;
+
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
@@ -65,7 +75,14 @@ const ChallengeHeader = (props: any) => {
             <Typography variant="h5" color="inherit" paragraph>
               {challenge.description}
             </Typography>
-            <JoinButton challengeId={challenge.id} />
+            <HeaderInfo>
+              <JoinButton challengeId={challenge.id} />
+              <ParticipantsCount>
+                <Typography color="inherit">
+                  {challenge.participantsCount}人参加中
+                </Typography>
+              </ParticipantsCount>
+            </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>
       </Grid>
