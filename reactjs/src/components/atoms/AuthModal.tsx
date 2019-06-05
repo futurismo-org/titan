@@ -36,7 +36,10 @@ const AuthModal = (props: any) => {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        props.setUserInfo(credentials!.additionalUserInfo!.profile);
+        /// props.setUserInfo(credentials!.additionalUserInfo!.profile);
+
+        // userドキュメントの作成は、Cloud Functionsで現在はやっているが、
+        // このコールバックでやったほうがいい、というかやらないと、排他が難しいのでは？
         return false;
       }
     }
