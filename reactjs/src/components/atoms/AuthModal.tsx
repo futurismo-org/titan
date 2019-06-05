@@ -2,11 +2,8 @@ import * as React from 'react';
 import { Dialog, DialogContent } from '@material-ui/core';
 import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import styled from 'styled-components';
-// import SignUpForm from './SignUpForm';
-// import LoginForm from './LoginForm';
+import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';
 
@@ -22,22 +19,30 @@ const StyledDialogTitle = styled(DialogTitle)`
   }
 ` as React.ComponentType<DialogTitleProps>;
 
-// const StyledAuthBasicForm = styled.div`
-//   text-align: center;
-// `;
-
-const uiConfig = {
-  signInFlow: 'popup',
-  signInSuccessUrl: '/',
-  signInOptions: [
-    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.TwitterAuthProvider.PROVIDER_ID
-  ]
-};
-
 const AuthModal = (props: any) => {
   const handleClose = () => {
     props.onClose();
+  };
+
+  const uiConfig = {
+    signInFlow: 'popup',
+    signInSuccessUrl: '/',
+    signInOptions: [
+      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+      // Avoid redirects after sign-in.
+      signInSuccessWithAuthResult: (
+        credentials: firebase.auth.UserCredential
+      ) => {
+        /// props.setUserInfo(credentials!.additionalUserInfo!.profile);
+
+        // userドキュメントの作成は、Cloud Functionsで現在はやっているが、
+        // このコールバックでやったほうがいい、というかやらないと、排他が難しいのでは？
+        return false;
+      }
+    }
   };
 
   const { onClose, title, ...other } = props;
@@ -51,9 +56,6 @@ const AuthModal = (props: any) => {
       >
         <StyledDialogTitle>{title}</StyledDialogTitle>
         <DialogContent>
-          {/* <StyledAuthBasicForm>
-            {title === '登録' ? <SignUpForm /> : <LoginForm />}
-          </StyledAuthBasicForm> */}
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}

@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
-import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import ChallengePosts from './ChallengePosts';
 
 import theme from '../../../lib/theme';
+import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;

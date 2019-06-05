@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from '../../lib/firebase';
 
-const joinHandler = (props: any) => {
+interface Props {
+  challengeId: string;
+  user: any;
+}
+
+const joinHandler = (props: Props) => {
   const { challengeId, user } = props;
 
   const newData = {

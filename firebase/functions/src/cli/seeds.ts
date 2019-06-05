@@ -1,28 +1,24 @@
 import { ulid } from 'ulid';
 import faker from 'faker';
-import cli from 'firebase-admin';
-
 import moment from 'moment';
 
-var client = require('firebase-tools');
+import admin from '../utils/admin';
 
+const client = require('firebase-tools');
 const seed = require('firestore-seed');
 
-const cliConfig = require('../utils/config');
-
-cli.initializeApp(cliConfig);
 faker.locale = 'ja';
 
 const muscleCategoryId = ulid();
 const meditationCategoryId = ulid();
 const getUpCategoryId = ulid();
-const noFapCategoryId = ulid();
+// const noFapCategoryId = ulid();
 
 const muscleChallngeId = ulid();
 const muscleChallngeIds = [muscleChallngeId, ulid()];
 const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
-const noFapChallengeIds: string[] = [];
+// const noFapChallengeIds: string[] = [];
 
 const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
 
@@ -66,7 +62,7 @@ const createParticipationSeed = (args: any) => {
   return seed.doc(id, {
     createdAt: now,
     startDate: now,
-    updatedDate: now,
+    updatedAt: now,
     ...args
   });
 };
@@ -148,13 +144,13 @@ const categorySeeds = seed.collection('categories', [
     description: '良質な人生は良質な睡眠から',
     id: getUpCategoryId,
     challenges: getUpChallngeIds
-  }),
-  createCategorySeed({
-    title: 'オナ禁',
-    description: 'オナ禁で生活を豊かに',
-    id: noFapCategoryId,
-    challenges: noFapChallengeIds
   })
+  // createCategorySeed({
+  //   title: 'オナ禁',
+  //   description: 'オナ禁で生活を豊かに',
+  //   id: noFapCategoryId,
+  //   challenges: noFapChallengeIds
+  // })
 ]);
 
 const userSeeds = seed.collection('users', [
@@ -183,7 +179,7 @@ const userSeeds = seed.collection('users', [
 ]);
 
 const createCollection = (seeds: any) => {
-  seeds.importDocuments(cli).catch((e: any) => {
+  seeds.importDocuments(admin).catch((e: any) => {
     console.log('Failed to import documents: ' + e);
   });
 };
