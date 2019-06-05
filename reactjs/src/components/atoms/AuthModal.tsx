@@ -46,12 +46,9 @@ const AuthModal = (props: any) => {
           .collection('users')
           .doc(userId);
 
-        firebase
-          .firestore()
-          .runTransaction(async transaction => {
-            await transaction.update(userRef, data);
-          })
-          .then(() => console.log('successfully write twitterURL'));
+        firebase.firestore().runTransaction(async transaction => {
+          await transaction.update(userRef, data);
+        });
         return false;
       }
     }
