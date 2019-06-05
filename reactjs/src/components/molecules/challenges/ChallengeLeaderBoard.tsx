@@ -7,9 +7,15 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
+import styled from 'styled-components';
 import Avatar from '../../atoms/Avatar';
 
 import firebase from '../../../lib/firebase';
+
+const NoStyledLink = styled.a`
+  text-decoration: none;
+  color: 'inherit';
+`;
 
 const ChallengeLeaderBoard = (props: any) => {
   const id: string = props.match.params.id;
@@ -21,22 +27,28 @@ const ChallengeLeaderBoard = (props: any) => {
       .collection('participants')
   );
 
+  const LeaderBoardHead = () => (
+    <TableHead>
+      <TableRow>
+        <TableCell>順位</TableCell>
+        <TableCell />
+        <TableCell>名前</TableCell>
+        <TableCell>スコア</TableCell>
+        <TableCell>連続日数</TableCell>
+        <TableCell>最新</TableCell>
+      </TableRow>
+    </TableHead>
+  );
+
+  const twitterLink = props.userInfo.url || 'https://twitter.com';
+
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <span>Collection: Loading...</span>}
       {value && (
         <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>順位</TableCell>
-              <TableCell />
-              <TableCell>名前</TableCell>
-              <TableCell>スコア</TableCell>
-              <TableCell>連続日数</TableCell>
-              <TableCell>最新</TableCell>
-            </TableRow>
-          </TableHead>
+          <LeaderBoardHead />
           <TableBody>
             {value.docs
               .sort(
@@ -52,7 +64,11 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell>
                     <Avatar src={doc.data().photoURL} />
                   </TableCell>
-                  <TableCell>{doc.data().displayName}</TableCell>
+                  <TableCell>
+                    <NoStyledLink href={twitterLink}>
+                      {doc.data().displayName}
+                    </NoStyledLink>
+                  </TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <TableCell>{doc.data().days}</TableCell>
                   <TableCell>

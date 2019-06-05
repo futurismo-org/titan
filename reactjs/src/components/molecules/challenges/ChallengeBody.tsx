@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
-import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import ChallengePosts from './ChallengePosts';
 
 import theme from '../../../lib/theme';
+import ChallengeLeaderBoardContainer from '../../../containers/ChallengeLeaderBoardContainer';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -32,7 +32,7 @@ const ChallengeBody = (props: any) => {
         />
         <Route
           path="/challenges/:id/leaderboard"
-          component={ChallengeLeaderBoard}
+          component={ChallengeLeaderBoardContainer}
         />
         <Route path="/challenges/:id/posts" component={ChallengePosts} />
       </Switch>
