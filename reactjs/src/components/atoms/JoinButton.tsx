@@ -17,6 +17,7 @@ const joinHandler = (props: Props) => {
     id: user.id,
     histories: [],
     createdAt: new Date(),
+    updatedAt: new Date(),
     displayName: user.displayName,
     photoURL: user.photoURL,
     score: 0,

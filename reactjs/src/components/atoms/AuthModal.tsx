@@ -32,14 +32,23 @@ const AuthModal = (props: any) => {
       firebase.auth.TwitterAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        /// props.setUserInfo(credentials!.additionalUserInfo!.profile);
+        const userId = credentials.user!.uid;
 
-        // userドキュメントの作成は、Cloud Functionsで現在はやっているが、
-        // このコールバックでやったほうがいい、というかやらないと、排他が難しいのでは？
+        const data = {
+          twitterURL: (credentials.additionalUserInfo!.profile! as any).url
+        };
+
+        const userRef = firebase
+          .firestore()
+          .collection('users')
+          .doc(userId);
+
+        firebase.firestore().runTransaction(async transaction => {
+          await transaction.update(userRef, data);
+        });
         return false;
       }
     }
