@@ -17,7 +17,6 @@
   "dependencies": {
     "@material-ui/core": "^4.0.0",
     "@material-ui/icons": "^4.0.0",
-    "@types/moment": "^2.13.0",
     "firebase": "^6.1.0",
     "firebase-functions": "^2.3.1",
     "firebaseui": "^4.0.0",
@@ -53,6 +52,7 @@
     "@types/react-redux": "^7.0.9",
     "@types/react-router-dom": "^4.3.3",
     "@types/styled-components": "^4.1.15",
+    "@types/moment": "^2.13.0",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
     "eslint": "^5.16.0",

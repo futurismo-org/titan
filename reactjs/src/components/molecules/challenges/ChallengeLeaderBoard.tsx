@@ -40,8 +40,6 @@ const ChallengeLeaderBoard = (props: any) => {
     </TableHead>
   );
 
-  const twitterLink = props.userInfo.url || 'https://twitter.com';
-
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
@@ -65,7 +63,9 @@ const ChallengeLeaderBoard = (props: any) => {
                     <Avatar src={doc.data().photoURL} />
                   </TableCell>
                   <TableCell>
-                    <NoStyledLink href={twitterLink}>
+                    <NoStyledLink
+                      href={doc.data().twitterURL || 'https://twitter.com'}
+                    >
                       {doc.data().displayName}
                     </NoStyledLink>
                   </TableCell>
