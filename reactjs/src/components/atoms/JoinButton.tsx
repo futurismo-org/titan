@@ -5,11 +5,16 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import firebase from '../../lib/firebase';
 
-const joinHandler = (props: any) => {
+interface Props {
+  challengeId: string;
+  user: firebase.User;
+}
+
+const joinHandler = (props: Props) => {
   const { challengeId, user } = props;
 
   const newData = {
-    id: user.id,
+    id: user.uid,
     histories: [],
     createdAt: new Date(),
     displayName: user.displayName,
@@ -23,7 +28,7 @@ const joinHandler = (props: any) => {
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
-    .doc(user.id)
+    .doc(user.uid)
     .set(newData)
     .then(() => {
       window.alert('チャレンジに参加しました'); // eslint-disable-line

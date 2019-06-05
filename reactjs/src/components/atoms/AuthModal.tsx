@@ -32,7 +32,7 @@ const uiConfig = {
       credentials: firebase.auth.UserCredential
     ) => {
       if (credentials.additionalUserInfo) {
-        console.log(credentials.additionalUserInfo.profile);
+        // const twitterProfile = credentials.additionalUserInfo.profile;
       }
       return false;
     }
