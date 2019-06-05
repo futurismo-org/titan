@@ -2,11 +2,8 @@ import * as React from 'react';
 import { Dialog, DialogContent } from '@material-ui/core';
 import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import styled from 'styled-components';
-// import SignUpForm from './SignUpForm';
-// import LoginForm from './LoginForm';
+import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';
 
@@ -22,17 +19,24 @@ const StyledDialogTitle = styled(DialogTitle)`
   }
 ` as React.ComponentType<DialogTitleProps>;
 
-// const StyledAuthBasicForm = styled.div`
-//   text-align: center;
-// `;
-
 const uiConfig = {
   signInFlow: 'popup',
   signInSuccessUrl: '/',
   signInOptions: [
     // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.TwitterAuthProvider.PROVIDER_ID
-  ]
+  ],
+  callbacks: {
+    // Avoid redirects after sign-in.
+    signInSuccessWithAuthResult: (
+      credentials: firebase.auth.UserCredential
+    ) => {
+      if (credentials.additionalUserInfo) {
+        console.log(credentials.additionalUserInfo.profile);
+      }
+      return false;
+    }
+  }
 };
 
 const AuthModal = (props: any) => {

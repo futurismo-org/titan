@@ -1,6 +1,8 @@
+import firebase from 'firebase';
+
 const { db } = require('./utils/admin');
 
-const createUser = (user: any) => {
+const createUser = (user: firebase.User) => {
   const { uid } = user;
   const displayName = user.displayName || 'anonymous';
   const email = user.email || '';
