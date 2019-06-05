@@ -36,10 +36,17 @@ const AuthModal = (props: any) => {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        /// props.setUserInfo(credentials!.additionalUserInfo!.profile);
+        console.log(credentials);
 
-        // userドキュメントの作成は、Cloud Functionsで現在はやっているが、
-        // このコールバックでやったほうがいい、というかやらないと、排他が難しいのでは？
+        // const userId =
+
+        // firebase
+        //   .firestore()
+        //   .collection('users')
+        //   .doc(userId)
+        //   .update({
+        //     twitterURL: credentials!.additionalUserInfo!.profile.url
+        //   });
         return false;
       }
     }

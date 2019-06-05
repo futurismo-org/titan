@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import styled from 'styled-components';
-import AuthModal from '../../containers/userContainer';
+import AuthModal from './AuthModal';
 
 import theme from '../../lib/theme';
 
