@@ -32,21 +32,26 @@ const AuthModal = (props: any) => {
       firebase.auth.TwitterAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        console.log(credentials);
+        const userId = credentials.user!.uid;
 
-        // const userId =
+        const data = {
+          twitterURL: (credentials.additionalUserInfo!.profile! as any).url
+        };
 
-        // firebase
-        //   .firestore()
-        //   .collection('users')
-        //   .doc(userId)
-        //   .update({
-        //     twitterURL: credentials!.additionalUserInfo!.profile.url
-        //   });
+        const userRef = firebase
+          .firestore()
+          .collection('users')
+          .doc(userId);
+
+        firebase
+          .firestore()
+          .runTransaction(async transaction => {
+            await transaction.update(userRef, data);
+          })
+          .then(() => console.log('successfully write twitterURL'));
         return false;
       }
     }
