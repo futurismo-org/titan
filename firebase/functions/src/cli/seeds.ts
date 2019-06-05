@@ -12,13 +12,13 @@ faker.locale = 'ja';
 const muscleCategoryId = ulid();
 const meditationCategoryId = ulid();
 const getUpCategoryId = ulid();
-const noFapCategoryId = ulid();
+// const noFapCategoryId = ulid();
 
 const muscleChallngeId = ulid();
 const muscleChallngeIds = [muscleChallngeId, ulid()];
 const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
-const noFapChallengeIds: string[] = [];
+// const noFapChallengeIds: string[] = [];
 
 const titanUserId = 'MHgvTNT4JrMRKXCmnKbDMZkwv2l2';
 
@@ -144,13 +144,13 @@ const categorySeeds = seed.collection('categories', [
     description: '良質な人生は良質な睡眠から',
     id: getUpCategoryId,
     challenges: getUpChallngeIds
-  }),
-  createCategorySeed({
-    title: 'オナ禁',
-    description: 'オナ禁で生活を豊かに',
-    id: noFapCategoryId,
-    challenges: noFapChallengeIds
   })
+  // createCategorySeed({
+  //   title: 'オナ禁',
+  //   description: 'オナ禁で生活を豊かに',
+  //   id: noFapCategoryId,
+  //   challenges: noFapChallengeIds
+  // })
 ]);
 
 const userSeeds = seed.collection('users', [
