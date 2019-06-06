@@ -1,14 +1,17 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "expo": "../node_modules/.bin/expo",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "build:ios": "expo build:ios",
+    "build:android": "expo build:android",
     "build:web": "expo build:web",
-    "deploy:web": "../node_modules/.bin/netlify deploy --dir web-build"
+    "deploy:web": "../node_modules/.bin/netlify deploy --dir web-build",
+    "publish:web": "build:web && deploy:web",
+    "optimize": "expo optimize"
   },
   "dependencies": {
     "expo": "^33.0.0",

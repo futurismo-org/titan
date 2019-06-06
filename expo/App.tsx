@@ -5,7 +5,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Hello, Expo</Text>
-      <p>It's Awesome</p>
+      <Text>It's Awesome</Text>
     </View>
   );
 }

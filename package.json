@@ -25,7 +25,6 @@
     "verify": "npm run lint && npm run tsc"
   },
   "devDependencies": {
-    "expo-cli": "^2.19.1",
     "firebase-tools": "^6.11.0",
     "foreman": "^3.0.1",
     "netlify-cli": "^2.11.21",
