@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "build:web": "expo build:web"
+    "build:web": "expo build:web",
+    "deploy:web": "../node_modules/.bin/netlify deploy --dir web-build"
   },
   "dependencies": {
     "expo": "^33.0.0",
