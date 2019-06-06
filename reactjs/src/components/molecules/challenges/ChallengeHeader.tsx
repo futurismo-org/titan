@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
+import moment from 'moment';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
 
@@ -41,11 +42,29 @@ const MainFeaturedPostContent = styled.div`
   }
 `;
 
-const ParticipantsCount = styled.h3`
-  margin: 10px;
-  vertical-align: middle;
-  text-align: center;
-`;
+const HeaderInfoText = styled(Typography)`
+  padding-left: 10px;
+` as React.ComponentType<TypographyProps>;
+
+const ChallengePeriod = (props: any) => {
+  const { challenge } = props;
+  const openedAt = moment(challenge.openedAt.toDate());
+  const closedAt = moment(challenge.closedAt.toDate());
+  const today = moment(new Date());
+
+  const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
+
+  if (openedAt.diff(today, 'days') > 0) {
+    return ret(`開催前: ${openedAt.fromNow()}`);
+  } else if (
+    openedAt.diff(today, 'days') <= 0 &&
+    closedAt.diff(today, 'days') > 0
+  ) {
+    return ret(`開催終了まで: ${closedAt.fromNow()}`);
+  } else {
+    return ret(`開催終了: ${closedAt.toNow()}`);
+  }
+};
 
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
@@ -77,11 +96,12 @@ const ChallengeHeader = (props: any) => {
             </Typography>
             <HeaderInfo>
               <JoinButton challengeId={challenge.id} />
-              <ParticipantsCount>
-                <Typography color="inherit">
-                  {challenge.participantsCount}人参加中
-                </Typography>
-              </ParticipantsCount>
+              <HeaderInfoText color="inherit" variant="subtitle1">
+                {challenge.participantsCount}人参加中
+              </HeaderInfoText>
+              <HeaderInfoText color="inherit" variant="subtitle1">
+                <ChallengePeriod challenge={challenge} />
+              </HeaderInfoText>
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>
