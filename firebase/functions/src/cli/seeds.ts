@@ -167,21 +167,24 @@ const userSeeds = seed.collection('users', [
     displayName: 'Titan',
     id: titanUserId,
     photoURL:
-      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
+      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg',
+    isAdmin: true
   }),
   createUserSeed({
     email: '',
     displayName: 'tsu-nera',
     id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
     photoURL:
-      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg'
+      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg',
+    isAdmin: true
   }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
       email: faker.internet.email(),
       displayName: faker.name.firstName(),
-      photoURL: faker.image.imageUrl()
+      photoURL: faker.image.imageUrl(),
+      isAdmin: false
     });
   })
 ]);
