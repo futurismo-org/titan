@@ -1,10 +1,15 @@
 import * as React from 'react';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
+import moment from 'moment';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
+
+import 'moment/locale/ja';
+
+moment.locale('ja');
 
 const HeaderInfo = styled.div`
   display: flex;
@@ -41,14 +46,37 @@ const MainFeaturedPostContent = styled.div`
   }
 `;
 
-const ParticipantsCount = styled.h3`
-  margin: 10px;
-  vertical-align: middle;
-  text-align: center;
-`;
+const HeaderInfoText = styled(Typography)`
+  padding-left: 10px;
+` as React.ComponentType<TypographyProps>;
+
+const ChallengePeriod = (props: any) => {
+  const { challenge } = props;
+  const openedAt = moment(challenge.openedAt.toDate());
+  const closedAt = moment(challenge.closedAt.toDate());
+  const today = moment(new Date());
+
+  const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
+
+  if (openedAt.diff(today, 'days') > 0) {
+    return ret(`${openedAt.fromNow()}に開始`);
+  } else {
+    return ret(`${closedAt.fromNow()}に終了`);
+  }
+};
 
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
+
+  const isOpen = (): boolean => {
+    const openedAt = moment(challenge.openedAt.toDate());
+    const closedAt = moment(challenge.closedAt.toDate());
+    const today = moment(new Date());
+
+    return (
+      today.diff(openedAt, 'days') >= 0 && today.diff(closedAt, 'days') < 0
+    );
+  };
 
   return (
     <MainFeaturedPost>
@@ -76,12 +104,17 @@ const ChallengeHeader = (props: any) => {
               {challenge.description}
             </Typography>
             <HeaderInfo>
-              <JoinButton challengeId={challenge.id} />
-              <ParticipantsCount>
-                <Typography color="inherit">
-                  {challenge.participantsCount}人参加中
-                </Typography>
-              </ParticipantsCount>
+              {isOpen() && (
+                <React.Fragment>
+                  <JoinButton challengeId={challenge.id} />
+                  <HeaderInfoText color="inherit" variant="subtitle1">
+                    {challenge.participantsCount}人参加中
+                  </HeaderInfoText>
+                </React.Fragment>
+              )}
+              <HeaderInfoText color="inherit" variant="subtitle1">
+                <ChallengePeriod challenge={challenge} />
+              </HeaderInfoText>
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>

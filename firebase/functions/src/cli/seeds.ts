@@ -32,6 +32,10 @@ const createChallengeSeed = (args: any) => {
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
     isActive: true,
+    openedAt: moment().toDate(),
+    closedAt: moment()
+      .add('days', 30)
+      .toDate(),
     ...args
   });
 };
