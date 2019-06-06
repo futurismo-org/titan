@@ -68,6 +68,16 @@ const ChallengePeriod = (props: any) => {
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
+  const isOpen = (): boolean => {
+    const openedAt = moment(challenge.openedAt.toDate());
+    const closedAt = moment(challenge.closedAt.toDate());
+    const today = moment(new Date());
+
+    return (
+      today.diff(openedAt, 'days') >= 0 && today.diff(closedAt, 'days') < 0
+    );
+  };
+
   return (
     <MainFeaturedPost>
       {/* Increase the priority of the hero background image */}
@@ -94,10 +104,14 @@ const ChallengeHeader = (props: any) => {
               {challenge.description}
             </Typography>
             <HeaderInfo>
-              <JoinButton challengeId={challenge.id} />
-              <HeaderInfoText color="inherit" variant="subtitle1">
-                {challenge.participantsCount}人参加中
-              </HeaderInfoText>
+              {isOpen() && (
+                <React.Fragment>
+                  <JoinButton challengeId={challenge.id} />
+                  <HeaderInfoText color="inherit" variant="subtitle1">
+                    {challenge.participantsCount}人参加中
+                  </HeaderInfoText>
+                </React.Fragment>
+              )}
               <HeaderInfoText color="inherit" variant="subtitle1">
                 <ChallengePeriod challenge={challenge} />
               </HeaderInfoText>
