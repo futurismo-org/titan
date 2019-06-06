@@ -7,6 +7,10 @@ import moment from 'moment';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
 
+import 'moment/locale/ja';
+
+moment.locale('ja');
+
 const HeaderInfo = styled.div`
   display: flex;
 `;
@@ -55,14 +59,9 @@ const ChallengePeriod = (props: any) => {
   const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
 
   if (openedAt.diff(today, 'days') > 0) {
-    return ret(`開催前: ${openedAt.fromNow()}`);
-  } else if (
-    openedAt.diff(today, 'days') <= 0 &&
-    closedAt.diff(today, 'days') > 0
-  ) {
-    return ret(`開催終了まで: ${closedAt.fromNow()}`);
+    return ret(`${openedAt.fromNow()}に開始`);
   } else {
-    return ret(`開催終了: ${closedAt.toNow()}`);
+    return ret(`${closedAt.fromNow()}に終了`);
   }
 };
 
