@@ -1,7 +1,11 @@
 {
+  "name": "titan-client-app",
+  "description": "Client App for Titan",
   "main": "node_modules/expo/AppEntry.js",
+  "private": true,
   "scripts": {
-    "start": "expo start",
+    "dev": "expo start",
+    "dev:remote": "expo start --localhost --web",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -9,9 +13,14 @@
     "build:ios": "expo build:ios",
     "build:android": "expo build:android",
     "build:web": "expo build:web",
-    "deploy:web": "../node_modules/.bin/netlify deploy --dir web-build",
-    "publish:web": "build:web && deploy:web",
-    "optimize": "expo optimize"
+    "deploy:web:netlify": "netlify deploy --dir web-build",
+    "publish:web:netlify": "REACT_APP_ENV=development build:web && deploy:web:netlify",
+    "optimize": "expo optimize",
+    "lint": "eslint . --ext .js,.jsx,.tsx",
+    "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx",
+    "watch": "TSC_NONPOLLING_WATCHER=1 yarn tsc -w",
+    "sss": "./bin/rg_fzf_remote.sh",
+    "ss": "./bin/rg_fzf.sh"
   },
   "dependencies": {
     "expo": "^33.0.0",
@@ -21,10 +30,36 @@
     "react-native-web": "^0.11.4"
   },
   "devDependencies": {
+    "@types/node": "^12.0.7",
     "@types/react": "^16.8.19",
     "@types/react-native": "^0.57.60",
     "babel-preset-expo": "^5.1.1",
-    "typescript": "^3.4.5"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-import-resolver-typescript": "^1.1.1",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
+    "prettier": "^1.17.1",
+    "typescript": "^3.4.5",
+    "typescript-styled-plugin": "^0.14.0"
   },
-  "private": true
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "npm run lint:fix",
+      "git add"
+    ]
+  }
 }

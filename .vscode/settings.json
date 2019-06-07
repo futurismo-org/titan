@@ -1,6 +1,7 @@
 {
   "files.exclude": {
     "reactjs": true,
-    "firebase": true
+    "firebase": true,
+    "expo": true
   }
 }

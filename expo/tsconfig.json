@@ -1,10 +1,44 @@
 {
   "compilerOptions": {
-    "noEmit": true,
-    "lib": ["dom", "esnext"],
+    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "types": [
+      "node"
+    ],
+    "allowJs": false, 
     "jsx": "react-native",
-    "moduleResolution": "node",
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
-  }
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin"
+      }
+    ],
+    "outDir": "./out",
+    "isolatedModules": true,
+    "strictNullChecks": true,
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ]
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "out"
+  ]
 }
