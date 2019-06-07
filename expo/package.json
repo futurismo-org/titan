@@ -22,8 +22,6 @@
     "ss": "./bin/rg_fzf.sh"
   },
   "dependencies": {
-    "@types/react-router-native": "^4.2.4",
-    "@types/react-router-navigation": "^1.0.8",
     "expo": "^33.0.0",
     "expo-constants": "~5.0.1",
     "expo-keep-awake": "~5.0.1",
@@ -38,13 +36,22 @@
     "styled-components": "^4.3.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@expo/config": "^2.0.0",
+    "@expo/webpack-config": "^0.5.8",
+    "@types/expo": "^32.0.0",
     "@types/node": "^12.0.7",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
-    "@types/react-native": "^0.57.60",
+    "@types/react-native": "^0.57.0",
+    "@types/react-router-native": "^4.2.4",
+    "@types/react-router-navigation": "^1.0.8",
     "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-styled-components": "^1.10.0",
     "babel-preset-expo": "^5.1.1",
     "eslint": "^5.16.0",
@@ -61,8 +68,9 @@
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
     "prettier": "^1.17.1",
-    "typescript": "^3.5.1",
-    "typescript-styled-plugin": "^0.14.0"
+    "typescript": "^3.3.0",
+    "typescript-styled-plugin": "^0.14.0",
+    "webpack-merge": "^4.2.1"
   },
   "husky": {
     "hooks": {

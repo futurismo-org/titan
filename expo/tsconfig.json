@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es5",
+    "module": "es2015",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -10,6 +10,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "types": [
       "node"
@@ -30,6 +31,7 @@
     "outDir": "./out",
     "isolatedModules": true,
     "lib": [
+      "es2019",
       "esnext",
       "dom",
       "dom.iterable"
