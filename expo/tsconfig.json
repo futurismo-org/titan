@@ -4,6 +4,9 @@
     "target": "esnext",
     "module": "esnext",
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
@@ -26,7 +29,6 @@
     ],
     "outDir": "./out",
     "isolatedModules": true,
-    "strictNullChecks": true,
     "lib": [
       "esnext",
       "dom",

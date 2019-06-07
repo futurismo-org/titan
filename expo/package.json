@@ -3,7 +3,7 @@
   "description": "Client App for Titan",
   "scripts": {
     "dev": "expo start",
-    "dev:remote": "expo start --localhost --web",
+    "dev:remote": "expo start --web --android",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -22,13 +22,19 @@
     "ss": "./bin/rg_fzf.sh"
   },
   "dependencies": {
+    "@types/react-router-native": "^4.2.4",
+    "@types/react-router-navigation": "^1.0.8",
     "expo": "^33.0.0",
+    "expo-constants": "~5.0.1",
     "expo-keep-awake": "~5.0.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-web": "^0.11.4",
+    "react-router": "^5.0.1",
+    "react-router-native": "^5.0.1",
+    "react-router-navigation": "^2.0.0-alpha.10",
     "styled-components": "^4.3.1"
   },
   "devDependencies": {
