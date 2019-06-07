@@ -1,7 +1,6 @@
 {
   "name": "titan-client-app",
   "description": "Client App for Titan",
-  "private": true,
   "scripts": {
     "dev": "expo start",
     "dev:remote": "expo start --localhost --web",
@@ -13,6 +12,7 @@
     "build:android": "expo build:android",
     "build:web": "expo build:web",
     "deploy:web:netlify": "netlify deploy --dir web-build",
+    "publish:expo": "expo publish",
     "publish:web:netlify": "REACT_APP_ENV=development build:web && deploy:web:netlify",
     "optimize": "expo optimize",
     "lint": "eslint . --ext .js,.jsx,.tsx",
@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "expo": "^33.0.0",
+    "expo-keep-awake": "~5.0.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
@@ -34,11 +35,11 @@
     "@types/node": "^12.0.7",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
+    "@types/react-helmet": "^5.0.8",
     "@types/react-native": "^0.57.60",
     "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "babel-plugin-styled-components": "^1.10.0",
-    "@types/react-helmet": "^5.0.8",    
     "babel-preset-expo": "^5.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
