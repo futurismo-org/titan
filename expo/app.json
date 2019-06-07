@@ -26,6 +26,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "entryPoint": "./src/index.ts"
+    "entryPoint": "./index.web.ts"
   }
+
 }

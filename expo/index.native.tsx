@@ -1,9 +1,9 @@
 import { registerRootComponent } from 'expo';
-import { activateKeepAwake } from 'expo-keep-awake'
+import { activateKeepAwake } from 'expo-keep-awake';
 
-import App  from './src/components/organisms/App';
+import App from './src/components/organisms/App';
 
-if (__DEV__) {
+if (__DEV__) {  // eslint-disable-line
   activateKeepAwake();
 }
 
