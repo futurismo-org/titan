@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "strict": true,
-    "target": "es5",
-    "module": "es2015",
+    "target": "esnext",
+    "module": "esnext",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -31,7 +31,6 @@
     "outDir": "./out",
     "isolatedModules": true,
     "lib": [
-      "es2019",
       "esnext",
       "dom",
       "dom.iterable"
@@ -42,7 +41,7 @@
   ],
   "exclude": [
     "node_modules",
-    "build",
+    "web-build",
     "out"
   ]
 }
