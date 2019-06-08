@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-// import { Provider } from 'react-repdux';
+// import { Provider } from 'react-redux';
 import App from './src/components/organisms/App';
 import Head from './src/components/templates/Head';
 // import { store } from './store';
@@ -9,9 +9,7 @@ import Head from './src/components/templates/Head';
 ReactDOM.render(
   <React.Fragment>
     <Head />
-    {/* <NativeRouter> */}
       <App />
-    {/* </NativeRouter> */}
     {/* 
     <Router>
       <Provider store={store}>
