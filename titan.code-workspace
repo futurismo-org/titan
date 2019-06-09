@@ -14,7 +14,7 @@
     },
     {
       "name": "flutter",
-      "path": "flutter"
+      "path": "flutterapp"
     }
   ],
   "settings": {
@@ -39,6 +39,11 @@
       }
     ],
     "prettier.singleQuote": true,
-    "github.repositories": ["futurismo-org/titan"]
+    "github.repositories": [
+      "futurismo-org/titan"
+    ],
+    "dart.flutterCreateAndroidLanguage": "kotlin",
+    "dart.flutterCreateIOSLanguage": "swift",
+    "dart.flutterHotRestartOnSave": true
   }
 }
