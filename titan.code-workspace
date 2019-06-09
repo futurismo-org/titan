@@ -15,6 +15,9 @@
     {
       "name": "flutter",
       "path": "flutter"
+    },
+    {
+      "path": "/home/tsu-nera/repo/takeoffandroid.github.io/lib/components/space"
     }
   ],
   "settings": {
