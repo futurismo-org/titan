@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "PORT=3000 REACT_APP_ENV=development react-scripts start",
     "build": "react-scripts build",
+    "build:netlify": "REACT_APP_ENV=development npm run build",
     "deploy:netlify": "REACT_APP_ENV=development npm run build && npm run export",
     "deploy:development": "REACT_APP_ENV=development npm run build && firebase deploy -P development",
     "deploy:production": "REACT_APP_ENV=production npm run build && firebase deploy -P production",
