@@ -56,8 +56,8 @@ const NavToolbar = () => (
     <NavLink to="/" text="ホーム" />
     <NavLink to="/challenges" text="チャレンジ" />
     <NavLink to="/categories" text="カテゴリ" />
-    <NavLink to="/ranking" text="ランキング" />
-    <NavLink to="/topics" text="トピック" />
+    {/* <NavLink to="/ranking" text="ランキング" />
+    <NavLink to="/topics" text="トピック" /> */}
   </StyledToolbar>
 );
 

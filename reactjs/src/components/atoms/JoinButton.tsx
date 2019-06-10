@@ -45,9 +45,11 @@ const joinHandler = (props: Props) => {
         .doc(user.id)
         .set(newData)
         .then(() => {
-        window.alert('チャレンジに参加しました'); // eslint-disable-line
+          window.alert('チャレンジに参加しました'); // eslint-disable-line
         })
-      .then(() => (window.location.href = `/#/challenges/${challengeId}/posts`));// eslint-disable-line
+        .then(() => {
+          window.location.reload(); // eslint-disable-line
+        });
     })
     .then(() => console.log('successfully updated'));
 };

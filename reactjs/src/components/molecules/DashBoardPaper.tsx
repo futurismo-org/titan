@@ -22,7 +22,7 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
 
 const StyledPaper = styled(Paper)`
   && {
-    margin: ${theme.spacing(3)}px;
+    margin: ${theme.spacing(0)}px;
     padding: ${theme.spacing(3)}px;
   }
 ` as React.ComponentType<PaperProps>;
