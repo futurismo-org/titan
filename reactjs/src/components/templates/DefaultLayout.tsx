@@ -15,6 +15,7 @@ const LayoutWrapperContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    max-width: 100%;
   }
 ` as React.ComponentType<ContainerProps>;
 
@@ -22,7 +23,7 @@ const Layout = (props: any) => (
   <React.Fragment>
     <CssBaseline />
     <MuiThemeProvider theme={theme}>
-      <LayoutWrapperContainer maxWidth="lg">
+      <LayoutWrapperContainer>
         <Header />
         <main>{props.children}</main>
       </LayoutWrapperContainer>

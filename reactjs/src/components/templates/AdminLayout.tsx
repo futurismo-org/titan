@@ -17,7 +17,7 @@ const Layout = (props: any) => (
   <LayoutWrapper>
     <CssBaseline />
     <MuiThemeProvider theme={theme}>
-      <Container maxWidth="lg">
+      <Container>
         <TopToolbar />
         <main>{props.children}</main>
       </Container>

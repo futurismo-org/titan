@@ -36,7 +36,7 @@ const MadeWithLove = () => {
 
 const Footer = () => (
   <StyledFooter>
-    <Container maxWidth="lg">
+    <Container>
       <Typography variant="h6" gutterBottom align="center">
         Titan
       </Typography>
