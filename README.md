@@ -35,7 +35,7 @@ https://titan-fire.com
 * 課題管理 https://github.com/futurismo-org/titan/issues
 * 進捗管理 https://trello.com/b/N5zxzOpB/service
 * Blog https://note.mu/titan_dev
-* Twitter https://twitter.com/
+* Twitter https://twitter.com/titan_dev_1234
 
 ### How to Contribute
 
