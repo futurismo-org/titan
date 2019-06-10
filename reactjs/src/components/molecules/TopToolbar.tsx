@@ -9,7 +9,8 @@ import AuthContainer from '../../containers/authContainer';
 
 const StyledToolbar = styled(Toolbar)`
   && {
-    border-bottom: 1px solid ${theme.palette.divider}px;
+    border-bottom: 1px solid ${theme.palette.divider};
+    background-color: ${theme.palette.primary.main};
   }
 ` as React.ComponentType<ToolbarProps>;
 
