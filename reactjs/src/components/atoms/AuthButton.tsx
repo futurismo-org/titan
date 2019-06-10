@@ -8,6 +8,7 @@ import theme from '../../lib/theme';
 const StyledButton = styled(Button)`
   && {
     margin: ${theme.spacing(1)}px;
+    font-weight: bold;
   }
 ` as React.ComponentType<ButtonProps>;
 

@@ -9,7 +9,8 @@ import theme from '../../lib/theme';
 
 const StyledButton = styled(Button)`
   && {
-    margin: ${theme.spacing(1)}px;
+    margin: ${theme.spacing(0)}px;
+    font-weight: bold;
   }
 ` as React.ComponentType<ButtonProps>;
 
@@ -22,13 +23,13 @@ const UserItem = (props: any) => {
   };
 
   const { user } = props;
-  const defaultUserName = 'anonymous';
+  // const defa/ultUserName = 'anonymous';
 
   return (
     <div>
       <StyledButton color="inherit">
-        <Avatar src={user.photoURL} />
-        {user.displayName || defaultUserName}
+        <Avatar src={user.photoURL} />{' '}
+        {/* {user.displayName || defaultUserName} */}
       </StyledButton>
       <StyledButton
         variant="outlined"
