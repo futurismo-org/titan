@@ -6,6 +6,8 @@ Titan
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 
+https://titan-fire.com
+
 ## 概要
 
 自己変革の火をつけるWebサービス a.k.a. 地獄から天国へ
@@ -23,12 +25,9 @@ Titan
 開発用サーバはNetlify, 本番用はFirebase Hostingにデプロイします。
 
 * (開発用) https://titan-dev-1234.netlify.com/
-* (本番用) https://titan-dev-1234.firebaseapp.com/
-
-```
-$ yarn deploy:netlify
-$ yarn deploy
-```
+* (開発用2) https://titan-dev-1234.firebaseapp.com/
+* (本番用) https://titan-fire.com
+* (本番用2) https://titan-241022.firebaseapp.com
 
 ### Development Info
 
