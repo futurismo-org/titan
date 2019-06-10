@@ -6,6 +6,8 @@ import App from './components/organisms/App';
 import Head from './components/templates/Head';
 import { store } from './store';
 
+import * as sw from './service-worker';
+
 /* eslint-disable */
 ReactDOM.render(
   <React.Fragment>
@@ -18,3 +20,5 @@ ReactDOM.render(
   </React.Fragment>,
   document.getElementById('root')
 );
+
+sw.register();
