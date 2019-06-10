@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import styled from 'styled-components';
+import Hidden from '@material-ui/core/Hidden';
 import Avatar from '../../atoms/Avatar';
 
 import firebase from '../../../lib/firebase';
@@ -16,6 +17,12 @@ const NoStyledLink = styled.a`
   text-decoration: none;
   color: 'inherit';
 `;
+
+const ConditionalTableCell = (props: any) => (
+  <Hidden only="xs">
+    <TableCell>{props.children}</TableCell>
+  </Hidden>
+);
 
 const ChallengeLeaderBoard = (props: any) => {
   const id: string = props.match.params.id;
@@ -31,11 +38,11 @@ const ChallengeLeaderBoard = (props: any) => {
     <TableHead>
       <TableRow>
         <TableCell>順位</TableCell>
-        <TableCell />
+        <ConditionalTableCell />
         <TableCell>名前</TableCell>
         <TableCell>スコア</TableCell>
-        <TableCell>連続日数</TableCell>
-        <TableCell>最新</TableCell>
+        <ConditionalTableCell>連続日数</ConditionalTableCell>
+        <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
   );
@@ -59,9 +66,9 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell component="th" scope="row">
                     {index + 1}位
                   </TableCell>
-                  <TableCell>
+                  <ConditionalTableCell>
                     <Avatar src={doc.data().photoURL} />
-                  </TableCell>
+                  </ConditionalTableCell>
                   <TableCell>
                     <NoStyledLink
                       href={doc.data().twitterURL || 'https://twitter.com'}
@@ -70,10 +77,10 @@ const ChallengeLeaderBoard = (props: any) => {
                     </NoStyledLink>
                   </TableCell>
                   <TableCell>{doc.data().score}</TableCell>
-                  <TableCell>{doc.data().days}</TableCell>
-                  <TableCell>
+                  <ConditionalTableCell>{doc.data().days}</ConditionalTableCell>
+                  <ConditionalTableCell>
                     {moment(doc.data().updatedAt.toDate()).fromNow()}
-                  </TableCell>
+                  </ConditionalTableCell>
                 </TableRow>
               ))}
           </TableBody>
