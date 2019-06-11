@@ -10,14 +10,15 @@ import { store } from './store';
 
 import * as sw from './service-worker';
 
+const GA_TRACKING_ID = 'UA-137986489-3';
+
 const history = createHistory();
-ReactGA.initialize('UA-00000000-1');
+ReactGA.initialize(GA_TRACKING_ID);
 history.listen((location, action) => {
   ReactGA.pageview(location.pathname + location.search);
   console.log(location.pathname);
 });
 
-/* eslint-disable */
 ReactDOM.render(
   <React.Fragment>
     <Head />
@@ -27,7 +28,7 @@ ReactDOM.render(
       </Provider>
     </Router>
   </React.Fragment>,
-  document.getElementById('root')
+  document.getElementById('root') // eslint-disable-line no-undef
 );
 
 sw.register();
