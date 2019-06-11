@@ -10,6 +10,6 @@ const user = require('./user');
 const authNewUser = functions.auth.user().onCreate(user.createUser);
 
 module.exports = {
-  authNewUser
+  // authNewUser
 };
 export {};

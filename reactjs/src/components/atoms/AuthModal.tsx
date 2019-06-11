@@ -35,23 +35,28 @@ const AuthModal = (props: any) => {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        const userId = credentials.user!.uid;
+        const user = credentials.user;
 
         const data = {
+          id: user!.uid,
+          displayName: user!.displayName,
+          photoURL: user!.photoURL,
+          email: user!.email,
+          createdAt: new Date(),
+          updatedAt: new Date(),
           twitterURL: (credentials.additionalUserInfo!.profile! as any).url
         };
 
         const userRef = firebase
           .firestore()
           .collection('users')
-          .doc(userId);
+          .doc(user!.uid);
 
-        firebase
-          .firestore()
-          .runTransaction(async transaction => {
-            await transaction.update(userRef, data);
-          })
-          .catch(() => userRef.set(data));
+        userRef.get().then(docSnapshot => {
+          if (!docSnapshot.exists) {
+            userRef.set({ ...data });
+          }
+        });
 
         return false;
       }

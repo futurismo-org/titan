@@ -20,7 +20,7 @@ const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
 // const noFapChallengeIds: string[] = [];
 
-const titanUserId = '3o8FZ34cilNUONgvAlytIvIHlsu2';
+const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
 
