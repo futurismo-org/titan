@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import theme from '../../lib/theme';
 import AuthContainer from '../../containers/authContainer';
+import NavDrawer from './NavDrawer';
 
 const StyledToolbar = styled(Toolbar)`
   && {
@@ -28,6 +29,7 @@ const NoStyledLink = styled(Link)`
 
 const TopToolbar = () => (
   <StyledToolbar>
+    <NavDrawer />
     <StyledTypography component="h2" variant="h5" noWrap>
       <NoStyledLink to="/">Titan</NoStyledLink>
     </StyledTypography>
