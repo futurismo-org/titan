@@ -1,4 +1,4 @@
-const admin = require('firebase-admin');
+import admin from 'firebase-admin';
 
 export const configDev = {
   apiKey: 'AIzaSyBAOF5ih35uKsTVIijD_JCpQAqIxNqiHPk',
