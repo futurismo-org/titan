@@ -9,6 +9,8 @@ import Header from '../molecules/categories/CategoryHeader';
 
 import firebase from '../../lib/firebase';
 
+import Progress from '../atoms/CircularProgress';
+
 // const StyledPaper = styled(Paper as React.SFC)`
 // padding: ${theme.spacing(3, 2)};
 // `;
@@ -32,7 +34,7 @@ const Category = (props: Props) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <React.Fragment>
           <Header category={value.data()} />

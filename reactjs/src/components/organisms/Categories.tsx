@@ -5,6 +5,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import CategoryCard from '../atoms/CategoryCard';
 import firebase from '../../lib/firebase';
 import theme from '../../lib/theme';
+import Progress from '../atoms/CircularProgress';
 
 interface Props {
   container?: any;
@@ -25,7 +26,7 @@ const Categories = () => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <StyledCardGrid container spacing={4}>
           {value!.docs.map((doc: any) => (

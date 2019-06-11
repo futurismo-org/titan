@@ -6,6 +6,8 @@ import * as React from 'react';
 
 import firebase from '../../../lib/firebase';
 
+import Progress from '../../atoms/CircularProgress';
+
 const Challenges = () => {
   const [value, loading, error] = useCollection(
     firebase.firestore().collection('challenges')
@@ -28,7 +30,7 @@ const Challenges = () => {
       </Link>
       <ul>
         {error && <strong>Error: {error}</strong>}
-        {loading && <span>Collection: Loading...</span>}
+        {loading && <Progress />}
         {value && (
           <React.Fragment>
             {value!.docs.map((doc: any) => (

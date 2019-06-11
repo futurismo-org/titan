@@ -10,6 +10,8 @@ import Record from './ChallengePostRecord';
 import RecordButton from '../../atoms/ChallengeRecordButton';
 import ChallengeHistories from './ChallengeHistories';
 
+import Progress from '../../atoms/CircularProgress';
+
 const StyledCenterContainer = styled.div`
   margin-top: 80px;
   display: flex;
@@ -131,7 +133,7 @@ const ChallengePosts = (props: any) => {
   return (
     <StyledCenterContainer>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {data && (
         <React.Fragment>
           <Record days={formatDays(data.days)} />

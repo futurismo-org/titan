@@ -10,6 +10,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import Hidden from '@material-ui/core/Hidden';
 import Avatar from '../../atoms/Avatar';
+import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
@@ -50,7 +51,7 @@ const ChallengeLeaderBoard = (props: any) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <Table>
           <LeaderBoardHead />
