@@ -9,13 +9,26 @@ import styled from 'styled-components';
 
 const StyledRoot = styled.div`
   position: relative;
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
 `;
 
 const StyledDrawer = styled.div`
   width: 250px;
 `;
+
+const DrawerButton = (text?: string) => (
+  <Typography
+    component="h5"
+    variant="h6"
+    align="center"
+    style={{
+      margin: 10
+    }}
+  >
+    {text}
+  </Typography>
+);
 
 const Drawer = (props: any) => {
   const [open, setOpen] = useState(false);
@@ -35,16 +48,15 @@ const Drawer = (props: any) => {
           onOpen={() => setOpen(true)}
         >
           <StyledDrawer>
-            <Typography
-              component="h5"
-              variant="h6"
-              align="center"
-              style={{
-                margin: 10
-              }}
-            >
-              ホーム
-            </Typography>
+            {DrawerButton('ホーム')}
+            <Divider />
+            {DrawerButton('チャレンジ')}
+            <Divider />
+            {DrawerButton('カテゴリ')}
+            <Divider />
+            {DrawerButton('ランキング')}
+            <Divider />
+            {DrawerButton('トピック')}
             <Divider />
           </StyledDrawer>
         </SwipeableDrawer>
