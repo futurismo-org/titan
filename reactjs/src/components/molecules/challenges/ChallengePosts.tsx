@@ -4,6 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
+import DiscordRPC from 'discord-rpc';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
@@ -78,7 +79,32 @@ const ChallengePosts = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(resetData);
+      .update(resetData)
+      .then(() => {
+        const clientId = '587990808372707329';
+        const scopes = ['rpc', 'rpc.api', 'messages.write'];
+
+        const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+
+        async function setActivity() {
+          if (!rpc) {
+            return;
+          }
+
+          rpc.setActivity({
+            details: 'test from react'
+          });
+        }
+
+        // rpc.on('ready', () => {
+        //   setActivity();
+        // });
+
+        rpc
+          .login({ clientId, scopes })
+          .then(c => c.setActivity({ details: 'test from react' }))
+          .catch(console.error);
+      });
   };
 
   const confirm = (days: any) => {

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import styled from 'styled-components';
 import DashBoardPaper from '../molecules/DashBoardPaper';
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';

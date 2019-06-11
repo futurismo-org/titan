@@ -5,10 +5,6 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
 import theme from '../../lib/theme';
 
-const WidgetContainer = styled.div`
-  text-align: center;
-`;
-
 const StyledPaper = styled(Paper)`
   && {
     margin: ${theme.spacing(0)}px;
