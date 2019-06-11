@@ -6,6 +6,8 @@ import ChallengeCard from '../atoms/ChallengeCard';
 import firebase from '../../lib/firebase';
 import theme from '../../lib/theme';
 
+import Progress from '../atoms/CircularProgress';
+
 interface Props {
   container?: any;
   spacing?: number;
@@ -25,7 +27,7 @@ const Challenges = () => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <StyledCardGrid container spacing={4}>
           {value!.docs.map((doc: any) => (

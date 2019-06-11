@@ -7,6 +7,8 @@ import Navbar from '../molecules/challenges/ChallengeNavbar';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 
+import Progress from '../atoms/CircularProgress';
+
 import firebase from '../../lib/firebase';
 
 const StyledPaper = styled(Paper as React.SFC)`
@@ -32,7 +34,7 @@ const Challenge = (props: Props) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <React.Fragment>
           <Header challenge={value.data()} />
