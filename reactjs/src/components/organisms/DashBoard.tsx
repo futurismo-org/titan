@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import styled from 'styled-components';
 import DashBoardPaper from '../molecules/DashBoardPaper';
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
+
+import DiscordWidget from '../atoms/DiscordWidget';
 
 const DashBoard = (props: any) => {
   const [value, loading, error] = useCollection(
@@ -29,6 +32,7 @@ const DashBoard = (props: any) => {
         type="challenge"
       />
       <DashBoardPaper title="人気のカテゴリ" value={value2} type="category" />
+      <DiscordWidget />
     </React.Fragment>
   );
 };
