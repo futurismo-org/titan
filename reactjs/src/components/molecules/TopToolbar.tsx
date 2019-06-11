@@ -2,6 +2,7 @@ import * as React from 'react';
 import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import theme from '../../lib/theme';
 import AuthContainer from '../../containers/authContainer';
 
@@ -20,10 +21,15 @@ const StyledTypography = styled(Typography)`
   }
 ` as React.ComponentType<TypographyProps>;
 
+const NoStyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 const TopToolbar = () => (
   <StyledToolbar>
     <StyledTypography component="h2" variant="h5" noWrap>
-      Titan
+      <NoStyledLink to="/">Titan</NoStyledLink>
     </StyledTypography>
     <AuthContainer />
   </StyledToolbar>
