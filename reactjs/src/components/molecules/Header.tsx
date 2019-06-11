@@ -1,11 +1,11 @@
 import * as React from 'react';
 import TopToolbar from './TopToolbar';
-import NavToolbar from './NavToolbar';
+import NavDrawer from './NavDrawer';
 
 const Header = () => (
   <React.Fragment>
     <TopToolbar />
-    <NavToolbar />
+    <NavDrawer />
   </React.Fragment>
 );
 
