@@ -1,17 +1,17 @@
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import theme from '../../lib/theme';
-import Navbar from '../molecules/categories/CategoryNavbar';
+// import theme from '../../lib/theme';
+// import Navbar from '../molecules/categories/CategoryNavbar';
 import Header from '../molecules/categories/CategoryHeader';
-import Body from '../molecules/categories/CategoryBody';
+// import Body from '../molecules/categories/CategoryBody';
 
 import firebase from '../../lib/firebase';
 
-const StyledPaper = styled(Paper as React.SFC)`
-  padding: ${theme.spacing(3, 2)};
-`;
+// const StyledPaper = styled(Paper as React.SFC)`
+// padding: ${theme.spacing(3, 2)};
+// `;
 
 interface Props {
   match: {

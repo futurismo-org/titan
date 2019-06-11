@@ -47,11 +47,17 @@ const AuthModal = (props: any) => {
           twitterURL: (credentials.additionalUserInfo!.profile! as any).url
         };
 
-        firebase
+        const userRef = firebase
           .firestore()
           .collection('users')
-          .doc(user!.uid)
-          .set(data, { merge: true });
+          .doc(user!.uid);
+
+        userRef.get().then(docSnapshot => {
+          if (!docSnapshot.exists) {
+            userRef.set({ ...data });
+          }
+        });
+
         return false;
       }
     }
