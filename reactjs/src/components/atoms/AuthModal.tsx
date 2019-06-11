@@ -54,7 +54,7 @@ const AuthModal = (props: any) => {
 
         userRef.get().then(docSnapshot => {
           if (!docSnapshot.exists) {
-            userRef.set({ ...data });
+            userRef.set(data);
           }
         });
 
