@@ -36,10 +36,11 @@ const Category = (props: Props) => {
       {value && (
         <React.Fragment>
           <Header category={value.data()} />
-          <StyledPaper>
+          <p>コンテンツ準備中...</p>
+          {/* <StyledPaper>
             <Navbar id={value.id} />
             <Body />
-          </StyledPaper>
+          </StyledPaper> */}
         </React.Fragment>
       )}
     </React.Fragment>
