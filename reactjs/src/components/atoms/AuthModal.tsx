@@ -51,7 +51,7 @@ const AuthModal = (props: any) => {
           .runTransaction(async transaction => {
             await transaction.update(userRef, data);
           })
-          .catch(() => console.log('get twitterURL failed'));
+          .catch(() => userRef.set(data));
 
         return false;
       }

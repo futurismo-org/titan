@@ -1,7 +1,7 @@
 import { DocumentReference, Transaction } from '@google-cloud/firestore';
 import firebase from 'firebase';
 
-const { db } = require('./utils/admin');
+import admin from './utils/admin';
 
 const createUser = (user: firebase.User) => {
   const { uid } = user;
@@ -18,11 +18,20 @@ const createUser = (user: firebase.User) => {
     updatedAt: new Date()
   };
 
-  const userRef: DocumentReference = db.collection('users').doc(uid);
+  const userRef: DocumentReference = admin
+    .firestore()
+    .collection('users')
+    .doc(uid);
 
-  db.runTransaction(async (transaction: Transaction) => {
-    await transaction.update(userRef, data);
-  }).then(() => console.log('successfully updated'));
+  admin
+    .firestore()
+    .runTransaction(async (transaction: Transaction) => {
+      await transaction.update(userRef, data);
+    })
+    .then(() => console.log('successfully updated'))
+    .catch(() => userRef.set(data));
+
+  return true;
 };
 
 module.exports = {
