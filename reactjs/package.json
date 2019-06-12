@@ -21,6 +21,7 @@
     "@material-ui/icons": "^4.0.0",
     "axios": "^0.19.0",
     "discord-rpc": "^3.0.2",
+    "dotenv": "^8.0.0",
     "firebase": "^6.1.0",
     "firebase-functions": "^2.3.1",
     "firebaseui": "^4.0.0",
@@ -45,8 +46,7 @@
     "redux-thunk": "^2.3.0",
     "styled-components": "^4.2.0",
     "typescript": "^3.4.5",
-    "ulid": "^2.3.0",
-    "dotenv": "^8.0.0"
+    "ulid": "^2.3.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",

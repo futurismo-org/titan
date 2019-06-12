@@ -4,7 +4,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
-import axios from 'axios';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
@@ -12,6 +11,8 @@ import RecordButton from '../../atoms/ChallengeRecordButton';
 import ChallengeHistories from './ChallengeHistories';
 
 import Progress from '../../atoms/CircularProgress';
+
+import { postMessage } from '../../../lib/discord.client.api';
 
 const StyledCenterContainer = styled.div`
   margin-top: 80px;
@@ -66,7 +67,8 @@ const ChallengePosts = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(updateData);
+      .update(updateData)
+      .catch(error => console.error(error));
   };
 
   const resetRecord = () => {
@@ -79,15 +81,15 @@ const ChallengePosts = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(resetData);
+      .update(resetData)
+      .then(() => {
+        const message = 'tsu-neraさんがリセットしました';
+        const webhookURL =
+          'https://discordapp.com/api/webhooks/588143770688684032/J2GAgsLWlEnLU_A9gBzjaawM9E5UfsDp3OEvPfei3JWrttyOfe5v139uGF1nbo93Klu5';
 
-    axios
-      .post(
-        'https://discordapp.com/api/webhooks/588143770688684032/J2GAgsLWlEnLU_A9gBzjaawM9E5UfsDp3OEvPfei3JWrttyOfe5v139uGF1nbo93Klu5',
-        { content: 'test' }
-      )
-      .then(response => console.log(response))
-      .catch(error => console.log(error));
+        postMessage(webhookURL, message);
+      })
+      .catch(error => console.error(error));
   };
 
   const confirm = (days: any) => {

@@ -17,8 +17,15 @@ export const getMessages = (
   limit: number = 10
 ) => {
   const url = `${apiBase}channels/${channelId}/messages?limit=${limit.toString()}`;
-  return axios
-    .get(url, requestHeaders)
-    .then(res => res.data)
-    .catch(error => console.error(error));
+  return axios.get(url, requestHeaders).then(res => res.data);
+};
+
+export const postMessage = (webhookURL: string, message: string) => {
+  const data = {
+    content: message,
+    tts: false,
+    noice: new Date()
+  };
+
+  axios.post(webhookURL, data);
 };
