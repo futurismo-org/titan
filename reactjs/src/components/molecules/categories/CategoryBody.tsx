@@ -6,6 +6,7 @@ import CategoryDiscussion from './CategoryDiscussion';
 import CategoryRules from './CategoryRules';
 import CategoryLeaderBoard from './CategoryLeaderBoard';
 
+import { withTracker } from '../../utils/withtracker';
 import theme from '../../../lib/theme';
 
 const CategoryContent = styled.div`
@@ -16,12 +17,18 @@ const CategoryBody = () => {
   return (
     <CategoryContent>
       <Switch>
-        <Route path="/categories/:id/overview" component={CategoryOverview} />
+        <Route
+          path="/categories/:id/overview"
+          component={withTracker(CategoryOverview)}
+        />
         <Route
           path="/categories/:id/discussion"
           component={CategoryDiscussion}
         />
-        <Route path="/categories/:id/rules" component={CategoryRules} />
+        <Route
+          path="/categories/:id/rules"
+          component={withTracker(CategoryRules)}
+        />
         <Route
           path="/categories/:id/leaderboard"
           component={CategoryLeaderBoard}

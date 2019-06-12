@@ -8,14 +8,16 @@ import Layout from '../templates/DefaultLayout';
 import Categories from './Categories';
 import Category from './Category';
 
+import { withTracker } from '../utils/withtracker';
+
 const Home = () => (
   <Layout>
     <Switch>
-      <Route path="/challenges/:id" component={Challenge} />
-      <Route path="/challenges" component={Challenges} />
-      <Route path="/categories/:id" component={Category} />
-      <Route path="/categories" component={Categories} />
-      <Route path="/" component={DashBoard} />
+      <Route path="/challenges/:id" component={withTracker(Challenge)} />
+      <Route path="/challenges" component={withTracker(Challenges)} />
+      <Route path="/categories/:id" component={withTracker(Category)} />
+      <Route path="/categories" component={withTracker(Categories)} />
+      <Route path="/" component={withTracker(DashBoard)} />
     </Switch>
   </Layout>
 );
