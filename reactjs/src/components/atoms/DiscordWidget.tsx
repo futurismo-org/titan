@@ -4,6 +4,7 @@ import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
 import theme from '../../lib/theme';
+import { getMessages } from '../../lib/discord.client.api';
 
 const StyledPaper = styled(Paper)`
   && {
@@ -23,12 +24,14 @@ const DiscordWidget = () => (
     <StyledTitle component="h3" variant="h4">
       オンラインチャット
     </StyledTitle>
+    {getMessages('587949955285647370', 10, (data: any) => {
+      console.log(data);
+    })}
     <iframe
       title="discord-widget"
       src="https://discordapp.com/widget?id=587935450463993866&theme=light"
       width="100%"
       height="300"
-      allowTransparency
       frameBorder="0"
     />
   </StyledPaper>

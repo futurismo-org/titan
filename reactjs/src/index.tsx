@@ -10,6 +10,8 @@ import { store } from './store';
 
 import * as sw from './service-worker';
 
+require('dotenv').config();
+
 const GA_TRACKING_ID = 'UA-137986489-3';
 
 const history = createBrowserHistory();
