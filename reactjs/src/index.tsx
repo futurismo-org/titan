@@ -18,7 +18,6 @@ const history = createBrowserHistory();
 ReactGA.initialize(GA_TRACKING_ID);
 history.listen((location, action) => {
   ReactGA.pageview(location.pathname + location.search);
-  console.log(location.pathname);
 });
 
 ReactDOM.render(

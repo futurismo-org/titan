@@ -69,6 +69,11 @@ const ChallengePosts = (props: any) => {
       .firestore()
       .doc(resourceId)
       .update(updateData)
+      .then(() => {
+        const message = `${userName}さんが${tomorrow}日達成しました！`;
+        postMessage(webhookURL, message);
+      })
+
       .catch(error => console.error(error));
   };
 
