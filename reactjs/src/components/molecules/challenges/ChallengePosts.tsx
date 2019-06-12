@@ -29,7 +29,8 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const { userId, challengeId } = props;
+  const { userId, challengeId, userName, webhookURL } = props;
+
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
   const [value, loading, error] = useDocument(
@@ -83,10 +84,7 @@ const ChallengePosts = (props: any) => {
       .doc(resourceId)
       .update(resetData)
       .then(() => {
-        const message = 'tsu-neraさんがリセットしました';
-        const webhookURL =
-          'https://discordapp.com/api/webhooks/588143770688684032/J2GAgsLWlEnLU_A9gBzjaawM9E5UfsDp3OEvPfei3JWrttyOfe5v139uGF1nbo93Klu5';
-
+        const message = `${userName}さんがリセットしました`;
         postMessage(webhookURL, message);
       })
       .catch(error => console.error(error));
@@ -170,7 +168,9 @@ const ChallengePosts = (props: any) => {
 
 const mapStateToProps = (state: any, props: any) => ({
   userId: state.firebase.profile.id,
-  challengeId: props.match.params.id
+  userName: state.firebase.profile.displayName,
+  challengeId: props.match.params.id,
+  webhookURL: props.webhookURL
 });
 
 export default connect(mapStateToProps)(ChallengePosts);

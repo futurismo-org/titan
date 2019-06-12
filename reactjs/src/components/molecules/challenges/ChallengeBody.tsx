@@ -15,6 +15,7 @@ const ChallengeContent = styled.div`
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
+
   return (
     <ChallengeContent>
       <Switch>
@@ -34,7 +35,12 @@ const ChallengeBody = (props: any) => {
           path="/challenges/:id/leaderboard"
           component={ChallengeLeaderBoard}
         />
-        <Route path="/challenges/:id/posts" component={ChallengePosts} />
+        <Route
+          path="/challenges/:id/posts"
+          render={(props: any) => (
+            <ChallengePosts webhookURL={challenge.webhookURL} {...props} />
+          )}
+        />
       </Switch>
     </ChallengeContent>
   );
