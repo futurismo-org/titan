@@ -13,12 +13,32 @@ const changeAgo = (timestamp: Date) =>
     .fromNow()
     .toString();
 
-const DiscordHistories = () => {
+interface Props {
+  channelId?: string;
+  limit?: number;
+}
+
+const DiscordHistories = (props: Props) => {
   const [histories, setHistories] = useState([]);
+  const { channelId, limit } = props;
 
   useEffect(() => {
-    getMessages().then((data: any) => setHistories(data));
-  }, []);
+    let mounted = true;
+
+    const getHistories = async (props: Props) => {
+      const data = await getMessages(props.channelId, props.limit);
+
+      if (mounted) {
+        setHistories(data);
+      }
+    };
+
+    getHistories({ channelId, limit });
+
+    return () => {
+      mounted = false;
+    };
+  }, [channelId, limit, props]);
 
   return (
     <List>

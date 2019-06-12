@@ -5,6 +5,7 @@ import ChallengeOverview from './ChallengeOverview';
 import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
 import ChallengePosts from './ChallengePosts';
+import ChallengeTimeline from './ChallengeTimeline';
 
 import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
@@ -22,6 +23,10 @@ const ChallengeBody = (props: any) => {
         <Route
           path="/challenges/:id/overview"
           render={() => <ChallengeOverview text={challenge.overview} />}
+        />
+        <Route
+          path="/challenges/:id/timeline"
+          render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
         <Route
           path="/challenges/:id/discussion"
