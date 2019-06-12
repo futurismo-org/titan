@@ -1,10 +1,10 @@
-import * as React from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
 import theme from '../../lib/theme';
-import { getMessages } from '../../lib/discord.client.api';
+import DiscordHistories from './DiscordHistories';
 
 const StyledPaper = styled(Paper)`
   && {
@@ -19,22 +19,22 @@ const StyledTitle = styled(Typography)`
   }
 ` as React.ComponentType<TypographyProps>;
 
-const DiscordWidget = () => (
-  <StyledPaper>
-    <StyledTitle component="h3" variant="h4">
-      オンラインチャット
-    </StyledTitle>
-    {getMessages('587949955285647370', 10, (data: any) => {
-      console.log(data);
-    })}
-    <iframe
-      title="discord-widget"
-      src="https://discordapp.com/widget?id=587935450463993866&theme=light"
-      width="100%"
-      height="300"
-      frameBorder="0"
-    />
-  </StyledPaper>
-);
+const DiscordWidget = () => {
+  return (
+    <StyledPaper>
+      <StyledTitle component="h3" variant="h4">
+        Discordチャット
+      </StyledTitle>
+      <iframe
+        title="discord-widget"
+        src="https://discordapp.com/widget?id=587935450463993866&theme=light"
+        width="100%"
+        height="300"
+        frameBorder="0"
+      />
+      <DiscordHistories />
+    </StyledPaper>
+  );
+};
 
 export default DiscordWidget;
