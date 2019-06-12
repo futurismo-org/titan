@@ -4,6 +4,8 @@ import DashBoardPaper from '../molecules/DashBoardPaper';
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
+import DiscordWidget from '../atoms/DiscordWidget';
+
 const DashBoard = (props: any) => {
   const [value, loading, error] = useCollection(
     firebase
@@ -29,6 +31,7 @@ const DashBoard = (props: any) => {
         type="challenge"
       />
       <DashBoardPaper title="人気のカテゴリ" value={value2} type="category" />
+      <DiscordWidget />
     </React.Fragment>
   );
 };

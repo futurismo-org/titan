@@ -5,6 +5,7 @@ import ChallengeOverview from './ChallengeOverview';
 import ChallengeDiscussion from './ChallengeDiscussion';
 import ChallengeRules from './ChallengeRules';
 import ChallengePosts from './ChallengePosts';
+import ChallengeTimeline from './ChallengeTimeline';
 
 import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
@@ -15,12 +16,17 @@ const ChallengeContent = styled.div`
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
+
   return (
     <ChallengeContent>
       <Switch>
         <Route
           path="/challenges/:id/overview"
           render={() => <ChallengeOverview text={challenge.overview} />}
+        />
+        <Route
+          path="/challenges/:id/timeline"
+          render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
         <Route
           path="/challenges/:id/discussion"
@@ -34,7 +40,12 @@ const ChallengeBody = (props: any) => {
           path="/challenges/:id/leaderboard"
           component={ChallengeLeaderBoard}
         />
-        <Route path="/challenges/:id/posts" component={ChallengePosts} />
+        <Route
+          path="/challenges/:id/posts"
+          render={(props: any) => (
+            <ChallengePosts webhookURL={challenge.webhookURL} {...props} />
+          )}
+        />
       </Switch>
     </ChallengeContent>
   );

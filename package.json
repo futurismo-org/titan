@@ -26,6 +26,8 @@
     "verify": "npm run lint && npm run tsc"
   },
   "devDependencies": {
+    "@types/discord-rpc": "^3.0.1",
+    "@types/history": "^4.7.2",
     "@types/react-router-dom": "^4.3.3",
     "foreman": "^3.0.1",
     "npm-run-all": "^4.1.5"

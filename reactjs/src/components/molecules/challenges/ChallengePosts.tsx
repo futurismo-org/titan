@@ -12,6 +12,8 @@ import ChallengeHistories from './ChallengeHistories';
 
 import Progress from '../../atoms/CircularProgress';
 
+import { postMessage } from '../../../lib/discord.client.api';
+
 const StyledCenterContainer = styled.div`
   margin-top: 80px;
   display: flex;
@@ -27,7 +29,8 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const { userId, challengeId } = props;
+  const { userId, challengeId, userName, webhookURL } = props;
+
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
   const [value, loading, error] = useDocument(
@@ -65,7 +68,13 @@ const ChallengePosts = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(updateData);
+      .update(updateData)
+      .then(() => {
+        const message = `${userName}さんが${tomorrow}日達成しました！`;
+        postMessage(webhookURL, message);
+      })
+
+      .catch(error => console.error(error));
   };
 
   const resetRecord = () => {
@@ -78,7 +87,12 @@ const ChallengePosts = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(resetData);
+      .update(resetData)
+      .then(() => {
+        const message = `${userName}さんがリセットしました`;
+        postMessage(webhookURL, message);
+      })
+      .catch(error => console.error(error));
   };
 
   const confirm = (days: any) => {
@@ -159,7 +173,9 @@ const ChallengePosts = (props: any) => {
 
 const mapStateToProps = (state: any, props: any) => ({
   userId: state.firebase.profile.id,
-  challengeId: props.match.params.id
+  userName: state.firebase.profile.displayName,
+  challengeId: props.match.params.id,
+  webhookURL: props.webhookURL
 });
 
 export default connect(mapStateToProps)(ChallengePosts);

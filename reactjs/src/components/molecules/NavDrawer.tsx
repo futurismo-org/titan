@@ -33,6 +33,21 @@ const DrawerButton = (text: string, to: string) => (
   </Link>
 );
 
+const DrawerButtonA = (text: string, to: string) => (
+  <a href={to} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Typography
+      component="h5"
+      variant="h6"
+      align="center"
+      style={{
+        margin: 10
+      }}
+    >
+      {text}
+    </Typography>
+  </a>
+);
+
 const Drawer = (props: any) => {
   const [open, setOpen] = useState(false);
 
@@ -60,6 +75,8 @@ const Drawer = (props: any) => {
             {DrawerButton('ランキング', '/')}
             <Divider />
             {DrawerButton('トピック', '/')}
+            <Divider />
+            {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}
             <Divider />
           </StyledDrawer>
         </SwipeableDrawer>

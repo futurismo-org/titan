@@ -22,6 +22,8 @@ const getUpChallngeIds = [ulid()];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
+const channelId = '587949955285647370';
+
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
 
 const createChallengeSeed = (args: any) => {
@@ -36,6 +38,7 @@ const createChallengeSeed = (args: any) => {
     closedAt: moment()
       .add('days', 30)
       .toDate(),
+    webhookURL: '',
     ...args
   });
 };
@@ -123,7 +126,8 @@ const challengeSeeds = seed.collection('challenges', [
     category: meditationCategoryId,
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
-    participantsCount: 0
+    participantsCount: 0,
+    channelId
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],

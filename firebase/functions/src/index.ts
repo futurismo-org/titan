@@ -1,15 +1,18 @@
-const admin = require('firebase-admin');
-const config = require('./utils/config');
+// import express from 'express';
+import admin from './utils/admin';
 
-admin.initializeApp(config);
+// const app = express();
 
-const functions = require('firebase-functions').region('asia-northeast1'); // eslint-disable-line
-const user = require('./user');
+// const functions = require('firebase-functions').region('asia-northeast1'); // eslint-disable-line
+// const user = require('./user');
 
 // Firebase Auth handlers
-const authNewUser = functions.auth.user().onCreate(user.createUser);
+// const authNewUser = functions.auth.user().onCreate(user.createUser);
 
+// app.post('/discord', postDiscord);
+
+// register endpoints
+// exports.api = functions.https.onRequest(app);
 module.exports = {
   // authNewUser
 };
-export {};
