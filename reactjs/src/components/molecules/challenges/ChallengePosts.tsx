@@ -9,6 +9,7 @@ import firebase from '../../../lib/firebase';
 import Record from './ChallengePostRecord';
 import RecordButton from '../../atoms/ChallengeRecordButton';
 import ChallengeHistories from './ChallengeHistories';
+import ChallengeGrass from './ChallengeGrass';
 
 import Progress from '../../atoms/CircularProgress';
 
@@ -164,6 +165,7 @@ const ChallengePosts = (props: any) => {
               handleClick={() => confirm(data.days)}
             />
           </StyledTimerButtonContainer>
+          <ChallengeGrass />
           <ChallengeHistories histories={data.histories} />
         </React.Fragment>
       )}
