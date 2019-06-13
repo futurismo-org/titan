@@ -132,6 +132,10 @@ const ChallengePosts = (props: any) => {
   };
 
   const data = value && value.data();
+  const hide = !(
+    moment(now).diff(moment(openedAt.toDate())) >= 0 &&
+    moment(now).diff(moment(closedAt.toDate())) < 0
+  );
 
   useEffect(() => {
     if (
@@ -156,25 +160,33 @@ const ChallengePosts = (props: any) => {
     <StyledCenterContainer>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && (
-        <React.Fragment>
-          <Record days={formatDays(data.days)} />
-          <h3>開始日: {formatDate(data)}</h3>
-          <StyledTimerButtonContainer>
-            <RecordButton
-              text="記録する"
-              color="primary"
-              handleClick={() => writeRecord(data)}
+      {hide ? (
+        <h3>チャレンジ開始までお待ちください</h3>
+      ) : (
+        data && (
+          <React.Fragment>
+            <Record days={formatDays(data.days)} />
+            <h3>開始日: {formatDate(data)}</h3>
+            <StyledTimerButtonContainer>
+              <RecordButton
+                text="記録する"
+                color="primary"
+                handleClick={() => writeRecord(data)}
+              />
+              <RecordButton
+                text="リセット"
+                color="inherit"
+                handleClick={() => confirm(data.days)}
+              />
+            </StyledTimerButtonContainer>
+            <ChallengeGrass
+              data={data}
+              openedAt={openedAt}
+              closedAt={closedAt}
             />
-            <RecordButton
-              text="リセット"
-              color="inherit"
-              handleClick={() => confirm(data.days)}
-            />
-          </StyledTimerButtonContainer>
-          <ChallengeGrass data={data} openedAt={openedAt} closedAt={closedAt} />
-          <ChallengeHistories histories={data.histories} />
-        </React.Fragment>
+            <ChallengeHistories histories={data.histories} />
+          </React.Fragment>
+        )
       )}
     </StyledCenterContainer>
   );

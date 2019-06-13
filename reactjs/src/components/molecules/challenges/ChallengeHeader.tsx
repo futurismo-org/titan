@@ -68,15 +68,8 @@ const ChallengePeriod = (props: any) => {
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
-  const isOpen = (): boolean => {
-    const openedAt = moment(challenge.openedAt.toDate());
-    const closedAt = moment(challenge.closedAt.toDate());
-    const today = moment(new Date());
-
-    return (
-      today.diff(openedAt, 'days') >= 0 && today.diff(closedAt, 'days') < 0
-    );
-  };
+  const isClosed =
+    moment(new Date()).diff(moment(challenge.closedAt.toDate()), 'days') >= 0;
 
   return (
     <MainFeaturedPost>
@@ -104,7 +97,7 @@ const ChallengeHeader = (props: any) => {
               {challenge.description}
             </Typography>
             <HeaderInfo>
-              {isOpen() && (
+              {isClosed && (
                 <React.Fragment>
                   <JoinButton challengeId={challenge.id} />
                   <HeaderInfoText color="inherit" variant="subtitle1">

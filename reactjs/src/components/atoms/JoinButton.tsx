@@ -86,7 +86,6 @@ const JoinButton = (props: any) => {
   const [join, setJoin] = useState(false);
 
   if (challengeId === undefined || user.id === undefined) {
-    console.log('loading...');
     return <div />;
   }
 
