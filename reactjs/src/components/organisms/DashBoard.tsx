@@ -25,11 +25,7 @@ const DashBoard = (props: any) => {
     <React.Fragment>
       {(error || error2) && <strong>Error: {error}</strong>}
       {(loading || loading2) && <Progress />}
-      <DashBoardPaper
-        title="開催中のチャレンジ"
-        value={value}
-        type="challenge"
-      />
+      <DashBoardPaper title="チャレンジ一覧" value={value} type="challenge" />
       <DashBoardPaper title="人気のカテゴリ" value={value2} type="category" />
       <DiscordWidget />
     </React.Fragment>

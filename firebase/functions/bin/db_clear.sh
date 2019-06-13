@@ -1,2 +1,2 @@
 #!/bin/bash
-yarn ts-node -e "require('./src/cli/seeds').deleteCollections()"
+APP_ENV=development yarn ts-node -e "require('./src/cli/seeds').deleteCollections()"

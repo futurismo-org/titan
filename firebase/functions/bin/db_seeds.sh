@@ -1,2 +1,3 @@
 #!/bin/bash
-yarn ts-node -e "require('./src/cli/seeds').createCollections()"
+APP_ENV=development yarn ts-node -e "require('./src/cli/seeds').createCollections()"
+

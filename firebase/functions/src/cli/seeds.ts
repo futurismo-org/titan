@@ -22,7 +22,11 @@ const getUpChallngeIds = [ulid()];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
-const channelId = '587949955285647370';
+const sampleChallengeChannelId = '588697589193375755'; // テスト用チャレンジチャンネル
+const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
+
+const sampleChallengeWebhookURL =
+  'https://discordapp.com/api/webhooks/588699038015291392/JbNwPIojOP2JDd0Q1iIEBScZ8cd4u06t-1vyaGLFVP8tjwKhcXT3fLNKhfXgy5G-_1ma';
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
 
@@ -33,12 +37,8 @@ const createChallengeSeed = (args: any) => {
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
-    isActive: true,
-    openedAt: moment().toDate(),
-    closedAt: moment()
-      .add('days', 30)
-      .toDate(),
-    webhookURL: '',
+    webhookURL: sampleChallengeWebhookURL,
+    channelId: sampleChallengeChannelId,
     ...args
   });
 };
@@ -50,6 +50,7 @@ const createCategorySeed = (args: any) => {
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
+    channelId: sampleGeneralChannelId,
     ...args
   });
 };
@@ -112,14 +113,23 @@ const challengeSeeds = seed.collection('challenges', [
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
-    participantsCount: 30
+    participantsCount: 30,
+    openedAt: moment().toDate(),
+    closedAt: moment()
+      .add(30, 'days')
+      .toDate()
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
     category: muscleCategoryId,
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
-    participantsCount: 0
+    participantsCount: 0,
+    private: true,
+    openedAt: moment().toDate(),
+    closedAt: moment()
+      .add(30, 'days')
+      .toDate()
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
@@ -127,14 +137,25 @@ const challengeSeeds = seed.collection('challenges', [
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
     participantsCount: 0,
-    channelId
+    openedAt: moment()
+      .add(30, 'days')
+      .toDate(),
+    closedAt: moment()
+      .add(60, 'days')
+      .toDate()
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
     category: getUpCategoryId,
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
-    participantsCount: 0
+    participantsCount: 0,
+    openedAt: moment()
+      .subtract(60, 'days')
+      .toDate(),
+    closedAt: moment()
+      .subtract(30, 'days')
+      .toDate()
   })
 ]);
 

@@ -21,7 +21,7 @@
     "ss": "./bin/rg_fzf.sh"
   },
   "engines": {
-    "node": "10"
+    "node": "8"
   },
   "dependencies": {
     "@firebase/app-types": "^0.4.0",

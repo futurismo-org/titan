@@ -8,7 +8,8 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+
+import NoStyledLink from './NoStyledLink';
 
 const StyledCard = styled(Card)`
   && {
@@ -26,15 +27,12 @@ const StyledCardMedia = styled(CardMedia)`
   }
 ` as React.ComponentType<CardMediaProps>;
 
-const NoStyledLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
-
 const ChallengeCard = (props: any) => {
   const { challenge } = props;
+
+  if (challenge.private) {
+    return <React.Fragment />;
+  }
 
   return (
     <Grid item key={challenge.title} xs={12} md={6}>
