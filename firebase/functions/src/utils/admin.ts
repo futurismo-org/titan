@@ -3,9 +3,9 @@ import { configDev, configProd } from './config';
 
 if (admin.apps.length === 0) {
   if (process.env.APP_ENV === 'development') {
-    admin.initializeApp(configDev, 'cloudfunctions(development)');
+    admin.initializeApp(configDev);
   } else {
-    admin.initializeApp(configProd, 'cloudfunction(production)');
+    admin.initializeApp(configProd);
   }
 }
 
