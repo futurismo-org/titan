@@ -30,7 +30,14 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const { userId, challengeId, userName, webhookURL } = props;
+  const {
+    userId,
+    challengeId,
+    userName,
+    webhookURL,
+    openedAt,
+    closedAt
+  } = props;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
@@ -165,7 +172,7 @@ const ChallengePosts = (props: any) => {
               handleClick={() => confirm(data.days)}
             />
           </StyledTimerButtonContainer>
-          <ChallengeGrass />
+          <ChallengeGrass data={data} openedAt={openedAt} closedAt={closedAt} />
           <ChallengeHistories histories={data.histories} />
         </React.Fragment>
       )}
@@ -177,7 +184,7 @@ const mapStateToProps = (state: any, props: any) => ({
   userId: state.firebase.profile.id,
   userName: state.firebase.profile.displayName,
   challengeId: props.match.params.id,
-  webhookURL: props.webhookURL
+  ...props
 });
 
 export default connect(mapStateToProps)(ChallengePosts);
