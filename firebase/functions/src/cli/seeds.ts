@@ -12,13 +12,11 @@ faker.locale = 'ja';
 const muscleCategoryId = ulid();
 const meditationCategoryId = ulid();
 const getUpCategoryId = ulid();
-// const noFapCategoryId = ulid();
 
 const muscleChallngeId = ulid();
 const muscleChallngeIds = [muscleChallngeId, ulid()];
 const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
-// const noFapChallengeIds: string[] = [];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
@@ -109,7 +107,7 @@ const challengeParticipantsSeeds = seed.subcollection([
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: muscleChallngeIds[0],
-    category: muscleCategoryId,
+    categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
@@ -121,7 +119,7 @@ const challengeSeeds = seed.collection('challenges', [
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
-    category: muscleCategoryId,
+    categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
     participantsCount: 0,
@@ -133,7 +131,7 @@ const challengeSeeds = seed.collection('challenges', [
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
-    category: meditationCategoryId,
+    categoryRef: seed.docRef('categories', meditationCategoryId),
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
     participantsCount: 0,
@@ -146,7 +144,7 @@ const challengeSeeds = seed.collection('challenges', [
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
-    category: getUpCategoryId,
+    categoryRef: seed.docRef('categories', getUpCategoryId),
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
     participantsCount: 0,
@@ -164,26 +162,26 @@ const categorySeeds = seed.collection('categories', [
     title: '肉体改善',
     description: '筋肉があれば何でもできる',
     id: muscleCategoryId,
-    challenges: muscleChallngeIds
+    challengeRefs: muscleChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   }),
   createCategorySeed({
     title: '瞑想',
     description: '安らかな心を',
     id: meditationCategoryId,
-    challenges: meditationChallngeIds
+    challengeRefs: meditationChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   }),
   createCategorySeed({
     title: '睡眠',
     description: '良質な人生は良質な睡眠から',
     id: getUpCategoryId,
-    challenges: getUpChallngeIds
+    challengeRefs: getUpChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   })
-  // createCategorySeed({
-  //   title: 'オナ禁',
-  //   description: 'オナ禁で生活を豊かに',
-  //   id: noFapCategoryId,
-  //   challenges: noFapChallengeIds
-  // })
 ]);
 
 const userSeeds = seed.collection('users', [
