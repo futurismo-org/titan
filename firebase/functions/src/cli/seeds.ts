@@ -47,7 +47,6 @@ const createCategorySeed = (args: any) => {
     createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
-    rules: faker.lorem.paragraphs(),
     channelId: sampleGeneralChannelId,
     ...args
   });
