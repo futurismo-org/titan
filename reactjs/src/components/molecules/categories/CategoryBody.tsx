@@ -6,6 +6,7 @@ import { ulid } from 'ulid';
 import theme from '../../../lib/theme';
 
 import ChallengeCategory from './CategoryChallenge';
+import DiscordHistories from '../../atoms/DiscordHistories';
 
 const Title = (props: any) => (
   <Typography component="h3" variant="h4">
@@ -42,6 +43,7 @@ const CategoryBody = (props: any) => {
       </StyledPaper>
       <StyledPaper>
         <Title text="Discordフリートーク" />
+        <DiscordHistories channelId={category.channelId} limit={30} />
       </StyledPaper>
     </React.Fragment>
   );
