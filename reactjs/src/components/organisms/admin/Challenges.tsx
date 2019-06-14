@@ -1,12 +1,13 @@
 import { useCollection } from 'react-firebase-hooks/firestore';
 
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 import * as React from 'react';
 
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
-
 import Progress from '../../atoms/CircularProgress';
+
+import Link from '../../atoms/NoStyledLink';
 
 const Challenges = () => {
   const [value, loading, error] = useCollection(
@@ -33,26 +34,29 @@ const Challenges = () => {
         {loading && <Progress />}
         {value && (
           <React.Fragment>
-            {value!.docs.map((doc: any) => (
-              <li key={doc.id}>
-                {doc.data().title}
-                <Link
-                  to={`/admin/challenges/new/${doc.id}`}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Button type="button" color="primary">
-                    編集
+            <List>
+              {value!.docs.map((doc: any) => (
+                <ListItem key={doc.id}>
+                  <ListItemText>
+                    {doc.data().id}
+                    <br />
+                    {doc.data().title}
+                  </ListItemText>
+                  <Link to={`/admin/challenges/new/${doc.id}`}>
+                    <Button type="button" color="primary">
+                      編集
+                    </Button>
+                  </Link>
+                  <Button
+                    type="button"
+                    color="secondary"
+                    onClick={() => onDeleteHandler(doc.id)}
+                  >
+                    削除
                   </Button>
-                </Link>
-                <Button
-                  type="button"
-                  color="secondary"
-                  onClick={() => onDeleteHandler(doc.id)}
-                >
-                  削除
-                </Button>
-              </li>
-            ))}
+                </ListItem>
+              ))}
+            </List>
           </React.Fragment>
         )}
       </ul>
