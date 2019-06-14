@@ -7,23 +7,14 @@ import { ulid } from 'ulid';
 import moment from 'moment';
 import firebase from '../../../lib/firebase';
 
-const ChallengeForm = (props: any) => {
+const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
-  const [rules, setRules] = useState('');
 
   const [channelId, setChannelId] = useState('');
-  const [categoryRef, setCategoryRef] = useState('');
-  const [webhookURL, setWebhookURL] = useState('');
-  const [participantsCount, setParticipantsCount] = useState(0);
+  const [challengeRefs, setChallengeRefs] = useState('');
 
-  const [openedAt, setOpenedAt] = useState(
-    moment(new Date()).format('YYYY-MM-DD')
-  );
-  const [closedAt, setClosedAt] = useState(
-    moment(new Date()).format('YYYY-MM-DD')
-  );
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
   );
@@ -40,36 +31,18 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setOverview(e.target.value);
   };
-  const onRulesChange = (e: any) => {
-    e.preventDefault();
-    setRules(e.target.value);
-  };
   const onChannelIdChange = (e: any) => {
     e.preventDefault();
     setChannelId(e.target.value);
   };
-  const onWebhookURLChange = (e: any) => {
+  const onChallengeRefsChange = (e: any) => {
     e.preventDefault();
-    setWebhookURL(e.target.value);
-  };
-  const onCategoryRefChange = (e: any) => {
-    e.preventDefault();
-    setCategoryRef(e.target.value);
-  };
-  const onOpenedAtChange = (e: any) => {
-    e.preventDefault();
-    const date = e.target.value;
-    setOpenedAt(date);
-  };
-  const onClosedAtChange = (e: any) => {
-    e.preventDefault();
-    const date = e.target.value;
-    setClosedAt(date);
+    setChallengeRefs(e.target.value);
   };
 
   const isCreate = props.match.params.id === undefined;
 
-  const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
+  const pageTitle = isCreate ? 'カテゴリ新規投稿' : 'カテゴリ編集';
 
   const updateHandler = (e: any) => {
     e.preventDefault();
@@ -80,19 +53,19 @@ const ChallengeForm = (props: any) => {
       title: title,
       description: description,
       overview: overview,
-      rules: rules,
       createdAt: new Date(createdAt),
       updatedAt: new Date(),
       channelId: channelId,
-      webhookURL: webhookURL,
-      categoryRef: firebase.firestore().doc(categoryRef),
-      openedAt: new Date(openedAt),
-      closedAt: new Date(closedAt),
-      participantsCount: participantsCount
+      challengeRefs:
+        challengeRefs === ''
+          ? ''
+          : challengeRefs
+              .split(',')
+              .map((path: string) => firebase.firestore().doc(path))
     };
     firebase
       .firestore()
-      .collection('challenges')
+      .collection('categories')
       .doc(id)
       .set(newData);
     window.location.href = '/#/admin'; // eslint-disable-line
@@ -102,7 +75,7 @@ const ChallengeForm = (props: any) => {
     if (!isCreate) {
       firebase
         .firestore()
-        .collection('challenges')
+        .collection('categories')
         .doc(props.match.params.id)
         .get()
         .then(doc => doc.data())
@@ -110,20 +83,20 @@ const ChallengeForm = (props: any) => {
           setTitle(challenge!.title);
           setDescription(challenge!.description);
           setOverview(challenge!.overview);
-          setRules(challenge!.rules);
           setChannelId(challenge!.channelId);
-          setWebhookURL(challenge!.webhookURL);
-          setCategoryRef(challenge!.categoryRef.path);
-          setOpenedAt(
-            moment(challenge!.openedAt.toDate()).format('YYYY-MM-DD')
-          );
-          setClosedAt(
-            moment(challenge!.closedAt.toDate()).format('YYYY-MM-DD')
+          setChallengeRefs(
+            !challenge!.challengeRefs
+              ? ''
+              : challenge!.challengeRefs
+                  .map(
+                    (docRef: firebase.firestore.DocumentReference) =>
+                      docRef.path
+                  )
+                  .toString()
           );
           setCreatedAt(
             moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
           );
-          setParticipantsCount(challenge!.participantsCount);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -132,20 +105,6 @@ const ChallengeForm = (props: any) => {
     <React.Fragment>
       <h2>{pageTitle}</h2>
       <form noValidate onSubmit={updateHandler}>
-        <TextField
-          id="openedAt"
-          label="開始日"
-          type="date"
-          value={openedAt}
-          onChange={onOpenedAtChange}
-        />
-        <TextField
-          id="closedAt"
-          label="終了日"
-          type="date"
-          value={closedAt}
-          onChange={onClosedAtChange}
-        />
         <TextField
           value={title}
           variant="outlined"
@@ -178,21 +137,15 @@ const ChallengeForm = (props: any) => {
           onChange={onChannelIdChange}
         />
         <TextField
-          value={categoryRef}
-          variant="outlined"
-          margin="normal"
-          id="categoryRef"
-          label="カテゴリ参照"
-          onChange={onCategoryRefChange}
-        />
-        <TextField
-          value={webhookURL}
+          value={challengeRefs}
           variant="outlined"
           margin="normal"
           fullWidth
-          id="webhookURL"
-          label="WebhookURL"
-          onChange={onWebhookURLChange}
+          id="challnegeRefs"
+          label="チャレンジ参照"
+          rows={4}
+          multiline
+          onChange={onChallengeRefsChange}
         />
         <TextField
           value={overview}
@@ -206,18 +159,6 @@ const ChallengeForm = (props: any) => {
           multiline
           onChange={onOverviewChange}
         />
-        <TextField
-          value={rules}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="rules"
-          name="rules"
-          label="ルール"
-          rows={8}
-          multiline
-          onChange={onRulesChange}
-        />
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>
@@ -226,4 +167,4 @@ const ChallengeForm = (props: any) => {
   );
 };
 
-export default ChallengeForm;
+export default CategoryForm;
