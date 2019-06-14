@@ -11,6 +11,10 @@
     {
       "name": "root",
       "path": "."
+    },
+    {
+      "name": "landing-page",
+      "path": "lp"
     }
   ],
   "settings": {
