@@ -97,7 +97,11 @@ const ChallengeHeader = (props: any) => {
               {challenge.description}
             </Typography>
             <HeaderInfo>
-              {isClosed && (
+              {isClosed ? (
+                <HeaderInfoText color="inherit" variant="subtitle1">
+                  {challenge.participantsCount}人参加
+                </HeaderInfoText>
+              ) : (
                 <React.Fragment>
                   <JoinButton challengeId={challenge.id} />
                   <HeaderInfoText color="inherit" variant="subtitle1">
