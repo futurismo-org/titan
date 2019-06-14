@@ -9,22 +9,22 @@ import Progress from '../../atoms/CircularProgress';
 
 import Link from '../../atoms/NoStyledLink';
 
-const Challenges = () => {
+const Categories = () => {
   const [value, loading, error] = useCollection(
-    firebase.firestore().collection('challenges')
+    firebase.firestore().collection('categories')
   );
 
   const onDeleteHandler = (id: string) =>
     firebase
       .firestore()
-      .collection('challenges')
+      .collection('categories')
       .doc(id)
       .delete();
 
   return (
     <React.Fragment>
-      <h2>チャレンジ一覧</h2>
-      <Link to="/admin/challenges/new">
+      <h2>カテゴリ一覧</h2>
+      <Link to="/admin/categories/new">
         <Button type="button" variant="contained" color="primary">
           新規投稿
         </Button>
@@ -40,7 +40,7 @@ const Challenges = () => {
                 <br />
                 {doc.data().title}
               </ListItemText>
-              <Link to={`/admin/challenges/new/${doc.id}`}>
+              <Link to={`/admin/categories/new/${doc.id}`}>
                 <Button type="button" color="primary" variant="contained">
                   編集
                 </Button>
@@ -61,4 +61,4 @@ const Challenges = () => {
   );
 };
 
-export default Challenges;
+export default Categories;
