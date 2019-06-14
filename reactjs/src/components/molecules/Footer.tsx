@@ -31,11 +31,16 @@ const StyledFooter = styled.footer`
 
 const MadeWithLove = () => {
   return (
-    <Typography align="center" variant="body2" color="textSecondary">
-      {'Built with fire by the '}
-      <StyledLink text="Futurismo" />
-      {' team.'}
-    </Typography>
+    <React.Fragment>
+      <Typography align="center" variant="body2" color="textSecondary">
+        {'Built with fire by the '}
+        <StyledLink text="Futurismo" />
+        {' team.'}
+      </Typography>
+      <Typography align="center" variant="body2" color="textSecondary">
+        {'©2019 All Rights Reserved.'}
+      </Typography>
+    </React.Fragment>
   );
 };
 
