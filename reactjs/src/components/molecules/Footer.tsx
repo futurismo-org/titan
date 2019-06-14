@@ -18,6 +18,11 @@ const StyledLink = (props: LinkProps) => (
   </Link>
 );
 
+const FooterLinkContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const StyledFooter = styled.footer`
   background-color: ${theme.palette.background.paper};
   margin-top: auto;
@@ -33,6 +38,20 @@ const MadeWithLove = () => {
     </Typography>
   );
 };
+
+const FooterLink = (props: any) => (
+  <StyledAnchor href={props.to}>
+    <Typography variant="subtitle1" color="textSecondary" component="p">
+      {props.text}
+    </Typography>
+  </StyledAnchor>
+);
+
+const StyledAnchor = styled.a`
+  margin: 10px;
+  color: inherit;
+  text-decoration: none;
+`;
 
 const Footer = () => (
   <StyledFooter>
@@ -50,6 +69,11 @@ const Footer = () => (
         a.k.a. 地獄から天国へ
       </Typography>
       <MadeWithLove />
+      <FooterLinkContainer>
+        <FooterLink to="https://twitter.com/titan_dev_1234" text="Twitter" />
+        <FooterLink to="https://note.mu/titan_dev" text="Blog" />
+        <FooterLink to="https://github.com/futurismo-org/titan" text="GitHub" />
+      </FooterLinkContainer>
     </Container>
   </StyledFooter>
 );
