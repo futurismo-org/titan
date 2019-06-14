@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
 import styled from 'styled-components';
+import moment from 'moment';
 import theme from '../../lib/theme';
 
 interface LinkProps {
@@ -38,7 +39,7 @@ const MadeWithLove = () => {
         {' team.'}
       </Typography>
       <Typography align="center" variant="body2" color="textSecondary">
-        {'©2019 All Rights Reserved.'}
+        {`©${moment().year()} All Rights Reserved.`}
       </Typography>
     </React.Fragment>
   );
