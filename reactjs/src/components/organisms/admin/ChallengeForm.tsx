@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 import { ulid } from 'ulid';
+import moment from 'moment';
 import firebase from '../../../lib/firebase';
 
 const ChallengeForm = (props: any) => {
@@ -15,6 +16,17 @@ const ChallengeForm = (props: any) => {
   const [channelId, setChannelId] = useState('');
   const [categoryRef, setCategoryRef] = useState('');
   const [webhookURL, setWebhookURL] = useState('');
+  const [participantsCount, setParticipantsCount] = useState(0);
+
+  const [openedAt, setOpenedAt] = useState(
+    moment(new Date()).format('YYYY-MM-DD')
+  );
+  const [closedAt, setClosedAt] = useState(
+    moment(new Date()).format('YYYY-MM-DD')
+  );
+  const [createdAt, setCreatedAt] = useState(
+    moment(new Date()).format('YYYY-MM-DD')
+  );
 
   const onTitleChange = (e: any) => {
     e.preventDefault();
@@ -44,6 +56,16 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setCategoryRef(e.target.value);
   };
+  const onOpenedAtChange = (e: any) => {
+    e.preventDefault();
+    const date = e.target.value;
+    setOpenedAt(date);
+  };
+  const onClosedAtChange = (e: any) => {
+    e.preventDefault();
+    const date = e.target.value;
+    setClosedAt(date);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -59,10 +81,14 @@ const ChallengeForm = (props: any) => {
       description: description,
       overview: overview,
       rules: rules,
+      createdAt: new Date(createdAt),
       updatedAt: new Date(),
       channelId: channelId,
       webhookURL: webhookURL,
-      categoryRef: firebase.firestore().doc(categoryRef)
+      categoryRef: firebase.firestore().doc(categoryRef),
+      openedAt: new Date(openedAt),
+      closedAt: new Date(closedAt),
+      participantsCount: participantsCount
     };
     firebase
       .firestore()
@@ -88,6 +114,16 @@ const ChallengeForm = (props: any) => {
           setChannelId(challenge!.channelId);
           setWebhookURL(challenge!.webhookURL);
           setCategoryRef(challenge!.categoryRef.path);
+          setOpenedAt(
+            moment(challenge!.openedAt.toDate()).format('YYYY-MM-DD')
+          );
+          setClosedAt(
+            moment(challenge!.closedAt.toDate()).format('YYYY-MM-DD')
+          );
+          setCreatedAt(
+            moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
+          );
+          setParticipantsCount(challenge!.participantsCount);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -97,6 +133,20 @@ const ChallengeForm = (props: any) => {
       <React.Fragment>
         <h2>{pageTitle}</h2>
         <form noValidate onSubmit={updateHandler}>
+          <TextField
+            id="openedAt"
+            label="開始日"
+            type="date"
+            value={openedAt}
+            onChange={onOpenedAtChange}
+          />
+          <TextField
+            id="closedAt"
+            label="終了日"
+            type="date"
+            value={closedAt}
+            onChange={onClosedAtChange}
+          />
           <TextField
             value={title}
             variant="outlined"
