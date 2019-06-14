@@ -1,17 +1,28 @@
-import { Route, Switch } from 'react-router-dom';
-
+import { Switch } from 'react-router-dom';
 import * as React from 'react';
+import styled from 'styled-components';
+import AdminRoute from '../../utils/AdminRoute';
+
 import ChallengeForm from './ChallengeForm';
 import DashBoard from './DashBoard';
 import Layout from '../../templates/AdminLayout';
 
+const AdminContainer = styled.div`
+  margin: 30px;
+`;
+
 const Admin = () => (
   <Layout>
-    <Switch>
-      <Route path="/admin/challenges/new/:id" component={ChallengeForm} />
-      <Route path="/admin/challenges/new" component={ChallengeForm} />
-      <Route path="/admin" component={DashBoard} />
-    </Switch>
+    <AdminContainer>
+      <Switch>
+        <AdminRoute
+          path="/admin/challenges/new/:id"
+          component={ChallengeForm}
+        />
+        <AdminRoute path="/admin/challenges/new" component={ChallengeForm} />
+        <AdminRoute path="/admin" component={DashBoard} />
+      </Switch>
+    </AdminContainer>
   </Layout>
 );
 

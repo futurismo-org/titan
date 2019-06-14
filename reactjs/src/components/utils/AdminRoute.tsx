@@ -4,6 +4,9 @@ import { Route, Redirect } from 'react-router-dom';
 
 const AdminRoute = (props: any) => {
   const { user, component: Component, ...rest } = props;
+
+  if (!user.isLoaded || user.isEmpty) return <React.Fragment />;
+
   return (
     <Route
       {...rest}
@@ -12,7 +15,7 @@ const AdminRoute = (props: any) => {
           // Adminならば、PrivateRouteに渡されたcomponentを返します。
           <Component {...props} />
         ) : (
-          // Adminでなければルートページ(/login)に飛ばします。
+          // Adminでなければルートページ(/)に飛ばします。
           <Redirect to="/" />
         )
       }
