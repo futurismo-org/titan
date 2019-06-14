@@ -4,10 +4,6 @@ import { Typography } from '@material-ui/core';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import theme from '../../../lib/theme';
 
-const CategoryContent = styled.div`
-  padding: ${theme.spacing(2)}px;
-`;
-
 const Title = (props: any) => (
   <Typography component="h3" variant="h4">
     {props.text}
@@ -21,11 +17,19 @@ const StyledPaper = styled(Paper)`
   }
 ` as React.ComponentType<PaperProps>;
 
+const OverviewContent = styled.div`
+  white-space: pre-line;
+  margin: 10px;
+`;
+
 const CategoryBody = (props: any) => {
+  const { category } = props;
+
   return (
-    <CategoryContent>
+    <React.Fragment>
       <StyledPaper>
         <Title text="概要" />
+        <OverviewContent>{category.overview}</OverviewContent>
       </StyledPaper>
       <StyledPaper>
         <Title text="チャレンジ一覧" />
@@ -33,7 +37,7 @@ const CategoryBody = (props: any) => {
       <StyledPaper>
         <Title text="Discordフリートーク" />
       </StyledPaper>
-    </CategoryContent>
+    </React.Fragment>
   );
 };
 
