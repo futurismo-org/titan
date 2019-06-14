@@ -29,9 +29,9 @@ const Overlay = styled.div`
 
 const MainFeaturedPostContent = styled.div`
   position: relative;
-  padding: ${theme.spacing(3)}px;
+  padding: ${theme.spacing(2)}px;
   ${theme.breakpoints.up('md')} {
-    padding: ${theme.spacing(6)}px;
+    padding: ${theme.spacing(4)}px;
     padding-right: 0;
   }
 `;
