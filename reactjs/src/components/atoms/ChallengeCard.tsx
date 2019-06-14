@@ -30,6 +30,10 @@ const StyledCardMedia = styled(CardMedia)`
 const ChallengeCard = (props: any) => {
   const { challenge } = props;
 
+  if (!challenge) {
+    return <React.Fragment />;
+  }
+
   if (challenge.private) {
     return <React.Fragment />;
   }
