@@ -12,6 +12,8 @@ const ChallengeForm = (props: any) => {
   const [overview, setOverview] = useState('');
   const [rules, setRules] = useState('');
 
+  const [channelId, setChannelId] = useState('');
+
   const onTitleChange = (e: any) => {
     e.preventDefault();
     setTitle(e.target.value);
@@ -28,6 +30,10 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setRules(e.target.value);
   };
+  const onChannelIdChange = (e: any) => {
+    e.preventDefault();
+    setChannelId(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -43,7 +49,8 @@ const ChallengeForm = (props: any) => {
       description: description,
       overview: overview,
       rules: rules,
-      updatedAt: new Date()
+      updatedAt: new Date(),
+      channelId: channelId
     };
     firebase
       .firestore()
@@ -66,6 +73,7 @@ const ChallengeForm = (props: any) => {
           setDescription(challenge!.description);
           setOverview(challenge!.overview);
           setRules(challenge!.rules);
+          setChannelId(challenge!.channelId);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -97,6 +105,14 @@ const ChallengeForm = (props: any) => {
             name="description"
             label="説明"
             onChange={onDescriptionChange}
+          />
+          <TextField
+            value={channelId}
+            variant="outlined"
+            margin="normal"
+            id="channelId"
+            label="チャンネルID"
+            onChange={onChannelIdChange}
           />
           <TextField
             value={overview}

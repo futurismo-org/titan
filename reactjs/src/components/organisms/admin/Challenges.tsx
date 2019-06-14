@@ -29,37 +29,34 @@ const Challenges = () => {
           新規投稿
         </Button>
       </Link>
-      <ul>
-        {error && <strong>Error: {error}</strong>}
-        {loading && <Progress />}
-        {value && (
-          <React.Fragment>
-            <List>
-              {value!.docs.map((doc: any) => (
-                <ListItem key={doc.id}>
-                  <ListItemText>
-                    {doc.data().id}
-                    <br />
-                    {doc.data().title}
-                  </ListItemText>
-                  <Link to={`/admin/challenges/new/${doc.id}`}>
-                    <Button type="button" color="primary">
-                      編集
-                    </Button>
-                  </Link>
-                  <Button
-                    type="button"
-                    color="secondary"
-                    onClick={() => onDeleteHandler(doc.id)}
-                  >
-                    削除
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
-          </React.Fragment>
-        )}
-      </ul>
+      {error && <strong>Error: {error}</strong>}
+      {loading && <Progress />}
+      {value && (
+        <List>
+          {value!.docs.map((doc: any) => (
+            <ListItem key={doc.id}>
+              <ListItemText>
+                {doc.data().id}
+                <br />
+                {doc.data().title}
+              </ListItemText>
+              <Link to={`/admin/challenges/new/${doc.id}`}>
+                <Button type="button" color="primary" variant="contained">
+                  編集
+                </Button>
+              </Link>
+              <Button
+                type="button"
+                color="secondary"
+                variant="contained"
+                onClick={() => onDeleteHandler(doc.id)}
+              >
+                削除
+              </Button>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </React.Fragment>
   );
 };
