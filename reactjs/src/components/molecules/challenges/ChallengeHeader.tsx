@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
+import ChallengeCategoryLink from '../../atoms/ChallengeCategoryLink';
 
 import 'moment/locale/ja';
 
@@ -13,6 +14,7 @@ moment.locale('ja');
 
 const HeaderInfo = styled.div`
   display: flex;
+  margin: 10px;
 `;
 
 const MainFeaturedPost = styled(Paper)`
@@ -39,9 +41,9 @@ const Overlay = styled.div`
 
 const MainFeaturedPostContent = styled.div`
   position: relative;
-  padding: ${theme.spacing(3)}px;
+  padding: ${theme.spacing(2)}px;
   ${theme.breakpoints.up('md')} {
-    padding: ${theme.spacing(6)}px;
+    padding: ${theme.spacing(4)}px;
     padding-right: 0;
   }
 `;
@@ -85,17 +87,21 @@ const ChallengeHeader = (props: any) => {
       <Grid container>
         <Grid item md={9}>
           <MainFeaturedPostContent>
-            <Typography
-              component="h1"
-              variant="h3"
-              color="inherit"
-              gutterBottom
-            >
-              {challenge.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {challenge.description}
-            </Typography>
+            <HeaderInfo>
+              <Typography
+                component="h1"
+                variant="h3"
+                color="inherit"
+                gutterBottom
+              >
+                {challenge.title}
+              </Typography>
+            </HeaderInfo>
+            <HeaderInfo>
+              <Typography variant="h5" color="inherit">
+                {challenge.description}
+              </Typography>
+            </HeaderInfo>
             <HeaderInfo>
               {isClosed ? (
                 <HeaderInfoText color="inherit" variant="subtitle1">
@@ -112,6 +118,9 @@ const ChallengeHeader = (props: any) => {
               <HeaderInfoText color="inherit" variant="subtitle1">
                 <ChallengePeriod challenge={challenge} />
               </HeaderInfoText>
+            </HeaderInfo>
+            <HeaderInfo>
+              <ChallengeCategoryLink categoryRef={challenge.categoryRef} />
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>
