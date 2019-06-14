@@ -13,6 +13,8 @@ const ChallengeForm = (props: any) => {
   const [rules, setRules] = useState('');
 
   const [channelId, setChannelId] = useState('');
+  const [categoryRef, setCategoryRef] = useState('');
+  const [webhookURL, setWebhookURL] = useState('');
 
   const onTitleChange = (e: any) => {
     e.preventDefault();
@@ -34,6 +36,14 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setChannelId(e.target.value);
   };
+  const onWebhookURLChange = (e: any) => {
+    e.preventDefault();
+    setWebhookURL(e.target.value);
+  };
+  const onCategoryRefChange = (e: any) => {
+    e.preventDefault();
+    setCategoryRef(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -50,7 +60,9 @@ const ChallengeForm = (props: any) => {
       overview: overview,
       rules: rules,
       updatedAt: new Date(),
-      channelId: channelId
+      channelId: channelId,
+      webhookURL: webhookURL,
+      categoryRef: firebase.firestore().doc(categoryRef)
     };
     firebase
       .firestore()
@@ -74,6 +86,8 @@ const ChallengeForm = (props: any) => {
           setOverview(challenge!.overview);
           setRules(challenge!.rules);
           setChannelId(challenge!.channelId);
+          setWebhookURL(challenge!.webhookURL);
+          setCategoryRef(challenge!.categoryRef.path);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -113,6 +127,23 @@ const ChallengeForm = (props: any) => {
             id="channelId"
             label="チャンネルID"
             onChange={onChannelIdChange}
+          />
+          <TextField
+            value={categoryRef}
+            variant="outlined"
+            margin="normal"
+            id="categoryRef"
+            label="カテゴリ参照"
+            onChange={onCategoryRefChange}
+          />
+          <TextField
+            value={webhookURL}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="webhookURL"
+            label="WebhookURL"
+            onChange={onWebhookURLChange}
           />
           <TextField
             value={overview}
