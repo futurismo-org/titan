@@ -37,9 +37,10 @@ const CategoryBody = (props: any) => {
       </StyledPaper>
       <StyledPaper>
         <Title text="チャレンジ一覧" />
-        {category.challengeRefs.map((challengeRef: any) => (
-          <ChallengeCategory key={ulid()} challengeRef={challengeRef} />
-        ))}
+        {category.challengeRefs &&
+          category.challengeRefs.map((challengeRef: any) => (
+            <ChallengeCategory key={ulid()} challengeRef={challengeRef} />
+          ))}
       </StyledPaper>
       <StyledPaper>
         <Title text="Discordフリートーク" />
