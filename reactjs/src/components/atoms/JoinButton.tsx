@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { firestore } from 'firebase';
 import firebase from '../../lib/firebase';
+
+import NoStyledLink from './NoStyledLink';
 
 interface Props {
   challengeId: string;
@@ -65,20 +65,12 @@ const renderJoinButton = (props: any) => (
   </Button>
 );
 
-const StyledLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-    margin-left: 10px;
-  }
-`;
-
 const renderPostButton = (props: any) => (
-  <StyledLink to={`/challenges/${props.id}/posts`}>
+  <NoStyledLink to={`/challenges/${props.id}/posts`}>
     <Button color="inherit" variant="outlined" size="small">
       投稿
     </Button>
-  </StyledLink>
+  </NoStyledLink>
 );
 
 const JoinButton = (props: any) => {
