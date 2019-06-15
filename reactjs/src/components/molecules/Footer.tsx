@@ -71,15 +71,15 @@ const Footer = () => (
         component="p"
         align="center"
       >
-        自己変革の火をつけるWebサービス <br />
+        自己変革の火をつけるアプリ <br />
         a.k.a. 地獄から天国へ
       </Typography>
       <MadeWithLove />
-      <FooterLinkContainer>
+      {/* <FooterLinkContainer>
         <FooterLink to="https://twitter.com/titan_dev_1234" text="Twitter" />
         <FooterLink to="https://note.mu/titan_dev" text="Blog" />
         <FooterLink to="https://github.com/futurismo-org/titan" text="GitHub" />
-      </FooterLinkContainer>
+      </FooterLinkContainer> */}
     </Container>
   </StyledFooter>
 );
