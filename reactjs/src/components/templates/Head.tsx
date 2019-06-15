@@ -9,6 +9,10 @@ const Head = () => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href={`${PUBLIC_URL}/manifest.json`} />
+    <meta
+      name="google-site-verification"
+      content="CdxVY4YxFr0MeTi2TyoLcCi0XYf2st5HRz3sxmV2QrI"
+    />
     <title>Titan App</title>
   </Helmet>
 );
