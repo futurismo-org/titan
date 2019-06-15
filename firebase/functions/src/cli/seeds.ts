@@ -23,8 +23,7 @@ const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 const sampleChallengeChannelId = '588697589193375755'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
 
-const sampleChallengeWebhookURL =
-  'https://discordapp.com/api/webhooks/588699038015291392/JbNwPIojOP2JDd0Q1iIEBScZ8cd4u06t-1vyaGLFVP8tjwKhcXT3fLNKhfXgy5G-_1ma';
+const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
 
