@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
 
 import { ulid } from 'ulid';
 import moment from 'moment';
@@ -17,6 +18,8 @@ const ChallengeForm = (props: any) => {
   const [categoryRef, setCategoryRef] = useState('');
   const [webhookURL, setWebhookURL] = useState('');
   const [participantsCount, setParticipantsCount] = useState(0);
+
+  const [privateFlag, setPrivateFlag] = useState(false);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -66,6 +69,9 @@ const ChallengeForm = (props: any) => {
     const date = e.target.value;
     setClosedAt(date);
   };
+  const onPrivateFlagChange = (e: any) => {
+    setPrivateFlag(e.target.checked);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -88,7 +94,8 @@ const ChallengeForm = (props: any) => {
       categoryRef: firebase.firestore().doc(categoryRef),
       openedAt: new Date(openedAt),
       closedAt: new Date(closedAt),
-      participantsCount: participantsCount
+      participantsCount: participantsCount,
+      private: privateFlag
     };
     firebase
       .firestore()
@@ -124,6 +131,8 @@ const ChallengeForm = (props: any) => {
             moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
           );
           setParticipantsCount(challenge!.participantsCount);
+          const flag = challenge!.private ? challenge!.private : false;
+          setPrivateFlag(flag);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -218,6 +227,7 @@ const ChallengeForm = (props: any) => {
           multiline
           onChange={onRulesChange}
         />
+        <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>

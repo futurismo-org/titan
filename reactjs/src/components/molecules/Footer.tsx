@@ -19,10 +19,10 @@ const StyledLink = (props: LinkProps) => (
   </Link>
 );
 
-const FooterLinkContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
+// const FooterLinkContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+// `;
 
 const StyledFooter = styled.footer`
   background-color: ${theme.palette.background.paper};
@@ -45,19 +45,19 @@ const MadeWithLove = () => {
   );
 };
 
-const FooterLink = (props: any) => (
-  <StyledAnchor href={props.to}>
-    <Typography variant="subtitle1" color="textSecondary" component="p">
-      {props.text}
-    </Typography>
-  </StyledAnchor>
-);
+// const FooterLink = (props: any) => (
+//   <StyledAnchor href={props.to}>
+//     <Typography variant="subtitle1" color="textSecondary" component="p">
+//       {props.text}
+//     </Typography>
+//   </StyledAnchor>
+// );
 
-const StyledAnchor = styled.a`
-  margin: 10px;
-  color: inherit;
-  text-decoration: none;
-`;
+// const StyledAnchor = styled.a`
+//   margin: 10px;
+//   color: inherit;
+//   text-decoration: none;
+// `;
 
 const Footer = () => (
   <StyledFooter>
