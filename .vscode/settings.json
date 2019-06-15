@@ -2,6 +2,7 @@
   "files.exclude": {
     "reactjs": true,
     "firebase": true,
-    "landing-page": true
+    "landing-page": true,
+    "node_modules": true
   }
 }
