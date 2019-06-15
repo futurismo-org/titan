@@ -227,6 +227,7 @@ const ChallengeForm = (props: any) => {
           multiline
           onChange={onRulesChange}
         />
+        {'プライベート設定'}
         <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
