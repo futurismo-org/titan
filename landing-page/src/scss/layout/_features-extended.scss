@@ -1,0 +1,139 @@
+.features-extended-header {
+	margin-bottom: 32px;
+}
+
+.features-extended-wrap {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: -16px;
+
+	&:last-of-type {
+		margin-bottom: -16px;
+	}
+
+	&:not(:last-of-type) {
+		margin-bottom: 16px;
+	}
+}
+
+.feature-extended {
+    padding: 16px 0;
+}
+
+.feature-extended-image {
+	margin-bottom: 24px;
+
+	img,
+    svg {
+        width: 100%;
+        max-width: 360px;
+        height: auto;
+        margin-left: auto;
+		margin-right: auto;
+        overflow: visible;
+		@include shadow;
+    }
+}
+
+.feature-extended-body {
+    text-align: center;
+}
+
+@include media( '>medium' ) {
+
+    .features-extended {
+
+		.container {
+			/* image width (360) + padding (48) + text width (360) = 828 */
+			max-width: 828px + ( get-content-padding(desktop) * 2 );
+		}
+
+		.section-inner {
+			padding-bottom: 102px;
+		}
+
+        .section-paragraph {
+            padding-left: 72px;
+            padding-right: 72px;
+            margin-bottom: 0;
+        }
+    }
+
+	.features-extended-header {
+		margin-bottom: 80px;
+	}
+
+	.features-extended-wrap {
+		margin-top: -40px;
+
+		&:last-of-type {
+			margin-bottom: -40px;
+		}
+
+		&:not(:last-of-type) {
+			margin-bottom: 40px;
+		}
+	}
+
+    .feature-extended {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: stretch;
+		justify-content: flex-end;
+        padding: 40px 0;
+
+		.feature-extended-image {
+			margin-right: 48px;
+			margin-bottom: 0;
+
+			img,
+			svg {
+				width: auto;
+				max-width: 460px;
+				margin-left: 0;
+			}
+		}
+
+		&:nth-child(odd) {
+			justify-content: flex-start;
+
+			.feature-extended-image {
+				order: 1;
+				margin-left: 48px;
+				margin-right: 0;
+
+				img,
+				svg {
+					margin-left: auto;
+					margin-right: 0;
+				}
+			}
+		}
+    }
+
+	.feature-extended-body {
+		/* Align vertically */
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		/* Align vertically, end */
+		flex-shrink: 0;
+		width: 360px;
+		text-align: left;
+	}
+}
+
+@include media( '>large' ) {
+
+	.features-extended {
+
+		.container {
+			/* image width (420) + padding (48) + text width (480) = 828 */
+			max-width: 948px + ( get-content-padding(desktop) * 2 );
+		}
+	}
+
+	.feature-extended-body {
+		width: 480px;
+	}
+}

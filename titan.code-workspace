@@ -11,6 +11,10 @@
     {
       "name": "root",
       "path": "."
+    },
+    {
+      "name": "landing-page",
+      "path": "landing-page"
     }
   ],
   "settings": {
@@ -35,6 +39,5 @@
       }
     ],
     "prettier.singleQuote": true,
-    "github.repositories": ["futurismo-org/titan"]
   }
 }

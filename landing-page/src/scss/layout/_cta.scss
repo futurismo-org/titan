@@ -1,0 +1,70 @@
+.cta {
+	position: relative;
+	text-align: center;
+
+	.section-inner {
+		padding: 32px;
+	}
+
+	.section-title {
+		margin-bottom: 48px;
+		color: color(primary, 4) !important;
+	}
+
+	&::before {
+		content: '';
+		width: 100%;
+		height: 50%;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		background: color(typography, 1);
+	}
+}
+
+.cta-inner {
+	position: relative;
+	background: color(primary, 1);
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		right: 58px;
+		bottom: calc(50% - 155px);
+		width: 155px;
+		height: 150px;
+		background-image: url('../images/cta-illustration.svg');
+		background-repeat: no-repeat;
+	}
+
+	> * {
+		position: relative; /* To display elements above hero illustrations */
+	}
+}
+
+@include media( '>medium') {
+
+	.cta {
+		text-align: left;
+
+		.section-inner {
+			padding: 64px 32px;
+		}
+
+		.section-title {
+			margin-bottom: 0;
+			padding-right: 24px;
+		}
+	}
+
+	.cta-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		&::before {
+			bottom: calc(50% - 42px);
+		}
+	}
+}
