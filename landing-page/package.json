@@ -1,16 +1,8 @@
 {
-  "name": "ruby",
+  "name": "titan",
   "version": "1.0.0",
-  "description": "Ruby Template",
-  "author": "Pasquale Vitiello <pasqualevitiello@gmail.com>",
-  "license": "GPLv3",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/pasqualevitiello/ruby.git"
-  },
-  "bugs": {
-    "url": "https://bitbucket.org/pasqualevitiello/ruby/issues"
-  },
+  "description": "Landing Page for Titan",
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf dist/{css/*,js/*,images/*}",
     "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
@@ -49,6 +41,6 @@
     "stylelint": "^9.4.0",
     "uglify-es": "^3.3.10"
   },
-  "homepage": "https://bitbucket.org/pasqualevitiello/ruby#readme",
+  "homepage": "https://titan-fire.com",
   "main": ".eslintrc.js"
 }
