@@ -6,7 +6,7 @@ Titan
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 
-https://titan-fire.com
+https://titan-fire.netlify.com
 
 ## 概要
 
@@ -34,6 +34,8 @@ https://titan-fire.com
 * 掲示板 http://forum-titan-development-6349.nodechef.com/
 * 課題管理 https://github.com/futurismo-org/titan/issues
 * 進捗管理 https://trello.com/b/N5zxzOpB/service
+* リーンキャンバス https://titan-lean-canvas.netlify.com
+* ビジネスモデル https://datastudio.google.com/s/kv6GMDclSK8
 * Blog https://note.mu/titan_dev
 * Twitter https://twitter.com/titan_dev_1234
 
