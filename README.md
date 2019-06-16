@@ -35,7 +35,7 @@ https://titan-fire.netlify.com
 * 課題管理 https://github.com/futurismo-org/titan/issues
 * 進捗管理 https://trello.com/b/N5zxzOpB/service
 * リーンキャンバス https://titan-lean-canvas.netlify.com
-* ビジネスモデル https://datastudio.google.com/s/kv6GMDclSK8
+* ビジネスモデル https://datastudio.google.com/open/1kR6d35D48xB9ZeMxn2xis-FzaycGJosI
 * Blog https://note.mu/titan_dev
 * Twitter https://twitter.com/titan_dev_1234
 
