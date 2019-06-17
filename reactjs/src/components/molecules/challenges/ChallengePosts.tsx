@@ -51,13 +51,14 @@ const ChallengePosts = (props: any) => {
   };
 
   const writeRecord = (props: any) => {
-    const { days, updatedAt } = props;
+    const { days, updatedAt, score } = props;
     if (updatedAt && moment(updatedAt.toDate()).isSame(now, 'day')) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
     }
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
+    const newScore = score + 1;
 
     const newHistory = {
       id: ulid(),
@@ -67,6 +68,7 @@ const ChallengePosts = (props: any) => {
 
     const updateData: any = {
       days: tomorrow,
+      score: newScore,
       updatedAt: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
