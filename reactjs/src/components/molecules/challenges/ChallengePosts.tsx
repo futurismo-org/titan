@@ -53,10 +53,6 @@ const ChallengePosts = (props: any) => {
   const writeRecord = (props: any) => {
     const { days, score, histories } = props;
 
-    console.log(
-      moment(histories[0].timestamp.toDate()).diff(moment(now), 'days')
-    );
-
     if (
       histories[0] &&
       moment(histories[0].timestamp.toDate()).diff(moment(now), 'days') === 0
