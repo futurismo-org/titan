@@ -51,8 +51,14 @@ const ChallengePosts = (props: any) => {
   };
 
   const writeRecord = (props: any) => {
-    const { days, updatedAt, score } = props;
-    if (updatedAt && moment(updatedAt.toDate()).isSame(now, 'day')) {
+    const { days, updatedAt, createdAt, score } = props;
+
+    if (
+      createdAt &&
+      !moment(createdAt.toDate()).isSame(now, 'day') &&
+      updatedAt &&
+      moment(updatedAt.toDate()).isSame(now, 'day')
+    ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
     }
