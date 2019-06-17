@@ -68,13 +68,13 @@ const ChallengeLeaderBoard = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <ConditionalTableCell>
-                    <Avatar src={doc.data().photoURL} />
+                    <Avatar src={doc.data().photoURL || ''} />
                   </ConditionalTableCell>
                   <TableCell>
                     <NoStyledLink
                       href={doc.data().twitterURL || 'https://twitter.com'}
                     >
-                      {doc.data().displayName}
+                      {doc.data().displayName || 'Annonymous'}
                     </NoStyledLink>
                   </TableCell>
                   <TableCell>{doc.data().score}</TableCell>

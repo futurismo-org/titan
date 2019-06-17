@@ -20,7 +20,7 @@ const getUpChallngeIds = [ulid()];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
-const sampleChallengeChannelId = '588697589193375755'; // テスト用チャレンジチャンネル
+const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
@@ -86,7 +86,10 @@ const challengeParticipantsSeeds = seed.subcollection([
     id: titanUserId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
-    score: 5
+    score: 5,
+    displayName: 'Titan',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({
