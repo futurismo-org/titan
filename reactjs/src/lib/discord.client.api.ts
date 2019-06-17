@@ -27,5 +27,7 @@ export const postMessage = (webhookURL: string, message: string) => {
     noice: new Date()
   };
 
-  axios.post(webhookURL, data);
+  if (webhookURL && webhookURL !== '') {
+    axios.post(webhookURL, data);
+  }
 };

@@ -86,7 +86,10 @@ const challengeParticipantsSeeds = seed.subcollection([
     id: titanUserId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
-    score: 5
+    score: 5,
+    displayName: 'Titan',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({
