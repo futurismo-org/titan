@@ -20,7 +20,7 @@ const getUpChallngeIds = [ulid()];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
-const sampleChallengeChannelId = '588697589193375755'; // テスト用チャレンジチャンネル
+const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
