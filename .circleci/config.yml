@@ -7,14 +7,10 @@ executors:
       - image: circleci/node:8.11.4
 
 jobs:
-  deploy:
+  firbase:
     executor:
       name: default
     
-    branches:
-      only:
-        - master
-
     steps:
       - checkout
 
@@ -61,3 +57,11 @@ jobs:
       - run:
           name: 'Deploy to Hosting(Production)'
           command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
+
+workflows:
+  deploy:
+    jobs:
+      - firbase
+    branches:
+      only:
+        - master
