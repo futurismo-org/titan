@@ -44,10 +44,17 @@ jobs:
           command: cd reactjs"
 
       - run:
+          name: 'Build(development)'
+          command: REACT_APP_ENV=development npm run build
+          
+      - run:
+          name: 'Deploy to Hosting(development6)'
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN" && cd ../
+
+      - run:
           name: 'Build(Production)'
           command: REACT_APP_ENV=production npm run build
           
       - run:
           name: 'Deploy to Hosting(Production)'
           command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
-
