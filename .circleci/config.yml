@@ -30,6 +30,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - reactjs/node_modules
           key: v1-dependencies-{{ checksum "reactjs/package.json" }}
 
       # - run:
@@ -38,9 +39,10 @@ jobs:
 
       # - attach_workspace:
       #     at: .
+
       - run:
           name: 'cd'
-          command: cd reactjs"
+          command: cd reactjs
 
       - run:
           name: 'Build(development)'
