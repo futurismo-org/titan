@@ -21,7 +21,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install:all:ci
+      - run: npm run install:all:ci
 
       - run:
           name: 'Install Dependecies'
@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: 'Build(development)'
-          command: REACT_APP_ENV=development npm build
+          command: REACT_APP_ENV=development npm run build
           
       - run:
           name: 'Deploy to Hosting(development6)'
@@ -54,7 +54,7 @@ jobs:
 
       - run:
           name: 'Build(Production)'
-          command: REACT_APP_ENV=production npm build
+          command: REACT_APP_ENV=production npm run build
           
       - run:
           name: 'Deploy to Hosting(Production)'
