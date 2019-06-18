@@ -89,7 +89,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     score: 5,
     displayName: 'Titan',
     photoURL:
-      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({

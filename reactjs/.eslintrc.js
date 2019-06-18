@@ -33,6 +33,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'warn',
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     'no-console': 0,
+    'react/no-danger': 0,
     'react/display-name': 0
   },
   parser: '@typescript-eslint/parser',
