@@ -6,7 +6,11 @@ import Switch from '@material-ui/core/Switch';
 
 import { ulid } from 'ulid';
 import moment from 'moment';
+
 import firebase from '../../../lib/firebase';
+
+const remark2react = require('remark-react');
+const remark = require('remark');
 
 const ChallengeForm = (props: any) => {
   const [title, setTitle] = useState('');
@@ -229,6 +233,18 @@ const ChallengeForm = (props: any) => {
         />
         {'プライベート設定'}
         <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
+        <p>概要プレビュー</p>
+        {
+          remark()
+            .use(remark2react)
+            .processSync(overview).contents
+        }
+        <p>ルール</p>
+        {
+          remark()
+            .use(remark2react)
+            .processSync(rules).contents
+        }
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>
