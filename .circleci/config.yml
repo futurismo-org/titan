@@ -7,7 +7,7 @@ executors:
       - image: circleci/node:8.11.4
 
 jobs:
-  firbase:
+  firebase:
     executor:
       name: default
     
@@ -56,8 +56,8 @@ jobs:
 workflows:
   deploy:
     jobs:
-      - firbase:
+      - firebase:
         filters:
           branches:
-            only:
-              - master
+            only: master
+            
