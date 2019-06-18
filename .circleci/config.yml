@@ -46,7 +46,7 @@ jobs:
 
       - run:
           name: 'Build(development)'
-          command: REACT_APP_ENV=development npm run build
+          command: REACT_APP_ENV=development ./node_modueles/.bin/react-scripts build
           
       - run:
           name: 'Deploy to Hosting(development6)'
@@ -54,7 +54,7 @@ jobs:
 
       - run:
           name: 'Build(Production)'
-          command: REACT_APP_ENV=production npm run build
+          command: REACT_APP_ENV=production ./node_modueles/.bin/react-scripts build
           
       - run:
           name: 'Deploy to Hosting(Production)'
