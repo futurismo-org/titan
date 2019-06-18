@@ -113,10 +113,13 @@ const challengeSeeds = seed.collection('challenges', [
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
     participantsCount: 30,
-    openedAt: moment().toDate(),
+    openedAt: moment()
+      .toDate()
+      .setHours(0, 0, 0, 0),
     closedAt: moment()
       .add(30, 'days')
       .toDate()
+      .setHours(23, 59, 59, 59)
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -125,10 +128,13 @@ const challengeSeeds = seed.collection('challenges', [
     description: '毎日元気に体重計',
     participantsCount: 0,
     private: true,
-    openedAt: moment().toDate(),
+    openedAt: moment()
+      .toDate()
+      .setHours(0, 0, 0, 0),
     closedAt: moment()
       .add(30, 'days')
       .toDate()
+      .setHours(23, 59, 59, 59)
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
@@ -138,10 +144,12 @@ const challengeSeeds = seed.collection('challenges', [
     participantsCount: 0,
     openedAt: moment()
       .add(30, 'days')
-      .toDate(),
+      .toDate()
+      .setHours(0, 0, 0, 0),
     closedAt: moment()
       .add(60, 'days')
       .toDate()
+      .setHours(23, 59, 59, 59)
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
@@ -151,10 +159,12 @@ const challengeSeeds = seed.collection('challenges', [
     participantsCount: 0,
     openedAt: moment()
       .subtract(60, 'days')
-      .toDate(),
+      .toDate()
+      .setHours(0, 0, 0, 0),
     closedAt: moment()
       .subtract(30, 'days')
       .toDate()
+      .setHours(23, 59, 59, 59)
   })
 ]);
 
