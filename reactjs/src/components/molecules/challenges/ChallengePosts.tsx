@@ -73,6 +73,7 @@ const ChallengePosts = (props: any) => {
     const updateData: any = {
       days: tomorrow,
       score: newScore,
+      startDate: now,
       updatedAt: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
