@@ -21,7 +21,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm run install:all:ci
+      - run: npm install:all:ci
 
       - run:
           name: 'Install Dependecies'
@@ -46,19 +46,19 @@ jobs:
 
       - run:
           name: 'Build(development)'
-          command: REACT_APP_ENV=development ./node_modueles/.bin/react-scripts build
+          command: REACT_APP_ENV=development npm build
           
       - run:
           name: 'Deploy to Hosting(development6)'
-          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN" && cd ../
+          command: npm firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN" && cd ../
 
       - run:
           name: 'Build(Production)'
-          command: REACT_APP_ENV=production ./node_modueles/.bin/react-scripts build
+          command: REACT_APP_ENV=production npm build
           
       - run:
           name: 'Deploy to Hosting(Production)'
-          command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
+          command: npm firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
 
 workflows:
   deploy:
