@@ -33,32 +33,25 @@ jobs:
             - reactjs/node_modules
           key: v1-dependencies-{{ checksum "reactjs/package.json" }}
 
-      # - run:
-      #     name: 'Build Client Code(react-scripts によるビルド実行)'
-      #     command: npm run build
-
-      # - attach_workspace:
-      #     at: .
-
-      - run:
-          name: 'cd'
-          command: cd reactjs
-
       - run:
           name: 'Build(development)'
+          working_directory: reactjs
           command: REACT_APP_ENV=development npm run build
           
       - run:
           name: 'Deploy to Hosting(development6)'
-          command: npm firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN" && cd ../
+          working_directory: reactjs
+          command: npm firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
 
       - run:
           name: 'Build(Production)'
+          working_directory: reactjs
           command: REACT_APP_ENV=production npm run build
           
       - run:
           name: 'Deploy to Hosting(Production)'
-          command: npm firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
+          working_directory: reactjs
+          command: npm firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
 
 workflows:
   deploy:
