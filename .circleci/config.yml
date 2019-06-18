@@ -41,7 +41,7 @@ jobs:
       - run:
           name: 'Deploy to Hosting(development6)'
           working_directory: reactjs
-          command: ../node_modues/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
 
       - run:
           name: 'Build(Production)'
@@ -51,7 +51,7 @@ jobs:
       - run:
           name: 'Deploy to Hosting(Production)'
           working_directory: reactjs
-          command: ../node_modues/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
 
 workflows:
   deploy:
