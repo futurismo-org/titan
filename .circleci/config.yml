@@ -1,11 +1,11 @@
 version: 2.1 
 
 jobs:
-  branches:
-    only:
-      - master
-
   build:
+    branches:
+      only:
+        - master
+
     docker:
       - image: circleci/node:8
 
