@@ -12,7 +12,7 @@
     "deploy:all": "npm run deploy:development && npm run deploy:production",
     "lint": "eslint . --ext .js,.jsx,.tsx",
     "lint:fix": "eslint . --fix --ext .js,.jsx,.tsx",
-    "watch": "TSC_NONPOLLING_WATCHER=1 yarn tsc -w",
+    "watch": "TSC_NONPOLLING_WATCHER=1 npm run tsc -w",
     "sss": "./bin/rg_fzf_remote.sh",
     "ss": "./bin/rg_fzf.sh"
   },
