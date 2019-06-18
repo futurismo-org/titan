@@ -61,7 +61,7 @@ jobs:
 workflows:
   deploy:
     jobs:
-      - firbase
+      - firbase:
         filters:
           branches:
             only:
