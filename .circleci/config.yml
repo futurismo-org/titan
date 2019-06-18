@@ -1,15 +1,19 @@
 version: 2.1 
 
+executors:
+  default:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:8.11.4
+
 jobs:
-  build:
+  deploy:
+    executor:
+      name: default
+    
     branches:
       only:
         - master
-
-    docker:
-      - image: circleci/node:8
-
-    working_directory: ~/repo
 
     steps:
       - checkout
