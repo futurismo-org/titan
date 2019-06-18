@@ -7,7 +7,7 @@ executors:
       - image: circleci/node:8.11.4
 
 jobs:
-  firebase:
+  deploy-firebase-hosting:
     executor:
       name: default
     
@@ -54,9 +54,9 @@ jobs:
           command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
 
 workflows:
-  deploy:
+  main:
     jobs:
-      - firebase
-      filters:
-        branches:
-          only: master            
+    - deploy-firebase-hosting:
+        filters:
+          branches:
+            only: master
