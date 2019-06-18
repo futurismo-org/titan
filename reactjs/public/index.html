@@ -10,9 +10,11 @@
         hostWhiteList: ['titan-fire.com', 'titan-241022.firebaseapp.com'],
         payload: {
           environment: "production",
-          javascript: {
-            source_map_enabled: true, //this is now true by default
-            guess_uncaught_frames: true
+          client: {
+            javascript: {
+              source_map_enabled: true, //this is now true by default
+              guess_uncaught_frames: true
+            }
           }
         }
       }
