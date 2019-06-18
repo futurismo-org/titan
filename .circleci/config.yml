@@ -57,7 +57,6 @@ workflows:
   deploy:
     jobs:
       - firebase:
-        filters:
-          branches:
-            only: master
-            
+      filters:
+        branches:
+          only: master            

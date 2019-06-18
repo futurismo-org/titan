@@ -5,6 +5,7 @@ Titan
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
+[![CircleCI](https://circleci.com/gh/futurismo-org/titan/tree/master.svg?style=svg)](https://circleci.com/gh/futurismo-org/titan/tree/master)
 
 https://titan-fire.netlify.com
 
