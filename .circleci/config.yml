@@ -1,0 +1,60 @@
+version: 2.1 
+
+general:
+  branches:
+    only:
+      - master
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "reactks/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install:all
+
+      - run:
+          name: 'Install Dependecies'
+          command: npm install --save-dev firebase-tools
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "reactjs/package.json" }}
+
+      # - run:
+      #     name: 'Build Client Code(react-scripts によるビルド実行)'
+      #     command: npm run build
+
+      # - attach_workspace:
+      #     at: .
+      - run:
+          name: 'cd'
+          command: cd reactjs"
+
+      - run:
+          name: 'Build(development)'
+          command: REACT_APP_ENV=development npm run build
+          
+      - run:
+          name: 'Deploy to Hosting(development6)'
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN" && cd ../
+
+      - run:
+          name: 'Build(Production)'
+          command: REACT_APP_ENV=production npm run build
+          
+      - run:
+          name: 'Deploy to Hosting(Production)'
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN" && cd ../
