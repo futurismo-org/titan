@@ -62,7 +62,7 @@ workflows:
   deploy:
     jobs:
       - firbase
-    filters:
-      branches:
-        only:
-          - master
+        filters:
+          branches:
+            only:
+              - master
