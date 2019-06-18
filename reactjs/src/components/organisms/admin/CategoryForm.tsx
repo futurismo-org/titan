@@ -7,9 +7,6 @@ import { ulid } from 'ulid';
 import moment from 'moment';
 import firebase from '../../../lib/firebase';
 
-const remark2react = require('remark-react');
-const remark = require('remark');
-
 const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
