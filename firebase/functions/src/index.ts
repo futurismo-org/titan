@@ -1,18 +1,17 @@
-// import express from 'express';
-import admin from './utils/admin';
+import express from 'express';
+import { functions } from './utils/admin';
 
-// const app = express();
+const app = express();
 
-// const functions = require('firebase-functions').region('asia-northeast1'); // eslint-disable-line
+const { chargeProduct } = require('./handlers/stripe');
+
 // const user = require('./user');
 
 // Firebase Auth handlers
 // const authNewUser = functions.auth.user().onCreate(user.createUser);
 
-// app.post('/discord', postDiscord);
+// stripe
+app.post('/charge', chargeProduct);
 
 // register endpoints
-// exports.api = functions.https.onRequest(app);
-module.exports = {
-  // authNewUser
-};
+exports.api = functions.https.onRequest(app);
