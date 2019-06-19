@@ -4,7 +4,7 @@
   "main": "lib/index.js",
   "private": true,
   "scripts": {
-    "dev": "cp package.json lib && APP_ENV=development firebase serve --only functions",
+    "dev": "cp package.json .env lib && APP_ENV=development firebase serve --only functions",
     "shell": "APP_ENV=development firebase functions:shell",
     "deploy:development": "APP_ENV=development firebase deploy --only functions -P development",
     "deploy:production": "APP_ENV=production firebase deploy --only functions -P production",
@@ -29,6 +29,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "discord-rpc": "^3.0.2",
+    "dotenv": "^8.0.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "express": "^4.17.1",

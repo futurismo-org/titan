@@ -1,6 +1,8 @@
 import express from 'express';
 import { functions } from './utils/admin';
 
+require('dotenv').config();
+
 const app = express();
 
 const { chargeProduct } = require('./handlers/stripe');
