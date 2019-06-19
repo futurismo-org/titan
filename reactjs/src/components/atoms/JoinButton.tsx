@@ -100,6 +100,8 @@ const JoinButton = (props: any) => {
     setOpen(false);
   };
 
+  const STRIPE_PUB_KEY = process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string;
+
   const renderJoinButton = (props: any) => (
     <React.Fragment>
       <Button
@@ -118,7 +120,7 @@ const JoinButton = (props: any) => {
         onClose={handleClose}
       >
         <StyledModalContent style={modalStyle}>
-          <StripeProvider apiKey="pk_test_b3qj0vnmNbh7MghYpYbahOnj00VUoacacc">
+          <StripeProvider apiKey={STRIPE_PUB_KEY}>
             <div>
               <h1>チャレンジ購入</h1>
               <Elements>
