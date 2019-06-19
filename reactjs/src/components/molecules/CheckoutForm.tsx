@@ -17,7 +17,6 @@ class CheckoutForm extends React.PureComponent<Props> {
 
     axios
       .post('/charge', {
-        headers: { 'Content-Type': 'text/plain' },
         body: token.id
       })
       .then((res: any) => console.log('Purchase Complete!'));
