@@ -9,6 +9,7 @@ const Head = () => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href={`${PUBLIC_URL}/manifest.json`} />
+    <script src="https://js.stripe.com/v3/" />
     <title>Titan App</title>
   </Helmet>
 );

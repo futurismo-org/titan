@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import Modal, { ModalProps } from '@material-ui/core/Modal';
-import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+// import { makeStyles } from '@material-ui/core/styles';
+import { Elements, StripeProvider } from 'react-stripe-elements';
 import firebase from '../../lib/firebase';
 
 import NoStyledLink from './NoStyledLink';
 
 import theme from '../../lib/theme';
+import CheckoutForm from '../molecules/CheckoutForm';
 
 interface Props {
   challengeId: string;
@@ -115,7 +117,16 @@ const JoinButton = (props: any) => {
         open={open}
         onClose={handleClose}
       >
-        <StyledModalContent style={modalStyle} />
+        <StyledModalContent style={modalStyle}>
+          <StripeProvider apiKey="pk_test_b3qj0vnmNbh7MghYpYbahOnj00VUoacacc">
+            <div>
+              <h1>チャレンジ購入</h1>
+              <Elements>
+                <CheckoutForm />
+              </Elements>
+            </div>
+          </StripeProvider>
+        </StyledModalContent>
       </Modal>
     </React.Fragment>
   );
