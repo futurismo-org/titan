@@ -55,7 +55,7 @@ const ChallengePosts = (props: any) => {
 
     if (
       histories.length > 0 &&
-      moment(histories[0].timestamp.toDate()).diff(moment(now), 'days') === 0
+      moment(histories[0].timestamp.toDate()).isSame(moment(now), 'days')
     ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
