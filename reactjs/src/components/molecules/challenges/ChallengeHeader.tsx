@@ -103,6 +103,14 @@ const ChallengeHeader = (props: any) => {
                 {challenge.description}
               </Typography>
             </HeaderInfo>
+            {isClosed ? null : (
+              <HeaderInfo>
+                <CheckoutButton challengeId={challenge.id} />
+                <HeaderInfoText color="inherit" variant="subtitle1">
+                  チャレンジ参加料: {challenge.price || 0}円
+                </HeaderInfoText>
+              </HeaderInfo>
+            )}
             <HeaderInfo>
               {isClosed ? (
                 <HeaderInfoText color="inherit" variant="subtitle1">
@@ -110,7 +118,6 @@ const ChallengeHeader = (props: any) => {
                 </HeaderInfoText>
               ) : (
                 <React.Fragment>
-                  <CheckoutButton challengeId={challenge.id} />
                   <JoinButton challengeId={challenge.id} />
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     {challenge.participantsCount}人参加中

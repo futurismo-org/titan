@@ -58,7 +58,7 @@ const CheckoutButton = (props: any) => {
         size="small"
         onClick={handleOpen}
       >
-        購入する
+        購入
       </Button>
       <Modal
         aria-labelledby="simple-modal-title"
