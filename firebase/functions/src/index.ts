@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const app = express();
 
-const { chargeProduct } = require('./handlers/stripe');
+const { chargeProduct, validCoupon } = require('./handlers/stripe');
 
 // const user = require('./user');
 
@@ -14,6 +14,7 @@ const { chargeProduct } = require('./handlers/stripe');
 
 // stripe
 app.post('/charge', chargeProduct);
+app.post('/coupons/valid', validCoupon);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);
