@@ -21,7 +21,9 @@ class CheckoutForm extends React.PureComponent<Props> {
   }
 
   async submit(event: any) {
-    let { token } = await this.props.stripe.createToken({ name: 'Name' });
+    let { token } = await this.props.stripe.createToken({
+      name: this.props.name
+    });
 
     axios
       .post('/charge', {

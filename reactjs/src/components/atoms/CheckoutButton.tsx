@@ -9,11 +9,6 @@ import CheckoutForm from './CheckoutForm';
 
 import theme from '../../lib/theme';
 
-interface Props {
-  challengeId: string;
-  user: any;
-}
-
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -32,7 +27,7 @@ function getModalStyle() {
 const StyledModalContent = styled.div`
   && {
     position: absolute;
-    width: 400px;
+    width: 350px;
     background-color: ${theme.palette.background.paper};
     box-shadow: ${theme.shadows[5]}px;
     padding: ${theme.spacing(4)}px;
@@ -41,7 +36,7 @@ const StyledModalContent = styled.div`
 `;
 
 const CheckoutButton = (props: any) => {
-  // const { challengeId, user } = props;
+  const { challengeId, user } = props;
   const [open, setOpen] = useState(false);
   const [modalStyle] = React.useState(getModalStyle);
 
@@ -74,7 +69,7 @@ const CheckoutButton = (props: any) => {
         <StyledModalContent style={modalStyle}>
           <StripeProvider apiKey={STRIPE_PUB_KEY}>
             <Elements>
-              <CheckoutForm />
+              <CheckoutForm name={user.displayName} />
             </Elements>
           </StripeProvider>
         </StyledModalContent>
