@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
 import JoinButton from '../../atoms/JoinButton';
+import CheckoutButton from '../../atoms/CheckoutButton';
 import ChallengeCategoryLink from '../../atoms/ChallengeCategoryLink';
 
 import 'moment/locale/ja';
@@ -109,6 +110,7 @@ const ChallengeHeader = (props: any) => {
                 </HeaderInfoText>
               ) : (
                 <React.Fragment>
+                  <CheckoutButton challengeId={challenge.id} />
                   <JoinButton challengeId={challenge.id} />
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     {challenge.participantsCount}人参加中
