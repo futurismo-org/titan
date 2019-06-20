@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
-import JoinButton from '../../atoms/JoinButton';
+import ChallengeButton from '../../atoms/ChallengeButton';
 import ChallengeCategoryLink from '../../atoms/ChallengeCategoryLink';
 
 import 'moment/locale/ja';
@@ -109,7 +109,13 @@ const ChallengeHeader = (props: any) => {
                 </HeaderInfoText>
               ) : (
                 <React.Fragment>
-                  <JoinButton challengeId={challenge.id} />
+                  <ChallengeButton
+                    challengeId={challenge.id}
+                    price={challenge.price}
+                  />
+                  <HeaderInfoText color="inherit" variant="subtitle1">
+                    価格 {challenge.price || 0}円
+                  </HeaderInfoText>
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     {challenge.participantsCount}人参加中
                   </HeaderInfoText>

@@ -1,5 +1,6 @@
-import admin from 'firebase-admin';
 import { configDev, configProd } from './config';
+
+const admin = require('firebase-admin');
 
 if (admin.apps.length === 0) {
   if (process.env.APP_ENV === 'development') {

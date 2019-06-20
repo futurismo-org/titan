@@ -53,6 +53,11 @@ const Challenges = () => {
               >
                 削除
               </Button>
+              <Link to={`/challenges/${doc.id}/overview`}>
+                <Button type="button" color="default" variant="contained">
+                  閲覧
+                </Button>
+              </Link>
             </ListItem>
           ))}
         </List>

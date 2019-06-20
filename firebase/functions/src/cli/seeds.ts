@@ -89,7 +89,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     score: 5,
     displayName: 'Titan',
     photoURL:
-      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg'
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({
@@ -113,13 +113,18 @@ const challengeSeeds = seed.collection('challenges', [
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
     participantsCount: 30,
-    openedAt: moment()
-      .toDate()
-      .setHours(0, 0, 0, 0),
-    closedAt: moment()
-      .add(30, 'days')
-      .toDate()
-      .setHours(23, 59, 59, 59)
+    openedAt: new Date(
+      moment()
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 300
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -128,13 +133,18 @@ const challengeSeeds = seed.collection('challenges', [
     description: '毎日元気に体重計',
     participantsCount: 0,
     private: true,
-    openedAt: moment()
-      .toDate()
-      .setHours(0, 0, 0, 0),
-    closedAt: moment()
-      .add(30, 'days')
-      .toDate()
-      .setHours(23, 59, 59, 59)
+    openedAt: new Date(
+      moment()
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 300
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
@@ -142,14 +152,18 @@ const challengeSeeds = seed.collection('challenges', [
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
     participantsCount: 0,
-    openedAt: moment()
-      .add(30, 'days')
-      .toDate()
-      .setHours(0, 0, 0, 0),
-    closedAt: moment()
-      .add(60, 'days')
-      .toDate()
-      .setHours(23, 59, 59, 59)
+    openedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(60, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    )
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
@@ -157,14 +171,19 @@ const challengeSeeds = seed.collection('challenges', [
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
     participantsCount: 0,
-    openedAt: moment()
-      .subtract(60, 'days')
-      .toDate()
-      .setHours(0, 0, 0, 0),
-    closedAt: moment()
-      .subtract(30, 'days')
-      .toDate()
-      .setHours(23, 59, 59, 59)
+    openedAt: new Date(
+      moment()
+        .subtract(60, 'days')
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .subtract(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 1000
   })
 ]);
 
