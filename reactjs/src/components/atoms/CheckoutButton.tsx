@@ -73,12 +73,9 @@ const CheckoutButton = (props: any) => {
       >
         <StyledModalContent style={modalStyle}>
           <StripeProvider apiKey={STRIPE_PUB_KEY}>
-            <div>
-              <h1>チャレンジ購入</h1>
-              <Elements>
-                <CheckoutForm />
-              </Elements>
-            </div>
+            <Elements>
+              <CheckoutForm />
+            </Elements>
           </StripeProvider>
         </StyledModalContent>
       </Modal>

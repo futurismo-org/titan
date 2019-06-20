@@ -43,7 +43,7 @@ const CategoryCard = (props: any) => {
           <StyledCard>
             <StyledCardDetails>
               <CardContent>
-                <Typography component="h2" variant="h5">
+              <Typography component="h2" variant="h5">
                   {category.title}
                 </Typography>
                 <Typography variant="subtitle1" paragraph>

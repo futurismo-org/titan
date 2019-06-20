@@ -1,6 +1,14 @@
 import React from 'react';
+
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import styled from 'styled-components';
 import axios from '../../lib/axios';
+
+const CardElementWrapper = styled.div`
+  margin: 15px;
+`;
 
 type Props = {} & any;
 
@@ -26,13 +34,23 @@ class CheckoutForm extends React.PureComponent<Props> {
     if (this.state.complete) return <h1>Purchase Complete</h1>;
 
     return (
-      <div className="checkout">
+      <React.Fragment>
+        <Typography component="h3" variant="h5">
+          チャレンジ購入
+        </Typography>
         <p>支払いを完了しますか？</p>
-        <CardElement />
-        <button type="button" onClick={this.submit}>
+        <CardElementWrapper>
+          <CardElement style={{ base: { fontSize: '14px' } }} />
+        </CardElementWrapper>
+        <Button
+          color="secondary"
+          variant="contained"
+          size="small"
+          onClick={this.submit}
+        >
           送信
-        </button>
-      </div>
+        </Button>
+      </React.Fragment>
     );
   }
 }
