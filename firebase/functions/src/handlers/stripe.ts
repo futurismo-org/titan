@@ -8,11 +8,13 @@ const stripe =
     : new Stripe(functions.config().stripe.secret_token);
 
 exports.chargeProduct = (req: any, res: any) => {
+  console.log('charge start');
+
   stripe.charges
     .create({
       amount: req.body.price,
       currency: 'jpy',
-      description: 'Challenge Charge',
+      description: 'チャレンジ参加料',
       source: req.body.tokenId
     })
     .then((status: any) => res.json(status))

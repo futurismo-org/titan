@@ -77,7 +77,7 @@ class CheckoutForm extends React.PureComponent<Props> {
         label: 'Challenge Charge',
         amount: this.state.price
       },
-      requestPayerName: true,
+      requestPayerName: false,
       requestPayerEmail: false
     });
 
@@ -86,7 +86,7 @@ class CheckoutForm extends React.PureComponent<Props> {
 
       if (this.props.price > 50) {
         axios
-          .post('/charge', {
+          .post('/charges', {
             price: this.props.price,
             tokenId: event.token.id
           })
@@ -128,7 +128,7 @@ class CheckoutForm extends React.PureComponent<Props> {
           name: this.props.name
         })
         .then((res: any) =>
-          axios.post('/charge', {
+          axios.post('/charges', {
             price: this.props.price,
             tokenId: res.token.id
           })

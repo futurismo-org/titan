@@ -13,7 +13,7 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 // const authNewUser = functions.auth.user().onCreate(user.createUser);
 
 // stripe
-app.post('/charge', chargeProduct);
+app.post('/charges', chargeProduct);
 app.post('/coupons/valid', validCoupon);
 
 // register endpoints
