@@ -105,7 +105,7 @@ const ChallengeForm = (props: any) => {
       closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
       participantsCount: participantsCount,
       private: privateFlag,
-      price: price
+      price: Number(price)
     };
     firebase
       .firestore()
