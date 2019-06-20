@@ -152,7 +152,7 @@ const ChallengeForm = (props: any) => {
     <React.Fragment>
       <h2>{pageTitle}</h2>
       <form noValidate onSubmit={updateHandler}>
-        <TextField
+      <TextField
           id="openedAt"
           label="開始日"
           type="date"

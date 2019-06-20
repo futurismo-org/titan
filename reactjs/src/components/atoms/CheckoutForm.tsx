@@ -3,6 +3,7 @@ import React from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import styled from 'styled-components';
 import { firestore } from 'firebase';
 import axios from '../../lib/axios';
@@ -57,13 +58,18 @@ const joinHandler = (challengeId: string, user: any) => {
 };
 
 class CheckoutForm extends React.PureComponent<Props> {
-  state = { complete: false, price: 0 };
+  state = { price: 0, coupon: '' };
 
   constructor(props: any) {
     super(props);
     this.submit = this.submit.bind(this);
     this.state.price = this.props.price || 0;
   }
+
+  onCouponChange = (e: any) => {
+    e.preventDefault();
+    this.setState({ coupon: e.target.value });
+  };
 
   submit(event: any) {
     if (this.state.price !== 0) {
@@ -86,26 +92,43 @@ class CheckoutForm extends React.PureComponent<Props> {
     }
   }
 
-  render() {
-    if (this.state.complete) return <h1>Purchase Complete</h1>;
+  apply() {
+    const coupon = this.state.coupon;
+  }
 
+  render() {
     return (
       <React.Fragment>
         <Typography component="h3" variant="h5">
           チャレンジ購入 {this.state.price}円
         </Typography>
-        <p>支払いを完了しますか？</p>
+        <p>クレジットカード決済</p>
         <CardElementWrapper>
           <CardElement style={{ base: { fontSize: '14px' } }} />
         </CardElementWrapper>
-        <Button
-          color="secondary"
-          variant="contained"
-          size="small"
-          onClick={this.submit}
-        >
-          送信
-        </Button>
+        <div style={{ display: 'flex' }}>
+          <TextField
+            label="クーポン"
+            value={this.state.coupon}
+            onChange={this.onCouponChange}
+          />
+          <Button
+            color="default"
+            variant="outlined"
+            size="small"
+            onClick={this.apply}
+          >
+            適用
+          </Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            size="small"
+            onClick={this.submit}
+          >
+            送信
+          </Button>
+        </div>
       </React.Fragment>
     );
   }
