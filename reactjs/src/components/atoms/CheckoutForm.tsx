@@ -58,13 +58,58 @@ const joinHandler = (challengeId: string, user: any) => {
 };
 
 class CheckoutForm extends React.PureComponent<Props> {
-  state = { coupon: '', price: 0, isDiscount: false };
+  state = {
+    coupon: '',
+    price: 0,
+    isDiscount: false
+  };
 
   constructor(props: any) {
     super(props);
     this.submit = this.submit.bind(this);
     this.apply = this.apply.bind(this);
     this.state.price = this.props.price;
+
+    const paymentRequest = this.props.stripe.paymentRequest({
+      country: 'JP',
+      currency: 'jpy',
+      total: {
+        label: 'Challenge Charge',
+        amount: this.state.price
+      },
+      requestPayerName: true,
+      requestPayerEmail: false
+    });
+
+    paymentRequest.on('token', (event: any) => {
+      // Send the token to your server to charge it!
+
+      axios
+        .post('/charge', {
+          body: JSON.stringify({ token: event.token.id }),
+          headers: { 'content-type': 'application/json' }
+        })
+        .then((res: any) => {
+          event.complete('success');
+        })
+        .catch((res: any) => event.complete('fail'));
+    });
+
+    const elements = this.props.stripe.elements();
+    const prButton = elements.create('paymentRequestButton', {
+      paymentRequest
+    });
+
+    (async () => {
+      // Check the availability of the Payment Request API first.
+      const result = await paymentRequest.canMakePayment();
+      if (result) {
+        console.log('mount');
+        prButton.mount('#payment-request-button');
+      } else {
+        console.log('none');
+      }
+    })();
   }
 
   onCouponChange = (e: any) => {
@@ -116,6 +161,7 @@ class CheckoutForm extends React.PureComponent<Props> {
         <Typography component="h3" variant="h5">
           チャレンジ購入 {this.state.price}円
         </Typography>
+        <div id="payment-request-button" />
         <p>クレジットカード決済</p>
         <CardElementWrapper>
           <CardElement style={{ base: { fontSize: '14px' } }} />
