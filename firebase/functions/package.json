@@ -1,7 +1,7 @@
 {
   "name": "titan-client-app",
   "description": "Client App for Titan",
-  "main": "lib/index.js",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "dev": "cp package.json .env lib && APP_ENV=development firebase serve --only functions",
@@ -11,8 +11,8 @@
     "logs": "firebase functions:log",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --fix --ext .js,.ts",
-    "verify": "npm run lint && npm run tsc",
-    "build": "npm run verify",
+    "verify": "npm run lint && tsc",
+    "build": "npm run verify",      
     "watch": "TSC_NONPOLLING_WATCHER=1 npm run tsc -w",
     "db:seeds": "./bin/db_seeds.sh",
     "db:clear": "./bin/db_clear.sh",
@@ -64,7 +64,8 @@
     "husky": "^2.2.0",
     "lint-staged": "^8.1.6",
     "prettier": "^1.17.1",
-    "ts-node": "^8.2.0"
+    "ts-node": "^8.2.0",
+    "tsc": "^1.20150623.0"
   },
   "husky": {
     "hooks": {

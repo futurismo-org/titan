@@ -84,15 +84,19 @@ class CheckoutForm extends React.PureComponent<Props> {
     paymentRequest.on('token', (event: any) => {
       // Send the token to your server to charge it!
 
-      axios
-        .post('/charge', {
-          body: JSON.stringify({ token: event.token.id }),
-          headers: { 'content-type': 'application/json' }
-        })
-        .then((res: any) => {
-          event.complete('success');
-        })
-        .catch((res: any) => event.complete('fail'));
+      if (this.props.price > 50) {
+        axios
+          .post('/charge', {
+            price: this.props.price,
+            tokenId: event.token.id
+          })
+          .then((res: any) => console.log('Purchase Complete!'))
+          .then(() => joinHandler(this.props.challengeId, this.props.user))
+          .catch((err: any) => console.error(err));
+      } else {
+        console.log('do nothing.');
+        joinHandler(this.props.challengeId, this.props.user);
+      }
     });
 
     const elements = this.props.stripe.elements();
