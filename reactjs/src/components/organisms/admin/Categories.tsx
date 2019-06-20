@@ -53,6 +53,11 @@ const Categories = () => {
               >
                 削除
               </Button>
+              <Link to={`/categories/${doc.id}`}>
+                <Button type="button" color="default" variant="contained">
+                  閲覧
+                </Button>
+              </Link>
             </ListItem>
           ))}
         </List>
