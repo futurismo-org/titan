@@ -10,10 +10,10 @@ const stripe =
 exports.chargeProduct = (req: any, res: any) => {
   stripe.charges
     .create({
-      amount: 300,
+      amount: req.body.price,
       currency: 'jpy',
       description: 'Challenge Charge',
-      source: req.body.body
+      source: req.body.tokenId
     })
     .then((status: any) => res.json(status))
     .catch((err: any) => res.status(500).json(err));

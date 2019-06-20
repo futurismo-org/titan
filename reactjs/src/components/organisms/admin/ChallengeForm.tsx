@@ -101,8 +101,8 @@ const ChallengeForm = (props: any) => {
       channelId: channelId,
       webhookURL: webhookURL,
       categoryRef: firebase.firestore().doc(categoryRef),
-      openedAt: new Date(openedAt).setHours(0, 0, 0, 0),
-      closedAt: new Date(closedAt).setHours(23, 59, 59, 59),
+      openedAt: new Date(new Date(openedAt).setHours(0, 0, 0, 0)),
+      closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
       participantsCount: participantsCount,
       private: privateFlag,
       price: price

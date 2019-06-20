@@ -6,8 +6,9 @@ import Modal from '@material-ui/core/Modal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import CheckoutForm from './CheckoutForm';
-
 import theme from '../../lib/theme';
+import firebase from '../../lib/firebase';
+import NoStyledLink from './NoStyledLink';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -35,8 +36,10 @@ const StyledModalContent = styled.div`
   }
 `;
 
-const CheckoutButton = (props: any) => {
-  const { challengeId, user } = props;
+const ChallengeButton = (props: any) => {
+  const { challengeId, price, user } = props;
+  const [join, setJoin] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [modalStyle] = React.useState(getModalStyle);
 
@@ -50,7 +53,15 @@ const CheckoutButton = (props: any) => {
 
   const STRIPE_PUB_KEY = process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string;
 
-  return (
+  const renderPostButton = (props: any) => (
+    <NoStyledLink to={`/challenges/${props.id}/posts`}>
+      <Button color="inherit" variant="outlined" size="small">
+        投稿
+      </Button>
+    </NoStyledLink>
+  );
+
+  const renderCheckoutButton = (props: any) => (
     <React.Fragment>
       <Button
         color="inherit"
@@ -69,13 +80,34 @@ const CheckoutButton = (props: any) => {
         <StyledModalContent style={modalStyle}>
           <StripeProvider apiKey={STRIPE_PUB_KEY}>
             <Elements>
-              <CheckoutForm name={user.displayName} />
+              <CheckoutForm
+                user={user}
+                challengeId={challengeId}
+                price={price}
+              />
             </Elements>
           </StripeProvider>
         </StyledModalContent>
       </Modal>
     </React.Fragment>
   );
+
+  if (challengeId === undefined || user.id === undefined) {
+    return null;
+  }
+
+  firebase
+    .firestore()
+    .collection('challenges')
+    .doc(challengeId)
+    .collection('participants')
+    .where('id', '==', user.id)
+    .get()
+    .then((s: any) => setJoin(!s.empty));
+
+  return join
+    ? renderPostButton({ id: challengeId })
+    : renderCheckoutButton({ user, challengeId, price });
 };
 
 const mapStateToProps = (state: any, props: {}) => ({
@@ -83,4 +115,4 @@ const mapStateToProps = (state: any, props: {}) => ({
   ...props
 });
 
-export default connect(mapStateToProps)(CheckoutButton);
+export default connect(mapStateToProps)(ChallengeButton);
