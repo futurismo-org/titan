@@ -58,12 +58,13 @@ const joinHandler = (challengeId: string, user: any) => {
 };
 
 class CheckoutForm extends React.PureComponent<Props> {
-  state = { price: 0, coupon: '' };
+  state = { coupon: '', price: 0, isDiscount: false };
 
   constructor(props: any) {
     super(props);
     this.submit = this.submit.bind(this);
-    this.state.price = this.props.price || 0;
+    this.apply = this.apply.bind(this);
+    this.state.price = this.props.price;
   }
 
   onCouponChange = (e: any) => {
@@ -72,7 +73,7 @@ class CheckoutForm extends React.PureComponent<Props> {
   };
 
   submit(event: any) {
-    if (this.state.price !== 0) {
+    if (this.props.price > 50) {
       this.props.stripe
         .createToken({
           name: this.props.name
@@ -93,7 +94,20 @@ class CheckoutForm extends React.PureComponent<Props> {
   }
 
   apply() {
-    const coupon = this.state.coupon;
+    if (this.state.coupon === '') return;
+    if (this.state.price === 0) return;
+
+    axios
+      .post('/coupons/valid', {
+        coupon: this.state.coupon
+      })
+      .then((res: any) => {
+        console.log(res);
+        if (res.data.valid && !this.state.isDiscount) {
+          this.setState({ price: this.props.price - res.data.amount_off });
+          this.setState({ isDiscount: true });
+        }
+      });
   }
 
   render() {
