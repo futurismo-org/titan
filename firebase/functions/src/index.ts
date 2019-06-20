@@ -1,9 +1,12 @@
 import express from 'express';
 import { functions } from './utils/admin';
 
+const cors = require('cors');
+
 require('dotenv').config();
 
 const app = express();
+app.use(cors({ origin: true }));
 
 const { chargeProduct, validCoupon } = require('./handlers/stripe');
 

@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --fix --ext .js,.ts",
     "verify": "npm run lint && tsc",
-    "build": "npm run verify",      
+    "build": "npm run verify",
     "watch": "TSC_NONPOLLING_WATCHER=1 npm run tsc -w",
     "db:seeds": "./bin/db_seeds.sh",
     "db:clear": "./bin/db_clear.sh",
@@ -45,6 +45,7 @@
     "ulid": "^2.3.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.5",
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.17.0",
     "@types/faker": "^4.1.5",

@@ -46,15 +46,15 @@ const joinHandler = (challengeId: string, user: any) => {
         .doc(challengeId)
         .collection('participants')
         .doc(user.id)
-        .set(newData)
-        .then(() => {
-          window.alert('チャレンジに参加しました'); // eslint-disable-line
-        })
-        .then(() => {
-          window.location.reload(); // eslint-disable-line
-        });
+        .set(newData);
     })
-    .then(() => console.log('successfully updated'));
+    .then(() => console.log('successfully updated'))
+    .then(() => {
+      window.alert('チャレンジに参加しました'); // eslint-disable-line
+    })
+    .then(() => {
+      window.location.reload(); // eslint-disable-line
+    });
 };
 
 class CheckoutForm extends React.PureComponent<Props> {
@@ -74,7 +74,7 @@ class CheckoutForm extends React.PureComponent<Props> {
       country: 'JP',
       currency: 'jpy',
       total: {
-        label: 'Challenge Charge',
+        label: 'チャレンジ参加料',
         amount: this.state.price
       },
       requestPayerName: false,
@@ -82,17 +82,19 @@ class CheckoutForm extends React.PureComponent<Props> {
     });
 
     paymentRequest.on('token', (event: any) => {
-      // Send the token to your server to charge it!
-
-      if (this.props.price > 50) {
+      if (this.state.price > 50) {
         axios
           .post('/charges', {
-            price: this.props.price,
+            price: this.state.price,
             tokenId: event.token.id
           })
           .then((res: any) => console.log('Purchase Complete!'))
+          .then((res: any) => event.complete('success'))
           .then(() => joinHandler(this.props.challengeId, this.props.user))
-          .catch((err: any) => console.error(err));
+          .catch((err: any) => {
+            event.complete('fail');
+            console.error(err);
+          });
       } else {
         console.log('do nothing.');
         joinHandler(this.props.challengeId, this.props.user);

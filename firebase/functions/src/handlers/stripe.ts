@@ -24,7 +24,7 @@ exports.chargeProduct = (req: any, res: any) => {
 exports.validCoupon = (req: any, res: any) => {
   stripe.coupons.retrieve(req.body.coupon, (err: any, coupon: any) => {
     if (!coupon) {
-      return res.status(500).json(err);
+      return res.json(err);
     }
     return res.status(200).json(coupon);
   });
