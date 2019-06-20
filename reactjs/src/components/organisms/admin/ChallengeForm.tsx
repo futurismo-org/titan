@@ -24,6 +24,7 @@ const ChallengeForm = (props: any) => {
   const [participantsCount, setParticipantsCount] = useState(0);
 
   const [privateFlag, setPrivateFlag] = useState(false);
+  const [price, setPrice] = useState(0);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -74,7 +75,11 @@ const ChallengeForm = (props: any) => {
     setClosedAt(date);
   };
   const onPrivateFlagChange = (e: any) => {
+    e.preventDefault();
     setPrivateFlag(e.target.checked);
+  };
+  const onPriceChange = (e: any) => {
+    setPrice(e.target.value);
   };
 
   const isCreate = props.match.params.id === undefined;
@@ -99,7 +104,8 @@ const ChallengeForm = (props: any) => {
       openedAt: new Date(openedAt).setHours(0, 0, 0, 0),
       closedAt: new Date(closedAt).setHours(23, 59, 59, 59),
       participantsCount: participantsCount,
-      private: privateFlag
+      private: privateFlag,
+      price: price
     };
     firebase
       .firestore()
@@ -137,6 +143,7 @@ const ChallengeForm = (props: any) => {
           setParticipantsCount(challenge!.participantsCount);
           const flag = challenge!.private ? challenge!.private : false;
           setPrivateFlag(flag);
+          setPrice(challenge!.price || 0);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -199,6 +206,14 @@ const ChallengeForm = (props: any) => {
           onChange={onCategoryRefChange}
         />
         <TextField
+          value={price}
+          variant="outlined"
+          margin="normal"
+          id="price"
+          label="価格"
+          onChange={onPriceChange}
+        />
+        <TextField
           value={webhookURL}
           variant="outlined"
           margin="normal"
@@ -233,13 +248,13 @@ const ChallengeForm = (props: any) => {
         />
         {'プライベート設定'}
         <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
-        <p>概要プレビュー</p>
+        <h2>概要プレビュー</h2>
         {
           remark()
             .use(remark2react)
             .processSync(overview).contents
         }
-        <p>ルール</p>
+        <h2>ルールプレビュー</h2>
         {
           remark()
             .use(remark2react)
