@@ -119,7 +119,8 @@ const challengeSeeds = seed.collection('challenges', [
     closedAt: moment()
       .add(30, 'days')
       .toDate()
-      .setHours(23, 59, 59, 59)
+      .setHours(23, 59, 59, 59),
+    price: 300
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
@@ -134,7 +135,8 @@ const challengeSeeds = seed.collection('challenges', [
     closedAt: moment()
       .add(30, 'days')
       .toDate()
-      .setHours(23, 59, 59, 59)
+      .setHours(23, 59, 59, 59),
+    price: 300
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
@@ -164,7 +166,8 @@ const challengeSeeds = seed.collection('challenges', [
     closedAt: moment()
       .subtract(30, 'days')
       .toDate()
-      .setHours(23, 59, 59, 59)
+      .setHours(23, 59, 59, 59),
+    price: 1000
   })
 ]);
 
