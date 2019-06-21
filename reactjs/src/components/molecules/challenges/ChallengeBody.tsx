@@ -29,7 +29,7 @@ const ChallengeBody = (props: any) => {
           render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
         <Route
-          path="/challenges/:id/discussion"
+          path="/challenges/:id/discussions"
           component={ChallengeDiscussion}
         />
         <Route
