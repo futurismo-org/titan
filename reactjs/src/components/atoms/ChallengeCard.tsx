@@ -48,9 +48,6 @@ const ChallengeCard = (props: any) => {
                 <Typography component="h2" variant="h5">
                   {challenge.title}
                 </Typography>
-                {/* <Typography variant="subtitle1" color="textSecondary">
-                  {challeng.date}
-                </Typography> */}
                 <Typography variant="subtitle1" paragraph>
                   {challenge.description}
                 </Typography>

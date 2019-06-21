@@ -8,7 +8,7 @@ import firebase from '../../lib/firebase';
 const ColorButton = styled(Button)`
   && {
     font-size: 15px;
-    margin: 0px;
+    margin: 5px;
   }
 `;
 

@@ -53,11 +53,18 @@ const ChallengeButton = (props: any) => {
 
   const STRIPE_PUB_KEY = process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string;
 
+  const MyButton = styled(Button)`
+    && {
+      font-size: 15px;
+      margin: 5px;
+    }
+  `;
+
   const renderPostButton = (props: any) => (
     <NoStyledLink to={`/challenges/${props.id}/posts`}>
-      <Button color="inherit" variant="outlined" size="small">
+      <MyButton color="inherit" variant="outlined" size="small">
         投稿
-      </Button>
+      </MyButton>
     </NoStyledLink>
   );
 
