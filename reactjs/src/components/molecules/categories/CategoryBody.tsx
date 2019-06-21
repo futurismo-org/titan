@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import theme from '../../../lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import CategoryTopic from './CategoryTopic';
+import CategoryTopics from './CategoryTopics';
 import TopicForm from '../TopicForm';
 
 const CategoryContent = styled.div`
@@ -26,7 +26,7 @@ const CategoryBody = (props: any) => {
         />
         <Route
           path="/categories/:id/topics"
-          render={() => <CategoryTopic category={category} />}
+          render={() => <CategoryTopics category={category} />}
         />
         <Route
           path="/categories/:id/dashboard"

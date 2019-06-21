@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Typography } from '@material-ui/core';
 import PostButton from '../../atoms/PostButton';
 
-const CategoryTopic = (props: any) => {
+const CategoryTopics = (props: any) => {
   const { category } = props;
 
   return (
@@ -15,4 +15,4 @@ const CategoryTopic = (props: any) => {
   );
 };
 
-export default CategoryTopic;
+export default CategoryTopics;
