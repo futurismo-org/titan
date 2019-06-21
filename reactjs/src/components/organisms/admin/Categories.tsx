@@ -8,6 +8,7 @@ import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 import Link from '../../atoms/NoStyledLink';
+import PostButton from '../../atoms/PostButton';
 
 const Categories = () => {
   const [value, loading, error] = useCollection(
@@ -24,11 +25,7 @@ const Categories = () => {
   return (
     <React.Fragment>
       <h2>カテゴリ一覧</h2>
-      <Link to="/admin/categories/new">
-        <Button type="button" variant="contained" color="primary">
-          新規投稿
-        </Button>
-      </Link>
+      <PostButton to="/admin/categories/new" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value && (

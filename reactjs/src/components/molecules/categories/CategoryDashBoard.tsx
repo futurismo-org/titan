@@ -53,7 +53,7 @@ const CategoryDashBoard = (props: any) => {
       </StyledPaper>
       <StyledPaper>
         <Title text="知見まとめ" />
-        <MoreLink to={`/challenges/${category.id}/discussion`}>
+        <MoreLink to={`/categories/${category.id}/discussion`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
