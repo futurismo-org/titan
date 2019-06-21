@@ -38,7 +38,7 @@ const CategoryCard = (props: any) => {
 
   return (
     <Grid item key={category.title} xs={12} md={6}>
-      <NoStyledLink to={`/categories/${category.id}`}>
+      <NoStyledLink to={`/categories/${category.id}/dashboard`}>
         <CardActionArea>
           <StyledCard>
             <StyledCardDetails>
