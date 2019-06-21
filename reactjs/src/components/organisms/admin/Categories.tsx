@@ -37,7 +37,7 @@ const Categories = () => {
                 <br />
                 {doc.data().title}
               </ListItemText>
-              <Link to={`/admin/categories/new/${doc.id}`}>
+              <Link to={`/admin/categories/${doc.id}/edit`}>
                 <Button type="button" color="primary" variant="contained">
                   編集
                 </Button>

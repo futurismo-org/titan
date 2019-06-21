@@ -21,7 +21,10 @@ const Admin = () => (
           component={ChallengeForm}
         />
         <AdminRoute path="/admin/challenges/new" component={ChallengeForm} />
-        <AdminRoute path="/admin/categories/new/:id" component={CategoryForm} />
+        <AdminRoute
+          path="/admin/categories/:id/edit"
+          component={CategoryForm}
+        />
         <AdminRoute path="/admin/categories/new" component={CategoryForm} />
         <AdminRoute path="/admin" component={DashBoard} />
       </Switch>

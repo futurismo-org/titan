@@ -87,7 +87,9 @@ const TopicForm = (props: any) => {
           label="URL"
           onChange={onURLChange}
         />
-        or
+        <p>
+          情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
+        </p>
         <TextField
           value={text}
           variant="outlined"
