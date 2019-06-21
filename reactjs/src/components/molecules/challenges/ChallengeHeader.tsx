@@ -14,7 +14,7 @@ moment.locale('ja');
 
 const HeaderInfo = styled.div`
   display: flex;
-  margin: 10px;
+  margin: 5px;
 `;
 
 const MainFeaturedPost = styled(Paper)`
@@ -109,10 +109,6 @@ const ChallengeHeader = (props: any) => {
                 </HeaderInfoText>
               ) : (
                 <React.Fragment>
-                  <ChallengeButton
-                    challengeId={challenge.id}
-                    price={challenge.price}
-                  />
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     価格 {challenge.price || 0}円
                   </HeaderInfoText>
@@ -127,6 +123,12 @@ const ChallengeHeader = (props: any) => {
             </HeaderInfo>
             <HeaderInfo>
               <ChallengeCategoryLink categoryRef={challenge.categoryRef} />
+              {!isClosed ? (
+                <ChallengeButton
+                  challengeId={challenge.id}
+                  price={challenge.price}
+                />
+              ) : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>
