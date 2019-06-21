@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import theme from '../../../lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import CategoryDiscussion from './CategoryDiscussion';
-import DiscussionForm from '../DiscussionForm';
+import CategoryTopic from './CategoryTopic';
+import TopicForm from '../TopicForm';
 
 const CategoryContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -19,12 +19,12 @@ const CategoryBody = (props: any) => {
     <CategoryContent>
       <Switch>
         <Route
-          path="/categories/:id/discussions/new"
-          render={() => <DiscussionForm type="category" />}
+          path="/categories/:id/topics/new"
+          render={() => <TopicForm type="category" />}
         />
         <Route
-          path="/categories/:id/discussions"
-          render={() => <CategoryDiscussion category={category} />}
+          path="/categories/:id/topics"
+          render={() => <CategoryTopic category={category} />}
         />
         <Route
           path="/categories/:id/dashboard"

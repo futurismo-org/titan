@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import ChallengeOverview from './ChallengeOverview';
-import ChallengeDiscussion from './ChallengeDiscussion';
+import ChallengeTopic from './ChallengeTopic';
 import ChallengeRules from './ChallengeRules';
 import ChallengePosts from './ChallengePosts';
 import ChallengeTimeline from './ChallengeTimeline';
@@ -29,8 +29,8 @@ const ChallengeBody = (props: any) => {
           render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
         <Route
-          path="/challenges/:id/discussions"
-          component={ChallengeDiscussion}
+          path="/challenges/:id/topics"
+          component={ChallengeTopic}
         />
         <Route
           path="/challenges/:id/rules"

@@ -51,7 +51,7 @@ const ChallengeNavbar = (props: any) => {
         onClose={handleClose}
       >
         <NavItem to={`/challenges/${props.id}/timeline`} text="タイムライン" />
-        <NavItem to={`/challenges/${props.id}/discussions`} text="知見まとめ" />
+        <NavItem to={`/challenges/${props.id}/topics`} text="知見まとめ" />
         <NavItem
           to={`/challenges/${props.id}/leaderboard`}
           text="リーダーボード"

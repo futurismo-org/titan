@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ulid } from 'ulid';
 import { TextField, Button } from '@material-ui/core';
 
-const DiscussionForm = (props: any) => {
+const TopicForm = (props: any) => {
   const { type } = props;
 
   const [title, setTitle] = useState('');
@@ -120,4 +120,4 @@ const DiscussionForm = (props: any) => {
   );
 };
 
-export default DiscussionForm;
+export default TopicForm;
