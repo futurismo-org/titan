@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ulid } from 'ulid';
 import { TextField, Button } from '@material-ui/core';
 
+import firebase from '../../lib/firebase';
+
+const db = firebase.firestore();
+
 const TopicForm = (props: any) => {
-  const { type } = props;
+  const { collection, categoryId } = props;
 
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
@@ -22,57 +26,41 @@ const TopicForm = (props: any) => {
     setText(e.target.value);
   };
 
-  const isCreate = props.match === undefined;
+  const isCreate = props.topicId === undefined;
+  const topicId = isCreate ? ulid() : props.match.params.id;
 
   const updateHandler = (e: any) => {
     e.preventDefault();
 
-    const id = isCreate ? ulid() : props.match.params.id;
     const newData = {
-      id: id,
+      id: topicId,
       title: title,
       url: url,
       text: text
     };
 
-    // TODO
-    // firebase
-    //   .firestore()
-    //   .collection('categories')
-    //   .doc(id)
-    //   .set(newData);
-    // window.location.href = '/#/admin'; // eslint-disable-line
+    db.collection(collection)
+      .doc(categoryId)
+      .collection('topics')
+      .doc(topicId)
+      .set(newData);
   };
 
   useEffect(() => {
     if (!isCreate) {
-      // firebase
-      //   .firestore()
-      //   .collection('categories')
-      //   .doc(props.match.params.id)
-      //   .get()
-      //   .then(doc => doc.data())
-      //   .then(challenge => {
-      //     setTitle(challenge!.title);
-      //     setDescription(challenge!.description);
-      //     setOverview(challenge!.overview);
-      //     setChannelId(challenge!.channelId);
-      //     setChallengeRefs(
-      //       !challenge!.challengeRefs
-      //         ? ''
-      //         : challenge!.challengeRefs
-      //             .map(
-      //               (docRef: firebase.firestore.DocumentReference) =>
-      //                 docRef.path
-      //             )
-      //             .toString()
-      //     );
-      //     setCreatedAt(
-      //       moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
-      //     );
-      //   });
+      db.collection(collection)
+        .doc(categoryId)
+        .collection('topic')
+        .doc(topicId)
+        .get()
+        .then(doc => doc.data())
+        .then(topic => {
+          setTitle(topic!.title);
+          setURL(topic!.url);
+          setText(topic!.text);
+        });
     }
-  }, [isCreate]);
+  }, [categoryId, collection, isCreate, topicId]);
 
   return (
     <React.Fragment>
