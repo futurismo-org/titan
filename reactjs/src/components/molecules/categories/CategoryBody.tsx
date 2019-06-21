@@ -19,6 +19,12 @@ const CategoryBody = (props: any) => {
     <CategoryContent>
       <Switch>
         <Route
+          path="/categories/:categoryId/topics/:topicId/edit"
+          render={() => (
+            <TopicForm collection="categories" categoryId={category.id} />
+          )}
+        />
+        <Route
           path="/categories/:id/topics/new"
           render={() => (
             <TopicForm collection="categories" categoryId={category.id} />

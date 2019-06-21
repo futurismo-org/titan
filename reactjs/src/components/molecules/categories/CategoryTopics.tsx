@@ -7,17 +7,12 @@ import {
   Button
 } from '@material-ui/core';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import styled from 'styled-components';
 import PostButton from '../../atoms/PostButton';
 
 import NoStyledLink from '../../atoms/NoStyledLink';
 
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
-
-const TitleWrapper = styled.div`
-  display: flex;
-`;
 
 const CategoryTopics = (props: any) => {
   const { category } = props;
@@ -50,14 +45,16 @@ const CategoryTopics = (props: any) => {
         value!.docs.map((doc: any) => (
           <ListItem key={doc.id}>
             <ListItemText>{doc.data().title}</ListItemText>
-            <NoStyledLink to={`/categories/${doc.id}/edit`}>
+            <NoStyledLink
+              to={`/categories/${category.id}/topics/${doc.id}/edit`}
+            >
               <Button type="button" color="primary" variant="contained">
                 編集
               </Button>
             </NoStyledLink>
             <Button
               type="button"
-              color="secondary"
+              color="default"
               variant="contained"
               // onClick={() => onDeleteHandler(doc.id)}
             >
