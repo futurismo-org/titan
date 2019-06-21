@@ -79,7 +79,7 @@ const ChallengeHeader = (props: any) => {
       {
         <img
           style={{ display: 'none' }}
-          src="https://source.unsplash.com/user/erondu"
+          src="https://source.unsplash.com/random"
           alt="background"
         />
       }
