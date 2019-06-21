@@ -43,7 +43,10 @@ const TopicForm = (props: any) => {
       .doc(categoryId)
       .collection('topics')
       .doc(topicId)
-      .set(newData);
+      .set(newData)
+      .then(() => window.alert("投稿が完了しました。")) // eslint-disable-line
+      .then(() => (window.location.href = `/#/categories/${categoryId}/topics`)) // eslint-disable-line
+      .catch(() => window.alert("エラーが発生しました。")) // eslint-disable-line
   };
 
   useEffect(() => {

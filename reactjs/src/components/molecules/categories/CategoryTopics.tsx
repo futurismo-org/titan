@@ -4,9 +4,12 @@ import {
   List,
   ListItem,
   ListItemText,
+  ListItemAvatar,
+  Avatar,
   Button
 } from '@material-ui/core';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import moment from 'moment';
 import PostButton from '../../atoms/PostButton';
 
 import NoStyledLink from '../../atoms/NoStyledLink';
@@ -42,26 +45,54 @@ const CategoryTopics = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value &&
-        value!.docs.map((doc: any) => (
-          <ListItem key={doc.id}>
-            <ListItemText>{doc.data().title}</ListItemText>
-            <NoStyledLink
-              to={`/categories/${category.id}/topics/${doc.id}/edit`}
-            >
-              <Button type="button" color="primary" variant="contained">
-                編集
-              </Button>
-            </NoStyledLink>
-            <Button
-              type="button"
-              color="default"
-              variant="contained"
-              // onClick={() => onDeleteHandler(doc.id)}
-            >
-              削除
-            </Button>
-          </ListItem>
-        ))}
+        value!.docs
+          .map((doc: any) => doc.data())
+          .map((topic: any) => (
+            <ListItem alignItems="flex-start" key={topic.id}>
+              <ListItemAvatar>
+                <Avatar
+                  alt={topic.displayName || 'anonymous'}
+                  src={
+                    topic.photoURL || `${process.env.PUBLIC_URL}/anonymous.png`
+                  }
+                />
+              </ListItemAvatar>
+              <ListItemText
+                primary={topic.title}
+                secondary={
+                  <React.Fragment>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      color="textPrimary"
+                    >
+                      Posted by {topic.displayName || 'anonymous'}
+                    </Typography>
+                    {moment(topic.updatedAt.toDate()).fromNow() || ''}
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+          ))
+      // <ListItem key={doc.id}>
+      //   <ListItemText>{doc.data().title}</ListItemText>
+      //   <NoStyledLink
+      //     to={`/categories/${category.id}/topics/${doc.id}/edit`}
+      //   >
+      //     <Button type="button" color="primary" variant="contained">
+      //       編集
+      //     </Button>
+      //   </NoStyledLink>
+      //   <Button
+      //     type="button"
+      //     color="default"
+      //     variant="contained"
+      //     // onClick={() => onDeleteHandler(doc.id)}
+      //   >
+      //     削除
+      //   </Button>
+      // </ListItem>
+      }
     </List>
   );
 };
