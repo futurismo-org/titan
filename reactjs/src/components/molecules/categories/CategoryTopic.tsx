@@ -4,6 +4,8 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
+import Paper from '../../templates/PaperWrapper';
+
 const db = firebase.firestore();
 
 const CategoryTopic = (props: any) => {
@@ -25,7 +27,7 @@ const CategoryTopic = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && <div />}
+      {data && <Paper>test</Paper>}
     </React.Fragment>
   );
 };

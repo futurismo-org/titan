@@ -1,26 +1,14 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import Paper, { PaperProps } from '@material-ui/core/Paper';
 import { ulid } from 'ulid';
 import { Link } from 'react-router-dom';
-import theme from '../../../lib/theme';
+
+import Paper from '../../templates/PaperWrapper';
+import Title from '../../atoms/Title';
 
 import ChallengeCategory from './CategoryChallenge';
 import DiscordHistories from '../../atoms/DiscordHistories';
-
-const Title = (props: any) => (
-  <Typography component="h3" variant="h4">
-    {props.text}
-  </Typography>
-);
-
-const StyledPaper = styled(Paper)`
-  && {
-    margin: ${theme.spacing(0)}px;
-    padding: ${theme.spacing(3)}px;
-  }
-` as React.ComponentType<PaperProps>;
 
 const OverviewContent = styled.div`
   white-space: pre-line;
@@ -40,29 +28,29 @@ const CategoryDashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      <StyledPaper>
+      <Paper>
         <Title text="概要" />
         <OverviewContent>{category.overview}</OverviewContent>
-      </StyledPaper>
-      <StyledPaper>
+      </Paper>
+      <Paper>
         <Title text="チャレンジ一覧" />
         {category.challengeRefs &&
           category.challengeRefs.map((challengeRef: any) => (
             <ChallengeCategory key={ulid()} challengeRef={challengeRef} />
           ))}
-      </StyledPaper>
-      <StyledPaper>
+      </Paper>
+      <Paper>
         <Title text="知見まとめ" />
         <MoreLink to={`/categories/${category.id}/topics`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
         </MoreLink>
-      </StyledPaper>
-      <StyledPaper>
+      </Paper>
+      <Paper>
         <Title text="Discordフリートーク" />
         <DiscordHistories channelId={category.channelId} limit={30} />
-      </StyledPaper>
+      </Paper>
     </React.Fragment>
   );
 };
