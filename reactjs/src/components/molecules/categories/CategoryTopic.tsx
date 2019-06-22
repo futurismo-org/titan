@@ -38,6 +38,11 @@ const CategoryTopic = (props: any) => {
           {'     '}
           {moment(data.createdAt.toDate()).fromNow() || ''}
           <Title text="test" />
+          {data.url && (
+            <a href={data.url} rel="noopener noreferrer" target="_blank">
+              {data.url}
+            </a>
+          )}
           {data.text}
         </Paper>
       )}
