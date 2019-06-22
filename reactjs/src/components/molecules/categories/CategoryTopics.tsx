@@ -61,7 +61,13 @@ const CategoryTopics = (props: any) => {
                 />
               </ListItemAvatar>
               <ListItemText
-                primary={topic.title}
+                primary={
+                  <NoStyledLink
+                    to={`/categories/${category.id}/topics/${topic.id}`}
+                  >
+                    {topic.title}
+                  </NoStyledLink>
+                }
                 secondary={
                   <React.Fragment>
                     <Typography

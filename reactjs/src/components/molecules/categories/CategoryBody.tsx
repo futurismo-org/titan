@@ -6,6 +6,7 @@ import theme from '../../../lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
 import CategoryTopics from './CategoryTopics';
+import CategoryTopic from './CategoryTopic';
 import TopicForm from '../TopicForm';
 
 const CategoryContent = styled.div`
@@ -27,6 +28,10 @@ const CategoryBody = (props: any) => {
               match={match}
             />
           )}
+        />
+        <Route
+          path="/categories/:categoryId/topics/:topicId"
+          render={props => <CategoryTopic props={props} />}
         />
         <Route
           path="/categories/:id/topics/new"
