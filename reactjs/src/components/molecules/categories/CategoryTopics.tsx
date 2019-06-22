@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
+import { connect } from 'react-redux';
+
 import PostButton from '../../atoms/PostButton';
 
 import NoStyledLink from '../../atoms/NoStyledLink';
@@ -18,7 +20,7 @@ import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 const CategoryTopics = (props: any) => {
-  const { category } = props;
+  const { category, user } = props;
 
   const [value, loading, error] = useCollection(
     firebase
@@ -74,25 +76,34 @@ const CategoryTopics = (props: any) => {
                   </React.Fragment>
                 }
               />
-              <NoStyledLink
-                to={`/categories/${category.id}/topics/${topic.id}/edit`}
-              >
-                <Button type="button" color="default" variant="contained">
-                  編集
-                </Button>
-              </NoStyledLink>
-              <Button
-                type="button"
-                color="default"
-                variant="contained"
-                // onClick={() => onDeleteHandler(doc.id)}
-              >
-                削除
-              </Button>
+              {user.id === topic.userId ? (
+                <React.Fragment>
+                  <NoStyledLink
+                    to={`/categories/${category.id}/topics/${topic.id}/edit`}
+                  >
+                    <Button type="button" color="default" variant="contained">
+                      編集
+                    </Button>
+                  </NoStyledLink>
+                  <Button
+                    type="button"
+                    color="default"
+                    variant="contained"
+                    // onClick={() => onDeleteHandler(doc.id)}
+                  >
+                    削除
+                  </Button>
+                </React.Fragment>
+              ) : null}
             </ListItem>
           ))}
     </List>
   );
 };
 
-export default CategoryTopics;
+const mapStateToProps = (state: any, props: any) => ({
+  user: state.firebase.profile,
+  ...props
+});
+
+export default connect(mapStateToProps)(CategoryTopics);

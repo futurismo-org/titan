@@ -56,7 +56,7 @@ const TopicForm = (props: any) => {
   };
 
   useEffect(() => {
-    if (!isCreate && topicId && categoryId) {
+    if (!isCreate) {
       db.collection(collection)
         .doc(categoryId)
         .collection('topics')
