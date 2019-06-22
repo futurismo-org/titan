@@ -74,27 +74,23 @@ const CategoryTopics = (props: any) => {
                   </React.Fragment>
                 }
               />
+              <NoStyledLink
+                to={`/categories/${category.id}/topics/${topic.id}/edit`}
+              >
+                <Button type="button" color="default" variant="contained">
+                  編集
+                </Button>
+              </NoStyledLink>
+              <Button
+                type="button"
+                color="default"
+                variant="contained"
+                // onClick={() => onDeleteHandler(doc.id)}
+              >
+                削除
+              </Button>
             </ListItem>
-          ))
-      // <ListItem key={doc.id}>
-      //   <ListItemText>{doc.data().title}</ListItemText>
-      //   <NoStyledLink
-      //     to={`/categories/${category.id}/topics/${doc.id}/edit`}
-      //   >
-      //     <Button type="button" color="primary" variant="contained">
-      //       編集
-      //     </Button>
-      //   </NoStyledLink>
-      //   <Button
-      //     type="button"
-      //     color="default"
-      //     variant="contained"
-      //     // onClick={() => onDeleteHandler(doc.id)}
-      //   >
-      //     削除
-      //   </Button>
-      // </ListItem>
-      }
+          ))}
     </List>
   );
 };

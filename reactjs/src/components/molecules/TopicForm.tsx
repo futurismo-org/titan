@@ -9,6 +9,7 @@ const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
   const { collection, categoryId, user } = props;
+  let topicId = props.topicId ? props.topicId : ulid();
 
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
@@ -28,7 +29,6 @@ const TopicForm = (props: any) => {
   };
 
   const isCreate = props.topicId === undefined;
-  const topicId = isCreate ? ulid() : props.match.params.id;
 
   const updateHandler = (e: any) => {
     e.preventDefault();
@@ -56,10 +56,10 @@ const TopicForm = (props: any) => {
   };
 
   useEffect(() => {
-    if (!isCreate) {
+    if (!isCreate && topicId && categoryId) {
       db.collection(collection)
         .doc(categoryId)
-        .collection('topic')
+        .collection('topics')
         .doc(topicId)
         .get()
         .then(doc => doc.data())
@@ -119,9 +119,12 @@ const TopicForm = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
+const mapStateToProps = (state: any, props: any) => {
+  return {
+    user: state.firebase.profile,
+    topicId: props.match.match.params.topicId,
+    ...props
+  };
+};
 
 export default connect(mapStateToProps)(TopicForm);
