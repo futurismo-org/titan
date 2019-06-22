@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
+import moment from 'moment';
+import Typography from '@material-ui/core/Typography';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 import Paper from '../../templates/PaperWrapper';
+import Title from '../../atoms/Title';
 
 const db = firebase.firestore();
 
@@ -27,7 +30,17 @@ const CategoryTopic = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && <Paper>test</Paper>}
+      {data && (
+        <Paper>
+          <Typography component="span" variant="body2" color="textPrimary">
+            Posted by {data.userName || 'anonymous'}
+          </Typography>
+          {'     '}
+          {moment(data.createdAt.toDate()).fromNow() || ''}
+          <Title text="test" />
+          {data.text}
+        </Paper>
+      )}
     </React.Fragment>
   );
 };
