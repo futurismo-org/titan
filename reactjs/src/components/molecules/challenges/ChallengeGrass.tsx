@@ -26,7 +26,7 @@ const Square = styled.button`
 const ChallengeGrass = (props: any) => {
   const openedAt = moment(props.openedAt.toDate());
   const closedAt = moment(props.closedAt.toDate());
-  const duration: number = closedAt.diff(openedAt, 'days');
+  const duration: number = closedAt.diff(openedAt, 'days') + 1;
 
   const totalDays = [...Array(duration).keys()].map(i => false);
 

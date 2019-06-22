@@ -149,9 +149,12 @@ const ChallengePosts = (props: any) => {
       data !== undefined &&
       data.updatedAt !== undefined &&
       data.updatedAt !== null &&
-      moment(now).diff(moment(data.updatedAt.toDate()), 'days') > 1 &&
+      moment(now).diff(
+        moment(new Date(data.updatedAt.toDate().setHours(0, 0, 0, 0))),
+        'days'
+      ) > 1 &&
       moment(now).diff(moment(openedAt.toDate()), 'days') !== 0 &&
-      moment(now).diff(moment(closedAt.toDate()), 'days') < 0
+      moment(now).diff(moment(closedAt.toDate()), 'days') <= 0
     ) {
       firebase
         .firestore()
