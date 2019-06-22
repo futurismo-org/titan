@@ -51,9 +51,10 @@ const CategoryTopics = (props: any) => {
             <ListItem alignItems="flex-start" key={topic.id}>
               <ListItemAvatar>
                 <Avatar
-                  alt={topic.displayName || 'anonymous'}
+                  alt={topic.userName || 'anonymous'}
                   src={
-                    topic.photoURL || `${process.env.PUBLIC_URL}/anonymous.png`
+                    topic.userPhotoURL ||
+                    `${process.env.PUBLIC_URL}/anonymous.png`
                   }
                 />
               </ListItemAvatar>
@@ -66,9 +67,10 @@ const CategoryTopics = (props: any) => {
                       variant="body2"
                       color="textPrimary"
                     >
-                      Posted by {topic.displayName || 'anonymous'}
+                      Posted by {topic.userName || 'anonymous'}
                     </Typography>
-                    {moment(topic.updatedAt.toDate()).fromNow() || ''}
+                    {'     '}
+                    {moment(topic.createdAt.toDate()).fromNow() || ''}
                   </React.Fragment>
                 }
               />

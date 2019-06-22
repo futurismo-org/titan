@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { ulid } from 'ulid';
 import { TextField, Button } from '@material-ui/core';
+import { connect } from 'react-redux';
 
 import firebase from '../../lib/firebase';
 
 const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
-  const { collection, categoryId } = props;
+  const { collection, categoryId, user } = props;
 
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
@@ -36,7 +37,12 @@ const TopicForm = (props: any) => {
       id: topicId,
       title: title,
       url: url,
-      text: text
+      text: text,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      userName: user.displayName,
+      userId: user.id,
+      userPhotoURL: user.photoURL
     };
 
     db.collection(collection)
@@ -113,4 +119,9 @@ const TopicForm = (props: any) => {
   );
 };
 
-export default TopicForm;
+const mapStateToProps = (state: any, props: {}) => ({
+  user: state.firebase.profile,
+  ...props
+});
+
+export default connect(mapStateToProps)(TopicForm);
