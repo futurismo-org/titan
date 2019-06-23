@@ -37,7 +37,7 @@ const Topic = (props: any) => {
           </Typography>
           {'     '}
           {moment(data.createdAt.toDate()).fromNow() || ''}
-          <Title text="test" />
+          <Title text={data.title} />
           {data.url && (
             <a href={data.url} rel="noopener noreferrer" target="_blank">
               {data.url}
