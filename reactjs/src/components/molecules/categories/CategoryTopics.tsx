@@ -30,6 +30,18 @@ const CategoryTopics = (props: any) => {
       .collection('topics')
   );
 
+  const onDeleteHandler = (topicId: string) => {
+    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
+      firebase
+        .firestore()
+        .collection('categories')
+        .doc(category.id)
+        .collection('topics')
+        .doc(topicId)
+        .delete();
+    }
+  };
+
   return (
     <List>
       <ListItem>
@@ -95,7 +107,7 @@ const CategoryTopics = (props: any) => {
                     type="button"
                     color="default"
                     variant="contained"
-                    // onClick={() => onDeleteHandler(doc.id)}
+                    onClick={() => onDeleteHandler(topic.id)}
                   >
                     削除
                   </Button>

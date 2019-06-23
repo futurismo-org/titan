@@ -122,6 +122,7 @@ const TopicForm = (props: any) => {
 const mapStateToProps = (state: any, props: any) => {
   return {
     user: state.firebase.profile,
+    categoryId: props.match.match.params.categoryId,
     topicId: props.match.match.params.topicId,
     ...props
   };
