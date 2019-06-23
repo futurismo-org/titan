@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
-import ChallengeButton from '../../atoms/ChallengeButton';
-import ChallengeCategoryButton from '../../atoms/ChallengeCategoryButton';
+import ChallengeButton from '../../atoms/challenges/ChallengeButton';
+import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
 

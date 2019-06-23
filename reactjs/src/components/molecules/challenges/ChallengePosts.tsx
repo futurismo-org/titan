@@ -6,7 +6,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 
-import RecordButton from '../../atoms/ChallengeRecordButton';
+import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
 import Progress from '../../atoms/CircularProgress';
 
 import { postMessage } from '../../../lib/discord.client.api';

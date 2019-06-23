@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import ChallengeCard from '../atoms/ChallengeCard';
+import ChallengeCard from '../atoms/challenges/ChallengeCard';
 import firebase from '../../lib/firebase';
 import theme from '../../lib/theme';
 
