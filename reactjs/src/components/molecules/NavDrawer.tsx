@@ -72,10 +72,8 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('カテゴリ', '/categories')}
             <Divider />
-            {/* {DrawerButton('ランキング', '/')}
+            {DrawerButton('ランキング', '/ranking')}
             <Divider />
-            {DrawerButton('トピック', '/')}
-            <Divider /> */}
             {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}
             <Divider />
           </StyledDrawer>

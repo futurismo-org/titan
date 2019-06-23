@@ -92,6 +92,7 @@ const createUserSeed = (args: any) => {
   return seed.doc(id, {
     createdAt: new Date(),
     updatedAt: faker.date.recent(),
+    twitterURL: 'https://twitter.com',
     ...args
   });
 };
