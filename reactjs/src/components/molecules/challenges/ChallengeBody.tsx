@@ -62,6 +62,17 @@ const ChallengeBody = (props: any) => {
             />
           )}
         />
+        <Route
+          path="/challenges/:challengeId/users/:userId"
+          render={(props: any) => (
+            <ChallengePosts
+              webhookURL={challenge.webhookURL}
+              openedAt={challenge.openedAt}
+              closedAt={challenge.closedAt}
+              {...props}
+            />
+          )}
+        />
       </Switch>
     </ChallengeContent>
   );
