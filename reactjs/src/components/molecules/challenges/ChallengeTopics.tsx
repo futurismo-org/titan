@@ -1,5 +1,8 @@
 import * as React from 'react';
+import Topics from '../Topics';
 
-const ChallengeTopics = () => <div>準備中...</div>;
+const ChallengeTopics = (props: any) => (
+  <Topics collection="challenges" collectionId={props.match.params.id} />
+);
 
 export default ChallengeTopics;

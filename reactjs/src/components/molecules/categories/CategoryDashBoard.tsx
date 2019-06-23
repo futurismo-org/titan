@@ -42,12 +42,12 @@ const CategoryDashBoard = (props: any) => {
       </Paper>
       <Paper>
         <Title text="トピック" />
+        <TopicList
+          collection="categories"
+          collectionId={category.id}
+          limit={6}
+        />
         <MoreLink to={`/categories/${category.id}/topics`}>
-          <TopicList
-            collection="categories"
-            collectionId={category.id}
-            limit={6}
-          />
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
