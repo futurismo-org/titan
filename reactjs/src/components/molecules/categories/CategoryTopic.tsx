@@ -24,7 +24,6 @@ const CategoryTopic = (props: any) => {
   );
 
   const data = value && value.data();
-  console.log(data);
 
   return (
     <React.Fragment>
