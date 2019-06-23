@@ -68,7 +68,7 @@ class CheckoutForm extends React.PureComponent<Props> {
     super(props);
     this.submit = this.submit.bind(this);
     this.apply = this.apply.bind(this);
-    this.state.price = this.props.price;
+    this.state.price = this.props.price || 0;
 
     const paymentRequest = this.props.stripe.paymentRequest({
       country: 'JP',
