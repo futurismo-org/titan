@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
 import ChallengeButton from '../../atoms/ChallengeButton';
-import ChallengeCategoryLink from '../../atoms/ChallengeCategoryLink';
+import ChallengeCategoryButton from '../../atoms/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
 
@@ -23,7 +23,7 @@ const MainFeaturedPost = styled(Paper)`
     background-color: ${theme.palette.grey[800]};
     color: ${theme.palette.common.white};
     margin-bottom: ${theme.spacing(4)}px;
-    background-image: url(https://source.unsplash.com/user/erondu);
+    background-image: url(https://source.unsplash.com/random);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -122,7 +122,7 @@ const ChallengeHeader = (props: any) => {
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
-              <ChallengeCategoryLink categoryRef={challenge.categoryRef} />
+              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
               {!isClosed ? (
                 <ChallengeButton
                   challengeId={challenge.id}

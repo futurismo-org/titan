@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -20,11 +20,11 @@ const ChallengeNavbar = (props: any) => {
     setAnchorEl(null);
   };
 
-  const NavItem = (props: any) => (
-    <MenuItem onClick={handleClose}>
+  const NavItem = forwardRef((props: any, ref: any) => (
+    <MenuItem ref={ref} onClick={handleClose}>
       <NoStyledLink to={props.to}>{props.text}</NoStyledLink>
     </MenuItem>
-  );
+  ));
 
   return (
     <React.Fragment>
