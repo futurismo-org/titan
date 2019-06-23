@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Paper, { PaperProps } from '@material-ui/core/Paper';
 
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
@@ -8,6 +7,9 @@ import { Link } from 'react-router-dom';
 import theme from '../../lib/theme';
 import ChallengeCard from '../atoms/ChallengeCard';
 import CategoryCard from '../atoms/CategoryCard';
+
+import Paper from '../templates/PaperWrapper';
+import Title from '../atoms/Title';
 
 interface Props {
   container?: any;
@@ -19,13 +21,6 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
     margin-top: ${theme.spacing(3)}px;
   }
 `;
-
-const StyledPaper = styled(Paper)`
-  && {
-    margin: ${theme.spacing(0)}px;
-    padding: ${theme.spacing(3)}px;
-  }
-` as React.ComponentType<PaperProps>;
 
 const MoreLink = styled(Link)`
   && {
@@ -72,10 +67,8 @@ const DashBoardPaper = (props: any) => {
 
   return (
     <React.Fragment>
-      <StyledPaper>
-        <Typography component="h3" variant="h4">
-          {title}
-        </Typography>
+      <Paper>
+        <Title text={title} />
         {value && (
           <StyledCardGrid container spacing={4}>
             {value!.docs.map((doc: any) =>
@@ -84,7 +77,7 @@ const DashBoardPaper = (props: any) => {
           </StyledCardGrid>
         )}
         {DashBoardCardLink({ type: type })}
-      </StyledPaper>
+      </Paper>
     </React.Fragment>
   );
 };
