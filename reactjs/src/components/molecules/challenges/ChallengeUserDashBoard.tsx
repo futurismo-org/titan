@@ -91,7 +91,11 @@ const ChallengeUserDashBoard = (props: any) => {
                 />
               </Grid>
               <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="順位" number={data.days} unit="位" />
+                <NumberWidget
+                  title="経過日数"
+                  number={moment().diff(moment(data.openedAt))}
+                  unit="days"
+                />
               </Grid>
             </Grid>
             <ChallengeGrass
