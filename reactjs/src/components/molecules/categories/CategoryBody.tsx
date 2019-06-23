@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import theme from '../../../lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import CategoryTopics from './CategoryTopics';
 import CategoryTopic from './CategoryTopic';
 import TopicForm from '../TopicForm';
+import Topics from '../Topics';
 
 const CategoryContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -33,7 +33,9 @@ const CategoryBody = (props: any) => {
         />
         <Route
           path="/categories/:id/topics"
-          render={() => <CategoryTopics category={category} />}
+          render={() => (
+            <Topics collection="categories" collectionId={category.id} />
+          )}
         />
         <Route
           path="/categories/:id/dashboard"

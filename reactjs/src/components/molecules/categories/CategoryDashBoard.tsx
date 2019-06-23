@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Paper from '../../templates/PaperWrapper';
 import Title from '../../atoms/Title';
+import TopicList from '../TopicList';
 
 import ChallengeCategory from './CategoryChallenge';
 import DiscordHistories from '../../atoms/DiscordHistories';
@@ -40,15 +41,20 @@ const CategoryDashBoard = (props: any) => {
           ))}
       </Paper>
       <Paper>
-        <Title text="知見まとめ" />
+        <Title text="トピック" />
         <MoreLink to={`/categories/${category.id}/topics`}>
+          <TopicList
+            collection="categories"
+            collectionId={category.id}
+            limit={6}
+          />
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
         </MoreLink>
       </Paper>
       <Paper>
-        <Title text="Discordフリートーク" />
+        <Title text="フリートーク" />
         <DiscordHistories channelId={category.channelId} limit={30} />
       </Paper>
     </React.Fragment>

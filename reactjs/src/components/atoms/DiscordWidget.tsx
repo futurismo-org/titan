@@ -7,7 +7,7 @@ import Title from './Title';
 const DiscordWidget = () => {
   return (
     <Paper>
-      <Title text="Discordチャット" />
+      <Title text="チャット" />
       <iframe
         title="discord-widget"
         src="https://discordapp.com/widget?id=587935450463993866&theme=light"
