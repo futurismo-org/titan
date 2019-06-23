@@ -29,7 +29,7 @@ const sampleGeneralChannelId = '588697657279512587'; // テスト用フリート
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
-const dummyTopicIds = [...Array(30).keys()].map((n: number) => ulid());
+const dummyTopicIds = [...Array(10).keys()].map((n: number) => ulid());
 
 const createTopicSeed = (args: any) => {
   const { id } = args;
@@ -103,7 +103,11 @@ const createChallengeHistorySeed = (n: number) => {
     id: n,
     timestamp: moment()
       .subtract(n, 'days')
-      .toDate()
+      .toDate(),
+    days: faker.random.number({ min: 0, max: 30 }),
+    score: faker.random.number({ min: 0, max: 30 }),
+    type: 'RECORD',
+    diff: faker.random.number({ min: 0, max: 30 })
   };
 };
 

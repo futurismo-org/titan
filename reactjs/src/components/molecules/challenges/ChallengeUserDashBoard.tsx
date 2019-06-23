@@ -14,6 +14,7 @@ import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 
 import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
+import ChallengeHistories from './ChallengeHistories';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -53,7 +54,7 @@ const ChallengeUserDashBoard = (props: any) => {
     ) {
       return 'なし';
     }
-    return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
+    return moment(startDate.toDate()).format('MM月DD日 HH:mm');
   };
 
   const DashBoardWrapper = styled.div`
@@ -72,7 +73,7 @@ const ChallengeUserDashBoard = (props: any) => {
           <StyledCenterContainer>
             <Title text={`${data.displayName} さんの記録`} />
             <Record days={formatDays(data.days)} />
-            <Typography style={{ marginTop: '20px' }} variant="h5">
+            <Typography style={{ marginTop: '20px' }} variant="h6">
               開始日: {formatDate(data)}
             </Typography>
             <Grid container spacing={3}>
@@ -98,6 +99,7 @@ const ChallengeUserDashBoard = (props: any) => {
               openedAt={openedAt}
               closedAt={closedAt}
             />
+            <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
         </DashBoardWrapper>
       )}
