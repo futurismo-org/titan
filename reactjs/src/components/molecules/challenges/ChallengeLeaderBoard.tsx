@@ -42,7 +42,8 @@ const ChallengeLeaderBoard = (props: any) => {
         <ConditionalTableCell />
         <TableCell>名前</TableCell>
         <TableCell>スコア</TableCell>
-        <ConditionalTableCell>連続日数</ConditionalTableCell>
+        <ConditionalTableCell>連続</ConditionalTableCell>
+        <ConditionalTableCell>最長</ConditionalTableCell>
         <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
@@ -60,7 +61,8 @@ const ChallengeLeaderBoard = (props: any) => {
               .sort(
                 (x: any, y: any) =>
                   y.data().score - x.data().score ||
-                  y.data().days - x.data().days
+                  y.data().days - x.data().days ||
+                  y.data().maxDays - x.data().maxDays
               )
               .map((doc, index) => (
                 <TableRow key={doc.data().id}>
@@ -79,6 +81,9 @@ const ChallengeLeaderBoard = (props: any) => {
                   </TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <ConditionalTableCell>{doc.data().days}</ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {doc.data().maxDays}
+                  </ConditionalTableCell>
                   <ConditionalTableCell>
                     {moment(doc.data().updatedAt.toDate()).fromNow()}
                   </ConditionalTableCell>

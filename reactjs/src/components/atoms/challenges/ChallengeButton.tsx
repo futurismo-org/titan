@@ -6,7 +6,7 @@ import Modal from '@material-ui/core/Modal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import CheckoutForm from '../CheckoutForm';
-import ChallengePosts from '../../molecules/challenges/ChallengePosts';
+import ChallengePosts from '../../molecules/challenges/ChallengePostController';
 import theme from '../../../lib/theme';
 import firebase from '../../../lib/firebase';
 

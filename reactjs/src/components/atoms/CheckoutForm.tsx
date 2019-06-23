@@ -25,7 +25,8 @@ const joinHandler = (challengeId: string, user: any) => {
     displayName: user.displayName,
     photoURL: user.photoURL,
     score: 0,
-    days: 0
+    days: 0,
+    maxDays: 0
   };
 
   firebase

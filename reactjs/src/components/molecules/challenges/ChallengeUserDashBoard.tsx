@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
-import { Toys } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
 
@@ -78,16 +77,20 @@ const ChallengeUserDashBoard = (props: any) => {
             </Typography>
             <Grid container spacing={3}>
               <Grid item lg={3} md={3} sm={6} xs={6}>
+                <NumberWidget title="スコア" number={data.score} unit="" />
+              </Grid>
+              <Grid item lg={3} md={3} sm={6} xs={6}>
                 <NumberWidget title="連続日数" number={data.days} unit="days" />
               </Grid>
               <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="最長日数" number={data.days} unit="days" />
+                <NumberWidget
+                  title="最長日数"
+                  number={data.maxDays}
+                  unit="days"
+                />
               </Grid>
               <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="達成率" number={data.days} unit="%" />
-              </Grid>
-              <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="順位" number={data.days} unit="rank" />
+                <NumberWidget title="順位" number={data.days} unit="位" />
               </Grid>
             </Grid>
             <ChallengeGrass
