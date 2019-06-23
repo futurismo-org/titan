@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeTopics from './ChallengeTopics';
 import ChallengeRules from './ChallengeRules';
-import ChallengePosts from './ChallengePosts';
 import ChallengeTimeline from './ChallengeTimeline';
 import Topic from '../Topic';
 
@@ -51,17 +50,6 @@ const ChallengeBody = (props: any) => {
         <Route
           path="/challenges/:id/leaderboard"
           component={ChallengeLeaderBoard}
-        />
-        <Route
-          path="/challenges/:id/posts"
-          render={(props: any) => (
-            <ChallengePosts
-              webhookURL={challenge.webhookURL}
-              openedAt={challenge.openedAt}
-              closedAt={challenge.closedAt}
-              {...props}
-            />
-          )}
         />
         <Route
           path="/challenges/:challengeId/users/:userId"

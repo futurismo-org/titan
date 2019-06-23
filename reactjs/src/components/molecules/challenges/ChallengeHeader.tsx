@@ -123,12 +123,7 @@ const ChallengeHeader = (props: any) => {
             </HeaderInfo>
             <HeaderInfo>
               <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
-              {!isClosed ? (
-                <ChallengeButton
-                  challengeId={challenge.id}
-                  price={challenge.price}
-                />
-              ) : null}
+              {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>

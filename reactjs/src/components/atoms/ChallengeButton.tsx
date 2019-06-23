@@ -6,9 +6,9 @@ import Modal from '@material-ui/core/Modal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
 import CheckoutForm from './CheckoutForm';
+import ChallengePosts from '../molecules/challenges/ChallengePosts';
 import theme from '../../lib/theme';
 import firebase from '../../lib/firebase';
-import NoStyledLink from './NoStyledLink';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -37,7 +37,9 @@ const StyledModalContent = styled.div`
 `;
 
 const ChallengeButton = (props: any) => {
-  const { challengeId, price, user } = props;
+  const { challenge, user } = props;
+  const challengeId = challenge.id;
+  const price = challenge.price;
   const [join, setJoin] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -60,12 +62,27 @@ const ChallengeButton = (props: any) => {
     }
   `;
 
-  const renderPostButton = (props: any) => (
-    <NoStyledLink to={`/challenges/${props.id}/posts`}>
-      <MyButton color="inherit" variant="outlined" size="small">
+  const renderPostButton = () => (
+    <React.Fragment>
+      <MyButton
+        color="inherit"
+        variant="outlined"
+        size="small"
+        onClick={handleOpen}
+      >
         投稿
       </MyButton>
-    </NoStyledLink>
+      <Modal
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+        open={open}
+        onClose={handleClose}
+      >
+        <StyledModalContent style={modalStyle}>
+          <ChallengePosts challenge={challenge} closeHandler={handleClose} />
+        </StyledModalContent>
+      </Modal>
+    </React.Fragment>
   );
 
   const renderCheckoutButton = (props: any) => (
@@ -113,7 +130,7 @@ const ChallengeButton = (props: any) => {
     .then((s: any) => setJoin(!s.empty));
 
   return join
-    ? renderPostButton({ id: challengeId })
+    ? renderPostButton()
     : renderCheckoutButton({ user, challengeId, price });
 };
 

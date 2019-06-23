@@ -102,8 +102,7 @@ const createChallengeHistorySeed = (n: number) => {
     id: n,
     timestamp: moment()
       .subtract(n, 'days')
-      .toDate(),
-    content: ''
+      .toDate()
   };
 };
 

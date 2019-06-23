@@ -6,17 +6,12 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 
-import Record from './ChallengePostRecord';
 import RecordButton from '../../atoms/ChallengeRecordButton';
-import ChallengeHistories from './ChallengeHistories';
-import ChallengeGrass from './ChallengeGrass';
-
 import Progress from '../../atoms/CircularProgress';
 
 import { postMessage } from '../../../lib/discord.client.api';
 
 const StyledCenterContainer = styled.div`
-  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,14 +25,10 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const {
-    userId,
-    challengeId,
-    userName,
-    webhookURL,
-    openedAt,
-    closedAt
-  } = props;
+  const { userId, userName, challenge } = props;
+
+  const { webhookURL, openedAt, closedAt } = challenge;
+  const challengeId = challenge.id;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
@@ -55,7 +46,10 @@ const ChallengePosts = (props: any) => {
 
     if (
       histories.length > 0 &&
-      moment(histories[0].timestamp.toDate()).isSame(moment(now), 'days')
+      moment(histories[histories.length - 1].timestamp.toDate()).isSame(
+        moment(now),
+        'days'
+      )
     ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
@@ -66,8 +60,7 @@ const ChallengePosts = (props: any) => {
 
     const newHistory = {
       id: ulid(),
-      timestamp: new Date(),
-      content: ''
+      timestamp: new Date()
     };
 
     const updateData: any = {
@@ -88,7 +81,14 @@ const ChallengePosts = (props: any) => {
         const message = `${userName}さんが${tomorrow}日達成しました！`;
         postMessage(webhookURL, message);
       })
-
+      .then(() => {
+        window.alert('投稿が完了しました。');  // eslint-disable-line 
+      })
+      .then(() => props.closeHandler())
+      .then(
+        () =>
+          (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+      )
       .catch(error => console.error(error));
   };
 
@@ -107,6 +107,11 @@ const ChallengePosts = (props: any) => {
         const message = `${userName}さんがリセットしました`;
         postMessage(webhookURL, message);
       })
+      .then(() => props.closeHandler())
+      .then(
+        () =>
+          (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+      )
       .catch(error => console.error(error));
   };
 
@@ -116,26 +121,6 @@ const ChallengePosts = (props: any) => {
     if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
       resetRecord();
     }
-  };
-
-  const formatDays = (days: any) => {
-    if (!isDaysValid(days)) {
-      return 0;
-    }
-    return days;
-  };
-
-  const formatDate = (props: any): string => {
-    const { days, startDate } = props;
-    if (
-      !isDaysValid(days) ||
-      days === 0 ||
-      startDate === undefined ||
-      startDate === null
-    ) {
-      return 'なし';
-    }
-    return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
   };
 
   const data = value && value.data();
@@ -177,8 +162,6 @@ const ChallengePosts = (props: any) => {
       ) : (
         data && (
           <React.Fragment>
-            <Record days={formatDays(data.days)} />
-            <h3>開始日: {formatDate(data)}</h3>
             <StyledTimerButtonContainer>
               <RecordButton
                 text="記録する"
@@ -191,12 +174,6 @@ const ChallengePosts = (props: any) => {
                 handleClick={() => confirm(data.days)}
               />
             </StyledTimerButtonContainer>
-            <ChallengeGrass
-              data={data}
-              openedAt={openedAt}
-              closedAt={closedAt}
-            />
-            <ChallengeHistories histories={data.histories} />
           </React.Fragment>
         )
       )}
@@ -207,7 +184,6 @@ const ChallengePosts = (props: any) => {
 const mapStateToProps = (state: any, props: any) => ({
   userId: state.firebase.profile.id,
   userName: state.firebase.profile.displayName,
-  challengeId: props.match.params.id,
   ...props
 });
 

@@ -4,8 +4,8 @@ import Button from '@material-ui/core/Button';
 
 const StyledRecordButton = styled(Button)`
   && {
-    font-size: 20px;
-    margin: 10px;
+    font-size: 18px;
+    margin: 5px;
   }
 `;
 

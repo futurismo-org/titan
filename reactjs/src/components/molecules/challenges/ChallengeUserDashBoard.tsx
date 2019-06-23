@@ -12,7 +12,6 @@ import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 
 const StyledCenterContainer = styled.div`
-  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
