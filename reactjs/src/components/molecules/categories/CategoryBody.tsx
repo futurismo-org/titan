@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import theme from '../../../lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import CategoryTopic from './CategoryTopic';
+import Topic from '../Topic';
 import TopicForm from '../TopicForm';
 import Topics from '../Topics';
 
@@ -20,16 +20,16 @@ const CategoryBody = (props: any) => {
     <CategoryContent>
       <Switch>
         <Route
-          path="/categories/:categoryId/topics/:topicId/edit"
+          path="/categories/:collectionId/topics/:topicId/edit"
           render={match => <TopicForm collection="categories" match={match} />}
         />
         <Route
-          path="/categories/:categoryId/topics/new"
+          path="/categories/:collectionId/topics/new"
           render={match => <TopicForm collection="categories" match={match} />}
         />
         <Route
-          path="/categories/:categoryId/topics/:topicId"
-          render={props => <CategoryTopic props={props} />}
+          path="/categories/:collectionId/topics/:topicId"
+          render={props => <Topic collection="categories" props={props} />}
         />
         <Route
           path="/categories/:id/topics"

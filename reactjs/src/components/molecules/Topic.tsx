@@ -3,22 +3,23 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 
 import moment from 'moment';
 import Typography from '@material-ui/core/Typography';
-import firebase from '../../../lib/firebase';
-import Progress from '../../atoms/CircularProgress';
+import firebase from '../../lib/firebase';
+import Progress from '../atoms/CircularProgress';
 
-import Paper from '../../templates/PaperWrapper';
-import Title from '../../atoms/Title';
+import Paper from '../templates/PaperWrapper';
+import Title from '../atoms/Title';
 
 const db = firebase.firestore();
 
-const CategoryTopic = (props: any) => {
-  const categoryId = props.props.match.params.categoryId;
+const Topic = (props: any) => {
+  const collection = props.collection;
+  const collectionId = props.props.match.params.collectionId;
   const topicId = props.props.match.params.topicId;
 
   const [value, loading, error] = useDocument(
     db
-      .collection('categories')
-      .doc(categoryId)
+      .collection(collection)
+      .doc(collectionId)
       .collection('topics')
       .doc(topicId)
   );
@@ -42,6 +43,7 @@ const CategoryTopic = (props: any) => {
               {data.url}
             </a>
           )}
+          <p />
           {data.text}
         </Paper>
       )}
@@ -49,4 +51,4 @@ const CategoryTopic = (props: any) => {
   );
 };
 
-export default CategoryTopic;
+export default Topic;

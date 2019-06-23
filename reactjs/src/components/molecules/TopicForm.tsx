@@ -8,7 +8,7 @@ import firebase from '../../lib/firebase';
 const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
-  const { collection, categoryId, user } = props;
+  const { collection, collectionId, user } = props;
   let topicId = props.topicId ? props.topicId : ulid();
 
   const [title, setTitle] = useState('');
@@ -46,19 +46,19 @@ const TopicForm = (props: any) => {
     };
 
     db.collection(collection)
-      .doc(categoryId)
+      .doc(collectionId)
       .collection('topics')
       .doc(topicId)
       .set(newData)
       .then(() => window.alert("投稿が完了しました。")) // eslint-disable-line
-      .then(() => (window.location.href = `/#/categories/${categoryId}/topics`)) // eslint-disable-line
+      .then(() => (window.location.href = `/#/${collection}/${collectionId}/topics`)) // eslint-disable-line
       .catch(() => window.alert("エラーが発生しました。")) // eslint-disable-line
   };
 
   useEffect(() => {
     if (!isCreate) {
       db.collection(collection)
-        .doc(categoryId)
+        .doc(collectionId)
         .collection('topics')
         .doc(topicId)
         .get()
@@ -69,7 +69,7 @@ const TopicForm = (props: any) => {
           setText(topic!.text);
         });
     }
-  }, [categoryId, collection, isCreate, topicId]);
+  }, [collection, collectionId, isCreate, topicId]);
 
   return (
     <React.Fragment>
@@ -122,7 +122,7 @@ const TopicForm = (props: any) => {
 const mapStateToProps = (state: any, props: any) => {
   return {
     user: state.firebase.profile,
-    categoryId: props.match.match.params.categoryId,
+    collectionId: props.match.match.params.collectionId,
     topicId: props.match.match.params.topicId,
     ...props
   };

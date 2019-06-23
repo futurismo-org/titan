@@ -6,9 +6,11 @@ import ChallengeTopics from './ChallengeTopics';
 import ChallengeRules from './ChallengeRules';
 import ChallengePosts from './ChallengePosts';
 import ChallengeTimeline from './ChallengeTimeline';
+import Topic from '../Topic';
 
 import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
+import TopicForm from '../TopicForm';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -27,6 +29,18 @@ const ChallengeBody = (props: any) => {
         <Route
           path="/challenges/:id/timeline"
           render={() => <ChallengeTimeline channelId={challenge.channelId} />}
+        />
+        <Route
+          path="/challenges/:collectionId/topics/:topicId/edit"
+          render={match => <TopicForm collection="challenges" match={match} />}
+        />
+        <Route
+          path="/challenges/:collectionId/topics/new"
+          render={match => <TopicForm collection="challenges" match={match} />}
+        />
+        <Route
+          path="/challenges/:collectionId/topics/:topicId"
+          render={props => <Topic collection="challenges" props={props} />}
         />
         <Route path="/challenges/:id/topics" component={ChallengeTopics} />
         <Route
