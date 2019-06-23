@@ -21,15 +21,15 @@ const CategoryBody = (props: any) => {
       <Switch>
         <Route
           path="/categories/:collectionId/topics/:topicId/edit"
-          render={match => <TopicForm collection="categories" match={match} />}
+          render={props => <TopicForm collection="categories" {...props} />}
         />
         <Route
           path="/categories/:collectionId/topics/new"
-          render={match => <TopicForm collection="categories" match={match} />}
+          render={props => <TopicForm collection="categories" {...props} />}
         />
         <Route
           path="/categories/:collectionId/topics/:topicId"
-          render={props => <Topic collection="categories" props={props} />}
+          render={props => <Topic collection="categories" {...props} />}
         />
         <Route
           path="/categories/:id/topics"

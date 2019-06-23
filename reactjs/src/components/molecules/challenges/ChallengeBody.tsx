@@ -32,15 +32,15 @@ const ChallengeBody = (props: any) => {
         />
         <Route
           path="/challenges/:collectionId/topics/:topicId/edit"
-          render={match => <TopicForm collection="challenges" match={match} />}
+          render={props => <TopicForm collection="challenges" {...props} />}
         />
         <Route
           path="/challenges/:collectionId/topics/new"
-          render={match => <TopicForm collection="challenges" match={match} />}
+          render={props => <TopicForm collection="challenges" {...props} />}
         />
         <Route
           path="/challenges/:collectionId/topics/:topicId"
-          render={props => <Topic collection="challenges" props={props} />}
+          render={props => <Topic collection="challenges" {...props} />}
         />
         <Route path="/challenges/:id/topics" component={ChallengeTopics} />
         <Route

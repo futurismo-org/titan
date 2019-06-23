@@ -13,8 +13,8 @@ const db = firebase.firestore();
 
 const Topic = (props: any) => {
   const collection = props.collection;
-  const collectionId = props.props.match.params.collectionId;
-  const topicId = props.props.match.params.topicId;
+  const collectionId = props.match.params.collectionId;
+  const topicId = props.match.params.topicId;
 
   const [value, loading, error] = useDocument(
     db
