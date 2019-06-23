@@ -2,14 +2,22 @@ import * as React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import styled from 'styled-components';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
 
 import Progress from '../../atoms/CircularProgress';
-import Paper from '../../templates/PaperWrapper';
 import Title from '../../atoms/Title';
+
+const StyledCenterContainer = styled.div`
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const ChallengeUserDashBoard = (props: any) => {
   const { userId, challengeId, openedAt, closedAt } = props;
@@ -20,7 +28,7 @@ const ChallengeUserDashBoard = (props: any) => {
     firebase.firestore().doc(resourceId)
   );
 
-  const now = new Date();
+  // const now = new Date();
   const isDaysValid = (days: number) => {
     return days !== undefined && days !== null && !isNaN(days);
   };
@@ -48,24 +56,30 @@ const ChallengeUserDashBoard = (props: any) => {
   const data = value && value.data();
 
   return (
-    <Paper>
+    <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {data && (
-        <Paper>
-          <Title text="xxxさんの記録" />
-          <Record days={formatDays(data.days)} />
-          <h3>開始日: {formatDate(data)}</h3>
-          <ChallengeGrass data={data} openedAt={openedAt} closedAt={closedAt} />
-        </Paper>
+        <React.Fragment>
+          <Title text={`${data.displayName} さんの記録`} />
+          <StyledCenterContainer>
+            <Record days={formatDays(data.days)} />
+            <h3>開始日: {formatDate(data)}</h3>
+            <ChallengeGrass
+              data={data}
+              openedAt={openedAt}
+              closedAt={closedAt}
+            />
+          </StyledCenterContainer>
+        </React.Fragment>
       )}
-    </Paper>
+    </React.Fragment>
   );
 };
 
 const mapStateToProps = (state: any, props: any) => ({
   challengeId: props.match.params.challengeId,
-  userId: props.match.params.challengeId,
+  userId: props.match.params.userId,
   ...props
 });
 

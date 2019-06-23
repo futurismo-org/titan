@@ -11,6 +11,7 @@ import Topic from '../Topic';
 import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import TopicForm from '../TopicForm';
+import ChallengeUserDashBoard from './ChallengeUserDashBoard';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -65,7 +66,7 @@ const ChallengeBody = (props: any) => {
         <Route
           path="/challenges/:challengeId/users/:userId"
           render={(props: any) => (
-            <ChallengePosts
+            <ChallengeUserDashBoard
               webhookURL={challenge.webhookURL}
               openedAt={challenge.openedAt}
               closedAt={challenge.closedAt}
