@@ -3,6 +3,9 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
+import Grid from '@material-ui/core/Grid';
+import { Toys } from '@material-ui/icons';
+import { Typography } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
@@ -10,6 +13,8 @@ import ChallengeGrass from './ChallengeGrass';
 
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
+
+import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -52,6 +57,11 @@ const ChallengeUserDashBoard = (props: any) => {
     return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
   };
 
+  const DashBoardWrapper = styled.div`
+    max-width: 960px;
+    margin: auto;
+  `;
+
   const data = value && value.data();
 
   return (
@@ -59,18 +69,34 @@ const ChallengeUserDashBoard = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {data && (
-        <React.Fragment>
-          <Title text={`${data.displayName} さんの記録`} />
+        <DashBoardWrapper>
           <StyledCenterContainer>
+            <Title text={`${data.displayName} さんの記録`} />
             <Record days={formatDays(data.days)} />
-            <h3>開始日: {formatDate(data)}</h3>
+            <Typography style={{ marginTop: '20px' }} variant="h5">
+              開始日: {formatDate(data)}
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item lg={3} md={3} sm={6} xs={6}>
+                <NumberWidget title="連続日数" number={data.days} unit="days" />
+              </Grid>
+              <Grid item lg={3} md={3} sm={6} xs={6}>
+                <NumberWidget title="最長日数" number={data.days} unit="days" />
+              </Grid>
+              <Grid item lg={3} md={3} sm={6} xs={6}>
+                <NumberWidget title="達成率" number={data.days} unit="%" />
+              </Grid>
+              <Grid item lg={3} md={3} sm={6} xs={6}>
+                <NumberWidget title="順位" number={data.days} unit="rank" />
+              </Grid>
+            </Grid>
             <ChallengeGrass
               data={data}
               openedAt={openedAt}
               closedAt={closedAt}
             />
           </StyledCenterContainer>
-        </React.Fragment>
+        </DashBoardWrapper>
       )}
     </React.Fragment>
   );

@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 const SquareWrapper = styled.div`
-  position: relative;
   width: 240px;
-  margin: 10px;
+  margin: 40px;
 `;
 
 const notAchievedColor = '#ffcdd2';
