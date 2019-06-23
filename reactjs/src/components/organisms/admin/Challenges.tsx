@@ -8,6 +8,7 @@ import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 import Link from '../../atoms/NoStyledLink';
+import PostButton from '../../atoms/PostButton';
 
 const Challenges = () => {
   const [value, loading, error] = useCollection(
@@ -24,11 +25,7 @@ const Challenges = () => {
   return (
     <React.Fragment>
       <h2>チャレンジ一覧</h2>
-      <Link to="/admin/challenges/new">
-        <Button type="button" variant="contained" color="primary">
-          新規投稿
-        </Button>
-      </Link>
+      <PostButton to="/admin/challenges/new" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value && (

@@ -2,7 +2,10 @@ import { ulid } from 'ulid';
 import faker from 'faker';
 import moment from 'moment';
 
-import admin from '../utils/admin';
+import admin from 'firebase-admin';
+import { configDev } from '../utils/config';
+
+admin.initializeApp(configDev);
 
 const client = require('firebase-tools');
 const seed = require('firestore-seed');
@@ -26,6 +29,37 @@ const sampleGeneralChannelId = '588697657279512587'; // テスト用フリート
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
+const dummyTopicIds = [...Array(30).keys()].map((n: number) => ulid());
+
+const createTopicSeed = (args: any) => {
+  const { id } = args;
+  const now = new Date();
+  return seed.doc(id, {
+    title: faker.lorem.sentence(),
+    url: 'https://example.com',
+    text: faker.lorem.paragraphs(),
+    createdAt: now,
+    updatedAt: now,
+    userId: ulid(),
+    userName: faker.name.firstName(),
+    usrPhotoURL: faker.image.avatar(),
+    ...args
+  });
+};
+
+const topicsSeeds = seed.subcollection([
+  createTopicSeed({
+    userId: titanUserId,
+    userName: 'Titan',
+    userPhotoURL:
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
+  }),
+  ...dummyTopicIds.map((id: string) => {
+    return createTopicSeed({
+      id: id
+    });
+  })
+]);
 
 const createChallengeSeed = (args: any) => {
   const { id } = args;
@@ -36,6 +70,7 @@ const createChallengeSeed = (args: any) => {
     rules: faker.lorem.paragraphs(),
     webhookURL: sampleChallengeWebhookURL,
     channelId: sampleChallengeChannelId,
+    topics: topicsSeeds,
     ...args
   });
 };
@@ -47,6 +82,7 @@ const createCategorySeed = (args: any) => {
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     channelId: sampleGeneralChannelId,
+    topics: topicsSeeds,
     ...args
   });
 };
@@ -60,6 +96,16 @@ const createUserSeed = (args: any) => {
   });
 };
 
+const createChallengeHistorySeed = (n: number) => {
+  return {
+    id: n,
+    timestamp: moment()
+      .subtract(n, 'days')
+      .toDate(),
+    content: ''
+  };
+};
+
 const createParticipationSeed = (args: any) => {
   const { id } = args;
   const now = new Date();
@@ -69,16 +115,6 @@ const createParticipationSeed = (args: any) => {
     updatedAt: now,
     ...args
   });
-};
-
-const createChallengeHistorySeed = (n: number) => {
-  return {
-    id: n,
-    timestamp: moment()
-      .subtract(n, 'days')
-      .toDate(),
-    content: ''
-  };
 };
 
 const challengeParticipantsSeeds = seed.subcollection([
@@ -220,7 +256,7 @@ const userSeeds = seed.collection('users', [
     displayName: 'Titan',
     id: titanUserId,
     photoURL:
-      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg',
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true
   }),
   createUserSeed({
@@ -255,14 +291,13 @@ export const createCollections = () => {
 };
 
 const deletePathResource = (path: string) => {
-  client.firestore
-    .delete(path, {
-      recursive: true,
-      yes: true
-    })
-    .catch((e: any) => {
-      console.log('Failed to delete documents: ' + e);
-    });
+  const options = {
+    recursive: true,
+    allCollections: true
+  };
+  client.firestore.delete(path, options).catch((e: any) => {
+    console.log('Failed to delete documents: ' + e);
+  });
 };
 
 export const deleteCollections = () => {

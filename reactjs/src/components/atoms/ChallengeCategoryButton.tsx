@@ -12,7 +12,7 @@ const ColorButton = styled(Button)`
   }
 `;
 
-const ChallengeCategoryLink = (props: any) => {
+const ChallengeCategoryButton = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.categoryRef;
 
   const [title, setTitle] = useState('');
@@ -23,7 +23,7 @@ const ChallengeCategoryLink = (props: any) => {
     .then((doc: firebase.firestore.DocumentSnapshot) => doc.data())
     .then(category => {
       setTitle(category!.title);
-      setPath(`/categories/${category!.id}`);
+      setPath(`/categories/${category!.id}/dashboard`);
     });
 
   return (
@@ -35,4 +35,4 @@ const ChallengeCategoryLink = (props: any) => {
   );
 };
 
-export default ChallengeCategoryLink;
+export default ChallengeCategoryButton;

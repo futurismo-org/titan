@@ -1,52 +1,48 @@
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
-import Paper, { PaperProps } from '@material-ui/core/Paper';
-import { ulid } from 'ulid';
 import theme from '../../../lib/theme';
 
-import ChallengeCategory from './CategoryChallenge';
-import DiscordHistories from '../../atoms/DiscordHistories';
+import CategoryDashBoard from './CategoryDashBoard';
+import Topic from '../Topic';
+import TopicForm from '../TopicForm';
+import Topics from '../Topics';
 
-const Title = (props: any) => (
-  <Typography component="h3" variant="h4">
-    {props.text}
-  </Typography>
-);
-
-const StyledPaper = styled(Paper)`
-  && {
-    margin: ${theme.spacing(0)}px;
-    padding: ${theme.spacing(3)}px;
-  }
-` as React.ComponentType<PaperProps>;
-
-const OverviewContent = styled.div`
-  white-space: pre-line;
-  margin: 10px;
+const CategoryContent = styled.div`
+  padding: ${theme.spacing(2)}px;
 `;
 
 const CategoryBody = (props: any) => {
   const { category } = props;
 
   return (
-    <React.Fragment>
-      <StyledPaper>
-        <Title text="概要" />
-        <OverviewContent>{category.overview}</OverviewContent>
-      </StyledPaper>
-      <StyledPaper>
-        <Title text="チャレンジ一覧" />
-        {category.challengeRefs &&
-          category.challengeRefs.map((challengeRef: any) => (
-            <ChallengeCategory key={ulid()} challengeRef={challengeRef} />
-          ))}
-      </StyledPaper>
-      <StyledPaper>
-        <Title text="Discordフリートーク" />
-        <DiscordHistories channelId={category.channelId} limit={30} />
-      </StyledPaper>
-    </React.Fragment>
+    <CategoryContent>
+      <Switch>
+        <Route
+          path="/categories/:collectionId/topics/:topicId/edit"
+          render={match => <TopicForm collection="categories" match={match} />}
+        />
+        <Route
+          path="/categories/:collectionId/topics/new"
+          render={match => <TopicForm collection="categories" match={match} />}
+        />
+        <Route
+          path="/categories/:collectionId/topics/:topicId"
+          render={props => <Topic collection="categories" props={props} />}
+        />
+        <Route
+          path="/categories/:id/topics"
+          render={() => (
+            <Topics collection="categories" collectionId={category.id} />
+          )}
+        />
+        <Route
+          path="/categories/:id/dashboard"
+          render={() => <CategoryDashBoard category={category} />}
+        />
+      </Switch>
+    </CategoryContent>
   );
 };
 
