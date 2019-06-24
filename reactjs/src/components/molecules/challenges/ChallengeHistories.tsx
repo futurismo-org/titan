@@ -21,9 +21,7 @@ const ConditionalTableCell = (props: any) => (
   </Hidden>
 );
 
-const getType = (props: any) => {
-  const { type } = props;
-
+const getType = (type: string) => {
   if (type === 'RESET') {
     return <Chip color="primary" label="リセット" />;
   } else {
@@ -44,8 +42,7 @@ const HistoryHead = (props: any) => (
 );
 
 const HistoryRow = ({ history }: any) => {
-  const { timestamp, score, days, diff } = history;
-  const myType = history.type;
+  const { timestamp, score, type, days, diff } = history;
 
   const wrapShowS = (x: string) => x || '';
   const wrapShowN = (x: string) => x || 0;
@@ -58,7 +55,7 @@ const HistoryRow = ({ history }: any) => {
       <TableCell>{wrapShowN(score)}</TableCell>
       <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
-      <TableCell>{getType(myType)}</TableCell>
+      <TableCell>{getType(type)}</TableCell>
     </TableRow>
   );
 };
