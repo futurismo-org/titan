@@ -29,7 +29,6 @@ const ChallengePosts = (props: any) => {
   const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
   const challengeId = id;
-
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
   const [value, loading, error] = useDocument(
