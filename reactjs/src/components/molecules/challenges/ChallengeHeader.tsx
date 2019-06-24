@@ -62,9 +62,8 @@ const ChallengePeriod = (props: any) => {
 
   if (openedAt.diff(today, 'days') > 0) {
     return ret(`${openedAt.fromNow()}に開始`);
-  } else {
-    return ret(`${closedAt.fromNow()}に終了`);
   }
+  return ret(`${closedAt.fromNow()}に終了`);
 };
 
 const ChallengeHeader = (props: any) => {

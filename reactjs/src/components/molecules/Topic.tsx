@@ -12,9 +12,9 @@ import Title from '../atoms/Title';
 const db = firebase.firestore();
 
 const Topic = (props: any) => {
-  const collection = props.collection;
-  const collectionId = props.match.params.collectionId;
-  const topicId = props.match.params.topicId;
+  const { collection } = props;
+  const { collectionId } = props.match.params;
+  const { topicId } = props.match.params;
 
   const [value, loading, error] = useDocument(
     db

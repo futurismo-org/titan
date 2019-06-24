@@ -29,7 +29,7 @@ const ChallengeGrass = (props: any) => {
 
   const totalDays = [...Array(duration).keys()].map(i => false);
 
-  const histories: any[] = props.data.histories;
+  const { histories } = props.data;
   histories.forEach(history => {
     const timestamp = moment(history.timestamp.toDate());
     const index = timestamp.diff(openedAt, 'days');

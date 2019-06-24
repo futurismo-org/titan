@@ -32,34 +32,40 @@ const MoreLink = styled(Link)`
 
 const DashBoardCard = (props: any) => {
   const { type, doc } = props;
-  if (type === 'challenge') {
-    return <ChallengeCard challenge={doc.data()} key={doc.id} />;
-  }
-  if (type === 'category') {
-    return <CategoryCard category={doc.data()} key={doc.id} />;
-  }
+
+  return (
+    <React.Fragment>
+      {type === 'challenge' && (
+        <ChallengeCard challenge={doc.data()} key={doc.id} />
+      )}
+      {type === 'category' && (
+        <CategoryCard category={doc.data()} key={doc.id} />
+      )}
+    </React.Fragment>
+  );
 };
 
 const DashBoardCardLink = (props: any) => {
   const { type } = props;
-  if (type === 'challenge') {
-    return (
-      <MoreLink to="/challenges">
-        <Typography variant="subtitle1" color="primary">
-          もっと見る
-        </Typography>
-      </MoreLink>
-    );
-  }
-  if (type === 'category') {
-    return (
-      <MoreLink to="/categories">
-        <Typography variant="subtitle1" color="primary">
-          もっと見る
-        </Typography>
-      </MoreLink>
-    );
-  }
+
+  return (
+    <React.Fragment>
+      {type === 'challenge' && (
+        <MoreLink to="/challenges">
+          <Typography variant="subtitle1" color="primary">
+            もっと見る
+          </Typography>
+        </MoreLink>
+      )}
+      {type === 'category' && (
+        <MoreLink to="/categories">
+          <Typography variant="subtitle1" color="primary">
+            もっと見る
+          </Typography>
+        </MoreLink>
+      )}
+    </React.Fragment>
+  );
 };
 
 const DashBoardPaper = (props: any) => {
@@ -71,12 +77,10 @@ const DashBoardPaper = (props: any) => {
         <Title text={title} />
         {value && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs.map((doc: any) =>
-              DashBoardCard({ doc: doc, type: type })
-            )}
+            {value!.docs.map((doc: any) => DashBoardCard({ doc, type }))}
           </StyledCardGrid>
         )}
-        {DashBoardCardLink({ type: type })}
+        {DashBoardCardLink({ type })}
       </Paper>
     </React.Fragment>
   );

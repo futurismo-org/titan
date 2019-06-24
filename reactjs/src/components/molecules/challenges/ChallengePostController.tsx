@@ -26,8 +26,7 @@ const StyledTimerButtonContainer = styled.div`
 
 const ChallengePosts = (props: any) => {
   const { userId, userName, challenge, closeHandler } = props;
-  const { openedAt, closedAt } = challenge;
-  const webhookURL = challenge.webhookURL || '';
+  const { webhookURL, openedAt, closedAt } = challenge;
 
   const challengeId = challenge.id;
 
@@ -39,11 +38,11 @@ const ChallengePosts = (props: any) => {
 
   const now = new Date();
   const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && !isNaN(days);
+    return days !== undefined && days !== null;
   };
 
   const writeRecord = (props: any) => {
-    const { days, score, maxDays, histories, openedAt } = props;
+    const { days, score, maxDays, histories } = props;
 
     if (
       histories.length > 0 &&

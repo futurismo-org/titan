@@ -6,9 +6,8 @@ const ChallengeTimeline = (props: any) => {
 
   if (channelId) {
     return <DiscordHistories channelId={props.channelId} limit={30} />;
-  } else {
-    return <p>準備中...</p>;
   }
+  return <p>準備中...</p>;
 };
 
 export default ChallengeTimeline;

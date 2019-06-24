@@ -39,7 +39,7 @@ const StyledModalContent = styled.div`
 const ChallengeButton = (props: any) => {
   const { challenge, user } = props;
   const challengeId = challenge.id;
-  const price = challenge.price;
+  const { price } = challenge;
   const [join, setJoin] = useState(false);
 
   const [open, setOpen] = useState(false);

@@ -26,7 +26,7 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const id: string = props.match.params.id;
+  const { id } = props.match.params;
   const [value, loading, error] = useCollection(
     firebase
       .firestore()

@@ -34,7 +34,7 @@ const ChallengeUserDashBoard = (props: any) => {
 
   // const now = new Date();
   const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && !isNaN(days);
+    return days !== undefined && days !== null && days !== NaN;
   };
 
   const formatDays = (days: any) => {
