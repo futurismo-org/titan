@@ -3,20 +3,14 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 
-import Record from './ChallengePostRecord';
-import RecordButton from '../../atoms/ChallengeRecordButton';
-import ChallengeHistories from './ChallengeHistories';
-import ChallengeGrass from './ChallengeGrass';
-
+import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
 import Progress from '../../atoms/CircularProgress';
 
 import { postMessage } from '../../../lib/discord.client.api';
 
 const StyledCenterContainer = styled.div`
-  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -30,15 +24,10 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const {
-    userId,
-    challengeId,
-    userName,
-    webhookURL,
-    openedAt,
-    closedAt
-  } = props;
+  const { userId, userName, closeHandler } = props;
+  const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
+  const challengeId = id;
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
   const [value, loading, error] = useDocument(
@@ -47,15 +36,18 @@ const ChallengePosts = (props: any) => {
 
   const now = new Date();
   const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && !isNaN(days);
+    return days !== undefined && days !== null;
   };
 
   const writeRecord = (props: any) => {
-    const { days, score, histories } = props;
+    const { days, score, maxDays, histories } = props;
 
     if (
       histories.length > 0 &&
-      moment(histories[0].timestamp.toDate()).isSame(moment(now), 'days')
+      moment(histories[histories.length - 1].timestamp.toDate()).isSame(
+        moment(now),
+        'days'
+      )
     ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
@@ -63,16 +55,21 @@ const ChallengePosts = (props: any) => {
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
     const newScore = score + 1;
+    const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
-      id: ulid(),
+      id: histories.length + 1,
       timestamp: new Date(),
-      content: ''
+      score: newScore,
+      days: tomorrow,
+      diff: moment().diff(moment(openedAt), 'days'),
+      type: 'RECORD'
     };
 
     const updateData: any = {
       days: tomorrow,
       score: newScore,
+      maxDays: newMaxDays,
       startDate: now,
       updatedAt: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
@@ -88,15 +85,37 @@ const ChallengePosts = (props: any) => {
         const message = `${userName}さんが${tomorrow}日達成しました！`;
         postMessage(webhookURL, message);
       })
-
+      .then(() => {
+        window.alert('投稿が完了しました。');  // eslint-disable-line 
+      })
+      .then(() => closeHandler())
+      .then(
+        () =>
+          (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+      )
       .catch(error => console.error(error));
   };
 
-  const resetRecord = () => {
-    const resetData = {
+  const resetRecord = (props: any) => {
+    const { score, histories } = props;
+
+    const newScore = score - 3;
+
+    const newHistory = {
+      id: histories.length + 1,
+      timestamp: new Date(),
+      score: newScore,
       days: 0,
+      diff: moment().diff(moment(openedAt), 'days'),
+      type: 'RESET'
+    };
+
+    const resetData = {
       startDate: null,
-      updatedAt: now
+      updatedAt: now,
+      days: 0,
+      score: newScore,
+      histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
     firebase
@@ -107,35 +126,21 @@ const ChallengePosts = (props: any) => {
         const message = `${userName}さんがリセットしました`;
         postMessage(webhookURL, message);
       })
+      .then(() => closeHandler())
+      .then(
+        () =>
+          (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+      )
       .catch(error => console.error(error));
   };
 
-  const confirm = (days: any) => {
+  const confirm = (props: any) => {
+    const { days } = props;
     if (!isDaysValid(days)) return;
 
     if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
-      resetRecord();
+      resetRecord(props);
     }
-  };
-
-  const formatDays = (days: any) => {
-    if (!isDaysValid(days)) {
-      return 0;
-    }
-    return days;
-  };
-
-  const formatDate = (props: any): string => {
-    const { days, startDate } = props;
-    if (
-      !isDaysValid(days) ||
-      days === 0 ||
-      startDate === undefined ||
-      startDate === null
-    ) {
-      return 'なし';
-    }
-    return moment(startDate.toDate()).format('YYYY年MM月DD日 HH:mm');
   };
 
   const data = value && value.data();
@@ -177,8 +182,6 @@ const ChallengePosts = (props: any) => {
       ) : (
         data && (
           <React.Fragment>
-            <Record days={formatDays(data.days)} />
-            <h3>開始日: {formatDate(data)}</h3>
             <StyledTimerButtonContainer>
               <RecordButton
                 text="記録する"
@@ -188,15 +191,9 @@ const ChallengePosts = (props: any) => {
               <RecordButton
                 text="リセット"
                 color="inherit"
-                handleClick={() => confirm(data.days)}
+                handleClick={() => confirm(data)}
               />
             </StyledTimerButtonContainer>
-            <ChallengeGrass
-              data={data}
-              openedAt={openedAt}
-              closedAt={closedAt}
-            />
-            <ChallengeHistories histories={data.histories} />
           </React.Fragment>
         )
       )}
@@ -207,7 +204,6 @@ const ChallengePosts = (props: any) => {
 const mapStateToProps = (state: any, props: any) => ({
   userId: state.firebase.profile.id,
   userName: state.firebase.profile.displayName,
-  challengeId: props.match.params.id,
   ...props
 });
 

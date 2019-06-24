@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 const SquareWrapper = styled.div`
-  position: relative;
-  width: 240px;
-  margin: 10px;
+  max-width: 600px;
+  margin: 40px;
 `;
 
 const notAchievedColor = '#ffcdd2';
@@ -13,8 +12,8 @@ const achievedColor = '#ff5252';
 
 const Square = styled.button`
   margin: 1px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   top: 0;
   right: 0;
   bottom: 0;
@@ -30,8 +29,8 @@ const ChallengeGrass = (props: any) => {
 
   const totalDays = [...Array(duration).keys()].map(i => false);
 
-  const histories: any[] = props.data.histories;
-  histories.forEach(history => {
+  const { histories } = props.data;
+  histories.forEach((history: any) => {
     const timestamp = moment(history.timestamp.toDate());
     const index = timestamp.diff(openedAt, 'days');
     totalDays[index] = true;

@@ -9,7 +9,7 @@ const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
   const { collection, collectionId, user } = props;
-  let topicId = props.topicId ? props.topicId : ulid();
+  const topicId = props.topicId ? props.topicId : ulid();
 
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
@@ -35,9 +35,9 @@ const TopicForm = (props: any) => {
 
     const newData = {
       id: topicId,
-      title: title,
-      url: url,
-      text: text,
+      title,
+      url,
+      text,
       createdAt: new Date(),
       updatedAt: new Date(),
       userName: user.displayName,
@@ -122,8 +122,8 @@ const TopicForm = (props: any) => {
 const mapStateToProps = (state: any, props: any) => {
   return {
     user: state.firebase.profile,
-    collectionId: props.match.match.params.collectionId,
-    topicId: props.match.match.params.topicId,
+    collectionId: props.match.params.collectionId,
+    topicId: props.match.params.topicId,
     ...props
   };
 };

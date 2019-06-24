@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
-import NoStyledLink from './NoStyledLink';
+import NoStyledLink from '../NoStyledLink';
 
 const StyledCard = styled(Card)`
   && {

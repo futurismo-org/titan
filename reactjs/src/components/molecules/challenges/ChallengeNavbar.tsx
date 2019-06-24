@@ -7,6 +7,8 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Grid from '@material-ui/core/Grid';
 
+import { connect } from 'react-redux';
+
 import NoStyledLink from '../../atoms/NoStyledLink';
 
 const ChallengeNavbar = (props: any) => {
@@ -56,9 +58,20 @@ const ChallengeNavbar = (props: any) => {
           to={`/challenges/${props.id}/leaderboard`}
           text="リーダーボード"
         />
+        {props.userId && (
+          <NavItem
+            to={`/challenges/${props.id}/users/${props.userId}`}
+            text="ダッシュボード"
+          />
+        )}
       </Menu>
     </React.Fragment>
   );
 };
 
-export default ChallengeNavbar;
+const mapStateToProps = (state: any, props: any) => ({
+  userId: state.firebase.profile.id || undefined,
+  ...props
+});
+
+export default connect(mapStateToProps)(ChallengeNavbar);

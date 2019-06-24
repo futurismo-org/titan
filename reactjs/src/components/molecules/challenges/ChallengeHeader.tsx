@@ -5,8 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
-import ChallengeButton from '../../atoms/ChallengeButton';
-import ChallengeCategoryButton from '../../atoms/ChallengeCategoryButton';
+import ChallengeButton from '../../atoms/challenges/ChallengeButton';
+import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
 
@@ -62,9 +62,8 @@ const ChallengePeriod = (props: any) => {
 
   if (openedAt.diff(today, 'days') > 0) {
     return ret(`${openedAt.fromNow()}に開始`);
-  } else {
-    return ret(`${closedAt.fromNow()}に終了`);
   }
+  return ret(`${closedAt.fromNow()}に終了`);
 };
 
 const ChallengeHeader = (props: any) => {
@@ -123,12 +122,7 @@ const ChallengeHeader = (props: any) => {
             </HeaderInfo>
             <HeaderInfo>
               <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
-              {!isClosed ? (
-                <ChallengeButton
-                  challengeId={challenge.id}
-                  price={challenge.price}
-                />
-              ) : null}
+              {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>

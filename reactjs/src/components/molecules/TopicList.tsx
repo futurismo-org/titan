@@ -85,9 +85,7 @@ const TopicList = (props: any) => {
               {user.id === topic.userId ? (
                 <React.Fragment>
                   <NoStyledLink
-                    to={`/${collection}/${collectionId}/topics/${
-                      topic.id
-                    }/edit`}
+                    to={`/${collection}/${collectionId}/topics/${topic.id}/edit`}
                   >
                     <Button type="button" color="default" variant="contained">
                       編集

@@ -29,7 +29,7 @@ const sampleGeneralChannelId = '588697657279512587'; // テスト用フリート
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
 const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
-const dummyTopicIds = [...Array(30).keys()].map((n: number) => ulid());
+const dummyTopicIds = [...Array(10).keys()].map((n: number) => ulid());
 
 const createTopicSeed = (args: any) => {
   const { id } = args;
@@ -49,6 +49,7 @@ const createTopicSeed = (args: any) => {
 
 const topicsSeeds = seed.subcollection([
   createTopicSeed({
+    id: ulid(),
     userId: titanUserId,
     userName: 'Titan',
     userPhotoURL:
@@ -98,12 +99,17 @@ const createUserSeed = (args: any) => {
 };
 
 const createChallengeHistorySeed = (n: number) => {
+  const array = ['RECORD', 'RESET'];
+
   return {
     id: n,
     timestamp: moment()
       .subtract(n, 'days')
       .toDate(),
-    content: ''
+    days: faker.random.number({ min: 0, max: 30 }),
+    score: faker.random.number({ min: 0, max: 30 }),
+    type: array[Math.floor(Math.random() * array.length)],
+    diff: n
   };
 };
 
@@ -124,6 +130,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
     score: 5,
+    maxDays: 5,
     displayName: 'Titan',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
@@ -136,6 +143,7 @@ const challengeParticipantsSeeds = seed.subcollection([
       ].map((n: number) => createChallengeHistorySeed(n)),
       days: faker.random.number({ min: 0, max: 30 }),
       score: faker.random.number({ min: 0, max: 30 }),
+      maxDays: faker.random.number({ min: 0, max: 30 }),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl()
     });

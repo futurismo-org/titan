@@ -91,19 +91,19 @@ const ChallengeForm = (props: any) => {
 
     const id = isCreate ? ulid() : props.match.params.id;
     const newData = {
-      id: id,
-      title: title,
-      description: description,
-      overview: overview,
-      rules: rules,
+      id,
+      title,
+      description,
+      overview,
+      rules,
       createdAt: new Date(createdAt),
       updatedAt: new Date(),
-      channelId: channelId,
-      webhookURL: webhookURL,
+      channelId,
+      webhookURL,
       categoryRef: firebase.firestore().doc(categoryRef),
       openedAt: new Date(new Date(openedAt).setHours(0, 0, 0, 0)),
       closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
-      participantsCount: participantsCount,
+      participantsCount,
       private: privateFlag,
       price: Number(price)
     };

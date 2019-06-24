@@ -35,7 +35,7 @@ const AuthModal = (props: any) => {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        const user = credentials.user;
+        const { user } = credentials;
 
         const data = {
           id: user!.uid,

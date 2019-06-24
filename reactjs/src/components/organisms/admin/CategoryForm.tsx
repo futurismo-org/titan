@@ -49,13 +49,13 @@ const CategoryForm = (props: any) => {
 
     const id = isCreate ? ulid() : props.match.params.id;
     const newData = {
-      id: id,
-      title: title,
-      description: description,
-      overview: overview,
+      id,
+      title,
+      description,
+      overview,
       createdAt: new Date(createdAt),
       updatedAt: new Date(),
-      channelId: channelId,
+      channelId,
       challengeRefs:
         challengeRefs === ''
           ? ''
