@@ -40,6 +40,7 @@
     "firebase-tools": "^7.0.1",
     "firestore-seed": "^0.0.6",
     "moment": "^2.24.0",
+    "multiparty": "^4.2.1",
     "stripe": "^7.2.0",
     "twitter-lite": "^0.9.4",
     "typescript": "^3.4.5",

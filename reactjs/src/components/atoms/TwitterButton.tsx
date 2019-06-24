@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
+import html2canvas from 'html2canvas';
+import FormData from 'form-data';
 import axios from '../../lib/axios';
 import SimpleModal from '../molecules/SimpleModal';
 
@@ -28,14 +30,37 @@ ${days}日連続達成しました！ #titan
 
     // TODO 文字数Check
 
-    axios
-      .post('/twitter/post', {
-        content: text,
-        accessTokenKey: user.twitterAccessTokenKey,
-        accessTokenSecret: user.twitterAccessTokenSecret
+    html2canvas(document.getElementById('challenge-card')!) //eslint-disable-line
+      .then((canvas: any) => {
+        const dataurl = canvas.toDataURL('image/png');
+        const bin = atob(dataurl.split(',')[1]); // eslint-disable-line no-undef
+        const buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+          buffer[i] = bin.charCodeAt(i);
+        }
+        return new Blob([buffer.buffer], { type: 'image/png' }); // eslint-disable-line no-undef
       })
-      .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
-      .catch(err => console.error(err));
+      .then((blob: any) => {
+        const data = new FormData();
+
+        // const info = {
+        //   content: text,
+        //   accessTokenKey: user.twitterAccessTokenKey,
+        //   accessTokenSecret: user.twitterAccessTokenSecret
+        // };
+
+        data.append('image', blob);
+        data.append('content', text);
+        data.append('token', user.twitterAccessTokenKey);
+        data.append('secret', user.twitterAccessTokenSecret);
+
+        axios
+          .post('/twitter/post', data, {
+            headers: { 'content-type': 'multipart/form-data' }
+          })
+          .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
+          .catch(err => console.error(err));
+      });
   };
 
   const onTextChange = (e: any) => {

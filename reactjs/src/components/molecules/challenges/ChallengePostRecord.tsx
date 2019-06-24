@@ -25,7 +25,7 @@ const StyledCard = styled(Card)`
 ` as React.ComponentType<CardProps>;
 
 const RecordBoard = (props: any) => (
-  <StyledCard>
+  <StyledCard id="challenge-card">
     <CardContent>
       <div>
         <StyledDays>{props.days}</StyledDays>
