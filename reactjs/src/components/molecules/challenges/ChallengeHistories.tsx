@@ -20,8 +20,7 @@ const ConditionalTableCell = (props: any) => (
   </Hidden>
 );
 
-const getType = (props: any) => {
-  const { type } = props;
+const getType = (type: string) => {
   if (type === 'RESET') {
     return <Chip color="primary" label="リセット" />;
   } else {
@@ -48,7 +47,7 @@ const HistoryRow = ({ history, ...props }: any) => {
       <TableCell>{score}</TableCell>
       <ConditionalTableCell>{days}</ConditionalTableCell>
       <ConditionalTableCell>{diff}</ConditionalTableCell>
-      <TableCell>{getType(type || '')}</TableCell>
+      <TableCell>{getType(type)}</TableCell>
     </TableRow>
   );
 };

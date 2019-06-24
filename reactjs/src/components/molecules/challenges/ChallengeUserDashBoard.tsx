@@ -93,7 +93,7 @@ const ChallengeUserDashBoard = (props: any) => {
               <Grid item lg={3} md={3} sm={6} xs={6}>
                 <NumberWidget
                   title="経過日数"
-                  number={moment().diff(moment(data.openedAt))}
+                  number={moment().diff(moment(data.openedAt), 'days')}
                   unit="days"
                 />
               </Grid>

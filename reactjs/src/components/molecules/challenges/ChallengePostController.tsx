@@ -64,7 +64,7 @@ const ChallengePosts = (props: any) => {
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
-      diff: moment().diff(moment(openedAt)),
+      diff: moment().diff(moment(openedAt.toDate()), 'days'),
       type: 'RECORD'
     };
 
@@ -98,11 +98,26 @@ const ChallengePosts = (props: any) => {
       .catch(error => console.error(error));
   };
 
-  const resetRecord = () => {
-    const resetData = {
+  const resetRecord = (props: any) => {
+    const { score } = props;
+
+    const newScore = score - 3;
+
+    const newHistory = {
+      id: ulid(),
+      timestamp: new Date(),
+      score: newScore,
       days: 0,
+      diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      type: 'RESET'
+    };
+
+    const resetData = {
       startDate: null,
-      updatedAt: now
+      updatedAt: now,
+      days: 0,
+      score: newScore,
+      histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
     firebase
@@ -121,11 +136,12 @@ const ChallengePosts = (props: any) => {
       .catch(error => console.error(error));
   };
 
-  const confirm = (days: any) => {
+  const confirm = (props: any) => {
+    const { days } = props;
     if (!isDaysValid(days)) return;
 
     if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
-      resetRecord();
+      resetRecord(props);
     }
   };
 
@@ -177,7 +193,7 @@ const ChallengePosts = (props: any) => {
               <RecordButton
                 text="リセット"
                 color="inherit"
-                handleClick={() => confirm(data.days)}
+                handleClick={() => confirm(data)}
               />
             </StyledTimerButtonContainer>
           </React.Fragment>
