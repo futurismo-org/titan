@@ -6,6 +6,7 @@ import {
   TableRow,
   TableCell,
   TableHead,
+  TableBody,
   Hidden,
   Chip
 } from '@material-ui/core';
@@ -30,23 +31,30 @@ const getType = (type: string) => {
 
 const HistoryHead = (props: any) => (
   <TableHead>
-    <TableCell>日時</TableCell>
-    <TableCell>スコア</TableCell>
-    <ConditionalTableCell>連続</ConditionalTableCell>
-    <ConditionalTableCell>経過</ConditionalTableCell>
-    <TableCell>タイプ</TableCell>
+    <TableRow>
+      <TableCell>日時</TableCell>
+      <TableCell>スコア</TableCell>
+      <ConditionalTableCell>連続</ConditionalTableCell>
+      <ConditionalTableCell>経過</ConditionalTableCell>
+      <TableCell>タイプ</TableCell>
+    </TableRow>
   </TableHead>
 );
 
 const HistoryRow = ({ history }: any) => {
   const { timestamp, score, type, days, diff } = history;
 
+  const wrapShowS = (x: string) => x || '';
+  const wrapShowN = (x: string) => x || 0;
+
   return (
     <TableRow>
-      <TableCell>{formatDate(timestamp.toDate().toISOString())}</TableCell>
-      <TableCell>{score}</TableCell>
-      <ConditionalTableCell>{days}</ConditionalTableCell>
-      <ConditionalTableCell>{diff}</ConditionalTableCell>
+      <TableCell>
+        {wrapShowS(formatDate(timestamp.toDate().toISOString()))}
+      </TableCell>
+      <TableCell>{wrapShowN(score)}</TableCell>
+      <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
+      <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
       <TableCell>{getType(type)}</TableCell>
     </TableRow>
   );
@@ -60,11 +68,15 @@ const ChallengeHistories = (props: any) => {
       <Paper>
         <Table size="small">
           <HistoryHead />
-          {histories
-            .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
-            .map((history: any) => {
-              return <HistoryRow key={history.id} history={history} />;
-            })}
+          <TableBody>
+            {histories
+              .sort(
+                (x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds
+              )
+              .map((history: any) => {
+                return <HistoryRow key={history.id} history={history} />;
+              })}
+          </TableBody>
         </Table>
       </Paper>
     </React.Fragment>
