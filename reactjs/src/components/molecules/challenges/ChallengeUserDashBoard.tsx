@@ -25,7 +25,7 @@ const StyledCenterContainer = styled.div`
 `;
 
 const ChallengeUserDashBoard = (props: any) => {
-  const { userId, challengeId, openedAt, closedAt } = props;
+  const { userId, challengeId, openedAt, closedAt, challengeTitle } = props;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
@@ -83,7 +83,7 @@ const ChallengeUserDashBoard = (props: any) => {
             />
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
-          <TwitterButton />
+          <TwitterButton title={challengeTitle} days={data.days} />
         </DashBoardWrapper>
       )}
     </React.Fragment>

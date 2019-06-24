@@ -12,12 +12,15 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
-  const { user } = props;
+  const { user, title, days } = props;
+
+  const buildTweetContent = () =>
+    `${title}参加中 ${days}連続達成しました！ #titan`;
 
   const clickHandler = () => {
     axios
       .post('/twitter/post', {
-        content: 'テスト投稿',
+        content: buildTweetContent(),
         accessTokenKey: user.twitterAccessTokenKey,
         accessTokenSecret: user.twitterAccessTokenSecret
       })
