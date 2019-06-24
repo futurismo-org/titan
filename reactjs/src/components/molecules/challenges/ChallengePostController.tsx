@@ -26,8 +26,9 @@ const StyledTimerButtonContainer = styled.div`
 
 const ChallengePosts = (props: any) => {
   const { userId, userName, challenge, closeHandler } = props;
+  const { openedAt, closedAt } = challenge;
+  const webhookURL = challenge.webhookURL || '';
 
-  const { webhookURL, openedAt, closedAt } = challenge;
   const challengeId = challenge.id;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
