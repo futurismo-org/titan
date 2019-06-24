@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import { Button } from '@material-ui/core';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -29,10 +30,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SimpleModal = (props: any) => {
-  const { ButtonComponent, buttonText, ContentComponent } = props;
+  const { buttonOptions, buttonText } = props;
 
   const [open, setOpen] = React.useState(false);
-  // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
 
   const handleOpen = () => {
@@ -46,7 +46,9 @@ const SimpleModal = (props: any) => {
 
   return (
     <React.Fragment>
-      <ButtonComponent onClick={handleOpen}>{buttonText}</ButtonComponent>
+      <Button {...buttonOptions} onClick={handleOpen}>
+        {buttonText || ''}
+      </Button>
       <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -54,13 +56,7 @@ const SimpleModal = (props: any) => {
         onClose={handleClose}
       >
         <div style={modalStyle} className={classes.paper}>
-          {/* <Typography variant="h6" id="modal-title">
-            Text in a modal
-          </Typography>
-          <Typography variant="subtitle1" id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography> */}
-          <ContentComponent />
+          {props.children}
           <SimpleModal />
         </div>
       </Modal>

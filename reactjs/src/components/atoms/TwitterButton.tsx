@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Button } from '@material-ui/core';
 
 import styled from 'styled-components';
 
 import { connect } from 'react-redux';
+import { Button, TextField } from '@material-ui/core';
 import axios from '../../lib/axios';
+import SimpleModal from '../molecules/SimpleModal';
 
 const ButtonWrapper = styled.div`
   text-align: center;
@@ -17,15 +18,19 @@ const TwitterButton = (props: any) => {
   const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
   const buildTweetContent = () =>
-    `
-${title}参加中
+    `${title}参加中
 ${days}日連続達成しました！ #titan
 `;
+  const [text, setText] = React.useState(buildTweetContent);
 
-  const clickHandler = () => {
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+
+    // TODO 文字数Check
+
     axios
       .post('/twitter/post', {
-        content: buildTweetContent(),
+        content: text,
         accessTokenKey: user.twitterAccessTokenKey,
         accessTokenSecret: user.twitterAccessTokenSecret
       })
@@ -33,16 +38,39 @@ ${days}日連続達成しました！ #titan
       .catch(err => console.error(err));
   };
 
+  const onTextChange = (e: any) => {
+    e.preventDefault();
+    setText(e.target.value);
+  };
+
   return (
     <ButtonWrapper>
-      <Button
-        size="large"
-        variant="contained"
-        color="secondary"
-        onClick={clickHandler}
+      <SimpleModal
+        buttonOptions={{
+          size: 'large',
+          variant: 'contained',
+          color: 'secondary'
+        }}
+        buttonText="Twitterでシェア"
       >
-        Twitterでシェア
-      </Button>
+        <form noValidate onSubmit={submitHandler}>
+          <TextField
+            value={text}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            id="text"
+            name="text"
+            label="投稿内容"
+            rows={4}
+            multiline
+            onChange={onTextChange}
+          />
+          <Button type="submit" color="secondary" fullWidth variant="contained">
+            投稿
+          </Button>
+        </form>
+      </SimpleModal>
     </ButtonWrapper>
   );
 };
