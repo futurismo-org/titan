@@ -7,9 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
-import styled from 'styled-components';
 import Hidden from '@material-ui/core/Hidden';
-import { Link } from 'react-router-dom';
 import Avatar from '../../atoms/Avatar';
 import Progress from '../../atoms/CircularProgress';
 
