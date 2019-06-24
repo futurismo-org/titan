@@ -55,6 +55,7 @@ const ChallengeBody = (props: any) => {
           path="/challenges/:challengeId/users/:userId"
           render={(props: any) => (
             <ChallengeUserDashBoard
+              challengeTitle={challenge.title}
               webhookURL={challenge.webhookURL}
               openedAt={challenge.openedAt}
               closedAt={challenge.closedAt}

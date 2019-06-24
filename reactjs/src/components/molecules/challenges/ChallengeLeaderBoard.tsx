@@ -9,15 +9,14 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import styled from 'styled-components';
 import Hidden from '@material-ui/core/Hidden';
+import { Link } from 'react-router-dom';
 import Avatar from '../../atoms/Avatar';
 import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
-const NoStyledLink = styled.a`
-  text-decoration: none;
-  color: 'inherit';
-`;
+import NoStyledLink from '../../atoms/NoStyledLink';
+import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -70,11 +69,15 @@ const ChallengeLeaderBoard = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <ConditionalTableCell>
-                    <Avatar src={doc.data().photoURL || ''} />
+                    <NoStyledExternalLink
+                      href={doc.data().twitterURL || 'https://twitter.com'}
+                    >
+                      <Avatar src={doc.data().photoURL || ''} />
+                    </NoStyledExternalLink>
                   </ConditionalTableCell>
                   <TableCell>
                     <NoStyledLink
-                      href={doc.data().twitterURL || 'https://twitter.com'}
+                      to={`/challenges/${id}/users/${doc.data().id}`}
                     >
                       {doc.data().displayName || 'Annonymous'}
                     </NoStyledLink>

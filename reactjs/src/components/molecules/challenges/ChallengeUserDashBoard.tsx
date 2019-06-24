@@ -15,6 +15,7 @@ import Title from '../../atoms/Title';
 import ChallengeHistories from './ChallengeHistories';
 import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeChart from './ChallengeChart';
+import TwitterButton from '../../atoms/TwitterButton';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ const StyledCenterContainer = styled.div`
 `;
 
 const ChallengeUserDashBoard = (props: any) => {
-  const { userId, challengeId, openedAt, closedAt } = props;
+  const { userId, challengeId, openedAt, closedAt, challengeTitle } = props;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
@@ -82,6 +83,12 @@ const ChallengeUserDashBoard = (props: any) => {
             />
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
+          <TwitterButton
+            title={challengeTitle}
+            days={data.days}
+            userId={userId}
+            challengeId={challengeId}
+          />
         </DashBoardWrapper>
       )}
     </React.Fragment>
