@@ -3,7 +3,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
-import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
 
@@ -13,8 +12,8 @@ import ChallengeGrass from './ChallengeGrass';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 
-import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
 import ChallengeHistories from './ChallengeHistories';
+import ChallengeStatistics from './ChallengeStatistics';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -75,28 +74,7 @@ const ChallengeUserDashBoard = (props: any) => {
             <Typography style={{ marginTop: '20px' }} variant="h6">
               開始日: {formatDate(data)}
             </Typography>
-            <Grid container spacing={3}>
-              <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="スコア" number={data.score} unit="" />
-              </Grid>
-              <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget title="連続日数" number={data.days} unit="days" />
-              </Grid>
-              <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget
-                  title="最長日数"
-                  number={data.maxDays}
-                  unit="days"
-                />
-              </Grid>
-              <Grid item lg={3} md={3} sm={6} xs={6}>
-                <NumberWidget
-                  title="経過日数"
-                  number={moment().diff(moment(data.openedAt), 'days')}
-                  unit="days"
-                />
-              </Grid>
-            </Grid>
+            <ChallengeStatistics data={data} />
             <ChallengeGrass
               data={data}
               openedAt={openedAt}
