@@ -67,6 +67,7 @@
     "@types/react-redux": "^7.0.9",
     "@types/react-router-dom": "^4.3.3",
     "@types/react-stripe-elements": "^1.1.10",
+    "@types/recharts": "^1.1.16",
     "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.11.0",

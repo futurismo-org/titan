@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 
 import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
@@ -59,7 +58,7 @@ const ChallengePosts = (props: any) => {
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
-      id: ulid(),
+      id: histories.length + 1,
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
@@ -98,12 +97,12 @@ const ChallengePosts = (props: any) => {
   };
 
   const resetRecord = (props: any) => {
-    const { score } = props;
+    const { score, histories } = props;
 
     const newScore = score - 3;
 
     const newHistory = {
-      id: ulid(),
+      id: histories.length + 1,
       timestamp: new Date(),
       score: newScore,
       days: 0,
