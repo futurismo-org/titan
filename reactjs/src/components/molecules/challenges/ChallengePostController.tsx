@@ -25,10 +25,10 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const { userId, userName, challenge, closeHandler } = props;
-  const { webhookURL, openedAt, closedAt } = challenge; //eslint-disable-line
+  const { userId, userName, closeHandler } = props;
+  const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
-  const challengeId = challenge.id;
+  const challengeId = id;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
