@@ -41,8 +41,8 @@ const HistoryHead = (props: any) => (
   </TableHead>
 );
 
-const HistoryRow = ({ history }: any) => {
-  const { timestamp, score, type, days, diff } = history;
+const HistoryRow = (props: any) => {
+  const { timestamp, score, type, days, diff } = props.history;
 
   const wrapShowS = (x: string) => x || '';
   const wrapShowN = (x: string) => x || 0;
