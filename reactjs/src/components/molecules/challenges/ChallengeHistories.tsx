@@ -38,7 +38,7 @@ const HistoryHead = (props: any) => (
   </TableHead>
 );
 
-const HistoryRow = ({ history, ...props }: any) => {
+const HistoryRow = ({ history }: any) => {
   const { timestamp, score, type, days, diff } = history;
 
   return (
