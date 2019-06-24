@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 const SquareWrapper = styled.div`
-  width: 240px;
+  max-width: 600px;
   margin: 40px;
 `;
 
@@ -12,8 +12,8 @@ const achievedColor = '#ff5252';
 
 const Square = styled.button`
   margin: 1px;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   top: 0;
   right: 0;
   bottom: 0;

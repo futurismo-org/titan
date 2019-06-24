@@ -3,7 +3,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
 
 import Record from './ChallengePostRecord';
@@ -57,7 +57,7 @@ const ChallengeUserDashBoard = (props: any) => {
   };
 
   const DashBoardWrapper = styled.div`
-    max-width: 960px;
+    max-width: 750px;
     margin: auto;
   `;
 
@@ -71,23 +71,15 @@ const ChallengeUserDashBoard = (props: any) => {
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Title text={`${data.displayName} さんの記録`} />
+            <Typography variant="h6">開始日: {formatDate(data)}</Typography>
             <Record days={formatDays(data.days)} />
-            <Typography style={{ marginTop: '20px' }} variant="h6">
-              開始日: {formatDate(data)}
-            </Typography>
             <ChallengeStatistics data={data} />
-            <Grid container>
-              <Grid item lg={6} md={6} sm={6} xs={12}>
-                <ChallengeGrass
-                  data={data}
-                  openedAt={openedAt}
-                  closedAt={closedAt}
-                />
-              </Grid>
-              <Grid item lg={6} md={6} sm={6} xs={12}>
-                <ChallengeChart histories={data.histories} />
-              </Grid>
-            </Grid>
+            <ChallengeChart histories={data.histories} />
+            <ChallengeGrass
+              data={data}
+              openedAt={openedAt}
+              closedAt={closedAt}
+            />
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
         </DashBoardWrapper>
