@@ -8,12 +8,12 @@ import TableRow from '@material-ui/core/TableRow';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
+import { Link } from 'react-router-dom';
 import Avatar from '../../atoms/Avatar';
 import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
-import NoStyledLink from '../../atoms/NoStyledLink';
 import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
 
 const ConditionalTableCell = (props: any) => (
@@ -74,11 +74,9 @@ const ChallengeLeaderBoard = (props: any) => {
                     </NoStyledExternalLink>
                   </ConditionalTableCell>
                   <TableCell>
-                    <NoStyledLink
-                      to={`/challenges/${id}/users/${doc.data().id}`}
-                    >
+                    <Link to={`/challenges/${id}/users/${doc.data().id}`}>
                       {doc.data().displayName || 'Annonymous'}
-                    </NoStyledLink>
+                    </Link>
                   </TableCell>
                   <TableCell>{doc.data().score}</TableCell>
                   <ConditionalTableCell>{doc.data().days}</ConditionalTableCell>
