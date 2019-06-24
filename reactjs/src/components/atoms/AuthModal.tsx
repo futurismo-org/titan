@@ -44,7 +44,9 @@ const AuthModal = (props: any) => {
           email: user!.email,
           createdAt: new Date(),
           updatedAt: new Date(),
-          twitterURL: (credentials.additionalUserInfo!.profile! as any).url
+          twitterURL: (credentials.additionalUserInfo!.profile! as any).url,
+          accessTokenKey: (credentials.credential! as any).accessToken,
+          accessTokenSecret: (credentials.credential! as any).secret
         };
 
         const userRef = firebase
