@@ -37,8 +37,7 @@ module.exports = {
     'react/display-name': 0,
     '@typescript-eslint/explicit-member-accessibility': 0,
     "no-shadow": 0,
-    "no-return-assign": 0,
-    'use-isnan': 0
+    "no-return-assign": 0
   },
   parser: '@typescript-eslint/parser',
   "settings": {

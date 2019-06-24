@@ -32,9 +32,8 @@ const ChallengeUserDashBoard = (props: any) => {
     firebase.firestore().doc(resourceId)
   );
 
-  // const now = new Date();
   const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && days !== NaN;
+    return days !== undefined && days !== null;
   };
 
   const formatDays = (days: any) => {
