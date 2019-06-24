@@ -34,13 +34,9 @@ const DashBoardCard = (props: any) => {
   const { type, doc } = props;
 
   return (
-    <React.Fragment>
-      {type === 'challenge' && (
-        <ChallengeCard challenge={doc.data()} key={doc.id} />
-      )}
-      {type === 'category' && (
-        <CategoryCard category={doc.data()} key={doc.id} />
-      )}
+    <React.Fragment key={doc.id}>
+      {type === 'challenge' && <ChallengeCard challenge={doc.data()} />}
+      {type === 'category' && <CategoryCard category={doc.data()} />}
     </React.Fragment>
   );
 };
