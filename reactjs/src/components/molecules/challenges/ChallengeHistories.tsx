@@ -21,8 +21,8 @@ const ConditionalTableCell = (props: any) => (
   </Hidden>
 );
 
-const getType = (type: string) => {
-  if (type === 'RESET') {
+const getType = (myType: string) => {
+  if (myType === 'RESET') {
     return <Chip color="primary" label="リセット" />;
   } else {
     return <Chip color="secondary" label="記録" />;
