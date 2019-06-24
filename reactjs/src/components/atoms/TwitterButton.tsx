@@ -3,6 +3,7 @@ import { Button } from '@material-ui/core';
 
 import styled from 'styled-components';
 
+import { connect } from 'react-redux';
 import axios from '../../lib/axios';
 
 const ButtonWrapper = styled.div`
@@ -11,12 +12,15 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
+  const { user } = props;
+
   const clickHandler = () => {
     axios
       .post('/twitter/post', {
-        content: 'Hello, World'
+        content: 'テスト投稿',
+        accessTokenKey: user.twitterAccessTokenKey,
+        accessTokenSecret: user.twitterAccessTokenSecret
       })
-      .then(res => console.log(res))
       .catch(err => console.error(err));
   };
 
@@ -34,4 +38,9 @@ const TwitterButton = (props: any) => {
   );
 };
 
-export default TwitterButton;
+const mapStateToProps = (state: any, props: any) => ({
+  user: state.firebase.profile,
+  ...props
+});
+
+export default connect(mapStateToProps)(TwitterButton);

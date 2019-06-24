@@ -4,7 +4,7 @@ const functions = require('firebase-functions');
 
 const CONSUMER_KEY =
   process.env.APP_ENV === 'development'
-    ? process.env.TWITTER_CONSUMER_KEY
+    ? process.env.TWITTER_CUNSUMER_KEY
     : functions.config().twitter.consumer_key;
 
 const CONSUMER_SECRET =
@@ -25,7 +25,10 @@ exports.postTweet = (req: any, res: any) => {
       status: req.body.content
     })
     .then((results: any) => {
-      console.log('results', results);
+      res.status(200).json(results);
     })
-    .catch(console.error);
+    .catch((error: any) => {
+      console.log(error);
+      res.json(error);
+    });
 };
