@@ -44,34 +44,43 @@ ${days}日連続達成しました！ #titan
   };
 
   return (
-    <ButtonWrapper>
-      <SimpleModal
-        buttonOptions={{
-          size: 'large',
-          variant: 'contained',
-          color: 'secondary'
-        }}
-        buttonText="Twitterでシェア"
-      >
-        <form noValidate onSubmit={submitHandler}>
-          <TextField
-            value={text}
-            variant="outlined"
-            margin="normal"
-            fullWidth
-            id="text"
-            name="text"
-            label="投稿内容"
-            rows={4}
-            multiline
-            onChange={onTextChange}
-          />
-          <Button type="submit" color="secondary" fullWidth variant="contained">
-            投稿
-          </Button>
-        </form>
-      </SimpleModal>
-    </ButtonWrapper>
+    <React.Fragment>
+      {user.twitterAccessTokenKey && user.twitterAccessTokenSecret ? (
+        <ButtonWrapper>
+          <SimpleModal
+            buttonOptions={{
+              size: 'large',
+              variant: 'contained',
+              color: 'secondary'
+            }}
+            buttonText="Twitterでシェア"
+          >
+            <form noValidate onSubmit={submitHandler}>
+              <TextField
+                value={text}
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                id="text"
+                name="text"
+                label="投稿内容"
+                rows={4}
+                multiline
+                onChange={onTextChange}
+              />
+              <Button
+                type="submit"
+                color="secondary"
+                fullWidth
+                variant="contained"
+              >
+                投稿
+              </Button>
+            </form>
+          </SimpleModal>
+        </ButtonWrapper>
+      ) : null}
+    </React.Fragment>
   );
 };
 
