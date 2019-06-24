@@ -25,7 +25,7 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePosts = (props: any) => {
-  const { userId, userName, challenge } = props;
+  const { userId, userName, challenge, closeHandler } = props;
 
   const { webhookURL, openedAt, closedAt } = challenge;
   const challengeId = challenge.id;
@@ -64,7 +64,7 @@ const ChallengePosts = (props: any) => {
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
-      diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      diff: moment().diff(moment(openedAt), 'days'),
       type: 'RECORD'
     };
 
@@ -90,7 +90,7 @@ const ChallengePosts = (props: any) => {
       .then(() => {
         window.alert('投稿が完了しました。');  // eslint-disable-line 
       })
-      .then(() => props.closeHandler())
+      .then(() => closeHandler())
       .then(
         () =>
           (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
@@ -108,7 +108,7 @@ const ChallengePosts = (props: any) => {
       timestamp: new Date(),
       score: newScore,
       days: 0,
-      diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      diff: moment().diff(moment(openedAt), 'days'),
       type: 'RESET'
     };
 
@@ -128,7 +128,7 @@ const ChallengePosts = (props: any) => {
         const message = `${userName}さんがリセットしました`;
         postMessage(webhookURL, message);
       })
-      .then(() => props.closeHandler())
+      .then(() => closeHandler())
       .then(
         () =>
           (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line

@@ -42,7 +42,8 @@ const HistoryHead = (props: any) => (
 );
 
 const HistoryRow = ({ history }: any) => {
-  const { timestamp, score, type, days, diff } = history;
+  const { timestamp, score, days, diff } = history;
+  const myType = history.type;
 
   const wrapShowS = (x: string) => x || '';
   const wrapShowN = (x: string) => x || 0;
@@ -55,7 +56,7 @@ const HistoryRow = ({ history }: any) => {
       <TableCell>{wrapShowN(score)}</TableCell>
       <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
-      <TableCell>{getType(type)}</TableCell>
+      <TableCell>{getType(myType)}</TableCell>
     </TableRow>
   );
 };
