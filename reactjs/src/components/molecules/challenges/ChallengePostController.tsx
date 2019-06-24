@@ -26,7 +26,7 @@ const StyledTimerButtonContainer = styled.div`
 
 const ChallengePosts = (props: any) => {
   const { userId, userName, challenge, closeHandler } = props;
-  const { webhookURL, openedAt, closedAt } = challenge;
+  const { webhookURL, openedAt, closedAt } = challenge; //eslint-disable-line
 
   const challengeId = challenge.id;
 
