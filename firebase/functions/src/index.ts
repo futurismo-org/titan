@@ -9,6 +9,7 @@ const app = express();
 app.use(cors({ origin: true }));
 
 const { chargeProduct, validCoupon } = require('./handlers/stripe');
+const { postTweet } = require('./handlers/twitter');
 
 // const user = require('./user');
 
@@ -18,6 +19,8 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 // stripe
 app.post('/charges', chargeProduct);
 app.post('/coupons/valid', validCoupon);
+
+app.post('/twitter/post', postTweet);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);

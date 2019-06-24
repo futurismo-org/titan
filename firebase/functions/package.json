@@ -4,7 +4,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "dev": "cp package.json .env lib && APP_ENV=development firebase serve --only functions",
+    "dev": "cp package.json .env lib && APP_ENV=development firebase serve --only functions -P development",
     "shell": "APP_ENV=development firebase functions:shell",
     "deploy:development": "APP_ENV=development firebase deploy --only functions -P development",
     "deploy:production": "APP_ENV=production firebase deploy --only functions -P production",
@@ -41,6 +41,7 @@
     "firestore-seed": "^0.0.6",
     "moment": "^2.24.0",
     "stripe": "^7.2.0",
+    "twitter-lite": "^0.9.4",
     "typescript": "^3.4.5",
     "ulid": "^2.3.0"
   },

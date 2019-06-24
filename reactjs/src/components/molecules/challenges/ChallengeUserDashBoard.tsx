@@ -15,6 +15,7 @@ import Title from '../../atoms/Title';
 import ChallengeHistories from './ChallengeHistories';
 import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeChart from './ChallengeChart';
+import TwitterButton from '../../atoms/TwitterButton';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -82,6 +83,7 @@ const ChallengeUserDashBoard = (props: any) => {
             />
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
+          <TwitterButton />
         </DashBoardWrapper>
       )}
     </React.Fragment>

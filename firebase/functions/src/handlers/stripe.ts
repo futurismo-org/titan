@@ -29,5 +29,3 @@ exports.validCoupon = (req: any, res: any) => {
     return res.status(200).json(coupon);
   });
 };
-
-export default stripe;
