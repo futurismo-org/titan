@@ -12,10 +12,15 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
-  const { user, title, days } = props;
+  const { user, title, days, userId, challengeId } = props;
+
+  const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
   const buildTweetContent = () =>
-    `${title}参加中 ${days}連続達成しました！ #titan`;
+    `
+${title}参加中
+${days}日連続達成しました！ #titan
+`;
 
   const clickHandler = () => {
     axios
@@ -24,6 +29,7 @@ const TwitterButton = (props: any) => {
         accessTokenKey: user.twitterAccessTokenKey,
         accessTokenSecret: user.twitterAccessTokenSecret
       })
+      .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
       .catch(err => console.error(err));
   };
 

@@ -83,7 +83,12 @@ const ChallengeUserDashBoard = (props: any) => {
             />
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
-          <TwitterButton title={challengeTitle} days={data.days} />
+          <TwitterButton
+            title={challengeTitle}
+            days={data.days}
+            userId={userId}
+            challengeId={challengeId}
+          />
         </DashBoardWrapper>
       )}
     </React.Fragment>
