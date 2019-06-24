@@ -99,14 +99,16 @@ const createUserSeed = (args: any) => {
 };
 
 const createChallengeHistorySeed = (n: number) => {
+  const array = ['RECORD', 'RESET'];
+
   return {
-    id: n,
+    id: ulid(),
     timestamp: moment()
       .subtract(n, 'days')
       .toDate(),
     days: faker.random.number({ min: 0, max: 30 }),
     score: faker.random.number({ min: 0, max: 30 }),
-    type: 'RECORD',
+    type: array[Math.floor(Math.random() * array.length)],
     diff: faker.random.number({ min: 0, max: 30 })
   };
 };
