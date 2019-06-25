@@ -53,6 +53,7 @@
     "redux-thunk": "^2.3.0",
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
+    "rollbar": "^2.7.1",
     "styled-components": "^4.2.0",
     "typescript": "^3.4.5",
     "ulid": "^2.3.0"
