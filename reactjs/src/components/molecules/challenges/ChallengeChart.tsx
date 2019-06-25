@@ -32,16 +32,22 @@ const LineChartWrapper = (props: any) => (
   </Wrapper>
 );
 
+const formatDate = (date: string): string => {
+  return moment(date).format('MM/DD');
+};
+
 const ChallengeChart = (props: any) => {
-  const histories: [] = props.histories;
+  const histories: [] = props.histories
+    .sort((x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds)
+    .map((history: any) => ({
+      date: formatDate(history.timestamp.toDate().toISOString()),
+      ...history
+    }));
 
   return (
     <LineChartWrapper data={histories}>
       <CartesianGrid />
-      <XAxis
-        dataKey="timestamp"
-        tickFormatter={props => moment(props.timestamp).format('MM/DD')}
-      />
+      <XAxis dataKey="date" />
       <YAxis />
       <Tooltip />
       <Legend />
