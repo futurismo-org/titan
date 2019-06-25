@@ -36,22 +36,32 @@ jobs:
       - run:
           name: 'Build(development)'
           working_directory: reactjs
-          command: REACT_APP_ENV=development npm run build
+          command: REACT_APP_ENV=production npm run build
           
       - run:
-          name: 'Deploy to Hosting(development6)'
+          name: 'Deploy to Hosting(development)'
           working_directory: reactjs
           command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
 
       - run:
-          name: 'Build(Production)'
+          name: 'Deploy to Functions(development) Functions'
+          working_directory: firebase/functions
+          command: REACT_APP_ENV=production ../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
+          
+      - run:
+          name: 'Build(production)'
           working_directory: reactjs
           command: REACT_APP_ENV=production npm run build
-          
+
       - run:
           name: 'Deploy to Hosting(Production)'
           working_directory: reactjs
           command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
+
+      - run:
+          name: 'Deploy to Functions(Production)'
+          working_directory: firebase/functions
+          command: APP_ENV=production ../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
 
 workflows:
   main:
