@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
+import FormData from 'form-data';
+import domtoimage from 'dom-to-image';
 import axios from '../../lib/axios';
 import SimpleModal from '../molecules/SimpleModal';
 
@@ -19,7 +21,7 @@ const TwitterButton = (props: any) => {
 
   const buildTweetContent = () =>
     `${title}参加中
-${days}日連続達成しました！ #titan
+${days}日連続達成しました！ #Titan
 `;
   const [text, setText] = React.useState(buildTweetContent);
 
@@ -28,14 +30,23 @@ ${days}日連続達成しました！ #titan
 
     // TODO 文字数Check
 
-    axios
-      .post('/twitter/post', {
-        content: text,
-        accessTokenKey: user.twitterAccessTokenKey,
-        accessTokenSecret: user.twitterAccessTokenSecret
-      })
-      .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
-      .catch(err => console.error(err));
+    const node = document.getElementById('challenge-card')   // eslint-disable-line 
+    domtoimage.toPng(node as Node).then((dataURL: any) => {
+      const data = new FormData();
+      data.append('content', text);
+      data.append('token', user.twitterAccessTokenKey);
+      data.append('secret', user.twitterAccessTokenSecret);
+      data.append('image', dataURL);
+
+      axios
+        .post('/twitter/post', data, {
+          headers: {
+            'content-type': `multipart/form-data`
+          }
+        })
+        .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
+        .catch(err => console.error(err));
+    });
   };
 
   const onTextChange = (e: any) => {
@@ -57,28 +68,27 @@ ${days}日連続達成しました！ #titan
             }}
             buttonText="Twitterでシェア"
           >
-            <form noValidate onSubmit={submitHandler}>
-              <TextField
-                value={text}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                id="text"
-                name="text"
-                label="投稿内容"
-                rows={4}
-                multiline
-                onChange={onTextChange}
-              />
-              <Button
-                type="submit"
-                color="secondary"
-                fullWidth
-                variant="contained"
-              >
-                投稿
-              </Button>
-            </form>
+            <TextField
+              value={text}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="text"
+              name="text"
+              label="投稿内容"
+              rows={4}
+              multiline
+              onChange={onTextChange}
+            />
+            <Button
+              type="submit"
+              color="secondary"
+              fullWidth
+              variant="contained"
+              onClick={submitHandler}
+            >
+              投稿
+            </Button>
           </SimpleModal>
         </ButtonWrapper>
       ) : null}

@@ -73,7 +73,9 @@ const ChallengeUserDashBoard = (props: any) => {
           <StyledCenterContainer>
             <Title text={`${data.displayName} さんの記録`} />
             <Typography variant="h6">開始日: {formatDate(data)}</Typography>
-            <Record days={formatDays(data.days)} />
+            <div id="challenge-card">
+              <Record days={formatDays(data.days)} />
+            </div>
             <ChallengeStatistics data={data} />
             <ChallengeChart histories={data.histories} />
             <ChallengeGrass

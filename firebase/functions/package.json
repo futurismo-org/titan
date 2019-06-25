@@ -27,6 +27,7 @@
     "@firebase/app-types": "^0.4.0",
     "@google-cloud/firestore": "^2.0.0",
     "body-parser": "^1.19.0",
+    "busboy": "^0.3.1",
     "cors": "^2.8.5",
     "discord-rpc": "^3.0.2",
     "dotenv": "^8.0.0",
@@ -39,13 +40,16 @@
     "firebase-functions": "^2.3.0",
     "firebase-tools": "^7.0.1",
     "firestore-seed": "^0.0.6",
+    "form-data": "^2.4.0",
     "moment": "^2.24.0",
     "stripe": "^7.2.0",
-    "twitter-lite": "^0.9.4",
+    "twit": "^2.2.11",
     "typescript": "^3.4.5",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "util": "^0.12.0"
   },
   "devDependencies": {
+    "@types/busboy": "^0.2.3",
     "@types/cors": "^2.8.5",
     "@types/es6-promise": "^3.3.0",
     "@types/express": "^4.17.0",
