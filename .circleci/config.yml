@@ -46,7 +46,7 @@ jobs:
       - run:
           name: 'Deploy to Functions(development) Functions'
           working_directory: firebase/functions
-          command: REACT_APP_ENV=production ../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
+          command: REACT_APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
           
       - run:
           name: 'Build(production)'
@@ -61,7 +61,7 @@ jobs:
       - run:
           name: 'Deploy to Functions(Production)'
           working_directory: firebase/functions
-          command: APP_ENV=production ../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
+          command: APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
 
 workflows:
   main:
