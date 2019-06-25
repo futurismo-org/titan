@@ -53,7 +53,10 @@ const ChallengeButton = (props: any) => {
     setOpen(false);
   };
 
-  const STRIPE_PUB_KEY = process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string;
+  const STRIPE_PUB_KEY =
+    process.env.APP_ENV === 'development'
+      ? (process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string)
+      : (process.env.REACT_APP_STRIPE_PROD_PUB_KEY as string);
 
   const MyButton = styled(Button)`
     && {
