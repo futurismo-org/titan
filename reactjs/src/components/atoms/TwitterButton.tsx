@@ -4,10 +4,12 @@ import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
-import html2canvas from 'html2canvas';
 import FormData from 'form-data';
+import domtoimage from 'dom-to-image';
 import axios from '../../lib/axios';
 import SimpleModal from '../molecules/SimpleModal';
+
+import ChallengeCard from '../molecules/challenges/ChallengePostRecord';
 
 const ButtonWrapper = styled.div`
   text-align: center;
@@ -30,37 +32,23 @@ ${days}日連続達成しました！ #titan
 
     // TODO 文字数Check
 
-    html2canvas(document.getElementById('challenge-card')!) //eslint-disable-line
-      .then((canvas: any) => {
-        const dataurl = canvas.toDataURL('image/png');
-        const bin = atob(dataurl.split(',')[1]); // eslint-disable-line no-undef
-        const buffer = new Uint8Array(bin.length);
-        for (let i = 0; i < bin.length; i++) {
-          buffer[i] = bin.charCodeAt(i);
-        }
-        return new Blob([buffer.buffer], { type: 'image/png' }); // eslint-disable-line no-undef
-      })
-      .then((blob: any) => {
-        const data = new FormData();
+    const node = document.getElementById('challenge-card')   // eslint-disable-line 
+    domtoimage.toBlob(node as Node).then((blob: any) => {
+      const data = new FormData();
+      data.append('content', text);
+      data.append('token', user.twitterAccessTokenKey);
+      data.append('secret', user.twitterAccessTokenSecret);
+      data.append('image', blob);
 
-        // const info = {
-        //   content: text,
-        //   accessTokenKey: user.twitterAccessTokenKey,
-        //   accessTokenSecret: user.twitterAccessTokenSecret
-        // };
-
-        data.append('image', blob);
-        data.append('content', text);
-        data.append('token', user.twitterAccessTokenKey);
-        data.append('secret', user.twitterAccessTokenSecret);
-
-        axios
-          .post('/twitter/post', data, {
-            headers: { 'content-type': 'multipart/form-data' }
-          })
-          .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
-          .catch(err => console.error(err));
-      });
+      axios
+        .post('/twitter/post', data, {
+          headers: {
+            'content-type': `multipart/form-data`
+          }
+        })
+        .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
+        .catch(err => console.error(err));
+    });
   };
 
   const onTextChange = (e: any) => {
@@ -82,28 +70,30 @@ ${days}日連続達成しました！ #titan
             }}
             buttonText="Twitterでシェア"
           >
-            <form noValidate onSubmit={submitHandler}>
-              <TextField
-                value={text}
-                variant="outlined"
-                margin="normal"
-                fullWidth
-                id="text"
-                name="text"
-                label="投稿内容"
-                rows={4}
-                multiline
-                onChange={onTextChange}
-              />
-              <Button
-                type="submit"
-                color="secondary"
-                fullWidth
-                variant="contained"
-              >
-                投稿
-              </Button>
-            </form>
+            <TextField
+              value={text}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="text"
+              name="text"
+              label="投稿内容"
+              rows={4}
+              multiline
+              onChange={onTextChange}
+            />
+            <div id="challenge-card">
+              <ChallengeCard days={days} />
+            </div>
+            <Button
+              type="submit"
+              color="secondary"
+              fullWidth
+              variant="contained"
+              onClick={submitHandler}
+            >
+              投稿
+            </Button>
           </SimpleModal>
         </ButtonWrapper>
       ) : null}

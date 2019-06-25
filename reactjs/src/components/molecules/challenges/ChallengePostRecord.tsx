@@ -12,7 +12,7 @@ const StyledDays = styled.span`
 
 const StyledDaysText = styled.span`
   @media screen and (min-width: 768px) {
-    font-size: 5vw;
+    font-size: 4vw;
   }
   font-size: 8vw;
 `;
@@ -25,13 +25,13 @@ const StyledCard = styled(Card)`
 ` as React.ComponentType<CardProps>;
 
 const RecordBoard = (props: any) => (
-  <StyledCard id="challenge-card">
+  <StyledCard>
     <CardContent>
       <div>
         <StyledDays>{props.days}</StyledDays>
         <StyledDaysText>days</StyledDaysText>
       </div>
-      <StyledDaysText>達成しました！</StyledDaysText>
+      <StyledDaysText>達成しました</StyledDaysText>
     </CardContent>
   </StyledCard>
 );

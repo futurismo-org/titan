@@ -12,8 +12,6 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 const { postTweet } = require('./handlers/twitter');
 
 // const user = require('./user');
-
-// Firebase Auth handlers
 // const authNewUser = functions.auth.user().onCreate(user.createUser);
 
 // stripe

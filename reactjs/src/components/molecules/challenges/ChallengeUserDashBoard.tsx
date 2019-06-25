@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { createRef } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
