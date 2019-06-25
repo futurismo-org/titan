@@ -37,10 +37,12 @@ const formatDate = (date: string): string => {
 };
 
 const ChallengeChart = (props: any) => {
-  const histories: [] = props.histories.map((history: any) => ({
-    date: formatDate(history.timestamp.toDate().toISOString()),
-    ...history
-  }));
+  const histories: [] = props.histories
+    .sort((x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds)
+    .map((history: any) => ({
+      date: formatDate(history.timestamp.toDate().toISOString()),
+      ...history
+    }));
 
   return (
     <LineChartWrapper data={histories}>
