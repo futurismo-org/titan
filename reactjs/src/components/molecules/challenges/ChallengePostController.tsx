@@ -10,6 +10,8 @@ import Progress from '../../atoms/CircularProgress';
 
 import { postMessage } from '../../../lib/discord.client.api';
 
+import rollbar from '../../../lib/rollbar';
+
 const StyledCenterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -93,7 +95,7 @@ const ChallengePosts = (props: any) => {
         () =>
           (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
       )
-      .catch(error => console.error(error));
+      .catch(error => rollbar.error(error));
   };
 
   const resetRecord = (props: any) => {
@@ -131,7 +133,7 @@ const ChallengePosts = (props: any) => {
         () =>
           (window.location.href = `/#/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
       )
-      .catch(error => console.error(error));
+      .catch(error => rollbar.error(error));
   };
 
   const confirm = (props: any) => {
@@ -161,15 +163,30 @@ const ChallengePosts = (props: any) => {
       moment(now).diff(moment(openedAt.toDate()), 'days') !== 0 &&
       moment(now).diff(moment(closedAt.toDate()), 'days') <= 0
     ) {
+      const newScore = data.score - 3;
+
+      const newHistory = {
+        id: data.histories.length + 1,
+        timestamp: new Date(),
+        score: newScore,
+        days: 0,
+        diff: moment().diff(moment(openedAt), 'days'),
+        type: 'RESET'
+      };
+
+      const resetData = {
+        startDate: null,
+        updatedAt: now,
+        days: 0,
+        score: newScore,
+        histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
+      };
+
       firebase
         .firestore()
         .doc(resourceId)
-        .update({
-          days: NaN,
-          startDate: null,
-          updatedAt: null
-        })
-        .then(() => window.alert('記録をリセットしました'));　// eslint-disable-line
+        .update(resetData)
+        .then(() => window.alert('1日以上記録がなかったため、記録をリセットしました'));　// eslint-disable-line
     }
   }, [closedAt, data, now, openedAt, resourceId]);
 
