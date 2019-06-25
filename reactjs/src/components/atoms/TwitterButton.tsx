@@ -9,8 +9,6 @@ import domtoimage from 'dom-to-image';
 import axios from '../../lib/axios';
 import SimpleModal from '../molecules/SimpleModal';
 
-import ChallengeCard from '../molecules/challenges/ChallengePostRecord';
-
 const ButtonWrapper = styled.div`
   text-align: center;
   margin: 30px;
@@ -82,9 +80,6 @@ ${days}日連続達成しました！ #Titan
               multiline
               onChange={onTextChange}
             />
-            <div id="challenge-card">
-              <ChallengeCard days={days} />
-            </div>
             <Button
               type="submit"
               color="secondary"
