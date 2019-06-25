@@ -85,6 +85,37 @@
 			name="google-site-verification"
 			content="cbUr87dIRstyunmA_-S_Lk-B5kY9U8amk_a_CWn3GK0"
 		/>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+		<!-- Add the slick-theme.css if you want default styling -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"
+		/>
+		<!-- Add the slick-theme.css if you want default styling -->
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"
+		/>
+		<!-- Add the slick-theme.css if you want default styling -->
+		<script type="text/javascript">
+			$(function() {
+				$('.slick-box').slick({
+					infinite: true,
+					dots: true,
+				  accessibility: true,
+ 					autoplay: true,
+					speed: 500,
+					slidesToShow: 1,
+					slidesToScroll: 1
+				});
+			});
+		</script>
 	</head>
 	<body class="is-boxed has-animations">
 		<!-- Google Tag Manager (noscript) -->
@@ -149,16 +180,30 @@
 									<h2 class="section-title mt-0 is-revealing">
 										Titan - 自己変革の火をつけるアプリ
 									</h2>
-									<img
-										class="features-illustration is-revealing"
-										src="dist/images/features-top.png"
-										alt="Features illustration"
-									/>
-									<h3 class="section-title mt-0 is-revealing">
-										オナ禁の継続を支援する機能を提供します
-									</h3>
+									<div
+										class="features-illustration is-revealing slick-box"
+									>
+										<figure>
+											<img
+												src="dist/images/features-top.png"
+											/>
+										</figure>
+										<figure>
+											<img
+												src="dist/images/features-dashboard.png"
+											/>
+										</figure>
+										<figure>
+											<img
+												src="dist/images/features-leaderboard.png"
+											/>
+										</figure>
+									</div>
 								</div>
 							</div>
+							<h3 class="section-title mt-0 is-revealing">
+								オナ禁の継続を支援する機能を提供します
+							</h3>
 							<div class="features-wrap">
 								<div class="feature text-center is-revealing">
 									<div class="feature-inner">
@@ -380,9 +425,7 @@
 													>
 												</li>
 												<li>
-													<span
-														>チャット参加</span
-													>
+													<span>チャット参加</span>
 												</li>
 												<li>
 													<span>知見まとめ機能</span>
@@ -435,7 +478,9 @@
 													>
 												</li>
 												<li>
-													<span>Twitter実績シェア機能</span>
+													<span
+														>Twitter実績シェア機能</span
+													>
 												</li>
 											</ul>
 										</div>
@@ -698,6 +743,11 @@
 		<script
 			type="text/javascript"
 			src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d0c3b01a88c0f95"
+		></script>
+
+		<script
+			type="text/javascript"
+			src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"
 		></script>
 	</body>
 </html>
