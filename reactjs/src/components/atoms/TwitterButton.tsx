@@ -23,7 +23,7 @@ const TwitterButton = (props: any) => {
 
   const buildTweetContent = () =>
     `${title}参加中
-${days}日連続達成しました！ #titan
+${days}日連続達成しました！ #Titan
 `;
   const [text, setText] = React.useState(buildTweetContent);
 
@@ -33,12 +33,12 @@ ${days}日連続達成しました！ #titan
     // TODO 文字数Check
 
     const node = document.getElementById('challenge-card')   // eslint-disable-line 
-    domtoimage.toBlob(node as Node).then((blob: any) => {
+    domtoimage.toPng(node as Node).then((dataURL: any) => {
       const data = new FormData();
       data.append('content', text);
       data.append('token', user.twitterAccessTokenKey);
       data.append('secret', user.twitterAccessTokenSecret);
-      data.append('image', blob);
+      data.append('image', dataURL);
 
       axios
         .post('/twitter/post', data, {

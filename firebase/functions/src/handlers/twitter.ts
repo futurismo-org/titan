@@ -1,7 +1,6 @@
 import Busboy from 'busboy';
-import { inspect } from 'util';
 
-const Twitter = require('twitter-lite');
+const Twit = require('twit');
 
 const functions = require('firebase-functions');
 
@@ -18,18 +17,40 @@ const CONSUMER_SECRET =
 exports.postTweet = (req: any, res: any) => {
   const busboy = new Busboy({ headers: req.headers });
 
+  let formData = new Map();
+
   busboy.on('error', function(error: any) {
     console.log('Busboy error catching......>>>>>>>>>>>>>>', error);
   });
 
   busboy.on('field', function(fieldname, val) {
-    console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+    formData.set(fieldname, val);
   });
 
   busboy.on('finish', function() {
-    console.log('Done parsing form!');
-    res.writeHead(303, { Connection: 'close', Location: '/' });
-    res.end();
+    const client = new Twit({
+      consumer_key: CONSUMER_KEY,  // eslint-disable-line
+      consumer_secret: CONSUMER_SECRET, // eslint-disable-line
+      access_token: formData.get('token'), // eslint-disable-line
+      access_token_secret: formData.get('secret') // eslint-disable-line
+    });
+
+    client
+      .post('media/upload', { media_data: formData.get('image').split(',')[1]})  // eslint-disable-line
+      .then((media: any) => {
+        const status = {
+          status: formData.get('content'),
+          media_ids: media.data.media_id_string // eslint-disable-line
+        };
+        client.post('statuses/update', status);
+      })
+      .then((results: any) => {
+        res.status(200).json(results);
+      })
+      .catch((error: any) => {
+        console.log(error);
+        res.json(error);
+      });
   });
 
   if (req.rawBody) {
@@ -37,27 +58,4 @@ exports.postTweet = (req: any, res: any) => {
   } else {
     req.pipe(busboy);
   }
-  //   consumer_key: CONSUMER_KEY,  // eslint-disable-line
-  //   consumer_secret: CONSUMER_SECRET, // eslint-disable-line
-  //   access_token_key: fields.token, // eslint-disable-line
-  //   access_token_secret: fields.secret // eslint-disable-line
-  // });
-  // client
-  //   .post('media/upload', { media: fields.image })
-  //   .then((media: any) => {
-  //     const status = {
-  //       status: fields.content,
-  //       media_ids: media.media_id_string // eslint-disable-line
-  //     };
-  //     client.post('statuses/update', status).then((response: any) => {
-  //       console.log(response);
-  //     });
-  //   })
-  //   .then((results: any) => {
-  //     res.status(200).json(results);
-  //   })
-  //   .catch((error: any) => {
-  //     console.log(error);
-  //     res.json(error);
-  //   });
 };

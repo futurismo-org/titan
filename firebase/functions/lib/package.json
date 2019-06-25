@@ -40,9 +40,10 @@
     "firebase-functions": "^2.3.0",
     "firebase-tools": "^7.0.1",
     "firestore-seed": "^0.0.6",
+    "form-data": "^2.4.0",
     "moment": "^2.24.0",
     "stripe": "^7.2.0",
-    "twitter-lite": "^0.9.4",
+    "twit": "^2.2.11",
     "typescript": "^3.4.5",
     "ulid": "^2.3.0",
     "util": "^0.12.0"
