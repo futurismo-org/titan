@@ -3,9 +3,11 @@ import faker from 'faker';
 import moment from 'moment';
 
 import admin from 'firebase-admin';
-import { configDev } from '../utils/config';
+import { configDev, configDemo } from '../utils/config';
 
-admin.initializeApp(configDev);
+const config = process.env.APP_ENV === 'demonstration' ? configDemo : configDev;
+
+admin.initializeApp(config);
 
 const client = require('firebase-tools');
 const seed = require('firestore-seed');
@@ -21,7 +23,10 @@ const muscleChallngeIds = [muscleChallngeId, ulid()];
 const meditationChallngeIds = [ulid()];
 const getUpChallngeIds = [ulid()];
 
-const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
+const titanUserId =
+  process.env.APP_ENV === 'demonstration'
+    ? 'VtOmIUyrlqR6lTK0LfsTxaEgKiy1' // demo
+    : 'z2aTFBqRrzMi70tC9nnwRsj0zZC3'; // dev
 
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル

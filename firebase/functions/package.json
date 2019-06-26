@@ -17,6 +17,8 @@
     "watch": "TSC_NONPOLLING_WATCHER=1 npm run tsc -w",
     "db:seeds": "./bin/db_seeds.sh",
     "db:clear": "./bin/db_clear.sh",
+    "db:seeds:demo": "./bin/db_seeds_demo.sh",
+    "db:clear:demo": "./bin/db_clear_demo.sh",
     "db:generate": "APP_ENV=development npm run db:clear && APP_ENV=development npm run db:seeds",
     "sss": "./bin/rg_fzf_remote.sh",
     "ss": "./bin/rg_fzf.sh"
