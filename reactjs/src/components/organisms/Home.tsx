@@ -9,10 +9,13 @@ import Categories from './Categories';
 import Category from './Category';
 import Ranking from './Ranking';
 
+import DemoBoard from '../molecules/DemoBoard';
+
 import { withTracker } from '../utils/withtracker';
 
 const Home = () => (
   <Layout>
+    <DemoBoard />
     <Switch>
       <Route path="/challenges/:id" component={withTracker(Challenge)} />
       <Route path="/challenges" component={withTracker(Challenges)} />
