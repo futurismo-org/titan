@@ -4,10 +4,12 @@ import Admin from './admin/Admin';
 import Home from './Home';
 import AdminRoute from '../utils/AdminRoute';
 import { withTracker } from '../utils/withtracker';
+import DemoLogin from './admin/DemoLogin';
 
 const App = () => (
   <React.Fragment>
     <Switch>
+      <Route exact path="/admin/demo/login" component={DemoLogin} />
       <AdminRoute path="/admin" component={Admin} />
       <Route path="/" component={withTracker(Home)} />
     </Switch>
