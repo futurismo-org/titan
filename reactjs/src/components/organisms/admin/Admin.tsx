@@ -17,7 +17,7 @@ const Admin = () => (
     <AdminContainer>
       <Switch>
         <AdminRoute
-          path="/admin/challenges/new/:id"
+          path="/admin/challenges/:id/edit"
           component={ChallengeForm}
         />
         <AdminRoute path="/admin/challenges/new" component={ChallengeForm} />
