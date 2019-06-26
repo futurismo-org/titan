@@ -2,6 +2,7 @@
   "projects": {
     "default": "titan-dev-1234",
     "production": "titan-241022",
-    "development": "titan-dev-1234"
+    "development": "titan-dev-1234",
+    "demonstration": "titan-demonstration"
   }
 }
