@@ -11,6 +11,9 @@ import TopicList from '../TopicList';
 import ChallengeCategory from './CategoryChallenge';
 import DiscordHistories from '../../atoms/DiscordHistories';
 
+const remark2react = require('remark-react');
+const remark = require('remark');
+
 const OverviewContent = styled.div`
   white-space: pre-line;
   margin: 10px;
@@ -31,7 +34,13 @@ const CategoryDashBoard = (props: any) => {
     <React.Fragment>
       <Paper>
         <Title text="概要" />
-        <OverviewContent>{category.overview}</OverviewContent>
+        <OverviewContent>
+          {
+            remark()
+              .use(remark2react)
+              .processSync(category.overview).contents
+          }
+        </OverviewContent>
       </Paper>
       <Paper>
         <Title text="チャレンジ一覧" />
