@@ -37,7 +37,7 @@ const Challenges = () => {
                 <br />
                 {doc.data().title}
               </ListItemText>
-              <Link to={`/admin/challenges/new/${doc.id}`}>
+              <Link to={`/admin/challenges/${doc.id}/edit`}>
                 <Button type="button" color="primary" variant="contained">
                   編集
                 </Button>
