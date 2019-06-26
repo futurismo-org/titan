@@ -9,7 +9,7 @@ const Topics = (props: any) => {
     <React.Fragment>
       <ListItem>
         <ListItemText>
-          <Typography variant="h5" component="h5">
+          <Typography variant="h4" component="h5">
             トピック
           </Typography>
         </ListItemText>
