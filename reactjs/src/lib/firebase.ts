@@ -7,7 +7,7 @@ import 'firebase/firestore';
 if (firebase.apps.length === 0) {
   if (process.env.REACT_APP_ENV === 'development') {
     firebase.initializeApp(configDev);
-  } else if (process.env.REACT_APP_ENV === 'demonstraion') {
+  } else if (process.env.REACT_APP_ENV === 'demonstration') {
     firebase.initializeApp(configDemo);
   } else {
     firebase.initializeApp(configProd);
