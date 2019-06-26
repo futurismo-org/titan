@@ -56,9 +56,7 @@ ${days}日連続達成しました！ #Titan
 
   return (
     <React.Fragment>
-      {user.id === userId &&
-      user.twitterAccessTokenKey &&
-      user.twitterAccessTokenSecret ? (
+      {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
         <ButtonWrapper>
           <SimpleModal
             buttonOptions={{
