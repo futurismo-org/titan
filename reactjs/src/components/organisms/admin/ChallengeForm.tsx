@@ -8,6 +8,7 @@ import { ulid } from 'ulid';
 import moment from 'moment';
 
 import firebase from '../../../lib/firebase';
+import MarkdownView from '../../atoms/MarkdownView';
 
 const remark2react = require('remark-react');
 const remark = require('remark');
@@ -249,17 +250,8 @@ const ChallengeForm = (props: any) => {
         {'プライベート設定'}
         <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
         <h2>概要プレビュー</h2>
-        {
-          remark()
-            .use(remark2react)
-            .processSync(overview).contents
-        }
-        <h2>ルールプレビュー</h2>
-        {
-          remark()
-            .use(remark2react)
-            .processSync(rules).contents
-        }
+        <MarkdownView text={overview} />
+        <MarkdownView text={rules} />
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import ChallengeOverview from './ChallengeOverview';
 import ChallengeTopics from './ChallengeTopics';
-import ChallengeRules from './ChallengeRules';
 import ChallengeTimeline from './ChallengeTimeline';
 import Topic from '../Topic';
 
@@ -11,6 +9,7 @@ import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import TopicForm from '../TopicForm';
 import ChallengeUserDashBoard from './ChallengeUserDashBoard';
+import MarkdownView from '../../atoms/MarkdownView';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -24,7 +23,7 @@ const ChallengeBody = (props: any) => {
       <Switch>
         <Route
           path="/challenges/:id/overview"
-          render={() => <ChallengeOverview text={challenge.overview} />}
+          render={() => <MarkdownView text={challenge.overview} />}
         />
         <Route
           path="/challenges/:id/timeline"
@@ -45,7 +44,7 @@ const ChallengeBody = (props: any) => {
         <Route path="/challenges/:id/topics" component={ChallengeTopics} />
         <Route
           path="/challenges/:id/rules"
-          render={() => <ChallengeRules text={challenge.rules} />}
+          render={() => <MarkdownView text={challenge.rules} />}
         />
         <Route
           path="/challenges/:id/leaderboard"

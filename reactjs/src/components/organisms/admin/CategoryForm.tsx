@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { ulid } from 'ulid';
 import moment from 'moment';
 import firebase from '../../../lib/firebase';
+import MarkdownView from '../../atoms/MarkdownView';
 
 const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
@@ -162,6 +163,8 @@ const CategoryForm = (props: any) => {
         <Button type="submit" fullWidth variant="contained" color="primary">
           投稿
         </Button>
+        <h2>概要プレビュー</h2>
+        <MarkdownView text={overview} />
       </form>
     </React.Fragment>
   );

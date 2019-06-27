@@ -10,6 +10,7 @@ import TopicList from '../TopicList';
 
 import ChallengeCategory from './CategoryChallenge';
 import DiscordHistories from '../../atoms/DiscordHistories';
+import MarkdownView from '../../atoms/MarkdownView';
 
 const remark2react = require('remark-react');
 const remark = require('remark');
@@ -34,13 +35,7 @@ const CategoryDashBoard = (props: any) => {
     <React.Fragment>
       <Paper>
         <Title text="概要" />
-        <OverviewContent>
-          {
-            remark()
-              .use(remark2react)
-              .processSync(category.overview).contents
-          }
-        </OverviewContent>
+        <MarkdownView text={category.overview} />
       </Paper>
       <Paper>
         <Title text="チャレンジ一覧" />

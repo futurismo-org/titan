@@ -1,16 +1,21 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
 const remark2react = require('remark-react');
 const remark = require('remark');
 
-const ChallengeRules = (props: any) => (
-  <React.Fragment>
+const Container = styled.div`
+  /* line-height: 10px; */
+`;
+
+const MarkdownView = (props: any) => (
+  <Container>
     {
       remark()
         .use(remark2react)
         .processSync(props.text).contents
     }
-  </React.Fragment>
+  </Container>
 );
 
-export default ChallengeRules;
+export default MarkdownView;
