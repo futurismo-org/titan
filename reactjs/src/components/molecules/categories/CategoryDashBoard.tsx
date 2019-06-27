@@ -12,14 +12,6 @@ import ChallengeCategory from './CategoryChallenge';
 import DiscordHistories from '../../atoms/DiscordHistories';
 import MarkdownView from '../../atoms/MarkdownView';
 
-const remark2react = require('remark-react');
-const remark = require('remark');
-
-const OverviewContent = styled.div`
-  white-space: pre-line;
-  margin: 10px;
-`;
-
 const MoreLink = styled(Link)`
   && {
     text-decoration: none;

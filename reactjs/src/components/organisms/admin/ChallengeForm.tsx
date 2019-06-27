@@ -10,9 +10,6 @@ import moment from 'moment';
 import firebase from '../../../lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
-const remark2react = require('remark-react');
-const remark = require('remark');
-
 const ChallengeForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
