@@ -1,23 +1,24 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import ReactGA from 'react-ga';
 import App from './components/organisms/App';
 import Head from './components/templates/Head';
-import { store } from './store';
 
 import * as sw from './service-worker';
 
 require('dotenv').config();
 
+const GA_TRACKING_ID =
+  process.env.REACT_APP_ENV === 'demonstration'
+    ? 'UA-137986489-5'
+    : 'UA-137986489-3';
+
+ReactGA.initialize(GA_TRACKING_ID);
+
 ReactDOM.render(
   <React.Fragment>
     <Head />
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
+    <App />
   </React.Fragment>,
   document.getElementById('root') // eslint-disable-line no-undef
 );
