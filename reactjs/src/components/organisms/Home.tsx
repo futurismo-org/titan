@@ -11,18 +11,16 @@ import Ranking from './Ranking';
 
 import DemoBoard from '../molecules/DemoBoard';
 
-import { withTracker } from '../utils/withtracker';
-
 const Home = () => (
   <Layout>
     <DemoBoard />
     <Switch>
-      <Route path="/challenges/:id" component={withTracker(Challenge)} />
-      <Route path="/challenges" component={withTracker(Challenges)} />
-      <Route path="/categories/:id" component={withTracker(Category)} />
-      <Route path="/categories" component={withTracker(Categories)} />
-      <Route path="/ranking" component={withTracker(Ranking)} />
-      <Route path="/" component={withTracker(DashBoard)} />
+      <Route path="/challenges/:id" component={Challenge} />
+      <Route path="/challenges" component={Challenges} />
+      <Route path="/categories/:id" component={Category} />
+      <Route path="/categories" component={Categories} />
+      <Route path="/ranking" component={Ranking} />
+      <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
 );
