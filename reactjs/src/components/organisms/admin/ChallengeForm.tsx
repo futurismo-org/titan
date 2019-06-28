@@ -110,7 +110,7 @@ const ChallengeForm = (props: any) => {
       .collection('challenges')
       .doc(id)
       .set(newData);
-    window.location.href = '/#/admin'; // eslint-disable-line
+    window.location.href = '/admin'; // eslint-disable-line
   };
 
   useEffect(() => {
