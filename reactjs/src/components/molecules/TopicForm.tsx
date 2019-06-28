@@ -115,6 +115,10 @@ const TopicForm = (props: any) => {
           投稿
         </Button>
       </form>
+      <script
+        type="text/javascript"
+        src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf"
+      ></script>
     </React.Fragment>
   );
 };
