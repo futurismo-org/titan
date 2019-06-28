@@ -3,7 +3,11 @@ import ReactGA, { FieldsObject } from 'react-ga';
 import { RouteComponentProps } from 'react-router-dom';
 
 // Initialize the react-ga plugin using your issued GA tracker code
-const GA_TRACKING_ID = 'UA-137986489-3';
+const GA_TRACKING_ID =
+  process.env.REACT_APP_ENV === 'demonstration'
+    ? 'UA-137986489-5'
+    : 'UA-137986489-3';
+
 ReactGA.initialize(GA_TRACKING_ID);
 
 // React.FC component used as a wrapper for route components - e.g. withTracker(RouteComponent)
