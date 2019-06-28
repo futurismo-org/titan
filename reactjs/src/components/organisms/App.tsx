@@ -5,9 +5,11 @@ import Home from './Home';
 import AdminRoute from '../utils/AdminRoute';
 import { withTracker } from '../utils/withtracker';
 import DemoLogin from './admin/DemoLogin';
+import GlobalStyle from '../../lib/global-styles';
 
 const App = () => (
   <React.Fragment>
+    <GlobalStyle />
     <Switch>
       <Route exact path="/admin/demo/login" component={DemoLogin} />
       <AdminRoute path="/admin" component={Admin} />
