@@ -14,7 +14,6 @@ const Head = () => {
   const url = urlMap.get(process.env.REACT_APP_ENV);
 
   return (
-    <Helmet>
       <Helmet
         title={title}
         meta={[
@@ -37,7 +36,7 @@ const Head = () => {
           },
           { name: 'fragment', content: '!' }
         ]}
-      />{' '}
+      >
       <link rel="shortcut icon" href={`${PUBLIC_URL}/favicon.ico`} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#000000" />

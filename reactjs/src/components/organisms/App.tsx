@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import Admin from './admin/Admin';
 import Home from './Home';
 import AdminRoute from '../utils/AdminRoute';
@@ -10,7 +10,7 @@ import DemoLogin from './admin/DemoLogin';
 import GlobalStyle from '../../lib/global-styles';
 import { store } from '../../store';
 
-const history = createHistory();
+const history = createBrowserHistory();
 history.listen(location => {
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
