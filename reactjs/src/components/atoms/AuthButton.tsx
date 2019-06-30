@@ -17,8 +17,8 @@ const AuthButton = (props: any) => {
   const [title, setTitle] = useState('');
 
   const openModal = (modalTitle: string) => {
-    if (process.env.REACT_APP_ENV === 'demonstration') {
-      window.alert('デモサイトなのでユーザ認証はできません。'); // eslint-disable-line 
+    if (process.env.REACT_APP_ENV !== 'development') {
+      window.alert('公開前なのでユーザ認証はできません。'); // eslint-disable-line 
       return;
     }
 

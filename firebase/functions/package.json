@@ -8,7 +8,6 @@
     "shell": "APP_ENV=development firebase functions:shell",
     "deploy:development": "APP_ENV=development firebase deploy --only functions -P development",
     "deploy:production": "APP_ENV=production firebase deploy --only functions -P production",
-    "deploy:demonstration": "APP_ENV=demonstration firebase deploy --only functions -P demonstration",
     "logs": "firebase functions:log",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --fix --ext .js,.ts",

@@ -10,9 +10,10 @@ const Container = styled.div`
 `;
 
 const DemoPaper = () =>
-  process.env.REACT_APP_ENV === 'demonstration' ? (
+  process.env.REACT_APP_ENV !== 'development' ? (
     <Container>
-      <Typography variant="h3">デモサイトです</Typography>
+      <Typography variant="h3">アプリ公開前</Typography>
+      <Typography variant="h4">ログインはできません</Typography>
       <br />
       <Typography variant="h4">公開前事前予約受付中</Typography>
       <Typography variant="h6">30人以上の登録で公開します</Typography>

@@ -10,7 +10,6 @@ const Head = () => {
 
   const urlMap = new Map();
   urlMap.set('development', 'https://titan-dev-1234.firebaseapp.com');
-  urlMap.set('demonstration', 'https://titan-fire-demo.netlify.com');
   urlMap.set('production', 'https://titan-fire.com');
   const url = urlMap.get(process.env.REACT_APP_ENV);
 
