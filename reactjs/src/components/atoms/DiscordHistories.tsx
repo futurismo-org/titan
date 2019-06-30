@@ -26,6 +26,8 @@ const DiscordHistories = (props: Props) => {
     let mounted = true;
 
     const getHistories = async (props: Props) => {
+      if (!props.channelId) return;
+
       const data = await getMessages(props.channelId, props.limit);
 
       if (mounted) {
