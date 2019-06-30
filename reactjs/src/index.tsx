@@ -8,10 +8,7 @@ import * as sw from './service-worker';
 
 require('dotenv').config();
 
-const GA_TRACKING_ID =
-  process.env.REACT_APP_ENV === 'demonstration'
-    ? 'UA-137986489-5'
-    : 'UA-137986489-3';
+const GA_TRACKING_ID = 'UA-137986489-3';
 
 ReactGA.initialize(GA_TRACKING_ID);
 
