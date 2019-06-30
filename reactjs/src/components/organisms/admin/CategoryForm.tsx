@@ -68,8 +68,8 @@ const CategoryForm = (props: any) => {
       .firestore()
       .collection('categories')
       .doc(id)
-      .set(newData);
-    window.location.href = '/admin'; // eslint-disable-line
+      .set(newData)
+      .then(() => (window.location.href = '/admin')); //eslint-disable-line no-undef
   };
 
   useEffect(() => {
