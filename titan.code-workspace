@@ -12,10 +12,6 @@
       "name": "root",
       "path": "."
     },
-    {
-      "name": "landing-page",
-      "path": "landing-page"
-    }
   ],
   "settings": {
     // General Config
