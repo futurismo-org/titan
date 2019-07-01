@@ -20,10 +20,7 @@ const TwitterButton = (props: any) => {
   const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
   const buildTweetContent = () =>
-    `${title}参加中
-${days}日達成しました！ #Titan ${hashtag}
-${shareURL}
-`;
+    `${title}参加中 #Titan ${hashtag} ${shareURL}`;
   const [text, setText] = React.useState(buildTweetContent);
 
   const submitHandler = (e: any) => {
