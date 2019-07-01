@@ -19,11 +19,7 @@ const TwitterButton = (props: any) => {
 
   const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
-  const buildTweetContent = () =>
-    `${title}参加中
-${days}日達成しました！ #Titan ${hashtag}
-${shareURL}
-`;
+  const buildTweetContent = () => `${title}参加中 #Titan ${hashtag}`;
   const [text, setText] = React.useState(buildTweetContent);
 
   const submitHandler = (e: any) => {
@@ -35,6 +31,7 @@ ${shareURL}
     domtoimage.toPng(node as Node).then((dataURL: any) => {
       const data = new FormData();
       data.append('content', text);
+      data.append('url', shareURL);
       data.append('token', user.accessTokenKey);
       data.append('secret', user.accessTokenSecret);
       data.append('image', dataURL);

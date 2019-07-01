@@ -1,8 +1,15 @@
 import Busboy from 'busboy';
 
+import { BitlyClient } from 'bitly';
+
 const Twit = require('twit');
 
 const functions = require('firebase-functions');
+
+const BITLY_ACCESS_TOKEN =
+  process.env.APP_ENV === 'development'
+    ? process.env.BITLY_ACCESS_TOKEN
+    : functions.config().bitly.access_token;
 
 const CONSUMER_KEY =
   process.env.APP_ENV === 'development'
@@ -27,6 +34,11 @@ exports.postTweet = (req: any, res: any) => {
     formData.set(fieldname, val);
   });
 
+  const bitly = new BitlyClient(BITLY_ACCESS_TOKEN, {});
+  const getShortURL = async (url: string) => {
+    return await bitly.shorten(url);
+  };
+
   busboy.on('finish', function() {
     const client = new Twit({
       consumer_key: CONSUMER_KEY,  // eslint-disable-line
@@ -35,11 +47,14 @@ exports.postTweet = (req: any, res: any) => {
       access_token_secret: formData.get('secret') // eslint-disable-line
     });
 
+    const url = formData.get('url');
+    const shortURL = getShortURL(url);
+
     client
       .post('media/upload', { media_data: formData.get('image').split(',')[1]})  // eslint-disable-line
       .then((media: any) => {
         const status = {
-          status: formData.get('content'),
+          status: formData.get('content') + shortURL,
           media_ids: media.data.media_id_string // eslint-disable-line
         };
         client.post('statuses/update', status);
