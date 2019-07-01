@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import theme from '../../lib/theme';
 import ChallengeCard from '../atoms/challenges/ChallengeCard';
 import CategoryCard from '../atoms/CategoryCard';
@@ -73,7 +74,13 @@ const DashBoardPaper = (props: any) => {
         <Title text={title} />
         {value && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs.map((doc: any) => DashBoardCard({ doc, type }))}
+            {value!.docs
+              .filter((doc: any) =>
+                moment(new Date().setHours(0, 0, 0, 0)).isBefore(
+                  doc.data().closedAt && doc.data().closedAt.toDate()
+                )
+              )
+              .map((doc: any) => DashBoardCard({ doc, type }))}
           </StyledCardGrid>
         )}
         {DashBoardCardLink({ type })}
