@@ -58,6 +58,7 @@ const ChallengeBody = (props: any) => {
               webhookURL={challenge.webhookURL}
               openedAt={challenge.openedAt}
               closedAt={challenge.closedAt}
+              hashtag={challenge.hashtag}
               {...props}
             />
           )}
