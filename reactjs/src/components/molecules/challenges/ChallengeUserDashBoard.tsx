@@ -74,9 +74,13 @@ const ChallengeUserDashBoard = (props: any) => {
             <Title text={`${data.displayName} さんの記録`} />
             <Typography variant="h6">開始日: {formatDate(data)}</Typography>
             <div id="challenge-card">
-              <Record days={formatDays(data.days)} />
+              <Record days={formatDays(data.accDays)} />
             </div>
-            <ChallengeStatistics data={data} />
+            <ChallengeStatistics
+              data={data}
+              openedAt={openedAt}
+              closedAt={closedAt}
+            />
             <ChallengeChart histories={data.histories} />
             <ChallengeGrass
               data={data}

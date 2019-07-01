@@ -21,7 +21,7 @@ const TwitterButton = (props: any) => {
 
   const buildTweetContent = () =>
     `${title}参加中
-${days}日連続達成しました！ #Titan
+${days}日達成しました！ #Titan
 `;
   const [text, setText] = React.useState(buildTweetContent);
 
