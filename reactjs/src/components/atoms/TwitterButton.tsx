@@ -15,7 +15,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
-  const { user, title, days, userId, challengeId, hashtag } = props;
+  const { user, title, userId, challengeId, hashtag } = props;
 
   const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
