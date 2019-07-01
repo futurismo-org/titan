@@ -35,8 +35,8 @@ ${shareURL}
     domtoimage.toPng(node as Node).then((dataURL: any) => {
       const data = new FormData();
       data.append('content', text);
-      data.append('token', user.twitterAccessTokenKey);
-      data.append('secret', user.twitterAccessTokenSecret);
+      data.append('token', user.accessTokenKey);
+      data.append('secret', user.accessTokenSecret);
       data.append('image', dataURL);
 
       axios
