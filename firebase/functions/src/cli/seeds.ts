@@ -74,6 +74,7 @@ const createChallengeSeed = (args: any) => {
     webhookURL: sampleChallengeWebhookURL,
     channelId: sampleChallengeChannelId,
     topics: topicsSeeds,
+    hashtag: '#サンプルチャレンジ',
     ...args
   });
 };

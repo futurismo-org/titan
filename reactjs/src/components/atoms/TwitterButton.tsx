@@ -21,7 +21,8 @@ const TwitterButton = (props: any) => {
 
   const buildTweetContent = () =>
     `${title}参加中
-${days}日達成しました！ #Titan　${hashtag}
+${days}日達成しました！ #Titan ${hashtag}
+${shareURL}
 `;
   const [text, setText] = React.useState(buildTweetContent);
 
