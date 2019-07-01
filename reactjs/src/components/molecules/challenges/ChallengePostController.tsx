@@ -42,7 +42,7 @@ const ChallengePosts = (props: any) => {
   };
 
   const writeRecord = (props: any) => {
-    const { days, score, maxDays, histories } = props;
+    const { days, score, accDays, maxDays, histories } = props;
 
     if (
       histories.length > 0 &&
@@ -57,6 +57,7 @@ const ChallengePosts = (props: any) => {
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
     const newScore = score + 1;
+    const newAccDays = accDays + 1;
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
@@ -71,6 +72,7 @@ const ChallengePosts = (props: any) => {
     const updateData: any = {
       days: tomorrow,
       score: newScore,
+      accDays: newAccDays,
       maxDays: newMaxDays,
       startDate: now,
       updatedAt: now,
