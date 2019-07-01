@@ -25,7 +25,14 @@ const StyledCenterContainer = styled.div`
 `;
 
 const ChallengeUserDashBoard = (props: any) => {
-  const { userId, challengeId, openedAt, closedAt, challengeTitle } = props;
+  const {
+    userId,
+    challengeId,
+    openedAt,
+    closedAt,
+    challengeTitle,
+    hashtag
+  } = props;
 
   const resourceId = `challenges/${challengeId}/participants/${userId}`;
 
@@ -94,6 +101,7 @@ const ChallengeUserDashBoard = (props: any) => {
             days={data.days}
             userId={userId}
             challengeId={challengeId}
+            hashtag={hashtag}
           />
         </DashBoardWrapper>
       )}

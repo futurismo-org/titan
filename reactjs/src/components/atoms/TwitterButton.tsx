@@ -15,13 +15,14 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
-  const { user, title, days, userId, challengeId } = props;
+  const { user, title, days, userId, challengeId, hashtag } = props;
 
   const shareURL = `https://titan-fire.com/challenges/${challengeId}/users/${userId}`;  // eslint-disable-line
 
   const buildTweetContent = () =>
     `${title}参加中
-${days}日達成しました！ #Titan
+${days}日達成しました！ #Titan ${hashtag}
+${shareURL}
 `;
   const [text, setText] = React.useState(buildTweetContent);
 

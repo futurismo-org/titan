@@ -24,6 +24,7 @@ const ChallengeForm = (props: any) => {
   const [privateFlag, setPrivateFlag] = useState(false);
   const [price, setPrice] = useState(0);
   const [length, setLength] = useState(0);
+  const [hashtag, setHashtag] = useState('');
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -90,6 +91,10 @@ const ChallengeForm = (props: any) => {
         .format('YYYY-MM-DD')
     );
   };
+  const onHashtagChange = (e: any) => {
+    e.preventDefault();
+    setHashtag(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -114,7 +119,8 @@ const ChallengeForm = (props: any) => {
       closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
       participantsCount,
       private: privateFlag,
-      price: Number(price)
+      price: Number(price),
+      hashtag
     };
     firebase
       .firestore()
@@ -153,6 +159,7 @@ const ChallengeForm = (props: any) => {
           const flag = challenge!.private ? challenge!.private : false;
           setPrivateFlag(flag);
           setPrice(challenge!.price || 0);
+          setHashtag(challenge!.hashtag || '');
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -229,6 +236,14 @@ const ChallengeForm = (props: any) => {
           id="price"
           label="価格"
           onChange={onPriceChange}
+        />
+        <TextField
+          value={hashtag}
+          variant="outlined"
+          margin="normal"
+          id="hashtag"
+          label="ハッシュタグ"
+          onChange={onHashtagChange}
         />
         <TextField
           value={webhookURL}
