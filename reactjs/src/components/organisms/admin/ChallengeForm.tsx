@@ -23,6 +23,7 @@ const ChallengeForm = (props: any) => {
 
   const [privateFlag, setPrivateFlag] = useState(false);
   const [price, setPrice] = useState(0);
+  const [length, setLength] = useState(0);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -78,6 +79,16 @@ const ChallengeForm = (props: any) => {
   };
   const onPriceChange = (e: any) => {
     setPrice(e.target.value);
+  };
+  const onLengthChange = (e: any) => {
+    e.preventDefault();
+    setLength(e.target.value);
+    const l = e.target.value;
+    setClosedAt(
+      moment(new Date(openedAt))
+        .add('days', l)
+        .format('YYYY-MM-DD')
+    );
   };
 
   const isCreate = props.match.params.id === undefined;
@@ -163,6 +174,14 @@ const ChallengeForm = (props: any) => {
           type="date"
           value={closedAt}
           onChange={onClosedAtChange}
+        />
+        <TextField
+          value={length}
+          variant="outlined"
+          margin="normal"
+          id="length"
+          label="開催日数"
+          onChange={onLengthChange}
         />
         <TextField
           value={title}
