@@ -57,7 +57,7 @@ const ChallengePosts = (props: any) => {
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
     const newScore = score + 1;
-    const newAccDays = !isDaysValid(accDays ? 1 : days + 1;
+    const newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
