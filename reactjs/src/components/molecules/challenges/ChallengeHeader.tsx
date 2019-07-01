@@ -70,7 +70,10 @@ const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
   const isClosed =
-    moment(new Date()).diff(moment(challenge.closedAt.toDate()), 'days') > 0;
+    moment(new Date().setHours(29, 59, 59, 59)).diff(
+      moment(challenge.closedAt.toDate()),
+      'days'
+    ) > 0;
 
   return (
     <MainFeaturedPost>
