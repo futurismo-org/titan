@@ -85,7 +85,7 @@ Titanの名前の由来は、マーラー作曲の交響曲第1番の第4楽章�
 
 みなさん、Titanは、Webサービスでこの世界感を目指します。
 
-[![Titan(巨人)](http://img.youtube.com/vi/yb6J5BrPRdo/0.jpg)](https://www.youtube.com/watch?v=yb6J5BrPRdo)
+[![Titan(巨人)](http://img.youtube.com/vi/L_fdk2Z7M2I/0.jpg)](https://youtu.be/L_fdk2Z7M2I)
 
 ## Contributors
 
