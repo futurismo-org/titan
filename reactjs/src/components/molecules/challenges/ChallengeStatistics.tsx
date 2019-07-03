@@ -10,13 +10,12 @@ const ChallengeStatistics = (props: any) => {
   const today = moment();
 
   const totalDays = today.isAfter(closedAt.toDate())
-    ? moment(closedAt.toDate()).diff(openedAt.toDate(), 'days')
+    ? moment(closedAt.toDate()).diff(openedAt.toDate(), 'days') + 1
     : moment(data.createdAt).isAfter(openedAt.toDate())
-    ? today.diff(data.createdAt, 'days')
-    : today.diff(openedAt.toDate(), 'days');
+    ? today.diff(data.createdAt, 'days') + 1
+    : today.diff(openedAt.toDate(), 'days') + 1;
 
-  const achieveRate =
-    totalDays === 0 ? 0 : Math.round(((data.accDays || 0) / totalDays) * 100);
+  const achieveRate = Math.round(((data.accDays || 0) / totalDays) * 100);
 
   return (
     <Grid container spacing={3}>
