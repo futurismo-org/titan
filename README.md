@@ -8,6 +8,8 @@ Titan
 [![CircleCI](https://circleci.com/gh/futurismo-org/titan/tree/master.svg?style=svg)](https://circleci.com/gh/futurismo-org/titan/tree/master)
 
 https://titan-fire.netlify.com
+https://titan-fire.com
+
 
 ## 概要
 
@@ -18,6 +20,8 @@ https://titan-fire.netlify.com
 エロ禁で終わりではない。この市場で成功したら、自分を変えるというキーワードで、隣接市場を次々と攻略していく。たとえば、ネット依存症、ゲーム依存症、禁煙禁酒など。依存症市場の次は、うつ、不安障害などのメンタルヘルス市場を攻める。依存症とメンタルヘルスの２つの領域で市場を制したら、ようやく悪い習慣や良い習慣、そして目標達成、自己実現といったようなポジティブな市場に進んでいく。
 
 ゴールは、世界制覇。Facebookの次にくるSNSをつくること。世界中の人々の希望を支配すること。
+
+[紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito)
 
 ## 開発スタートガイド
 
