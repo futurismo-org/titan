@@ -14,8 +14,8 @@ const changeAgo = (timestamp: Date) =>
     .toString();
 
 interface Props {
-  channelId?: string;
-  limit?: number;
+  channelId: string;
+  limit: number;
 }
 
 const DiscordHistories = (props: Props) => {
@@ -26,9 +26,9 @@ const DiscordHistories = (props: Props) => {
     let mounted = true;
 
     const getHistories = async (props: Props) => {
-      if (!props.channelId) return;
+      if (!channelId) return;
 
-      const data = await getMessages(props.channelId, props.limit);
+      const data = await getMessages(channelId, limit);
 
       if (mounted) {
         setHistories(data);

@@ -15,7 +15,7 @@ const DiscordWidget = () => {
         height="300"
         frameBorder="0"
       />
-      <DiscordHistories />
+      <DiscordHistories channelId="587935450463993870" limit={10} />
     </Paper>
   );
 };
