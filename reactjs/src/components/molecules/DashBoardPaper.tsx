@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { Dock } from '@material-ui/icons';
 import theme from '../../lib/theme';
 import ChallengeCard from '../atoms/challenges/ChallengeCard';
 import CategoryCard from '../atoms/CategoryCard';
