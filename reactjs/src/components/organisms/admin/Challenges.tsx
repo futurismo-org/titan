@@ -17,16 +17,6 @@ const Challenges = () => {
     firebase.firestore().collection('challenges')
   );
 
-  const onDeleteHandler = (id: string) => {
-    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
-      firebase
-        .firestore()
-        .collection('challenges')
-        .doc(id)
-        .delete();
-    }
-  };
-
   const onCopyHandler = async (id: string) => {
     const doc = await firebase
       .firestore()
@@ -63,14 +53,6 @@ const Challenges = () => {
             編集
           </Button>
         </Link>
-        <Button
-          type="button"
-          color="secondary"
-          variant="contained"
-          onClick={() => onDeleteHandler(doc.id)}
-        >
-          削除
-        </Button>
         <Button
           type="button"
           color="default"
