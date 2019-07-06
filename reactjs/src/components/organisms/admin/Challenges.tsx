@@ -75,12 +75,26 @@ const Challenges = () => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      <h2>チャレンジ一覧</h2>
+      <h1>チャレンジ</h1>
+      <h2>開催チャレンジ一覧</h2>
       <PostButton to="/admin/challenges/new" />
       {value && (
         <List>
           {value!.docs
-            .filter((doc: any) => isClosed(doc.data().closedAt.toDate()))
+            .filter(
+              (doc: any) =>
+                isClosed(doc.data().closedAt.toDate()) && !doc.data().draft
+            )
+            .map((doc: any) => (
+              <ChallengeItem doc={doc} key={doc.id} />
+            ))}
+        </List>
+      )}
+      <h2>下書きチャレンジ一覧</h2>
+      {value && (
+        <List>
+          {value!.docs
+            .filter((doc: any) => doc.data().draft)
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
             ))}
