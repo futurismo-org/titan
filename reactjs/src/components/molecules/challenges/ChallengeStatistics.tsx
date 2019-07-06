@@ -4,16 +4,20 @@ import { Grid } from '@material-ui/core';
 import moment from 'moment';
 import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
 
+const getTotalDays = (openedAt: Date, closedAt: Date, challenge: any) => {
+  const today = moment();
+
+  return today.isAfter(openedAt)
+    ? moment(closedAt).diff(openedAt, 'days') + 1
+    : moment(challenge.createdAt.toDate()).isAfter(moment(openedAt))
+    ? today.diff(challenge.createdAt.toDate(), 'days') + 1
+    : today.diff(openedAt, 'days') + 1;
+};
+
 const ChallengeStatistics = (props: any) => {
   const { data, openedAt, closedAt } = props;
 
-  const today = moment();
-
-  const totalDays = today.isAfter(closedAt.toDate())
-    ? moment(closedAt.toDate()).diff(openedAt.toDate(), 'days') + 1
-    : moment(data.createdAt).isAfter(openedAt.toDate())
-    ? today.diff(data.createdAt, 'days') + 1
-    : today.diff(openedAt.toDate(), 'days') + 1;
+  const totalDays = getTotalDays(openedAt.toDate(), closedAt.toDate(), data);
 
   const achieveRate = Math.round(((data.accDays || 0) / totalDays) * 100);
 
