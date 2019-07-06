@@ -183,7 +183,7 @@ const challengeSeeds = seed.collection('challenges', [
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
     participantsCount: 0,
-    private: true,
+    draft: true,
     openedAt: new Date(
       moment()
         .toDate()
