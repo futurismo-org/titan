@@ -5,7 +5,7 @@ import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import { ulid } from 'ulid';
-import moment from 'moment';
+import { isClosed } from '../../../lib/moment';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
@@ -97,11 +97,7 @@ const Challenges = () => {
       {value && (
         <List>
           {value!.docs
-            .filter(
-              (doc: any) =>
-                moment(doc.data().closedAt.toDate()).diff(new Date(), 'days') >=
-                0
-            )
+            .filter((doc: any) => isClosed(doc.data().closedAt.toDate()))
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
             ))}
@@ -111,11 +107,7 @@ const Challenges = () => {
       {value && (
         <List>
           {value!.docs
-            .filter(
-              (doc: any) =>
-                moment(doc.data().closedAt.toDate()).diff(new Date(), 'days') <
-                0
-            )
+            .filter((doc: any) => !isClosed(doc.data().closedAt.toDate()))
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
             ))}
