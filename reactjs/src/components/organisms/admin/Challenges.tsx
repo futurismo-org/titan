@@ -30,6 +30,7 @@ const Challenges = () => {
     data!.id = uid;
     data!.title = data!.title + ' - Copy';
     data!.draft = true;
+    data!.participantsCount = 0;
 
     firebase
       .firestore()
@@ -55,7 +56,7 @@ const Challenges = () => {
         </Link>
         <Button
           type="button"
-          color="default"
+          color="secondary"
           variant="contained"
           onClick={() => onCopyHandler(doc.id)}
         >
