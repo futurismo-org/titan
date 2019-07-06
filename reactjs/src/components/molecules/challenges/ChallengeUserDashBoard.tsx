@@ -51,18 +51,18 @@ const ChallengeUserDashBoard = (props: any) => {
     return days;
   };
 
-  const formatDate = (props: any): string => {
-    const { days, startedAt } = props;
-    if (
-      !isDaysValid(days) ||
-      days === 0 ||
-      startedAt === undefined ||
-      startedAt === null
-    ) {
-      return 'なし';
-    }
-    return moment(startedAt.toDate()).format('MM月DD日 HH:mm');
-  };
+  // const formatDate = (props: any): string => {
+  //   const { days, startedAt } = props;
+  //   if (
+  //     !isDaysValid(days) ||
+  //     days === 0 ||
+  //     startedAt === undefined ||
+  //     startedAt === null
+  //   ) {
+  //     return 'なし';
+  //   }
+  //   return moment(startedAt.toDate()).format('MM月DD日 HH:mm');
+  // };
 
   const DashBoardWrapper = styled.div`
     max-width: 750px;

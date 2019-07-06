@@ -21,7 +21,7 @@ https://titan-fire.com
 
 ゴールは、世界制覇。Facebookの次にくるSNSをつくること。世界中の人々の希望を支配すること。
 
-[紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito)
+[紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito) [紹介用動画](https://www.youtube.com/watch?v=XE7E-SuJ2Ug)
 
 ## 開発スタートガイド
 
