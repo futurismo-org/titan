@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import { ulid } from 'ulid';
+import shortid from 'shortid';
 import moment from 'moment';
 import firebase from '../../../lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
@@ -48,7 +48,7 @@ const CategoryForm = (props: any) => {
   const updateHandler = (e: any) => {
     e.preventDefault();
 
-    const id = isCreate ? ulid() : props.match.params.id;
+    const id = isCreate ? shortid.generate() : props.match.params.id;
     const newData = {
       id,
       title,

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import { ulid } from 'ulid';
+import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
 import Paper from '../../templates/PaperWrapper';
@@ -33,7 +33,10 @@ const CategoryDashBoard = (props: any) => {
         <Title text="チャレンジ一覧" />
         {category.challengeRefs &&
           category.challengeRefs.map((challengeRef: any) => (
-            <ChallengeCategory key={ulid()} challengeRef={challengeRef} />
+            <ChallengeCategory
+              key={shortid.generate()}
+              challengeRef={challengeRef}
+            />
           ))}
       </Paper>
       <Paper>
