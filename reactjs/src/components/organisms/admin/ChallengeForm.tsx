@@ -35,6 +35,7 @@ const ChallengeForm = (props: any) => {
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
   );
+  const [pinned, setPinned] = useState(false);
 
   const onTitleChange = (e: any) => {
     e.preventDefault();
@@ -95,6 +96,10 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setHashtag(e.target.value);
   };
+  const onPinnedChange = (e: any) => {
+    e.preventDefault();
+    setPinned(e.target.checked);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -120,7 +125,8 @@ const ChallengeForm = (props: any) => {
       participantsCount,
       private: privateFlag,
       price: Number(price),
-      hashtag
+      hashtag,
+      pinned
     };
     firebase
       .firestore()
@@ -160,6 +166,7 @@ const ChallengeForm = (props: any) => {
           setPrivateFlag(flag);
           setPrice(challenge!.price || 0);
           setHashtag(challenge!.hashtag || '');
+          setPinned(challenge!.pinned ? challenge!.pinned : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -280,6 +287,8 @@ const ChallengeForm = (props: any) => {
         />
         {'プライベート設定'}
         <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
+        {'Pinned設定'}
+        <Switch checked={pinned} onChange={onPinnedChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
