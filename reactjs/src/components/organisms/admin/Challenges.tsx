@@ -92,8 +92,8 @@ const Challenges = () => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      <PostButton to="/admin/challenges/new" />
       <h2>チャレンジ一覧</h2>
+      <PostButton to="/admin/challenges/new" />
       {value && (
         <List>
           {value!.docs
