@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import DashBoardPaper from '../molecules/DashBoardPaper';
+import DashBoardPaperPinned from '../molecules/DashBoardPaperPinned';
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
@@ -25,8 +26,13 @@ const DashBoard = (props: any) => {
     <React.Fragment>
       {(error || error2) && <strong>Error: {error}</strong>}
       {(loading || loading2) && <Progress />}
-      <DashBoardPaper title="カテゴリ一覧" value={value2} type="category" />
-      <DashBoardPaper title="チャレンジ一覧" value={value} type="challenge" />
+      <DashBoardPaperPinned
+        title="運営からのおすすめ"
+        value={value}
+        type="pinned-challenge"
+      />
+      <DashBoardPaper title="人気のカテゴリ" value={value2} type="category" />
+      <DashBoardPaper title="人気のチャレンジ" value={value} type="challenge" />
       <DiscordWidget />
     </React.Fragment>
   );
