@@ -15,12 +15,15 @@ const Categories = () => {
     firebase.firestore().collection('categories')
   );
 
-  const onDeleteHandler = (id: string) =>
-    firebase
-      .firestore()
-      .collection('categories')
-      .doc(id)
-      .delete();
+  const onDeleteHandler = (id: string) => {
+  if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
+      firebase
+        .firestore()
+        .collection('categories')
+        .doc(id)
+        .delete();
+    }
+  };
 
   return (
     <React.Fragment>

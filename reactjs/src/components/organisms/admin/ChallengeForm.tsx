@@ -21,7 +21,7 @@ const ChallengeForm = (props: any) => {
   const [webhookURL, setWebhookURL] = useState('');
   const [participantsCount, setParticipantsCount] = useState(0);
 
-  const [privateFlag, setPrivateFlag] = useState(false);
+  const [draft, setDraft] = useState(false);
   const [price, setPrice] = useState(0);
   const [length, setLength] = useState(0);
   const [hashtag, setHashtag] = useState('');
@@ -75,9 +75,9 @@ const ChallengeForm = (props: any) => {
     const date = e.target.value;
     setClosedAt(date);
   };
-  const onPrivateFlagChange = (e: any) => {
+  const onDraftChange = (e: any) => {
     e.preventDefault();
-    setPrivateFlag(e.target.checked);
+    setDraft(e.target.checked);
   };
   const onPriceChange = (e: any) => {
     setPrice(e.target.value);
@@ -123,9 +123,9 @@ const ChallengeForm = (props: any) => {
       openedAt: new Date(new Date(openedAt).setHours(0, 0, 0, 0)),
       closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
       participantsCount,
-      private: privateFlag,
       price: Number(price),
       hashtag,
+      draft,
       pinned
     };
     firebase
@@ -162,8 +162,7 @@ const ChallengeForm = (props: any) => {
             moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
           );
           setParticipantsCount(challenge!.participantsCount);
-          const flag = challenge!.private ? challenge!.private : false;
-          setPrivateFlag(flag);
+          setDraft(challenge!.draft ? challenge!.draft : false);
           setPrice(challenge!.price || 0);
           setHashtag(challenge!.hashtag || '');
           setPinned(challenge!.pinned ? challenge!.pinned : false);
@@ -285,9 +284,9 @@ const ChallengeForm = (props: any) => {
           multiline
           onChange={onRulesChange}
         />
-        {'プライベート設定'}
-        <Switch checked={privateFlag} onChange={onPrivateFlagChange} />
-        {'Pinned設定'}
+        {'下書き'}
+        <Switch checked={draft} onChange={onDraftChange} />
+        {'おすすめ'}
         <Switch checked={pinned} onChange={onPinnedChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />

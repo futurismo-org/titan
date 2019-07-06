@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
+import { ulid } from 'ulid';
+import { isClosed } from '../../../lib/moment';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
@@ -15,48 +17,100 @@ const Challenges = () => {
     firebase.firestore().collection('challenges')
   );
 
-  const onDeleteHandler = (id: string) =>
-    firebase
+  const onDeleteHandler = (id: string) => {
+    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
+      firebase
+        .firestore()
+        .collection('challenges')
+        .doc(id)
+        .delete();
+    }
+  };
+
+  const onCopyHandler = async (id: string) => {
+    const doc = await firebase
       .firestore()
       .collection('challenges')
       .doc(id)
-      .delete();
+      .get();
+
+    const data = doc.data();
+    const uid = ulid();
+
+    data!.id = uid;
+    data!.title = data!.title + ' - Copy';
+    data!.draft = true;
+
+    firebase
+      .firestore()
+      .collection('challenges')
+      .doc(uid)
+      .set(data!);
+  };
+
+  const ChallengeItem = (props: any) => {
+    const { doc } = props;
+
+    return (
+      <ListItem>
+        <ListItemText>
+          {doc.data().id}
+          <br />
+          {doc.data().title}
+        </ListItemText>
+        <Link to={`/admin/challenges/${doc.id}/edit`}>
+          <Button type="button" color="primary" variant="contained">
+            編集
+          </Button>
+        </Link>
+        <Button
+          type="button"
+          color="secondary"
+          variant="contained"
+          onClick={() => onDeleteHandler(doc.id)}
+        >
+          削除
+        </Button>
+        <Button
+          type="button"
+          color="default"
+          variant="contained"
+          onClick={() => onCopyHandler(doc.id)}
+        >
+          複製
+        </Button>
+        <Link to={`/challenges/${doc.id}/overview`}>
+          <Button type="button" color="default" variant="contained">
+            閲覧
+          </Button>
+        </Link>
+      </ListItem>
+    );
+  };
 
   return (
     <React.Fragment>
-      <h2>チャレンジ一覧</h2>
-      <PostButton to="/admin/challenges/new" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
+      <h2>チャレンジ一覧</h2>
+      <PostButton to="/admin/challenges/new" />
       {value && (
         <List>
-          {value!.docs.map((doc: any) => (
-            <ListItem key={doc.id}>
-              <ListItemText>
-                {doc.data().id}
-                <br />
-                {doc.data().title}
-              </ListItemText>
-              <Link to={`/admin/challenges/${doc.id}/edit`}>
-                <Button type="button" color="primary" variant="contained">
-                  編集
-                </Button>
-              </Link>
-              <Button
-                type="button"
-                color="secondary"
-                variant="contained"
-                onClick={() => onDeleteHandler(doc.id)}
-              >
-                削除
-              </Button>
-              <Link to={`/challenges/${doc.id}/overview`}>
-                <Button type="button" color="default" variant="contained">
-                  閲覧
-                </Button>
-              </Link>
-            </ListItem>
-          ))}
+          {value!.docs
+            .filter((doc: any) => isClosed(doc.data().closedAt.toDate()))
+            .map((doc: any) => (
+              <ChallengeItem doc={doc} key={doc.id} />
+            ))}
+        </List>
+      )}
+      <h2>過去のチャレンジ一覧</h2>
+      {value && (
+        <List>
+          {value!.docs
+            .filter((doc: any) => !isClosed(doc.data().closedAt.toDate()))
+            .map((doc: any) => (
+              <ChallengeItem doc={doc} key={doc.id} />
+            ))}
         </List>
       )}
     </React.Fragment>

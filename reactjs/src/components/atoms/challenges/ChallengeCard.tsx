@@ -34,7 +34,7 @@ const ChallengeCard = (props: any) => {
     return <React.Fragment />;
   }
 
-  if (challenge.private) {
+  if (challenge.draft) {
     return <React.Fragment />;
   }
 
