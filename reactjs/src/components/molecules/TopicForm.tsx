@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ulid } from 'ulid';
+import shortid from 'shortid';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,7 @@ const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
   const { collection, collectionId, user } = props;
-  const topicId = props.topicId ? props.topicId : ulid();
+  const topicId = props.topicId ? props.topicId : shortid.generate();
 
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');

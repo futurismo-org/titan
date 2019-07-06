@@ -55,9 +55,9 @@
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
     "rollbar": "^2.7.1",
+    "shortid": "^2.2.14",
     "styled-components": "^4.2.0",
-    "typescript": "^3.4.5",
-    "ulid": "^2.3.0"
+    "typescript": "^3.4.5"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
@@ -78,6 +78,7 @@
     "@types/react-router-dom": "^4.3.3",
     "@types/react-stripe-elements": "^1.1.10",
     "@types/recharts": "^1.1.16",
+    "@types/shortid": "^0.0.29",
     "@types/styled-components": "^4.1.16",
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@typescript-eslint/parser": "^1.11.0",

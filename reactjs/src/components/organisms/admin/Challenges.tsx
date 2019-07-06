@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import { ulid } from 'ulid';
+import shortid from 'shortid';
 import { isClosed } from '../../../lib/moment';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
@@ -35,7 +35,7 @@ const Challenges = () => {
       .get();
 
     const data = doc.data();
-    const uid = ulid();
+    const uid = shortid.generate();
 
     data!.id = uid;
     data!.title = data!.title + ' - Copy';

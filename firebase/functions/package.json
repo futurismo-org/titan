@@ -44,10 +44,10 @@
     "firestore-seed": "^0.0.6",
     "form-data": "^2.4.0",
     "moment": "^2.24.0",
+    "shortid": "^2.2.14",
     "stripe": "^7.2.0",
     "twit": "^2.2.11",
     "typescript": "^3.4.5",
-    "ulid": "^2.3.0",
     "util": "^0.12.0"
   },
   "devDependencies": {
@@ -58,6 +58,7 @@
     "@types/faker": "^4.1.5",
     "@types/moment": "^2.13.0",
     "@types/node": "^12.0.2",
+    "@types/shortid": "^0.0.29",
     "@types/stripe": "^6.30.2",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",

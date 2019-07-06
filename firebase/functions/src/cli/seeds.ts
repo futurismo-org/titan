@@ -1,6 +1,6 @@
-import { ulid } from 'ulid';
 import faker from 'faker';
 import moment from 'moment';
+import shortid from 'shortid';
 
 import admin from 'firebase-admin';
 import { configDev } from '../utils/config';
@@ -14,14 +14,14 @@ const seed = require('firestore-seed');
 
 faker.locale = 'ja';
 
-const muscleCategoryId = ulid();
-const meditationCategoryId = ulid();
-const getUpCategoryId = ulid();
+const muscleCategoryId = shortid.generate();
+const meditationCategoryId = shortid.generate();
+const getUpCategoryId = shortid.generate();
 
-const muscleChallngeId = ulid();
-const muscleChallngeIds = [muscleChallngeId, ulid()];
-const meditationChallngeIds = [ulid()];
-const getUpChallngeIds = [ulid()];
+const muscleChallngeId = shortid.generate();
+const muscleChallngeIds = [muscleChallngeId, shortid.generate()];
+const meditationChallngeIds = [shortid.generate()];
+const getUpChallngeIds = [shortid.generate()];
 
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
@@ -30,8 +30,12 @@ const sampleGeneralChannelId = '588697657279512587'; // テスト用フリート
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
-const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
-const dummyTopicIds = [...Array(10).keys()].map((n: number) => ulid());
+const dummyUserIds = [...Array(30).keys()].map((n: number) =>
+  shortid.generate()
+);
+const dummyTopicIds = [...Array(10).keys()].map((n: number) =>
+  shortid.generate()
+);
 
 const createTopicSeed = (args: any) => {
   const { id } = args;
@@ -42,7 +46,7 @@ const createTopicSeed = (args: any) => {
     text: faker.lorem.paragraphs(),
     createdAt: now,
     updatedAt: now,
-    userId: ulid(),
+    userId: shortid.generate(),
     userName: faker.name.firstName(),
     usrPhotoURL: faker.image.avatar(),
     ...args
@@ -51,7 +55,7 @@ const createTopicSeed = (args: any) => {
 
 const topicsSeeds = seed.subcollection([
   createTopicSeed({
-    id: ulid(),
+    id: shortid.generate(),
     userId: titanUserId,
     userName: 'Titan',
     userPhotoURL:
