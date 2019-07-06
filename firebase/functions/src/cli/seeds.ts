@@ -174,7 +174,8 @@ const challengeSeeds = seed.collection('challenges', [
         .toDate()
         .setHours(23, 59, 59, 59)
     ),
-    price: 300
+    price: 300,
+    pinned: true
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
