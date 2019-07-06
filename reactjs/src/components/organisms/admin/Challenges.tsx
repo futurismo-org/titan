@@ -16,12 +16,15 @@ const Challenges = () => {
     firebase.firestore().collection('challenges')
   );
 
-  const onDeleteHandler = (id: string) =>
-    firebase
-      .firestore()
-      .collection('challenges')
-      .doc(id)
-      .delete();
+  const onDeleteHandler = (id: string) => {
+    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
+      firebase
+        .firestore()
+        .collection('challenges')
+        .doc(id)
+        .delete();
+    }
+  };
 
   const onCopyHandler = async (id: string) => {
     const doc = await firebase
