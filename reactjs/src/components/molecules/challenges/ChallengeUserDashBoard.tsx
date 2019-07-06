@@ -52,16 +52,16 @@ const ChallengeUserDashBoard = (props: any) => {
   };
 
   const formatDate = (props: any): string => {
-    const { days, startDate } = props;
+    const { days, startedAt } = props;
     if (
       !isDaysValid(days) ||
       days === 0 ||
-      startDate === undefined ||
-      startDate === null
+      startedAt === undefined ||
+      startedAt === null
     ) {
       return 'なし';
     }
-    return moment(startDate.toDate()).format('MM月DD日 HH:mm');
+    return moment(startedAt.toDate()).format('MM月DD日 HH:mm');
   };
 
   const DashBoardWrapper = styled.div`

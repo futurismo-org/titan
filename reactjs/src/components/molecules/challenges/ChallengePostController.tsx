@@ -75,12 +75,12 @@ const ChallengePosts = (props: any) => {
       score: newScore,
       accDays: newAccDays,
       maxDays: newMaxDays,
-      startDate: now,
+      startedAt: now,
       updatedAt: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
-    if (!isDaysValid(days)) updateData.startDate = now;
+    if (!isDaysValid(days)) updateData.startedAt = now;
 
     firebase
       .firestore()
@@ -116,7 +116,7 @@ const ChallengePosts = (props: any) => {
     };
 
     const resetData = {
-      startDate: null,
+      startedAt: null,
       updatedAt: now,
       days: 0,
       score: newScore,
@@ -178,7 +178,7 @@ const ChallengePosts = (props: any) => {
       };
 
       const resetData = {
-        startDate: null,
+        startedAt: null,
         updatedAt: now,
         days: 0,
         score: newScore,
