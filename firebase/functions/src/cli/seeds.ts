@@ -125,8 +125,7 @@ const createParticipationSeed = (args: any) => {
   const now = new Date();
   return seed.doc(id, {
     createdAt: now,
-    startedAt
-    : now,
+    startedAt: now,
     updatedAt: now,
     ...args
   });
