@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
+import { ulid } from 'ulid';
 import firebase from '../../../lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
@@ -21,6 +22,27 @@ const Challenges = () => {
       .collection('challenges')
       .doc(id)
       .delete();
+
+  const onCopyHandler = async (id: string) => {
+    const doc = await firebase
+      .firestore()
+      .collection('challenges')
+      .doc(id)
+      .get();
+
+    const data = doc.data();
+    const uid = ulid();
+
+    data!.id = uid;
+    data!.title = data!.title + ' - Copy';
+    data!.draft = true;
+
+    firebase
+      .firestore()
+      .collection('challenges')
+      .doc(uid)
+      .set(data!);
+  };
 
   return (
     <React.Fragment>
@@ -49,6 +71,14 @@ const Challenges = () => {
                 onClick={() => onDeleteHandler(doc.id)}
               >
                 削除
+              </Button>
+              <Button
+                type="button"
+                color="default"
+                variant="contained"
+                onClick={() => onCopyHandler(doc.id)}
+              >
+                複製
               </Button>
               <Link to={`/challenges/${doc.id}/overview`}>
                 <Button type="button" color="default" variant="contained">
