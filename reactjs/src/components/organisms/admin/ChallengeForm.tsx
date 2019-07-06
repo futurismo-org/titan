@@ -88,7 +88,7 @@ const ChallengeForm = (props: any) => {
     const l = e.target.value;
     setClosedAt(
       moment(new Date(openedAt))
-        .add('days', l)
+        .add('days', l - 1)
         .format('YYYY-MM-DD')
     );
   };
