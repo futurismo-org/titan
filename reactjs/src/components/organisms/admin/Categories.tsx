@@ -15,16 +15,6 @@ const Categories = () => {
     firebase.firestore().collection('categories')
   );
 
-  const onDeleteHandler = (id: string) => {
-  if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
-      firebase
-        .firestore()
-        .collection('categories')
-        .doc(id)
-        .delete();
-    }
-  };
-
   return (
     <React.Fragment>
       <h2>カテゴリ一覧</h2>
@@ -45,14 +35,6 @@ const Categories = () => {
                   編集
                 </Button>
               </Link>
-              <Button
-                type="button"
-                color="secondary"
-                variant="contained"
-                onClick={() => onDeleteHandler(doc.id)}
-              >
-                削除
-              </Button>
               <Link to={`/categories/${doc.id}/dashboard`}>
                 <Button type="button" color="default" variant="contained">
                   閲覧

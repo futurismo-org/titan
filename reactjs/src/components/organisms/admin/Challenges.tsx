@@ -17,16 +17,6 @@ const Challenges = () => {
     firebase.firestore().collection('challenges')
   );
 
-  const onDeleteHandler = (id: string) => {
-    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
-      firebase
-        .firestore()
-        .collection('challenges')
-        .doc(id)
-        .delete();
-    }
-  };
-
   const onCopyHandler = async (id: string) => {
     const doc = await firebase
       .firestore()
@@ -40,6 +30,7 @@ const Challenges = () => {
     data!.id = uid;
     data!.title = data!.title + ' - Copy';
     data!.draft = true;
+    data!.participantsCount = 0;
 
     firebase
       .firestore()
@@ -67,14 +58,6 @@ const Challenges = () => {
           type="button"
           color="secondary"
           variant="contained"
-          onClick={() => onDeleteHandler(doc.id)}
-        >
-          削除
-        </Button>
-        <Button
-          type="button"
-          color="default"
-          variant="contained"
           onClick={() => onCopyHandler(doc.id)}
         >
           複製
@@ -92,12 +75,26 @@ const Challenges = () => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      <h2>チャレンジ一覧</h2>
+      <h1>チャレンジ</h1>
+      <h2>開催チャレンジ一覧</h2>
       <PostButton to="/admin/challenges/new" />
       {value && (
         <List>
           {value!.docs
-            .filter((doc: any) => isClosed(doc.data().closedAt.toDate()))
+            .filter(
+              (doc: any) =>
+                isClosed(doc.data().closedAt.toDate()) && !doc.data().draft
+            )
+            .map((doc: any) => (
+              <ChallengeItem doc={doc} key={doc.id} />
+            ))}
+        </List>
+      )}
+      <h2>下書きチャレンジ一覧</h2>
+      {value && (
+        <List>
+          {value!.docs
+            .filter((doc: any) => doc.data().draft)
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
             ))}
