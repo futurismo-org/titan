@@ -79,7 +79,7 @@ const ChallengeUserDashBoard = (props: any) => {
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Title text={`${data.displayName} さんの記録`} />
-            <Typography variant="h6">開始日: {formatDate(data)}</Typography>
+            {/* <Typography variant="h6">開始日: {formatDate(data)}</Typography> */}
             <div id="challenge-card">
               <Record days={formatDays(data.accDays)} />
             </div>
@@ -94,6 +94,9 @@ const ChallengeUserDashBoard = (props: any) => {
               openedAt={openedAt}
               closedAt={closedAt}
             />
+            <Typography variant="h6">
+              参加日: {moment(data.createdAt.toDate()).format('MM月DD日')}
+            </Typography>
             <ChallengeHistories histories={data.histories} />
           </StyledCenterContainer>
           <TwitterButton
