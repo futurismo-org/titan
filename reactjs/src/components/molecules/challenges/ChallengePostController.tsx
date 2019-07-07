@@ -95,8 +95,7 @@ const ChallengePosts = (props: any) => {
       })
       .then(() => closeHandler())
       .then(
-        () =>
-          (window.location.href = `/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+        () => (window.location.href = `/c/${challengeId}/u/${userId}`) // eslint-disable-line
       )
       .catch(error => rollbar.error(error));
   };
@@ -133,8 +132,7 @@ const ChallengePosts = (props: any) => {
       })
       .then(() => closeHandler())
       .then(
-        () =>
-          (window.location.href = `/challenges/${challengeId}/users/${userId}`) // eslint-disable-line
+        () => (window.location.href = `/c/${challengeId}/u/${userId}`) // eslint-disable-line
       )
       .catch(error => rollbar.error(error));
   };
@@ -222,7 +220,7 @@ const ChallengePosts = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => ({
-  userId: state.firebase.profile.id,
+  userId: state.firebase.profile.shortId,
   userName: state.firebase.profile.displayName,
   ...props
 });

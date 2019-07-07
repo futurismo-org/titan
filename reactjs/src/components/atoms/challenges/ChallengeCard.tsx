@@ -40,7 +40,7 @@ const ChallengeCard = (props: any) => {
 
   return (
     <Grid item key={challenge.title} xs={12} md={6}>
-      <NoStyledLink to={`/challenges/${challenge.id}/overview`}>
+      <NoStyledLink to={`/c/${challenge.id}/overview`}>
         <CardActionArea>
           <StyledCard>
             <StyledCardDetails>

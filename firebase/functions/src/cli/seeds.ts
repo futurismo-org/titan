@@ -23,6 +23,7 @@ const muscleChallngeIds = [muscleChallngeId, shortid.generate()];
 const meditationChallngeIds = [shortid.generate()];
 const getUpChallngeIds = [shortid.generate()];
 
+const titanShortId = shortid.generate();
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
@@ -56,8 +57,8 @@ const createTopicSeed = (args: any) => {
 const topicsSeeds = seed.subcollection([
   createTopicSeed({
     id: shortid.generate(),
-    userId: titanUserId,
-    userName: 'Titan',
+    userId: titanShortId,
+    userName: 'Titan@公式',
     userPhotoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
@@ -133,13 +134,13 @@ const createParticipationSeed = (args: any) => {
 
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
-    id: titanUserId,
+    id: titanShortId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
     score: 5,
     maxDays: 5,
     accDays: 5,
-    displayName: 'Titan',
+    displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
@@ -271,24 +272,18 @@ const categorySeeds = seed.collection('categories', [
 
 const userSeeds = seed.collection('users', [
   createUserSeed({
-    email: '',
-    displayName: 'Titan',
     id: titanUserId,
+    shortId: titanShortId,
+    email: '',
+    displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
-    isAdmin: true
-  }),
-  createUserSeed({
-    email: '',
-    displayName: 'tsu-nera',
-    id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
-    photoURL:
-      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg',
     isAdmin: true
   }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
+      shortId: id,
       email: faker.internet.email(),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl(),

@@ -49,7 +49,7 @@ const Challenges = () => {
           <br />
           {doc.data().title}
         </ListItemText>
-        <Link to={`/admin/challenges/${doc.id}/edit`}>
+        <Link to={`/admin/c/${doc.id}/edit`}>
           <Button type="button" color="primary" variant="contained">
             編集
           </Button>
@@ -62,7 +62,7 @@ const Challenges = () => {
         >
           複製
         </Button>
-        <Link to={`/challenges/${doc.id}/overview`}>
+        <Link to={`/c/${doc.id}/overview`}>
           <Button type="button" color="default" variant="contained">
             閲覧
           </Button>
@@ -77,7 +77,7 @@ const Challenges = () => {
       {loading && <Progress />}
       <h1>チャレンジ</h1>
       <h2>開催チャレンジ一覧</h2>
-      <PostButton to="/admin/challenges/new" />
+      <PostButton to="/admin/c/new" />
       {value && (
         <List>
           {value!.docs

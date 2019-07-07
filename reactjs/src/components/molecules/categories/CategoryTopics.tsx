@@ -50,10 +50,7 @@ const CategoryTopics = (props: any) => {
             知見まとめ
           </Typography>
         </ListItemText>
-        <PostButton
-          to={`/categories/${category.id}/topics/new`}
-          type="button"
-        />
+        <PostButton to={`/cat/${category.id}/t  /new`} type="button" />
       </ListItem>
       <ListItem />
       {error && <strong>Error: {error}</strong>}
@@ -74,9 +71,7 @@ const CategoryTopics = (props: any) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  <NoStyledLink
-                    to={`/categories/${category.id}/topics/${topic.id}`}
-                  >
+                  <NoStyledLink to={`/cat/${category.id}/t/${topic.id}`}>
                     {topic.title}
                   </NoStyledLink>
                 }
@@ -96,9 +91,7 @@ const CategoryTopics = (props: any) => {
               />
               {user.id === topic.userId ? (
                 <React.Fragment>
-                  <NoStyledLink
-                    to={`/categories/${category.id}/topics/${topic.id}/edit`}
-                  >
+                  <NoStyledLink to={`/cat/${category.id}/t/${topic.id}/edit`}>
                     <Button type="button" color="default" variant="contained">
                       編集
                     </Button>

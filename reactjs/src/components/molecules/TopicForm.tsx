@@ -41,7 +41,7 @@ const TopicForm = (props: any) => {
       createdAt: new Date(),
       updatedAt: new Date(),
       userName: user.displayName,
-      userId: user.id,
+      userId: user.shortId,
       userPhotoURL: user.photoURL
     };
 

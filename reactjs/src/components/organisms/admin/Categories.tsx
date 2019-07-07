@@ -18,7 +18,7 @@ const Categories = () => {
   return (
     <React.Fragment>
       <h2>カテゴリ一覧</h2>
-      <PostButton to="/admin/categories/new" />
+      <PostButton to="/admin/cat/new" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value && (
@@ -30,12 +30,12 @@ const Categories = () => {
                 <br />
                 {doc.data().title}
               </ListItemText>
-              <Link to={`/admin/categories/${doc.id}/edit`}>
+              <Link to={`/admin/cat/${doc.id}/edit`}>
                 <Button type="button" color="primary" variant="contained">
                   編集
                 </Button>
               </Link>
-              <Link to={`/categories/${doc.id}/dashboard`}>
+              <Link to={`/cat/${doc.id}/dashboard`}>
                 <Button type="button" color="default" variant="contained">
                   閲覧
                 </Button>
