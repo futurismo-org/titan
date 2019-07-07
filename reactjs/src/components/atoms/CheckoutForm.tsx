@@ -47,7 +47,7 @@ const joinHandler = (challengeId: string, user: any) => {
         .collection('challenges')
         .doc(challengeId)
         .collection('participants')
-        .doc(user.id)
+        .doc(user.shortId)
         .set(newData);
     })
     .then(() => console.log('successfully updated'))
