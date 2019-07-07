@@ -3,6 +3,7 @@ import { Dialog, DialogContent } from '@material-ui/core';
 import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import styled from 'styled-components';
+import shortid from 'shortid';
 import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';
@@ -38,8 +39,11 @@ const AuthModal = (props: any) => {
       ) => {
         const { user } = credentials;
 
+        const id = shortid.generate();
+
         const data = {
-          id: user!.uid,
+          id,
+          userId: user!.uid,
           displayName: user!.displayName,
           photoURL: user!.photoURL,
           email: user!.email,
@@ -53,7 +57,7 @@ const AuthModal = (props: any) => {
         const userRef = firebase
           .firestore()
           .collection('users')
-          .doc(user!.uid);
+          .doc(id);
 
         userRef.get().then(docSnapshot => {
           if (!docSnapshot.exists) {
