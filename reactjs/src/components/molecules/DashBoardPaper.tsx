@@ -48,14 +48,14 @@ const DashBoardCardLink = (props: any) => {
   return (
     <React.Fragment>
       {type === 'challenge' && (
-        <MoreLink to="/c">
+        <MoreLink to="/challenges">
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
         </MoreLink>
       )}
       {type === 'category' && (
-        <MoreLink to="/cat">
+        <MoreLink to="/categories">
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>

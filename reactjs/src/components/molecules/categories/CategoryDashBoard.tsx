@@ -46,7 +46,7 @@ const CategoryDashBoard = (props: any) => {
           collectionId={category.id}
           limit={6}
         />
-        <MoreLink to={`/cat/${category.id}/t`}>
+        <MoreLink to={`/cat/${category.id}/topics`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
