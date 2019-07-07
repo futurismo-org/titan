@@ -22,36 +22,33 @@ const ChallengeBody = (props: any) => {
     <ChallengeContent>
       <Switch>
         <Route
-          path="/challenges/:id/overview"
+          path="/c/:id/overview"
           render={() => <MarkdownView text={challenge.overview} />}
         />
         <Route
-          path="/challenges/:id/timeline"
+          path="/c/:id/timeline"
           render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
         <Route
-          path="/challenges/:collectionId/topics/:topicId/edit"
+          path="/c/:collectionId/t/:topicId/edit"
           render={props => <TopicForm collection="challenges" {...props} />}
         />
         <Route
-          path="/challenges/:collectionId/topics/new"
+          path="/c/:collectionId/t/new"
           render={props => <TopicForm collection="challenges" {...props} />}
         />
         <Route
-          path="/challenges/:collectionId/topics/:topicId"
+          path="/c/:collectionId/t/:topicId"
           render={props => <Topic collection="challenges" {...props} />}
         />
-        <Route path="/challenges/:id/topics" component={ChallengeTopics} />
+        <Route path="/c/:id/topics" component={ChallengeTopics} />
         <Route
-          path="/challenges/:id/rules"
+          path="/c/:id/rules"
           render={() => <MarkdownView text={challenge.rules} />}
         />
+        <Route path="/c/:id/leaderboard" component={ChallengeLeaderBoard} />
         <Route
-          path="/challenges/:id/leaderboard"
-          component={ChallengeLeaderBoard}
-        />
-        <Route
-          path="/challenges/:challengeId/users/:userId"
+          path="/c/:challengeId/u/:userId"
           render={(props: any) => (
             <ChallengeUserDashBoard
               challengeTitle={challenge.title}

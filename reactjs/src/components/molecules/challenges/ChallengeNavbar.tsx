@@ -33,14 +33,10 @@ const ChallengeNavbar = (props: any) => {
       <Grid item xs={12}>
         <ButtonGroup fullWidth>
           <Button>
-            <NoStyledLink to={`/challenges/${props.id}/overview`}>
-              概要
-            </NoStyledLink>
+            <NoStyledLink to={`/c/${props.id}/overview`}>概要</NoStyledLink>
           </Button>
           <Button>
-            <NoStyledLink to={`/challenges/${props.id}/rules`}>
-              ルール
-            </NoStyledLink>
+            <NoStyledLink to={`/c/${props.id}/rules`}>ルール</NoStyledLink>
           </Button>
           <Button onClick={handleClick}>その他</Button>
         </ButtonGroup>
@@ -52,15 +48,12 @@ const ChallengeNavbar = (props: any) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <NavItem to={`/challenges/${props.id}/timeline`} text="タイムライン" />
-        <NavItem to={`/challenges/${props.id}/topics`} text="トピック" />
-        <NavItem
-          to={`/challenges/${props.id}/leaderboard`}
-          text="リーダーボード"
-        />
+        <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
+        <NavItem to={`/c/${props.id}/topics`} text="トピック" />
+        <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
         {props.userId && (
           <NavItem
-            to={`/challenges/${props.id}/users/${props.userId}`}
+            to={`/c/${props.id}/u/${props.userId}`}
             text="ダッシュボード"
           />
         )}

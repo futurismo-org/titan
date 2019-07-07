@@ -30,6 +30,8 @@ const TopicList = (props: any) => {
       .limit(limit || 1000)
   );
 
+  const collectionShort = collection === 'challenges' ? 'c' : 'cat';
+
   const onDeleteHandler = (topicId: string) => {
     if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
       firebase
@@ -63,7 +65,7 @@ const TopicList = (props: any) => {
               <ListItemText
                 primary={
                   <NoStyledLink
-                    to={`/${collection}/${collectionId}/topics/${topic.id}`}
+                    to={`/${collectionShort}/${collectionId}/t/${topic.id}`}
                   >
                     {topic.title}
                   </NoStyledLink>
@@ -85,7 +87,7 @@ const TopicList = (props: any) => {
               {user.id === topic.userId ? (
                 <React.Fragment>
                   <NoStyledLink
-                    to={`/${collection}/${collectionId}/topics/${topic.id}/edit`}
+                    to={`/${collectionShort}/${collectionId}/t/${topic.id}/edit`}
                   >
                     <Button type="button" color="default" variant="contained">
                       編集

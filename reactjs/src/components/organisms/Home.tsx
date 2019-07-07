@@ -15,10 +15,10 @@ const Home = () => (
   <Layout>
     <DemoBoard />
     <Switch>
-      <Route path="/challenges/:id" component={Challenge} />
-      <Route path="/challenges" component={Challenges} />
-      <Route path="/categories/:id" component={Category} />
+      <Route path="/cat/:id" component={Category} />
       <Route path="/categories" component={Categories} />
+      <Route path="/c/:id" component={Challenge} />
+      <Route path="/challenges" component={Challenges} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/" component={DashBoard} />
     </Switch>

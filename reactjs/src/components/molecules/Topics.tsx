@@ -5,6 +5,9 @@ import PostButton from '../atoms/PostButton';
 import TopicList from './TopicList';
 
 const Topics = (props: any) => {
+  const { collection, collectionId } = props;
+  const collectionShort = collection === 'challenges' ? 'c' : 'cat';
+
   return (
     <React.Fragment>
       <ListItem>
@@ -14,7 +17,7 @@ const Topics = (props: any) => {
           </Typography>
         </ListItemText>
         <PostButton
-          to={`/${props.collection}/${props.collectionId}/topics/new`}
+          to={`/${collectionShort}/${collectionId}/t/new`}
           type="button"
         />
       </ListItem>

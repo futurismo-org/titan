@@ -23,7 +23,7 @@ const ChallengeCategoryButton = (props: any) => {
     .then((doc: firebase.firestore.DocumentSnapshot) => doc.data())
     .then(category => {
       setTitle(category!.title);
-      setPath(`/categories/${category!.id}/dashboard`);
+      setPath(`/cat/${category!.id}/dashboard`);
     });
 
   return (

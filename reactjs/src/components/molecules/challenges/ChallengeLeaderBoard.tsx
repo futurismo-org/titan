@@ -74,7 +74,7 @@ const ChallengeLeaderBoard = (props: any) => {
                     </NoStyledExternalLink>
                   </ConditionalTableCell>
                   <TableCell>
-                    <Link to={`/challenges/${id}/users/${doc.data().id}`}>
+                    <Link to={`/c/${id}/u/${doc.data().id}`}>
                       {doc.data().displayName || 'Annonymous'}
                     </Link>
                   </TableCell>

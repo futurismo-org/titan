@@ -16,16 +16,10 @@ const Admin = () => (
   <Layout>
     <AdminContainer>
       <Switch>
-        <AdminRoute
-          path="/admin/challenges/:id/edit"
-          component={ChallengeForm}
-        />
-        <AdminRoute path="/admin/challenges/new" component={ChallengeForm} />
-        <AdminRoute
-          path="/admin/categories/:id/edit"
-          component={CategoryForm}
-        />
-        <AdminRoute path="/admin/categories/new" component={CategoryForm} />
+        <AdminRoute path="/admin/cat/:id/edit" component={CategoryForm} />
+        <AdminRoute path="/admin/cat/new" component={CategoryForm} />
+        <AdminRoute path="/admin/c/:id/edit" component={ChallengeForm} />
+        <AdminRoute path="/admin/c/new" component={ChallengeForm} />
         <AdminRoute path="/admin" component={DashBoard} />
       </Switch>
     </AdminContainer>

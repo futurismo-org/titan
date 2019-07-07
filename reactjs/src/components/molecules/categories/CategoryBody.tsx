@@ -20,25 +20,25 @@ const CategoryBody = (props: any) => {
     <CategoryContent>
       <Switch>
         <Route
-          path="/categories/:collectionId/topics/:topicId/edit"
+          path="/cat/:collectionId/t/:topicId/edit"
           render={props => <TopicForm collection="categories" {...props} />}
         />
         <Route
-          path="/categories/:collectionId/topics/new"
+          path="/cat/:collectionId/t/new"
           render={props => <TopicForm collection="categories" {...props} />}
         />
         <Route
-          path="/categories/:collectionId/topics/:topicId"
+          path="/cat/:collectionId/t/:topicId"
           render={props => <Topic collection="categories" {...props} />}
         />
         <Route
-          path="/categories/:id/topics"
+          path="/cat/:id/topics"
           render={() => (
             <Topics collection="categories" collectionId={category.id} />
           )}
         />
         <Route
-          path="/categories/:id/dashboard"
+          path="/cat/:id/dashboard"
           render={() => <CategoryDashBoard category={category} />}
         />
       </Switch>
