@@ -41,7 +41,7 @@ const Challenges = () => {
                   moment(new Date().setHours(0, 0, 0, 0)).isBefore(
                     doc.data().closedAt.toDate()
                   ) &&
-                  moment(new Date().setHours(0, 0, 0, 0)).isAfter(
+                  moment(new Date().setHours(0, 0, 0, 1)).isAfter(
                     doc.data().openedAt.toDate()
                   )
               )
