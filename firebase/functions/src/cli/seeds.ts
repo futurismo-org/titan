@@ -280,14 +280,6 @@ const userSeeds = seed.collection('users', [
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true
   }),
-  createUserSeed({
-    email: '',
-    displayName: 'tsu-nera',
-    id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
-    photoURL:
-      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg',
-    isAdmin: true
-  }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
