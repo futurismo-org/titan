@@ -70,7 +70,7 @@ const ChallengeNavbar = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => ({
-  userId: state.firebase.profile.id || undefined,
+  userId: state.firebase.profile.shortId || undefined,
   ...props
 });
 

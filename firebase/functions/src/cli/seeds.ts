@@ -23,7 +23,7 @@ const muscleChallngeIds = [muscleChallngeId, shortid.generate()];
 const meditationChallngeIds = [shortid.generate()];
 const getUpChallngeIds = [shortid.generate()];
 
-const titanId = shortid.generate();
+const titanShortId = shortid.generate();
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
@@ -57,7 +57,7 @@ const createTopicSeed = (args: any) => {
 const topicsSeeds = seed.subcollection([
   createTopicSeed({
     id: shortid.generate(),
-    userId: titanId,
+    userId: titanShortId,
     userName: 'Titan@公式',
     userPhotoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
@@ -134,7 +134,7 @@ const createParticipationSeed = (args: any) => {
 
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
-    id: titanId,
+    id: titanShortId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
     score: 5,
@@ -272,10 +272,10 @@ const categorySeeds = seed.collection('categories', [
 
 const userSeeds = seed.collection('users', [
   createUserSeed({
-    id: titanId,
+    id: titanUserId,
+    shortId: titanShortId,
     email: '',
     displayName: 'Titan@公式',
-    userId: titanUserId,
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true
@@ -283,6 +283,7 @@ const userSeeds = seed.collection('users', [
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
+      shortId: id,
       email: faker.internet.email(),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl(),

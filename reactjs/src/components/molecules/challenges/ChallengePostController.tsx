@@ -222,7 +222,7 @@ const ChallengePosts = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => ({
-  userId: state.firebase.profile.id,
+  userId: state.firebase.profile.shortId,
   userName: state.firebase.profile.displayName,
   ...props
 });

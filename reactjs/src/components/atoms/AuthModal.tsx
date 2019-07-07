@@ -39,11 +39,9 @@ const AuthModal = (props: any) => {
       ) => {
         const { user } = credentials;
 
-        const id = shortid.generate();
-
         const data = {
-          id,
-          userId: user!.uid,
+          id: user!.uid,
+          shortId: shortid.generate(),
           displayName: user!.displayName,
           photoURL: user!.photoURL,
           email: user!.email,
@@ -57,7 +55,7 @@ const AuthModal = (props: any) => {
         const userRef = firebase
           .firestore()
           .collection('users')
-          .doc(id);
+          .doc(user!.uid);
 
         userRef.get().then(docSnapshot => {
           if (!docSnapshot.exists) {
