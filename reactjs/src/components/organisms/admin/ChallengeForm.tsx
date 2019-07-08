@@ -25,6 +25,7 @@ const ChallengeForm = (props: any) => {
   const [price, setPrice] = useState(0);
   const [length, setLength] = useState(0);
   const [hashtag, setHashtag] = useState('');
+  const [youtubeId, setYoutubeId] = useState('');
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -100,6 +101,10 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setPinned(e.target.checked);
   };
+  const onYoutubeIdChange = (e: any) => {
+    e.preventDefault();
+    setYoutubeId(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -126,7 +131,8 @@ const ChallengeForm = (props: any) => {
       price: Number(price),
       hashtag,
       draft,
-      pinned
+      pinned,
+      youtubeId
     };
     firebase
       .firestore()
@@ -166,6 +172,7 @@ const ChallengeForm = (props: any) => {
           setPrice(challenge!.price || 0);
           setHashtag(challenge!.hashtag || '');
           setPinned(challenge!.pinned ? challenge!.pinned : false);
+          setYoutubeId(challenge!.youtubeId);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -250,6 +257,14 @@ const ChallengeForm = (props: any) => {
           id="hashtag"
           label="ハッシュタグ"
           onChange={onHashtagChange}
+        />
+        <TextField
+          value={youtubeId}
+          variant="outlined"
+          margin="normal"
+          id="youtubeId"
+          label="YoutubeID"
+          onChange={onYoutubeIdChange}
         />
         <TextField
           value={webhookURL}

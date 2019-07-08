@@ -180,7 +180,8 @@ const challengeSeeds = seed.collection('challenges', [
         .setHours(23, 59, 59, 59)
     ),
     price: 300,
-    pinned: true
+    pinned: true,
+    youtubeId: 'lTil2ukokrM'
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
