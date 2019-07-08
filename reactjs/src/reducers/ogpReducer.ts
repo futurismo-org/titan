@@ -24,6 +24,11 @@ export const setOgpInfo = (state: any, payload: any) => {
   });
 };
 
+export const resetOgpInfo = (state: any, payload: any) => {
+  return Object.assign({}, state, initialState);
+};
+
 export default createReducer(initialState, {
-  [actionTypes.SET_OGP_INFO]: setOgpInfo
+  [actionTypes.SET_OGP_INFO]: setOgpInfo,
+  [actionTypes.RESET_OGP_INFO]: resetOgpInfo
 });

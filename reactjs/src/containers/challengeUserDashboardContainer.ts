@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { setOgpInfo } from '../actions/ogpAction';
+import { setOgpInfo, resetOgpInfo } from '../actions/ogpAction';
 
 import DashBoard from '../components/molecules/challenges/ChallengeUserDashBoard';
 
@@ -12,7 +12,8 @@ const mapStateToProps = (state: any, props: any) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    setOgpInfo: bindActionCreators(setOgpInfo, dispatch)
+    setOgpInfo: bindActionCreators(setOgpInfo, dispatch),
+    resetOgpInfo: bindActionCreators(resetOgpInfo, dispatch)
   };
 };
 

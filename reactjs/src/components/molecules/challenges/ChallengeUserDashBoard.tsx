@@ -76,7 +76,13 @@ const ChallengeUserDashBoard = (props: any) => {
   const description = `現在、${challengeTitle}に参加中。${accDays}日達成しました！`;
   const url = `${APP_URL}/c/${challengeId}/u/${userId}`;
 
-  data && props.setOgpInfo({ title, description, url });
+  React.useEffect(() => {
+    props.setOgpInfo({ title, description, url });
+
+    return () => {
+      props.resetOgpInfo();
+    };
+  }, [description, props, title, url]);
 
   return (
     <React.Fragment>
