@@ -1,4 +1,4 @@
-export const APP_NAME = 'TITAN';
+export const APP_NAME = 'Titan';
 export const APP_TITLE = `${APP_NAME} | 自己変革の火をつけるアプリ`;
 export const APP_DESCRIPTION =
   'オナ禁・エロ禁を中心とした、自己変革を支援するアプリです。継続できない、情報不足、自己嫌悪感という３つの課題に取り組みます。';

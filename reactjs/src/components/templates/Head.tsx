@@ -1,13 +1,14 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import * as AppInfo from '../../constants/appInfo';
 
 const { PUBLIC_URL } = process.env;
 
-const Head = () => {
-  const title = AppInfo.APP_TITLE;
-  const description = AppInfo.APP_DESCRIPTION;
-  const url = AppInfo.APP_URL;
+const Head = (props: any) => {
+  const title = props.title + ' | ' + AppInfo.APP_NAME || AppInfo.APP_TITLE;
+  const description = props.description || AppInfo.APP_DESCRIPTION;
+  const url = props.url || AppInfo.APP_URL;
 
   return (
     <Helmet
@@ -42,4 +43,10 @@ const Head = () => {
   );
 };
 
-export default Head;
+const mapStateToProps = (state: any) => ({
+  title: state.ogp.title,
+  description: state.ogp.description,
+  url: state.ogp.url
+});
+
+export default connect(mapStateToProps)(Head);
