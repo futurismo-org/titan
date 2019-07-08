@@ -18,9 +18,9 @@ export const initialState = {
 
 export const setOgpInfo = (state: any, payload: any) => {
   return Object.assign({}, state, {
-    title: payload.title,
-    description: payload.description,
-    url: payload.url
+    title: payload.ogpInfo.title,
+    description: payload.ogpInfo.description,
+    url: payload.ogpInfo.url
   });
 };
 

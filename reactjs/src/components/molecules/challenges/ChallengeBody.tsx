@@ -8,7 +8,7 @@ import Topic from '../Topic';
 import theme from '../../../lib/theme';
 import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import TopicForm from '../TopicForm';
-import ChallengeUserDashBoard from './ChallengeUserDashBoard';
+import ChallengeUserDashBoard from '../../../containers/challengeUserDashboardContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 
 const ChallengeContent = styled.div`
