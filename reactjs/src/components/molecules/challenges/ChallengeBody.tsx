@@ -10,6 +10,7 @@ import ChallengeLeaderBoard from './ChallengeLeaderBoard';
 import TopicForm from '../TopicForm';
 import ChallengeUserDashBoard from '../../../containers/challengeUserDashboardContainer';
 import MarkdownView from '../../atoms/MarkdownView';
+import ChallengeOverview from './ChallengeOverview';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -23,7 +24,12 @@ const ChallengeBody = (props: any) => {
       <Switch>
         <Route
           path="/c/:id/overview"
-          render={() => <MarkdownView text={challenge.overview} />}
+          render={() => (
+            <ChallengeOverview
+              text={challenge.overview}
+              youtubeId={challenge.youtubeId}
+            />
+          )}
         />
         <Route
           path="/c/:id/timeline"
