@@ -1,6 +1,5 @@
 import * as React from 'react';
 import moment from 'moment';
-import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
@@ -16,6 +15,8 @@ import ChallengeHistories from './ChallengeHistories';
 import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
+
+import { APP_URL } from '../../../constants/appInfo';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -70,6 +71,18 @@ const ChallengeUserDashBoard = (props: any) => {
   `;
 
   const data = value && value.data();
+  const accDays = data ? formatDays(data.accDays) : '0';
+  const title = data ? `${data.displayName} さんの記録` : '';
+  const description = `現在、${challengeTitle}に参加中。${accDays}日達成しました！`;
+  const url = `${APP_URL}/c/${challengeId}/u/${userId}`;
+
+  React.useEffect(() => {
+    props.setOgpInfo({ title, description, url });
+
+    return () => {
+      props.resetOgpInfo();
+    };
+  }, [description, props, title, url]);
 
   return (
     <React.Fragment>
@@ -78,7 +91,7 @@ const ChallengeUserDashBoard = (props: any) => {
       {data && (
         <DashBoardWrapper>
           <StyledCenterContainer>
-            <Title text={`${data.displayName} さんの記録`} />
+            <Title text={title} />
             {/* <Typography variant="h6">開始日: {formatDate(data)}</Typography> */}
             <div id="challenge-card">
               <Record days={formatDays(data.accDays)} />
@@ -112,10 +125,4 @@ const ChallengeUserDashBoard = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  challengeId: props.match.params.challengeId,
-  userId: props.match.params.userId,
-  ...props
-});
-
-export default connect(mapStateToProps)(ChallengeUserDashBoard);
+export default ChallengeUserDashBoard;

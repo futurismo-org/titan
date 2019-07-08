@@ -9,6 +9,7 @@ import AdminRoute from '../utils/AdminRoute';
 import DemoLogin from './admin/DemoLogin';
 import GlobalStyle from '../../lib/global-styles';
 import { store } from '../../store';
+import Head from '../templates/Head';
 
 const history = createBrowserHistory();
 history.listen(location => {
@@ -25,6 +26,7 @@ const App = () => {
     <React.Fragment>
       <Router history={history}>
         <Provider store={store}>
+          <Head />
           <GlobalStyle />
           <Switch>
             <Route exact path="/admin/demo/login" component={DemoLogin} />
