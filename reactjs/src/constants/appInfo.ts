@@ -10,5 +10,4 @@ urlMap.set('development', APP_DEVELOPMENT_URL);
 urlMap.set('production', APP_PRODUCTION_URL);
 export const APP_URL = urlMap.get(process.env.REACT_APP_ENV);
 
-export const APP_ICON_URL =
-  'https://titan-fire.netlify.com/dist/images/icon-256x256.png';
+export const APP_ICON_URL = APP_URL + '/icon.png';
