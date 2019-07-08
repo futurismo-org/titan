@@ -1,31 +1,37 @@
 import * as React from 'react';
-// import Youtube from 'react-youtube';
+import styled from 'styled-components';
 import MarkdownView from '../../atoms/MarkdownView';
+
+const VideoWrapper = styled.div`
+  max-width: 853px;
+`;
+
+const Video = styled.div`
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25;
+  height: 0;
+`;
+
+const StyledIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+`;
 
 const Youtube = (youtubeId: string) => {
   return (
-    <div
-      className="video"
-      style={{
-        position: 'relative',
-        paddingBottom: '56.25%' /* 16:9 */,
-        paddingTop: 25,
-        height: 0
-      }}
-    >
-      <iframe
-        title="yotuube"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%'
-        }}
-        src={`https://www.youtube.com/embed/${youtubeId}`}
-        frameBorder="0"
-      />
-    </div>
+    <VideoWrapper>
+      <Video>
+        <StyledIframe
+          title="yotuube"
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          frameBorder="0"
+        />
+      </Video>
+    </VideoWrapper>
   );
 };
 
