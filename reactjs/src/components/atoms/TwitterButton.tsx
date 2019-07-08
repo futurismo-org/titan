@@ -3,11 +3,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 import { connect } from 'react-redux';
-import { Button, TextField } from '@material-ui/core';
-import FormData from 'form-data';
-import domtoimage from 'dom-to-image';
-import axios from '../../lib/axios';
-import SimpleModal from '../molecules/SimpleModal';
+import Button from '@material-ui/core/Button';
+
+import Link from './NoStyledExternalLink';
+
+// import { TextField } from '@material-ui/core';
+// import FormData from 'form-data';
+// import domtoimage from 'dom-to-image';
+// import axios from '../../lib/axios';
+// import SimpleModal from '../molecules/SimpleModal';
 
 const ButtonWrapper = styled.div`
   text-align: center;
@@ -19,42 +23,54 @@ const TwitterButton = (props: any) => {
 
   const shareURL = `https://titan-fire.com/c/${challengeId}/u/${userId}`;  // eslint-disable-line
 
-  const buildTweetContent = () =>
-    `${title}参加中 #Titan ${hashtag} ${shareURL}`;
-  const [text, setText] = React.useState(buildTweetContent);
+  const buildTweetContent = `${title}参加中%0a${shareURL}`;
+  const buildHashTags = `${hashtag}`.replace('#', '');
 
-  const submitHandler = (e: any) => {
-    e.preventDefault();
+  // const [text, setText] = React.useState(buildTweetContent);
 
-    // TODO 文字数Check
+  // const submitHandler = (e: any) => {
+  //   e.preventDefault();
 
-    const node = document.getElementById('challenge-card')   // eslint-disable-line 
-    domtoimage.toPng(node as Node).then((dataURL: any) => {
-      const data = new FormData();
-      data.append('content', text);
-      data.append('token', user.accessTokenKey);
-      data.append('secret', user.accessTokenSecret);
-      data.append('image', dataURL);
+  //   // TODO 文字数Check
 
-      axios
-        .post('/twitter/post', data, {
-          headers: {
-            'content-type': `multipart/form-data`
-          }
-        })
-        .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
-        .catch(err => console.error(err));
-    });
-  };
+  //   const node = document.getElementById('challenge-card')   // eslint-disable-line
+  //   domtoimage.toPng(node as Node).then((dataURL: any) => {
+  //     const data = new FormData();
+  //     data.append('content', text);
+  //     data.append('token', user.accessTokenKey);
+  //     data.append('secret', user.accessTokenSecret);
+  //     data.append('image', dataURL);
 
-  const onTextChange = (e: any) => {
-    e.preventDefault();
-    setText(e.target.value);
-  };
+  //     axios
+  //       .post('/twitter/post', data, {
+  //         headers: {
+  //           'content-type': `multipart/form-data`
+  //         }
+  //       })
+  //       .then(() => window.alert('Twitterに投稿しました。')) // eslint-disable-line
+  //       .catch(err => console.error(err));
+  //   });
+  // };
+
+  // const onTextChange = (e: any) => {
+  //   e.preventDefault();
+  //   setText(e.target.value);
+  // };
+
+  const textBuilder = `https://twitter.com/intent/tweet?text=${buildTweetContent}&hashtags=${buildHashTags}`;
 
   return (
     <React.Fragment>
-      {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
+      {user.shortId === userId ? (
+        <ButtonWrapper>
+          <Link href={`${textBuilder}`}>
+            <Button variant="contained" color="secondary">
+              Twitterでシェア
+            </Button>
+          </Link>
+        </ButtonWrapper>
+      ) : null}
+      {/* {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
         <ButtonWrapper>
           <SimpleModal
             buttonOptions={{
@@ -87,7 +103,7 @@ const TwitterButton = (props: any) => {
             </Button>
           </SimpleModal>
         </ButtonWrapper>
-      ) : null}
+      ) : null} */}
     </React.Fragment>
   );
 };
