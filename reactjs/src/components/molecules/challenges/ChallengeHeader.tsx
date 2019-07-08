@@ -9,6 +9,7 @@ import ChallengeButton from '../../atoms/challenges/ChallengeButton';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
+import MediaQuery from 'react-responsive';
 
 moment.locale('ja');
 
@@ -90,14 +91,21 @@ const ChallengeHeader = (props: any) => {
         <Grid item md={9}>
           <MainFeaturedPostContent>
             <HeaderInfo>
-              <Typography
-                component="h1"
-                variant="h3"
-                color="inherit"
-                gutterBottom
-              >
-                {challenge.title}
-              </Typography>
+              <MediaQuery maxDeviceWidth={750}>
+                <h1 style={{ overflowWrap: 'break-word' }}>
+                  {challenge.title}
+                </h1>
+              </MediaQuery>
+              <MediaQuery minDeviceWidth={749}>
+                <Typography
+                  component="h1"
+                  variant="h3"
+                  color="inherit"
+                  gutterBottom
+                >
+                  {challenge.title}
+                </Typography>
+              </MediaQuery>
             </HeaderInfo>
             <HeaderInfo>
               <Typography variant="h5" color="inherit">
