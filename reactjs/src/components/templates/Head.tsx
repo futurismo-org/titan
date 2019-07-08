@@ -24,11 +24,6 @@ const Head = (props: any) => {
         { property: 'og:description', content: description },
         { property: 'og:site_name', content: AppInfo.APP_NAME },
         { name: 'twitter:card', content: 'summary' },
-        { name: 'twitter:site', content: '@titan_dev_1234' },
-        {
-          name: 'twitter:image',
-          content: AppInfo.APP_ICON_URL
-        },
         { name: 'fragment', content: '!' }
       ]}
     >
