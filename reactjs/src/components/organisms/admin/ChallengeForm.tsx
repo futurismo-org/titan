@@ -172,7 +172,7 @@ const ChallengeForm = (props: any) => {
           setPrice(challenge!.price || 0);
           setHashtag(challenge!.hashtag || '');
           setPinned(challenge!.pinned ? challenge!.pinned : false);
-          setYoutubeId(challenge!.youtubeId);
+          setYoutubeId(challenge!.youtubeId || '');
         });
     }
   }, [isCreate, props.match.params.id]);
