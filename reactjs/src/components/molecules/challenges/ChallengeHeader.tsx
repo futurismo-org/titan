@@ -1,4 +1,5 @@
 import * as React from 'react';
+import MediaQuery from 'react-responsive';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +10,6 @@ import ChallengeButton from '../../atoms/challenges/ChallengeButton';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
-import MediaQuery from 'react-responsive';
 
 moment.locale('ja');
 

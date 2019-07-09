@@ -28,6 +28,8 @@ const ChallengeBody = (props: any) => {
             <ChallengeOverview
               text={challenge.overview}
               youtubeId={challenge.youtubeId}
+              openedAt={challenge.openedAt.toDate()}
+              closedAt={challenge.closedAt.toDate()}
             />
           )}
         />
