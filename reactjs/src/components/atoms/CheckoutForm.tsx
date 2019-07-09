@@ -169,7 +169,11 @@ class CheckoutForm extends React.PureComponent<Props> {
         <Typography component="h3" variant="h5">
           チャレンジ購入 {this.state.price}円
         </Typography>
-        <div id="payment-request-button" />
+        <h3>超重要</h3>
+        <p>
+          現在、価格モデル検討中のため、全てのチャレンジは無料で参加できます。購入ボタンをそのまま押してください。
+        </p>
+        {/* <div id="payment-request-button" />
         <p>クレジットカード決済</p>
         <CardElementWrapper>
           <CardElement style={{ base: { fontSize: '14px' } }} />
@@ -196,7 +200,15 @@ class CheckoutForm extends React.PureComponent<Props> {
           >
             送信
           </Button>
-        </div>
+        </div> */}
+        <Button
+          color="secondary"
+          variant="contained"
+          size="small"
+          onClick={this.submit}
+        >
+          購入
+        </Button>
       </React.Fragment>
     );
   }
