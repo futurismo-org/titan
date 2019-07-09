@@ -10,8 +10,6 @@ if (admin.apps.length === 0) {
   }
 }
 
-export const functions = require('firebase-functions').region(
-  'asia-northeast1'
-);
+export const functions = require('firebase-functions').region('us-central1');
 
 export default admin;
