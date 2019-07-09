@@ -128,6 +128,7 @@ const createParticipationSeed = (args: any) => {
     createdAt: now,
     startedAt: now,
     updatedAt: now,
+    challengeName: 'サンプルチャレンジ',
     ...args
   });
 };

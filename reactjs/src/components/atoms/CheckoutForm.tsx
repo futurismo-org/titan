@@ -18,7 +18,7 @@ import { postMessage } from '../../lib/discord.client.api';
 
 type Props = {} & any;
 
-const joinHandler = (challengeId: string, user: any) => {
+const joinHandler = (challengeId: string, challengeName: string, user: any) => {
   const newData = {
     id: user.id,
     histories: [],
@@ -29,7 +29,8 @@ const joinHandler = (challengeId: string, user: any) => {
     score: 0,
     days: 0,
     maxDays: 0,
-    accDays: 0
+    accDays: 0,
+    challengeName
   };
 
   firebase
@@ -101,14 +102,24 @@ class CheckoutForm extends React.PureComponent<Props> {
           })
           .then((res: any) => console.log('Purchase Complete!'))
           .then((res: any) => event.complete('success'))
-          .then(() => joinHandler(this.props.challengeId, this.props.user))
+          .then(() =>
+            joinHandler(
+              this.props.challengeId,
+              this.props.challengeName,
+              this.props.user
+            )
+          )
           .catch((err: any) => {
             event.complete('fail');
             console.error(err);
           });
       } else {
         console.log('do nothing.');
-        joinHandler(this.props.challengeId, this.props.user);
+        joinHandler(
+          this.props.challengeId,
+          this.props.challengeName,
+          this.props.user
+        );
       }
     });
 
@@ -147,11 +158,21 @@ class CheckoutForm extends React.PureComponent<Props> {
           })
         )
         .then((res: any) => console.log('Purchase Complete!'))
-        .then(() => joinHandler(this.props.challengeId, this.props.user))
+        .then(() =>
+          joinHandler(
+            this.props.challengeId,
+            this.props.challengeName,
+            this.props.user
+          )
+        )
         .catch((err: any) => console.error(err));
     } else {
       console.log('do nothing.');
-      joinHandler(this.props.challengeId, this.props.user);
+      joinHandler(
+        this.props.challengeId,
+        this.props.challengeName,
+        this.props.user
+      );
     }
   }
 

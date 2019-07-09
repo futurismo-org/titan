@@ -1,6 +1,5 @@
-import { DocumentSnapshot } from '@google-cloud/firestore';
 import * as fs from 'fs';
-import { functions } from '../utils/admin';
+import admin from '../utils/admin';
 
 // const functions = require('firebase-functions');
 // const admin = require('../utils/admin');
@@ -38,19 +37,21 @@ exports.dashboard = (req: any, res: any) => {
   const challengeId = req.params.cid;
   const userShortId = req.params.uid;
 
-  return functions
+  return admin
+    .firestore()
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
     .doc(userShortId)
     .get()
-    .then((snap: DocumentSnapshot) => {
-      if (!snap) {
+    .then((doc: any) => {
+      if (!doc) {
         res.status(404).end('404 Not Found');
         return;
       }
-      const userItem = snap ? snap.data() : {};
-      const userName = userItem ? userItem.displayName : '';
+      const userItem = doc.data();
+
+      const userName = userItem ? userItem.displayName : 'Annonymous';
       const challengeName = userItem ? userItem.challengeName : '';
       const accDays = userItem ? userItem.accDays : 0;
 
@@ -58,23 +59,22 @@ exports.dashboard = (req: any, res: any) => {
       const description = `${challengeName}に参加中。${accDays}日達成しました！`;
       const url = `https://titan-fire.com/c/${challengeId}/u/${userShortId}`;
 
-      // const html = createDashBoardHtml(
-      //   challengeId,
-      //   userShortId,
-      //   title,
-      //   description,
-      //   url
-      // );
-
       res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
-      fs.readFile('./index.html', 'utf8', (e: any, html: any) => {
-        const responseHtml = html
-          .replace(/\<title>.*<\/title>/g, '<title>' + title + '</title>')
-          .replace(
-            /(<meta id="description".*content=")(.*)" \/>/g,
-            '$1' + description + ''
-          );
-        res.status(200).send(responseHtml);
+
+      fs.readFile('../index.html', 'utf8', (e: any, html: any) => {
+        html = html.replace(
+          html.match(/<meta property="og:title"[^>]*>/),
+          `<meta property="og:title" content="${title}">`
+        );
+        html = html.replace(
+          html.match(/<meta property="og:description"[^>]*>/),
+          `<meta property="og:description" content="${description}">`
+        );
+        html = html.replace(
+          html.match(/<meta property="og:url"[^>]*>/),
+          `<meta property="og:url" content="${url}">`
+        );
+        res.status(200).send(html);
       });
     })
     .catch((err: any) => {
