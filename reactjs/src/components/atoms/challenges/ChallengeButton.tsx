@@ -39,7 +39,7 @@ const StyledModalContent = styled.div`
 const ChallengeButton = (props: any) => {
   const { challenge, user } = props;
   const challengeId = challenge.id;
-  const { price } = challenge;
+  const { price, title } = challenge;
   const [join, setJoin] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -111,6 +111,7 @@ const ChallengeButton = (props: any) => {
                 user={user}
                 challengeId={challengeId}
                 price={price}
+                challengeName={title}
               />
             </Elements>
           </StripeProvider>
