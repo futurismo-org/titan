@@ -5,7 +5,7 @@ import { injectStripe } from 'react-stripe-elements';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import { firestore } from 'firebase';
 import axios from '../../lib/axios';
 
