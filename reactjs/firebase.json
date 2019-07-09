@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "/c/*/u/*",
-        "destination": "dashboard"
+        "destination": "api"
       },
       {
         "source": "**",
