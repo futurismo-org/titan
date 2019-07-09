@@ -1,41 +1,10 @@
 import * as fs from 'fs';
 import admin from '../utils/admin';
 
-// const functions = require('firebase-functions');
-// const admin = require('../utils/admin');
-
-// const createDashBoardHtml = (
-//   challengeId: string,
-//   userShortId: string,
-//   title: string,
-//   description: string,
-//   url: string
-// ) => {
-//   return `
-//   <!DOCTYPE html>
-//   <html>
-//     <head>
-//       <meta charset="utf-8">
-//       <meta name="viewport" content="width=device-width,initial-scale=1.0">
-//       <title>colorinco</title>
-//       <meta property="og:title" content="${title}">
-//       <meta property="og:description" content="${description}">
-//       <meta property="og:url" content="${url}">
-//       <meta property="og:type" content="article">
-//       <meta property="og:site_name" content="Titan">
-//       <meta name="twitter:card" content="summary">
-//     </head>
-//     <body>
-//       <script type="text/javascript">window.location="/_c/${challengeId}/_u/${userShortId}";</script>
-//     </body>
-//   </html>
-//   `;
-// };
-
 exports.dashboard = (req: any, res: any) => {
-  // const [, , challengeId, , userShortId] = req.path.split('/');
-  const challengeId = req.params.cid;
-  const userShortId = req.params.uid;
+  const [, , challengeId, , userShortId] = req.path.split('/');
+  // const challengeId = req.params.cid;
+  // const userShortId = req.params.uid;
 
   return admin
     .firestore()
