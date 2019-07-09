@@ -10,6 +10,7 @@ import { firestore } from 'firebase';
 import axios from '../../lib/axios';
 
 import firebase from '../../lib/firebase';
+import { postMessage } from '../../lib/discord.client.api';
 
 // const CardElementWrapper = styled.div`
 //   margin: 15px;
@@ -42,6 +43,13 @@ const joinHandler = (challengeId: string, user: any) => {
         .then((doc: firestore.DocumentSnapshot) => {
           const current: number = doc.data()!.participantsCount;
           doc.ref.update({ participantsCount: current + 1 });
+
+          const message = `${user.displayName}さんが${
+            doc.data()!.title
+          }に参加しました。 https://titan-fire.com/c/${challengeId}/u/${
+            user.shortId
+          }`;
+          postMessage(doc.data()!.webhookURL, message);
         });
       await firebase
         .firestore()
