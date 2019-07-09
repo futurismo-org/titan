@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/c/*/u/*",
+        "destination": "dashboard"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
