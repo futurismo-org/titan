@@ -9,7 +9,6 @@ import {
 } from '@material-ui/core';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
-import { connect } from 'react-redux';
 
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
