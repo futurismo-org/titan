@@ -8,6 +8,7 @@ import Progress from '../atoms/CircularProgress';
 
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
+import MarkdownView from '../atoms/MarkdownView';
 
 const db = firebase.firestore();
 
@@ -33,7 +34,7 @@ const Topic = (props: any) => {
       {data && (
         <Paper>
           <Typography component="span" variant="body2" color="textPrimary">
-            Posted by {data.userName || 'anonymous'}
+            Posted by {data.userName || 'Anonymous'}
           </Typography>
           {'     '}
           {moment(data.createdAt.toDate()).fromNow() || ''}
@@ -44,7 +45,7 @@ const Topic = (props: any) => {
             </a>
           )}
           <p />
-          {data.text}
+          <MarkdownView text={data.text} />
         </Paper>
       )}
     </React.Fragment>
