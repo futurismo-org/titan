@@ -171,7 +171,7 @@ const ChallengePosts = (props: any) => {
         timestamp: new Date(),
         score: newScore,
         days: 0,
-        diff: moment().diff(moment(openedAt), 'days'),
+        diff: moment().diff(moment(openedAt.toDate()), 'days'),
         type: 'RESET'
       };
 
