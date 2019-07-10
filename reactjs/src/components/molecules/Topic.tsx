@@ -50,6 +50,18 @@ const Topic = (props: any) => {
     }
   };
 
+  /* eslint-disable no-undef */
+  React.useEffect(() => {
+    const addthisScript = document.createElement('script');
+    addthisScript.setAttribute(
+      'src',
+      '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf'
+    );
+    if (document.body) {
+      document.body.appendChild(addthisScript);
+    }
+  }, []);
+
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
