@@ -20,7 +20,7 @@ type Props = {} & any;
 
 const joinHandler = (challengeId: string, challengeName: string, user: any) => {
   const newData = {
-    id: user.id,
+    id: user.shortId,
     histories: [],
     createdAt: new Date(),
     updatedAt: new Date(),
