@@ -5,15 +5,11 @@ const path = require('path');
 
 exports.dashboard = (req: any, res: any) => {
   const [, , challengeId, , userShortId] = req.path.split('/');
-  // const challengeId = req.params.cid;
-  // const userShortId = req.params.uid;
+  const resourceId = `challenges/${challengeId}/participants/${userShortId}`;
 
   return admin
     .firestore()
-    .collection('challenges')
-    .doc(challengeId)
-    .collection('participants')
-    .doc(userShortId)
+    .doc(resourceId)
     .get()
     .then((doc: any) => {
       if (!doc) {
@@ -53,7 +49,7 @@ exports.dashboard = (req: any, res: any) => {
       );
     })
     .catch((err: any) => {
-      console.warn(err);
+      console.error(err);
     });
 };
 

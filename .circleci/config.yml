@@ -50,7 +50,7 @@ jobs:
       - run:
           name: 'Deploy to Functions(development) Functions'
           working_directory: firebase/functions
-          command: REACT_APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
+          command: APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
           
       - run:
           name: 'Build(production)'
@@ -58,7 +58,7 @@ jobs:
           command: REACT_APP_ENV=production npm run build
 
       - run:
-          name: 'Deploy to Hosting(Production)'
+          name: 'Deploy to Hosting(production)'
           working_directory: reactjs
           command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
 
@@ -67,7 +67,7 @@ jobs:
           command: cp reactjs/build/index.html firebase/functions/lib
 
       - run:
-          name: 'Deploy to Functions(Production)'
+          name: 'Deploy to Functions(production)'
           working_directory: firebase/functions
           command: APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
 
