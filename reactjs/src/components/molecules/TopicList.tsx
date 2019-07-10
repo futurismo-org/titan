@@ -5,17 +5,16 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-  Avatar,
-  Button
+  Avatar
 } from '@material-ui/core';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import NoStyledLink from '../atoms/NoStyledLink';
-
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
+
+import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
   const { collection, collectionId, user, limit } = props;
@@ -31,18 +30,6 @@ const TopicList = (props: any) => {
   );
 
   const collectionShort = collection === 'challenges' ? 'c' : 'cat';
-
-  const onDeleteHandler = (topicId: string) => {
-    if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
-      firebase
-        .firestore()
-        .collection(collection)
-        .doc(collectionId)
-        .collection('topics')
-        .doc(topicId)
-        .delete();
-    }
-  };
 
   return (
     <List>
@@ -84,25 +71,6 @@ const TopicList = (props: any) => {
                   </React.Fragment>
                 }
               />
-              {user.id === topic.userId ? (
-                <React.Fragment>
-                  <NoStyledLink
-                    to={`/${collectionShort}/${collectionId}/t/${topic.id}/edit`}
-                  >
-                    <Button type="button" color="default" variant="contained">
-                      編集
-                    </Button>
-                  </NoStyledLink>
-                  <Button
-                    type="button"
-                    color="default"
-                    variant="contained"
-                    onClick={() => onDeleteHandler(topic.id)}
-                  >
-                    削除
-                  </Button>
-                </React.Fragment>
-              ) : null}
             </ListItem>
           ))}
     </List>
