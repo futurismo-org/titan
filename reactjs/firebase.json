@@ -10,6 +10,14 @@
       {
         "source": "/c/*/u/*",
         "function": "api"
+      }, 
+      {
+        "source": "/c/*/t/*",
+        "function": "api"
+      },
+      {
+        "source": "/cat/*/t/*",
+        "function": "api"
       },
       {
         "source": "**",
