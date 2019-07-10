@@ -63,6 +63,7 @@ const Topic = (props: any) => {
             {'     '}
             {moment(data.createdAt.toDate()).fromNow() || ''}
             <Title text={data.title} />
+            <div className="addthis_inline_share_toolbox" />
             {data.url && (
               <a href={data.url} rel="noopener noreferrer" target="_blank">
                 {data.url}
