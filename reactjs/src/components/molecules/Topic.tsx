@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 import moment from 'moment';
