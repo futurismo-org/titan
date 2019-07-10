@@ -129,7 +129,7 @@ const ChallengeButton = (props: any) => {
     .collection('challenges')
     .doc(challengeId)
     .collection('participants')
-    .where('id', '==', user.id)
+    .where('id', '==', user.shortId)
     .get()
     .then((s: any) => setJoin(!s.empty));
 
