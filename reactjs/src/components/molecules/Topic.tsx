@@ -68,7 +68,8 @@ const Topic = (props: any) => {
             <MarkdownView text={data.text} />
           </Paper>
           {user.shortId === data.userId ? (
-            <React.Fragment>
+            <div style={{ textAlign: 'center' }}>
+              <p />
               <NoStyledLink
                 to={`/${collectionShort}/${collectionId}/t/${topicId}/edit`}
               >
@@ -84,7 +85,7 @@ const Topic = (props: any) => {
               >
                 削除
               </Button>
-            </React.Fragment>
+            </div>
           ) : null}
         </React.Fragment>
       )}
