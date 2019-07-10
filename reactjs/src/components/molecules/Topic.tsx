@@ -53,6 +53,7 @@ const Topic = (props: any) => {
   /* eslint-disable no-undef */
   React.useEffect(() => {
     const addthisScript = document.createElement('script');
+    addthisScript.setAttribute('type', 'text/javascript');
     addthisScript.setAttribute(
       'src',
       '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf'
