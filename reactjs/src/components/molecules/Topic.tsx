@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 import moment from 'moment';
@@ -6,6 +6,7 @@ import moment from 'moment';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
 import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
@@ -15,6 +16,8 @@ import MarkdownView from '../atoms/MarkdownView';
 
 import NoStyledLink from '../atoms/NoStyledLink';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+
+import { setOgpInfo, resetOgpInfo } from '../../actions/ogpAction';
 
 const db = firebase.firestore();
 
@@ -31,7 +34,7 @@ const Topic = (props: any) => {
       .doc(topicId)
   );
 
-  const data = value && value.data();
+  const topic = value && value.data();
 
   const collectionShort = collection === 'challenges' ? 'c' : 'cat';
 
@@ -52,7 +55,7 @@ const Topic = (props: any) => {
   };
 
   /* eslint-disable no-undef */
-  React.useEffect(() => {
+  useEffect(() => {
     const addthisScript = document.createElement('script');
     addthisScript.setAttribute('type', 'text/javascript');
     addthisScript.setAttribute(
@@ -62,37 +65,47 @@ const Topic = (props: any) => {
     if (document.body) {
       document.body.appendChild(addthisScript);
     }
-  }, []);
+
+    props.setOgpInfo({
+      title: topic ? topic.title : '',
+      description: topic ? topic.text : '',
+      url: topic ? topic.url : ''
+    });
+
+    return () => {
+      props.resetOgpInfo();
+    };
+  }, [props, topic]);
 
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && (
+      {topic && (
         <React.Fragment>
           <Paper>
             <Typography component="span" variant="body2" color="textPrimary">
-              Posted by {data.userName || 'Anonymous'}
+              Posted by {topic.userName || 'Anonymous'}
             </Typography>
             {'     '}
-            {moment(data.createdAt.toDate()).fromNow() || ''}
-            {data.url ? (
-              <NoStyledExternalLink href={data.url} target="_blank">
-                <Title text={data.title} />
+            {moment(topic.createdAt.toDate()).fromNow() || ''}
+            {topic.url ? (
+              <NoStyledExternalLink href={topic.url} target="_blank">
+                <Title text={topic.title} />
               </NoStyledExternalLink>
             ) : (
-              <Title text={data.title} />
+              <Title text={topic.title} />
             )}
             <div className="addthis_inline_share_toolbox" />
-            {data.url && (
-              <a href={data.url} rel="noopener noreferrer" target="_blank">
-                {data.url.substr(0, 30) + '...'}
+            {topic.url && (
+              <a href={topic.url} rel="noopener noreferrer" target="_blank">
+                {topic.url.substr(0, 30) + '...'}
               </a>
             )}
             <p />
-            <MarkdownView text={data.text} />
+            <MarkdownView text={topic.text} />
           </Paper>
-          {user.shortId === data.userId ? (
+          {user.shortId === topic.userId ? (
             <div style={{ textAlign: 'center' }}>
               <p />
               <NoStyledLink
@@ -123,4 +136,14 @@ const mapStateToProps = (state: any, props: any) => ({
   ...props
 });
 
-export default connect(mapStateToProps)(Topic);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    setOgpInfo: bindActionCreators(setOgpInfo, dispatch),
+    resetOgpInfo: bindActionCreators(resetOgpInfo, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Topic);
