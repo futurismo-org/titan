@@ -14,7 +14,6 @@ import firebase from '../../lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
 import NoStyledLink from '../atoms/NoStyledLink';
-import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 const TopicList = (props: any) => {
   const { collection, collectionId, limit } = props;
@@ -51,17 +50,11 @@ const TopicList = (props: any) => {
               </ListItemAvatar>
               <ListItemText
                 primary={
-                  topic.url && topic.text === '' ? (
-                    <NoStyledExternalLink href={topic.url} target="_blank">
-                      {topic.title}
-                    </NoStyledExternalLink>
-                  ) : (
-                    <NoStyledLink
-                      to={`/${collectionShort}/${collectionId}/t/${topic.id}`}
-                    >
-                      {topic.title}
-                    </NoStyledLink>
-                  )
+                  <NoStyledLink
+                    to={`/${collectionShort}/${collectionId}/t/${topic.id}`}
+                  >
+                    {topic.title}
+                  </NoStyledLink>
                 }
                 secondary={
                   <React.Fragment>

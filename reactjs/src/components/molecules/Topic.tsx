@@ -14,6 +14,7 @@ import Title from '../atoms/Title';
 import MarkdownView from '../atoms/MarkdownView';
 
 import NoStyledLink from '../atoms/NoStyledLink';
+import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 const db = firebase.firestore();
 
@@ -75,11 +76,17 @@ const Topic = (props: any) => {
             </Typography>
             {'     '}
             {moment(data.createdAt.toDate()).fromNow() || ''}
-            <Title text={data.title} />
+            {data.url ? (
+              <NoStyledExternalLink href={data.url} target="_blank">
+                <Title text={data.title} />
+              </NoStyledExternalLink>
+            ) : (
+              <Title text={data.title} />
+            )}
             <div className="addthis_inline_share_toolbox" />
             {data.url && (
               <a href={data.url} rel="noopener noreferrer" target="_blank">
-                {data.url}
+                {data.url.substr(0, 30) + '...'}
               </a>
             )}
             <p />
