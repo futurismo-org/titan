@@ -42,7 +42,11 @@ const Topic = (props: any) => {
         .doc(collectionId)
         .collection('topics')
         .doc(topicId)
-        .delete();
+        .delete()
+        .then(
+          () =>
+            (window.location.href = `/${collectionShort}/${collectionId}/topics`) // eslint-disable-line no-undef
+        );
     }
   };
 
