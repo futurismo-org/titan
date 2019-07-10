@@ -34,25 +34,6 @@ jobs:
           key: v1-dependencies-{{ checksum "reactjs/package.json" }}
 
       - run:
-          name: 'Build(development)'
-          working_directory: reactjs
-          command: REACT_APP_ENV=development npm run build
-          
-      - run:
-          name: 'Deploy to Hosting(development)'
-          working_directory: reactjs
-          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
-
-      - run:
-          name: 'Copy index.html(development)'
-          command: cp reactjs/build/index.html firebase/functions/lib
-
-      - run:
-          name: 'Deploy to Functions(development) Functions'
-          working_directory: firebase/functions
-          command: APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
-          
-      - run:
           name: 'Build(production)'
           working_directory: reactjs
           command: REACT_APP_ENV=production npm run build
@@ -71,6 +52,25 @@ jobs:
           working_directory: firebase/functions
           command: APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
 
+      - run:
+          name: 'Build(development)'
+          working_directory: reactjs
+          command: REACT_APP_ENV=development npm run build
+          
+      - run:
+          name: 'Deploy to Hosting(development)'
+          working_directory: reactjs
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
+
+      - run:
+          name: 'Copy index.html(development)'
+          command: cp reactjs/build/index.html firebase/functions/lib
+
+      - run:
+          name: 'Deploy to Functions(development) Functions'
+          working_directory: firebase/functions
+          command: APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
+          
 workflows:
   main:
     jobs:
