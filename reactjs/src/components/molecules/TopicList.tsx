@@ -17,7 +17,7 @@ import Progress from '../atoms/CircularProgress';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
-  const { collection, collectionId, user, limit } = props;
+  const { collection, collectionId, limit } = props;
 
   const [value, loading, error] = useCollection(
     firebase
@@ -77,9 +77,4 @@ const TopicList = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(TopicList);
+export default TopicList;
