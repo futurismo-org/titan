@@ -19,6 +19,8 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import { setOgpInfo, resetOgpInfo } from '../../actions/ogpAction';
 
+import TwitterShareIcon from '../atoms/TwitterShareIcon';
+
 const db = firebase.firestore();
 
 const Topic = (props: any) => {
@@ -56,16 +58,6 @@ const Topic = (props: any) => {
 
   /* eslint-disable no-undef */
   useEffect(() => {
-    const addthisScript = document.createElement('script');
-    addthisScript.setAttribute('type', 'text/javascript');
-    addthisScript.setAttribute(
-      'src',
-      '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf'
-    );
-    if (document.body) {
-      document.body.appendChild(addthisScript);
-    }
-
     props.setOgpInfo({
       title: topic ? topic.title : '',
       description: topic ? topic.text : '',
@@ -96,7 +88,10 @@ const Topic = (props: any) => {
             ) : (
               <Title text={topic.title} />
             )}
-            <div className="addthis_inline_share_toolbox" />
+            <TwitterShareIcon
+              title={topic.title}
+              url={`https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}`}
+            />
             {topic.url && (
               <a href={topic.url} rel="noopener noreferrer" target="_blank">
                 {topic.url.substr(0, 30) + '...'}
