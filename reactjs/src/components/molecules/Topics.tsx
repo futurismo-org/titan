@@ -12,7 +12,7 @@ const Topics = (props: any) => {
 
   const postButtonPath =
     collection === 'general'
-      ? '/t/new'
+      ? '/topics/new'
       : `/${collectionShort}/${collectionId}/t/new`;
 
   return (

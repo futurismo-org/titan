@@ -59,7 +59,7 @@ const TopicList = (props: any) => {
                   <NoStyledLink
                     to={
                       collection === 'general'
-                        ? `/t/${topic.id}`
+                        ? `/topics/${topic.id}`
                         : `/${collectionShort}/${collectionId}/t/${topic.id}`
                     }
                   >

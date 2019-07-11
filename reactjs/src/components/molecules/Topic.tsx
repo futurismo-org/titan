@@ -43,10 +43,7 @@ const Topic = (props: any) => {
     if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
       firebase
         .firestore()
-        .collection(collection)
-        .doc(collectionId)
-        .collection('topics')
-        .doc(topicId)
+        .doc(resourceId)
         .delete()
         .then(
           () =>
@@ -94,7 +91,7 @@ const Topic = (props: any) => {
               title={topic.title}
               url={
                 collection === 'general'
-                  ? `https://titan-fire.com/t/${topicId}`
+                  ? `https://titan-fire.com/topics/${topicId}`
                   : `https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}`
               }
             />
@@ -112,8 +109,8 @@ const Topic = (props: any) => {
               <NoStyledLink
                 to={
                   collection === 'general'
-                    ? `https://titan-fire.com/t/${topicId}/edit`
-                    : `https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}/edit`
+                    ? `/topics/${topicId}/edit`
+                    : `/${collectionShort}/${collectionId}/t/${topicId}/edit`
                 }
               >
                 <Button type="button" color="default" variant="contained">
