@@ -66,7 +66,7 @@ const ChallengePosts = (props: any) => {
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
-      diff: moment().diff(moment(openedAt), 'days'),
+      diff: moment().diff(moment(openedAt.toDate()), 'days'),
       type: 'RECORD'
     };
 
@@ -87,7 +87,7 @@ const ChallengePosts = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
-        const message = `${userName}さんが${tomorrow}日達成しました！`;
+        const message = `${userName}さんが${newAccDays}日達成しました！`;
         postMessage(webhookURL, message);
       })
       .then(() => {
