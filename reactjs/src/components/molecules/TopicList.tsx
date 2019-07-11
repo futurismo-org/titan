@@ -19,13 +19,19 @@ const TopicList = (props: any) => {
   const { collection, collectionId, limit } = props;
 
   const [value, loading, error] = useCollection(
-    firebase
-      .firestore()
-      .collection(collection)
-      .doc(collectionId)
-      .collection('topics')
-      .orderBy('updatedAt', 'desc')
-      .limit(limit || 1000)
+    collection === 'general'
+      ? firebase
+          .firestore()
+          .collection('topics')
+          .orderBy('updatedAt', 'desc')
+          .limit(limit || 1000)
+      : firebase
+          .firestore()
+          .collection(collection)
+          .doc(collectionId)
+          .collection('topics')
+          .orderBy('updatedAt', 'desc')
+          .limit(limit || 1000)
   );
 
   const collectionShort = collection === 'challenges' ? 'c' : 'cat';
@@ -51,7 +57,11 @@ const TopicList = (props: any) => {
               <ListItemText
                 primary={
                   <NoStyledLink
-                    to={`/${collectionShort}/${collectionId}/t/${topic.id}`}
+                    to={
+                      collection === 'general'
+                        ? `/t/${topic.id}`
+                        : `/${collectionShort}/${collectionId}/t/${topic.id}`
+                    }
                   >
                     {topic.title}
                   </NoStyledLink>

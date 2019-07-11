@@ -6,7 +6,14 @@ import TopicList from './TopicList';
 
 const Topics = (props: any) => {
   const { collection, collectionId } = props;
-  const collectionShort = collection === 'challenges' ? 'c' : 'cat';
+
+  const collectionShort =
+    collection === 'general' ? '' : collection === 'challenges' ? 'c' : 'cat';
+
+  const postButtonPath =
+    collection === 'general'
+      ? '/t/new'
+      : `/${collectionShort}/${collectionId}/t/new`;
 
   return (
     <React.Fragment>
@@ -16,10 +23,7 @@ const Topics = (props: any) => {
             トピック
           </Typography>
         </ListItemText>
-        <PostButton
-          to={`/${collectionShort}/${collectionId}/t/new`}
-          type="button"
-        />
+        <PostButton to={postButtonPath} type="button" />
       </ListItem>
       <ListItem />
       <TopicList {...props} />
