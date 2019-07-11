@@ -32,6 +32,11 @@ const TopicForm = (props: any) => {
 
   const collectionShort = collection === 'challenges' ? 'c' : 'cat';
 
+  const resourceId =
+    collection === 'general'
+      ? `/topics/${topicId}`
+      : `/${collection}/${collectionId}/topics/${topicId}`;
+
   const updateHandler = (e: any) => {
     e.preventDefault();
 
@@ -47,22 +52,22 @@ const TopicForm = (props: any) => {
       userPhotoURL: user.photoURL
     };
 
-    db.collection(collection)
-      .doc(collectionId)
-      .collection('topics')
-      .doc(topicId)
+    db.doc(resourceId)
       .set(newData)
       .then(() => window.alert("投稿が完了しました。")) // eslint-disable-line
-      .then(() => (window.location.href = `/${collectionShort}/${collectionId}/topics`)) // eslint-disable-line
+      .then(
+        () =>
+          (window.location.href =  // eslint-disable-line
+            collection === 'general'
+              ? '/topics'
+              : `/${collectionShort}/${collectionId}/topics`)
+      )
       .catch(() => window.alert("エラーが発生しました。")) // eslint-disable-line
   };
 
   useEffect(() => {
     if (!isCreate) {
-      db.collection(collection)
-        .doc(collectionId)
-        .collection('topics')
-        .doc(topicId)
+      db.doc(resourceId)
         .get()
         .then(doc => doc.data())
         .then(topic => {
@@ -71,7 +76,7 @@ const TopicForm = (props: any) => {
           setText(topic!.text);
         });
     }
-  }, [collection, collectionId, isCreate, topicId]);
+  }, [isCreate, resourceId]);
 
   return (
     <React.Fragment>

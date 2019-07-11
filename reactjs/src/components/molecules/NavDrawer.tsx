@@ -72,6 +72,8 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('カテゴリ', '/categories')}
             <Divider />
+            {DrawerButton('トピック', '/topics')}
+            <Divider />
             {DrawerButton('ランキング', '/ranking')}
             <Divider />
             {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}

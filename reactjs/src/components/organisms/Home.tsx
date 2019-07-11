@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 
 import * as React from 'react';
+import GeneralTopics from '../molecules/GeneralTopics';
 import Challenge from './Challenge';
 import Challenges from './Challenges';
 import DashBoard from './DashBoard';
@@ -19,6 +20,7 @@ const Home = () => (
       <Route path="/categories" component={Categories} />
       <Route path="/c/:id" component={Challenge} />
       <Route path="/challenges" component={Challenges} />
+      <Route path="/topics" component={GeneralTopics} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/" component={DashBoard} />
     </Switch>

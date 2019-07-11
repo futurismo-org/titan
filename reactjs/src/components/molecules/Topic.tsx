@@ -28,13 +28,12 @@ const Topic = (props: any) => {
   const { collectionId } = props.match.params;
   const { topicId } = props.match.params;
 
-  const [value, loading, error] = useDocument(
-    db
-      .collection(collection)
-      .doc(collectionId)
-      .collection('topics')
-      .doc(topicId)
-  );
+  const resourceId =
+    collection === 'general'
+      ? `/topics/${topicId}`
+      : `${collection}/${collectionId}/topics/${topicId}`;
+
+  const [value, loading, error] = useDocument(db.doc(resourceId));
 
   const topic = value && value.data();
 
@@ -44,14 +43,14 @@ const Topic = (props: any) => {
     if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) { // eslint-disable-line
       firebase
         .firestore()
-        .collection(collection)
-        .doc(collectionId)
-        .collection('topics')
-        .doc(topicId)
+        .doc(resourceId)
         .delete()
         .then(
           () =>
-            (window.location.href = `/${collectionShort}/${collectionId}/topics`) // eslint-disable-line no-undef
+            (window.location.href = // eslint-disable-line no-undef
+              collection === 'general'
+                ? '/topics'
+                : `/${collectionShort}/${collectionId}/topics`)
         );
     }
   };
@@ -90,7 +89,11 @@ const Topic = (props: any) => {
             )}
             <TwitterShareIcon
               title={topic.title}
-              url={`https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}`}
+              url={
+                collection === 'general'
+                  ? `https://titan-fire.com/topics/${topicId}`
+                  : `https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}`
+              }
             />
             {topic.url && (
               <a href={topic.url} rel="noopener noreferrer" target="_blank">
@@ -104,7 +107,11 @@ const Topic = (props: any) => {
             <div style={{ textAlign: 'center' }}>
               <p />
               <NoStyledLink
-                to={`/${collectionShort}/${collectionId}/t/${topicId}/edit`}
+                to={
+                  collection === 'general'
+                    ? `/topics/${topicId}/edit`
+                    : `/${collectionShort}/${collectionId}/t/${topicId}/edit`
+                }
               >
                 <Button type="button" color="default" variant="contained">
                   編集
