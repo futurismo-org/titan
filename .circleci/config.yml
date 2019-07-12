@@ -36,7 +36,7 @@ jobs:
       - run:
           name: 'Build(production)'
           working_directory: reactjs
-          command: REACT_APP_ENV=production npm run build
+          command: REACT_APP_GIT_SHA=`git rev-parse HEAD` REACT_APP_ENV=production npm run build && npm run upload-source-maps
 
       - run:
           name: 'Deploy to Hosting(production)'
