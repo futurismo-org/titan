@@ -23,13 +23,11 @@ const UserItem = (props: any) => {
   };
 
   const { user } = props;
-  // const defa/ultUserName = 'anonymous';
 
   return (
     <div>
       <StyledButton color="inherit">
         <Avatar src={user.photoURL} />{' '}
-        {/* {user.displayName || defaultUserName} */}
       </StyledButton>
       <StyledButton
         variant="outlined"

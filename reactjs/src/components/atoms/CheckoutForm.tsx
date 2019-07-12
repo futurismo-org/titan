@@ -146,34 +146,33 @@ class CheckoutForm extends React.PureComponent<Props> {
   };
 
   submit(event: any) {
-    if (this.props.price > 50) {
-      this.props.stripe
-        .createToken({
-          name: this.props.name
-        })
-        .then((res: any) =>
-          axios.post('/charges', {
-            price: this.props.price,
-            tokenId: res.token.id
-          })
-        )
-        .then((res: any) => console.log('Purchase Complete!'))
-        .then(() =>
-          joinHandler(
-            this.props.challengeId,
-            this.props.challengeName,
-            this.props.user
-          )
-        )
-        .catch((err: any) => console.error(err));
-    } else {
-      console.log('do nothing.');
-      joinHandler(
-        this.props.challengeId,
-        this.props.challengeName,
-        this.props.user
-      );
-    }
+    // if (this.props.price > 50) {
+    //   this.props.stripe
+    //     .createToken({
+    //       name: this.props.name
+    //     })
+    //     .then((res: any) =>
+    //       axios.post('/charges', {
+    //         price: this.props.price,
+    //         tokenId: res.token.id
+    //       })
+    //     )
+    //     .then((res: any) => console.log('Purchase Complete!'))
+    //     .then(() =>
+    //       joinHandler(
+    //         this.props.challengeId,
+    //         this.props.challengeName,
+    //         this.props.user
+    //       )
+    //     )
+    //     .catch((err: any) => console.error(err));
+    // } else {
+    joinHandler(
+      this.props.challengeId,
+      this.props.challengeName,
+      this.props.user
+    );
+    // }
   }
 
   apply() {
