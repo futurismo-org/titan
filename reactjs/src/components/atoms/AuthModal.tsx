@@ -29,10 +29,11 @@ const AuthModal = (props: any) => {
     signInFlow: 'popup',
     signInSuccessUrl: '/',
     signInOptions: [
-      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
+    tosUrl: 'https://titan-fire.com/terms_of_use.html',
+    privacyPolicyUrl: 'https://titan-fire.com/privacy_policy.html',
     callbacks: {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
