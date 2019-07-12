@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { useDocument } from 'react-firebase-hooks/firestore';
+import { withRouter } from 'react-router-dom';
 import firebase from '../../../lib/firebase';
 
 import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
@@ -11,7 +12,7 @@ import Progress from '../../atoms/CircularProgress';
 import { postMessage } from '../../../lib/discord.client.api';
 
 import rollbar from '../../../lib/rollbar';
-import { getUserDashboardURL } from '../../../lib/urlUtil';
+import { getUserDashboardPath, withDomain } from '../../../lib/urlUtil';
 import { getParticipantsUserId } from '../../../lib/resourceUtil';
 
 const StyledCenterContainer = styled.div`
@@ -89,17 +90,17 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
-        const url = getUserDashboardURL(challengeId, userShortId);
-        const message =
-          `${userName}さんが計${newAccDays}日達成しました！` + url;
+        const url = withDomain(getUserDashboardPath(challengeId, userShortId));
+        const message = `${userName}さんが計${newAccDays}日達成しました！
+${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => {
         window.alert('投稿が完了しました。');  // eslint-disable-line 
       })
       .then(() => closeHandler())
-      .then(
-        () => (window.location.href = getUserDashboardURL(challengeId, userShortId)) // eslint-disable-line
+      .then(() =>
+        props.history.push(getUserDashboardPath(challengeId, userShortId))
       )
       .catch(error => rollbar.error(error));
   };
@@ -131,13 +132,14 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(resetData)
       .then(() => {
-        const url = getUserDashboardURL(challengeId, userShortId);
-        const message = `${userName}さんがリセットしました` + url;
+        const url = withDomain(getUserDashboardPath(challengeId, userShortId));
+        const message = `${userName}さんがリセットしました。
+${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => closeHandler())
-      .then(
-        () => (window.location.href = getUserDashboardURL(challengeId, userShortId)) // eslint-disable-line
+      .then(() =>
+        props.history.push(getUserDashboardPath(challengeId, userShortId))
       )
       .catch(error => rollbar.error(error));
   };
@@ -230,4 +232,4 @@ const mapStateToProps = (state: any, props: any) => ({
   ...props
 });
 
-export default connect(mapStateToProps)(ChallengePostController);
+export default withRouter(connect(mapStateToProps)(ChallengePostController));
