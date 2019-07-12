@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Route, Switch, Router } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
-import { createBrowserHistory } from 'history';
 import Admin from './admin/Admin';
 import Home from './Home';
 import AdminRoute from '../utils/AdminRoute';
 import DemoLogin from './admin/DemoLogin';
 import GlobalStyle from '../../lib/global-styles';
-import { store } from '../../store';
+import { store, history } from '../../store';
 import Head from '../templates/Head';
 
-const history = createBrowserHistory();
 history.listen(location => {
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
@@ -24,8 +23,8 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Router history={history}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
           <Head />
           <GlobalStyle />
           <Switch>
@@ -33,8 +32,8 @@ const App = () => {
             <AdminRoute path="/admin" component={Admin} />
             <Route path="/" component={Home} />
           </Switch>
-        </Provider>
-      </Router>
+        </ConnectedRouter>
+      </Provider>
     </React.Fragment>
   );
 };

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+
 import { useDocument } from 'react-firebase-hooks/firestore';
 import firebase from '../../../lib/firebase';
 
@@ -11,6 +13,8 @@ import Progress from '../../atoms/CircularProgress';
 import { postMessage } from '../../../lib/discord.client.api';
 
 import rollbar from '../../../lib/rollbar';
+import { getUserDashboardPath, withDomain } from '../../../lib/urlUtil';
+import { getParticipantsUserId } from '../../../lib/resourceUtil';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -25,12 +29,12 @@ const StyledTimerButtonContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ChallengePosts = (props: any) => {
-  const { userId, userName, closeHandler } = props;
+const ChallengePostController = (props: any) => {
+  const { userShortId, userName, closeHandler, push } = props;
   const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
   const challengeId = id;
-  const resourceId = `challenges/${challengeId}/participants/${userId}`;
+  const resourceId = getParticipantsUserId(challengeId, userShortId);
 
   const [value, loading, error] = useDocument(
     firebase.firestore().doc(resourceId)
@@ -46,11 +50,11 @@ const ChallengePosts = (props: any) => {
 
     if (
       histories.length > 0 &&
-      moment(histories[histories.length - 1].timestamp.toDate()).isSame(
-        moment(now),
-        'days'
-      ) &&
-      histories[histories.length - 1].type === 'RECORD'
+      histories.filter(
+        (history: any) =>
+          history.type === 'RECORD' &&
+          moment(history.timestamp.toDate()).isSame(moment(now), 'days')
+      ).length !== 0
     ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
@@ -87,16 +91,16 @@ const ChallengePosts = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
-        const message = `${userName}さんが${newAccDays}日達成しました！`;
+        const url = withDomain(getUserDashboardPath(challengeId, userShortId));
+        const message = `${userName}さんが計${newAccDays}日達成しました！
+${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => {
         window.alert('投稿が完了しました。');  // eslint-disable-line 
       })
       .then(() => closeHandler())
-      .then(
-        () => (window.location.href = `/c/${challengeId}/u/${userId}`) // eslint-disable-line
-      )
+      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
       .catch(error => rollbar.error(error));
   };
 
@@ -127,13 +131,13 @@ const ChallengePosts = (props: any) => {
       .doc(resourceId)
       .update(resetData)
       .then(() => {
-        const message = `${userName}さんがリセットしました`;
+        const url = withDomain(getUserDashboardPath(challengeId, userShortId));
+        const message = `${userName}さんがリセットしました。
+${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => closeHandler())
-      .then(
-        () => (window.location.href = `/c/${challengeId}/u/${userId}`) // eslint-disable-line
-      )
+      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
       .catch(error => rollbar.error(error));
   };
 
@@ -220,9 +224,12 @@ const ChallengePosts = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => ({
-  userId: state.firebase.profile.shortId,
+  userShortId: state.firebase.profile.shortId,
   userName: state.firebase.profile.displayName,
   ...props
 });
 
-export default connect(mapStateToProps)(ChallengePosts);
+export default connect(
+  mapStateToProps,
+  { push }
+)(ChallengePostController);

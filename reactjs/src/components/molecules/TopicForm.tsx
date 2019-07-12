@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import shortid from 'shortid';
 import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 
 import firebase from '../../lib/firebase';
 
 const db = firebase.firestore();
 
 const TopicForm = (props: any) => {
-  const { collection, collectionId, user } = props;
+  const { collection, collectionId, user, push } = props;
   const topicId = props.topicId ? props.topicId : shortid.generate();
 
   const [title, setTitle] = useState('');
@@ -55,12 +56,12 @@ const TopicForm = (props: any) => {
     db.doc(resourceId)
       .set(newData)
       .then(() => window.alert("投稿が完了しました。")) // eslint-disable-line
-      .then(
-        () =>
-          (window.location.href =  // eslint-disable-line
-            collection === 'general'
-              ? '/topics'
-              : `/${collectionShort}/${collectionId}/topics`)
+      .then(() =>
+        push(
+          collection === 'general'
+            ? '/topics'
+            : `/${collectionShort}/${collectionId}/topics`
+        )
       )
       .catch(() => window.alert("エラーが発生しました。")) // eslint-disable-line
   };
@@ -135,4 +136,7 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-export default connect(mapStateToProps)(TopicForm);
+export default connect(
+  mapStateToProps,
+  { push }
+)(TopicForm);
