@@ -31,6 +31,7 @@ const AuthModal = (props: any) => {
     signInSuccessUrl: '/',
     signInOptions: [
       firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
     tosUrl: 'https://titan-fire.com/terms_of_use.html',
@@ -42,6 +43,9 @@ const AuthModal = (props: any) => {
       ) => {
         const { user } = credentials;
 
+        const isTwitter =
+          credentials!.credential!.signInMethod === 'twitter.com';
+
         const data = {
           id: user!.uid,
           shortId: shortid.generate(),
@@ -50,13 +54,13 @@ const AuthModal = (props: any) => {
           email: user!.email,
           createdAt: new Date(),
           updatedAt: new Date(),
-          twitterURL: credentials.additionalUserInfo!.profile
+          twitterURL: isTwitter
             ? (credentials.additionalUserInfo!.profile! as any).url
             : '',
-          accessTokenKey: credentials.credential
+          accessTokenKey: isTwitter
             ? (credentials.credential! as any).accessToken
             : '',
-          accessTokenSecret: credentials.credential
+          accessTokenSecret: isTwitter
             ? (credentials.credential! as any).secret
             : ''
         };
@@ -67,8 +71,8 @@ const AuthModal = (props: any) => {
           // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
           .doc(user!.uid);
 
-        userRef.get().then(docSnapshot => {
-          if (!docSnapshot.exists) {
+        userRef.get().then(doc => {
+          if (!doc.exists || (doc && doc.data()!.accessTokenKey === '')) {
             userRef.set(data);
           }
         });
