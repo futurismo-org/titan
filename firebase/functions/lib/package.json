@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "cp package.json .env lib && APP_ENV=development firebase serve --only functions -P development",
     "shell": "APP_ENV=development firebase functions:shell",
-    "deploy:development": "APP_ENV=development firebase deploy --only functions -P development",
-    "deploy:production": "APP_ENV=production firebase deploy --only functions -P production",
+    "deploy:development": "APP_ENV=development firebase deploy --only functions -P development -f",
+    "deploy:production": "APP_ENV=production firebase deploy --only functions -P production -f",
     "logs": "firebase functions:log",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "eslint . --fix --ext .js,.ts",

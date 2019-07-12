@@ -4,7 +4,7 @@ const func = require('firebase-functions');
 const admin = require('firebase-admin');
 
 if (admin.apps.length === 0) {
-  if (func.config().app.env === 'production') {
+  if (func.config().app && func.config().app.env === 'production') {
     admin.initializeApp(configProd);
   } else {
     admin.initializeApp(configDev);
