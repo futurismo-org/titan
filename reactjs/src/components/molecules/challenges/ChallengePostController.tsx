@@ -90,7 +90,8 @@ const ChallengePostController = (props: any) => {
       .update(updateData)
       .then(() => {
         const url = getUserDashboardURL(challengeId, userShortId);
-        const message = `${userName}さんが計${newAccDays}日達成しました！`;
+        const message =
+          `${userName}さんが計${newAccDays}日達成しました！` + url;
         postMessage(webhookURL, message);
       })
       .then(() => {
@@ -130,7 +131,8 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(resetData)
       .then(() => {
-        const message = `${userName}さんがリセットしました`;
+        const url = getUserDashboardURL(challengeId, userShortId);
+        const message = `${userName}さんがリセットしました` + url;
         postMessage(webhookURL, message);
       })
       .then(() => closeHandler())
