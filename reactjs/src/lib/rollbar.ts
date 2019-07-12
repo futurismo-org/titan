@@ -11,6 +11,7 @@ const config = {
     client: {
       javascript: {
         source_map_enabled: true, //eslint-disable-line
+        code_version: process.env.REACT_APP_GIT_SHA,  //eslint-disable-line
         guess_uncaught_frames: true //eslint-disable-line
       }
     }
