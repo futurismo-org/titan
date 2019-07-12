@@ -4,6 +4,7 @@ import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import styled from 'styled-components';
 import shortid from 'shortid';
+import firebaseui from 'firebaseui';
 import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';
@@ -29,15 +30,21 @@ const AuthModal = (props: any) => {
     signInFlow: 'popup',
     signInSuccessUrl: '/',
     signInOptions: [
-      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
+    tosUrl: 'https://titan-fire.com/terms_of_use.html',
+    privacyPolicyUrl: 'https://titan-fire.com/privacy_policy.html',
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     callbacks: {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
         const { user } = credentials;
+
+        const isTwitter =
+          credentials!.credential!.signInMethod === 'twitter.com';
 
         const data = {
           id: user!.uid,
@@ -47,18 +54,25 @@ const AuthModal = (props: any) => {
           email: user!.email,
           createdAt: new Date(),
           updatedAt: new Date(),
-          twitterURL: (credentials.additionalUserInfo!.profile! as any).url,
-          accessTokenKey: (credentials.credential! as any).accessToken,
-          accessTokenSecret: (credentials.credential! as any).secret
+          twitterURL: isTwitter
+            ? (credentials.additionalUserInfo!.profile! as any).url
+            : '',
+          accessTokenKey: isTwitter
+            ? (credentials.credential! as any).accessToken
+            : '',
+          accessTokenSecret: isTwitter
+            ? (credentials.credential! as any).secret
+            : ''
         };
 
         const userRef = firebase
           .firestore()
           .collection('users')
+          // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
           .doc(user!.uid);
 
-        userRef.get().then(docSnapshot => {
-          if (!docSnapshot.exists) {
+        userRef.get().then(doc => {
+          if (!doc.exists || (doc && doc.data()!.accessTokenKey === '')) {
             userRef.set(data);
           }
         });

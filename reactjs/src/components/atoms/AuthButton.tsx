@@ -18,7 +18,7 @@ const AuthButton = (props: any) => {
 
   const openModal = (modalTitle: string) => {
     if (process.env.REACT_APP_ENV !== 'development') {
-      window.alert('公開前なのでユーザ認証はできません。'); // eslint-disable-line 
+      window.alert('公開前なのでログインはできません。'); // eslint-disable-line 
       return;
     }
 
@@ -33,14 +33,6 @@ const AuthButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <StyledButton
-        color="inherit"
-        variant="outlined"
-        size="small"
-        onClick={() => openModal('登録')}
-      >
-        登録
-      </StyledButton>
       <StyledButton
         color="inherit"
         variant="outlined"
