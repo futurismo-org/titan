@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+
 import { useDocument } from 'react-firebase-hooks/firestore';
-import { withRouter } from 'react-router-dom';
 import firebase from '../../../lib/firebase';
 
 import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
@@ -29,7 +30,7 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePostController = (props: any) => {
-  const { userShortId, userName, closeHandler } = props;
+  const { userShortId, userName, closeHandler, push } = props;
   const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
   const challengeId = id;
@@ -99,9 +100,7 @@ ${url}`;
         window.alert('投稿が完了しました。');  // eslint-disable-line 
       })
       .then(() => closeHandler())
-      .then(() =>
-        props.history.push(getUserDashboardPath(challengeId, userShortId))
-      )
+      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
       .catch(error => rollbar.error(error));
   };
 
@@ -138,9 +137,7 @@ ${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => closeHandler())
-      .then(() =>
-        props.history.push(getUserDashboardPath(challengeId, userShortId))
-      )
+      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
       .catch(error => rollbar.error(error));
   };
 
@@ -232,4 +229,7 @@ const mapStateToProps = (state: any, props: any) => ({
   ...props
 });
 
-export default withRouter(connect(mapStateToProps)(ChallengePostController));
+export default connect(
+  mapStateToProps,
+  { push }
+)(ChallengePostController);
