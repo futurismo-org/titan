@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "PORT=3000 REACT_APP_ENV=development react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=true react-scripts build",
     "start-sw": "npm run build && http-server ./build",
     "upload-source-maps": "rm -rf sourceMaps && mkdir sourceMaps && mv build/static/js/*.map sourceMaps/ && sh ./bin/upload-script.sh",
     "deploy:netlify": "REACT_APP_ENV=development npm run build && npm run export",
