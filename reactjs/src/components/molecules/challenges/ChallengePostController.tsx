@@ -46,11 +46,16 @@ const ChallengePosts = (props: any) => {
 
     if (
       histories.length > 0 &&
-      moment(histories[histories.length - 1].timestamp.toDate()).isSame(
-        moment(now),
-        'days'
-      ) &&
-      histories[histories.length - 1].type === 'RECORD'
+      histories.filter(
+        (history: any) =>
+          history.type === 'RECORD' &&
+          moment(history.timestamp.toDate()).isSame(moment(now), 'days')
+      ).length !== 0
+      // moment(histories[histories.length - 1].timestamp.toDate()).isSame(
+      //   moment(now),
+      //   'days'
+      // ) &&
+      // histories[histories.length - 1].type === 'RECORD'
     ) {
       window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
       return;
