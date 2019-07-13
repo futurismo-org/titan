@@ -15,6 +15,7 @@ import Progress from '../../atoms/CircularProgress';
 import firebase from '../../../lib/firebase';
 
 import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -67,6 +68,10 @@ const ChallengeLeaderBoard = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <ConditionalTableCell>
+                    <UserAvatar
+                      photoURL={doc.data().photoURL}
+                      profileURL={doc.data().twitterURL}
+                    />
                     <NoStyledExternalLink
                       href={doc.data().twitterURL || 'https://twitter.com'}
                     >

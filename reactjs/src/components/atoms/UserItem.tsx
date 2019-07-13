@@ -4,8 +4,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import styled from 'styled-components';
-import Avatar from './Avatar';
 import theme from '../../lib/theme';
+import UserAvatar from './UserAvatar';
 
 const StyledButton = styled(Button)`
   && {
@@ -19,7 +19,7 @@ const UserItem = (props: any) => {
     firebase
       .auth()
       .signOut()
-      .then(() => (window.location.href = '/')); // eslint-disable-line 
+      .then(() => (window.location.href = '/')); // eslint-disable-line
   };
 
   const { user } = props;
@@ -27,7 +27,7 @@ const UserItem = (props: any) => {
   return (
     <div>
       <StyledButton color="inherit">
-        <Avatar src={user.photoURL} />{' '}
+        <UserAvatar photoURL={user.photoURL} profileURL={user.twitterURL} />
       </StyledButton>
       <StyledButton
         variant="outlined"

@@ -12,10 +12,10 @@ import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
-import Avatar from '../atoms/Avatar';
 import Title from '../atoms/Title';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import firebase from '../../lib/firebase';
+import UserAvatar from '../atoms/UserAvatar';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -62,7 +62,10 @@ const Ranking = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <ConditionalTableCell>
-                    <Avatar src={doc.data().photoURL || ''} />
+                    <UserAvatar
+                      photoURL={doc.data().photoURL}
+                      profileURL={doc.data().twitterURL}
+                    />
                   </ConditionalTableCell>
                   <TableCell>
                     <NoStyledExternalLink
