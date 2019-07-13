@@ -76,7 +76,7 @@ const DashBoardPaper = (props: any) => {
           <StyledCardGrid container spacing={4}>
             {value!.docs
               .filter((doc: any) =>
-                moment(new Date().setHours(0, 0, 0, 0)).isBefore(
+                moment(new Date().setHours(23, 59, 59, 59)).isBefore(
                   doc.data().closedAt && doc.data().closedAt.toDate()
                 )
               )
