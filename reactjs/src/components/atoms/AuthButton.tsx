@@ -17,11 +17,6 @@ const AuthButton = (props: any) => {
   const [title, setTitle] = useState('');
 
   const openModal = (modalTitle: string) => {
-    if (process.env.REACT_APP_ENV !== 'development') {
-      window.alert('公開前なのでログインはできません。'); // eslint-disable-line 
-      return;
-    }
-
     setVisibleModal(true);
     setTitle(modalTitle);
   };

@@ -10,11 +10,8 @@ import Categories from './Categories';
 import Category from './Category';
 import Ranking from './Ranking';
 
-import DemoBoard from '../molecules/DemoBoard';
-
 const Home = () => (
   <Layout>
-    <DemoBoard />
     <Switch>
       <Route path="/cat/:id" component={Category} />
       <Route path="/categories" component={Categories} />
