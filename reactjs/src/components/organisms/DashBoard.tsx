@@ -13,7 +13,7 @@ const DashBoard = (props: any) => {
       .firestore()
       .collection('challenges')
       .where('draft', '==', false)
-      .orderBy('updatedAt', 'desc')
+      .orderBy('openedAt', 'desc')
       .limit(4)
   );
 
@@ -25,13 +25,20 @@ const DashBoard = (props: any) => {
       .limit(4)
   );
 
+  const [value3, loading3, error3] = useCollection(
+    firebase
+      .firestore()
+      .collection('challenges')
+      .where('pinned', '==', true)
+  );
+
   return (
     <React.Fragment>
-      {(error || error2) && <strong>Error: {error}</strong>}
-      {(loading || loading2) && <Progress />}
+      {(error || error2 || error3) && <strong>Error: {error}</strong>}
+      {(loading || loading2 || loading3) && <Progress />}
       <DashBoardPaperPinned
         title="運営からのおすすめ"
-        value={value}
+        value={value3}
         type="pinned-challenge"
       />
       <DashBoardPaper title="人気のカテゴリ" value={value2} type="category" />
