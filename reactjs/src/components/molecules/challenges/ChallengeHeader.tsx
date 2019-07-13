@@ -57,7 +57,7 @@ const ChallengePeriod = (props: any) => {
   const { challenge } = props;
   const openedAt = moment(challenge.openedAt.toDate());
   const closedAt = moment(challenge.closedAt.toDate());
-  const today = moment(new Date().setHours(0, 0, 0, 0));
+  const today = moment();
 
   const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
 
