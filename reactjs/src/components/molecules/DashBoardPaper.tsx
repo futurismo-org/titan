@@ -11,8 +11,6 @@ import CategoryCard from '../atoms/CategoryCard';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 
-import { isClosed } from '../../lib/moment';
-
 interface Props {
   container?: any;
   spacing?: number;
@@ -75,16 +73,7 @@ const DashBoardPaper = (props: any) => {
         <Title text={title} />
         {value && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs
-              .filter(
-                (doc: any) =>
-                  type === 'category' ||
-                  (isClosed(
-                    doc.data().closedAt && doc.data().closedAt.toDate()
-                  ) &&
-                    !doc.data().draft)
-              )
-              .map((doc: any) => DashBoardCard({ doc, type }))}
+            {value!.docs.map((doc: any) => DashBoardCard({ doc, type }))}
           </StyledCardGrid>
         )}
         {DashBoardCardLink({ type })}

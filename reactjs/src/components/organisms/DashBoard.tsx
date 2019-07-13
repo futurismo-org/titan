@@ -12,6 +12,8 @@ const DashBoard = (props: any) => {
     firebase
       .firestore()
       .collection('challenges')
+      .where('draft', '==', false)
+      .orderBy('updatedAt', 'desc')
       .limit(4)
   );
 
@@ -19,6 +21,7 @@ const DashBoard = (props: any) => {
     firebase
       .firestore()
       .collection('categories')
+      .orderBy('updatedAt', 'desc')
       .limit(4)
   );
 

@@ -80,6 +80,7 @@ const createChallengeSeed = (args: any) => {
     channelId: sampleChallengeChannelId,
     topics: topicsSeeds,
     hashtag: '#サンプルチャレンジ',
+    draft: false,
     ...args
   });
 };
@@ -189,7 +190,6 @@ const challengeSeeds = seed.collection('challenges', [
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
     participantsCount: 0,
-    draft: true,
     openedAt: new Date(
       moment()
         .toDate()
