@@ -17,6 +17,8 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import firebase from '../../lib/firebase';
 import UserAvatar from '../atoms/UserAvatar';
 
+import { getTwitterProfileURL } from '../../lib/urlUtil';
+
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
     <TableCell>{props.children}</TableCell>
@@ -64,12 +66,14 @@ const Ranking = (props: any) => {
                   <ConditionalTableCell>
                     <UserAvatar
                       photoURL={doc.data().photoURL}
-                      profileURL={doc.data().twitterURL}
+                      profileURL={getTwitterProfileURL(
+                        doc.data().twitterUsername
+                      )}
                     />
                   </ConditionalTableCell>
                   <TableCell>
                     <NoStyledExternalLink
-                      href={doc.data().twitterURL || 'https://twitter.com'}
+                      href={getTwitterProfileURL(doc.data().twitterUsername)}
                     >
                       {doc.data().displayName || 'Annonymous'}
                     </NoStyledExternalLink>

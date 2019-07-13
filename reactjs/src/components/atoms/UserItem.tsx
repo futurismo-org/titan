@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import theme from '../../lib/theme';
 import UserAvatar from './UserAvatar';
 
+import { getTwitterProfileURL } from '../../lib/urlUtil';
+
 const StyledButton = styled(Button)`
   && {
     margin: ${theme.spacing(0)}px;
@@ -27,7 +29,10 @@ const UserItem = (props: any) => {
   return (
     <div>
       <StyledButton color="inherit">
-        <UserAvatar photoURL={user.photoURL} profileURL={user.twitterURL} />
+        <UserAvatar
+          photoURL={user.photoURL}
+          profileURL={getTwitterProfileURL(user.twitterUsername)}
+        />
       </StyledButton>
       <StyledButton
         variant="outlined"

@@ -17,6 +17,8 @@ import firebase from '../../../lib/firebase';
 import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
 import UserAvatar from '../../atoms/UserAvatar';
 
+import { getTwitterProfileURL } from '../../../lib/urlUtil';
+
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
     <TableCell>{props.children}</TableCell>
@@ -70,13 +72,10 @@ const ChallengeLeaderBoard = (props: any) => {
                   <ConditionalTableCell>
                     <UserAvatar
                       photoURL={doc.data().photoURL}
-                      profileURL={doc.data().twitterURL}
+                      profileURL={getTwitterProfileURL(
+                        doc.data().twitterUsername
+                      )}
                     />
-                    <NoStyledExternalLink
-                      href={doc.data().twitterURL || 'https://twitter.com'}
-                    >
-                      <Avatar src={doc.data().photoURL || ''} />
-                    </NoStyledExternalLink>
                   </ConditionalTableCell>
                   <TableCell>
                     <Link to={`/c/${id}/u/${doc.data().id}`}>

@@ -101,7 +101,6 @@ const createUserSeed = (args: any) => {
   return seed.doc(id, {
     createdAt: new Date(),
     updatedAt: faker.date.recent(),
-    twitterURL: 'https://twitter.com',
     ...args
   });
 };
@@ -280,7 +279,8 @@ const userSeeds = seed.collection('users', [
     displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
-    isAdmin: true
+    isAdmin: true,
+    twitterUsername: 'titan_dev_1234'
   }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
