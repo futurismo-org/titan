@@ -75,10 +75,12 @@ const DashBoardPaper = (props: any) => {
         {value && (
           <StyledCardGrid container spacing={4}>
             {value!.docs
-              .filter((doc: any) =>
-                moment(new Date().setHours(23, 59, 59, 59)).isBefore(
-                  doc.data().closedAt && doc.data().closedAt.toDate()
-                )
+              .filter(
+                (doc: any) =>
+                  type === 'category' ||
+                  moment(new Date().setHours(23, 59, 59, 59)).isBefore(
+                    doc.data().closedAt && doc.data().closedAt.toDate()
+                  )
               )
               .map((doc: any) => DashBoardCard({ doc, type }))}
           </StyledCardGrid>
