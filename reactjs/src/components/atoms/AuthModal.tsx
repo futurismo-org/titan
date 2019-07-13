@@ -73,7 +73,7 @@ const AuthModal = (props: any) => {
           .doc(user!.uid);
 
         userRef.get().then(doc => {
-          if (!doc.exists || (doc && doc.data()!.accessTokenKey === '')) {
+          if (!doc.exists) {
             userRef.set(data);
           }
         });

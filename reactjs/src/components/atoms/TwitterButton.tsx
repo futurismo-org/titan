@@ -61,9 +61,7 @@ const TwitterButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {user.shortId === userId &&
-      user.accessTokenKey &&
-      user.accessTokenSecret ? (
+      {user.shortId === userId ? (
         <ButtonWrapper>
           <Link href={`${textBuilder}`}>
             <Button variant="contained" color="secondary">
