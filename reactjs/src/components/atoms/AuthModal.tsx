@@ -44,8 +44,8 @@ const AuthModal = (props: any) => {
         const { user } = credentials;
 
         const isTwitter =
-          credentials.credential !== null &&
-          credentials.credential.signInMethod === 'twitter.com';
+          credentials.additionalUserInfo &&
+          credentials.additionalUserInfo.providerId === 'twitter.com';
 
         const data = {
           id: user!.uid,
@@ -55,8 +55,8 @@ const AuthModal = (props: any) => {
           email: user!.email,
           createdAt: new Date(),
           updatedAt: new Date(),
-          twitterURL: isTwitter
-            ? (credentials.additionalUserInfo!.profile! as any).url
+          twitterUsername: isTwitter
+            ? (credentials.additionalUserInfo! as any).username
             : '',
           accessTokenKey: isTwitter
             ? (credentials.credential! as any).accessToken

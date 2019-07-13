@@ -9,12 +9,13 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
-import Avatar from '../../atoms/Avatar';
 import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
-import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
+import UserAvatar from '../../atoms/UserAvatar';
+
+import { getTwitterProfileURL } from '../../../lib/urlUtil';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -67,11 +68,12 @@ const ChallengeLeaderBoard = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <ConditionalTableCell>
-                    <NoStyledExternalLink
-                      href={doc.data().twitterURL || 'https://twitter.com'}
-                    >
-                      <Avatar src={doc.data().photoURL || ''} />
-                    </NoStyledExternalLink>
+                    <UserAvatar
+                      photoURL={doc.data().photoURL}
+                      profileURL={getTwitterProfileURL(
+                        doc.data().twitterUsername
+                      )}
+                    />
                   </ConditionalTableCell>
                   <TableCell>
                     <Link to={`/c/${id}/u/${doc.data().id}`}>
