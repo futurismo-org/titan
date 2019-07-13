@@ -34,9 +34,10 @@ const Ranking = (props: any) => {
     <TableHead>
       <TableRow>
         <TableCell>順位</TableCell>
-        <ConditionalTableCell />
+        <TableCell />
         <TableCell>名前</TableCell>
-        <TableCell>最新</TableCell>
+        <ConditionalTableCell>最新</ConditionalTableCell>
+        <ConditionalTableCell>登録</ConditionalTableCell>
       </TableRow>
     </TableHead>
   );
@@ -63,14 +64,14 @@ const Ranking = (props: any) => {
                   <TableCell component="th" scope="row">
                     {index + 1}位
                   </TableCell>
-                  <ConditionalTableCell>
+                  <TableCell>
                     <UserAvatar
                       photoURL={doc.data().photoURL}
                       profileURL={getTwitterProfileURL(
                         doc.data().twitterUsername
                       )}
                     />
-                  </ConditionalTableCell>
+                  </TableCell>
                   <TableCell>
                     <NoStyledExternalLink
                       href={getTwitterProfileURL(doc.data().twitterUsername)}
@@ -78,9 +79,12 @@ const Ranking = (props: any) => {
                       {doc.data().displayName || 'Annonymous'}
                     </NoStyledExternalLink>
                   </TableCell>
-                  <TableCell>
+                  <ConditionalTableCell>
                     {moment(doc.data().updatedAt.toDate()).fromNow()}
-                  </TableCell>
+                  </ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {moment(doc.data().createdAt.toDate()).fromNow()}
+                  </ConditionalTableCell>
                 </TableRow>
               ))}
           </TableBody>
