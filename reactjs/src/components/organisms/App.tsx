@@ -6,7 +6,6 @@ import ReactGA from 'react-ga';
 import Admin from './admin/Admin';
 import Home from './Home';
 import AdminRoute from '../utils/AdminRoute';
-import DemoLogin from './admin/DemoLogin';
 import GlobalStyle from '../../lib/global-styles';
 import { store, history } from '../../store';
 import Head from '../templates/Head';
@@ -28,7 +27,6 @@ const App = () => {
           <Head />
           <GlobalStyle />
           <Switch>
-            <Route exact path="/admin/demo/login" component={DemoLogin} />
             <AdminRoute path="/admin" component={Admin} />
             <Route path="/" component={Home} />
           </Switch>
