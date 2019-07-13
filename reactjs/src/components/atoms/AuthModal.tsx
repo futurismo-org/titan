@@ -43,8 +43,6 @@ const AuthModal = (props: any) => {
       ) => {
         const { user } = credentials;
 
-        console.log(credentials);
-
         const isTwitter =
           credentials.additionalUserInfo &&
           credentials.additionalUserInfo.providerId === 'twitter.com';

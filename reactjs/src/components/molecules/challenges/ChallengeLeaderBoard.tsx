@@ -9,12 +9,10 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
-import Avatar from '../../atoms/Avatar';
 import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
-import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
 import UserAvatar from '../../atoms/UserAvatar';
 
 import { getTwitterProfileURL } from '../../../lib/urlUtil';
