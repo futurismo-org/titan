@@ -12,6 +12,8 @@ import CategoryCard from '../atoms/CategoryCard';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 
+import { isClosed } from '../../lib/moment';
+
 interface Props {
   container?: any;
   spacing?: number;
@@ -78,9 +80,10 @@ const DashBoardPaper = (props: any) => {
               .filter(
                 (doc: any) =>
                   type === 'category' ||
-                  moment(new Date().setHours(23, 59, 59, 59)).isBefore(
+                  (isClosed(
                     doc.data().closedAt && doc.data().closedAt.toDate()
-                  )
+                  ) &&
+                    !doc.data().draft)
               )
               .map((doc: any) => DashBoardCard({ doc, type }))}
           </StyledCardGrid>
