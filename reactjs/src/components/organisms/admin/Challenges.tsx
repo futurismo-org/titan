@@ -83,7 +83,7 @@ const Challenges = () => {
           {value!.docs
             .filter(
               (doc: any) =>
-                isClosed(doc.data().closedAt.toDate()) && !doc.data().draft
+                !isClosed(doc.data().closedAt.toDate()) && !doc.data().draft
             )
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
@@ -104,7 +104,7 @@ const Challenges = () => {
       {value && (
         <List>
           {value!.docs
-            .filter((doc: any) => !isClosed(doc.data().closedAt.toDate()))
+            .filter((doc: any) => isClosed(doc.data().closedAt.toDate()))
             .map((doc: any) => (
               <ChallengeItem doc={doc} key={doc.id} />
             ))}
