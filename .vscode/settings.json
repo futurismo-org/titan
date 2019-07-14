@@ -2,6 +2,7 @@
   "files.exclude": {
     "reactjs": true,
     "firebase": true,
-    "node_modules": true
+    "node_modules": true,
+    "flutternative": true,
   }
 }

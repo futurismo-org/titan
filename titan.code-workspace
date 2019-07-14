@@ -12,6 +12,10 @@
       "name": "root",
       "path": "."
     },
+    {
+      "name": "flutter",
+      "path": "flutternative"
+    },
   ],
   "settings": {
     // General Config
