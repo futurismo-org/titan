@@ -9,6 +9,7 @@ import Layout from '../templates/DefaultLayout';
 import Categories from './Categories';
 import Category from './Category';
 import Ranking from './Ranking';
+import Setting from './Setting';
 
 const Home = () => (
   <Layout>
@@ -19,6 +20,7 @@ const Home = () => (
       <Route path="/challenges" component={Challenges} />
       <Route path="/topics" component={GeneralTopics} />
       <Route path="/ranking" component={Ranking} />
+      <Route path="/setting" component={Setting} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
