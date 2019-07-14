@@ -78,7 +78,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}
             <Divider />
-            {DrawerButton('設定', '/setting')}
+            {DrawerButton('ユーザ設定', '/setting')}
             <Divider />
           </StyledDrawer>
         </SwipeableDrawer>
