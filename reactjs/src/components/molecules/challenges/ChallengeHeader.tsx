@@ -61,7 +61,7 @@ const ChallengePeriod = (props: any) => {
 
   const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
 
-  if (openedAt.diff(today, 'days') >= 0) {
+  if (openedAt.diff(today, 'days') > 0) {
     return ret(`${openedAt.fromNow()}に開始`);
   }
   return ret(`${closedAt.fromNow()}に終了`);
