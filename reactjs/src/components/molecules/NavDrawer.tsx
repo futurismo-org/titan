@@ -80,7 +80,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}
             <Divider />
-            {DrawerButton('ユーザ設定', '/setting')}
+            {DrawerButton('ユーザ設定', '/settings')}
             <Divider />
             {user.isAdmin && DrawerButton('管理設定', '/admin')}
             {user.isAdmin && <Divider />}
