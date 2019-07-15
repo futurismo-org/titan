@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 import firebase from '../../../lib/firebase';
 
-import Record from './ChallengePostRecord';
+import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
 
 import Progress from '../../atoms/CircularProgress';
@@ -52,19 +52,6 @@ const ChallengeUserDashBoard = (props: any) => {
     return days;
   };
 
-  // const formatDate = (props: any): string => {
-  //   const { days, startedAt } = props;
-  //   if (
-  //     !isDaysValid(days) ||
-  //     days === 0 ||
-  //     startedAt === undefined ||
-  //     startedAt === null
-  //   ) {
-  //     return 'なし';
-  //   }
-  //   return moment(startedAt.toDate()).format('MM月DD日 HH:mm');
-  // };
-
   const DashBoardWrapper = styled.div`
     max-width: 750px;
     margin: auto;
@@ -92,9 +79,14 @@ const ChallengeUserDashBoard = (props: any) => {
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Title text={title} />
-            {/* <Typography variant="h6">開始日: {formatDate(data)}</Typography> */}
             <div id="challenge-card">
-              <Record days={formatDays(data.accDays)} />
+              <ChallengeRecord
+                days={formatDays(
+                  data && data.showMode === '過去連続日数'
+                    ? data.pastDays
+                    : data.accDays
+                )}
+              />
             </div>
             <ChallengeStatistics
               data={data}

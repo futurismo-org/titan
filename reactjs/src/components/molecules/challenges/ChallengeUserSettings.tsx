@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { TextField, Button } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Radio,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Grid
+} from '@material-ui/core';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -26,6 +35,7 @@ const ChallengeUserSettings = (props: any) => {
 
   const [displayName, setDisplayName] = useState('');
   const [pastDays, setPastDays] = useState('');
+  const [showMode, setShowMode] = useState('');
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -37,11 +47,17 @@ const ChallengeUserSettings = (props: any) => {
     setPastDays(e.target.value);
   };
 
+  const onShowModeChange = (e: any) => {
+    e.preventDefault();
+    setShowMode(e.target.value);
+  };
+
   const updateHandler = (e: any) => {
     e.preventDefault();
 
     const newData = {
       displayName,
+      showMode,
       pastDays: parseInt(pastDays),
       updatedAt: new Date()
     };
@@ -57,11 +73,13 @@ const ChallengeUserSettings = (props: any) => {
 
   const initDisplayName = data && data.displayName;
   const initPastDays = data && data.pastDays;
+  const initShowMode = data && data.showMode;
 
   useEffect(() => {
     setDisplayName(initDisplayName ? initDisplayName : '');
     setPastDays(initPastDays ? initPastDays : '');
-  }, [initDisplayName, initPastDays]);
+    setShowMode(initShowMode ? initShowMode : '累積日数');
+  }, [initDisplayName, initPastDays, initShowMode]);
 
   return (
     <React.Fragment>
@@ -72,31 +90,59 @@ const ChallengeUserSettings = (props: any) => {
           <Title text="ユーザ設定" />
           {user.shortId === userShortId ? (
             <form noValidate onSubmit={updateHandler}>
-              <TextField
-                value={displayName}
-                variant="outlined"
-                margin="normal"
-                required
-                id="displayName"
-                label="ユーザ名"
-                onChange={onDisplayNameChange}
-              />
-              <TextField
-                value={pastDays}
-                variant="outlined"
-                margin="normal"
-                id="pastAccDasy"
-                label="過去連続日数"
-                onChange={onPastDaysChange}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-              >
-                投稿
-              </Button>
+              <Grid container spacing={3}>
+                <Grid item>
+                  <TextField
+                    value={displayName}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    id="displayName"
+                    label="ユーザ名"
+                    onChange={onDisplayNameChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    value={pastDays}
+                    variant="outlined"
+                    margin="normal"
+                    id="pastAccDasy"
+                    label="過去連続日数"
+                    onChange={onPastDaysChange}
+                  />
+                </Grid>
+                <Grid item>
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">日数表示設定</FormLabel>
+                    <RadioGroup
+                      aria-label="日数表示"
+                      name="showmode"
+                      value={showMode}
+                      onChange={onShowModeChange}
+                    >
+                      <FormControlLabel
+                        value="累積日数"
+                        control={<Radio />}
+                        label="累積日数"
+                      />
+                      <FormControlLabel
+                        value="過去連続日数"
+                        control={<Radio />}
+                        label="過去連続日数"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                >
+                  投稿
+                </Button>
+              </Grid>
             </form>
           ) : (
             <p>ログインが必要です。</p>
