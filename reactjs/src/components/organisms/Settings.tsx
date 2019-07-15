@@ -58,7 +58,6 @@ const Setting = (props: any) => {
               required
               id="displayName"
               label="ユーザ名"
-              autoFocus
               onChange={onDisplayNameChange}
             />
             <TextField

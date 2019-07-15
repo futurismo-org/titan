@@ -212,7 +212,6 @@ const ChallengeForm = (props: any) => {
           id="title"
           label="タイトル"
           name="title"
-          autoFocus
           onChange={onTitleChange}
         />
         <TextField
