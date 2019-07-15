@@ -37,11 +37,11 @@ const ChallengeLeaderBoard = (props: any) => {
     <TableHead>
       <TableRow>
         <TableCell>順位</TableCell>
-        <ConditionalTableCell />
+        <TableCell />
         <TableCell>名前</TableCell>
         <TableCell>スコア</TableCell>
-        <ConditionalTableCell>連続</ConditionalTableCell>
-        <ConditionalTableCell>最長</ConditionalTableCell>
+        <ConditionalTableCell>大会連続</ConditionalTableCell>
+        <ConditionalTableCell>過去連続</ConditionalTableCell>
         <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
@@ -52,7 +52,7 @@ const ChallengeLeaderBoard = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value && (
-        <Table>
+        <Table size="small">
           <LeaderBoardHead />
           <TableBody>
             {value.docs
@@ -67,14 +67,14 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell component="th" scope="row">
                     {index + 1}位
                   </TableCell>
-                  <ConditionalTableCell>
+                  <TableCell>
                     <UserAvatar
                       photoURL={doc.data().photoURL}
                       profileURL={getTwitterProfileURL(
                         doc.data().twitterUsername
                       )}
                     />
-                  </ConditionalTableCell>
+                  </TableCell>
                   <TableCell>
                     <Link to={`/c/${id}/u/${doc.data().id}`}>
                       {doc.data().displayName || 'Annonymous'}
@@ -83,7 +83,7 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell>{doc.data().score}</TableCell>
                   <ConditionalTableCell>{doc.data().days}</ConditionalTableCell>
                   <ConditionalTableCell>
-                    {doc.data().maxDays}
+                    {doc.data().pastDays || doc.data().days}
                   </ConditionalTableCell>
                   <ConditionalTableCell>
                     {moment(doc.data().updatedAt.toDate()).fromNow()}

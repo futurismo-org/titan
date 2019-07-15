@@ -46,7 +46,7 @@ const ChallengePostController = (props: any) => {
   };
 
   const writeRecord = (props: any) => {
-    const { days, score, accDays, maxDays, histories } = props;
+    const { days, score, accDays, maxDays, pastDays, histories } = props;
 
     if (
       histories.length > 0 &&
@@ -61,6 +61,7 @@ const ChallengePostController = (props: any) => {
     }
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
+    const newPastDays = !isDaysValid ? undefined : pastDays + 1;
     const newScore = score + 1;
     const newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
@@ -70,6 +71,8 @@ const ChallengePostController = (props: any) => {
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
+      accDays: newAccDays,
+      pastDays: newPastDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
       type: 'RECORD'
     };
@@ -78,6 +81,7 @@ const ChallengePostController = (props: any) => {
       days: tomorrow,
       score: newScore,
       accDays: newAccDays,
+      pastDays: newPastDays,
       maxDays: newMaxDays,
       startedAt: now,
       updatedAt: now,
@@ -97,7 +101,7 @@ ${url}`;
         postMessage(webhookURL, message);
       })
       .then(() => {
-        window.alert('投稿が完了しました。');  // eslint-disable-line 
+        window.alert('投稿が完了しました。'); // eslint-disable-line
       })
       .then(() => closeHandler())
       .then(() => push(getUserDashboardPath(challengeId, userShortId)))
@@ -114,6 +118,7 @@ ${url}`;
       timestamp: new Date(),
       score: newScore,
       days: 0,
+      pastDays: 0,
       diff: moment().diff(moment(openedAt), 'days'),
       type: 'RESET'
     };
@@ -122,6 +127,7 @@ ${url}`;
       startedAt: null,
       updatedAt: now,
       days: 0,
+      pastDays: 0,
       score: newScore,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
@@ -145,9 +151,11 @@ ${url}`;
     const { days } = props;
     if (!isDaysValid(days)) return;
 
-    if (window.confirm('本当にリセットしますか？')) { // eslint-disable-line
+    /* eslint-disable */
+    if (window.confirm('本当にリセットしますか？')) {
       resetRecord(props);
     }
+    /* eslint-enable */
   };
 
   const data = value && value.data();
@@ -175,6 +183,7 @@ ${url}`;
         timestamp: new Date(),
         score: newScore,
         days: 0,
+        pastDays: 0,
         diff: moment().diff(moment(openedAt.toDate()), 'days'),
         type: 'RESET'
       };
@@ -183,6 +192,7 @@ ${url}`;
         startedAt: null,
         updatedAt: now,
         days: 0,
+        pastDays: 0,
         score: newScore,
         histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
       };
@@ -191,7 +201,10 @@ ${url}`;
         .firestore()
         .doc(resourceId)
         .update(resetData)
-        .then(() => window.alert('1日以上記録がなかったため、記録をリセットしました'));　// eslint-disable-line
+        .then(
+          () =>
+            window.alert('1日以上記録がなかったため、記録をリセットしました') // eslint-disable-line
+        );
     }
   }, [closedAt, data, now, openedAt, resourceId]);
 

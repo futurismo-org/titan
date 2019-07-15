@@ -57,6 +57,12 @@ const ChallengeNavbar = (props: any) => {
             text="ダッシュボード"
           />
         )}
+        {props.userId && (
+          <NavItem
+            to={`/c/${props.id}/u/${props.userId}/settings`}
+            text="ユーザ設定"
+          />
+        )}
       </Menu>
     </React.Fragment>
   );

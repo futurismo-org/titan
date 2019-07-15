@@ -11,6 +11,7 @@ import TopicForm from '../TopicForm';
 import ChallengeUserDashBoard from '../../../containers/challengeUserDashboardContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
+import ChallengeUserSettings from './ChallengeUserSettings';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -55,6 +56,10 @@ const ChallengeBody = (props: any) => {
           render={() => <MarkdownView text={challenge.rules} />}
         />
         <Route path="/c/:id/leaderboard" component={ChallengeLeaderBoard} />
+        <Route
+          path="/c/:challengeId/u/:userShortId/settings"
+          component={ChallengeUserSettings}
+        />
         <Route
           path="/c/:challengeId/u/:userId"
           render={(props: any) => (
