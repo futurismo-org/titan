@@ -83,7 +83,7 @@ const ChallengeUserDashBoard = (props: any) => {
               <ChallengeRecord
                 days={formatDays(
                   data && data.showMode === '過去連続日数'
-                    ? data.pastDays
+                    ? data.pastDays || data.accDays
                     : data.accDays
                 )}
               />
