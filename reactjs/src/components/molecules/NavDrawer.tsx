@@ -4,6 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import Link from '../atoms/NoStyledLink';
@@ -49,6 +50,7 @@ const DrawerButtonA = (text: string, to: string) => (
 );
 
 const Drawer = (props: any) => {
+  const { user } = props;
   const [open, setOpen] = useState(false);
 
   return (
@@ -80,6 +82,8 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('ユーザ設定', '/setting')}
             <Divider />
+            {user.isAdmin && DrawerButton('管理設定', '/admin')}
+            {user.isAdmin && <Divider />}
           </StyledDrawer>
         </SwipeableDrawer>
       </StyledRoot>
@@ -87,4 +91,9 @@ const Drawer = (props: any) => {
   );
 };
 
-export default Drawer;
+const mapStateToProps = (state: any, props: {}) => ({
+  user: state.firebase.profile,
+  ...props
+});
+
+export default connect(mapStateToProps)(Drawer);
