@@ -30,7 +30,7 @@ const StyledTimerButtonContainer = styled.div`
 `;
 
 const ChallengePostController = (props: any) => {
-  const { userShortId, userName, closeHandler, push } = props;
+  const { userShortId, closeHandler, push } = props;
   const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
   const challengeId = id;
@@ -46,7 +46,15 @@ const ChallengePostController = (props: any) => {
   };
 
   const writeRecord = (props: any) => {
-    const { days, score, accDays, maxDays, pastDays, histories } = props;
+    const {
+      days,
+      score,
+      accDays,
+      maxDays,
+      pastDays,
+      histories,
+      displayName
+    } = props;
 
     if (
       histories.length > 0 &&
@@ -96,7 +104,7 @@ const ChallengePostController = (props: any) => {
       .update(updateData)
       .then(() => {
         const url = withDomain(getUserDashboardPath(challengeId, userShortId));
-        const message = `${userName}さんが計${newAccDays}日達成しました！
+        const message = `${displayName}さんが計${newAccDays}日達成しました！
 ${url}`;
         postMessage(webhookURL, message);
       })
@@ -109,7 +117,7 @@ ${url}`;
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories } = props;
+    const { score, histories, displayName } = props;
 
     const newScore = score - 3;
 
@@ -138,7 +146,7 @@ ${url}`;
       .update(resetData)
       .then(() => {
         const url = withDomain(getUserDashboardPath(challengeId, userShortId));
-        const message = `${userName}さんがリセットしました。
+        const message = `${displayName}さんがリセットしました。
 ${url}`;
         postMessage(webhookURL, message);
       })
@@ -238,7 +246,6 @@ ${url}`;
 
 const mapStateToProps = (state: any, props: any) => ({
   userShortId: state.firebase.profile.shortId,
-  userName: state.firebase.profile.displayName,
   ...props
 });
 
