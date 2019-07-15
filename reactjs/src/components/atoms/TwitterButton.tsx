@@ -21,9 +21,10 @@ const ButtonWrapper = styled.div`
 const TwitterButton = (props: any) => {
   const { user, title, userId, challengeId, hashtag } = props;
 
-  const shareURL = `https://titan-fire.com/c/${challengeId}/u/${userId}`;  // eslint-disable-line
+  const shareURL = `https://titan-fire.com/c/${challengeId}/u/${userId}`; // eslint-disable-line
+  const title2 = title.replace('#', '%23');
 
-  const buildTweetContent = `${title}参加中%0a${shareURL}`;
+  const buildTweetContent = `${title2}参加中%0a${shareURL}`;
   const buildHashTags = `${hashtag}`.replace('#', '');
 
   // const [text, setText] = React.useState(buildTweetContent);
