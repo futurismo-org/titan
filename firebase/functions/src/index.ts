@@ -10,7 +10,7 @@ app.use(cors({ origin: true }));
 
 const { chargeProduct, validCoupon } = require('./handlers/stripe');
 const { postTweet } = require('./handlers/twitter');
-const { dashboard, topic } = require('./handlers/ogp');
+const { dashboard, topic, challenge } = require('./handlers/ogp');
 
 // const user = require('./user');
 // const authNewUser = functions.auth.user().onCreate(user.createUser);
@@ -24,6 +24,7 @@ app.post('/twitter/post', postTweet);
 app.get('/c/:cid/u/:uid', dashboard);
 app.get('/c/:cid/t/:tid', topic);
 app.get('/cat/:cid/t/:tid', topic);
+app.get('/c/:cid', challenge);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);
