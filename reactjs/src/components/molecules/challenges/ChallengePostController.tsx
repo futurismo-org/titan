@@ -183,6 +183,7 @@ ${url}`;
         timestamp: new Date(),
         score: newScore,
         days: 0,
+        pastDays: 0,
         diff: moment().diff(moment(openedAt.toDate()), 'days'),
         type: 'RESET'
       };
@@ -191,6 +192,7 @@ ${url}`;
         startedAt: null,
         updatedAt: now,
         days: 0,
+        pastDays: 0,
         score: newScore,
         histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
       };
