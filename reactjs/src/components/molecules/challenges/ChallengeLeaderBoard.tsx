@@ -37,7 +37,7 @@ const ChallengeLeaderBoard = (props: any) => {
     <TableHead>
       <TableRow>
         <TableCell>順位</TableCell>
-        <ConditionalTableCell />
+        <TableCell />
         <TableCell>名前</TableCell>
         <TableCell>スコア</TableCell>
         <ConditionalTableCell>大会連続</ConditionalTableCell>
@@ -52,7 +52,7 @@ const ChallengeLeaderBoard = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {value && (
-        <Table>
+        <Table size="small">
           <LeaderBoardHead />
           <TableBody>
             {value.docs
@@ -67,14 +67,14 @@ const ChallengeLeaderBoard = (props: any) => {
                   <TableCell component="th" scope="row">
                     {index + 1}位
                   </TableCell>
-                  <ConditionalTableCell>
+                  <TableCell>
                     <UserAvatar
                       photoURL={doc.data().photoURL}
                       profileURL={getTwitterProfileURL(
                         doc.data().twitterUsername
                       )}
                     />
-                  </ConditionalTableCell>
+                  </TableCell>
                   <TableCell>
                     <Link to={`/c/${id}/u/${doc.data().id}`}>
                       {doc.data().displayName || 'Annonymous'}
