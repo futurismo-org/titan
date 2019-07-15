@@ -54,11 +54,19 @@ const ChallengeChart = (props: any) => {
       <Line
         type="monotone"
         dataKey="score"
+        name="スコア"
         stroke={theme.palette.primary.main}
       />
       <Line
         type="monotone"
         dataKey="days"
+        name="大会連続日数"
+        stroke={theme.palette.secondary.main}
+      />
+      <Line
+        type="monotone"
+        dataKey="accDays"
+        name="累積日数"
         stroke={theme.palette.secondary.main}
       />
     </LineChartWrapper>
