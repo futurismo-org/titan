@@ -25,16 +25,16 @@ const ChallengeUserSettings = (props: any) => {
   );
 
   const [displayName, setDisplayName] = useState('');
-  const [pastAccDays, setPastAccDays] = useState('');
+  const [pastDays, setPastDays] = useState('');
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
     setDisplayName(e.target.value);
   };
 
-  const onPastAccDaysChange = (e: any) => {
+  const onPastDaysChange = (e: any) => {
     e.preventDefault();
-    setPastAccDays(e.target.value);
+    setPastDays(e.target.value);
   };
 
   const updateHandler = (e: any) => {
@@ -42,7 +42,7 @@ const ChallengeUserSettings = (props: any) => {
 
     const newData = {
       displayName,
-      pastAccDays: parseInt(pastAccDays),
+      pastDays: parseInt(pastDays),
       updatedAt: new Date()
     };
 
@@ -56,12 +56,12 @@ const ChallengeUserSettings = (props: any) => {
   const data = value && value.data();
 
   const initDisplayName = data && data.displayName;
-  const initPastAccDays = data && data.pastAccDays;
+  const initPastDays = data && data.pastDays;
 
   useEffect(() => {
     setDisplayName(initDisplayName ? initDisplayName : '');
-    setPastAccDays(initPastAccDays ? initPastAccDays : '');
-  }, [initDisplayName, initPastAccDays]);
+    setPastDays(initPastDays ? initPastDays : '');
+  }, [initDisplayName, initPastDays]);
 
   return (
     <React.Fragment>
@@ -83,12 +83,12 @@ const ChallengeUserSettings = (props: any) => {
                 onChange={onDisplayNameChange}
               />
               <TextField
-                value={pastAccDays}
+                value={pastDays}
                 variant="outlined"
                 margin="normal"
                 id="pastAccDasy"
                 label="過去連続日数"
-                onChange={onPastAccDaysChange}
+                onChange={onPastDaysChange}
               />
               <Button
                 type="submit"
