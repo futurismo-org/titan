@@ -21,10 +21,10 @@ app.post('/coupons/valid', validCoupon);
 
 app.post('/twitter/post', postTweet);
 
+// app.get('/c/:cid', challenge); 動かない
 app.get('/c/:cid/u/:uid', dashboard);
 app.get('/c/:cid/t/:tid', topic);
 app.get('/cat/:cid/t/:tid', topic);
-app.get('/c/:cid/*', challenge);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);
