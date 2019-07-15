@@ -117,6 +117,7 @@ const createChallengeHistorySeed = (n: number) => {
     days: faker.random.number({ min: 0, max: 30 }),
     score: faker.random.number({ min: 0, max: 30 }),
     accDays: faker.random.number({ min: 0, max: 30 }),
+    pastDays: faker.random.number({ min: 0, max: 30 }),
     type: array[Math.floor(Math.random() * array.length)],
     diff: n
   };
@@ -142,6 +143,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     score: 5,
     maxDays: 5,
     accDays: 5,
+    pastDays: 9,
     displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
@@ -156,6 +158,7 @@ const challengeParticipantsSeeds = seed.subcollection([
       score: faker.random.number({ min: 0, max: 30 }),
       maxDays: faker.random.number({ min: 0, max: 30 }),
       accDays: faker.random.number({ min: 0, max: 30 }),
+      pastDays: faker.random.number({ min: 0, max: 30 }),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl()
     });
