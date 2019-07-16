@@ -66,7 +66,7 @@ const ChallengeChart = (props: any) => {
       <Line
         type="monotone"
         dataKey="accDays"
-        name="累積日数"
+        name="大会累積日数"
         stroke={theme.palette.secondary.main}
       />
     </LineChartWrapper>

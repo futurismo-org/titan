@@ -78,7 +78,7 @@ const ChallengeUserSettings = (props: any) => {
   useEffect(() => {
     setDisplayName(initDisplayName ? initDisplayName : '');
     setPastDays(initPastDays ? initPastDays : '');
-    setShowMode(initShowMode ? initShowMode : '累積日数');
+    setShowMode(initShowMode ? initShowMode : '大会累積日数');
   }, [initDisplayName, initPastDays, initShowMode]);
 
   return (
@@ -122,9 +122,9 @@ const ChallengeUserSettings = (props: any) => {
                       onChange={onShowModeChange}
                     >
                       <FormControlLabel
-                        value="累積日数"
+                        value="大会累積日数"
                         control={<Radio />}
-                        label="累積日数"
+                        label="大会累積日数"
                       />
                       <FormControlLabel
                         value="過去連続日数"
