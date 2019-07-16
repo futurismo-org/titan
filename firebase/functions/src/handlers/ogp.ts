@@ -20,7 +20,7 @@ exports.dashboard = (req: any, res: any) => {
 
       const userName = userItem ? userItem.displayName : 'Annonymous';
       const challengeName = userItem ? userItem.challengeName : '';
-      const accDays = userItem ? userItem.accDays : 0;
+      // const accDays = userItem ? userItem.accDays : 0;
       // const days =
       //   userItem && userItem.showMode === '過去連続日数'
       //     ? userItem.pastDays || userItem.accDays
