@@ -4,7 +4,6 @@ Titan
 ![](https://img.shields.io/github/issues/futurismo-org/titan.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
-[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/futurismo-org/titan)
 [![CircleCI](https://circleci.com/gh/futurismo-org/titan/tree/master.svg?style=svg)](https://circleci.com/gh/futurismo-org/titan/tree/master)
 
 https://titan-fire.netlify.com
@@ -21,7 +20,7 @@ https://titan-fire.com
 
 ゴールは、世界制覇。Facebookの次にくるSNSをつくること。世界中の人々の希望を支配すること。
 
-[紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito) [紹介用動画](https://www.youtube.com/watch?v=XE7E-SuJ2Ug)
+[紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito) [紹介用動画](https://www.youtube.com/watch?v=XE7E-SuJ2Ug) [紹介用動画2](https://www.youtube.com/watch?v=ZROFd9xv-Og) 
 
 ## 開発スタートガイド
 
@@ -75,11 +74,6 @@ $ firebase login
 $ curl https://sdk.cloud.google.com | bash
 $ gcloud auth application-default login
 ```
-
-### ライセンス
-
-このプロジェクトは MIT ライセンスの元にライセンスされています。 
-詳細は[LICENSE](https://github.com/futurismo-org/titan/blob/master/LICENSE)をご覧ください。
 
 ## その他
 
