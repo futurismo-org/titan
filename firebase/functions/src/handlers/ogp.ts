@@ -109,7 +109,7 @@ exports.topic = (req: any, res: any) => {
 };
 
 exports.challenge = (req: any, res: any) => {
-  const [, , challengeId] = req.path.split('/');
+  const [, , challengeId, ,] = req.path.split('/');
   const resourceId = `challenges/${challengeId}`;
 
   return admin
