@@ -71,6 +71,7 @@ const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
   const isClosed =
+    challenge &&
     moment(new Date().setHours(29, 59, 59, 59)).diff(
       moment(challenge.closedAt.toDate()),
       'days'
