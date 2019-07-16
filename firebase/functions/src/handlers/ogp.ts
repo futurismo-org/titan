@@ -112,6 +112,8 @@ exports.challenge = (req: any, res: any) => {
   const [, , challengeId, ,] = req.path.split('/');
   const resourceId = `challenges/${challengeId}`;
 
+  console.log(challengeId);
+
   return admin
     .firestore()
     .doc(resourceId)
