@@ -31,7 +31,11 @@ const ChallengeStatistics = (props: any) => {
         <NumberWidget title="達成率" number={achieveRate} unit="%" />
       </Grid>
       <Grid item lg={4} md={4} sm={6} xs={6}>
-        <NumberWidget title="累積日数" number={data.accDays || 0} unit="days" />
+        <NumberWidget
+          title="大会累積日数"
+          number={data.accDays || 0}
+          unit="days"
+        />
       </Grid>
       <Grid item lg={4} md={4} sm={6} xs={6}>
         <NumberWidget title="大会連続日数" number={data.days} unit="days" />
