@@ -20,13 +20,14 @@ exports.dashboard = (req: any, res: any) => {
 
       const userName = userItem ? userItem.displayName : 'Annonymous';
       const challengeName = userItem ? userItem.challengeName : '';
-      const days =
-        userItem && userItem.showMode === '過去連続日数'
-          ? userItem.pastDays || userItem.accDays
-          : userItem.accDays;
+      // const days =
+      //   userItem && userItem.showMode === '過去連続日数'
+      //     ? userItem.pastDays || userItem.accDays
+      //     : userItem.accDays;
+      // キャッシュがうまく制御できないので、日数は削除
 
       const title = `${userName}さんの記録 | Titan`;
-      const description = `${challengeName}に参加中。${days}日達成しました！`;
+      const description = `${challengeName}に参加中。`;
       const url = `https://titan-fire.com/c/${challengeId}/u/${userShortId}`;
 
       res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
