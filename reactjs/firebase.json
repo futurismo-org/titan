@@ -16,7 +16,7 @@
         "function": "api"
       },
       {
-        "source": "/c/*",
+        "source": "/c/*/overview",
         "function": "api"
       },
       {
