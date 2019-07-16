@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -172,49 +172,49 @@ ${url}`;
     moment(now).diff(moment(closedAt.toDate())) < 0
   );
 
-  useEffect(() => {
-    if (
-      data !== undefined &&
-      data.updatedAt !== undefined &&
-      data.updatedAt !== null &&
-      moment(now).diff(
-        moment(new Date(data.updatedAt.toDate().setHours(0, 0, 0, 0))),
-        'days'
-      ) > 1 &&
-      moment(now).diff(moment(openedAt.toDate()), 'days') !== 0 &&
-      moment(now).diff(moment(closedAt.toDate()), 'days') <= 0
-    ) {
-      const newScore = data.score - 3;
+  // useEffect(() => {
+  //   if (
+  //     data !== undefined &&
+  //     data.updatedAt !== undefined &&
+  //     data.updatedAt !== null &&
+  //     moment(now).diff(
+  //       moment(new Date(data.updatedAt.toDate().setHours(0, 0, 0, 0))),
+  //       'days'
+  //     ) > 1 &&
+  //     moment(now).diff(moment(openedAt.toDate()), 'days') !== 0 &&
+  //     moment(now).diff(moment(closedAt.toDate()), 'days') <= 0
+  //   ) {
+  //     const newScore = data.score - 3;
 
-      const newHistory = {
-        id: data.histories.length + 1,
-        timestamp: new Date(),
-        score: newScore,
-        days: 0,
-        pastDays: 0,
-        diff: moment().diff(moment(openedAt.toDate()), 'days'),
-        type: 'RESET'
-      };
+  //     const newHistory = {
+  //       id: data.histories.length + 1,
+  //       timestamp: new Date(),
+  //       score: newScore,
+  //       days: 0,
+  //       pastDays: 0,
+  //       diff: moment().diff(moment(openedAt.toDate()), 'days'),
+  //       type: 'RESET'
+  //     };
 
-      const resetData = {
-        startedAt: null,
-        updatedAt: now,
-        days: 0,
-        pastDays: 0,
-        score: newScore,
-        histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
-      };
+  //     const resetData = {
+  //       startedAt: null,
+  //       updatedAt: now,
+  //       days: 0,
+  //       pastDays: 0,
+  //       score: newScore,
+  //       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
+  //     };
 
-      firebase
-        .firestore()
-        .doc(resourceId)
-        .update(resetData)
-        .then(
-          () =>
-            window.alert('1日以上記録がなかったため、記録をリセットしました') // eslint-disable-line
-        );
-    }
-  }, [closedAt, data, now, openedAt, resourceId]);
+  //     firebase
+  //       .firestore()
+  //       .doc(resourceId)
+  //       .update(resetData)
+  //       .then(
+  //         () =>
+  //           window.alert('1日以上記録がなかったため、記録をリセットしました') // eslint-disable-line
+  //       );
+  //   }
+  // }, [closedAt, data, now, openedAt, resourceId]);
 
   return (
     <StyledCenterContainer>
