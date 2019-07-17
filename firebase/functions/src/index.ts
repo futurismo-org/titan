@@ -12,9 +12,6 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 const { postTweet } = require('./handlers/twitter');
 const { dashboard, topic, challenge } = require('./handlers/ogp');
 
-// const user = require('./user');
-// const authNewUser = functions.auth.user().onCreate(user.createUser);
-
 // stripe
 app.post('/charges', chargeProduct);
 app.post('/coupons/valid', validCoupon);
