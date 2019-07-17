@@ -52,12 +52,17 @@ const AuthModal = (props: any) => {
           shortId: shortid.generate(),
           displayName: user!.displayName,
           photoURL: user!.photoURL,
-          email: user!.email,
           createdAt: new Date(),
           updatedAt: new Date(),
           twitterUsername: isTwitter
             ? (credentials.additionalUserInfo! as any).username
-            : '',
+            : ''
+        };
+
+        const secureId = shortid.generate();
+        const dataSecure = {
+          id: secureId,
+          email: user!.email,
           accessTokenKey: isTwitter
             ? (credentials.credential! as any).accessToken
             : '',
@@ -75,6 +80,10 @@ const AuthModal = (props: any) => {
         userRef.get().then(doc => {
           if (!doc.exists) {
             userRef.set(data);
+            userRef
+              .collection('securities')
+              .doc(secureId)
+              .set(dataSecure);
           }
         });
 

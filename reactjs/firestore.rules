@@ -1,8 +1,37 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+  
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isUserAuthenticated(userID) {
+      return request.auth.uid == userID;
+    }
+
+    match /challenges/{id=**} {
       allow read;
       allow create,update,delete: if request.auth != null;
+    }
+    
+    match /categories/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
+    
+    match /topics/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
+    
+    match /users/{userID} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+      
+      match /securities/{id=**} {
+        allow read, create, update: if isAuthenticated() 
+                                    && isUserAuthenticated(userID);
+      }
     }
   }
 }
