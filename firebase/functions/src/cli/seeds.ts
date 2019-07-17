@@ -135,6 +135,16 @@ const createParticipationSeed = (args: any) => {
   });
 };
 
+const createUserSecuritiesSeed = (args: any) => {
+  const { id } = args;
+  return seed.doc(id, {
+    email: faker.internet.email(),
+    accessTokenKey: '',
+    accessTokenSecret: '',
+    ...args
+  });
+};
+
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanShortId,
@@ -275,25 +285,31 @@ const categorySeeds = seed.collection('categories', [
   })
 ]);
 
+const userSecuritiesSeeds = seed.subcollection([
+  createUserSecuritiesSeed({
+    id: shortid.generate()
+  })
+]);
+
 const userSeeds = seed.collection('users', [
   createUserSeed({
     id: titanUserId,
     shortId: titanShortId,
-    email: '',
     displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true,
-    twitterUsername: 'titan_dev_1234'
+    twitterUsername: 'titan_dev_1234',
+    securities: userSecuritiesSeeds
   }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
       shortId: id,
-      email: faker.internet.email(),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl(),
-      isAdmin: false
+      isAdmin: false,
+      securities: userSecuritiesSeeds
     });
   })
 ]);

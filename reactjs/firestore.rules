@@ -28,7 +28,7 @@ service cloud.firestore {
       allow read;
       allow create,update,delete: if request.auth != null;
       
-      match /security/{id=**} {
+      match /securities/{id=**} {
         allow read, create, update: if isAuthenticated() 
                                     && isUserAuthenticated(userID);
       }
