@@ -6,6 +6,8 @@ import CategoryCard from '../atoms/CategoryCard';
 import firebase from '../../lib/firebase';
 import theme from '../../lib/theme';
 import Progress from '../atoms/CircularProgress';
+import Title from '../atoms/Title';
+import Paper from '../templates/PaperWrapper';
 
 interface Props {
   container?: any;
@@ -27,13 +29,16 @@ const Categories = () => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {value && (
-        <StyledCardGrid container spacing={4}>
-          {value!.docs.map((doc: any) => (
-            <CategoryCard category={doc.data()} key={doc.id} />
-          ))}
-        </StyledCardGrid>
-      )}
+      <Paper>
+        <Title text="カテゴリ一覧" />
+        {value && (
+          <StyledCardGrid container spacing={4}>
+            {value!.docs.map((doc: any) => (
+              <CategoryCard category={doc.data()} key={doc.id} />
+            ))}
+          </StyledCardGrid>
+        )}
+      </Paper>
     </React.Fragment>
   );
 };
