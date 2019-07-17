@@ -34,7 +34,7 @@ const DrawerButton = (text: string, to: string) => (
   </Link>
 );
 
-const DrawerButtonA = (text: string, to: string) => (
+const DrawerButtonALink = (text: string, to: string) => (
   <a href={to} style={{ textDecoration: 'none', color: 'inherit' }}>
     <Typography
       component="h5"
@@ -78,7 +78,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('ランキング', '/ranking')}
             <Divider />
-            {DrawerButtonA('チャット', 'https://discord.gg/S3t5WgE')}
+            {DrawerButtonALink('チャット', 'https://discord.gg/S3t5WgE')}
             <Divider />
             {DrawerButton('ユーザ設定', '/settings')}
             <Divider />

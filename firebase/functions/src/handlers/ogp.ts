@@ -130,9 +130,9 @@ exports.challenge = (req: any, res: any) => {
       const challengeDescription = challengeItem
         ? challengeItem.description
         : '';
-      const participantsCount = challengeItem
-        ? challengeItem.participantsCount
-        : 0;
+      // const participantsCount = challengeItem
+      //   ? challengeItem.participantsCount
+      //   : 0;
 
       const title = `${challengeName} | Titan`;
       const description = `きみも参加しよう！ ${challengeDescription}`;
