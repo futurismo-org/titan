@@ -4,7 +4,7 @@ import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import styled from 'styled-components';
 import shortid from 'shortid';
-import firebaseui from 'firebaseui';
+import * as firebaseui from 'firebaseui';
 import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';

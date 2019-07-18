@@ -3,8 +3,10 @@ import { activateKeepAwake } from 'expo-keep-awake';
 
 import App from './src/components/organisms/App';
 
-if (__DEV__) {  // eslint-disable-line
+/* eslint-disable */
+if (__DEV__) {
   activateKeepAwake();
 }
+/* eslint-enable */
 
 registerRootComponent(App as any);
