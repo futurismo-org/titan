@@ -19,7 +19,7 @@ const LayoutWrapperContainer = styled(Container)`
   }
 ` as React.ComponentType<ContainerProps>;
 
-const Layout = (props: any) => (
+const DefaultLayout = (props: any) => (
   <React.Fragment>
     <CssBaseline />
     <MuiThemeProvider theme={theme}>
@@ -32,4 +32,4 @@ const Layout = (props: any) => (
   </React.Fragment>
 );
 
-export default Layout;
+export default DefaultLayout;
