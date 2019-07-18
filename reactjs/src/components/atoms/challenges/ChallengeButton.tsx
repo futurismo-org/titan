@@ -96,7 +96,7 @@ const ChallengeButton = (props: any) => {
         size="small"
         onClick={handleOpen}
       >
-        購入
+        参加
       </Button>
       <Modal
         aria-labelledby="simple-modal-title"
