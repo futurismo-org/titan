@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { Header } from 'native-base';
+import { Header, Title } from 'native-base';
 
-const HeaderWrapper = (props: any) => <Header />;
+const HeaderWrapper = (props: any) => (
+  <Header>
+    <Title>Titan</Title>
+  </Header>
+);
 
 export default HeaderWrapper;
