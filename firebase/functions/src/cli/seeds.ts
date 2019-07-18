@@ -1,28 +1,73 @@
-import { ulid } from 'ulid';
 import faker from 'faker';
 import moment from 'moment';
+import shortid from 'shortid';
 
-import admin from '../utils/admin';
+import admin from 'firebase-admin';
+import { configDev } from '../utils/config';
+
+const config = configDev;
+
+admin.initializeApp(config);
 
 const client = require('firebase-tools');
 const seed = require('firestore-seed');
 
 faker.locale = 'ja';
 
-const muscleCategoryId = ulid();
-const meditationCategoryId = ulid();
-const getUpCategoryId = ulid();
-// const noFapCategoryId = ulid();
+const muscleCategoryId = shortid.generate();
+const meditationCategoryId = shortid.generate();
+const getUpCategoryId = shortid.generate();
 
-const muscleChallngeId = ulid();
-const muscleChallngeIds = [muscleChallngeId, ulid()];
-const meditationChallngeIds = [ulid()];
-const getUpChallngeIds = [ulid()];
-// const noFapChallengeIds: string[] = [];
+const muscleChallngeId = shortid.generate();
+const muscleChallngeIds = [muscleChallngeId, shortid.generate()];
+const meditationChallngeIds = [shortid.generate()];
+const getUpChallngeIds = [shortid.generate()];
 
-const titanUserId = '3o8FZ34cilNUONgvAlytIvIHlsu2';
+const titanShortId = shortid.generate();
+const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
-const dummyUserIds = [...Array(30).keys()].map((n: number) => ulid());
+const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
+const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
+
+const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
+
+const dummyUserIds = [...Array(30).keys()].map((n: number) =>
+  shortid.generate()
+);
+const dummyTopicIds = [...Array(10).keys()].map((n: number) =>
+  shortid.generate()
+);
+
+const createTopicSeed = (args: any) => {
+  const { id } = args;
+  const now = new Date();
+  return seed.doc(id, {
+    title: faker.lorem.sentence(),
+    url: 'https://example.com',
+    text: faker.lorem.paragraphs(),
+    createdAt: now,
+    updatedAt: now,
+    userId: shortid.generate(),
+    userName: faker.name.firstName(),
+    usrPhotoURL: faker.image.avatar(),
+    ...args
+  });
+};
+
+const topicsSeeds = seed.subcollection([
+  createTopicSeed({
+    id: shortid.generate(),
+    userId: titanShortId,
+    userName: 'Titan@公式',
+    userPhotoURL:
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
+  }),
+  ...dummyTopicIds.map((id: string) => {
+    return createTopicSeed({
+      id: id
+    });
+  })
+]);
 
 const createChallengeSeed = (args: any) => {
   const { id } = args;
@@ -31,11 +76,11 @@ const createChallengeSeed = (args: any) => {
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
-    isActive: true,
-    openedAt: moment().toDate(),
-    closedAt: moment()
-      .add('days', 30)
-      .toDate(),
+    webhookURL: sampleChallengeWebhookURL,
+    channelId: sampleChallengeChannelId,
+    topics: topicsSeeds,
+    hashtag: '#サンプルチャレンジ',
+    draft: false,
     ...args
   });
 };
@@ -46,7 +91,8 @@ const createCategorySeed = (args: any) => {
     createdAt: new Date(),
     updatedAt: faker.date.recent(),
     overview: faker.lorem.paragraphs(),
-    rules: faker.lorem.paragraphs(),
+    channelId: sampleGeneralChannelId,
+    topics: topicsSeeds,
     ...args
   });
 };
@@ -60,33 +106,57 @@ const createUserSeed = (args: any) => {
   });
 };
 
-const createParticipationSeed = (args: any) => {
-  const { id } = args;
-  const now = new Date();
-  return seed.doc(id, {
-    createdAt: now,
-    startDate: now,
-    updatedAt: now,
-    ...args
-  });
-};
-
 const createChallengeHistorySeed = (n: number) => {
+  const array = ['RECORD', 'RESET'];
+
   return {
     id: n,
     timestamp: moment()
       .subtract(n, 'days')
       .toDate(),
-    content: ''
+    days: faker.random.number({ min: 0, max: 30 }),
+    score: faker.random.number({ min: 0, max: 30 }),
+    accDays: faker.random.number({ min: 0, max: 30 }),
+    pastDays: faker.random.number({ min: 0, max: 30 }),
+    type: array[Math.floor(Math.random() * array.length)],
+    diff: n
   };
+};
+
+const createParticipationSeed = (args: any) => {
+  const { id } = args;
+  const now = new Date();
+  return seed.doc(id, {
+    createdAt: now,
+    startedAt: now,
+    updatedAt: now,
+    challengeName: 'サンプルチャレンジ',
+    ...args
+  });
+};
+
+const createUserSecuritiesSeed = (args: any) => {
+  const { id } = args;
+  return seed.doc(id, {
+    email: faker.internet.email(),
+    accessTokenKey: '',
+    accessTokenSecret: '',
+    ...args
+  });
 };
 
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
-    id: titanUserId,
+    id: titanShortId,
     histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
     days: 5,
-    score: 5
+    score: 5,
+    maxDays: 5,
+    accDays: 5,
+    pastDays: 9,
+    displayName: 'Titan@公式',
+    photoURL:
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({
@@ -96,6 +166,9 @@ const challengeParticipantsSeeds = seed.subcollection([
       ].map((n: number) => createChallengeHistorySeed(n)),
       days: faker.random.number({ min: 0, max: 30 }),
       score: faker.random.number({ min: 0, max: 30 }),
+      maxDays: faker.random.number({ min: 0, max: 30 }),
+      accDays: faker.random.number({ min: 0, max: 30 }),
+      pastDays: faker.random.number({ min: 0, max: 30 }),
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl()
     });
@@ -105,32 +178,83 @@ const challengeParticipantsSeeds = seed.subcollection([
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: muscleChallngeIds[0],
-    category: muscleCategoryId,
+    categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
-    participantsCount: 30
+    participantsCount: 30,
+    openedAt: new Date(
+      moment()
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 300,
+    pinned: true,
+    youtubeId: 'lTil2ukokrM'
   }),
   createChallengeSeed({
     id: muscleChallngeIds[1],
-    category: muscleCategoryId,
+    categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
-    participantsCount: 0
+    participantsCount: 0,
+    openedAt: new Date(
+      moment()
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 300
   }),
   createChallengeSeed({
     id: meditationChallngeIds[0],
-    category: meditationCategoryId,
+    categoryRef: seed.docRef('categories', meditationCategoryId),
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
-    participantsCount: 0
+    participantsCount: 0,
+    openedAt: new Date(
+      moment()
+        .add(30, 'days')
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .add(60, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    )
   }),
   createChallengeSeed({
     id: getUpChallngeIds[0],
-    category: getUpCategoryId,
+    categoryRef: seed.docRef('categories', getUpCategoryId),
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
-    participantsCount: 0
+    participantsCount: 0,
+    openedAt: new Date(
+      moment()
+        .subtract(60, 'days')
+        .toDate()
+        .setHours(0, 0, 0, 0)
+    ),
+    closedAt: new Date(
+      moment()
+        .subtract(30, 'days')
+        .toDate()
+        .setHours(23, 59, 59, 59)
+    ),
+    price: 1000
   })
 ]);
 
@@ -139,52 +263,53 @@ const categorySeeds = seed.collection('categories', [
     title: '肉体改善',
     description: '筋肉があれば何でもできる',
     id: muscleCategoryId,
-    challenges: muscleChallngeIds
+    challengeRefs: muscleChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   }),
   createCategorySeed({
     title: '瞑想',
     description: '安らかな心を',
     id: meditationCategoryId,
-    challenges: meditationChallngeIds
+    challengeRefs: meditationChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   }),
   createCategorySeed({
     title: '睡眠',
     description: '良質な人生は良質な睡眠から',
     id: getUpCategoryId,
-    challenges: getUpChallngeIds
+    challengeRefs: getUpChallngeIds.map((id: string) =>
+      seed.docRef('challenges', id)
+    )
   })
-  // createCategorySeed({
-  //   title: 'オナ禁',
-  //   description: 'オナ禁で生活を豊かに',
-  //   id: noFapCategoryId,
-  //   challenges: noFapChallengeIds
-  // })
+]);
+
+const userSecuritiesSeeds = seed.subcollection([
+  createUserSecuritiesSeed({
+    id: shortid.generate()
+  })
 ]);
 
 const userSeeds = seed.collection('users', [
   createUserSeed({
-    email: '',
-    displayName: 'Titan',
     id: titanUserId,
+    shortId: titanShortId,
+    displayName: 'Titan@公式',
     photoURL:
-      'https://pbs.twimg.com/profile_images/1110227722779820032/zAPk1WXn_normal.jpg',
-    isAdmin: true
-  }),
-  createUserSeed({
-    email: '',
-    displayName: 'tsu-nera',
-    id: 'hFVDONlKmeV4snOJGKuUQM5yCtp1',
-    photoURL:
-      'https://pbs.twimg.com/profile_images/947018640947232768/-Gm-dXvn_normal.jpg',
-    isAdmin: true
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
+    isAdmin: true,
+    twitterUsername: 'titan_dev_1234',
+    securities: userSecuritiesSeeds
   }),
   ...dummyUserIds.map((id: string) => {
     return createUserSeed({
       id: id,
-      email: faker.internet.email(),
+      shortId: id,
       displayName: faker.name.firstName(),
       photoURL: faker.image.imageUrl(),
-      isAdmin: false
+      isAdmin: false,
+      securities: userSecuritiesSeeds
     });
   })
 ]);
@@ -202,14 +327,13 @@ export const createCollections = () => {
 };
 
 const deletePathResource = (path: string) => {
-  client.firestore
-    .delete(path, {
-      recursive: true,
-      yes: true
-    })
-    .catch((e: any) => {
-      console.log('Failed to delete documents: ' + e);
-    });
+  const options = {
+    recursive: true,
+    allCollections: true
+  };
+  client.firestore.delete(path, options).catch((e: any) => {
+    console.log('Failed to delete documents: ' + e);
+  });
 };
 
 export const deleteCollections = () => {

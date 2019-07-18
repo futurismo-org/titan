@@ -1,0 +1,80 @@
+version: 2.1 
+
+executors:
+  default:
+    working_directory: ~/workspace
+    docker:
+      - image: circleci/node:8.11.4
+
+jobs:
+  deploy-firebase-hosting:
+    executor:
+      name: default
+    
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "reactjs/package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: npm run install:all:ci
+
+      - run:
+          name: 'Install Dependecies'
+          command: npm install --save-dev firebase-tools
+
+      - save_cache:
+          paths:
+            - node_modules
+            - reactjs/node_modules
+          key: v1-dependencies-{{ checksum "reactjs/package.json" }}
+
+      - run:
+          name: 'Build(production)'
+          working_directory: reactjs
+          command: REACT_APP_GIT_SHA=`git rev-parse HEAD` REACT_APP_ENV=production npm run build && npm run upload-source-maps
+
+      - run:
+          name: 'Deploy to Hosting(production)'
+          working_directory: reactjs
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P production --token "$FIREBASE_TOKEN"
+
+      - run:
+          name: 'Copy index.html(production)'
+          command: cp reactjs/build/index.html firebase/functions/lib
+
+      - run:
+          name: 'Deploy to Functions(production)'
+          working_directory: firebase/functions
+          command: APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"
+
+      - run:
+          name: 'Build(development)'
+          working_directory: reactjs
+          command: REACT_APP_ENV=development npm run build
+          
+      - run:
+          name: 'Deploy to Hosting(development)'
+          working_directory: reactjs
+          command: ../node_modules/.bin/firebase deploy --only hosting  -P development --token "$FIREBASE_TOKEN"
+
+      - run:
+          name: 'Copy index.html(development)'
+          command: cp reactjs/build/index.html firebase/functions/lib
+
+      - run:
+          name: 'Deploy to Functions(development) Functions'
+          working_directory: firebase/functions
+          command: APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
+          
+workflows:
+  main:
+    jobs:
+    - deploy-firebase-hosting:
+        filters:
+          branches:
+            only: master

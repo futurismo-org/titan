@@ -7,18 +7,24 @@ import TableRow from '@material-ui/core/TableRow';
 
 import { useCollection } from 'react-firebase-hooks/firestore';
 import moment from 'moment';
-import styled from 'styled-components';
-import Avatar from '../../atoms/Avatar';
+import Hidden from '@material-ui/core/Hidden';
+import { Link } from 'react-router-dom';
+import Progress from '../../atoms/CircularProgress';
 
 import firebase from '../../../lib/firebase';
 
-const NoStyledLink = styled.a`
-  text-decoration: none;
-  color: 'inherit';
-`;
+import UserAvatar from '../../atoms/UserAvatar';
+
+import { getTwitterProfileURL } from '../../../lib/urlUtil';
+
+const ConditionalTableCell = (props: any) => (
+  <Hidden only="xs">
+    <TableCell>{props.children}</TableCell>
+  </Hidden>
+);
 
 const ChallengeLeaderBoard = (props: any) => {
-  const id: string = props.match.params.id;
+  const { id } = props.match.params;
   const [value, loading, error] = useCollection(
     firebase
       .firestore()
@@ -34,8 +40,10 @@ const ChallengeLeaderBoard = (props: any) => {
         <TableCell />
         <TableCell>名前</TableCell>
         <TableCell>スコア</TableCell>
-        <TableCell>連続日数</TableCell>
-        <TableCell>最新</TableCell>
+        <ConditionalTableCell>大会連続</ConditionalTableCell>
+        <ConditionalTableCell>過去連続</ConditionalTableCell>
+        <ConditionalTableCell>最長</ConditionalTableCell>
+        <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
   );
@@ -43,16 +51,18 @@ const ChallengeLeaderBoard = (props: any) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
-        <Table>
+        <Table size="small">
           <LeaderBoardHead />
           <TableBody>
             {value.docs
               .sort(
                 (x: any, y: any) =>
                   y.data().score - x.data().score ||
-                  y.data().days - x.data().days
+                  y.data().days - x.data().days ||
+                  y.data().maxDays - x.data().maxDays ||
+                  y.data().updatedAt.toDate() - x.data().updatedAt.toDate()
               )
               .map((doc, index) => (
                 <TableRow key={doc.data().id}>
@@ -60,20 +70,29 @@ const ChallengeLeaderBoard = (props: any) => {
                     {index + 1}位
                   </TableCell>
                   <TableCell>
-                    <Avatar src={doc.data().photoURL} />
+                    <UserAvatar
+                      photoURL={doc.data().photoURL}
+                      profileURL={getTwitterProfileURL(
+                        doc.data().twitterUsername
+                      )}
+                    />
                   </TableCell>
                   <TableCell>
-                    <NoStyledLink
-                      href={doc.data().twitterURL || 'https://twitter.com'}
-                    >
-                      {doc.data().displayName}
-                    </NoStyledLink>
+                    <Link to={`/c/${id}/u/${doc.data().id}`}>
+                      {doc.data().displayName || 'Annonymous'}
+                    </Link>
                   </TableCell>
                   <TableCell>{doc.data().score}</TableCell>
-                  <TableCell>{doc.data().days}</TableCell>
-                  <TableCell>
+                  <ConditionalTableCell>{doc.data().days}</ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {doc.data().pastDays || doc.data().days}
+                  </ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {doc.data().maxDays}
+                  </ConditionalTableCell>
+                  <ConditionalTableCell>
                     {moment(doc.data().updatedAt.toDate()).fromNow()}
-                  </TableCell>
+                  </ConditionalTableCell>
                 </TableRow>
               ))}
           </TableBody>

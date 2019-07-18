@@ -1,27 +1,61 @@
 import * as React from 'react';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-// import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { firestore } from 'firebase';
 import moment from 'moment';
-import Typography from '@material-ui/core/Typography';
+import {
+  Table,
+  Paper,
+  TableRow,
+  TableCell,
+  TableHead,
+  TableBody,
+  Hidden,
+  Chip
+} from '@material-ui/core';
 
 const formatDate = (date: string): string => {
-  return moment(date).format('YYYY年MM月DD日 HH:mm');
+  return moment(date).format('MM/DD HH:mm');
 };
 
-interface Props {
-  timestamp: firestore.Timestamp;
-}
+const ConditionalTableCell = (props: any) => (
+  <Hidden only="xs">
+    <TableCell>{props.children}</TableCell>
+  </Hidden>
+);
 
-const History = (props: Props) => {
-  const { timestamp } = props;
+const getType = (type: string) => {
+  if (type === 'RESET') {
+    return <Chip color="primary" label="リセット" />;
+  }
+  return <Chip color="secondary" label="記録" />;
+};
+
+const HistoryHead = (props: any) => (
+  <TableHead>
+    <TableRow>
+      <TableCell>日時</TableCell>
+      <TableCell>スコア</TableCell>
+      <ConditionalTableCell>連続</ConditionalTableCell>
+      <ConditionalTableCell>経過</ConditionalTableCell>
+      <TableCell>タイプ</TableCell>
+    </TableRow>
+  </TableHead>
+);
+
+const HistoryRow = (props: any) => {
+  const { timestamp, score, type, days, diff } = props.history;
+
+  const wrapShowS = (x: string) => x || '';
+  const wrapShowN = (x: string) => x || 0;
 
   return (
-    <ListItem button>
-      <ListItemText primary={formatDate(timestamp.toDate().toISOString())} />
-    </ListItem>
+    <TableRow>
+      <TableCell>
+        {wrapShowS(formatDate(timestamp.toDate().toISOString()))}
+      </TableCell>
+      <TableCell>{wrapShowN(score)}</TableCell>
+      <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
+      <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
+      <TableCell>{getType(type)}</TableCell>
+    </TableRow>
   );
 };
 
@@ -30,16 +64,20 @@ const ChallengeHistories = (props: any) => {
 
   return (
     <React.Fragment>
-      <Typography component="h3" variant="h5" color="inherit">
-        過去の記録
-      </Typography>
-      <List>
-        {histories
-          .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
-          .map((history: any) => {
-            return <History key={history.id} timestamp={history.timestamp} />;
-          })}
-      </List>
+      <Paper>
+        <Table size="small">
+          <HistoryHead />
+          <TableBody>
+            {histories
+              .sort(
+                (x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds
+              )
+              .map((history: any) => {
+                return <HistoryRow key={history.id} history={history} />;
+              })}
+          </TableBody>
+        </Table>
+      </Paper>
     </React.Fragment>
   );
 };

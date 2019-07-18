@@ -1,15 +1,28 @@
-const admin = require('firebase-admin');
-const config = require('./utils/config');
+import express from 'express';
+import { functions } from './utils/admin';
 
-admin.initializeApp(config);
+const cors = require('cors');
 
-const functions = require('firebase-functions').region('asia-northeast1'); // eslint-disable-line
-const user = require('./user');
+require('dotenv').config();
 
-// Firebase Auth handlers
-const authNewUser = functions.auth.user().onCreate(user.createUser);
+const app = express();
+app.use(cors({ origin: true }));
 
-module.exports = {
-  authNewUser
-};
-export {};
+const { chargeProduct, validCoupon } = require('./handlers/stripe');
+const { postTweet } = require('./handlers/twitter');
+const { dashboard, topic, challenge } = require('./handlers/ogp');
+
+// stripe
+app.post('/charges', chargeProduct);
+app.post('/coupons/valid', validCoupon);
+
+app.post('/twitter/post', postTweet);
+
+app.get('/c/:cid/u/:uid', dashboard);
+app.get('/c/:cid/t/:tid', topic);
+app.get('/cat/:cid/t/:tid', topic);
+
+app.get('/c/:cid/overview', challenge);
+
+// register endpoints
+exports.api = functions.https.onRequest(app);

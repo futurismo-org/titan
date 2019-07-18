@@ -1,17 +1,11 @@
-import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
-import styled from 'styled-components';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import theme from '../../lib/theme';
-import Navbar from '../molecules/categories/CategoryNavbar';
 import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
 import firebase from '../../lib/firebase';
 
-const StyledPaper = styled(Paper as React.SFC)`
-  padding: ${theme.spacing(3, 2)};
-`;
+import Progress from '../atoms/CircularProgress';
 
 interface Props {
   match: {
@@ -32,14 +26,11 @@ const Category = (props: Props) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <React.Fragment>
           <Header category={value.data()} />
-          <StyledPaper>
-            <Navbar id={value.id} />
-            <Body />
-          </StyledPaper>
+          <Body category={value.data()} />
         </React.Fragment>
       )}
     </React.Fragment>

@@ -1,64 +1,76 @@
-import * as React from 'react';
-import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
-import styled from 'styled-components';
-import { Link as RouterLink } from 'react-router-dom';
-import Link, { LinkProps } from '@material-ui/core/Link';
-import theme from '../../../lib/theme';
+import React, { forwardRef } from 'react';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const StyledToolbar = styled(Toolbar)`
-  && {
-    justify-content: start;
-    overflow-x: auto;
-  }
-` as React.ComponentType<ToolbarProps>;
+import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-type StyledLinkProps = LinkProps & {
-  component: any;
-  noWrap: any;
-  color: string;
-  variant: string;
-  to: string;
+import Grid from '@material-ui/core/Grid';
+
+import { connect } from 'react-redux';
+
+import NoStyledLink from '../../atoms/NoStyledLink';
+
+const ChallengeNavbar = (props: any) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const NavItem = forwardRef((props: any, ref: any) => (
+    <MenuItem ref={ref} onClick={handleClose}>
+      <NoStyledLink to={props.to}>{props.text}</NoStyledLink>
+    </MenuItem>
+  ));
+
+  return (
+    <React.Fragment>
+      <Grid item xs={12}>
+        <ButtonGroup fullWidth>
+          <Button>
+            <NoStyledLink to={`/c/${props.id}/overview`}>概要</NoStyledLink>
+          </Button>
+          <Button>
+            <NoStyledLink to={`/c/${props.id}/rules`}>ルール</NoStyledLink>
+          </Button>
+          <Button onClick={handleClick}>その他</Button>
+        </ButtonGroup>
+      </Grid>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
+        <NavItem to={`/c/${props.id}/topics`} text="トピック" />
+        <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
+        {props.userId && (
+          <NavItem
+            to={`/c/${props.id}/u/${props.userId}`}
+            text="ダッシュボード"
+          />
+        )}
+        {props.userId && (
+          <NavItem
+            to={`/c/${props.id}/u/${props.userId}/settings`}
+            text="ユーザ設定"
+          />
+        )}
+      </Menu>
+    </React.Fragment>
+  );
 };
 
-const StyledLink = styled(Link)`
-  && {
-    padding-right: ${theme.spacing(3)}px;
-    flex-shrink: 0;
-  }
-` as React.ComponentType<StyledLinkProps>;
+const mapStateToProps = (state: any, props: any) => ({
+  userId: state.firebase.profile.shortId || undefined,
+  ...props
+});
 
-const NoStyledRouterLink = styled(RouterLink)`
-  && {
-    text-decoration: none;
-    color: inherit;
-  }
-`;
-
-interface NavLinkProps {
-  to: string;
-  text: string;
-}
-
-const NavLink = (props: NavLinkProps) => (
-  <StyledLink
-    component={NoStyledRouterLink}
-    noWrap
-    color="inherit"
-    variant="body2"
-    to={props.to}
-  >
-    {props.text}
-  </StyledLink>
-);
-
-const ChallengeNavbar = (props: any) => (
-  <StyledToolbar component="nav" variant="dense">
-    <NavLink to={`/challenges/${props.id}/overview`} text="概要" />
-    <NavLink to={`/challenges/${props.id}/discussion`} text="掲示板" />
-
-    <NavLink to={`/challenges/${props.id}/leaderboard`} text="リーダーボード" />
-    <NavLink to={`/challenges/${props.id}/rules`} text="ルール" />
-  </StyledToolbar>
-);
-
-export default ChallengeNavbar;
+export default connect(mapStateToProps)(ChallengeNavbar);

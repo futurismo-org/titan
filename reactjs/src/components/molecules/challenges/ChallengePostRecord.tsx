@@ -12,17 +12,15 @@ const StyledDays = styled.span`
 
 const StyledDaysText = styled.span`
   @media screen and (min-width: 768px) {
-    font-size: 5vw;
+    font-size: 4vw;
   }
   font-size: 8vw;
 `;
 
 const StyledCard = styled(Card)`
   background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border-radius: 3;
   border: 0;
-  color: white;
-  padding: 0 30px;
+  padding: 0 25px;
   box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
 ` as React.ComponentType<CardProps>;
 
@@ -33,7 +31,7 @@ const RecordBoard = (props: any) => (
         <StyledDays>{props.days}</StyledDays>
         <StyledDaysText>days</StyledDaysText>
       </div>
-      <StyledDaysText>連続達成しました！</StyledDaysText>
+      <StyledDaysText>達成しました</StyledDaysText>
     </CardContent>
   </StyledCard>
 );

@@ -38,7 +38,7 @@ const CategoryCard = (props: any) => {
 
   return (
     <Grid item key={category.title} xs={12} md={6}>
-      <NoStyledLink to={`/categories/${category.id}/overview`}>
+      <NoStyledLink to={`/cat/${category.id}/dashboard`}>
         <CardActionArea>
           <StyledCard>
             <StyledCardDetails>
@@ -46,9 +46,6 @@ const CategoryCard = (props: any) => {
                 <Typography component="h2" variant="h5">
                   {category.title}
                 </Typography>
-                {/* <Typography variant="subtitle1" color="textSecondary">
-                  {challeng.date}
-                </Typography> */}
                 <Typography variant="subtitle1" paragraph>
                   {category.description}
                 </Typography>

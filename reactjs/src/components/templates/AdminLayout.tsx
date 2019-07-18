@@ -1,28 +1,33 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
+import Container, { ContainerProps } from '@material-ui/core/Container';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
 import theme from '../../lib/theme';
 import TopToolbar from '../molecules/TopToolbar';
 
-const LayoutWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
+const LayoutWrapperContainer = styled(Container)`
+  && {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 100%;
+  }
+` as React.ComponentType<ContainerProps>;
 
 const Layout = (props: any) => (
-  <LayoutWrapper>
+  <React.Fragment>
     <CssBaseline />
     <MuiThemeProvider theme={theme}>
-      <Container maxWidth="lg">
+      <LayoutWrapperContainer>
         <TopToolbar />
         <main>{props.children}</main>
-      </Container>
+      </LayoutWrapperContainer>
     </MuiThemeProvider>
-  </LayoutWrapper>
+  </React.Fragment>
 );
 
 export default Layout;

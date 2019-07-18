@@ -1,30 +1,45 @@
 import * as React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import CategoryOverview from './CategoryOverview';
-import CategoryDiscussion from './CategoryDiscussion';
-import CategoryRules from './CategoryRules';
-import CategoryLeaderBoard from './CategoryLeaderBoard';
+import { Route, Switch } from 'react-router-dom';
 
+import styled from 'styled-components';
 import theme from '../../../lib/theme';
+
+import CategoryDashBoard from './CategoryDashBoard';
+import Topic from '../Topic';
+import TopicForm from '../TopicForm';
+import Topics from '../Topics';
 
 const CategoryContent = styled.div`
   padding: ${theme.spacing(2)}px;
 `;
 
-const CategoryBody = () => {
+const CategoryBody = (props: any) => {
+  const { category } = props;
+
   return (
     <CategoryContent>
       <Switch>
-        <Route path="/categories/:id/overview" component={CategoryOverview} />
         <Route
-          path="/categories/:id/discussion"
-          component={CategoryDiscussion}
+          path="/cat/:collectionId/t/:topicId/edit"
+          render={props => <TopicForm collection="categories" {...props} />}
         />
-        <Route path="/categories/:id/rules" component={CategoryRules} />
         <Route
-          path="/categories/:id/leaderboard"
-          component={CategoryLeaderBoard}
+          path="/cat/:collectionId/t/new"
+          render={props => <TopicForm collection="categories" {...props} />}
+        />
+        <Route
+          path="/cat/:collectionId/t/:topicId"
+          render={props => <Topic collection="categories" {...props} />}
+        />
+        <Route
+          path="/cat/:id/topics"
+          render={() => (
+            <Topics collection="categories" collectionId={category.id} />
+          )}
+        />
+        <Route
+          path="/cat/:id/dashboard"
+          render={() => <CategoryDashBoard category={category} />}
         />
       </Switch>
     </CategoryContent>

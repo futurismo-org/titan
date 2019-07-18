@@ -1,1 +1,6 @@
-{}
+{
+  "files.exclude": {
+    "functions/node_modules": true,
+    "functions/lib": true
+  }
+}

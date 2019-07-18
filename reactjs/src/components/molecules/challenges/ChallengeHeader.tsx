@@ -1,11 +1,13 @@
 import * as React from 'react';
+import MediaQuery from 'react-responsive';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '../../../lib/theme';
-import JoinButton from '../../atoms/JoinButton';
+import ChallengeButton from '../../atoms/challenges/ChallengeButton';
+import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import 'moment/locale/ja';
 
@@ -13,6 +15,7 @@ moment.locale('ja');
 
 const HeaderInfo = styled.div`
   display: flex;
+  margin: 5px;
 `;
 
 const MainFeaturedPost = styled(Paper)`
@@ -21,7 +24,7 @@ const MainFeaturedPost = styled(Paper)`
     background-color: ${theme.palette.grey[800]};
     color: ${theme.palette.common.white};
     margin-bottom: ${theme.spacing(4)}px;
-    background-image: url(https://source.unsplash.com/user/erondu);
+    background-image: url(https://source.unsplash.com/random);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -39,9 +42,9 @@ const Overlay = styled.div`
 
 const MainFeaturedPostContent = styled.div`
   position: relative;
-  padding: ${theme.spacing(3)}px;
+  padding: ${theme.spacing(2)}px;
   ${theme.breakpoints.up('md')} {
-    padding: ${theme.spacing(6)}px;
+    padding: ${theme.spacing(4)}px;
     padding-right: 0;
   }
 `;
@@ -54,29 +57,25 @@ const ChallengePeriod = (props: any) => {
   const { challenge } = props;
   const openedAt = moment(challenge.openedAt.toDate());
   const closedAt = moment(challenge.closedAt.toDate());
-  const today = moment(new Date());
+  const today = moment();
 
   const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
 
   if (openedAt.diff(today, 'days') > 0) {
     return ret(`${openedAt.fromNow()}に開始`);
-  } else {
-    return ret(`${closedAt.fromNow()}に終了`);
   }
+  return ret(`${closedAt.fromNow()}に終了`);
 };
 
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
-  const isOpen = (): boolean => {
-    const openedAt = moment(challenge.openedAt.toDate());
-    const closedAt = moment(challenge.closedAt.toDate());
-    const today = moment(new Date());
-
-    return (
-      today.diff(openedAt, 'days') >= 0 && today.diff(closedAt, 'days') < 0
-    );
-  };
+  const isClosed =
+    challenge &&
+    moment(new Date().setHours(29, 59, 59, 59)).diff(
+      moment(challenge.closedAt.toDate()),
+      'days'
+    ) > 0;
 
   return (
     <MainFeaturedPost>
@@ -84,7 +83,7 @@ const ChallengeHeader = (props: any) => {
       {
         <img
           style={{ display: 'none' }}
-          src="https://source.unsplash.com/user/erondu"
+          src="https://source.unsplash.com/random"
           alt="background"
         />
       }
@@ -92,21 +91,38 @@ const ChallengeHeader = (props: any) => {
       <Grid container>
         <Grid item md={9}>
           <MainFeaturedPostContent>
-            <Typography
-              component="h1"
-              variant="h3"
-              color="inherit"
-              gutterBottom
-            >
-              {challenge.title}
-            </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
-              {challenge.description}
-            </Typography>
             <HeaderInfo>
-              {isOpen() && (
+              <MediaQuery maxDeviceWidth={750}>
+                <h1 style={{ overflowWrap: 'break-word' }}>
+                  {challenge.title}
+                </h1>
+              </MediaQuery>
+              <MediaQuery minDeviceWidth={749}>
+                <Typography
+                  component="h1"
+                  variant="h3"
+                  color="inherit"
+                  gutterBottom
+                >
+                  {challenge.title}
+                </Typography>
+              </MediaQuery>
+            </HeaderInfo>
+            <HeaderInfo>
+              <Typography variant="h5" color="inherit">
+                {challenge.description}
+              </Typography>
+            </HeaderInfo>
+            <HeaderInfo>
+              {isClosed ? (
+                <HeaderInfoText color="inherit" variant="subtitle1">
+                  {challenge.participantsCount}人参加
+                </HeaderInfoText>
+              ) : (
                 <React.Fragment>
-                  <JoinButton challengeId={challenge.id} />
+                  <HeaderInfoText color="inherit" variant="subtitle1">
+                    価格 {challenge.price || 0}円
+                  </HeaderInfoText>
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     {challenge.participantsCount}人参加中
                   </HeaderInfoText>
@@ -115,6 +131,10 @@ const ChallengeHeader = (props: any) => {
               <HeaderInfoText color="inherit" variant="subtitle1">
                 <ChallengePeriod challenge={challenge} />
               </HeaderInfoText>
+            </HeaderInfo>
+            <HeaderInfo>
+              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>

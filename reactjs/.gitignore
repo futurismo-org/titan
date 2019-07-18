@@ -26,3 +26,5 @@ firebase-debug.log*
 # custom
 *~
 .firebase
+.env
+/sourceMaps

@@ -1,27 +1,16 @@
-import Paper from '@material-ui/core/Paper';
 import * as React from 'react';
-import styled from 'styled-components';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import theme from '../../lib/theme';
 import Navbar from '../molecules/challenges/ChallengeNavbar';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 
+import Paper from '../templates/PaperWrapper';
+
+import Progress from '../atoms/CircularProgress';
+
 import firebase from '../../lib/firebase';
 
-const StyledPaper = styled(Paper as React.SFC)`
-  padding: ${theme.spacing(3, 2)};
-`;
-
-interface Props {
-  match: {
-    params: {
-      id?: string;
-    };
-  };
-}
-
-const Challenge = (props: Props) => {
+const Challenge = (props: any) => {
   const [value, loading, error] = useDocument(
     firebase
       .firestore()
@@ -32,14 +21,14 @@ const Challenge = (props: Props) => {
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
-      {loading && <span>Collection: Loading...</span>}
+      {loading && <Progress />}
       {value && (
         <React.Fragment>
           <Header challenge={value.data()} />
-          <StyledPaper>
+          <Paper>
             <Navbar id={value.id} />
             <Body challenge={value.data()} />
-          </StyledPaper>
+          </Paper>
         </React.Fragment>
       )}
     </React.Fragment>

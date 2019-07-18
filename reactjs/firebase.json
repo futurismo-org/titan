@@ -4,9 +4,29 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
+        "source": "/c/*/u/*",
+        "function": "api"
+      },
+      {
+        "source": "/c/*/t/*",
+        "function": "api"
+      },
+      {
+        "source": "/cat/*/t/*",
+        "function": "api"
+      },
+      {
+        "source": "/c/*/overview",
+        "function": "api"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }

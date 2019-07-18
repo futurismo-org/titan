@@ -3,6 +3,8 @@ import { Dialog, DialogContent } from '@material-ui/core';
 import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import styled from 'styled-components';
+import shortid from 'shortid';
+import firebaseui from 'firebaseui';
 import firebase from '../../lib/firebase';
 
 import theme from '../../lib/theme';
@@ -28,30 +30,62 @@ const AuthModal = (props: any) => {
     signInFlow: 'popup',
     signInSuccessUrl: '/',
     signInOptions: [
-      // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID
+      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
+    tosUrl: 'https://titan-fire.com/terms_of_use.html',
+    privacyPolicyUrl: 'https://titan-fire.com/privacy_policy.html',
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     callbacks: {
       signInSuccessWithAuthResult: (
         credentials: firebase.auth.UserCredential
       ) => {
-        const userId = credentials.user!.uid;
+        const { user } = credentials;
+
+        const isTwitter =
+          credentials.additionalUserInfo &&
+          credentials.additionalUserInfo.providerId === 'twitter.com';
 
         const data = {
-          twitterURL: (credentials.additionalUserInfo!.profile! as any).url
+          id: user!.uid,
+          shortId: shortid.generate(),
+          displayName: user!.displayName,
+          photoURL: user!.photoURL,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          twitterUsername: isTwitter
+            ? (credentials.additionalUserInfo! as any).username
+            : ''
+        };
+
+        const secureId = shortid.generate();
+        const dataSecure = {
+          id: secureId,
+          email: user!.email,
+          accessTokenKey: isTwitter
+            ? (credentials.credential! as any).accessToken
+            : '',
+          accessTokenSecret: isTwitter
+            ? (credentials.credential! as any).secret
+            : ''
         };
 
         const userRef = firebase
           .firestore()
           .collection('users')
-          .doc(userId);
+          // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
+          .doc(user!.uid);
 
-        firebase
-          .firestore()
-          .runTransaction(async transaction => {
-            await transaction.update(userRef, data);
-          })
-          .catch(() => console.log('get twitterURL failed'));
+        userRef.get().then(doc => {
+          if (!doc.exists) {
+            userRef.set(data);
+            userRef
+              .collection('securities')
+              .doc(secureId)
+              .set(dataSecure);
+          }
+        });
 
         return false;
       }

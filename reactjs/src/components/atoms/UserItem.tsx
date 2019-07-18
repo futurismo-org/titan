@@ -4,12 +4,15 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import styled from 'styled-components';
-import Avatar from './Avatar';
 import theme from '../../lib/theme';
+import UserAvatar from './UserAvatar';
+
+import { getTwitterProfileURL } from '../../lib/urlUtil';
 
 const StyledButton = styled(Button)`
   && {
-    margin: ${theme.spacing(1)}px;
+    margin: ${theme.spacing(0)}px;
+    font-weight: bold;
   }
 ` as React.ComponentType<ButtonProps>;
 
@@ -18,17 +21,18 @@ const UserItem = (props: any) => {
     firebase
       .auth()
       .signOut()
-      .then(() => (window.location.href = '/')); // eslint-disable-line 
+      .then(() => (window.location.href = '/')); // eslint-disable-line
   };
 
   const { user } = props;
-  const defaultUserName = 'anonymous';
 
   return (
     <div>
       <StyledButton color="inherit">
-        <Avatar src={user.photoURL} />
-        {user.displayName || defaultUserName}
+        <UserAvatar
+          photoURL={user.photoURL}
+          profileURL={getTwitterProfileURL(user.twitterUsername)}
+        />
       </StyledButton>
       <StyledButton
         variant="outlined"
