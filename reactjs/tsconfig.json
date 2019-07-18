@@ -11,7 +11,7 @@
     "types": [
       "node"
     ],
-    "allowJs": false, 
+    "allowJs": false,
     "jsx": "preserve",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -40,5 +40,6 @@
     "node_modules",
     "build",
     "out"
-  ]
+  ],
+  "extends": "./tsconfig.paths.json"
 }
