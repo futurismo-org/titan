@@ -31,7 +31,8 @@
       "esnext",
       "dom",
       "dom.iterable"
-    ]
+    ],
+    "baseUrl": "src"
   },
   "include": [
     "src"
