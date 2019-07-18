@@ -15,7 +15,7 @@
     "types": [
       "node"
     ],
-    "allowJs": false, 
+    "allowJs": false,
     "jsx": "react-native",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -37,7 +37,8 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "native-base-theme"
   ],
   "exclude": [
     "node_modules",

@@ -1,31 +1,18 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { COLOR, ThemeContext, getTheme } from 'react-native-material-ui';
-
+import { StyleProvider } from 'native-base';
 import Header from '../molecules/Header';
 
-const uiTheme = {
-  palette: {
-    primaryColor: COLOR.red500,
-    secondaryColor: COLOR.blue500
-  },
-  toolbar: {
-    container: {
-      height: 70
-    },
-    titleText: {
-      fontSize: 24
-    }
-  }
-};
+import getTheme from '../../../native-base-theme/components';
+import material from '../../../native-base-theme/variables/material';
 
 const DefaultLayout = (props: any) => (
-  <ThemeContext.Provider value={getTheme(uiTheme)}>
+  <StyleProvider style={getTheme(material)}>
     <View>
       <Header />
       {props.children}
     </View>
-  </ThemeContext.Provider>
+  </StyleProvider>
 );
 
 export default DefaultLayout;

@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { Toolbar } from 'react-native-material-ui';
+import { Header } from 'native-base';
 
-const Header = (props: any) => (
-  <Toolbar leftElement="menu" centerElement="Titan" />
-);
+const HeaderWrapper = (props: any) => <Header />;
 
-export default Header;
+export default HeaderWrapper;
