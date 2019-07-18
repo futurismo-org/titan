@@ -25,6 +25,7 @@ const joinHandler = (challengeId: string, challengeName: string, user: any) => {
     createdAt: new Date(),
     updatedAt: new Date(),
     displayName: user.displayName,
+    twitterUsername: user.twitterUsername,
     photoURL: user.photoURL,
     score: 0,
     days: 0,
