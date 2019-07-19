@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
@@ -29,8 +29,8 @@ export const fetchCategories = (num: number = 20) => {
       .orderBy('updatedAt', 'desc')
       .limit(num)
       .get()
-      .then(snap => snap.docs.map(doc => doc.data()))
-      .then(data => dispatch(fetchCategoriesSuccess(data)))
-      .catch(error => dispatch(fetchCategoriesError(error)));
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchCategoriesSuccess(data)))
+      .catch((error: any) => dispatch(fetchCategoriesError(error)));
   };
 };

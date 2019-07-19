@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NavigationItem from 'web/components/molecules/NavigationItem';
-import { store } from '../store';
+import { store } from '../web/store';
 
 type AllState = ReturnType<typeof store.getState>;
 

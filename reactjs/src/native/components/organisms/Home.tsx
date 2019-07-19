@@ -1,7 +1,6 @@
-import { Route } from 'react-router-native';
-
 import * as React from 'react';
-import DashBoard from './DashBoard';
+import { Route } from 'react-router-native';
+import DashBoard from '~/native/containers/DashBoardContainer';
 
 const Home = () => <Route path="/" component={DashBoard} />;
 

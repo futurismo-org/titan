@@ -3,8 +3,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import {
   fetchChallenges,
   fetchPinnedChallenges
-} from 'actions/challengeAction';
-import { fetchCategories } from 'actions/categoryAction';
+} from '~/actions/challengeAction';
+import { fetchCategories } from '~/actions/categoryAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(

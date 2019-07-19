@@ -7,7 +7,7 @@ import ogpReducer from './ogpReducer';
 import challengeReducer from './challengeReducer';
 import categoryReducer from './categoryReducer';
 
-const rootReducer = (history: any) =>
+export const createRootReducer = (history: any) =>
   combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
@@ -18,4 +18,11 @@ const rootReducer = (history: any) =>
     category: categoryReducer
   });
 
-export default rootReducer;
+export const createRootReducerForRN = () =>
+  combineReducers({
+    firebase: firebaseReducer,
+    firestore: firestoreReducer,
+    user: userReducer,
+    challenge: challengeReducer,
+    category: categoryReducer
+  });

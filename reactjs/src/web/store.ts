@@ -5,8 +5,8 @@ import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import firebase from 'lib/firebase';
-import createRootReducer from 'reducers';
+import { createRootReducer } from '~/reducers';
+import firebase from '~/lib/firebase';
 
 const rrfConfig = {
   userProfile: 'users',

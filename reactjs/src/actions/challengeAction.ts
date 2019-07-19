@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import {
   FETCH_CHALLENGES_REQUEST,
   FETCH_CHALLENGES_SUCCESS,
@@ -47,9 +47,9 @@ export const fetchChallenges = (num: number = 20) => {
       .orderBy('openedAt', 'desc')
       .limit(num)
       .get()
-      .then(snap => snap.docs.map(doc => doc.data()))
-      .then(data => dispatch(fetchChallengesSuccess(data)))
-      .catch(error => dispatch(fetchChallengesError(error)));
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchChallengesSuccess(data)))
+      .catch((error: any) => dispatch(fetchChallengesError(error)));
   };
 };
 
@@ -61,8 +61,8 @@ export const fetchPinnedChallenges = () => {
       .collection('challenges')
       .where('pinned', '==', true)
       .get()
-      .then(snap => snap.docs.map(doc => doc.data()))
-      .then(data => dispatch(fetchPinnedChallengesSuccess(data)))
-      .catch(error => dispatch(fetchPinnedChallengesError(error)));
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchPinnedChallengesSuccess(data)))
+      .catch((error: any) => dispatch(fetchPinnedChallengesError(error)));
   };
 };
