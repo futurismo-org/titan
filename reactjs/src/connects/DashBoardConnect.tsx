@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchChallenges } from 'actions/challengeAction';
+import {
+  fetchChallenges,
+  fetchPinnedChallenges
+} from 'actions/challengeAction';
 import { fetchCategories } from 'actions/categoryAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchChallenges: fetchChallenges,
-      fetchCategories: fetchCategories
+      fetchCategories: fetchCategories,
+      fetchPinnedChallenges: fetchPinnedChallenges
     },
     dispatch
   );
@@ -15,8 +19,13 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => ({
   challenges: state.challenge.items,
   categories: state.category.items,
-  loading: state.challenge.loading || state.category.loading,
-  error: state.challenge.error || state.category.error,
+  pinned: state.challenge.pinned,
+  loading:
+    state.challenge.loading ||
+    state.category.loading ||
+    state.challenge.loadingSub,
+  error:
+    state.challenge.error || state.category.error || state.challenge.errorSub,
   ...props
 });
 
