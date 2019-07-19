@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 import { H1 } from 'native-base';
 import Layout from '../templates/DefaultLayout';
 import CollectionCard from '../atoms/CollectionCard';
@@ -29,7 +29,7 @@ const DashBoard = (props: any) => {
         {error && <Text>Error: {error}</Text>}
         {loading && <Progress />}
         {!loading && (
-          <React.Fragment>
+          <ScrollView>
             <H1>運営からのおすすめ</H1>
             {pinned.map((pinned: any) => (
               <CollectionCard collection={pinned} key={pinned.id} />
@@ -42,7 +42,7 @@ const DashBoard = (props: any) => {
             {challenges.map((challenge: any) => (
               <CollectionCard collection={challenge} key={challenge.id} />
             ))}
-          </React.Fragment>
+          </ScrollView>
         )}
       </Layout>
     </React.Fragment>
