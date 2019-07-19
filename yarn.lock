@@ -51,9 +51,9 @@
     csstype "^2.2.0"
 
 "@types/stripe-v3@*":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@types/stripe-v3/-/stripe-v3-3.1.4.tgz#4a490583ac90c5fd36cf2834c36faa68c8119cd1"
-  integrity sha512-x3aGksKL8imerpjtEokSbfXu68Q8mRnIOv6QVicpeRrPzc9xJ/65YAp6Ed4l1IHKgfnZm523Q3Wrix1oVyDURQ==
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@types/stripe-v3/-/stripe-v3-3.1.5.tgz#c428569ab2456f595ccc5ca362e90f134c34385f"
+  integrity sha512-n6Jr/SN7isBFDLkTCwwY4vnBAlwQsMN8zP5htk+3gXBxAD+y8VpcRyPcAoymi14HcOpxGPtRP5pMDmfQMhCfig==
 
 ansi-styles@^3.2.1:
   version "3.2.1"
