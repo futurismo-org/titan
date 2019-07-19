@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import { H1 } from 'native-base';
 import Layout from '../templates/DefaultLayout';
 import CollectionCard from '../atoms/CollectionCard';
+import Progress from '../atoms/CircularProgress';
 
 const DashBoard = (props: any) => {
   const {
@@ -24,16 +25,25 @@ const DashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
-      {loading && <Text>Now Loading...</Text>}
       <Layout>
-        <H1>運営からのおすすめ</H1>
-        <H1>人気のカテゴリ</H1>
-        <H1>人気のチャレンジ</H1>
-        {challenges &&
-          challenges.map((challenge: any) => (
-            <CollectionCard collection={challenge} key={challenge.id} />
-          ))}
+        {error && <Text>Error: {error}</Text>}
+        {loading && <Progress />}
+        {!loading && (
+          <React.Fragment>
+            <H1>運営からのおすすめ</H1>
+            {pinned.map((pinned: any) => (
+              <CollectionCard collection={pinned} key={pinned.id} />
+            ))}
+            <H1>人気のカテゴリ</H1>
+            {categories.map((category: any) => (
+              <CollectionCard collection={category} key={category.id} />
+            ))}
+            <H1>人気のチャレンジ</H1>
+            {challenges.map((challenge: any) => (
+              <CollectionCard collection={challenge} key={challenge.id} />
+            ))}
+          </React.Fragment>
+        )}
       </Layout>
     </React.Fragment>
   );
