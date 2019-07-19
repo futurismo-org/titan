@@ -253,8 +253,8 @@ export default {
 
   // Title
   // titleFontfamily: 'Roboto',
-  titleFontSize: 19,
-  subTitleFontSize: 14,
+  titleFontSize: 24,
+  subTitleFontSize: 18,
   subtitleColor: '#FFF',
   titleFontColor: '#FFF',
 
