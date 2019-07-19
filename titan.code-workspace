@@ -11,10 +11,6 @@
     {
       "name": "root",
       "path": "."
-    },
-    {
-      "path": "expo",
-      "name": "expo"
     }
   ],
   "settings": {
