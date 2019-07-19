@@ -11,7 +11,7 @@ const MainFeaturedPost = styled(Paper)`
     background-color: ${theme.palette.grey[800]};
     color: ${theme.palette.common.white};
     margin-bottom: ${theme.spacing(4)}px;
-    background-image: url(https://source.unsplash.com/user/erondu);
+    background-image: url(https://source.unsplash.com/random);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
