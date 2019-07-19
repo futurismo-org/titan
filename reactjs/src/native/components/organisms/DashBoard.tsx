@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text, ScrollView } from 'react-native';
-import { H1 } from 'native-base';
+import { Text } from 'react-native';
 import Layout from '../templates/DefaultLayout';
 import CollectionCard from '../atoms/CollectionCard';
 import Progress from '../atoms/CircularProgress';
+import Title from '../atoms/Title';
 
 const DashBoard = (props: any) => {
   const {
@@ -29,20 +29,20 @@ const DashBoard = (props: any) => {
         {error && <Text>Error: {error}</Text>}
         {loading && <Progress />}
         {!loading && (
-          <ScrollView>
-            <H1>運営からのおすすめ</H1>
+          <React.Fragment>
+            <Title text="運営からのおすすめ" />
             {pinned.map((pinned: any) => (
               <CollectionCard collection={pinned} key={pinned.id} />
             ))}
-            <H1>人気のカテゴリ</H1>
+            <Title text="人気のカテゴリ" />
             {categories.map((category: any) => (
               <CollectionCard collection={category} key={category.id} />
             ))}
-            <H1>人気のチャレンジ</H1>
+            <Title text="人気のチャレンジ" />
             {challenges.map((challenge: any) => (
               <CollectionCard collection={challenge} key={challenge.id} />
             ))}
-          </ScrollView>
+          </React.Fragment>
         )}
       </Layout>
     </React.Fragment>

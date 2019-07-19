@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { StyleProvider } from 'native-base';
 
 import Header from '~/native/components/molecules/Header';
@@ -9,10 +9,10 @@ import material from '~/native/native-base-theme/variables/material';
 const DefaultLayout = (props: any) => {
   return (
     <StyleProvider style={getTheme(material as any)}>
-      <View>
+      <ScrollView>
         <Header />
         {props.children}
-      </View>
+      </ScrollView>
     </StyleProvider>
   );
 };
