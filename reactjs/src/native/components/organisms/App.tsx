@@ -4,6 +4,8 @@ import { Route, Switch, NativeRouter } from 'react-router-native';
 import { store } from '~/native/store';
 import Home from './Home';
 
+import '~/lib/fixtimerbug';
+
 const App = () => (
   <React.Fragment>
     <Provider store={store}>
