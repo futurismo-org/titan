@@ -9,7 +9,7 @@ const DashBoard = (props: any) => {
   const { challenges, loading, error, fetchChallenges } = props;
 
   React.useEffect(() => {
-    fetchChallenges();
+    fetchChallenges(4);
   }, [fetchChallenges]);
 
   // const [value2, loading2, error2] = useCollection(

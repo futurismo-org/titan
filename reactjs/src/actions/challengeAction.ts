@@ -20,7 +20,7 @@ export const fetchChallengesError = (error: any) => ({
   error: error
 });
 
-export const fetchChallenges = () => {
+export const fetchChallenges = (num: number = 20) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchChallengesRequest());
     firebase
@@ -28,7 +28,7 @@ export const fetchChallenges = () => {
       .collection('challenges')
       .where('draft', '==', false)
       .orderBy('openedAt', 'desc')
-      .limit(4)
+      .limit(num)
       .get()
       .then(snap => snap.docs.map(doc => doc.data()))
       .then(data => dispatch(fetchChallengesSuccess(data)))
