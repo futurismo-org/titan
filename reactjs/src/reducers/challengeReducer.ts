@@ -1,21 +1,37 @@
-import { FETCH_CHALLENGES } from '../constants/actionTypes';
+import {
+  FETCH_CHALLENGES_SUCCESS,
+  FETCH_CHALLENGES_ERROR,
+  FETCH_CHALLENGES_REQUEST
+} from '../constants/actionTypes';
 import { createReducer } from './reducuerUtil';
 
-import firebase from '~/lib/firebase';
+export const initialState = { loading: false, items: [], error: null };
 
-export const initialState = {};
-
-export const fetchChallenges = (state: any, payload: any) => {
+export const fetchChallengesRequest = (state: any) => {
   return Object.assign({}, state, {
-    challenges: firebase
-      .firestore()
-      .collection('challenges')
-      .where('draft', '==', false)
-      .orderBy('openedAt', 'desc')
-      .limit(payload.num)
+    ...state,
+    loading: true
+  });
+};
+
+export const fetchChallengesSuccess = (state: any, payload: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loading: false,
+    items: payload
+  });
+};
+
+export const fetchChallengesError = (state: any, error: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loading: false,
+    error: error
   });
 };
 
 export default createReducer(initialState, {
-  [FETCH_CHALLENGES]: fetchChallenges
+  [FETCH_CHALLENGES_REQUEST]: fetchChallengesRequest,
+  [FETCH_CHALLENGES_SUCCESS]: fetchChallengesSuccess,
+  [FETCH_CHALLENGES_ERROR]: fetchChallengesError
 });

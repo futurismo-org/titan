@@ -1,9 +1,4 @@
-import { connect } from 'react-redux';
+import connect from 'connects/DashBoardConnect';
+import DashBoard from 'web/components/organisms/DashBoard';
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    // fetchChallenges: (num: number) => dispatch(fetchChallenges(num))
-  };
-};
-
-export default connect(mapDispatchToProps);
+export default connect(DashBoard);

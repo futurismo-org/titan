@@ -1,10 +1,10 @@
 import { Route, Switch } from 'react-router-dom';
 
 import * as React from 'react';
+import DashBoard from 'web/containers/DashBoardContainer';
 import GeneralTopics from '../molecules/GeneralTopics';
 import Challenge from './Challenge';
 import Challenges from './Challenges';
-import DashBoard from './DashBoard';
 import Layout from '../templates/DefaultLayout';
 import Categories from './Categories';
 import Category from './Category';

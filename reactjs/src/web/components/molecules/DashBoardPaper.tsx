@@ -31,12 +31,12 @@ const MoreLink = styled(Link)`
 `;
 
 const DashBoardCard = (props: any) => {
-  const { type, doc } = props;
+  const { type, item } = props;
 
   return (
-    <React.Fragment key={doc.id}>
-      {type === 'challenge' && <ChallengeCard challenge={doc.data()} />}
-      {type === 'category' && <CategoryCard category={doc.data()} />}
+    <React.Fragment key={item.id}>
+      {type === 'challenge' && <ChallengeCard challenge={item} />}
+      {type === 'category' && <CategoryCard category={item} />}
     </React.Fragment>
   );
 };
@@ -65,17 +65,15 @@ const DashBoardCardLink = (props: any) => {
 };
 
 const DashBoardPaper = (props: any) => {
-  const { value, title, type } = props;
+  const { items, title, type } = props;
 
   return (
     <React.Fragment>
       <Paper>
         <Title text={title} />
-        {value && (
-          <StyledCardGrid container spacing={4}>
-            {value!.docs.map((doc: any) => DashBoardCard({ doc, type }))}
-          </StyledCardGrid>
-        )}
+        <StyledCardGrid container spacing={4}>
+          {items.map((item: any) => DashBoardCard({ item, type }))}
+        </StyledCardGrid>
         {DashBoardCardLink({ type })}
       </Paper>
     </React.Fragment>
