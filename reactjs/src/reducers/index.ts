@@ -5,6 +5,7 @@ import { connectRouter } from 'connected-react-router';
 import userReducer from './userReducer';
 import ogpReducer from './ogpReducer';
 import challengeReducer from './challengeReducer';
+import categoryReducer from './categoryReducer';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = (history: any) =>
     user: userReducer,
     ogp: ogpReducer,
     router: connectRouter(history),
-    challenge: challengeReducer
+    challenge: challengeReducer,
+    category: categoryReducer
   });
 
 export default rootReducer;
