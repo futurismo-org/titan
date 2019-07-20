@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
 import firebase from 'lib/firebase';
-import { getTwitterProfileURL } from 'lib/urlUtil';
+import { getTwitterProfileURL } from '~/lib/url';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';

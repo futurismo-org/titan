@@ -10,7 +10,7 @@ import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
 import firebase from 'lib/firebase';
-import { getTwitterProfileURL } from 'lib/urlUtil';
+import { getTwitterProfileURL } from '~/lib/url';
 import Progress from '../../atoms/CircularProgress';
 
 import UserAvatar from '../../atoms/UserAvatar';

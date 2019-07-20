@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDocument } from 'react-firebase-hooks/firestore';
+import React, { useMemo, useEffect } from 'react';
 
 import moment from 'moment';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { setOgpInfo, resetOgpInfo } from 'actions/ogpAction';
-import firebase from 'lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
 import Paper from '../templates/PaperWrapper';
@@ -20,54 +15,54 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
 
-const db = firebase.firestore();
+import { isCurrentUser } from '~/lib/authWeb';
 
 const Topic = (props: any) => {
-  const { collection, user } = props;
-  const { collectionId } = props.match.params;
-  const { topicId } = props.match.params;
+  const {
+    topic,
+    loading,
+    error,
+    resourceId,
+    shareURL,
+    editTopicPath,
+    redirectPath,
+    fetchTopic,
+    handleDelete,
+    setOgpInfo,
+    resetOgpInfo
+  } = props;
 
-  const resourceId =
-    collection === 'general'
-      ? `/topics/${topicId}`
-      : `${collection}/${collectionId}/topics/${topicId}`;
+  const title = useMemo(() => {
+    return topic ? topic.title : '';
+  }, [topic]);
+  const description = useMemo(() => {
+    return topic ? topic.text : '';
+  }, [topic]);
+  const url = useMemo(() => {
+    return shareURL;
+  }, [shareURL]);
 
-  const [value, loading, error] = useDocument(db.doc(resourceId));
-
-  const topic = value && value.data();
-
-  const collectionShort = collection === 'challenges' ? 'c' : 'cat';
-
-  const onDeleteHandler = (topicId: string) => {
-    if (
-      window.confirm('削除したデータは元に戻せません。本当に削除しますか？') // eslint-disable-line
-    ) {
-      firebase
-        .firestore()
-        .doc(resourceId)
-        .delete()
-        .then(
-          () =>
-            (window.location.href = // eslint-disable-line no-undef
-              collection === 'general'
-                ? '/topics'
-                : `/${collectionShort}/${collectionId}/topics`)
-        );
-    }
-  };
-
-  /* eslint-disable no-undef */
   useEffect(() => {
-    props.setOgpInfo({
-      title: topic ? topic.title : '',
-      description: topic ? topic.text : '',
-      url: topic ? topic.url : ''
+    fetchTopic(resourceId);
+
+    setOgpInfo({
+      title,
+      description,
+      url
     });
 
     return () => {
-      props.resetOgpInfo();
+      resetOgpInfo();
     };
-  }, [props, topic]);
+  }, [
+    description,
+    fetchTopic,
+    resetOgpInfo,
+    resourceId,
+    setOgpInfo,
+    title,
+    url
+  ]);
 
   return (
     <React.Fragment>
@@ -88,14 +83,7 @@ const Topic = (props: any) => {
             ) : (
               <Title text={topic.title} />
             )}
-            <TwitterShareIcon
-              title={topic.title}
-              url={
-                collection === 'general'
-                  ? `https://titan-fire.com/topics/${topicId}`
-                  : `https://titan-fire.com/${collectionShort}/${collectionId}/t/${topicId}`
-              }
-            />
+            <TwitterShareIcon title={topic.title} url={shareURL} />
             {topic.url && (
               <a href={topic.url} rel="noopener noreferrer" target="_blank">
                 {topic.url.substr(0, 30) + '...'}
@@ -104,16 +92,10 @@ const Topic = (props: any) => {
             <p />
             <MarkdownView text={topic.text} />
           </Paper>
-          {user.shortId === topic.userId ? (
+          {isCurrentUser ? (
             <div style={{ textAlign: 'center' }}>
               <p />
-              <NoStyledLink
-                to={
-                  collection === 'general'
-                    ? `/topics/${topicId}/edit`
-                    : `/${collectionShort}/${collectionId}/t/${topicId}/edit`
-                }
-              >
+              <NoStyledLink to={editTopicPath}>
                 <Button type="button" color="default" variant="contained">
                   編集
                 </Button>
@@ -122,7 +104,7 @@ const Topic = (props: any) => {
                 type="button"
                 color="default"
                 variant="contained"
-                onClick={() => onDeleteHandler(topicId)}
+                onClick={() => handleDelete(redirectPath, resourceId)}
               >
                 削除
               </Button>
@@ -134,19 +116,4 @@ const Topic = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    setOgpInfo: bindActionCreators(setOgpInfo, dispatch),
-    resetOgpInfo: bindActionCreators(resetOgpInfo, dispatch)
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Topic);
+export default Topic;

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import theme from 'lib/theme';
 import UserAvatar from 'web/components/atoms/UserAvatar';
 
-import { getTwitterProfileURL } from 'lib/urlUtil';
+import { getTwitterProfileURL } from '~/lib/url';
 
 const StyledButton = styled(Button)`
   && {

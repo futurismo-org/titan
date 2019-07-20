@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopics } from '~/actions/topicAction';
 
-import { getCollectionShort } from '../lib/urlUtil';
+import { getCollectionShort } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
