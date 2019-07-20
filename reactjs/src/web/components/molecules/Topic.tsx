@@ -14,7 +14,7 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
 
-import { isCurrentUser } from '~/lib/authWeb';
+import { isCurrentUser } from '~/lib/web/auth';
 
 const Topic = (props: any) => {
   const {

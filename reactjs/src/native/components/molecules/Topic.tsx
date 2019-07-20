@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { Text } from 'native-base';
+import { Text, Button, View } from 'native-base';
 import { Linking } from 'react-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -7,6 +7,8 @@ import Title from '../atoms/Title';
 import { fromNow } from '~/lib/moment';
 import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
+
+import { isCurrentUser } from '~/lib/native/auth';
 
 const Topic = (props: any) => {
   const {
@@ -62,8 +64,7 @@ const Topic = (props: any) => {
       {topic && (
         <React.Fragment>
           <Text>
-            Posted by {topic.userName || 'Anonymous'}
-            {'     '}
+            Posted by {topic.userName || 'Anonymous'}{' '}
             {fromNow(topic.createdAt.toDate())}{' '}
           </Text>
           <Title
@@ -82,6 +83,24 @@ const Topic = (props: any) => {
             url={shareURL}
             hashtag="#Titan"
           />
+          {/* {isCurrentUser ? ( */}
+          <React.Fragment>
+            <Text />
+            <View style={{ flexDirection: 'row' }}>
+              <Button iconLeft iconRight light>
+                <Text>編集</Text>
+              </Button>
+              <Button
+                light
+                iconLeft
+                iconRight
+                onPress={() => handleDelete(redirectPath, resourceId)}
+              >
+                <Text>削除</Text>
+              </Button>
+            </View>
+          </React.Fragment>
+          {/* ) : null} */}
         </React.Fragment>
       )}
     </React.Fragment>
