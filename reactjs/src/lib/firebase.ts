@@ -15,4 +15,10 @@ if (firebase.apps.length === 0) {
   }
 }
 
+export const deleteResource = (resourceId: string) =>
+  firebase
+    .firestore()
+    .doc(resourceId)
+    .delete();
+
 export default firebase;

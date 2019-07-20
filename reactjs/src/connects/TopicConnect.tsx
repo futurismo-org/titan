@@ -7,23 +7,10 @@ import { getCollectionShort } from '../lib/url';
 
 import firebase from '~/lib/firebase';
 
-/* eslint-disable */
-const handleDelete = (redirectPath: string, resourceId: string) => {
-  if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) {
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .delete()
-      .then(() => (window.location.href = redirectPath));
-  }
-};
-/* eslint-enable */
-
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchTopic: fetchTopic,
-      handleDelete: handleDelete,
       setOgpInfo: setOgpInfo,
       resetOgpInfo: resetOgpInfo
     },

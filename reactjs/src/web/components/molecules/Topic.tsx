@@ -16,6 +16,18 @@ import TwitterShareIcon from '../atoms/TwitterShareIcon';
 
 import { isCurrentUser } from '~/lib/web/auth';
 
+import { deleteResource } from '~/lib/firebase';
+
+/* eslint-disable */
+const handleDelete = (redirectPath: string, resourceId: string) => {
+  if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) {
+    deleteResource(resourceId).then(
+      () => (window.location.href = redirectPath)
+    );
+  }
+};
+/* eslint-enable */
+
 const Topic = (props: any) => {
   const {
     topic,
@@ -26,7 +38,6 @@ const Topic = (props: any) => {
     editTopicPath,
     redirectPath,
     fetchTopic,
-    handleDelete,
     setOgpInfo,
     resetOgpInfo
   } = props;

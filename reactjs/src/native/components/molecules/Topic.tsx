@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
 import { Text, Button, View } from 'native-base';
-import { Linking } from 'react-native';
+import { Linking, Alert } from 'react-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
@@ -9,6 +9,25 @@ import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
 
 import { isCurrentUser } from '~/lib/native/auth';
+import { deleteResource } from '~/lib/firebase';
+
+const handleDelete = (redirectPath: string, resourceId: string) => {
+  Alert.alert(
+    'トピック削除',
+    '削除したデータは元に戻せません。本当に削除しますか？',
+    [
+      {
+        text: 'はい',
+        onPress: () => deleteResource(resourceId)
+      },
+      {
+        text: 'いいえ',
+        style: 'cancel'
+      }
+    ],
+    { cancelable: true }
+  );
+};
 
 const Topic = (props: any) => {
   const {
@@ -20,7 +39,6 @@ const Topic = (props: any) => {
     editTopicPath,
     redirectPath,
     fetchTopic,
-    handleDelete,
     setOgpInfo,
     resetOgpInfo
   } = props;
