@@ -20,7 +20,7 @@ export const fetchTopicsError = (error: any) => ({
   error: error
 });
 
-export const fetchTopics = (num: number = 1000, resourceId: string) => {
+export const fetchTopics = (resourceId: string, num = 1000) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchTopicsRequest());
     firebase
