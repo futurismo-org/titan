@@ -6,8 +6,12 @@ import { Link } from 'react-router-native';
 const NavDrawer = (props: any) => {
   const routes = [
     { title: 'ホーム', key: '1', path: '/' },
-    { title: 'チャレンジ', key: '2', path: 'challenges' },
-    { title: 'カテゴリ', key: '3', path: 'categories' }
+    { title: 'チャレンジ', key: '2', path: '/challenges' },
+    { title: 'カテゴリ', key: '3', path: '/categories' },
+    { title: 'トピック', key: '4', path: '/topics' },
+    { title: 'ランキング', key: '5', path: '/ranking' },
+    // { title: 'チャット', key: '6', path: 'https://discord.gg/S3t5WgE' },
+    { title: 'ユーザ設定', key: '7', path: '/settings' }
   ];
   return (
     <Container>
