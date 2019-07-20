@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopics } from '~/actions/topicAction';
 
+import { getCollectionShort } from '../lib/urlUtil';
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
@@ -17,11 +19,17 @@ const mapStateToProps = (state: any, props: any) => {
       ? '/topics'
       : `/${collection}/${collectionId}/topics`;
 
+  const postButtonPath =
+    collection === 'general'
+      ? '/topics/new'
+      : `/${getCollectionShort(collection)}/${collectionId}/t/new`;
+
   return {
     topics: state.topic.items,
     loading: state.topic.loading,
     error: state.topic.error,
     resourceId,
+    postButtonPath,
     ...props
   };
 };

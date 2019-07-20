@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
+import TopicList from './TopicList';
 
 const Topics = (props: any) => {
   const { topics, loading, error, resourceId, fetchTopics } = props;
@@ -13,7 +14,12 @@ const Topics = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {topics && <Title text="トピック一覧" />}
+      {topics && (
+        <React.Fragment>
+          <Title text="トピック" />
+          <TopicList topics={topics} />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
