@@ -1,7 +1,21 @@
 import * as React from 'react';
-import { Route } from 'react-router-native';
+import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
+import Layout from '../templates/DefaultLayout';
 
-const Home = () => <Route path="/" component={DashBoard} />;
+const Home = () => (
+  <Layout>
+    <Switch>
+      {/* <Route path="/cat/:id" component={Category} />
+      <Route path="/categories" component={Categories} />
+      <Route path="/c/:id" component={Challenge} />
+      <Route path="/challenges" component={Challenges} />
+      <Route path="/topics" component={GeneralTopics} />
+      <Route path="/ranking" component={Ranking} />
+      <Route path="/settings" component={Settings} /> */}
+      <Route path="/" component={DashBoard} />
+    </Switch>
+  </Layout>
+);
 
 export default Home;

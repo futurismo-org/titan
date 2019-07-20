@@ -25,26 +25,24 @@ const DashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      <Layout>
-        {error && <Text>Error: {error}</Text>}
-        {loading && <Progress />}
-        {!loading && (
-          <React.Fragment>
-            <Title text="運営からのおすすめ" />
-            {pinned.map((pinned: any) => (
-              <CollectionCard collection={pinned} key={pinned.id} />
-            ))}
-            <Title text="人気のカテゴリ" />
-            {categories.map((category: any) => (
-              <CollectionCard collection={category} key={category.id} />
-            ))}
-            <Title text="人気のチャレンジ" />
-            {challenges.map((challenge: any) => (
-              <CollectionCard collection={challenge} key={challenge.id} />
-            ))}
-          </React.Fragment>
-        )}
-      </Layout>
+      {error && <Text>Error: {error}</Text>}
+      {loading && <Progress />}
+      {!loading && (
+        <React.Fragment>
+          <Title text="運営からのおすすめ" />
+          {pinned.map((pinned: any) => (
+            <CollectionCard collection={pinned} key={pinned.id} />
+          ))}
+          <Title text="人気のカテゴリ" />
+          {categories.map((category: any) => (
+            <CollectionCard collection={category} key={category.id} />
+          ))}
+          <Title text="人気のチャレンジ" />
+          {challenges.map((challenge: any) => (
+            <CollectionCard collection={challenge} key={challenge.id} />
+          ))}
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

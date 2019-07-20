@@ -5,6 +5,7 @@ import { StyleProvider, Container, Content, Drawer } from 'native-base';
 import Header from '~/native/components/molecules/Header';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
+import NavDrawer from '~/native/components/molecules/NavDrawer';
 
 const DefaultLayout = (props: any) => {
   const [drawer, setDrawer] = React.useState();
@@ -23,11 +24,11 @@ const DefaultLayout = (props: any) => {
         <Drawer
           ref={ref => setDrawer(ref)}
           type="overlay"
-          // content={<SideBar navigator={this.navigator} />}
+          content={<NavDrawer />}
           onClose={() => closeDrawer()}
         />
         <Container>
-          <Header drawerRef={drawer} />
+          <Header openDrawer={openDrawer} />
           <Content padder>{props.children}</Content>
         </Container>
       </ScrollView>

@@ -1,17 +1,24 @@
 import * as React from 'react';
-import { Header, Title, Body, Icon, Left, Button } from 'native-base';
+import { Text } from 'react-native';
+import { Header, Title, Body, Icon, Left, Right, Button } from 'native-base';
 
 const HeaderWrapper = (props: any) => {
-  const { drawerRef } = props;
   return (
     <React.Fragment>
       <Header>
-        {/* <Left>
-          <Ionicons name="menu" />
-        </Left> */}
+        <Left>
+          <Button transparent onPress={() => props.navigation.openDrawer()}>
+            <Icon name="menu" style={{ color: '#ffffff' }} />
+          </Button>
+        </Left>
         <Body>
           <Title>Titan</Title>
         </Body>
+        <Right>
+          <Button bordered>
+            <Text style={{ color: '#ffffff' }}>ログイン</Text>
+          </Button>
+        </Right>
       </Header>
     </React.Fragment>
   );
