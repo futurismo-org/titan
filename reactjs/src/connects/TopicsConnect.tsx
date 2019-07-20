@@ -24,12 +24,18 @@ const mapStateToProps = (state: any, props: any) => {
       ? '/topics/new'
       : `/${getCollectionShort(collection)}/${collectionId}/t/new`;
 
+  const topicPath = (topicId: string) =>
+    collection === 'general'
+      ? `/topics/${topicId}`
+      : `/${getCollectionShort(collection)}/${collectionId}/t/${topicId}`;
+
   return {
     topics: state.topic.items,
     loading: state.topic.loading,
     error: state.topic.error,
     resourceId,
     postButtonPath,
+    topicPath,
     ...props
   };
 };

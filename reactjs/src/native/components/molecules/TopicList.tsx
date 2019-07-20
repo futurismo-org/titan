@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { List, ListItem, Left, Thumbnail, Body, Text } from 'native-base';
 import moment from 'moment';
+import { Link } from 'react-router-native';
 
 const TopicList = (props: any) => {
-  const { topics } = props;
+  const { topics, topicPath } = props;
   return (
     <List>
       {topics.map((topic: any) => (
@@ -12,7 +13,9 @@ const TopicList = (props: any) => {
             <Thumbnail square source={{ uri: topic.userPhotoURL }} />
           </Left>
           <Body>
-            <Text>{topic.title}</Text>
+            <Link to={topicPath(topic.id)}>
+              <Text>{topic.title}</Text>
+            </Link>
             <Text note>
               Posted by {topic.userName}{' '}
               {moment(topic.createdAt.toDate()).fromNow() || ''}

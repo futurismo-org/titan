@@ -15,16 +15,16 @@ const GeneralTopics = (props: any) => {
     <TopicContent>
       <Switch>
         <Route
-          path="/topics/new"
-          render={props => <TopicForm collection="general" {...props} />}
+          path="/topics/:topicId"
+          render={props => <Topic collection="general" {...props} />}
         />
         <Route
           path="/topics/:topicId/edit"
           render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
-          path="/topics/:topicId"
-          render={props => <Topic collection="general" {...props} />}
+          path="/topics/new"
+          render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
           path="/topics"

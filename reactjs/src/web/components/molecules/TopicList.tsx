@@ -13,7 +13,7 @@ import moment from 'moment';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
-  const { topics } = props;
+  const { topics, topicPath } = props;
 
   return (
     <List>
@@ -28,7 +28,11 @@ const TopicList = (props: any) => {
             />
           </ListItemAvatar>
           <ListItemText
-            primary={<NoStyledLink to="#">{topic.title}</NoStyledLink>}
+            primary={
+              <NoStyledLink to={topicPath(topic.id)}>
+                {topic.title}
+              </NoStyledLink>
+            }
             secondary={
               <React.Fragment>
                 <Typography

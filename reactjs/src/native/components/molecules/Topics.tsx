@@ -15,7 +15,8 @@ const Topics = (props: any) => {
     error,
     resourceId,
     fetchTopics,
-    postButtonPath
+    postButtonPath,
+    topicPath
   } = props;
 
   React.useEffect(() => {
@@ -29,7 +30,7 @@ const Topics = (props: any) => {
       {topics && (
         <React.Fragment>
           <Title text="トピック" />
-          <TopicList topics={topics} />
+          <TopicList topics={topics} topicPath={topicPath} />
         </React.Fragment>
       )}
       <ActionButton buttonColor={primaryColor}>
