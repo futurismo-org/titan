@@ -1,9 +1,6 @@
 import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import moment from 'moment';
-import firebase from 'lib/firebase';
 import theme from 'lib/theme';
 import ChallengeCard from '../atoms/challenges/ChallengeCard';
 
@@ -22,10 +19,19 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
   }
 `;
 
-const Challenges = () => {
-  const [value, loading, error] = useCollection(
-    firebase.firestore().collection('challenges')
-  );
+const Challenges = (props: any) => {
+  const {
+    preOpenChallenges,
+    openingChallenges,
+    closedChallenges,
+    error,
+    loading,
+    fetchChallenges
+  } = props;
+
+  React.useEffect(() => {
+    fetchChallenges();
+  }, [fetchChallenges]);
 
   return (
     <React.Fragment>
@@ -33,53 +39,31 @@ const Challenges = () => {
       {loading && <Progress />}
       <Paper>
         <Title text="開催中のチャレンジ" />
-        {value && (
+        {openingChallenges && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs
-              .filter(
-                (doc: any) =>
-                  moment(new Date().setHours(0, 0, 0, 0)).isBefore(
-                    doc.data().closedAt.toDate()
-                  ) &&
-                  moment(new Date().setHours(0, 0, 0, 1)).isAfter(
-                    doc.data().openedAt.toDate()
-                  )
-              )
-              .map((doc: any) => (
-                <ChallengeCard challenge={doc.data()} key={doc.id} />
-              ))}
+            {openingChallenges.map((challenge: any) => (
+              <ChallengeCard challenge={challenge} key={challenge.id} />
+            ))}
           </StyledCardGrid>
         )}
       </Paper>
       <Paper>
         <Title text="開催前のチャレンジ" />
-        {value && (
+        {preOpenChallenges && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs
-              .filter((doc: any) =>
-                moment(new Date().setHours(0, 0, 0, 0)).isBefore(
-                  doc.data().openedAt.toDate()
-                )
-              )
-              .map((doc: any) => (
-                <ChallengeCard challenge={doc.data()} key={doc.id} />
-              ))}
+            {preOpenChallenges.map((challenge: any) => (
+              <ChallengeCard challenge={challenge} key={challenge.id} />
+            ))}
           </StyledCardGrid>
         )}
       </Paper>
       <Paper>
         <Title text="開催終了のチャレンジ" />
-        {value && (
+        {closedChallenges && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs
-              .filter((doc: any) =>
-                moment(new Date().setHours(0, 0, 0, 0)).isAfter(
-                  doc.data().closedAt.toDate()
-                )
-              )
-              .map((doc: any) => (
-                <ChallengeCard challenge={doc.data()} key={doc.id} />
-              ))}
+            {closedChallenges.map((challenge: any) => (
+              <ChallengeCard challenge={challenge} key={challenge.id} />
+            ))}
           </StyledCardGrid>
         )}
       </Paper>

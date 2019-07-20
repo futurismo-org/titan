@@ -1,4 +1,4 @@
 import connect from 'connects/ChallengesConnect';
-import Challenges from 'web/components/organisms/Challenges';
+import Challenges from '~/native/components/organisms/Challenges';
 
 export default connect(Challenges);

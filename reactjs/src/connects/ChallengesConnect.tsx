@@ -29,9 +29,7 @@ const mapStateToProps = (state: any, props: any) => {
       )
   );
   const closedChallenges = challenges.filter((challenge: any) =>
-    moment(new Date().setHours(0, 0, 0, 0)).isAfter(
-      challenge.data().closedAt.toDate()
-    )
+    moment(new Date().setHours(0, 0, 0, 0)).isAfter(challenge.closedAt.toDate())
   );
 
   return {
