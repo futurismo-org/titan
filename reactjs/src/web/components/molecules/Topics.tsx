@@ -26,8 +26,8 @@ const Topics = (props: any) => {
         <ListItemText>
           <Title text="トピック" />
         </ListItemText>
+        <PostButton to={postButtonPath} type="button" />
       </ListItem>
-      <PostButton to={postButtonPath} type="button" />
       <ListItem />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}

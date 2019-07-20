@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
   Typography,
   List,
@@ -7,12 +8,8 @@ import {
   ListItemAvatar,
   Avatar
 } from '@material-ui/core';
-import { useCollection } from 'react-firebase-hooks/firestore';
+
 import moment from 'moment';
-
-import firebase from 'lib/firebase';
-import Progress from '../atoms/CircularProgress';
-
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
