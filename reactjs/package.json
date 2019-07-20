@@ -57,7 +57,7 @@
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
-    "native-base": "^2.12.2",
+    "native-base": "2.11.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
     "react-apollo-hooks": "^0.4.5",
