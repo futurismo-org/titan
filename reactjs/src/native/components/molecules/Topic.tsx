@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { Text, Button, View } from 'native-base';
+import { Button, Text, View } from 'native-base';
 import { Linking, Alert } from 'react-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -77,7 +77,7 @@ const Topic = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
       {topic && (
         <React.Fragment>
@@ -89,12 +89,14 @@ const Topic = (props: any) => {
             text={topic.title}
             onPress={() => Linking.openURL(topic.url)}
           />
-          {topic.url && (
-            <Text onPress={() => Linking.openURL(topic.url)}>
-              {topic.url.substr(0, 30) + '...'}
-            </Text>
+          {!!topic.url && (
+            <React.Fragment>
+              <Text onPress={() => Linking.openURL(topic.url)}>
+                {topic.url.substr(0, 30) + '...'}
+              </Text>
+              <Text />
+            </React.Fragment>
           )}
-          <Text />
           <MarkdownView text={topic.text} />
           <TwitterShareIcon
             title={topic.title}
@@ -105,13 +107,11 @@ const Topic = (props: any) => {
           <React.Fragment>
             <Text />
             <View style={{ flexDirection: 'row' }}>
-              <Button iconLeft iconRight light>
+              <Button light>
                 <Text>編集</Text>
               </Button>
               <Button
                 light
-                iconLeft
-                iconRight
                 onPress={() => handleDelete(redirectPath, resourceId)}
               >
                 <Text>削除</Text>
