@@ -9,7 +9,7 @@ import {
   Avatar
 } from '@material-ui/core';
 
-import moment from 'moment';
+import { fromNow } from '~/lib/moment';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
@@ -43,7 +43,7 @@ const TopicList = (props: any) => {
                   Posted by {topic.userName || 'anonymous'}
                 </Typography>
                 {'     '}
-                {moment(topic.createdAt.toDate()).fromNow() || ''}
+                {fromNow(topic.createdAt.toDate())}
               </React.Fragment>
             }
           />

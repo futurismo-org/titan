@@ -1,9 +1,8 @@
 import React, { useMemo, useEffect } from 'react';
 
-import moment from 'moment';
-
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { fromNow } from '~/lib/moment';
 import Progress from '../atoms/CircularProgress';
 
 import Paper from '../templates/PaperWrapper';
@@ -75,7 +74,7 @@ const Topic = (props: any) => {
               Posted by {topic.userName || 'Anonymous'}
             </Typography>
             {'     '}
-            {moment(topic.createdAt.toDate()).fromNow() || ''}
+            {fromNow(topic.createdAt.toDate())}
             {topic.url ? (
               <NoStyledExternalLink href={topic.url} target="_blank">
                 <Title text={topic.title} />
