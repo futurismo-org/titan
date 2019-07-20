@@ -37,7 +37,7 @@ export const fetchPinnedChallengesError = (error: any) => ({
   error: error
 });
 
-export const fetchChallenges = (num: number = 20) => {
+export const fetchChallenges = (num: number = 100) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchChallengesRequest());
     firebase
