@@ -1,6 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { Button, Text, View } from 'native-base';
 import { Linking, Alert } from 'react-native';
+import { withRouter } from 'react-router-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
@@ -11,25 +12,7 @@ import MarkdownView from '../atoms/MarkdownView';
 import { isCurrentUser } from '~/lib/native/auth';
 import { deleteResource } from '~/lib/firebase';
 
-const handleDelete = (redirectPath: string, resourceId: string) => {
-  Alert.alert(
-    'トピック削除',
-    '削除したデータは元に戻せません。本当に削除しますか？',
-    [
-      {
-        text: 'はい',
-        onPress: () => deleteResource(resourceId)
-      },
-      {
-        text: 'いいえ',
-        style: 'cancel'
-      }
-    ],
-    { cancelable: true }
-  );
-};
-
-const Topic = (props: any) => {
+const Topic = withRouter((props: any) => {
   const {
     topic,
     loading,
@@ -74,6 +57,27 @@ const Topic = (props: any) => {
     title,
     url
   ]);
+
+  const handleDelete = (redirectPath: string, resourceId: string) => {
+    Alert.alert(
+      'トピック削除',
+      '削除したデータは元に戻せません。本当に削除しますか？',
+      [
+        {
+          text: 'はい',
+          onPress: () =>
+            deleteResource(resourceId).then(() =>
+              props.router.push(redirectPath)
+            )
+        },
+        {
+          text: 'いいえ',
+          style: 'cancel'
+        }
+      ],
+      { cancelable: true }
+    );
+  };
 
   return (
     <React.Fragment>
@@ -123,6 +127,6 @@ const Topic = (props: any) => {
       )}
     </React.Fragment>
   );
-};
+});
 
 export default Topic;
