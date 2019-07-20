@@ -2,11 +2,11 @@ import * as React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import DashBoard from 'web/containers/DashBoardContainer';
-import Challenges from 'web/containers/ChallengesContainers';
+import Challenges from '~/web/containers/ChallengesContainer';
 import GeneralTopics from '../molecules/GeneralTopics';
 import Challenge from './Challenge';
 import Layout from '../templates/DefaultLayout';
-import Categories from './Categories';
+import Categories from '~/web/containers/CategoriesContainer';
 import Category from './Category';
 import Ranking from './Ranking';
 import Settings from './Settings';
