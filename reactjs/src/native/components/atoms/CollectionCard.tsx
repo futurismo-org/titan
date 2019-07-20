@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Image, ImageProps } from 'react-native';
-import { Text, H2, Card, CardItem, Right } from 'native-base';
+import { Text, H2, Card, CardItem } from 'native-base';
 import styled from 'styled-components';
 
 const StyledImage = styled(Image)`
@@ -20,9 +20,7 @@ const CollectionCard = (props: any) => {
         <StyledImage source={{ uri: 'https://source.unsplash.com/random' }} />
       </CardItem>
       <CardItem footer>
-        <Right>
-          <Text>{collection.description}</Text>
-        </Right>
+        <Text>{collection.description}</Text>
       </CardItem>
     </Card>
   );

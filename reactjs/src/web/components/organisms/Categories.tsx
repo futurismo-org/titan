@@ -1,8 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import firebase from 'lib/firebase';
 import theme from 'lib/theme';
 import CategoryCard from '../atoms/CategoryCard';
 import Progress from '../atoms/CircularProgress';
@@ -20,10 +18,12 @@ const StyledCardGrid = styled(Grid as React.SFC<Props>)`
   }
 `;
 
-const Categories = () => {
-  const [value, loading, error] = useCollection(
-    firebase.firestore().collection('categories')
-  );
+const Categories = (props: any) => {
+  const { categories, error, loading, fetchCategories } = props;
+
+  React.useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   return (
     <React.Fragment>
@@ -31,10 +31,10 @@ const Categories = () => {
       {loading && <Progress />}
       <Paper>
         <Title text="カテゴリ一覧" />
-        {value && (
+        {categories && (
           <StyledCardGrid container spacing={4}>
-            {value!.docs.map((doc: any) => (
-              <CategoryCard category={doc.data()} key={doc.id} />
+            {categories.map((category: any) => (
+              <CategoryCard category={category} key={category.id} />
             ))}
           </StyledCardGrid>
         )}
