@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text } from 'react-native';
-import Layout from '../templates/DefaultLayout';
 import CollectionCard from '../atoms/CollectionCard';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';

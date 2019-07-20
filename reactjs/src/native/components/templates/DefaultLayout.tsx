@@ -8,28 +8,42 @@ import material from '~/native/native-base-theme/variables/material';
 import NavDrawer from '~/native/components/molecules/NavDrawer';
 
 const DefaultLayout = (props: any) => {
-  const [drawer, setDrawer] = React.useState();
+  const [open, setOpen] = React.useState(false);
 
   const closeDrawer = () => {
-    drawer._root.close();
+    setOpen(false);
   };
 
   const openDrawer = () => {
-    drawer._root.open();
+    setOpen(true);
+  };
+
+  const drawerStyles = {
+    drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
+    main: { paddingLeft: 3 }
   };
 
   return (
     <StyleProvider style={getTheme(material as any)}>
       <ScrollView>
-        <Drawer
-          ref={ref => setDrawer(ref)}
-          type="overlay"
-          content={<NavDrawer />}
-          onClose={() => closeDrawer()}
-        />
         <Container>
-          <Header openDrawer={openDrawer} />
-          <Content padder>{props.children}</Content>
+          <Drawer
+            open={open}
+            type="overlay"
+            content={<NavDrawer />}
+            onClose={() => closeDrawer()}
+            tapToClose
+            openDrawerOffset={0.2} // 20% gap on the right side of drawer
+            panCloseMask={0.2}
+            closedDrawerOffset={-3}
+            styles={drawerStyles}
+            tweenHandler={(ratio: number) => ({
+              main: { opacity: (2 - ratio) / 2 }
+            })}
+          >
+            <Header openDrawer={openDrawer} />
+            <Content padder>{props.children}</Content>
+          </Drawer>
         </Container>
       </ScrollView>
     </StyleProvider>

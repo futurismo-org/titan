@@ -14,7 +14,7 @@ const NavDrawer = (props: any) => {
       <Content>
         <Image
           source={{
-            uri: 'https://windii.jp/wp-content/uploads/2018/07/react-native.png'
+            uri: 'https://source.unsplash.com/random'
           }}
           style={{
             height: 120,
@@ -28,7 +28,7 @@ const NavDrawer = (props: any) => {
           renderItem={({ item }) => (
             <ListItem>
               <Link to={item.path}>
-                <Text>item.title</Text>
+                <Text>{item.title}</Text>
               </Link>
             </ListItem>
           )}

@@ -3,11 +3,13 @@ import { Text } from 'react-native';
 import { Header, Title, Body, Icon, Left, Right, Button } from 'native-base';
 
 const HeaderWrapper = (props: any) => {
+  const { openDrawer } = props;
+
   return (
     <React.Fragment>
       <Header>
         <Left>
-          <Button transparent onPress={() => props.navigation.openDrawer()}>
+          <Button transparent onPress={() => openDrawer()}>
             <Icon name="menu" style={{ color: '#ffffff' }} />
           </Button>
         </Left>
