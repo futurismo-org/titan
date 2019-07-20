@@ -33,7 +33,7 @@ const DefaultLayout = (props: any) => {
             content={<NavDrawer />}
             onClose={() => closeDrawer()}
             tapToClose
-            openDrawerOffset={0.2} // 20% gap on the right side of drawer
+            openDrawerOffset={0.4}
             panCloseMask={0.2}
             closedDrawerOffset={-3}
             styles={drawerStyles}
