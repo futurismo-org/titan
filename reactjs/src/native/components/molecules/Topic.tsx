@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
-import { Button, Text, View } from 'native-base';
-import { Linking, Alert } from 'react-native';
+import { Button, Text } from 'native-base';
+import { Linking, Alert, View } from 'react-native';
 import { withRouter } from 'react-router-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -12,7 +12,7 @@ import MarkdownView from '../atoms/MarkdownView';
 import { isCurrentUser } from '~/lib/native/auth';
 import { deleteResource } from '~/lib/firebase';
 
-const Topic = withRouter((props: any) => {
+const Topic = (props: any) => {
   const {
     topic,
     loading,
@@ -67,7 +67,7 @@ const Topic = withRouter((props: any) => {
           text: 'はい',
           onPress: () =>
             deleteResource(resourceId).then(() =>
-              props.router.push(redirectPath)
+              props.history.push(redirectPath)
             )
         },
         {
@@ -127,6 +127,6 @@ const Topic = withRouter((props: any) => {
       )}
     </React.Fragment>
   );
-});
+};
 
-export default Topic;
+export default withRouter(Topic);
