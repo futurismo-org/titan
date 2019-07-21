@@ -14057,6 +14057,13 @@ react-native-easy-grid@0.2.0:
   dependencies:
     lodash "^4.11.1"
 
+react-native-firebaseui@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-firebaseui/-/react-native-firebaseui-0.1.2.tgz#9cb18661b360fff3e5709dcf96643997d6b73945"
+  integrity sha512-Ygz3iiBKcfo9+zml/EZlc/VtYVE5FGcGfegirEo32oxZrIUhQmp9y+8ypoOZS/hX08n8vXw6V+Qgk62EOe/fqg==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-fit-image@^1.5.2:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/react-native-fit-image/-/react-native-fit-image-1.5.4.tgz#73d2fccc7ad902cf2ffcd008a2a74749ad50134a"

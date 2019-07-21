@@ -68,6 +68,7 @@
     "react-helmet": "^5.2.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-action-button": "^2.8.5",
+    "react-native-firebaseui": "^0.1.2",
     "react-native-markdown-renderer": "^3.2.8",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0",
