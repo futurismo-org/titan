@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
 import { TextField, Button } from '@material-ui/core';
-import firebase from 'lib/firebase';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 
-const db = firebase.firestore();
-
 const Settings = (props: any) => {
-  const { user, resourceId, isLogin } = props;
+  const { user, isLogin, updateHandler } = props;
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
@@ -23,21 +20,6 @@ const Settings = (props: any) => {
     setTwitterUsername(e.target.value);
   };
 
-  const updateHandler = (e: any) => {
-    e.preventDefault();
-
-    const updateData = {
-      displayName,
-      twitterUsername,
-      updatedAt: new Date()
-    };
-
-    db.doc(resourceId)
-      .update(updateData)
-      .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
-  };
-
   useEffect(() => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
@@ -48,7 +30,10 @@ const Settings = (props: any) => {
       <Paper>
         <Title text="ユーザ設定" />
         {isLogin ? (
-          <form noValidate onSubmit={updateHandler}>
+          <form
+            noValidate
+            onSubmit={() => updateHandler({ displayName, twitterUsername })}
+          >
             <TextField
               value={displayName}
               variant="outlined"
