@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-native';
-import {
-  Toast,
-  Form,
-  Button,
-  Text,
-  Item,
-  Label,
-  Input,
-  Textarea
-} from 'native-base';
+import { Toast, Form, Text, Item, Label, Input, Textarea } from 'native-base';
 
 import firebase from '~/lib/firebase';
+import SubmitButton from '../atoms/SubmitButton';
 
 const db = firebase.firestore();
 
@@ -92,9 +84,7 @@ const TopicForm = (props: any) => {
         onChangeText={text => setText(text)}
       />
       <Text />
-      <Button full rounded primary onPress={() => updateHandler()}>
-        <Text>投稿</Text>
-      </Button>
+      <SubmitButton handler={() => updateHandler()} />
     </Form>
   );
 };

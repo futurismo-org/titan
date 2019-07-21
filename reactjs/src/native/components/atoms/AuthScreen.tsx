@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Form,
-  Item,
-  Label,
-  Input,
-  Button,
-  Text,
-  Toast
-} from 'native-base';
+import { Container, Form, Item, Label, Input, Text, Toast } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
+
+import SubmitButton from './SubmitButton';
 
 const AuthScreen = (props: any) => {
   const [email, setEmail] = useState('');
@@ -124,14 +117,10 @@ const AuthScreen = (props: any) => {
           />
         </Item>
         <Text />
-        <Button
-          full
-          rounded
-          primary
-          onPress={() => signInWithEmail(email, password)}
-        >
-          <Text>メールでログイン</Text>
-        </Button>
+        <SubmitButton
+          handler={() => signInWithEmail(email, password)}
+          text="メールでログイン"
+        />
       </Form>
     </Container>
   );
