@@ -8,7 +8,7 @@ import Challenge from './Challenge';
 import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
 import Category from './Category';
-import Ranking from './Ranking';
+import Ranking from '../../containers/RankingContainer';
 import Settings from './Settings';
 
 const Home = () => (
