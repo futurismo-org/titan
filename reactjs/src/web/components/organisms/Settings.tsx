@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import { connect } from 'react-redux';
 import { TextField, Button } from '@material-ui/core';
-import firebase from 'lib/firebase';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 
-const db = firebase.firestore();
-
-const Setting = (props: any) => {
-  const { user } = props;
+const Settings = (props: any) => {
+  const { user, isLogin, updateHandler } = props;
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
@@ -24,22 +20,6 @@ const Setting = (props: any) => {
     setTwitterUsername(e.target.value);
   };
 
-  const updateHandler = (e: any) => {
-    e.preventDefault();
-
-    const newData = {
-      displayName,
-      twitterUsername,
-      updatedAt: new Date()
-    };
-
-    db.collection('users')
-      .doc(user.id)
-      .update(newData)
-      .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
-  };
-
   useEffect(() => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
@@ -49,8 +29,11 @@ const Setting = (props: any) => {
     <React.Fragment>
       <Paper>
         <Title text="ユーザ設定" />
-        {!user.isEmpty && user.isLoaded ? (
-          <form noValidate onSubmit={updateHandler}>
+        {isLogin ? (
+          <form
+            noValidate
+            onSubmit={() => updateHandler({ displayName, twitterUsername })}
+          >
             <TextField
               value={displayName}
               variant="outlined"
@@ -80,11 +63,4 @@ const Setting = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => {
-  return {
-    user: state.firebase.profile,
-    ...props
-  };
-};
-
-export default connect(mapStateToProps)(Setting);
+export default Settings;

@@ -9,7 +9,7 @@ import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
 import Category from './Category';
 import Ranking from '../../containers/RankingContainer';
-import Settings from './Settings';
+import Settings from '~/web/containers/SettingsContainer';
 
 const Home = () => (
   <Layout>
