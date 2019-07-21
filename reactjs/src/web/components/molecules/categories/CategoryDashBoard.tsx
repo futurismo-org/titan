@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
-import TopicList from 'web/components/molecules/TopicList';
+// import TopicList from 'web/components/molecules/TopicList';
 
 import ChallengeCategory from 'web/components/molecules/categories/CategoryChallenge';
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
