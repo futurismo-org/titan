@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
-import { Container, Form, Item, Label, Input, Button, Text } from 'native-base';
+import {
+  Container,
+  Form,
+  Item,
+  Label,
+  Input,
+  Button,
+  Text,
+  Toast
+} from 'native-base';
 import shortid from 'shortid';
-
 import firebase from '~/lib/firebase';
 
 const AuthScreen = (props: any) => {
@@ -60,18 +68,32 @@ const AuthScreen = (props: any) => {
     return false;
   };
 
-  const signUpWithEmail = (email: string, password: string) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(credential => signInSuccessWithAuthCallback(credential));
-  };
+  const successToast = () =>
+    Toast.show({
+      text: 'ログインに成功しました！',
+      duration: 3000
+    });
+
+  const errorToast = () =>
+    Toast.show({
+      text: 'ログインに失敗しました。',
+      duration: 3000
+    });
 
   const signInWithEmail = (email: string, password: string) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(credential => signInSuccessWithAuthCallback(credential));
+      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(() => successToast())
+      .catch(() =>
+        firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(credential => signInSuccessWithAuthCallback(credential))
+          .then(() => successToast())
+          .catch(() => errorToast())
+      );
   };
 
   return (
@@ -107,15 +129,6 @@ const AuthScreen = (props: any) => {
           onPress={() => signInWithEmail(email, password)}
         >
           <Text>メールでログイン</Text>
-        </Button>
-        <Text />
-        <Button
-          full
-          rounded
-          warning
-          onPress={() => signUpWithEmail(email, password)}
-        >
-          <Text>メールでサインアップ</Text>
         </Button>
       </Form>
     </Container>
