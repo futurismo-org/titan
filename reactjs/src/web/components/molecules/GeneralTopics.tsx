@@ -19,12 +19,12 @@ const GeneralTopics = (props: any) => {
           render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
-          path="/topics/:topicId"
-          render={props => <Topic collection="general" {...props} />}
-        />
-        <Route
           path="/topics/new"
           render={props => <TopicForm collection="general" {...props} />}
+        />
+        <Route
+          path="/topics/:topicId"
+          render={props => <Topic collection="general" {...props} />}
         />
         <Route
           path="/topics"

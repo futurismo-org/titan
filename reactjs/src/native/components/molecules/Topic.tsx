@@ -9,7 +9,6 @@ import { fromNow } from '~/lib/moment';
 import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
 
-import { isCurrentUser } from '~/lib/native/auth';
 import { deleteResource } from '~/lib/firebase';
 
 const Topic = (props: any) => {
