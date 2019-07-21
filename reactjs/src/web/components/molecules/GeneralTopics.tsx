@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import theme from 'lib/theme';
 import Topics from '../../containers/TopicsContainer';
 import Topic from '../../containers/TopicContainer';
-import TopicForm from './TopicForm';
+import TopicForm from '../../containers/TopicFormContainer';
 
 const TopicContent = styled.div`
   padding: ${theme.spacing(2)}px;
