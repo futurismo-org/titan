@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'native-base';
-import { Link } from 'react-router-native';
+import { withRouter } from 'react-router-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import TopicList from './TopicList';
@@ -16,7 +16,8 @@ const Topics = (props: any) => {
     resourceId,
     fetchTopics,
     postButtonPath,
-    topicPath
+    topicPath,
+    history
   } = props;
 
   React.useEffect(() => {
@@ -33,13 +34,14 @@ const Topics = (props: any) => {
           <TopicList topics={topics} topicPath={topicPath} />
         </React.Fragment>
       )}
-      <ActionButton buttonColor={primaryColor}>
-        <Link to={postButtonPath}>
-          <Icon name="md-create" />
-        </Link>
+      <ActionButton
+        buttonColor={primaryColor}
+        onPress={() => history.push(postButtonPath)}
+      >
+        <Icon name="md-create" />
       </ActionButton>
     </React.Fragment>
   );
 };
 
-export default Topics;
+export default withRouter(Topics);

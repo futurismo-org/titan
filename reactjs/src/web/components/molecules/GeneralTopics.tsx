@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import theme from 'lib/theme';
 import Topics from '../../containers/TopicsContainer';
 import Topic from '../../containers/TopicContainer';
-import TopicForm from './TopicForm';
+import TopicForm from '../../containers/TopicFormContainer';
 
 const TopicContent = styled.div`
   padding: ${theme.spacing(2)}px;
@@ -19,12 +19,12 @@ const GeneralTopics = (props: any) => {
           render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
-          path="/topics/:topicId"
-          render={props => <Topic collection="general" {...props} />}
-        />
-        <Route
           path="/topics/new"
           render={props => <TopicForm collection="general" {...props} />}
+        />
+        <Route
+          path="/topics/:topicId"
+          render={props => <Topic collection="general" {...props} />}
         />
         <Route
           path="/topics"
