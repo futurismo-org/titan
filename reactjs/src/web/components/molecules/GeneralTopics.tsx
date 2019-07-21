@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from 'lib/theme';
-import Topics from './Topics';
-import Topic from './Topic';
+import Topics from '../../containers/TopicsContainer';
+import Topic from '../../containers/TopicContainer';
 import TopicForm from './TopicForm';
 
 const TopicContent = styled.div`
@@ -15,16 +15,16 @@ const GeneralTopics = (props: any) => {
     <TopicContent>
       <Switch>
         <Route
-          path="/topics/new"
-          render={props => <TopicForm collection="general" {...props} />}
-        />
-        <Route
           path="/topics/:topicId/edit"
           render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
           path="/topics/:topicId"
           render={props => <Topic collection="general" {...props} />}
+        />
+        <Route
+          path="/topics/new"
+          render={props => <TopicForm collection="general" {...props} />}
         />
         <Route
           path="/topics"

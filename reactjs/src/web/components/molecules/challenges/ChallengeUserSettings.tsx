@@ -14,9 +14,9 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import firebase from 'lib/firebase';
-import { getParticipantsUserId } from 'lib/resourceUtil';
+import { getParticipantsUserId } from '~/lib/resource';
 
-import { getUserDashboardPath } from 'lib/urlUtil';
+import { getUserDashboardPath } from '~/lib/url';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 

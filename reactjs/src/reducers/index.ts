@@ -6,6 +6,7 @@ import userReducer from './userReducer';
 import ogpReducer from './ogpReducer';
 import challengeReducer from './challengeReducer';
 import categoryReducer from './categoryReducer';
+import topicReducer from './topicReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -15,7 +16,8 @@ export const createRootReducer = (history: any) =>
     ogp: ogpReducer,
     router: connectRouter(history),
     challenge: challengeReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    topic: topicReducer
   });
 
 export const createRootReducerForRN = () =>
@@ -24,5 +26,6 @@ export const createRootReducerForRN = () =>
     firestore: firestoreReducer,
     user: userReducer,
     challenge: challengeReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    topic: topicReducer
   });

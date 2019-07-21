@@ -10,8 +10,8 @@ import firebase from 'lib/firebase';
 import { postMessage } from 'lib/discord.client.api';
 
 import rollbar from 'lib/rollbar';
-import { getUserDashboardPath, withDomain } from 'lib/urlUtil';
-import { getParticipantsUserId } from 'lib/resourceUtil';
+import { getUserDashboardPath, withDomain } from '~/lib/url';
+import { getParticipantsUserId } from '~/lib/resource';
 import Progress from '../../atoms/CircularProgress';
 import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
 

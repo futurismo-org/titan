@@ -20,6 +20,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
+    },
     "entryPoint": "./src/index.native.tsx"
   }
 }

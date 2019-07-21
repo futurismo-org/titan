@@ -1,32 +1,38 @@
 import * as React from 'react';
-import { Typography, ListItem, ListItemText } from '@material-ui/core';
+import { ListItem, ListItemText } from '@material-ui/core';
 import PostButton from '../atoms/PostButton';
+import Title from '../atoms/Title';
 
 import TopicList from './TopicList';
+import Progress from '../atoms/CircularProgress';
 
 const Topics = (props: any) => {
-  const { collection, collectionId } = props;
+  const {
+    topics,
+    loading,
+    error,
+    resourceId,
+    postButtonPath,
+    fetchTopics,
+    topicPath
+  } = props;
 
-  const collectionShort =
-    collection === 'general' ? '' : collection === 'challenges' ? 'c' : 'cat';
-
-  const postButtonPath =
-    collection === 'general'
-      ? '/topics/new'
-      : `/${collectionShort}/${collectionId}/t/new`;
+  React.useEffect(() => {
+    fetchTopics(resourceId);
+  }, [fetchTopics, resourceId]);
 
   return (
     <React.Fragment>
       <ListItem>
         <ListItemText>
-          <Typography variant="h4" component="h5">
-            トピック
-          </Typography>
+          <Title text="トピック" />
         </ListItemText>
         <PostButton to={postButtonPath} type="button" />
       </ListItem>
       <ListItem />
-      <TopicList {...props} />
+      {error && <strong>Error: {error}</strong>}
+      {loading && <Progress />}
+      {topics && <TopicList topics={topics} topicPath={topicPath} />}
     </React.Fragment>
   );
 };

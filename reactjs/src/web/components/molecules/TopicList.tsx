@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {
   Typography,
   List,
@@ -7,81 +8,47 @@ import {
   ListItemAvatar,
   Avatar
 } from '@material-ui/core';
-import { useCollection } from 'react-firebase-hooks/firestore';
-import moment from 'moment';
 
-import firebase from 'lib/firebase';
-import Progress from '../atoms/CircularProgress';
-
+import { fromNow } from '~/lib/moment';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
-  const { collection, collectionId, limit } = props;
-
-  const [value, loading, error] = useCollection(
-    collection === 'general'
-      ? firebase
-          .firestore()
-          .collection('topics')
-          .orderBy('updatedAt', 'desc')
-          .limit(limit || 1000)
-      : firebase
-          .firestore()
-          .collection(collection)
-          .doc(collectionId)
-          .collection('topics')
-          .orderBy('updatedAt', 'desc')
-          .limit(limit || 1000)
-  );
-
-  const collectionShort = collection === 'challenges' ? 'c' : 'cat';
+  const { topics, topicPath } = props;
 
   return (
     <List>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <Progress />}
-      {value &&
-        value!.docs
-          .map((doc: any) => doc.data())
-          .map((topic: any) => (
-            <ListItem alignItems="flex-start" key={topic.id}>
-              <ListItemAvatar>
-                <Avatar
-                  alt={topic.userName || 'anonymous'}
-                  src={
-                    topic.userPhotoURL ||
-                    `${process.env.PUBLIC_URL}/anonymous.png`
-                  }
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <NoStyledLink
-                    to={
-                      collection === 'general'
-                        ? `/topics/${topic.id}`
-                        : `/${collectionShort}/${collectionId}/t/${topic.id}`
-                    }
-                  >
-                    {topic.title}
-                  </NoStyledLink>
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="textPrimary"
-                    >
-                      Posted by {topic.userName || 'anonymous'}
-                    </Typography>
-                    {'     '}
-                    {moment(topic.createdAt.toDate()).fromNow() || ''}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-          ))}
+      {topics.map((topic: any) => (
+        <ListItem alignItems="flex-start" key={topic.id}>
+          <ListItemAvatar>
+            <Avatar
+              alt={topic.userName || 'anonymous'}
+              src={
+                topic.userPhotoURL || `${process.env.PUBLIC_URL}/anonymous.png`
+              }
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary={
+              <NoStyledLink to={topicPath(topic.id)}>
+                {topic.title}
+              </NoStyledLink>
+            }
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="textPrimary"
+                >
+                  Posted by {topic.userName || 'anonymous'}
+                </Typography>
+                {'     '}
+                {fromNow(topic.createdAt.toDate())}
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      ))}
     </List>
   );
 };
