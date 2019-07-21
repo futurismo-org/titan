@@ -10,5 +10,8 @@ export const getUserDashboardPath = (
 export const getCollectionShort = (collection: string) =>
   collection === 'general' ? '' : collection === 'challenges' ? 'c' : 'cat';
 
+export const getCollectionURL = (collection: string) =>
+  collection === 'general' ? '' : collection === 'challenges' ? 'c' : 'cat';
+
 export const getTwitterProfileURL = (username: string) =>
   username ? `https://twitter.com/${username}` : 'https://twitter.com';

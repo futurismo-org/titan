@@ -3,7 +3,7 @@ import Title from '../atoms/Title';
 import Progress from '../atoms/CircularProgress';
 import CollectionCard from '../atoms/CollectionCard';
 
-const Challenges = (props: any) => {
+const Categories = (props: any) => {
   const { categories, error, loading, fetchCategories } = props;
 
   React.useEffect(() => {
@@ -22,4 +22,4 @@ const Challenges = (props: any) => {
   );
 };
 
-export default Challenges;
+export default Categories;
