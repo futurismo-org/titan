@@ -100,11 +100,11 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      <Button full rounded info>
+      {/* <Button full rounded info>
         <Text>Twitterでログイン</Text>
       </Button>
-      <Text />
-      <Text style={{ textAlign: 'center' }}>または</Text>
+      <Text /> */}
+      {/* <Text style={{ textAlign: 'center' }}>または</Text> */}
       <Form>
         <Item floatingLabel>
           <Label>メールアドレス</Label>
