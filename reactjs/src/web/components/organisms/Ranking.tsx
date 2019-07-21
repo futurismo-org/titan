@@ -1,16 +1,13 @@
 import * as React from 'react';
 
-import { useCollection } from 'react-firebase-hooks/firestore';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-import moment from 'moment';
 import Hidden from '@material-ui/core/Hidden';
-import firebase from 'lib/firebase';
+import { fromNow } from '~/lib/moment';
 import { getTwitterProfileURL } from '~/lib/url';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
@@ -25,9 +22,11 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const Ranking = (props: any) => {
-  const [value, loading, error] = useCollection(
-    firebase.firestore().collection('users')
-  );
+  const { users, error, loading, fetchUsers } = props;
+
+  React.useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const LeaderBoardHead = () => (
     <TableHead>
@@ -48,44 +47,36 @@ const Ranking = (props: any) => {
       <p>データが不十分なため、 アクティブユーザを順に表示しています。</p>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {value && (
+      {users && (
         <Table>
           <LeaderBoardHead />
           <TableBody>
-            {value.docs
-              .sort((x: any, y: any) =>
-                moment(y.data().updatedAt.toDate()).diff(
-                  moment(x.data().updatedAt.toDate())
-                )
-              )
-              .map((doc, index) => (
-                <TableRow key={doc.data().id}>
-                  <TableCell component="th" scope="row">
-                    {index + 1}位
-                  </TableCell>
-                  <TableCell>
-                    <UserAvatar
-                      photoURL={doc.data().photoURL}
-                      profileURL={getTwitterProfileURL(
-                        doc.data().twitterUsername
-                      )}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <NoStyledExternalLink
-                      href={getTwitterProfileURL(doc.data().twitterUsername)}
-                    >
-                      {doc.data().displayName || 'Annonymous'}
-                    </NoStyledExternalLink>
-                  </TableCell>
-                  <ConditionalTableCell>
-                    {moment(doc.data().updatedAt.toDate()).fromNow()}
-                  </ConditionalTableCell>
-                  <ConditionalTableCell>
-                    {moment(doc.data().createdAt.toDate()).fromNow()}
-                  </ConditionalTableCell>
-                </TableRow>
-              ))}
+            {users.map((user: any, index: number) => (
+              <TableRow key={user.id}>
+                <TableCell component="th" scope="row">
+                  {index + 1}位
+                </TableCell>
+                <TableCell>
+                  <UserAvatar
+                    photoURL={user.photoURL}
+                    profileURL={getTwitterProfileURL(user.twitterUsername)}
+                  />
+                </TableCell>
+                <TableCell>
+                  <NoStyledExternalLink
+                    href={getTwitterProfileURL(user.twitterUsername)}
+                  >
+                    {user.displayName || 'Annonymous'}
+                  </NoStyledExternalLink>
+                </TableCell>
+                <ConditionalTableCell>
+                  {fromNow(user.updatedAt.toDate())}
+                </ConditionalTableCell>
+                <ConditionalTableCell>
+                  {fromNow(user.createdAt.toDate())}
+                </ConditionalTableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       )}
