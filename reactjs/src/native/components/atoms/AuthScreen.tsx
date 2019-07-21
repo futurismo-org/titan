@@ -69,11 +69,11 @@ const AuthScreen = (props: any) => {
     return false;
   };
 
-  const successToast = () =>
+  const successToast = (path: string) =>
     Toast.show({
       text: 'ログインに成功しました！',
       duration: 3000,
-      onClose: () => props.history.push('/')
+      onClose: () => props.history.push(path)
     });
 
   const errorToast = (message: string) =>
@@ -87,13 +87,13 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast())
+      .then(() => successToast('/'))
       .catch(() =>
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(credential => signInSuccessWithAuthCallback(credential))
-          .then(() => successToast())
+          .then(() => successToast('/settings'))
           .catch(error => errorToast(error.message))
       );
   };
