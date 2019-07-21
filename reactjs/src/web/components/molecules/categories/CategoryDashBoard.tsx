@@ -20,6 +20,13 @@ const MoreLink = styled(Link)`
   }
 `;
 
+const Space = () => (
+  <React.Fragment>
+    <br />
+    <br />
+  </React.Fragment>
+);
+
 const CategoryDashBoard = (props: any) => {
   const { category } = props;
 
@@ -28,8 +35,7 @@ const CategoryDashBoard = (props: any) => {
       <Paper>
         <Title text="概要" />
         <MarkdownView text={category.overview} />
-      </Paper>
-      <Paper>
+        <Space />
         <Title text="チャレンジ一覧" />
         {category.challengeRefs &&
           category.challengeRefs.map((challengeRef: any) => (
@@ -38,21 +44,19 @@ const CategoryDashBoard = (props: any) => {
               challengeRef={challengeRef}
             />
           ))}
-      </Paper>
-      <Paper>
+        <Space />
         <Title text="トピック" />
-        <TopicList
+        {/* <TopicList
           collection="categories"
           collectionId={category.id}
           limit={6}
-        />
+        /> */}
         <MoreLink to={`/cat/${category.id}/topics`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
         </MoreLink>
-      </Paper>
-      <Paper>
+        <Space />
         <Title text="フリートーク" />
         <DiscordHistories channelId={category.channelId} limit={30} />
       </Paper>
