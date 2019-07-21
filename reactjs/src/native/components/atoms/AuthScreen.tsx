@@ -79,6 +79,8 @@ const AuthScreen = (props: any) => {
       <Button full rounded info>
         <Text>Twitterでログイン</Text>
       </Button>
+      <Text />
+      <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
         <Item floatingLabel>
           <Label>メールアドレス</Label>
@@ -102,7 +104,7 @@ const AuthScreen = (props: any) => {
           full
           rounded
           primary
-          onPress={() => signUpWithEmail(email, password)}
+          onPress={() => signInWithEmail(email, password)}
         >
           <Text>メールでログイン</Text>
         </Button>
@@ -111,7 +113,7 @@ const AuthScreen = (props: any) => {
           full
           rounded
           warning
-          onPress={() => signInWithEmail(email, password)}
+          onPress={() => signUpWithEmail(email, password)}
         >
           <Text>メールでサインアップ</Text>
         </Button>
