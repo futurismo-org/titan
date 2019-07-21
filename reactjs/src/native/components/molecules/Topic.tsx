@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
 import { Button, Text } from 'native-base';
-import { Linking, Alert, ScrollView } from 'react-native';
+import { Linking, Alert, View } from 'react-native';
 import { withRouter } from 'react-router-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -110,7 +110,7 @@ const Topic = withRouter((props: any) => {
           {/* {isCurrentUser ? ( */}
           <React.Fragment>
             <Text />
-            <ScrollView style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row' }}>
               <Button light>
                 <Text>編集</Text>
               </Button>
@@ -120,7 +120,7 @@ const Topic = withRouter((props: any) => {
               >
                 <Text>削除</Text>
               </Button>
-            </ScrollView>
+            </View>
           </React.Fragment>
           {/* ) : null} */}
         </React.Fragment>
