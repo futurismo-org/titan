@@ -10,6 +10,7 @@ import {
   Toast
 } from 'native-base';
 import shortid from 'shortid';
+import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
 
 const AuthScreen = (props: any) => {
@@ -71,12 +72,13 @@ const AuthScreen = (props: any) => {
   const successToast = () =>
     Toast.show({
       text: 'ログインに成功しました！',
-      duration: 3000
+      duration: 3000,
+      onClose: () => props.history.push('/')
     });
 
-  const errorToast = () =>
+  const errorToast = (message: string) =>
     Toast.show({
-      text: 'ログインに失敗しました。',
+      text: `ログインに失敗しました。(${message})`,
       duration: 3000
     });
 
@@ -92,7 +94,7 @@ const AuthScreen = (props: any) => {
           .createUserWithEmailAndPassword(email, password)
           .then(credential => signInSuccessWithAuthCallback(credential))
           .then(() => successToast())
-          .catch(() => errorToast())
+          .catch(error => errorToast(error.message))
       );
   };
 
@@ -135,4 +137,4 @@ const AuthScreen = (props: any) => {
   );
 };
 
-export default AuthScreen;
+export default withRouter(AuthScreen);

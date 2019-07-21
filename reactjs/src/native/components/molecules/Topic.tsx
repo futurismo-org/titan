@@ -12,7 +12,7 @@ import MarkdownView from '../atoms/MarkdownView';
 import { isCurrentUser } from '~/lib/native/auth';
 import { deleteResource } from '~/lib/firebase';
 
-const Topic = withRouter((props: any) => {
+const Topic = (props: any) => {
   const {
     topic,
     loading,
@@ -67,7 +67,7 @@ const Topic = withRouter((props: any) => {
           text: 'はい',
           onPress: () =>
             deleteResource(resourceId).then(() =>
-              props.router.push(redirectPath)
+              props.history.push(redirectPath)
             )
         },
         {
@@ -127,6 +127,6 @@ const Topic = withRouter((props: any) => {
       )}
     </React.Fragment>
   );
-});
+};
 
-export default Topic;
+export default withRouter(Topic);
