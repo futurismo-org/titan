@@ -8,14 +8,14 @@ import {
   FETCH_USER_ERROR
 } from '../constants/actionTypes';
 
-import { createReducer } from './reducuerUtil';
-
-export const initialState = {
-  loading: false,
-  error: null,
-  items: [],
-  target: null
-};
+import {
+  createReducer,
+  fetchRequest,
+  fetchItemsSuccess,
+  fetchTargetSuccess,
+  fetchError,
+  initialState
+} from './reducuerUtil';
 
 export const setUserInfo = (state: any, payload: any) => {
   return Object.assign({}, state, {
@@ -23,57 +23,12 @@ export const setUserInfo = (state: any, payload: any) => {
   });
 };
 
-export const fetchUsersRequest = (state: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: true
-  });
-};
-
-export const fetchUsersSuccess = (state: any, payload: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    items: payload
-  });
-};
-
-export const fetchUsersError = (state: any, error: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    error: error
-  });
-};
-export const fetchUserRequest = (state: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: true
-  });
-};
-
-export const fetchUserSuccess = (state: any, payload: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    target: payload
-  });
-};
-
-export const fetchUserError = (state: any, error: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    error: error
-  });
-};
-
 export default createReducer(initialState, {
-  [FETCH_USERS_REQUEST]: fetchUsersRequest,
-  [FETCH_USERS_SUCCESS]: fetchUsersSuccess,
-  [FETCH_USERS_ERROR]: fetchUsersError,
-  [FETCH_USER_REQUEST]: fetchUserRequest,
-  [FETCH_USER_SUCCESS]: fetchUserSuccess,
-  [FETCH_USER_ERROR]: fetchUserError,
+  [FETCH_USERS_REQUEST]: fetchRequest,
+  [FETCH_USERS_SUCCESS]: fetchItemsSuccess,
+  [FETCH_USERS_ERROR]: fetchError,
+  [FETCH_USER_REQUEST]: fetchRequest,
+  [FETCH_USER_SUCCESS]: fetchTargetSuccess,
+  [FETCH_USER_ERROR]: fetchError,
   [SET_USER_INFO]: setUserInfo
 });

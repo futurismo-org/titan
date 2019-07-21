@@ -1,6 +1,13 @@
 import { Dispatch } from 'redux';
 import firebase from '~/lib/firebase';
 
+export const fetchRequest = (type: string) => () => ({ type });
+export const fetchSuccess = (type: string) => (payload: any) => ({
+  type,
+  payload
+});
+export const fetchError = (type: string) => (error: any) => ({ type, error });
+
 export const fetchTarget = (
   resourceId: string,
   requestAction: any,

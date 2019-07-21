@@ -9,35 +9,19 @@ import {
   FETCH_CATEGORY_ERROR
 } from '../constants/actionTypes';
 
-import { fetchTarget } from './actionUtil';
+import {
+  fetchTarget,
+  fetchRequest,
+  fetchSuccess,
+  fetchError
+} from './actionUtil';
 
-export const fetchCategoriesRequest = () => ({
-  type: FETCH_CATEGORIES_REQUEST
-});
-
-export const fetchCategoriesSuccess = (payload: any) => ({
-  type: FETCH_CATEGORIES_SUCCESS,
-  payload
-});
-
-export const fetchCategoriesError = (error: any) => ({
-  type: FETCH_CATEGORIES_ERROR,
-  error: error
-});
-
-export const fetchCategoryRequest = () => ({
-  type: FETCH_CATEGORY_REQUEST
-});
-
-export const fetchCategorySuccess = (payload: any) => ({
-  type: FETCH_CATEGORY_SUCCESS,
-  payload
-});
-
-export const fetchCategoryError = (error: any) => ({
-  type: FETCH_CATEGORY_ERROR,
-  error: error
-});
+export const fetchCategoriesRequest = fetchRequest(FETCH_CATEGORIES_REQUEST);
+export const fetchCategoriesSuccess = fetchSuccess(FETCH_CATEGORIES_SUCCESS);
+export const fetchCategoriesError = fetchError(FETCH_CATEGORIES_ERROR);
+export const fetchCategoryRequest = fetchRequest(FETCH_CATEGORY_REQUEST);
+export const fetchCategorySuccess = fetchSuccess(FETCH_CATEGORY_SUCCESS);
+export const fetchCategoryError = fetchError(FETCH_CATEGORY_ERROR);
 
 export const fetchCategories = (num: number = 20) => {
   return (dispatch: Dispatch) => {
