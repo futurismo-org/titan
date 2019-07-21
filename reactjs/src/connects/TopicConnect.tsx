@@ -5,8 +5,6 @@ import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 
 import { getCollectionShort } from '../lib/url';
 
-import firebase from '~/lib/firebase';
-
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
