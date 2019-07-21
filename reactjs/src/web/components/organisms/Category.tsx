@@ -1,35 +1,24 @@
 import * as React from 'react';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import firebase from 'lib/firebase';
 import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
 import Progress from '../atoms/CircularProgress';
 
-interface Props {
-  match: {
-    params: {
-      id?: string;
-    };
-  };
-}
+const Category = (props: any) => {
+  const { category, loading, error, fetchCategory, resourceId } = props;
 
-const Category = (props: Props) => {
-  const [value, loading, error] = useDocument(
-    firebase
-      .firestore()
-      .collection('categories')
-      .doc(props.match.params.id)
-  );
+  React.useEffect(() => {
+    fetchCategory(resourceId);
+  }, [fetchCategory, resourceId]);
 
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {value && (
+      {category && (
         <React.Fragment>
-          <Header category={value.data()} />
-          <Body category={value.data()} />
+          <Header category={category} />
+          <Body category={category} />
         </React.Fragment>
       )}
     </React.Fragment>

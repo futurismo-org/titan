@@ -11,10 +11,14 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
+  const categoryId = props.match.params.id;
+  const resourceId = `/categories/${categoryId}`;
+
   return {
     category: state.category.target,
     loading: state.category.loading,
     error: state.category.error,
+    resourceId,
     ...props
   };
 };
