@@ -21,7 +21,9 @@ const HeaderWrapper = (props: any) => {
         </Body>
         <Right>
           <Button bordered>
-            <Text style={{ color: '#ffffff' }}>ログイン</Text>
+            <Link to="/login">
+              <Text style={{ color: '#ffffff' }}>ログイン</Text>
+            </Link>
           </Button>
         </Right>
       </Header>
