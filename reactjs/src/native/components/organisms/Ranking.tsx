@@ -1,16 +1,23 @@
 import * as React from 'react';
 
-import { Text } from 'native-base';
-import { fromNow } from '~/lib/moment';
+import { Text, Thumbnail } from 'native-base';
+
+import { Link } from 'react-router-native';
 import { getTwitterProfileURL } from '~/lib/url';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
-// const ConditionalTableCell = (props: any) => (
-//   <Hidden only="xs">
-//     <TableCell>{props.children}</TableCell>
-//   </Hidden>
-// );
+import { fromNow } from '~/lib/moment';
+
+const {
+  Table,
+  TableWrapper,
+  Row,
+  Rows,
+  Col,
+  Cols,
+  Cell
+} = require('react-native-table-component');
 
 const Ranking = (props: any) => {
   const { users, error, loading, fetchUsers } = props;
@@ -19,58 +26,38 @@ const Ranking = (props: any) => {
     fetchUsers();
   }, [fetchUsers]);
 
-  // const LeaderBoardHead = () => (
-  //   <TableHead>
-  //     <TableRow>
-  //       <TableCell>順位</TableCell>
-  //       <TableCell />
-  //       <TableCell>名前</TableCell>
-  //       <ConditionalTableCell>最新</ConditionalTableCell>
-  //       <ConditionalTableCell>登録</ConditionalTableCell>
-  //     </TableRow>
-  //   </TableHead>
-  // );
+  const tableHead = ['順位', '', '名前', '最新'];
+
+  const LeaderBoardHead = () => (
+    <Row borderStyle={{ borderColor: '#ffffff' }} data={tableHead} />
+  );
 
   return (
     <React.Fragment>
       <Title text="ユーザランキング" />
       <Text>ランキング機能は準備中です...</Text>
       <Text>データが不十分なため、 アクティブユーザを順に表示しています。</Text>
+      <Text />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {/* {users && (
-        <Table>
+      {users && (
+        <Table borderStyle={{ borderColor: '#ffffff' }}>
           <LeaderBoardHead />
-          <TableBody>
-            {users.map((user: any, index: number) => (
-              <TableRow key={user.id}>
-                <TableCell component="th" scope="row">
-                  {index + 1}位
-                </TableCell>
-                <TableCell>
-                  <UserAvatar
-                    photoURL={user.photoURL}
-                    profileURL={getTwitterProfileURL(user.twitterUsername)}
-                  />
-                </TableCell>
-                <TableCell>
-                  <NoStyledExternalLink
-                    href={getTwitterProfileURL(user.twitterUsername)}
-                  >
-                    {user.displayName || 'Annonymous'}
-                  </NoStyledExternalLink>
-                </TableCell>
-                <ConditionalTableCell>
-                  {fromNow(user.updatedAt.toDate())}
-                </ConditionalTableCell>
-                <ConditionalTableCell>
-                  {fromNow(user.createdAt.toDate())}
-                </ConditionalTableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+          {users.map((user: any, index: number) => {
+            const uri = user.photoURL
+              ? user.photoURL
+              : 'https://titan-fire.com/anonymous.png';
+
+            const rowData = [
+              `${index + 1}位`,
+              <Thumbnail source={{ uri: uri }} key={user.id} />,
+              user.displayName || 'Annonymous',
+              fromNow(user.updatedAt.toDate())
+            ];
+            return <Row data={rowData} key={user.id} />;
+          })}
         </Table>
-      )} */}
+      )}
     </React.Fragment>
   );
 };
