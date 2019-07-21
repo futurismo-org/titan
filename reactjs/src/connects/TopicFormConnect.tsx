@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortid from 'shortid';
-import { push } from 'connected-react-router';
 import { fetchTopic } from '~/actions/topicAction';
 
 import { getCollectionShort } from '../lib/url';
@@ -9,8 +8,7 @@ import { getCollectionShort } from '../lib/url';
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchTopic: fetchTopic,
-      push
+      fetchTopic: fetchTopic
     },
     dispatch
   );
@@ -42,12 +40,8 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   const newData = {
-    id: topicId,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    userName: currentUser.displayName,
-    userId: currentUser.shortId,
-    userPhotoURL: currentUser.photoURL
+    ...updateData,
+    createdAt: new Date()
   };
 
   return {

@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from 'react';
 import { Button, Text } from 'native-base';
 import { Linking, Alert, View } from 'react-native';
-import { withRouter } from 'react-router-native';
+import { withRouter, Link } from 'react-router-native';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
@@ -22,7 +22,9 @@ const Topic = (props: any) => {
     redirectPath,
     fetchTopic,
     setOgpInfo,
-    resetOgpInfo
+    resetOgpInfo,
+    history,
+    isCurrentUser
   } = props;
 
   const title = useMemo(() => {
@@ -65,9 +67,7 @@ const Topic = (props: any) => {
         {
           text: 'はい',
           onPress: () =>
-            deleteResource(resourceId).then(() =>
-              props.history.push(redirectPath)
-            )
+            deleteResource(resourceId).then(() => history.push(redirectPath))
         },
         {
           text: 'いいえ',
@@ -106,22 +106,24 @@ const Topic = (props: any) => {
             url={shareURL}
             hashtag="#Titan"
           />
-          {/* {isCurrentUser ? ( */}
-          <React.Fragment>
-            <Text />
-            <View style={{ flexDirection: 'row' }}>
-              <Button light>
-                <Text>編集</Text>
-              </Button>
-              <Button
-                light
-                onPress={() => handleDelete(redirectPath, resourceId)}
-              >
-                <Text>削除</Text>
-              </Button>
-            </View>
-          </React.Fragment>
-          {/* ) : null} */}
+          {isCurrentUser ? (
+            <React.Fragment>
+              <Text />
+              <View style={{ flexDirection: 'row' }}>
+                <Button light>
+                  <Link to={editTopicPath}>
+                    <Text>編集</Text>
+                  </Link>
+                </Button>
+                <Button
+                  light
+                  onPress={() => handleDelete(redirectPath, resourceId)}
+                >
+                  <Text>削除</Text>
+                </Button>
+              </View>
+            </React.Fragment>
+          ) : null}
         </React.Fragment>
       )}
     </React.Fragment>

@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -14,19 +15,7 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
 
-import { isCurrentUser } from '~/lib/web/auth';
-
 import { deleteResource } from '~/lib/firebase';
-
-/* eslint-disable */
-const handleDelete = (redirectPath: string, resourceId: string) => {
-  if (window.confirm('削除したデータは元に戻せません。本当に削除しますか？')) {
-    deleteResource(resourceId).then(
-      () => (window.location.href = redirectPath)
-    );
-  }
-};
-/* eslint-enable */
 
 const Topic = (props: any) => {
   const {
@@ -39,7 +28,9 @@ const Topic = (props: any) => {
     redirectPath,
     fetchTopic,
     setOgpInfo,
-    resetOgpInfo
+    resetOgpInfo,
+    history,
+    isCurrentUser
   } = props;
 
   const title = useMemo(() => {
@@ -73,6 +64,14 @@ const Topic = (props: any) => {
     title,
     url
   ]);
+
+  const handleDelete = (redirectPath: string, resourceId: string) => {
+    if (
+      window.confirm('削除したデータは元に戻せません。本当に削除しますか？') // eslint-disable-line
+    ) {
+      deleteResource(resourceId).then(() => history.pushState(redirectPath));
+    }
+  };
 
   return (
     <React.Fragment>
@@ -126,4 +125,4 @@ const Topic = (props: any) => {
   );
 };
 
-export default Topic;
+export default withRouter(Topic);
