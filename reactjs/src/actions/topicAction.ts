@@ -9,6 +9,8 @@ import {
   FETCH_TOPIC_ERROR
 } from '../constants/actionTypes';
 
+import { fetchTarget } from './actionUtil';
+
 export const fetchTopicsRequest = () => ({
   type: FETCH_TOPICS_REQUEST
 });
@@ -53,14 +55,10 @@ export const fetchTopics = (resourceId: string, num = 1000) => {
 };
 
 export const fetchTopic = (resourceId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch(fetchTopicRequest());
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .get()
-      .then((doc: any) => doc.data())
-      .then((data: any) => dispatch(fetchTopicSuccess(data)))
-      .catch((error: any) => dispatch(fetchTopicError(error)));
-  };
+  return fetchTarget(
+    resourceId,
+    fetchTopicRequest,
+    fetchTopicSuccess,
+    fetchTopicError
+  );
 };

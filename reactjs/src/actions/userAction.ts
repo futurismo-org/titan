@@ -9,6 +9,7 @@ import {
   FETCH_USER_ERROR
 } from '../constants/actionTypes';
 
+import { fetchTarget } from './actionUtil';
 import firebase from '~/lib/firebase';
 
 export const fetchUsersRequest = () => ({
@@ -59,14 +60,10 @@ export const fetchUsers = (num: number = 1000) => {
 };
 
 export const fetchUser = (resourceId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch(fetchUsersRequest());
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .get()
-      .then((doc: any) => doc.data())
-      .then((data: any) => dispatch(fetchUserSuccess(data)))
-      .catch((error: any) => dispatch(fetchUserError(error)));
-  };
+  return fetchTarget(
+    resourceId,
+    fetchUserRequest,
+    fetchUserSuccess,
+    fetchUserError
+  );
 };
