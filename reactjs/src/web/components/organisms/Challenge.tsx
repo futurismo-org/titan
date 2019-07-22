@@ -7,18 +7,11 @@ import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
 
 const Challenge = (props: any) => {
-  const {
-    loading,
-    error,
-    resourceId,
-    fetchChallenge,
-    challenge,
-    category
-  } = props;
+  const { loading, error, resourceId, fetchChallenge, challenge } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
-  }, [fetchChallenge, resourceId]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -26,7 +19,7 @@ const Challenge = (props: any) => {
       {loading && <Progress />}
       {challenge && (
         <React.Fragment>
-          <Header challenge={challenge} category={category} />
+          <Header challenge={challenge} />
           <Paper>
             <Navbar id={challenge.id} />
             <Body challenge={challenge} />

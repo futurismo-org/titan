@@ -133,7 +133,7 @@ const ChallengeHeader = (props: any) => {
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
-              <ChallengeCategoryButton category={category} />
+              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
               {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
