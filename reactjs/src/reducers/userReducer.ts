@@ -5,7 +5,8 @@ import {
   FETCH_USERS_ERROR,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR
+  FETCH_USER_ERROR,
+  RESET_USER_INFO
 } from '../constants/actionTypes';
 
 import {
@@ -14,6 +15,7 @@ import {
   fetchItemsSuccess,
   fetchTargetSuccess,
   fetchError,
+  reset,
   initialState
 } from './reducuerUtil';
 
@@ -30,5 +32,6 @@ export default createReducer(initialState, {
   [FETCH_USER_REQUEST]: fetchRequest,
   [FETCH_USER_SUCCESS]: fetchTargetSuccess,
   [FETCH_USER_ERROR]: fetchError,
+  [RESET_USER_INFO]: reset,
   [SET_USER_INFO]: setUserInfo
 });

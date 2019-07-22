@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import moment from 'moment';
-import { fetchChallenges } from '~/actions/challengeAction';
+import { fetchChallenges, resetChallengeInfo } from '~/actions/challengeAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchChallenges: fetchChallenges
+      fetchChallenges,
+      resetChallengeInfo
     },
     dispatch
   );

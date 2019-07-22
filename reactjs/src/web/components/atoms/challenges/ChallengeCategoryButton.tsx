@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-import firebase from 'lib/firebase';
 import NoStyledLink from '../NoStyledLink';
 
 const ColorButton = styled(Button)`
@@ -13,23 +12,19 @@ const ColorButton = styled(Button)`
 `;
 
 const ChallengeCategoryButton = (props: any) => {
-  const docRef: firebase.firestore.DocumentReference = props.categoryRef;
+  const { category } = props;
 
   const [title, setTitle] = useState('');
-  const [path, setPath] = useState('');
+  const [id, setId] = useState('');
 
-  docRef
-    .get()
-    .then((doc: firebase.firestore.DocumentSnapshot) => doc.data())
-    .then(category => {
-      setTitle(category!.title);
-      setPath(`/cat/${category!.id}/dashboard`);
-    });
+  useEffect(() => {
+    category && setTitle(category.title);
+  }, [category]);
 
   return (
     <React.Fragment>
       <ColorButton variant="contained" color="default">
-        <NoStyledLink to={path}>{title}</NoStyledLink>
+        <NoStyledLink to="/">{title}</NoStyledLink>
       </ColorButton>
     </React.Fragment>
   );

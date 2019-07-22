@@ -68,7 +68,7 @@ const ChallengePeriod = (props: any) => {
 };
 
 const ChallengeHeader = (props: any) => {
-  const { challenge } = props;
+  const { challenge, category } = props;
 
   const isClosed =
     challenge &&
@@ -133,7 +133,7 @@ const ChallengeHeader = (props: any) => {
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
-              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              <ChallengeCategoryButton category={category} />
               {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
             </HeaderInfo>
           </MainFeaturedPostContent>

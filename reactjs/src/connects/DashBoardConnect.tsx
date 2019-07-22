@@ -2,16 +2,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import {
   fetchChallenges,
-  fetchPinnedChallenges
+  fetchPinnedChallenges,
+  resetChallengeInfo
 } from '~/actions/challengeAction';
-import { fetchCategories } from '~/actions/categoryAction';
+import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchChallenges: fetchChallenges,
       fetchCategories: fetchCategories,
-      fetchPinnedChallenges: fetchPinnedChallenges
+      fetchPinnedChallenges: fetchPinnedChallenges,
+      resetChallengeInfo,
+      resetCategoryInfo
     },
     dispatch
   );

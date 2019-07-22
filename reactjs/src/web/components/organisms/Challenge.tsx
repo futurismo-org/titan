@@ -8,10 +8,8 @@ import Progress from '../atoms/CircularProgress';
 
 const Challenge = (props: any) => {
   const {
-    categoryRef,
     loading,
     error,
-    fetchCategory,
     resourceId,
     fetchChallenge,
     challenge,
@@ -19,17 +17,8 @@ const Challenge = (props: any) => {
   } = props;
 
   React.useEffect(() => {
-    !challenge && !loading && fetchChallenge(resourceId);
-    !challenge && !category && !loading && fetchCategory(categoryRef);
-  }, [
-    category,
-    categoryRef,
-    challenge,
-    fetchCategory,
-    fetchChallenge,
-    loading,
-    resourceId
-  ]);
+    fetchChallenge(resourceId);
+  }, [fetchChallenge, resourceId]);
 
   return (
     <React.Fragment>
@@ -37,7 +26,7 @@ const Challenge = (props: any) => {
       {loading && <Progress />}
       {challenge && (
         <React.Fragment>
-          <Header challenge={challenge} />
+          <Header challenge={challenge} category={category} />
           <Paper>
             <Navbar id={challenge.id} />
             <Body challenge={challenge} />
