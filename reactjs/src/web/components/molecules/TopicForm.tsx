@@ -3,6 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import firebase from 'lib/firebase';
+import Progress from '../atoms/CircularProgress';
 
 const db = firebase.firestore();
 
@@ -13,7 +14,9 @@ const TopicForm = (props: any) => {
     fetchTopic,
     redirectPath,
     isCreate,
-    history
+    history,
+    loading,
+    error
   } = props;
 
   const [title, setTitle] = useState('');
@@ -22,7 +25,7 @@ const TopicForm = (props: any) => {
 
   useEffect(() => {
     if (!isCreate) {
-      if (!topic) {
+      if (!topic && !loading) {
         fetchTopic(resourceId);
       } else {
         setTitle(topic.title);
@@ -30,7 +33,7 @@ const TopicForm = (props: any) => {
         setText(topic.text);
       }
     }
-  }, [fetchTopic, isCreate, resourceId, topic]);
+  }, [fetchTopic, isCreate, loading, resourceId, topic]);
 
   const onTitleChange = (e: any) => {
     e.preventDefault();
@@ -67,47 +70,53 @@ const TopicForm = (props: any) => {
 
   return (
     <React.Fragment>
-      <form noValidate onSubmit={updateHandler}>
-        <TextField
-          value={title}
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="title"
-          label="タイトル"
-          name="title"
-          onChange={onTitleChange}
-        />
-        <TextField
-          value={url}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="url"
-          name="url"
-          label="URL"
-          onChange={onURLChange}
-        />
-        <p>
-          情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
-        </p>
-        <TextField
-          value={text}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          id="text"
-          name="text"
-          label="テキスト"
-          rows={6}
-          multiline
-          onChange={onTextChange}
-        />
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          投稿
-        </Button>
-      </form>
+      {error && <strong>Error: {error}</strong>}
+      {loading && <Progress />}
+      {topic && (
+        <React.Fragment>
+          <form noValidate onSubmit={updateHandler}>
+            <TextField
+              value={title}
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="title"
+              label="タイトル"
+              name="title"
+              onChange={onTitleChange}
+            />
+            <TextField
+              value={url}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="url"
+              name="url"
+              label="URL"
+              onChange={onURLChange}
+            />
+            <p>
+              情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
+            </p>
+            <TextField
+              value={text}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="text"
+              name="text"
+              label="テキスト"
+              rows={6}
+              multiline
+              onChange={onTextChange}
+            />
+            <Button type="submit" fullWidth variant="contained" color="primary">
+              投稿
+            </Button>
+          </form>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

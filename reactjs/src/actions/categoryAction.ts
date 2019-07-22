@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { firestore } from 'firebase';
 import firebase from '~/lib/firebase';
 import {
   FETCH_CATEGORIES_REQUEST,
@@ -35,6 +36,22 @@ export const fetchCategories = (num: number = 20) => {
       .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
       .then((data: any) => dispatch(fetchCategoriesSuccess(data)))
       .catch((error: any) => dispatch(fetchCategoriesError(error)));
+  };
+};
+
+export const fetchCategoriesWithRefs = (
+  refs: [firestore.DocumentReference]
+) => {
+  return (dispatch: Dispatch) => {
+    if (!refs) return;
+
+    dispatch(fetchCategoriesRequest());
+
+    const promises = refs.map(ref => ref.get().then(doc => doc.data()));
+
+    Promise.all(promises)
+      .then(data => dispatch(fetchCategoriesSuccess(data)))
+      .catch(error => dispatch(fetchCategoriesError(error)));
   };
 };
 

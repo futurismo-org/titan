@@ -10,8 +10,8 @@ import AuthScreen from '../atoms/AuthScreen';
 import Layout from '../templates/PaddingLayout';
 
 const Home = () => (
-  <Switch>
-    <Layout>
+  <Layout>
+    <Switch>
       <Route path="/settings" component={Settings} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/topics" component={GeneralTopics} />
@@ -19,8 +19,8 @@ const Home = () => (
       <Route path="/challenges" component={Challenges} />
       <Route path="/login" component={AuthScreen} />
       <Route path="/" component={DashBoard} />
-    </Layout>
-  </Switch>
+    </Switch>
+  </Layout>
 );
 
 export default Home;

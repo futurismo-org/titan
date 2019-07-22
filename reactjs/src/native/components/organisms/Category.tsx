@@ -20,12 +20,17 @@ const Category = (props: any) => {
   } = props;
 
   React.useEffect(() => {
-    if (!category) {
-      fetchCategory(resourceId);
-    } else {
-      fetchChallenges(challengeRefs);
-    }
-  }, [category, challengeRefs, fetchCategory, fetchChallenges, resourceId]);
+    !category && !loading && fetchCategory(resourceId);
+    !category && !challenges && !loading && fetchChallenges(challengeRefs);
+  }, [
+    category,
+    challengeRefs,
+    challenges,
+    fetchCategory,
+    fetchChallenges,
+    loading,
+    resourceId
+  ]);
 
   return (
     <React.Fragment>

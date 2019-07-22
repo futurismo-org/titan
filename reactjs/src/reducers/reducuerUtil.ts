@@ -14,7 +14,7 @@ export const initialState = {
 
 export const fetchRequest = (state: any) => {
   return Object.assign({}, state, {
-    ...state,
+    ...initialState,
     loading: true
   });
 };

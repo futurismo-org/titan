@@ -30,6 +30,7 @@ export const initialState = {
 export const fetchPinnedChallengesRequest = (state: any) => {
   return Object.assign({}, state, {
     ...state,
+    pinned: [],
     loadingSub: true
   });
 };

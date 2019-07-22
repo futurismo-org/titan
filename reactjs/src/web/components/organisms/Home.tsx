@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import DashBoard from 'web/containers/DashBoardContainer';
 import Challenges from '~/web/containers/ChallengesContainer';
 import GeneralTopics from '../molecules/GeneralTopics';
-import Challenge from './Challenge';
+import Challenge from '~/web/containers/ChallengeContainer';
 import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
 import Category from '~/web/containers/CategoryContainer';

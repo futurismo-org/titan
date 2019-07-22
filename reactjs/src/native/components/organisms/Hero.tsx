@@ -4,11 +4,11 @@ import Category from '~/native/containers/CategoryContainer';
 import Layout from '../templates/HeroLayout';
 
 const Hero = () => (
-  <Switch>
-    <Layout>
+  <Layout>
+    <Switch>
       <Route path="/cat/:id" component={Category} />
-    </Layout>
-  </Switch>
+    </Switch>
+  </Layout>
 );
 
 export default Hero;

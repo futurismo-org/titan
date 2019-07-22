@@ -2,22 +2,12 @@ import * as React from 'react';
 
 import { Text, Thumbnail } from 'native-base';
 
-import { Link } from 'react-router-native';
-import { getTwitterProfileURL } from '~/lib/url';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
 import { fromNow } from '~/lib/moment';
 
-const {
-  Table,
-  TableWrapper,
-  Row,
-  Rows,
-  Col,
-  Cols,
-  Cell
-} = require('react-native-table-component');
+const { Table, Row } = require('react-native-table-component');
 
 const Ranking = (props: any) => {
   const { users, error, loading, fetchUsers } = props;
