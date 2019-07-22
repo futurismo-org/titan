@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import ChallengeCard from '~/web/components/atoms/challenges/ChallengeCard';
+import { Text } from 'native-base';
+import CollectionCard from '~/native/components/atoms/CollectionCard';
 
 const CategoryChallenge = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.challengeRef;
@@ -9,11 +10,11 @@ const CategoryChallenge = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <div />}
+      {error && <Text>Error: {error}</Text>}
+      {loading && null}
       {value && (
         <React.Fragment>
-          <ChallengeCard challenge={value.data()} />
+          <CollectionCard collection={value.data()} type="challenges" small />
         </React.Fragment>
       )}
     </React.Fragment>

@@ -68,7 +68,7 @@ const ChallengePeriod = (props: any) => {
 };
 
 const ChallengeHeader = (props: any) => {
-  const { challenge, category } = props;
+  const { challenge } = props;
 
   const isClosed =
     challenge &&

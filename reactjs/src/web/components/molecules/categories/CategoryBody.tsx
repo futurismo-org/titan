@@ -14,7 +14,7 @@ const CategoryContent = styled.div`
 `;
 
 const CategoryBody = (props: any) => {
-  const { category, challenges } = props;
+  const { category } = props;
 
   return (
     <CategoryContent>
@@ -39,9 +39,7 @@ const CategoryBody = (props: any) => {
         />
         <Route
           path="/cat/:id/dashboard"
-          render={() => (
-            <CategoryDashBoard category={category} challenges={challenges} />
-          )}
+          render={() => <CategoryDashBoard category={category} />}
         />
       </Switch>
     </CategoryContent>

@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { Content, Text, Card, CardItem } from 'native-base';
+import { Content, Card, CardItem } from 'native-base';
 
+import shortId from 'shortid';
 import Title from '../../atoms/Title';
 import MarkdownView from '../../atoms/MarkdownView';
-import CollectionCard from '../../atoms/CollectionCard';
+
+import CategoryChallenge from './CategoryChallenge';
 
 const CategoryBody = (props: any) => {
-  const { category, challenges } = props;
+  const { category } = props;
   return (
     <Content padder>
       <Card>
@@ -21,9 +23,12 @@ const CategoryBody = (props: any) => {
         <CardItem header>
           <Title text="チャレンジ一覧" />
         </CardItem>
-        {challenges.map((challenge: any) => (
-          <CardItem key={challenge.id}>
-            <CollectionCard collection={challenge} type="challenges" small />
+        {category.challengeRefs.map((challengeRef: any) => (
+          <CardItem key={shortId.generate()}>
+            <CategoryChallenge
+              key={shortId.generate()}
+              challengeRef={challengeRef}
+            />
           </CardItem>
         ))}
       </Card>

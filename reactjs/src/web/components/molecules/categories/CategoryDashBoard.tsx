@@ -8,11 +8,12 @@ import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
 // import TopicList from 'web/components/molecules/TopicList';
 
-import ChallengeCard from 'web/components/atoms/challenges/ChallengeCard';
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
 import MarkdownView from 'web/components/atoms/MarkdownView';
 
+import shortId from 'shortid';
 import theme from '~/lib/theme';
+import CategoryChallenge from './CategoryChallenge';
 
 const MoreLink = styled(Link)`
   && {
@@ -46,9 +47,13 @@ const CategoryDashBoard = (props: any) => {
         <Space />
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>
-          {challenges.map((challenge: any) => (
-            <ChallengeCard key={challenge.id} challenge={challenge} />
+          {category.challengeRefs.map((challengeRef: any) => (
+            <CategoryChallenge
+              key={shortId.generate()}
+              challengeRef={challengeRef}
+            />
           ))}
+          <CategoryChallenge challengeRefs={category.challengeRefs} />
         </StyledCardGrid>
         <Space />
         <Title text="トピック" />
