@@ -1,18 +1,11 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchCategory, resetCategoryInfo } from '~/actions/categoryAction';
-import {
-  fetchChallengesWithRefs,
-  resetChallengeInfo
-} from '~/actions/challengeAction';
+import { fetchCategory } from '~/actions/categoryAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchCategory: fetchCategory,
-      fetchChallenges: fetchChallengesWithRefs,
-      resetCategoryInfo,
-      resetChallengeInfo
+      fetchCategory
     },
     dispatch
   );
@@ -22,7 +15,6 @@ const mapStateToProps = (state: any, props: any) => {
   const resourceId = `/categories/${categoryId}`;
 
   const category = state.category.target;
-  const challengeRefs = category && category.challengeRefs;
 
   return {
     category,
@@ -30,7 +22,6 @@ const mapStateToProps = (state: any, props: any) => {
     loading: state.category.loading || state.challenge.loading,
     error: state.category.error || state.challenge.error,
     resourceId,
-    challengeRefs,
     ...props
   };
 };

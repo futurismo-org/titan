@@ -1,27 +1,22 @@
 import * as React from 'react';
-import { Text, Content } from 'native-base';
-import styled from 'styled-components';
+import { Content } from 'native-base';
 
-import Hero from 'react-native-hero';
-
-const StyledHero = styled(Hero)`
-  position: absolute;
-`;
+import {
+  StyledHero as Hero,
+  Title,
+  Description
+} from '~/native/components/atoms/Hero';
 
 const CategoryHeader = (props: any) => {
   const { category } = props;
 
   return (
-    <StyledHero
+    <Hero
       source={{ uri: 'https://source.unsplash.com/random' }}
       renderOverlay={() => (
         <Content padder>
-          <Text style={{ fontSize: 48, color: '#fff', fontWeight: 'bold' }}>
-            {category.title}
-          </Text>
-          <Text style={{ fontSize: 24, color: '#fff' }}>
-            {category.description}
-          </Text>
+          <Title>{category.title}</Title>
+          <Description>{category.description}</Description>
         </Content>
       )}
     />
