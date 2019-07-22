@@ -22,7 +22,8 @@ const mapStateToProps = (state: any, props: any) => {
   return {
     category,
     challenges: state.challenge.items,
-    loading: state.category.loading,
+    loading: state.category.loading || state.challenge.loading,
+    error: state.category.error || state.challenge.error,
     resourceId,
     challengeRefs,
     ...props

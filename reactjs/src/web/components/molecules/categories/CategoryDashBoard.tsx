@@ -9,7 +9,7 @@ import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
 // import TopicList from 'web/components/molecules/TopicList';
 
-import ChallengeCategory from 'web/components/molecules/categories/CategoryChallenge';
+import ChallengeCard from 'web/components/atoms/challenges/ChallengeCard';
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
 import MarkdownView from 'web/components/atoms/MarkdownView';
 
@@ -37,7 +37,7 @@ const StyledCardGrid = styled(Grid)`
 ` as React.ComponentType<GridProps>;
 
 const CategoryDashBoard = (props: any) => {
-  const { category } = props;
+  const { category, challenges } = props;
 
   return (
     <React.Fragment>
@@ -47,13 +47,9 @@ const CategoryDashBoard = (props: any) => {
         <Space />
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>
-          {category.challengeRefs &&
-            category.challengeRefs.map((challengeRef: any) => (
-              <ChallengeCategory
-                key={shortid.generate()}
-                challengeRef={challengeRef}
-              />
-            ))}
+          {challenges.map((challenge: any) => (
+            <ChallengeCard key={challenge.id} challenge={challenge} />
+          ))}
         </StyledCardGrid>
         <Space />
         <Title text="トピック" />
