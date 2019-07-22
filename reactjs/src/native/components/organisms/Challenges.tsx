@@ -23,16 +23,28 @@ const Challenges = (props: any) => {
       {loading && <Progress />}
       <Title text="開催中のチャレンジ" />
       {openingChallenges.map((challenge: any) => (
-        <CollectionCard collection={challenge} key={challenge.id} />
+        <CollectionCard
+          collection={challenge}
+          typs="challenges"
+          key={challenge.id}
+        />
       ))}
 
       <Title text="開催中のチャレンジ" />
       {preOpenChallenges.map((challenge: any) => (
-        <CollectionCard collection={challenge} key={challenge.id} />
+        <CollectionCard
+          collection={challenge}
+          type="challenges"
+          key={challenge.id}
+        />
       ))}
       <Title text="開催終了のチャレンジ" />
       {closedChallenges.map((challenge: any) => (
-        <CollectionCard collection={challenge} key={challenge.id} />
+        <CollectionCard
+          collection={challenge}
+          type="challenges"
+          key={challenge.id}
+        />
       ))}
     </React.Fragment>
   );

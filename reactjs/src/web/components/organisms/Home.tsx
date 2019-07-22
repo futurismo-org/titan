@@ -7,7 +7,7 @@ import GeneralTopics from '../molecules/GeneralTopics';
 import Challenge from './Challenge';
 import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
-import Category from './Category';
+import Category from '~/web/containers/CategoryContainer';
 import Ranking from '../../containers/RankingContainer';
 import Settings from '~/web/containers/SettingsContainer';
 

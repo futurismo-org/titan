@@ -1,4 +1,7 @@
 import * as React from 'react';
+
+import { Text } from 'native-base';
+
 import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
@@ -11,8 +14,8 @@ const Category = (props: any) => {
     error,
     fetchCategory,
     resourceId,
-    fetchChallenges,
     challengeRefs,
+    fetchChallenges,
     challenges
   } = props;
 
@@ -26,7 +29,7 @@ const Category = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
       {category && (
         <React.Fragment>

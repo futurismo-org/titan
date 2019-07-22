@@ -3,7 +3,7 @@ import Title from '../atoms/Title';
 import Progress from '../atoms/CircularProgress';
 import CollectionCard from '../atoms/CollectionCard';
 
-const Challenges = (props: any) => {
+const Categories = (props: any) => {
   const { categories, error, loading, fetchCategories } = props;
 
   React.useEffect(() => {
@@ -16,10 +16,14 @@ const Challenges = (props: any) => {
       {loading && <Progress />}
       <Title text="カテゴリ一覧" />
       {categories.map((category: any) => (
-        <CollectionCard collection={category} key={category.id} />
+        <CollectionCard
+          collection={category}
+          type="categories"
+          key={category.id}
+        />
       ))}
     </React.Fragment>
   );
 };
 
-export default Challenges;
+export default Categories;

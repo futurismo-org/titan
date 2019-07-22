@@ -50,7 +50,7 @@ const DefaultLayout = (props: any) => {
               })}
             >
               <Header openDrawer={openDrawer} />
-              <Content padder>{props.children}</Content>
+              {props.children}
             </Drawer>
           </StyledContainer>
         </ScrollView>

@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import shortid from 'shortid';
 import { fetchTopic } from '~/actions/topicAction';
 
-import { getCollectionShort } from '../lib/url';
+import { collectionShort } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -27,7 +27,7 @@ const mapStateToProps = (state: any, props: any) => {
   const redirectPath =
     collection === 'general'
       ? '/topics'
-      : `/${getCollectionShort(collection)}/${collectionId}/topics`;
+      : `/${collectionShort(collection)}/${collectionId}/topics`;
 
   const currentUser = state.firebase.profile;
 

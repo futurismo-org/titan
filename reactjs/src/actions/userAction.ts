@@ -9,35 +9,20 @@ import {
   FETCH_USER_ERROR
 } from '../constants/actionTypes';
 
+import {
+  fetchTarget,
+  fetchRequest,
+  fetchSuccess,
+  fetchError
+} from './actionUtil';
 import firebase from '~/lib/firebase';
 
-export const fetchUsersRequest = () => ({
-  type: FETCH_USERS_REQUEST
-});
-
-export const fetchUsersSuccess = (payload: any) => ({
-  type: FETCH_USERS_SUCCESS,
-  payload
-});
-
-export const fetchUsersError = (error: any) => ({
-  type: FETCH_USERS_ERROR,
-  error: error
-});
-
-export const fetchUserRequest = () => ({
-  type: FETCH_USER_REQUEST
-});
-
-export const fetchUserSuccess = (payload: any) => ({
-  type: FETCH_USER_SUCCESS,
-  payload
-});
-
-export const fetchUserError = (error: any) => ({
-  type: FETCH_USER_ERROR,
-  error: error
-});
+export const fetchUsersRequest = fetchRequest(FETCH_USERS_REQUEST);
+export const fetchUsersSuccess = fetchSuccess(FETCH_USERS_SUCCESS);
+export const fetchUsersError = fetchError(FETCH_USERS_ERROR);
+export const fetchUserRequest = fetchRequest(FETCH_USER_REQUEST);
+export const fetchUserSuccess = fetchSuccess(FETCH_USER_SUCCESS);
+export const fetchUserError = fetchError(FETCH_USER_ERROR);
 
 export const setUserInfo = (userInfo: any) => (dispatch: Dispatch) => {
   dispatch({ type: SET_USER_INFO, payload: { userInfo } });
@@ -59,14 +44,10 @@ export const fetchUsers = (num: number = 1000) => {
 };
 
 export const fetchUser = (resourceId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch(fetchUsersRequest());
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .get()
-      .then((doc: any) => doc.data())
-      .then((data: any) => dispatch(fetchUserSuccess(data)))
-      .catch((error: any) => dispatch(fetchUserError(error)));
-  };
+  return fetchTarget(
+    resourceId,
+    fetchUserRequest,
+    fetchUserSuccess,
+    fetchUserError
+  );
 };

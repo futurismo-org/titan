@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
+import Grid, { GridProps } from '@material-ui/core/Grid';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
@@ -8,9 +9,11 @@ import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
 // import TopicList from 'web/components/molecules/TopicList';
 
-import ChallengeCategory from 'web/components/molecules/categories/CategoryChallenge';
+import ChallengeCard from 'web/components/atoms/challenges/ChallengeCard';
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
 import MarkdownView from 'web/components/atoms/MarkdownView';
+
+import theme from '~/lib/theme';
 
 const MoreLink = styled(Link)`
   && {
@@ -27,8 +30,14 @@ const Space = () => (
   </React.Fragment>
 );
 
+const StyledCardGrid = styled(Grid)`
+  && {
+    margin-top: ${theme.spacing(3)}px;
+  }
+` as React.ComponentType<GridProps>;
+
 const CategoryDashBoard = (props: any) => {
-  const { category } = props;
+  const { category, challenges } = props;
 
   return (
     <React.Fragment>
@@ -37,13 +46,11 @@ const CategoryDashBoard = (props: any) => {
         <MarkdownView text={category.overview} />
         <Space />
         <Title text="チャレンジ一覧" />
-        {category.challengeRefs &&
-          category.challengeRefs.map((challengeRef: any) => (
-            <ChallengeCategory
-              key={shortid.generate()}
-              challengeRef={challengeRef}
-            />
+        <StyledCardGrid container spacing={4}>
+          {challenges.map((challenge: any) => (
+            <ChallengeCard key={challenge.id} challenge={challenge} />
           ))}
+        </StyledCardGrid>
         <Space />
         <Title text="トピック" />
         {/* <TopicList

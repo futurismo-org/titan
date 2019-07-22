@@ -1,41 +1,40 @@
 import { Dispatch } from 'redux';
+import { firestore } from 'firebase';
 import firebase from '~/lib/firebase';
 import {
   FETCH_CHALLENGES_REQUEST,
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGES_ERROR,
+  FETCH_CHALLENGE_REQUEST,
+  FETCH_CHALLENGE_SUCCESS,
+  FETCH_CHALLENGE_ERROR,
   FETCH_PINNED_CHALLENGES_SUCCESS,
   FETCH_PINNED_CHALLENGES_REQUEST,
   FETCH_PINNED_CHALLENGES_ERROR
 } from '../constants/actionTypes';
 
-export const fetchChallengesRequest = () => ({
-  type: FETCH_CHALLENGES_REQUEST
-});
+import {
+  fetchTarget,
+  fetchRequest,
+  fetchSuccess,
+  fetchError
+} from './actionUtil';
 
-export const fetchChallengesSuccess = (payload: any) => ({
-  type: FETCH_CHALLENGES_SUCCESS,
-  payload
-});
-
-export const fetchChallengesError = (error: any) => ({
-  type: FETCH_CHALLENGES_ERROR,
-  error: error
-});
-
-export const fetchPinnedChallengesRequest = () => ({
-  type: FETCH_PINNED_CHALLENGES_REQUEST
-});
-
-export const fetchPinnedChallengesSuccess = (payload: any) => ({
-  type: FETCH_PINNED_CHALLENGES_SUCCESS,
-  payload
-});
-
-export const fetchPinnedChallengesError = (error: any) => ({
-  type: FETCH_PINNED_CHALLENGES_ERROR,
-  error: error
-});
+export const fetchChallengesRequest = fetchRequest(FETCH_CHALLENGES_REQUEST);
+export const fetchChallengesSuccess = fetchSuccess(FETCH_CHALLENGES_SUCCESS);
+export const fetchChallengesError = fetchError(FETCH_CHALLENGES_ERROR);
+export const fetchChallengeRequest = fetchRequest(FETCH_CHALLENGE_REQUEST);
+export const fetchChallengeSuccess = fetchSuccess(FETCH_CHALLENGE_SUCCESS);
+export const fetchChallengeError = fetchError(FETCH_CHALLENGE_ERROR);
+export const fetchPinnedChallengesRequest = fetchRequest(
+  FETCH_PINNED_CHALLENGES_REQUEST
+);
+export const fetchPinnedChallengesSuccess = fetchSuccess(
+  FETCH_PINNED_CHALLENGES_SUCCESS
+);
+export const fetchPinnedChallengesError = fetchError(
+  FETCH_PINNED_CHALLENGES_ERROR
+);
 
 export const fetchChallenges = (num: number = 100) => {
   return (dispatch: Dispatch) => {
@@ -65,4 +64,29 @@ export const fetchPinnedChallenges = () => {
       .then((data: any) => dispatch(fetchPinnedChallengesSuccess(data)))
       .catch((error: any) => dispatch(fetchPinnedChallengesError(error)));
   };
+};
+
+export const fetchChallengesWithRefs = (
+  refs: [firestore.DocumentReference]
+) => {
+  return (dispatch: Dispatch) => {
+    if (!refs) return;
+
+    dispatch(fetchChallengesRequest());
+
+    const promises = refs.map(ref => ref.get().then(doc => doc.data()));
+
+    Promise.all(promises)
+      .then(data => dispatch(fetchChallengesSuccess(data)))
+      .catch(error => dispatch(fetchChallengesError(error)));
+  };
+};
+
+export const fetchChallenge = (resourceId: string) => {
+  return fetchTarget(
+    resourceId,
+    fetchChallengeRequest,
+    fetchChallengeSuccess,
+    fetchChallengeError
+  );
 };
