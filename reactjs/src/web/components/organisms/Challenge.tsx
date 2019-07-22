@@ -11,7 +11,7 @@ const Challenge = (props: any) => {
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
-  }, []);
+  }, [fetchChallenge, resourceId]);
 
   return (
     <React.Fragment>
