@@ -12,17 +12,21 @@ const StyledImage = styled(Image)`
 ` as React.ComponentType<ImageProps>;
 
 const CollectionCard = (props: any) => {
-  const { collection, type } = props;
+  const { collection, type, small } = props;
 
   return (
     <Link to={collectionURL(type, collection.id)}>
       <Card>
         <CardItem header>
-          <H2>{collection.title}</H2>
+          <H2 style={{ width: '100%' }}>{collection.title}</H2>
         </CardItem>
-        <CardItem cardBody>
-          <StyledImage source={{ uri: 'https://source.unsplash.com/random' }} />
-        </CardItem>
+        {!small && (
+          <CardItem cardBody>
+            <StyledImage
+              source={{ uri: 'https://source.unsplash.com/random' }}
+            />
+          </CardItem>
+        )}
         <CardItem footer>
           <Text>{collection.description}</Text>
         </CardItem>
