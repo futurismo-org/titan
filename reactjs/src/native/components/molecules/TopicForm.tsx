@@ -26,7 +26,7 @@ const TopicForm = (props: any) => {
 
   useEffect(() => {
     if (!isCreate) {
-      if (!topic && !loading) {
+      if (!topic) {
         fetchTopic(resourceId);
       } else {
         setTitle(topic.title);

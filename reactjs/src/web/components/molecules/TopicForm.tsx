@@ -25,7 +25,7 @@ const TopicForm = (props: any) => {
 
   useEffect(() => {
     if (!isCreate) {
-      if (!topic && !loading) {
+      if (!topic) {
         fetchTopic(resourceId);
       } else {
         setTitle(topic.title);
@@ -33,7 +33,7 @@ const TopicForm = (props: any) => {
         setText(topic.text);
       }
     }
-  }, [fetchTopic, isCreate, loading, resourceId, topic]);
+  }, [fetchTopic, isCreate, resourceId, topic]);
 
   const onTitleChange = (e: any) => {
     e.preventDefault();
