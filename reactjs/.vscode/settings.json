@@ -2,5 +2,8 @@
   "files.exclude": {
     "node_modules": true,
     "build": true
+  },
+  "path-autocomplete.pathMappings": {
+    "~": "${folder}/src"
   }
 }

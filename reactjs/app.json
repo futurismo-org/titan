@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Client App for Titan",
+    "slug": "titan-expo",
+    "privacy": "public",
+    "sdkVersion": "33.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./public/icon.png",
+    "splash": {
+      "image": "./public/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#f44336"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "entryPoint": "./src/index.native.tsx"
+  }
+}

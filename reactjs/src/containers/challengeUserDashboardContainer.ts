@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { setOgpInfo, resetOgpInfo } from '../actions/ogpAction';
-
-import DashBoard from '../components/molecules/challenges/ChallengeUserDashBoard';
+import DashBoard from 'web/components/molecules/challenges/ChallengeUserDashBoard';
+import { setOgpInfo, resetOgpInfo } from 'actions/ogpAction';
 
 const mapStateToProps = (state: any, props: any) => ({
   challengeId: props.match.params.challengeId,

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { setUserInfo } from '../actions/userAction';
-import AuthModal from '../components/atoms/AuthModal';
+import AuthModal from 'web/components/atoms/AuthModal';
+import { setUserInfo } from 'actions/userAction';
 
 const mapStateToProps = (state: any) => ({
   userInfo: state.userInfo
