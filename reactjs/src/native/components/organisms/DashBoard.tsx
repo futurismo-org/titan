@@ -30,15 +30,27 @@ const DashBoard = (props: any) => {
         <React.Fragment>
           <Title text="運営からのおすすめ" />
           {pinned.map((pinned: any) => (
-            <CollectionCard collection={pinned} key={pinned.id} />
+            <CollectionCard
+              collection={pinned}
+              type="challenges"
+              key={pinned.id}
+            />
           ))}
           <Title text="人気のカテゴリ" />
           {categories.map((category: any) => (
-            <CollectionCard collection={category} key={category.id} />
+            <CollectionCard
+              collection={category}
+              type="categories"
+              key={category.id}
+            />
           ))}
           <Title text="人気のチャレンジ" />
           {challenges.map((challenge: any) => (
-            <CollectionCard collection={challenge} key={challenge.id} />
+            <CollectionCard
+              collection={challenge}
+              type="challenges"
+              key={challenge.id}
+            />
           ))}
         </React.Fragment>
       )}

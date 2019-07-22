@@ -16,7 +16,11 @@ const Categories = (props: any) => {
       {loading && <Progress />}
       <Title text="カテゴリ一覧" />
       {categories.map((category: any) => (
-        <CollectionCard collection={category} key={category.id} />
+        <CollectionCard
+          collection={category}
+          type="categories"
+          key={category.id}
+        />
       ))}
     </React.Fragment>
   );

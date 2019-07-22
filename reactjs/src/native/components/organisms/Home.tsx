@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
 import Challenges from '~/native/containers/ChallengesContainer';
 import Categories from '~/native/containers/CategoriesContainer';
+import Category from '~/native/containers/CategoryContainer';
 import Ranking from '~/native/containers/RankingContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
@@ -12,8 +13,8 @@ import Layout from '../templates/DefaultLayout';
 const Home = () => (
   <Layout>
     <Switch>
-      {/* <Route path="/cat/:id" component={Category} />
-      <Route path="/c/:id" component={Challenge} /> */}
+      <Route path="/cat/:id" component={Category} />
+      {/* <Route path="/c/:id" component={Challenge} /> */}
       <Route path="/settings" component={Settings} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/topics" component={GeneralTopics} />

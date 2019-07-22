@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopic } from '~/actions/topicAction';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 
-import { getCollectionShort } from '../lib/url';
+import { collectionShort } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -28,17 +28,17 @@ const mapStateToProps = (state: any, props: any) => {
   const editTopicPath =
     collection === 'general'
       ? `/topics/${topicId}/edit`
-      : `/${getCollectionShort(collection)}/${collectionId}/t/${topicId}/edit`;
+      : `/${collectionShort(collection)}/${collectionId}/t/${topicId}/edit`;
 
   const redirectPath =
     collection === 'general'
       ? '/topics'
-      : `/${getCollectionShort(collection)}/${collectionId}/topics`;
+      : `/${collectionShort(collection)}/${collectionId}/topics`;
 
   const shareURL =
     collection === 'general'
       ? `https://titan-fire.com/topics/${topicId}`
-      : `https://titan-fire.com/${getCollectionShort(
+      : `httc/titan-fire.com/${collectionShort(
           collection
         )}/${collectionId}/t/${topicId}`;
 
