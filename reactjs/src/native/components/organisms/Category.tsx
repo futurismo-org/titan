@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Text } from 'native-base';
 
 import Header from '../molecules/categories/CategoryHeader';
-import Body from '../molecules/categories/CategoryBody';
+// import Body from '../molecules/categories/CategoryBody';
 
 import Progress from '../atoms/CircularProgress';
 
@@ -21,7 +21,7 @@ const Category = (props: any) => {
       {category && (
         <React.Fragment>
           <Header category={category} />
-          <Body category={category} />
+          {/* <Body category={category} /> */}
         </React.Fragment>
       )}
     </React.Fragment>
