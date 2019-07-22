@@ -8,13 +8,11 @@ import Ranking from '~/native/containers/RankingContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
 import AuthScreen from '../atoms/AuthScreen';
-import Layout from '../templates/DefaultLayout';
+import Layout from '../templates/PaddingLayout';
 
 const Home = () => (
-  <Layout>
-    <Switch>
-      <Route path="/cat/:id" component={Category} />
-      {/* <Route path="/c/:id" component={Challenge} /> */}
+  <Switch>
+    <Layout>
       <Route path="/settings" component={Settings} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/topics" component={GeneralTopics} />
@@ -22,8 +20,8 @@ const Home = () => (
       <Route path="/challenges" component={Challenges} />
       <Route path="/login" component={AuthScreen} />
       <Route path="/" component={DashBoard} />
-    </Switch>
-  </Layout>
+    </Layout>
+  </Switch>
 );
 
 export default Home;
