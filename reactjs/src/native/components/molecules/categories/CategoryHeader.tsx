@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'native-base';
+import { Text, Content } from 'native-base';
 import styled from 'styled-components';
 
 import Hero from 'react-native-hero';
@@ -15,14 +15,14 @@ const CategoryHeader = (props: any) => {
     <StyledHero
       source={{ uri: 'https://source.unsplash.com/random' }}
       renderOverlay={() => (
-        <React.Fragment>
+        <Content padder>
           <Text style={{ fontSize: 48, color: '#fff', fontWeight: 'bold' }}>
             {category.title}
           </Text>
           <Text style={{ fontSize: 24, color: '#fff' }}>
             {category.description}
           </Text>
-        </React.Fragment>
+        </Content>
       )}
     />
   );

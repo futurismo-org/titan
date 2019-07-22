@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
 import Challenges from '~/native/containers/ChallengesContainer';
 import Categories from '~/native/containers/CategoriesContainer';
-import Category from '~/native/containers/CategoryContainer';
 import Ranking from '~/native/containers/RankingContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
