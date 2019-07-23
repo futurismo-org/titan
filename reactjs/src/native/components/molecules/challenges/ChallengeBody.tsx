@@ -4,6 +4,7 @@ import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
 import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
+import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
 
 const ChallengeTab = (props: any) => {
   const { heading, component } = props;
@@ -43,7 +44,7 @@ const ChallengeBody = (props: any) => {
         />
         <Tab heading="ダッシュボード">
           <Content padder>
-            <ChallengeOverview text={challenge.overview} />
+            <ChallengeUserDashBoard challengeId={challenge.id} />
           </Content>
         </Tab>
         <Tab heading="ユーザ設定">
