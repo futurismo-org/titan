@@ -17,3 +17,8 @@ export const Description = styled(Text)`
   font-size: 24px;
   color: #ffffff;
 `;
+
+export const Info = styled(Text)`
+  font-size: 18px;
+  color: #ffffff;
+`;

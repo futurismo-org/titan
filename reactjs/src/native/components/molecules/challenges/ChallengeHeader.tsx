@@ -4,7 +4,8 @@ import { Content } from 'native-base';
 import {
   StyledHero as Hero,
   Title,
-  Description
+  Description,
+  Info
 } from '~/native/components/atoms/Hero';
 
 import { challengePeriod } from '~/lib/challenge';
@@ -19,10 +20,11 @@ const ChallengeHeader = (props: any) => {
         <Content padder>
           <Title>{challenge.title}</Title>
           <Description>{challenge.description}</Description>
-          <Description>
+          <Description />
+          <Info>
             価格 {challenge.price || 0}円 {challenge.participantsCount}人参加中{' '}
             {challengePeriod(challenge)}
-          </Description>
+          </Info>
         </Content>
       )}
     />
