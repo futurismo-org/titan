@@ -13,16 +13,16 @@ const mapStateToProps = (state: any, props: any) => {
   const profileShortId = profile.shortId;
 
   const challengeId = props.challengeId || props.match.params.challengeId;
-  const userShortId = props.userShortId || props.match.params.userShortId;
+  const userShortId = profileShortId || props.match.params.userShortId;
   const resourceId = getParticipantsUserId(challengeId, userShortId);
   const redirectPath = getUserDashboardPath(challengeId, userShortId);
 
-  const isCurrentUser = profileShortId === userShortId;
+  const isLogin = !profile.isEmpty && profile.isLoaded;
 
   return {
     user: state.user.target,
     resourceId,
-    isCurrentUser,
+    isLogin,
     redirectPath,
     ...props
   };

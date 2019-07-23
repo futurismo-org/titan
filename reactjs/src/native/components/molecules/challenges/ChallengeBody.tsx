@@ -3,6 +3,7 @@ import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
+import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
 
 const ChallengeTab = (props: any) => {
   const { heading, component } = props;
@@ -47,7 +48,7 @@ const ChallengeBody = (props: any) => {
         </Tab>
         <Tab heading="ユーザ設定">
           <Content padder>
-            <ChallengeOverview text={challenge.overview} />
+            <ChallengeUserSettings challengeId={challenge.id} />
           </Content>
         </Tab>
       </Tabs>
@@ -70,11 +71,6 @@ const ChallengeBody = (props: any) => {
           render={props => <Topic collection="challenges" {...props} />}
         />
         <Route path="/c/:id/topics" component={ChallengeTopics} />
-        <Route path="/c/:id/leaderboard" component={ChallengeLeaderBoard} />
-        <Route
-          path="/c/:challengeId/u/:userShortId/settings"
-          component={ChallengeUserSettings}
-        />
         <Route
           path="/c/:challengeId/u/:userId"
           render={(props: any) => (

@@ -27,7 +27,7 @@ const ChallengeUserSettings = (props: any) => {
     push,
     error,
     loading,
-    isCurrentUser
+    isLogin
   } = props;
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const ChallengeUserSettings = (props: any) => {
       {user && (
         <React.Fragment>
           <Title text="ユーザ設定" />
-          {isCurrentUser ? (
+          {isLogin ? (
             <form noValidate onSubmit={updateHandler}>
               <Grid container spacing={3}>
                 <Grid item>

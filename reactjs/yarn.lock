@@ -14167,6 +14167,11 @@ react-native-screens@1.0.0-alpha.22:
   dependencies:
     debounce "^1.2.0"
 
+react-native-simple-radio-button@^2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.3.tgz#c7227c0f963d6bbcfa245255d18a5a8b98fde41f"
+  integrity sha512-kiYRarFj7PXzV9fbQwMBiYwS4YnhrR4NZGT68atlFIoNFxZLrt5OMCDqXZqu6R6bUWKLndzPpO/nhXc6/OU1Mg==
+
 react-native-svg@*:
   version "9.5.3"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.5.3.tgz#2389f3ffd700c6441166496a1aeade31ead89c59"
