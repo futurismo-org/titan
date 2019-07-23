@@ -45,17 +45,17 @@ const CategoryDashBoard = (props: any) => {
             />
           ))}
         <Space />
-        <Title text="トピック" />
+        {/* <Title text="トピック" /> */}
         {/* <TopicList
           collection="categories"
           collectionId={category.id}
           limit={6}
         /> */}
-        <MoreLink to={`/cat/${category.id}/topics`}>
+        {/* <MoreLink to={`/cat/${category.id}/topics`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
-        </MoreLink>
+        </MoreLink> */}
         <Space />
         <Title text="フリートーク" />
         <DiscordHistories channelId={category.channelId} limit={30} />
