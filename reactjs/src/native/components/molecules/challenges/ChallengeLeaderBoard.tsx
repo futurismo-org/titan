@@ -1,65 +1,48 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 
-import { useCollection } from 'react-firebase-hooks/firestore';
 import { Link } from 'react-router-native';
-import firebase from '~/lib/firebase';
+import { Text, Thumbnail } from 'native-base';
 // import { getTwitterProfileURL } from '~/lib/url';
 import Progress from '../../atoms/CircularProgress';
-
-import { fromNow } from '~/lib/moment';
 
 const { Table, Row } = require('react-native-table-component');
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { challengeId } = props;
+  const { users, loading, error, resourceId, fetchUsers } = props;
 
-  const [value, loading, error] = useCollection(
-    firebase
-      .firestore()
-      .collection('challenges')
-      .doc(challengeId)
-      .collection('participants')
+  useEffect(() => {
+    fetchUsers(resourceId);
+  }, [fetchUsers, resourceId]);
+
+  const NoStyledRow = ({ data }: any) => (
+    <Row borderStyle={{ borderColor: '#ffffff' }} data={data} />
   );
 
   const tableHead = ['順位', '', '名前', 'スコア', '最新'];
 
-  const LeaderBoardHead = () => (
-    <Row borderStyle={{ borderColor: '#ffffff' }} data={tableHead} />
-  );
+  const LeaderBoardHead = () => <NoStyledRow data={tableHead} />;
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
-      {value && (
-        <Table>
+      {users && (
+        <Table borderStyle={{ borderColor: '#ffffff' }}>
           <LeaderBoardHead />
-          {value.docs
-            .sort(
-              (x: any, y: any) =>
-                y.data().score - x.data().score ||
-                y.data().days - x.data().days ||
-                y.data().maxDays - x.data().maxDays ||
-                y.data().updatedAt.toDate() - x.data().updatedAt.toDate()
-            )
-            .map((user: any, index: number) => {
-              const uri = user.photoURL
-                ? user.photoURL
-                : 'https://titan-fire.com/anonymous.png';
-
-              const userPath = `/c/${challengeId}/u/${user.id}`;
-
-              const rowData = [
-                `${index + 1}位`,
-                '',
-                <Link to={userPath} key={user.id}>
-                  {user.displayName || 'Annonymous'}
-                </Link>,
-                user.score,
-                fromNow(user.updatedAt.toDate())
-              ];
-              return <Row data={rowData} key={user.id} />;
-            })}
+          {users.map((user: any) => {
+            const rowData = [
+              `${user.rank}位`,
+              <Thumbnail source={{ uri: user.photoURL }} key={user.id} />,
+              <React.Fragment key={user.id}>
+                <Link to={user.profilePath}>
+                  <Text>{user.displayName}</Text>
+                </Link>
+              </React.Fragment>,
+              user.score,
+              user.latest
+            ];
+            return <NoStyledRow data={rowData} key={user.id} />;
+          })}
         </Table>
       )}
     </React.Fragment>

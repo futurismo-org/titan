@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
-import ChallengeLeaderBoard from './ChallengeLeaderBoard';
+import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
 
 const ChallengeTab = (props: any) => {
   const { heading, component } = props;

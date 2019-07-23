@@ -46,6 +46,20 @@ export const fetchUsers = (num: number = 1000) => {
   };
 };
 
+export const fetchParticipants = (resourceId: string, num: number = 1000) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchUsersRequest());
+    firebase
+      .firestore()
+      .collection(resourceId)
+      .limit(num)
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchUsersSuccess(data)))
+      .catch((error: any) => dispatch(fetchUsersError(error)));
+  };
+};
+
 export const fetchUser = (resourceId: string) => {
   return fetchTarget(
     resourceId,
