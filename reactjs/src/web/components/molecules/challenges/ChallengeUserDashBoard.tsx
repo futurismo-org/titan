@@ -41,7 +41,7 @@ const ChallengeUserDashBoard = (props: any) => {
   );
 
   const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null;
+    return days !== undefined && days !== null && !isNaN(days);
   };
 
   const formatDays = (days: any) => {
@@ -82,7 +82,7 @@ const ChallengeUserDashBoard = (props: any) => {
               <ChallengeRecord
                 days={formatDays(
                   data && data.showMode === '過去連続日数'
-                    ? data.pastDays || data.accDays
+                    ? data.pastDays
                     : data.accDays
                 )}
               />
