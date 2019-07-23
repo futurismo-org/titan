@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { Text } from 'native-base';
+// import { Text } from 'native-base';
+import TwitterButton from '../../atoms/TwitterButton';
 
 const ChallengeUserDashBoard = (props: any) => {
+  const { challenge } = props;
   return (
     <React.Fragment>
-      <Text>DashBoard</Text>
+      <TwitterButton challenge={challenge} />
     </React.Fragment>
   );
 };

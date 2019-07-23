@@ -12,7 +12,7 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const profileShortId = profile.shortId;
 
-  const challengeId = props.challengeId || props.match.params.challengeId;
+  const challengeId = props.challenge.id || props.match.params.challengeId;
   const userShortId = profileShortId || props.match.params.userShortId;
   const resourceId = getParticipantsUserId(challengeId, userShortId);
   const redirectPath = getUserDashboardPath(challengeId, userShortId);
