@@ -37,7 +37,7 @@ const StyledCardGrid = styled(Grid)`
 ` as React.ComponentType<GridProps>;
 
 const CategoryDashBoard = (props: any) => {
-  const { category, challenges } = props;
+  const { category } = props;
 
   return (
     <React.Fragment>
