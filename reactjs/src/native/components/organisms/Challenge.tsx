@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Text } from 'native-base';
 
 import Header from '../molecules/challenges/ChallengeHeader';
-// import Body from '../molecules/challenges/ChallengeBody';
+import Body from '../molecules/challenges/ChallengeBody';
 
 import Progress from '../atoms/CircularProgress';
 
@@ -21,7 +21,7 @@ const Challenge = (props: any) => {
       {challenge && (
         <React.Fragment>
           <Header challenge={challenge} />
-          {/* <Body challenge={challenge} /> */}
+          <Body challenge={challenge} />
         </React.Fragment>
       )}
     </React.Fragment>
