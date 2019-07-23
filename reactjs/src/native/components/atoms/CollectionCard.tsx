@@ -14,8 +14,7 @@ const StyledImage = styled(Image)`
 const CollectionCard = (props: any) => {
   const { collection, type, small } = props;
 
-  const p = collectionURL(type, collection.id);
-  const path = type === 'challenges' ? p + '/overview' : p;
+  const path = collectionURL(type, collection.id);
 
   return (
     <Link to={path}>

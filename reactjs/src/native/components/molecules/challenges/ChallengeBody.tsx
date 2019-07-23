@@ -1,26 +1,79 @@
 import * as React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { Content } from 'native-base';
+import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
+
+const ChallengeTab = (props: any) => {
+  const { heading, component } = props;
+  return (
+    <Tab heading={heading}>
+      <Content padder>{component}</Content>
+    </Tab>
+  );
+};
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
 
   return (
-    <Content padder>
-      <Switch>
-        <Route
-          path="/c/:id/overview"
-          render={() => (
+    <React.Fragment>
+      <Tabs renderTabBar={() => <ScrollableTab />}>
+        <ChallengeTab
+          heading="概要"
+          component={
             <ChallengeOverview
+              id={challenge.id}
               text={challenge.overview}
               youtubeId={challenge.youtubeId}
               openedAt={challenge.openedAt.toDate()}
               closedAt={challenge.closedAt.toDate()}
             />
-          )}
+          }
         />
-        {/* <Route
+        <Tab heading="ルール">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+        <Tab heading="タイムライン">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+        <Tab heading="トピック">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+        <Tab heading="リーダーボード">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+        <Tab heading="ダッシュボード">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+        <Tab heading="ユーザ設定">
+          <Content padder>
+            <ChallengeOverview text={challenge.overview} />
+          </Content>
+        </Tab>
+      </Tabs>
+      {/* <Content padder>
+        <Switch>
+          <Route
+            path="/c/:id/overview"
+            render={() => (
+              <ChallengeOverview
+                text={challenge.overview}
+                youtubeId={challenge.youtubeId}
+                openedAt={challenge.openedAt.toDate()}
+                closedAt={challenge.closedAt.toDate()}
+              />
+            )}
+          /> */}
+      {/* <Route
           path="/c/:id/timeline"
           render={() => <ChallengeTimeline channelId={challenge.channelId} />}
         />
@@ -59,8 +112,9 @@ const ChallengeBody = (props: any) => {
             />
           )}
         /> */}
-      </Switch>
-    </Content>
+      {/* </Switch>
+      </Content> */}
+    </React.Fragment>
   );
 };
 
