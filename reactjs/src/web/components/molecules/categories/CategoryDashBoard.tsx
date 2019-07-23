@@ -55,7 +55,6 @@ const CategoryDashBoard = (props: any) => {
               challengeRef={challengeRef}
             />
           ))}
-          <CategoryChallenge challengeRefs={category.challengeRefs} />
         </StyledCardGrid>
         <Space />
         {/* <Title text="トピック" /> */}
