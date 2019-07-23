@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
+// import { Typography } from '@material-ui/core';
 import shortid from 'shortid';
 import { Link } from 'react-router-dom';
 
@@ -12,13 +12,13 @@ import ChallengeCategory from 'web/components/molecules/categories/CategoryChall
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
 import MarkdownView from 'web/components/atoms/MarkdownView';
 
-const MoreLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-    text-align: right;
-  }
-`;
+// const MoreLink = styled(Link)`
+//   && {
+//     text-decoration: none;
+//     color: inherit;
+//     text-align: right;
+//   }
+// `;
 
 const Space = () => (
   <React.Fragment>
