@@ -1,24 +1,31 @@
 import { Dispatch } from 'redux';
+import { firestore } from 'firebase';
 import firebase from '~/lib/firebase';
 import {
   FETCH_CATEGORIES_REQUEST,
   FETCH_CATEGORIES_SUCCESS,
-  FETCH_CATEGORIES_ERROR
+  FETCH_CATEGORIES_ERROR,
+  FETCH_CATEGORY_REQUEST,
+  FETCH_CATEGORY_SUCCESS,
+  FETCH_CATEGORY_ERROR,
+  RESET_CATEGORY_INFO
 } from '../constants/actionTypes';
 
-export const fetchCategoriesRequest = () => ({
-  type: FETCH_CATEGORIES_REQUEST
-});
+import {
+  fetchTarget,
+  fetchRequest,
+  fetchSuccess,
+  fetchError,
+  reset
+} from './actionUtil';
 
-export const fetchCategoriesSuccess = (payload: any) => ({
-  type: FETCH_CATEGORIES_SUCCESS,
-  payload
-});
-
-export const fetchCategoriesError = (error: any) => ({
-  type: FETCH_CATEGORIES_ERROR,
-  error: error
-});
+export const fetchCategoriesRequest = fetchRequest(FETCH_CATEGORIES_REQUEST);
+export const fetchCategoriesSuccess = fetchSuccess(FETCH_CATEGORIES_SUCCESS);
+export const fetchCategoriesError = fetchError(FETCH_CATEGORIES_ERROR);
+export const fetchCategoryRequest = fetchRequest(FETCH_CATEGORY_REQUEST);
+export const fetchCategorySuccess = fetchSuccess(FETCH_CATEGORY_SUCCESS);
+export const fetchCategoryError = fetchError(FETCH_CATEGORY_ERROR);
+export const resetCategoryInfo = reset(RESET_CATEGORY_INFO);
 
 export const fetchCategories = (num: number = 20) => {
   return (dispatch: Dispatch) => {
@@ -33,4 +40,29 @@ export const fetchCategories = (num: number = 20) => {
       .then((data: any) => dispatch(fetchCategoriesSuccess(data)))
       .catch((error: any) => dispatch(fetchCategoriesError(error)));
   };
+};
+
+export const fetchCategoriesWithRefs = (
+  refs: [firestore.DocumentReference]
+) => {
+  return (dispatch: Dispatch) => {
+    if (!refs) return;
+
+    dispatch(fetchCategoriesRequest());
+
+    const promises = refs.map(ref => ref.get().then(doc => doc.data()));
+
+    Promise.all(promises)
+      .then(data => dispatch(fetchCategoriesSuccess(data)))
+      .catch(error => dispatch(fetchCategoriesError(error)));
+  };
+};
+
+export const fetchCategory = (resourceId: string) => {
+  return fetchTarget(
+    resourceId,
+    fetchCategoryRequest,
+    fetchCategorySuccess,
+    fetchCategoryError
+  );
 };

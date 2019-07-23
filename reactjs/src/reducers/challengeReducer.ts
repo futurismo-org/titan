@@ -2,11 +2,22 @@ import {
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGES_ERROR,
   FETCH_CHALLENGES_REQUEST,
+  FETCH_CHALLENGE_SUCCESS,
+  FETCH_CHALLENGE_ERROR,
+  FETCH_CHALLENGE_REQUEST,
+  RESET_CHALLENGE_INFO,
   FETCH_PINNED_CHALLENGES_SUCCESS,
   FETCH_PINNED_CHALLENGES_REQUEST,
   FETCH_PINNED_CHALLENGES_ERROR
 } from '../constants/actionTypes';
-import { createReducer } from './reducuerUtil';
+
+import {
+  createReducer,
+  fetchRequest,
+  fetchItemsSuccess,
+  fetchTargetSuccess,
+  fetchError
+} from './reducuerUtil';
 
 export const initialState = {
   loading: false,
@@ -17,32 +28,16 @@ export const initialState = {
   pinned: []
 };
 
-export const fetchChallengesRequest = (state: any) => {
+export const resetChallenge = (state: any) => {
   return Object.assign({}, state, {
-    ...state,
-    loading: true
-  });
-};
-
-export const fetchChallengesSuccess = (state: any, payload: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    items: payload
-  });
-};
-
-export const fetchChallengesError = (state: any, error: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loading: false,
-    error: error
+    ...initialState
   });
 };
 
 export const fetchPinnedChallengesRequest = (state: any) => {
   return Object.assign({}, state, {
     ...state,
+    pinned: [],
     loadingSub: true
   });
 };
@@ -64,9 +59,13 @@ export const fetchPinnedChallengesError = (state: any, error: any) => {
 };
 
 export default createReducer(initialState, {
-  [FETCH_CHALLENGES_REQUEST]: fetchChallengesRequest,
-  [FETCH_CHALLENGES_SUCCESS]: fetchChallengesSuccess,
-  [FETCH_CHALLENGES_ERROR]: fetchChallengesError,
+  [FETCH_CHALLENGES_REQUEST]: fetchRequest,
+  [FETCH_CHALLENGES_SUCCESS]: fetchItemsSuccess,
+  [FETCH_CHALLENGES_ERROR]: fetchError,
+  [FETCH_CHALLENGE_REQUEST]: fetchRequest,
+  [FETCH_CHALLENGE_SUCCESS]: fetchTargetSuccess,
+  [FETCH_CHALLENGE_ERROR]: fetchError,
+  [RESET_CHALLENGE_INFO]: resetChallenge,
   [FETCH_PINNED_CHALLENGES_REQUEST]: fetchPinnedChallengesRequest,
   [FETCH_PINNED_CHALLENGES_SUCCESS]: fetchPinnedChallengesSuccess,
   [FETCH_PINNED_CHALLENGES_ERROR]: fetchPinnedChallengesError

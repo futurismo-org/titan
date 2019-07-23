@@ -6,36 +6,25 @@ import {
   FETCH_TOPICS_ERROR,
   FETCH_TOPIC_REQUEST,
   FETCH_TOPIC_SUCCESS,
-  FETCH_TOPIC_ERROR
+  FETCH_TOPIC_ERROR,
+  RESET_TOPIC_INFO
 } from '../constants/actionTypes';
 
-export const fetchTopicsRequest = () => ({
-  type: FETCH_TOPICS_REQUEST
-});
+import {
+  fetchTarget,
+  fetchRequest,
+  fetchSuccess,
+  fetchError,
+  reset
+} from './actionUtil';
 
-export const fetchTopicsSuccess = (payload: any) => ({
-  type: FETCH_TOPICS_SUCCESS,
-  payload
-});
-
-export const fetchTopicsError = (error: any) => ({
-  type: FETCH_TOPICS_ERROR,
-  error: error
-});
-
-export const fetchTopicRequest = () => ({
-  type: FETCH_TOPIC_REQUEST
-});
-
-export const fetchTopicSuccess = (payload: any) => ({
-  type: FETCH_TOPIC_SUCCESS,
-  payload
-});
-
-export const fetchTopicError = (error: any) => ({
-  type: FETCH_TOPIC_ERROR,
-  error: error
-});
+export const fetchTopicsRequest = fetchRequest(FETCH_TOPICS_REQUEST);
+export const fetchTopicsSuccess = fetchSuccess(FETCH_TOPICS_SUCCESS);
+export const fetchTopicsError = fetchError(FETCH_TOPICS_ERROR);
+export const fetchTopicRequest = fetchRequest(FETCH_TOPIC_REQUEST);
+export const fetchTopicSuccess = fetchSuccess(FETCH_TOPIC_SUCCESS);
+export const fetchTopicError = fetchError(FETCH_TOPIC_ERROR);
+export const resetTopicInfo = reset(RESET_TOPIC_INFO);
 
 export const fetchTopics = (resourceId: string, num = 1000) => {
   return (dispatch: Dispatch) => {
@@ -53,14 +42,10 @@ export const fetchTopics = (resourceId: string, num = 1000) => {
 };
 
 export const fetchTopic = (resourceId: string) => {
-  return (dispatch: Dispatch) => {
-    dispatch(fetchTopicRequest());
-    firebase
-      .firestore()
-      .doc(resourceId)
-      .get()
-      .then((doc: any) => doc.data())
-      .then((data: any) => dispatch(fetchTopicSuccess(data)))
-      .catch((error: any) => dispatch(fetchTopicError(error)));
-  };
+  return fetchTarget(
+    resourceId,
+    fetchTopicRequest,
+    fetchTopicSuccess,
+    fetchTopicError
+  );
 };

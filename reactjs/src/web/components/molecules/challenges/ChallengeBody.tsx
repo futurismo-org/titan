@@ -7,7 +7,7 @@ import ChallengeTopics from './ChallengeTopics';
 import ChallengeTimeline from './ChallengeTimeline';
 import Topic from '../Topic';
 
-import ChallengeLeaderBoard from './ChallengeLeaderBoard';
+import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer';
 import TopicForm from '../TopicForm';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
@@ -55,7 +55,12 @@ const ChallengeBody = (props: any) => {
           path="/c/:id/rules"
           render={() => <MarkdownView text={challenge.rules} />}
         />
-        <Route path="/c/:id/leaderboard" component={ChallengeLeaderBoard} />
+        <Route
+          path="/c/:id/leaderboard"
+          render={props => (
+            <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
+          )}
+        />
         <Route
           path="/c/:challengeId/u/:userShortId/settings"
           component={ChallengeUserSettings}

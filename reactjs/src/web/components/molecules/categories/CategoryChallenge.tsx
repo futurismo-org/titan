@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
-import ChallengeCard from 'web/components/atoms/challenges/ChallengeCard';
+import ChallengeCard from '~/web/components/atoms/challenges/ChallengeCard';
 
 const CategoryChallenge = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.challengeRef;

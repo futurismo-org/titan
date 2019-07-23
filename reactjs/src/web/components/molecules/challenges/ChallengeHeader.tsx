@@ -9,9 +9,7 @@ import theme from 'lib/theme';
 import ChallengeButton from '../../atoms/challenges/ChallengeButton';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
-import 'moment/locale/ja';
-
-moment.locale('ja');
+import { challengePeriod } from '~/lib/challenge';
 
 const HeaderInfo = styled.div`
   display: flex;
@@ -52,20 +50,6 @@ const MainFeaturedPostContent = styled.div`
 const HeaderInfoText = styled(Typography)`
   padding-left: 10px;
 ` as React.ComponentType<TypographyProps>;
-
-const ChallengePeriod = (props: any) => {
-  const { challenge } = props;
-  const openedAt = moment(challenge.openedAt.toDate());
-  const closedAt = moment(challenge.closedAt.toDate());
-  const today = moment();
-
-  const ret = (props: any) => <React.Fragment>{props}</React.Fragment>;
-
-  if (openedAt.diff(today, 'days') > 0) {
-    return ret(`${openedAt.fromNow()}に開始`);
-  }
-  return ret(`${closedAt.fromNow()}に終了`);
-};
 
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
@@ -129,7 +113,7 @@ const ChallengeHeader = (props: any) => {
                 </React.Fragment>
               )}
               <HeaderInfoText color="inherit" variant="subtitle1">
-                <ChallengePeriod challenge={challenge} />
+                {challengePeriod(challenge)}
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
