@@ -1,8 +1,8 @@
 import * as React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 // import { Typography } from '@material-ui/core';
 import shortid from 'shortid';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
