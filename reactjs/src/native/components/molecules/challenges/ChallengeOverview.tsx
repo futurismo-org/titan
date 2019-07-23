@@ -1,7 +1,7 @@
 import * as React from 'react';
 import MarkdownView from '../../atoms/MarkdownView';
 import Youtube from '../../atoms/YoutubeWidget';
-// import ChallengeSchedule from '../../atoms/challenges/ChallengeSchedule';
+import ChallengeSchedule from '../../atoms/challenges/ChallengeSchedule';
 
 const ChallengeOverview = (props: any) => {
   const { text, youtubeId, openedAt, closedAt } = props;
@@ -9,8 +9,8 @@ const ChallengeOverview = (props: any) => {
   return (
     <React.Fragment>
       {youtubeId && <Youtube id={youtubeId} />}
+      <ChallengeSchedule openedAt={openedAt} closedAt={closedAt} />
       <MarkdownView text={text} />
-      {/* <ChallengeSchedule openedAt={openedAt} closedAt={closedAt} /> */}
     </React.Fragment>
   );
 };
