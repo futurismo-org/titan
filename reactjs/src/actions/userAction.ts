@@ -6,14 +6,16 @@ import {
   FETCH_USERS_ERROR,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR
+  FETCH_USER_ERROR,
+  RESET_USER_INFO
 } from '../constants/actionTypes';
 
 import {
   fetchTarget,
   fetchRequest,
   fetchSuccess,
-  fetchError
+  fetchError,
+  reset
 } from './actionUtil';
 import firebase from '~/lib/firebase';
 
@@ -23,6 +25,7 @@ export const fetchUsersError = fetchError(FETCH_USERS_ERROR);
 export const fetchUserRequest = fetchRequest(FETCH_USER_REQUEST);
 export const fetchUserSuccess = fetchSuccess(FETCH_USER_SUCCESS);
 export const fetchUserError = fetchError(FETCH_USER_ERROR);
+export const resetUserInfo = reset(RESET_USER_INFO);
 
 export const setUserInfo = (userInfo: any) => (dispatch: Dispatch) => {
   dispatch({ type: SET_USER_INFO, payload: { userInfo } });
@@ -35,6 +38,20 @@ export const fetchUsers = (num: number = 1000) => {
       .firestore()
       .collection('users')
       .orderBy('updatedAt', 'desc')
+      .limit(num)
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchUsersSuccess(data)))
+      .catch((error: any) => dispatch(fetchUsersError(error)));
+  };
+};
+
+export const fetchParticipants = (resourceId: string, num: number = 1000) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchUsersRequest());
+    firebase
+      .firestore()
+      .collection(resourceId)
       .limit(num)
       .get()
       .then((snap: any) => snap.docs.map((doc: any) => doc.data()))

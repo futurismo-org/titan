@@ -1,13 +1,14 @@
 import * as React from 'react';
-import Navbar from '../molecules/challenges/ChallengeNavbar';
+
+import { Text } from 'native-base';
+
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 
-import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
 
 const Challenge = (props: any) => {
-  const { loading, error, resourceId, fetchChallenge, challenge } = props;
+  const { loading, error, fetchChallenge, resourceId, challenge } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
@@ -15,15 +16,12 @@ const Challenge = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
       {challenge && (
         <React.Fragment>
           <Header challenge={challenge} />
-          <Paper>
-            <Navbar id={challenge.id} />
-            <Body challenge={challenge} />
-          </Paper>
+          <Body challenge={challenge} />
         </React.Fragment>
       )}
     </React.Fragment>

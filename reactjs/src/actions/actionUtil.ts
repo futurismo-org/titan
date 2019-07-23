@@ -8,6 +8,8 @@ export const fetchSuccess = (type: string) => (payload: any) => ({
 });
 export const fetchError = (type: string) => (error: any) => ({ type, error });
 
+export const reset = (type: string) => () => ({ type });
+
 export const fetchTarget = (
   resourceId: string,
   requestAction: any,

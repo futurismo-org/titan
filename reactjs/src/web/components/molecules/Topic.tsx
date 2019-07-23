@@ -44,7 +44,7 @@ const Topic = (props: any) => {
   }, [shareURL]);
 
   useEffect(() => {
-    fetchTopic(resourceId);
+    !topic && !loading && fetchTopic(resourceId);
 
     setOgpInfo({
       title,
@@ -58,10 +58,12 @@ const Topic = (props: any) => {
   }, [
     description,
     fetchTopic,
+    loading,
     resetOgpInfo,
     resourceId,
     setOgpInfo,
     title,
+    topic,
     url
   ]);
 

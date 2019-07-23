@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { firestore } from 'firebase';
 import firebase from '~/lib/firebase';
 import {
   FETCH_CATEGORIES_REQUEST,
@@ -6,14 +7,16 @@ import {
   FETCH_CATEGORIES_ERROR,
   FETCH_CATEGORY_REQUEST,
   FETCH_CATEGORY_SUCCESS,
-  FETCH_CATEGORY_ERROR
+  FETCH_CATEGORY_ERROR,
+  RESET_CATEGORY_INFO
 } from '../constants/actionTypes';
 
 import {
   fetchTarget,
   fetchRequest,
   fetchSuccess,
-  fetchError
+  fetchError,
+  reset
 } from './actionUtil';
 
 export const fetchCategoriesRequest = fetchRequest(FETCH_CATEGORIES_REQUEST);
@@ -22,6 +25,7 @@ export const fetchCategoriesError = fetchError(FETCH_CATEGORIES_ERROR);
 export const fetchCategoryRequest = fetchRequest(FETCH_CATEGORY_REQUEST);
 export const fetchCategorySuccess = fetchSuccess(FETCH_CATEGORY_SUCCESS);
 export const fetchCategoryError = fetchError(FETCH_CATEGORY_ERROR);
+export const resetCategoryInfo = reset(RESET_CATEGORY_INFO);
 
 export const fetchCategories = (num: number = 20) => {
   return (dispatch: Dispatch) => {
@@ -35,6 +39,22 @@ export const fetchCategories = (num: number = 20) => {
       .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
       .then((data: any) => dispatch(fetchCategoriesSuccess(data)))
       .catch((error: any) => dispatch(fetchCategoriesError(error)));
+  };
+};
+
+export const fetchCategoriesWithRefs = (
+  refs: [firestore.DocumentReference]
+) => {
+  return (dispatch: Dispatch) => {
+    if (!refs) return;
+
+    dispatch(fetchCategoriesRequest());
+
+    const promises = refs.map(ref => ref.get().then(doc => doc.data()));
+
+    Promise.all(promises)
+      .then(data => dispatch(fetchCategoriesSuccess(data)))
+      .catch(error => dispatch(fetchCategoriesError(error)));
   };
 };
 

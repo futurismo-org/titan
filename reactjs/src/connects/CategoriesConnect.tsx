@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchCategories } from '~/actions/categoryAction';
+import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchCategories: fetchCategories
+      fetchCategories,
+      resetCategoryInfo
     },
     dispatch
   );

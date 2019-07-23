@@ -1,24 +1,23 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchCategory } from '~/actions/categoryAction';
+import { fetchChallenge } from '~/actions/challengeAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchCategory
+      fetchChallenge: fetchChallenge
     },
     dispatch
   );
 
 const mapStateToProps = (state: any, props: any) => {
-  const categoryId = props.match.params.id;
-  const resourceId = `/categories/${categoryId}`;
+  const challengeId = props.match.params.id;
+  const resourceId = `/challenges/${challengeId}`;
 
-  const category = state.category.target;
+  const challenge = state.challenge.target;
 
   return {
-    category,
-    challenges: state.challenge.items,
+    challenge,
     loading: state.category.loading || state.challenge.loading,
     error: state.category.error || state.challenge.error,
     resourceId,

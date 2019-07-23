@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchUsers } from '~/actions/userAction';
+import { fetchUsers, resetUserInfo } from '~/actions/userAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchUsers: fetchUsers
+      fetchUsers,
+      resetUserInfo
     },
     dispatch
   );

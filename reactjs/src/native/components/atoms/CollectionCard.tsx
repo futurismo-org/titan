@@ -14,8 +14,10 @@ const StyledImage = styled(Image)`
 const CollectionCard = (props: any) => {
   const { collection, type, small } = props;
 
+  const path = collectionURL(type, collection.id);
+
   return (
-    <Link to={collectionURL(type, collection.id)}>
+    <Link to={path}>
       <Card>
         <CardItem header>
           <H2 style={{ width: '100%' }}>{collection.title}</H2>

@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchTopics } from '~/actions/topicAction';
+import { fetchTopics, resetTopicInfo } from '~/actions/topicAction';
 
 import { collectionShort } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchTopics: fetchTopics
+      fetchTopics,
+      resetTopicInfo
     },
     dispatch
   );

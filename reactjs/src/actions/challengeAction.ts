@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { firestore } from 'firebase';
-import firebase from '~/lib/firebase';
 import {
+  RESET_CHALLENGE_INFO,
   FETCH_CHALLENGES_REQUEST,
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGES_ERROR,
@@ -12,12 +12,14 @@ import {
   FETCH_PINNED_CHALLENGES_REQUEST,
   FETCH_PINNED_CHALLENGES_ERROR
 } from '../constants/actionTypes';
+import firebase from '~/lib/firebase';
 
 import {
   fetchTarget,
   fetchRequest,
   fetchSuccess,
-  fetchError
+  fetchError,
+  reset
 } from './actionUtil';
 
 export const fetchChallengesRequest = fetchRequest(FETCH_CHALLENGES_REQUEST);
@@ -35,6 +37,7 @@ export const fetchPinnedChallengesSuccess = fetchSuccess(
 export const fetchPinnedChallengesError = fetchError(
   FETCH_PINNED_CHALLENGES_ERROR
 );
+export const resetChallengeInfo = reset(RESET_CHALLENGE_INFO);
 
 export const fetchChallenges = (num: number = 100) => {
   return (dispatch: Dispatch) => {

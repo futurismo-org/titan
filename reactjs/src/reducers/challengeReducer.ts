@@ -5,6 +5,7 @@ import {
   FETCH_CHALLENGE_SUCCESS,
   FETCH_CHALLENGE_ERROR,
   FETCH_CHALLENGE_REQUEST,
+  RESET_CHALLENGE_INFO,
   FETCH_PINNED_CHALLENGES_SUCCESS,
   FETCH_PINNED_CHALLENGES_REQUEST,
   FETCH_PINNED_CHALLENGES_ERROR
@@ -27,9 +28,16 @@ export const initialState = {
   pinned: []
 };
 
+export const resetChallenge = (state: any) => {
+  return Object.assign({}, state, {
+    ...initialState
+  });
+};
+
 export const fetchPinnedChallengesRequest = (state: any) => {
   return Object.assign({}, state, {
     ...state,
+    pinned: [],
     loadingSub: true
   });
 };
@@ -57,6 +65,7 @@ export default createReducer(initialState, {
   [FETCH_CHALLENGE_REQUEST]: fetchRequest,
   [FETCH_CHALLENGE_SUCCESS]: fetchTargetSuccess,
   [FETCH_CHALLENGE_ERROR]: fetchError,
+  [RESET_CHALLENGE_INFO]: resetChallenge,
   [FETCH_PINNED_CHALLENGES_REQUEST]: fetchPinnedChallengesRequest,
   [FETCH_PINNED_CHALLENGES_SUCCESS]: fetchPinnedChallengesSuccess,
   [FETCH_PINNED_CHALLENGES_ERROR]: fetchPinnedChallengesError

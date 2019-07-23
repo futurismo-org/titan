@@ -12,12 +12,20 @@ export const initialState = {
   error: null
 };
 
+export const reset = (state: any) => {
+  return Object.assign({}, state, {
+    ...initialState,
+    loading: true
+  });
+};
+
 export const fetchRequest = (state: any) => {
   return Object.assign({}, state, {
     ...state,
     loading: true
   });
 };
+
 export const fetchItemsSuccess = (state: any, payload: any) => {
   return Object.assign({}, state, {
     ...state,
