@@ -21,7 +21,6 @@ const ChallengeBody = (props: any) => {
           heading="概要"
           component={
             <ChallengeOverview
-              id={challenge.id}
               text={challenge.overview}
               youtubeId={challenge.youtubeId}
               openedAt={challenge.openedAt.toDate()}
