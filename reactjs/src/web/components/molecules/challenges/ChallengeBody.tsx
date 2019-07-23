@@ -11,7 +11,7 @@ import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer
 import TopicForm from '../TopicForm';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
-import ChallengeUserSettings from './ChallengeUserSettings';
+import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
 
 const ChallengeContent = styled.div`
   padding: ${theme.spacing(2)}px;
