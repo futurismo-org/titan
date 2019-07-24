@@ -6,6 +6,7 @@ import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
 import ChallengeGrass from './ChallengeGrass';
+import ChallengeChart from './ChallengeChart';
 
 const Space = () => <Text />;
 
@@ -32,6 +33,8 @@ const ChallengeUserDashBoard = (props: any) => {
       {user && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
+          <Space />
+          <ChallengeChart histories={user.histories} />
           <Space />
           <ChallengeGrass
             histories={user.histories}
