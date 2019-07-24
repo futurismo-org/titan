@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Text } from 'native-base';
+import { H1, H3, Text, Container } from 'native-base';
 
-// import { Text } from 'native-base';
 import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 
@@ -26,13 +25,12 @@ const ChallengeUserDashBoard = (props: any) => {
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
-      {user ? (
-        <React.Fragment>
-          <Text>参加日: {joinDate}</Text>
+      {user && (
+        <Container style={{ alignItems: 'center' }}>
+          <H1>{user.displayName}さんの記録</H1>
+          <H3>参加日: {joinDate}</H3>
           <TwitterButton challenge={challenge} userShortId={userShortId} />
-        </React.Fragment>
-      ) : (
-        <Text>データが取得できません。</Text>
+        </Container>
       )}
     </React.Fragment>
   );
