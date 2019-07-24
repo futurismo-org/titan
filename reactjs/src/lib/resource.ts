@@ -10,3 +10,12 @@ export const getTopicsId = (
   collection === 'general'
     ? `/topics`
     : `/${collection}/${collectionId}/topics`;
+
+export const getTopicId = (
+  topicId: string,
+  collection: 'general' | 'challenges' | 'categories',
+  collectionId?: string
+) =>
+  collection === 'general'
+    ? `/topics/${topicId}`
+    : `/${collection}/${collectionId}/topics/${topicId}`;

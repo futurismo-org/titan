@@ -34,3 +34,11 @@ export const getTopicPath = (
   collection === 'general'
     ? `/topics/${topicId}`
     : `/${collectionShort(collection)}/${collectionId}/t/${topicId}`;
+
+export const getTopicsPath = (
+  collection: 'general' | 'challenges' | 'categories',
+  collectionId?: string
+) =>
+  collection === 'general'
+    ? `/topics`
+    : `/${collectionShort(collection)}/${collectionId}/topics`;
