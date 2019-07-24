@@ -94,7 +94,7 @@ const ChallengeUserDashBoard = (props: any) => {
             />
             <ChallengeChart histories={data.histories} />
             <ChallengeGrass
-              data={data}
+              histories={data.histories}
               openedAt={openedAt}
               closedAt={closedAt}
             />

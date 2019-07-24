@@ -5,6 +5,7 @@ import { H1, Text, H2 } from 'native-base';
 import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
+import ChallengeGrass from './ChallengeGrass';
 
 const Space = () => <Text />;
 
@@ -31,6 +32,12 @@ const ChallengeUserDashBoard = (props: any) => {
       {user && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
+          <Space />
+          <ChallengeGrass
+            histories={user.histories}
+            openedAt={challenge.openedAt}
+            closedAt={challenge.closedAt}
+          />
           <Space />
           <H2 style={{ textAlign: 'center' }}>参加日: {joinDate}</H2>
           <Space />
