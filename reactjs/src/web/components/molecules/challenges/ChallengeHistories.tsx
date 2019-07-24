@@ -23,9 +23,9 @@ const ConditionalTableCell = (props: any) => (
 
 const getType = (type: string) => {
   if (type === 'RESET') {
-    return <Chip color="primary" label="リセット" />;
+    return <Chip color="primary" label="RESET" />;
   }
-  return <Chip color="secondary" label="記録" />;
+  return <Chip color="secondary" label="RECORD" />;
 };
 
 const HistoryHead = (props: any) => (
