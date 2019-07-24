@@ -72,7 +72,7 @@ const TopicForm = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {topic && (
+      {(isCreate || topic) && (
         <React.Fragment>
           <form noValidate onSubmit={updateHandler}>
             <TextField

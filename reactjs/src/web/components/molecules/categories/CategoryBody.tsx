@@ -2,19 +2,19 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import styled from 'styled-components';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import Topic from '../Topic';
-import TopicForm from '../TopicForm';
-import Topics from '../Topics';
+import Topic from '~/web/containers/TopicContainer';
+import TopicForm from '~/web/containers/TopicFormContainer';
+import Topics from '~/web/containers/TopicsContainer';
 
 const CategoryContent = styled.div`
   padding: ${theme.spacing(2)}px;
 `;
 
 const CategoryBody = (props: any) => {
-  const { category } = props;
+  const { category, topics, topicPath } = props;
 
   return (
     <CategoryContent>
@@ -33,13 +33,24 @@ const CategoryBody = (props: any) => {
         />
         <Route
           path="/cat/:id/topics"
-          render={() => (
-            <Topics collection="categories" collectionId={category.id} />
+          render={props => (
+            <Topics
+              collection="categories"
+              collectionId={category.id}
+              {...props}
+            />
           )}
         />
         <Route
           path="/cat/:id/dashboard"
-          render={() => <CategoryDashBoard category={category} />}
+          render={props => (
+            <CategoryDashBoard
+              category={category}
+              topics={topics}
+              topicPath={topicPath}
+              {...props}
+            />
+          )}
         />
       </Switch>
     </CategoryContent>
