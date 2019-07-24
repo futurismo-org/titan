@@ -21,7 +21,7 @@ const mapStateToProps = (state: any, props: any) => {
   const selfShortId = profile.shortId;
 
   // 他人のidは外部から指定される。指定されないときは自分。
-  const userShortId = props.userShortId || selfShortId;
+  const userShortId = props.match ? props.match.params.userId : selfShortId;
 
   const resourceId = `/challenges/${challenge.id}/participants/${userShortId}`;
 

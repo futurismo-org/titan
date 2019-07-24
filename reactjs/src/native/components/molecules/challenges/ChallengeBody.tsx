@@ -48,6 +48,7 @@ const ChallengeBody = (props: any) => {
           heading="リーダーボード"
           component={<ChallengeLeaderBoard challengeId={challenge.id} />}
         />
+        {/* 他人の実績を見る方法がわからん。保留にする。 */}
         {isLogin && (
           <ChallengeTab
             heading="ダッシュボード"
