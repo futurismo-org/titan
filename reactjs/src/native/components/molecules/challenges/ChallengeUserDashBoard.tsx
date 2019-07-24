@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { H1, H3, Text, Container } from 'native-base';
+import { H1, Text, H2 } from 'native-base';
 
 import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
+import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
+
+const Space = () => <Text />;
 
 const ChallengeUserDashBoard = (props: any) => {
   const {
@@ -26,11 +29,15 @@ const ChallengeUserDashBoard = (props: any) => {
       {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
       {user && (
-        <Container style={{ alignItems: 'center' }}>
-          <H1>{user.displayName}さんの記録</H1>
-          <H3>参加日: {joinDate}</H3>
+        <React.Fragment>
+          <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
+          <Space />
+          <H2 style={{ textAlign: 'center' }}>参加日: {joinDate}</H2>
+          <Space />
+          <ChallengeHistories histories={user.histories} />
+          <Space />
           <TwitterButton challenge={challenge} userShortId={userShortId} />
-        </Container>
+        </React.Fragment>
       )}
     </React.Fragment>
   );
