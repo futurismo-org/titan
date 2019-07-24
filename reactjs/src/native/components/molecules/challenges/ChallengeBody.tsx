@@ -3,6 +3,10 @@ import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
+import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
+import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
+
+import { primaryColor } from '~/lib/theme';
 
 const ChallengeTab = (props: any) => {
   const { heading, component } = props;
@@ -14,11 +18,15 @@ const ChallengeTab = (props: any) => {
 };
 
 const ChallengeBody = (props: any) => {
-  const { challenge } = props;
+  const { challenge, isLogin } = props;
 
   return (
     <React.Fragment>
-      <Tabs renderTabBar={() => <ScrollableTab />}>
+      <Tabs
+        renderTabBar={() => (
+          <ScrollableTab style={{ backgroundColor: primaryColor }} />
+        )}
+      >
         <ChallengeTab
           heading="概要"
           component={
@@ -40,16 +48,19 @@ const ChallengeBody = (props: any) => {
           heading="リーダーボード"
           component={<ChallengeLeaderBoard challengeId={challenge.id} />}
         />
-        <Tab heading="ダッシュボード">
-          <Content padder>
-            <ChallengeOverview text={challenge.overview} />
-          </Content>
-        </Tab>
-        <Tab heading="ユーザ設定">
-          <Content padder>
-            <ChallengeOverview text={challenge.overview} />
-          </Content>
-        </Tab>
+        {/* 他人の実績を見る方法がわからん。保留にする。 */}
+        {isLogin && (
+          <ChallengeTab
+            heading="ダッシュボード"
+            component={<ChallengeUserDashBoard challenge={challenge} />}
+          />
+        )}
+        {isLogin && (
+          <ChallengeTab
+            heading="ユーザ設定"
+            component={<ChallengeUserSettings challengeId={challenge.id} />}
+          />
+        )}
       </Tabs>
       {/* <Content padder>
         <Switch>*/}
@@ -70,11 +81,6 @@ const ChallengeBody = (props: any) => {
           render={props => <Topic collection="challenges" {...props} />}
         />
         <Route path="/c/:id/topics" component={ChallengeTopics} />
-        <Route path="/c/:id/leaderboard" component={ChallengeLeaderBoard} />
-        <Route
-          path="/c/:challengeId/u/:userShortId/settings"
-          component={ChallengeUserSettings}
-        />
         <Route
           path="/c/:challengeId/u/:userId"
           render={(props: any) => (

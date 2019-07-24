@@ -11,4 +11,6 @@ export const isClosed = (date: Date) => moment(date).diff(now, 'days') <= 0;
 export const formatDatetime = (date: string) =>
   moment(date).format('MM月DD日 HH:mm');
 
+export const formatDate = (date: string) => moment(date).format('MM月DD日');
+
 export default moment;

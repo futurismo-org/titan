@@ -10,28 +10,29 @@ import {
   FormControlLabel,
   Grid
 } from '@material-ui/core';
-import { useDocument } from 'react-firebase-hooks/firestore';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
-import firebase from 'lib/firebase';
-import { getParticipantsUserId } from '~/lib/resource';
 
-import { getUserDashboardPath } from '~/lib/url';
+import firebase from '~/lib/firebase';
+
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 
 const db = firebase.firestore();
 
 const ChallengeUserSettings = (props: any) => {
-  const challengeId = props.match.params.challengeId;
-  const userShortId = props.match.params.userShortId;
-  const resourceId = getParticipantsUserId(challengeId, userShortId);
+  const {
+    user,
+    resourceId,
+    redirectPath,
+    fetchUser,
+    push,
+    error,
+    loading,
+    isLogin
+  } = props;
 
-  const { user, push } = props;
-
-  const [value, loading, error] = useDocument(
-    firebase.firestore().doc(resourceId)
-  );
+  useEffect(() => {
+    fetchUser(resourceId);
+  }, [fetchUser, resourceId]);
 
   const [displayName, setDisplayName] = useState('');
   const [pastDays, setPastDays] = useState('');
@@ -65,15 +66,13 @@ const ChallengeUserSettings = (props: any) => {
     db.doc(resourceId)
       .update(newData)
       .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      .then(() => push(redirectPath))
       .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
   };
 
-  const data = value && value.data();
-
-  const initDisplayName = data && data.displayName;
-  const initPastDays = data && data.pastDays;
-  const initShowMode = data && data.showMode;
+  const initDisplayName = user && user.displayName;
+  const initPastDays = user && user.pastDays;
+  const initShowMode = user && user.showMode;
 
   useEffect(() => {
     setDisplayName(initDisplayName ? initDisplayName : '');
@@ -85,10 +84,10 @@ const ChallengeUserSettings = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && (
+      {user && (
         <React.Fragment>
           <Title text="ユーザ設定" />
-          {user.shortId === userShortId ? (
+          {isLogin ? (
             <form noValidate onSubmit={updateHandler}>
               <Grid container spacing={3}>
                 <Grid item>
@@ -153,12 +152,4 @@ const ChallengeUserSettings = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(
-  mapStateToProps,
-  { push }
-)(ChallengeUserSettings);
+export default ChallengeUserSettings;

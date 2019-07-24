@@ -10,3 +10,42 @@ export const challengePeriod = (challenge: any) => {
   }
   return `${closedAt.fromNow()}に終了`;
 };
+
+export const getTotalDays = (
+  openedAt: Date,
+  closedAt: Date,
+  participant: any
+) => {
+  const today = moment();
+  const createdAt = participant.createdAt.toDate();
+
+  if (today.isBefore(openedAt)) {
+    return 0;
+  }
+
+  if (today.isAfter(closedAt)) {
+    if (moment(createdAt).isAfter(moment(openedAt))) {
+      return moment(closedAt).diff(createdAt, 'days') + 1;
+    } else {
+      return moment(closedAt).diff(openedAt, 'days') + 1;
+    }
+  }
+
+  return moment(createdAt).isAfter(moment(openedAt))
+    ? today.diff(createdAt, 'days') + 1
+    : today.diff(openedAt, 'days') + 1;
+};
+
+export const getAchieveRate = (totalDays: number, accDays: number) =>
+  totalDays === 0 ? 0 : Math.round(((accDays || 0) / totalDays) * 100);
+
+const isDaysValid = (days: number) => {
+  return days !== undefined && days !== null && !isNaN(days);
+};
+
+export const formatDays = (days: any) => {
+  if (!isDaysValid(days)) {
+    return 0;
+  }
+  return days;
+};
