@@ -13,11 +13,11 @@ import { fromNow } from '~/lib/moment';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 const TopicList = (props: any) => {
-  const { topics, topicPath } = props;
+  const { topics, topicPath, limit } = props;
 
   return (
     <List>
-      {topics.map((topic: any) => (
+      {topics.slice(0, limit).map((topic: any) => (
         <ListItem alignItems="flex-start" key={topic.id}>
           <ListItemAvatar>
             <Avatar

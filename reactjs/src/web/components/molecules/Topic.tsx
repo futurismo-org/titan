@@ -44,7 +44,7 @@ const Topic = (props: any) => {
   }, [shareURL]);
 
   useEffect(() => {
-    !topic && !loading && fetchTopic(resourceId);
+    fetchTopic(resourceId);
 
     setOgpInfo({
       title,
@@ -58,12 +58,10 @@ const Topic = (props: any) => {
   }, [
     description,
     fetchTopic,
-    loading,
     resetOgpInfo,
     resourceId,
     setOgpInfo,
     title,
-    topic,
     url
   ]);
 
@@ -71,7 +69,7 @@ const Topic = (props: any) => {
     if (
       window.confirm('削除したデータは元に戻せません。本当に削除しますか？') // eslint-disable-line
     ) {
-      deleteResource(resourceId).then(() => history.pushState(redirectPath));
+      deleteResource(resourceId).then(() => history.push(redirectPath));
     }
   };
 
