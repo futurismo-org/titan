@@ -32,7 +32,6 @@ const mapStateToProps = (state: any, props: any) => {
     user,
     loading: state.user.loading,
     error: state.user.error,
-    userShortId,
     resourceId,
     joinDate,
     ...props

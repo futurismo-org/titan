@@ -17,7 +17,6 @@ const Space = () => <Text />;
 const ChallengeUserDashBoard = (props: any) => {
   const {
     challenge,
-    userShortId,
     joinDate,
     user,
     error,
@@ -62,7 +61,7 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space />
           <ChallengeHistories histories={user.histories} />
           <Space />
-          <TwitterButton challenge={challenge} userShortId={userShortId} />
+          <TwitterButton challenge={challenge} userShortId={user.id} />
         </React.Fragment>
       )}
     </React.Fragment>

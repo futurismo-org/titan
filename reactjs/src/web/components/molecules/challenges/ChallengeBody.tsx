@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import ChallengeUserDashBoard from 'containers/challengeUserDashboardContainer';
 import theme from 'lib/theme';
+import ChallengeUserDashBoard from '~/web/containers/ChallengeUserDashBoardContainer';
 import ChallengeTopics from './ChallengeTopics';
 import ChallengeTimeline from './ChallengeTimeline';
 import Topic from '~/web/containers/TopicContainer';
@@ -68,14 +68,7 @@ const ChallengeBody = (props: any) => {
         <Route
           path="/c/:challengeId/u/:userId"
           render={(props: any) => (
-            <ChallengeUserDashBoard
-              challengeTitle={challenge.title}
-              webhookURL={challenge.webhookURL}
-              openedAt={challenge.openedAt}
-              closedAt={challenge.closedAt}
-              hashtag={challenge.hashtag}
-              {...props}
-            />
+            <ChallengeUserDashBoard challenge={challenge} {...props} />
           )}
         />
       </Switch>

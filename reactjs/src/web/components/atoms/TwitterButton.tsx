@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 import styled from 'styled-components';
-
-import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 
 import Link from './NoStyledExternalLink';
@@ -19,13 +17,13 @@ const ButtonWrapper = styled.div`
 `;
 
 const TwitterButton = (props: any) => {
-  const { user, title, userId, challengeId, hashtag } = props;
+  const { challenge, userShortId } = props;
 
-  const shareURL = `https://titan-fire.com/c/${challengeId}/u/${userId}`; // eslint-disable-line
-  const title2 = title.replace('#', '%23');
+  const shareURL = `https://titan-fire.com/c/${challenge.id}/u/${userShortId}`;
+  const title = challenge.title.replace('#', '%23');
 
-  const buildTweetContent = `${title2}参加中%0a${shareURL}`;
-  const buildHashTags = `${hashtag}`.replace('#', '');
+  const buildTweetContent = `${title}参加中%0a${shareURL}`;
+  const buildHashTags = `${challenge.hashtag}`.replace('#', '');
 
   // const [text, setText] = React.useState(buildTweetContent);
 
@@ -62,15 +60,13 @@ const TwitterButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {user.shortId === userId ? (
-        <ButtonWrapper>
-          <Link href={`${textBuilder}`}>
-            <Button variant="contained" color="secondary">
-              Twitterでシェア
-            </Button>
-          </Link>
-        </ButtonWrapper>
-      ) : null}
+      <ButtonWrapper>
+        <Link href={`${textBuilder}`}>
+          <Button variant="contained" color="secondary">
+            Twitterでシェア
+          </Button>
+        </Link>
+      </ButtonWrapper>
       {/* {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
         <ButtonWrapper>
           <SimpleModal
@@ -109,9 +105,4 @@ const TwitterButton = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(TwitterButton);
+export default TwitterButton;
