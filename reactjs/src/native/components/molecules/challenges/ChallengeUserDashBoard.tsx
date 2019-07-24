@@ -7,6 +7,7 @@ import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
 import ChallengeGrass from './ChallengeGrass';
 import ChallengeChart from './ChallengeChart';
+import ChallengeStatistics from './ChallengeStatistics';
 
 const Space = () => <Text />;
 
@@ -33,6 +34,12 @@ const ChallengeUserDashBoard = (props: any) => {
       {user && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
+          <Space />
+          <ChallengeStatistics
+            data={user}
+            openedAt={challenge.openedAt}
+            closedAt={challenge.closedAt}
+          />
           <Space />
           <ChallengeChart histories={user.histories} />
           <Space />
