@@ -1,14 +1,13 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchTopics, resetTopicInfo } from '~/actions/topicAction';
+import { fetchTopics } from '~/actions/topicAction';
 
-import { collectionShort } from '../lib/url';
+import { collectionShort, getTopicPath } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchTopics,
-      resetTopicInfo
+      fetchTopics
     },
     dispatch
   );
@@ -26,9 +25,7 @@ const mapStateToProps = (state: any, props: any) => {
       : `/${collectionShort(collection)}/${collectionId}/t/new`;
 
   const topicPath = (topicId: string) =>
-    collection === 'general'
-      ? `/topics/${topicId}`
-      : `/${collectionShort(collection)}/${collectionId}/t/${topicId}`;
+    getTopicPath(topicId, collection, collectionId);
 
   return {
     topics: state.topic.items,

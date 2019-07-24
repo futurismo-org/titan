@@ -5,20 +5,31 @@ import Body from '../molecules/categories/CategoryBody';
 import Progress from '../atoms/CircularProgress';
 
 const Category = (props: any) => {
-  const { category, loading, error, fetchCategory, resourceId } = props;
+  const {
+    category,
+    loading,
+    error,
+    fetchCategory,
+    resourceId,
+    topics,
+    fetchTopics,
+    topicsResourceId,
+    topicPath
+  } = props;
 
   React.useEffect(() => {
     fetchCategory(resourceId);
-  }, [fetchCategory, resourceId]);
+    fetchTopics(topicsResourceId);
+  }, [fetchCategory, fetchTopics, resourceId, topicsResourceId]);
 
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {category && (
+      {category && topics && (
         <React.Fragment>
           <Header category={category} />
-          <Body category={category} />
+          <Body category={category} topics={topics} topicPath={topicPath} />
         </React.Fragment>
       )}
     </React.Fragment>

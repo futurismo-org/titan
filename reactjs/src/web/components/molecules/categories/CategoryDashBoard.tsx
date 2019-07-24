@@ -1,29 +1,29 @@
 import * as React from 'react';
 import Grid, { GridProps } from '@material-ui/core/Grid';
 
-// import { Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import shortId from 'shortid';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Paper from 'web/components/templates/PaperWrapper';
 import Title from 'web/components/atoms/Title';
-// import TopicList from 'web/components/molecules/TopicList';
 
 import DiscordHistories from 'web/components/atoms/DiscordHistories';
 import MarkdownView from 'web/components/atoms/MarkdownView';
 import styled from 'styled-components';
+import TopicList from '~/web/components/molecules/TopicList';
 import theme from '~/lib/theme';
 
 import CategoryChallenge from './CategoryChallenge';
 
-// const MoreLink = styled(Link)`
-//   && {
-//     text-decoration: none;
-//     color: inherit;
-//     text-align: right;
-//   }
-// `;
+const MoreLink = styled(Link)`
+  && {
+    text-decoration: none;
+    color: inherit;
+    text-align: right;
+  }
+`;
 
 const Space = () => (
   <React.Fragment>
@@ -39,7 +39,9 @@ const StyledCardGrid = styled(Grid)`
 ` as React.ComponentType<GridProps>;
 
 const CategoryDashBoard = (props: any) => {
-  const { category } = props;
+  const { category, topics, topicPath } = props;
+
+  console.log(category);
 
   return (
     <React.Fragment>
@@ -57,17 +59,13 @@ const CategoryDashBoard = (props: any) => {
           ))}
         </StyledCardGrid>
         <Space />
-        {/* <Title text="トピック" /> */}
-        {/* <TopicList
-          collection="categories"
-          collectionId={category.id}
-          limit={6}
-        /> */}
-        {/* <MoreLink to={`/cat/${category.id}/topics`}>
+        <Title text="トピック" />
+        <TopicList topics={topics} topicPath={topicPath} limit={6} />
+        <MoreLink to={`/cat/${category.id}/topics`}>
           <Typography variant="subtitle1" color="primary">
             もっと見る
           </Typography>
-        </MoreLink> */}
+        </MoreLink>
         <Space />
         <Title text="フリートーク" />
         <DiscordHistories channelId={category.channelId} limit={30} />
