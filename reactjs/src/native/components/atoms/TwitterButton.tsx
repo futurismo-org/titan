@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { Button } from 'native-base';
+import { Button, Text } from 'native-base';
 import { Linking } from 'react-native';
 
 const TwitterButton = (props: any) => {
   const { challenge } = props;
 
-  const userId = 1;
+  const userId = 1; // TODO
 
   const shareURL = `https://titan-fire.com/c/${challenge.id}/u/${userId}`; // eslint-disable-line
   const title = challenge.title.replace('#', '%23');
@@ -18,11 +18,9 @@ const TwitterButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {/* {user.shortId === userId ? ( */}
-      <Button onPress={() => Linking.openURL(textBuilder)}>
-        Twitterでシェア
+      <Button info full rounded onPress={() => Linking.openURL(textBuilder)}>
+        <Text>Twitterでシェア</Text>
       </Button>
-      {/* ) : null} */}
     </React.Fragment>
   );
 };

@@ -16,8 +16,12 @@ const mapStateToProps = (state: any, props: any) => {
 
   const challenge = state.challenge.target;
 
+  const profile = state.firebase.profile;
+  const isLogin = !profile.isEmpty && profile.isLoaded;
+
   return {
     challenge,
+    isLogin,
     loading: state.category.loading || state.challenge.loading,
     error: state.category.error || state.challenge.error,
     resourceId,

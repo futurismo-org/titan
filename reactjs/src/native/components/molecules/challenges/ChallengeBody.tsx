@@ -6,6 +6,8 @@ import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContai
 import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
 import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
 
+import { primaryColor } from '~/lib/theme';
+
 const ChallengeTab = (props: any) => {
   const { heading, component } = props;
   return (
@@ -16,11 +18,15 @@ const ChallengeTab = (props: any) => {
 };
 
 const ChallengeBody = (props: any) => {
-  const { challenge } = props;
+  const { challenge, isLogin } = props;
 
   return (
     <React.Fragment>
-      <Tabs renderTabBar={() => <ScrollableTab />}>
+      <Tabs
+        renderTabBar={() => (
+          <ScrollableTab style={{ backgroundColor: primaryColor }} />
+        )}
+      >
         <ChallengeTab
           heading="概要"
           component={
@@ -42,16 +48,18 @@ const ChallengeBody = (props: any) => {
           heading="リーダーボード"
           component={<ChallengeLeaderBoard challengeId={challenge.id} />}
         />
-        <Tab heading="ダッシュボード">
-          <Content padder>
-            <ChallengeUserDashBoard challengeId={challenge.id} />
-          </Content>
-        </Tab>
-        <Tab heading="ユーザ設定">
-          <Content padder>
-            <ChallengeUserSettings challengeId={challenge.id} />
-          </Content>
-        </Tab>
+        {isLogin && (
+          <ChallengeTab
+            heading="ダッシュボード"
+            component={<ChallengeUserDashBoard challenge={challenge} />}
+          />
+        )}
+        {isLogin && (
+          <ChallengeTab
+            heading="ユーザ設定"
+            component={<ChallengeUserSettings challengeId={challenge.id} />}
+          />
+        )}
       </Tabs>
       {/* <Content padder>
         <Switch>*/}

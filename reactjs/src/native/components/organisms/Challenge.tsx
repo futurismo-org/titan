@@ -8,7 +8,14 @@ import Body from '../molecules/challenges/ChallengeBody';
 import Progress from '../atoms/CircularProgress';
 
 const Challenge = (props: any) => {
-  const { loading, error, fetchChallenge, resourceId, challenge } = props;
+  const {
+    loading,
+    error,
+    fetchChallenge,
+    resourceId,
+    challenge,
+    isLogin
+  } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
@@ -21,7 +28,7 @@ const Challenge = (props: any) => {
       {challenge && (
         <React.Fragment>
           <Header challenge={challenge} />
-          <Body challenge={challenge} />
+          <Body challenge={challenge} isLogin={isLogin} />
         </React.Fragment>
       )}
     </React.Fragment>
