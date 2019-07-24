@@ -14,7 +14,14 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
+  const profile = state.firebase.profile;
+  const selfShortId = profile.shortId;
+
+  // 他人のidは外部から指定される。指定されないときは自分。
+  const userShortId = props.userShortId || selfShortId;
+
   return {
+    userShortId,
     ...props
   };
 };

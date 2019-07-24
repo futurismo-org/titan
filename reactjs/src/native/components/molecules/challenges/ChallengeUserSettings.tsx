@@ -85,7 +85,7 @@ const ChallengeUserSettings = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
       {user && (
         <React.Fragment>
