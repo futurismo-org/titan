@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import styled from 'styled-components';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
-import Topic from '../Topic';
+import Topic from '~/web/containers/TopicContainer';
 import TopicForm from '../TopicForm';
-import Topics from '../Topics';
+import Topics from '~/web/containers/TopicsContainer';
 
 const CategoryContent = styled.div`
   padding: ${theme.spacing(2)}px;

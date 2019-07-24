@@ -41,8 +41,6 @@ const StyledCardGrid = styled(Grid)`
 const CategoryDashBoard = (props: any) => {
   const { category, topics, topicPath } = props;
 
-  console.log(category);
-
   return (
     <React.Fragment>
       <Paper>
