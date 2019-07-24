@@ -17,6 +17,8 @@ import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
 
+import { formatDays } from '~/lib/challenge';
+
 const StyledCenterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,17 +41,6 @@ const ChallengeUserDashBoard = (props: any) => {
   const [value, loading, error] = useDocument(
     firebase.firestore().doc(resourceId)
   );
-
-  const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && !isNaN(days);
-  };
-
-  const formatDays = (days: any) => {
-    if (!isDaysValid(days)) {
-      return 0;
-    }
-    return days;
-  };
 
   const DashBoardWrapper = styled.div`
     max-width: 750px;

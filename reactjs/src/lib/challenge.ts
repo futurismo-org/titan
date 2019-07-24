@@ -38,3 +38,14 @@ export const getTotalDays = (
 
 export const getAchieveRate = (totalDays: number, accDays: number) =>
   totalDays === 0 ? 0 : Math.round(((accDays || 0) / totalDays) * 100);
+
+const isDaysValid = (days: number) => {
+  return days !== undefined && days !== null && !isNaN(days);
+};
+
+export const formatDays = (days: any) => {
+  if (!isDaysValid(days)) {
+    return 0;
+  }
+  return days;
+};

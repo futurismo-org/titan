@@ -8,6 +8,9 @@ import ChallengeHistories from '~/native/components/molecules/challenges/Challen
 import ChallengeGrass from './ChallengeGrass';
 import ChallengeChart from './ChallengeChart';
 import ChallengeStatistics from './ChallengeStatistics';
+import ChallengeRecord from './ChallengePostRecord';
+
+import { formatDays } from '~/lib/challenge';
 
 const Space = () => <Text />;
 
@@ -34,6 +37,12 @@ const ChallengeUserDashBoard = (props: any) => {
       {user && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
+          <Space />
+          <ChallengeRecord
+            days={formatDays(
+              user.showMode === '過去連続日数' ? user.pastDays : user.accDays
+            )}
+          />
           <Space />
           <ChallengeStatistics
             data={user}
