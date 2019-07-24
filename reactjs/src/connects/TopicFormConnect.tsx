@@ -1,22 +1,21 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortid from 'shortid';
-import { fetchTopic, resetTopicInfo } from '~/actions/topicAction';
+import { fetchTopic } from '~/actions/topicAction';
 
 import { collectionShort } from '../lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchTopic,
-      resetTopicInfo
+      fetchTopic
     },
     dispatch
   );
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const collectionId = props.match.params.collectionid;
+  const collectionId = props.match.params.collectionId;
   const isCreate = props.match.params.topicId === undefined;
   const topicId = isCreate ? shortid.generate() : props.match.params.topicId;
 

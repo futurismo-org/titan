@@ -6,7 +6,7 @@ import theme from '~/lib/theme';
 
 import CategoryDashBoard from './CategoryDashBoard';
 import Topic from '~/web/containers/TopicContainer';
-import TopicForm from '../TopicForm';
+import TopicForm from '~/web/containers/TopicFormContainer';
 import Topics from '~/web/containers/TopicsContainer';
 
 const CategoryContent = styled.div`
