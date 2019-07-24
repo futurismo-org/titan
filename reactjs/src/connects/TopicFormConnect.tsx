@@ -1,35 +1,27 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortid from 'shortid';
-import { fetchTopic, resetTopicInfo } from '~/actions/topicAction';
+import { fetchTopic } from '~/actions/topicAction';
 
-import { collectionShort } from '../lib/url';
+import { getTopicsPath } from '../lib/url';
+import { getTopicId } from '~/lib/resource';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchTopic,
-      resetTopicInfo
+      fetchTopic
     },
     dispatch
   );
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const collectionId = props.match.params.collectionid;
+  const collectionId = props.match.params.collectionId;
   const isCreate = props.match.params.topicId === undefined;
   const topicId = isCreate ? shortid.generate() : props.match.params.topicId;
 
-  const resourceId =
-    collection === 'general'
-      ? `/topics/${topicId}`
-      : `${collection}/${collectionId}/topics/${topicId}`;
-
-  const redirectPath =
-    collection === 'general'
-      ? '/topics'
-      : `/${collectionShort(collection)}/${collectionId}/topics`;
-
+  const resourceId = getTopicId(topicId, collection, collectionId);
+  const redirectPath = getTopicsPath(collection, collectionId);
   const currentUser = state.firebase.profile;
 
   const updateData = {

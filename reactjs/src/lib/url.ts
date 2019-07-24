@@ -25,3 +25,20 @@ export const collectionURL = (
 
 export const getTwitterProfileURL = (username: string) =>
   username ? `https://twitter.com/${username}` : 'https://twitter.com';
+
+export const getTopicPath = (
+  topicId: string,
+  collection: 'general' | 'challenges' | 'categories',
+  collectionId?: string
+) =>
+  collection === 'general'
+    ? `/topics/${topicId}`
+    : `/${collectionShort(collection)}/${collectionId}/t/${topicId}`;
+
+export const getTopicsPath = (
+  collection: 'general' | 'challenges' | 'categories',
+  collectionId?: string
+) =>
+  collection === 'general'
+    ? `/topics`
+    : `/${collectionShort(collection)}/${collectionId}/topics`;

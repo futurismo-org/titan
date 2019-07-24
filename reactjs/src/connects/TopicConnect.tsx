@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchTopic, resetTopicInfo } from '~/actions/topicAction';
+import { fetchTopic } from '~/actions/topicAction';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 
 import { collectionShort } from '../lib/url';
@@ -10,15 +10,14 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       fetchTopic,
       setOgpInfo,
-      resetOgpInfo,
-      resetTopicInfo
+      resetOgpInfo
     },
     dispatch
   );
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const collectionId = props.match.params.collectionid;
+  const collectionId = props.match.params.collectionId;
   const { topicId } = props.match.params;
 
   const resourceId =
