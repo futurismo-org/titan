@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Link } from 'react-router-native';
 import { Text, Thumbnail } from 'native-base';
-// import { getTwitterProfileURL } from '~/lib/url';
 import { Linking } from 'react-native';
 import Progress from '../../atoms/CircularProgress';
 
