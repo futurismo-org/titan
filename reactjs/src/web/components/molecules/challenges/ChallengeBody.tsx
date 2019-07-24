@@ -5,10 +5,10 @@ import ChallengeUserDashBoard from 'containers/challengeUserDashboardContainer';
 import theme from 'lib/theme';
 import ChallengeTopics from './ChallengeTopics';
 import ChallengeTimeline from './ChallengeTimeline';
-import Topic from '../Topic';
+import Topic from '~/web/containers/TopicContainer';
 
 import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer';
-import TopicForm from '../TopicForm';
+import TopicForm from '~/web/containers/TopicFormContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from './ChallengeUserSettings';
