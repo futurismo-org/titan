@@ -38,7 +38,7 @@ const ChallengeHistories = (props: any) => {
   const { histories } = props;
 
   return (
-    <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
+    <Table>
       <HistoryHead />
       {histories
         .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
