@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
 import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
-import { getUserDashboardPath, withDomain } from '~/lib/url';
-import { getParticipantsUserId } from '~/lib/resource';
+// import { getUserDashboardPath, withDomain } from '~/lib/url';
 
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
 import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
   const { challenge, participant, resourceId } = props;
-  const { webhookURL, openedAt, closedAt } = challenge;
+  const { openedAt, closedAt } = challenge;
 
   const [alert, setAlert] = useState();
   const [refresh, setRefresh] = useState(false);
@@ -24,8 +23,8 @@ const ChallengePostController = (props: any) => {
       accDays,
       maxDays,
       pastDays,
-      histories,
-      displayName
+      histories
+      // displayName
     } = props;
 
     if (
@@ -82,7 +81,7 @@ const ChallengePostController = (props: any) => {
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories, displayName, accDays } = props;
+    const { score, histories, accDays } = props;
 
     const newScore = score - 3;
 
