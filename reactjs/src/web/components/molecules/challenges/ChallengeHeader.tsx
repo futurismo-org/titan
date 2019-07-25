@@ -9,7 +9,7 @@ import theme from 'lib/theme';
 import ChallengeButton from '../../atoms/challenges/ChallengeButton';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
-import { challengePeriod } from '~/lib/challenge';
+import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
 
 const HeaderInfo = styled.div`
   display: flex;
@@ -54,16 +54,8 @@ const HeaderInfoText = styled(Typography)`
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;
 
-  const isClosed =
-    challenge &&
-    moment(new Date().setHours(29, 59, 59, 59)).diff(
-      moment(challenge.closedAt.toDate()),
-      'days'
-    ) > 0;
-
   return (
     <MainFeaturedPost>
-      {/* Increase the priority of the hero background image */}
       {
         <img
           style={{ display: 'none' }}
@@ -98,7 +90,7 @@ const ChallengeHeader = (props: any) => {
               </Typography>
             </HeaderInfo>
             <HeaderInfo>
-              {isClosed ? (
+              {isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <HeaderInfoText color="inherit" variant="subtitle1">
                   {challenge.participantsCount}人参加
                 </HeaderInfoText>
@@ -118,7 +110,9 @@ const ChallengeHeader = (props: any) => {
             </HeaderInfo>
             <HeaderInfo>
               <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
-              {!isClosed ? <ChallengeButton challenge={challenge} /> : null}
+              {!isChallengeClosed(challenge.closedAt.toDate()) ? (
+                <ChallengeButton challenge={challenge} />
+              ) : null}
             </HeaderInfo>
           </MainFeaturedPostContent>
         </Grid>

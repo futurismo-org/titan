@@ -49,3 +49,7 @@ export const formatDays = (days: any) => {
   }
   return days;
 };
+
+export const isChallengeClosed = (closedAt: Date) =>
+  moment(new Date().setHours(29, 59, 59, 59)).diff(moment(closedAt), 'days') >
+  0;
