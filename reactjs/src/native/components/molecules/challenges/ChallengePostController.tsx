@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text } from 'native-base';
+import AlertPro from 'react-native-alert-pro';
 import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
@@ -7,14 +8,14 @@ import { getUserDashboardPath, withDomain } from '~/lib/url';
 import { getParticipantsUserId } from '~/lib/resource';
 
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
+import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
-  const { challenge, participant } = props;
-  const { webhookURL, openedAt, closedAt, id } = challenge;
+  const { challenge, participant, resourceId } = props;
+  const { webhookURL, openedAt, closedAt } = challenge;
 
-  const challengeId = id;
-  const userShortId = participant.id;
-  const resourceId = getParticipantsUserId(challengeId, userShortId);
+  const [alert, setAlert] = useState();
+  const [refresh, setRefresh] = useState(false);
 
   const writeRecord = (props: any) => {
     const {
@@ -32,10 +33,10 @@ const ChallengePostController = (props: any) => {
       histories.filter(
         (history: any) =>
           history.type === 'RECORD' &&
-          moment(history.timestamp.toDate()).isSame(moment(now), 'days')
+          moment(history.timestamp.toDate()).isSame(nowMoment, 'days')
       ).length !== 0
     ) {
-      window.alert('記録の投稿は1日1回までです。'); // eslint-disable-line
+      errorToast('記録の投稿は1日1回までです');
       return;
     }
 
@@ -74,13 +75,14 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
-        window.alert('投稿が完了しました。'); // eslint-disable-line
+        successToastWithNoRedirect('投稿が完了しました');
+        setRefresh(!refresh);
       });
     // .then(() => push(getUserDashboardPath(challengeId, userShortId)))
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories, displayName } = props;
+    const { score, histories, displayName, accDays } = props;
 
     const newScore = score - 3;
 
@@ -90,7 +92,8 @@ const ChallengePostController = (props: any) => {
       score: newScore,
       days: 0,
       pastDays: 0,
-      diff: nowMoment.diff(moment(openedAt), 'days'),
+      accDays,
+      diff: nowMoment.diff(moment(openedAt.toDate()), 'days'),
       type: 'RESET'
     };
 
@@ -106,7 +109,11 @@ const ChallengePostController = (props: any) => {
     firebase
       .firestore()
       .doc(resourceId)
-      .update(resetData);
+      .update(resetData)
+      .then(() => {
+        successToastWithNoRedirect('リセットしました');
+        setRefresh(!refresh);
+      });
     //       .then(() => {
     //         const url = withDomain(getUserDashboardPath(challengeId, userShortId));
     //         const message = `${displayName}さんがリセットしました。
@@ -116,19 +123,20 @@ const ChallengePostController = (props: any) => {
     // .then(() => push(getUserDashboardPath(challengeId, userShortId)))
   };
 
-  const confirm = (props: any) => {
-    const { days } = props;
-    if (!isDaysValid(days)) return;
-
-    /* eslint-disable */
-    if (window.confirm('本当にリセットしますか？')) {
-      resetRecord(props);
-    }
-    /* eslint-enable */
-  };
-
   return (
     <React.Fragment>
+      <AlertPro
+        ref={(ref: any) => setAlert(ref)}
+        onConfirm={() => {
+          resetRecord(participant);
+          alert.close();
+        }}
+        onCancel={() => alert.close()}
+        title="リセットの確認"
+        message="本当に記録をリセットしますか？"
+        textCancel="キャンセル"
+        textConfirm="リセット"
+      />
       {isChallengeOpening(openedAt.toDate(), closedAt.toDate()) ? (
         <React.Fragment>
           <Button
@@ -139,7 +147,7 @@ const ChallengePostController = (props: any) => {
           >
             <Text>記録する</Text>
           </Button>
-          <Button warning small rounded onPress={() => confirm(participant)}>
+          <Button warning small rounded onPress={() => alert.open()}>
             <Text>リセット</Text>
           </Button>
         </React.Fragment>

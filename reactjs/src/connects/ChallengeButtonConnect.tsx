@@ -1,16 +1,19 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchParticipants } from '~/actions/userAction';
+import { fetchParticipants, fetchUser } from '~/actions/userAction';
+
+import { getParticipantsUserId, getParticipantsId } from '~/lib/resource';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipants }, dispatch);
+  bindActionCreators({ fetchParticipants, fetchUser }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.challenge.id;
-  const resourceId = `/challenges/${challengeId}/participants`;
+  const resourceId = getParticipantsId(challengeId);
 
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
+  const userResourceId = getParticipantsUserId(challengeId, userShortId);
 
   const participants = state.user.items;
 
@@ -18,7 +21,7 @@ const mapStateToProps = (state: any, props: any) => {
     participants.filter((paritcipant: any) => paritcipant.id === userShortId)
       .length === 1;
 
-  const participant = join ? participants[0] : null;
+  const participant = state.user.target;
 
   return {
     join,
@@ -27,6 +30,7 @@ const mapStateToProps = (state: any, props: any) => {
     error: state.user.error,
     loading: state.user.loading,
     resourceId,
+    userResourceId,
     ...props
   };
 };
