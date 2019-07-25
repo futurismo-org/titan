@@ -14,7 +14,6 @@ const ChallengePostController = (props: any) => {
   const { openedAt, closedAt } = challenge;
 
   const [alert, setAlert] = useState();
-  const [refresh, setRefresh] = useState(false);
 
   const writeRecord = (props: any) => {
     const {
@@ -75,7 +74,6 @@ const ChallengePostController = (props: any) => {
       .update(updateData)
       .then(() => {
         successToastWithNoRedirect('投稿が完了しました');
-        setRefresh(!refresh);
       });
     // .then(() => push(getUserDashboardPath(challengeId, userShortId)))
   };
@@ -111,7 +109,6 @@ const ChallengePostController = (props: any) => {
       .update(resetData)
       .then(() => {
         successToastWithNoRedirect('リセットしました');
-        setRefresh(!refresh);
       });
     //       .then(() => {
     //         const url = withDomain(getUserDashboardPath(challengeId, userShortId));

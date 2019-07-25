@@ -21,12 +21,10 @@ const ChallengeButton = (props: any) => {
     participant
   } = props;
 
-  const [refresh, setRefresh] = useState(false);
-
   useEffect(() => {
     fetchParticipants(resourceId);
     join && fetchUser(userResourceId);
-  }, [fetchParticipants, resourceId, refresh, fetchUser, userResourceId, join]);
+  }, [fetchParticipants, resourceId, fetchUser, userResourceId, join]);
 
   const joinHandler = (
     challengeId: string,
@@ -70,8 +68,7 @@ const ChallengeButton = (props: any) => {
       })
       .then(() => {
         successToastWithNoRedirect('チャレンジに参加しました');
-      })
-      .then(() => setRefresh(!refresh));
+      });
   };
 
   const PostButton = (props: any) => (

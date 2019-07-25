@@ -1,24 +1,25 @@
-import * as React from 'react';
+import React from 'react';
 import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
 import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
 import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
+import TopicWrapper from '../TopicWrapper';
 
 import { primaryColor } from '~/lib/theme';
 
-const ChallengeTab = (props: any) => {
-  const { heading, component } = props;
-  return (
-    <Tab heading={heading}>
-      <Content padder>{component}</Content>
-    </Tab>
-  );
-};
-
 const ChallengeBody = (props: any) => {
   const { challenge, isLogin } = props;
+
+  const ChallengeTab = (props: any) => {
+    const { heading, component } = props;
+    return (
+      <Tab heading={heading}>
+        <Content padder>{component}</Content>
+      </Tab>
+    );
+  };
 
   return (
     <React.Fragment>
@@ -43,7 +44,6 @@ const ChallengeBody = (props: any) => {
           component={<MarkdownView text={challenge.rules} />}
         />
         {/* タイムラインは一旦保留 */}
-        {/* トピックは一旦保留 */}
         <ChallengeTab
           heading="リーダーボード"
           component={<ChallengeLeaderBoard challengeId={challenge.id} />}
@@ -55,6 +55,13 @@ const ChallengeBody = (props: any) => {
             component={<ChallengeUserDashBoard challenge={challenge} />}
           />
         )}
+        <ChallengeTab
+          heading="トピック"
+          // path={`/c/${challenge.id}/topics`}
+          component={
+            <TopicWrapper collection="challenges" collectionId={challenge.id} />
+          }
+        />
         {isLogin && (
           <ChallengeTab
             heading="ユーザ設定"
