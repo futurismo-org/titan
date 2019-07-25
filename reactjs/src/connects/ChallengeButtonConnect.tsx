@@ -20,6 +20,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     join,
+    user: profile,
     error: state.user.error,
     loading: state.user.loading,
     resourceId,
