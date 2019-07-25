@@ -5,11 +5,13 @@ import { firestore } from 'firebase';
 import firebase from '~/lib/firebase';
 
 import { successToastWithNoRedirect } from '~/native/components/atoms/Toast';
+import ChallengePostController from '../../molecules/challenges/ChallengePostController';
 
 const ChallengeButton = (props: any) => {
   const {
     challenge,
     user,
+    participant,
     join,
     resourceId,
     fetchParticipants,
@@ -70,14 +72,7 @@ const ChallengeButton = (props: any) => {
   };
 
   const PostButton = (props: any) => (
-    <React.Fragment>
-      <Button success small rounded>
-        <Text>記録</Text>
-      </Button>
-      <Button warning small rounded>
-        <Text>リセット</Text>
-      </Button>
-    </React.Fragment>
+    <ChallengePostController challenge={challenge} participant={participant} />
   );
 
   const JoinButton = (props: any) => (
@@ -88,7 +83,7 @@ const ChallengeButton = (props: any) => {
         rounded
         onPress={() => joinHandler(challenge.id, challenge.title, user)}
       >
-        <Text>参加</Text>
+        <Text>参加する</Text>
       </Button>
     </React.Fragment>
   );

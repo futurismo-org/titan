@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Content, Text, View } from 'native-base';
+import { Content, View } from 'native-base';
 
 import {
   StyledHero as Hero,
@@ -14,7 +14,7 @@ import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryBadg
 import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 
 const ChallengeHeader = (props: any) => {
-  const { challenge } = props;
+  const { challenge, isLogin } = props;
 
   return (
     <React.Fragment>
@@ -26,7 +26,7 @@ const ChallengeHeader = (props: any) => {
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
-              {!isChallengeClosed(challenge.closedAt.toDate()) ? (
+              {isLogin && !isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <ChallengeButton challenge={challenge} />
               ) : null}
             </View>

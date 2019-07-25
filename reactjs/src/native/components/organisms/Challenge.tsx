@@ -27,7 +27,7 @@ const Challenge = (props: any) => {
       {loading && <Progress />}
       {challenge && (
         <React.Fragment>
-          <Header challenge={challenge} />
+          <Header challenge={challenge} isLogin={isLogin} />
           <Body challenge={challenge} isLogin={isLogin} />
         </React.Fragment>
       )}

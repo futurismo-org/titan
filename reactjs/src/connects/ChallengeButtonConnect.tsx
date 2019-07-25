@@ -18,9 +18,12 @@ const mapStateToProps = (state: any, props: any) => {
     participants.filter((paritcipant: any) => paritcipant.id === userShortId)
       .length === 1;
 
+  const participant = join ? participants[0] : null;
+
   return {
     join,
     user: profile,
+    participant,
     error: state.user.error,
     loading: state.user.loading,
     resourceId,
