@@ -11,7 +11,7 @@ import {
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
 import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryBadge';
 
-import ChallengeButton from '../../atoms/challenges/ChallengeButton';
+import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 
 const ChallengeHeader = (props: any) => {
   const { challenge } = props;

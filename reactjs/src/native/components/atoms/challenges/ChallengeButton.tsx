@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text } from 'native-base';
 
 const ChallengeButton = (props: any) => {
-  const { challenge, join } = props;
+  const { join, resourceId, fetchParticipants, error, loading } = props;
+
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const PostButton = (props: any) => (
     <React.Fragment>
@@ -12,7 +16,6 @@ const ChallengeButton = (props: any) => {
       <Button warning small rounded>
         <Text>リセット</Text>
       </Button>
-      {/* <ChallengePosts challenge={challenge} /> */}
     </React.Fragment>
   );
 
@@ -24,16 +27,13 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
-  // firebase
-  //   .firestore()
-  //   .collection('challenges')
-  //   .doc(challengeId)
-  //   .collection('participants')
-  //   .where('id', '==', user.shortId)
-  //   .get()
-  //   .then((s: any) => setJoin(!s.empty));
-
-  return join ? <PostButton /> : <JoinButton />;
+  return (
+    <React.Fragment>
+      {error && <Text>Error: {error}</Text>}
+      {loading && null}
+      {!loading ? join ? <PostButton /> : <JoinButton /> : null}
+    </React.Fragment>
+  );
 };
 
 export default ChallengeButton;
