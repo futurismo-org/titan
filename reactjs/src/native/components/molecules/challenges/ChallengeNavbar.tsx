@@ -26,11 +26,12 @@ const ChallengeNavbar = (props: any) => {
         alignSelf: 'center'
       }}
     >
-      <Button bordered style={{ width: 100, justifyContent: 'center' }}>
+      <Button small bordered style={{ width: 100, justifyContent: 'center' }}>
         <Text>概要</Text>
       </Button>
       <Button
         bordered
+        small
         style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
       >
         <Text>ルール</Text>
@@ -41,16 +42,18 @@ const ChallengeNavbar = (props: any) => {
         button={
           <Button
             bordered
+            small
             style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
           >
             <Text onPress={showMenu}>その他</Text>
           </Button>
         }
       >
-        <MenuItem onPress={hideMenu}>Menu item 1</MenuItem>
-        <MenuItem onPress={hideMenu}>Menu item 2</MenuItem>
-        <MenuItem onPress={hideMenu}>Menu item 3</MenuItem>
-        <MenuItem onPress={hideMenu}>Menu item 4</MenuItem>
+        {/* <MenuItem onPress={hideMenu}>タイムライン</MenuItem> */}
+        <MenuItem onPress={hideMenu}>トピック</MenuItem>
+        <MenuItem onPress={hideMenu}>リーダボード</MenuItem>
+        <MenuItem onPress={hideMenu}>ダッシュボード</MenuItem>
+        {isLogin && <MenuItem onPress={hideMenu}>ユーザ設定</MenuItem>}
       </Menu>
     </View>
   );
