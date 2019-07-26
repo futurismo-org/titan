@@ -1,52 +1,76 @@
 import React from 'react';
+import { Content } from 'native-base';
+import { Switch, Route } from 'react-router-native';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
 import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
 import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
-import TopicWrapper from '../TopicWrapper';
-
-import { primaryColor } from '~/lib/theme';
+// import TopicWrapper from '../TopicWrapper';
 
 const ChallengeBody = (props: any) => {
-  const { challenge, isLogin } = props;
+  const { challenge } = props;
 
   return (
     <React.Fragment>
-      {/* <Content padder>
-        <Switch>*/}
-      {/* <Route
-          path="/c/:id/timeline"
-          render={() => <ChallengeTimeline channelId={challenge.channelId} />}
-        />
-        <Route
-          path="/c/:collectionId/t/:topicId/edit"
-          render={props => <TopicForm collection="challenges" {...props} />}
-        />
-        <Route
-          path="/c/:collectionId/t/new"
-          render={props => <TopicForm collection="challenges" {...props} />}
-        />
-        <Route
-          path="/c/:collectionId/t/:topicId"
-          render={props => <Topic collection="challenges" {...props} />}
-        />
-        <Route path="/c/:id/topics" component={ChallengeTopics} />
-        <Route
-          path="/c/:challengeId/u/:userId"
-          render={(props: any) => (
-            <ChallengeUserDashBoard
-              challengeTitle={challenge.title}
-              webhookURL={challenge.webhookURL}
-              openedAt={challenge.openedAt}
-              closedAt={challenge.closedAt}
-              hashtag={challenge.hashtag}
-              {...props}
-            />
-          )}
-        /> */}
-      {/* </Switch>
-      </Content> */}
+      <Content padder>
+        <Switch>
+          <Route
+            path="/c/:id/overview"
+            render={props => (
+              <ChallengeOverview
+                text={challenge.overview}
+                youtubeId={challenge.youtubeId}
+                openedAt={challenge.openedAt.toDate()}
+                closedAt={challenge.closedAt.toDate()}
+                {...props}
+              />
+            )}
+          />
+          <Route
+            path="/c/:id/rules"
+            render={props => <MarkdownView text={challenge.rules} {...props} />}
+          />
+          <Route
+            path="/c/:id/leaderboard"
+            render={props => (
+              <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
+            )}
+          />
+          <Route
+            path="/c/:id/u/:userShortId/settings"
+            render={props => (
+              <ChallengeUserSettings challenge={challenge} {...props} />
+            )}
+          />
+          <Route
+            path="/c/:id/u/:userShortId"
+            render={props => (
+              <ChallengeUserDashBoard challenge={challenge} {...props} />
+            )}
+          />
+          {/* タイムラインは一旦保留 */}
+          {/* <Route
+            path="/c/:id/timeline"
+            render={() => <ChallengeTimeline channelId={challenge.channelId} />}
+          />
+          */}
+          {/* トピックは一旦保留 */}
+          {/* <Route
+            path="/c/:collectionId/t/:topicId/edit"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/new"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/:topicId"
+            render={props => <Topic collection="challenges" {...props} />}
+          />
+          <Route path="/c/:id/topics" component={ChallengeTopics} /> */}
+        </Switch>
+      </Content>
     </React.Fragment>
   );
 };

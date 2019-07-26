@@ -3,13 +3,17 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 import Menu, { MenuItem } from 'react-native-material-menu';
 
-import { Button, Text, Content } from 'native-base';
+import { Link, withRouter } from 'react-router-native';
+import { Button, Text } from 'native-base';
 
 const ChallengeNavbar = (props: any) => {
-  const { challnege, isLogin } = props;
+  const { challenge, isLogin, userShortId, history } = props;
   const [menuRef, setMenuRef] = useState();
 
-  const hideMenu = () => {
+  const challengeId = challenge.id;
+
+  const hideMenu = (path: string) => {
+    history.push(path);
     menuRef.hide();
   };
 
@@ -27,16 +31,19 @@ const ChallengeNavbar = (props: any) => {
       }}
     >
       <Button small bordered style={{ width: 100, justifyContent: 'center' }}>
-        <Text>概要</Text>
+        <Link to={`/c/${challengeId}/overview`}>
+          <Text>概要</Text>
+        </Link>
       </Button>
       <Button
         bordered
         small
         style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
       >
-        <Text>ルール</Text>
+        <Link to={`/c/${challengeId}/rules`}>
+          <Text>ルール</Text>
+        </Link>
       </Button>
-
       <Menu
         ref={(ref: any) => setMenuRef(ref)}
         button={
@@ -50,10 +57,28 @@ const ChallengeNavbar = (props: any) => {
         }
       >
         {/* <MenuItem onPress={hideMenu}>タイムライン</MenuItem> */}
-        <MenuItem onPress={hideMenu}>トピック</MenuItem>
-        <MenuItem onPress={hideMenu}>リーダボード</MenuItem>
-        <MenuItem onPress={hideMenu}>ダッシュボード</MenuItem>
-        {isLogin && <MenuItem onPress={hideMenu}>ユーザ設定</MenuItem>}
+        <MenuItem onPress={() => hideMenu(`/c/${challengeId}/leaderboard`)}>
+          リーダボード
+        </MenuItem>
+        {isLogin && (
+          <MenuItem
+            onPress={() => hideMenu(`/c/${challengeId}/u/${userShortId}`)}
+          >
+            ダッシュボード
+          </MenuItem>
+        )}
+        <MenuItem onPress={() => hideMenu(`/c/${challengeId}/topics`)}>
+          トピック
+        </MenuItem>
+        {isLogin && (
+          <MenuItem
+            onPress={() =>
+              hideMenu(`/c/${challengeId}/u/${userShortId}/settings`)
+            }
+          >
+            ユーザ設定
+          </MenuItem>
+        )}
       </Menu>
     </View>
   );
@@ -113,4 +138,4 @@ const ChallengeNavbar = (props: any) => {
 //   </React.Fragment>
 // );
 
-export default ChallengeNavbar;
+export default withRouter(ChallengeNavbar);

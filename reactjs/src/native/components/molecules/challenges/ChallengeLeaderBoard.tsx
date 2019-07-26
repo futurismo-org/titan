@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { Text, Thumbnail } from 'native-base';
-import { Linking } from 'react-native';
+import { Link } from 'react-router-native';
 import Progress from '../../atoms/CircularProgress';
 
 const { Table, Row } = require('react-native-table-component');
@@ -33,13 +33,11 @@ const ChallengeLeaderBoard = (props: any) => {
               `${user.rank}位`,
               <Thumbnail source={{ uri: user.photoURL }} key={user.id} />,
               <React.Fragment key={user.id}>
-                <Text
-                  onPress={() =>
-                    Linking.openURL(`https://titan-fire.com${user.profilePath}`)
-                  }
-                >
-                  {user.displayName}
-                </Text>
+                <Link to={user.profilePath}>
+                  <Text style={{ textDecorationLine: 'underline' }}>
+                    {user.displayName}
+                  </Text>
+                </Link>
               </React.Fragment>,
               user.score,
               user.latest
