@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchParticipants, fetchUser } from '~/actions/userAction';
 
+import { getUserDashboardPath } from '~/lib/url';
+
 import { getParticipantsUserId, getParticipantsId } from '~/lib/resource';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -14,6 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
   const userResourceId = getParticipantsUserId(challengeId, userShortId);
+  const redirectPath = getUserDashboardPath(challengeId, userShortId);
 
   const participants = state.user.items;
 
@@ -31,6 +34,7 @@ const mapStateToProps = (state: any, props: any) => {
     loading: state.user.loading,
     resourceId,
     userResourceId,
+    redirectPath,
     ...props
   };
 };

@@ -10,7 +10,13 @@ const TopicList = (props: any) => {
       {topics.map((topic: any) => (
         <ListItem thumbnail key={topic.id}>
           <Left>
-            <Thumbnail square source={{ uri: topic.userPhotoURL }} />
+            <Thumbnail
+              square
+              source={{
+                uri:
+                  topic.userPhotoURL || 'https://titan-fire.com/anonymous.png'
+              }}
+            />
           </Left>
           <Body>
             <Link to={topicPath(topic.id)}>

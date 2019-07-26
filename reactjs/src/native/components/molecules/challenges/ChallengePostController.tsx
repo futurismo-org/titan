@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Button, Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
+import { withRouter } from 'react-router-native';
 import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
-
-// import { getUserDashboardPath, withDomain } from '~/lib/url';
 
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
 import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
-  const { challenge, participant, resourceId } = props;
+  const { challenge, participant, resourceId, history, redirectPath } = props;
   const { openedAt, closedAt } = challenge;
 
   const [alert, setAlert] = useState();
@@ -74,8 +73,8 @@ const ChallengePostController = (props: any) => {
       .update(updateData)
       .then(() => {
         successToastWithNoRedirect('投稿が完了しました');
-      });
-    // .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      })
+      .then(() => history.push(redirectPath));
   };
 
   const resetRecord = (props: any) => {
@@ -152,4 +151,4 @@ const ChallengePostController = (props: any) => {
   );
 };
 
-export default ChallengePostController;
+export default withRouter(ChallengePostController);

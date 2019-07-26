@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Button, Text } from 'native-base';
 import { Linking, Alert, View } from 'react-native';
 import { withRouter, Link } from 'react-router-native';
@@ -21,45 +21,13 @@ const Topic = (props: any) => {
     editTopicPath,
     redirectPath,
     fetchTopic,
-    setOgpInfo,
-    resetOgpInfo,
     history,
     isCurrentUser
   } = props;
 
-  const title = useMemo(() => {
-    return topic ? topic.title : '';
-  }, [topic]);
-  const description = useMemo(() => {
-    return topic ? topic.text : '';
-  }, [topic]);
-  const url = useMemo(() => {
-    return shareURL;
-  }, [shareURL]);
-
   useEffect(() => {
-    !topic && !loading && fetchTopic(resourceId);
-
-    setOgpInfo({
-      title,
-      description,
-      url
-    });
-
-    return () => {
-      resetOgpInfo();
-    };
-  }, [
-    description,
-    fetchTopic,
-    loading,
-    resetOgpInfo,
-    resourceId,
-    setOgpInfo,
-    title,
-    topic,
-    url
-  ]);
+    fetchTopic(resourceId);
+  }, [fetchTopic, resourceId]);
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
     Alert.alert(
@@ -90,10 +58,7 @@ const Topic = (props: any) => {
             Posted by {topic.userName || 'Anonymous'}{' '}
             {fromNow(topic.createdAt.toDate())}{' '}
           </Text>
-          <Title
-            text={topic.title}
-            onPress={() => Linking.openURL(topic.url)}
-          />
+          <Title text={topic.title} />
           {!!topic.url && (
             <React.Fragment>
               <Text onPress={() => Linking.openURL(topic.url)}>

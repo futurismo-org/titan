@@ -18,7 +18,8 @@ const ChallengeButton = (props: any) => {
     loading,
     fetchUser,
     userResourceId,
-    participant
+    participant,
+    redirectPath
   } = props;
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const ChallengeButton = (props: any) => {
       fetchUser={fetchUser}
       resourceId={userResourceId}
       participant={participant}
+      redirectPath={redirectPath}
     />
   );
 

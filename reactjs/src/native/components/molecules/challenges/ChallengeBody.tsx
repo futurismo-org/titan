@@ -6,7 +6,9 @@ import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
 import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
 import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
-// import TopicWrapper from '../TopicWrapper';
+import TopicForm from '~/native/containers/TopicFormContainer';
+import Topic from '~/native/containers/TopicContainer';
+import Topics from '~/native/containers/TopicsContainer';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
@@ -55,8 +57,7 @@ const ChallengeBody = (props: any) => {
             render={() => <ChallengeTimeline channelId={challenge.channelId} />}
           />
           */}
-          {/* トピックは一旦保留 */}
-          {/* <Route
+          <Route
             path="/c/:collectionId/t/:topicId/edit"
             render={props => <TopicForm collection="challenges" {...props} />}
           />
@@ -68,7 +69,28 @@ const ChallengeBody = (props: any) => {
             path="/c/:collectionId/t/:topicId"
             render={props => <Topic collection="challenges" {...props} />}
           />
-          <Route path="/c/:id/topics" component={ChallengeTopics} /> */}
+          <Route
+            path="/c/:collectionId/t/:topicId/edit"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/new"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/:topicId"
+            render={props => <Topic collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/topics"
+            render={props => (
+              <Topics
+                collection="challenges"
+                collectionId={challenge.id}
+                {...props}
+              />
+            )}
+          />
         </Switch>
       </Content>
     </React.Fragment>
