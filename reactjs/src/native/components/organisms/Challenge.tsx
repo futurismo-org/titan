@@ -4,6 +4,7 @@ import { Text } from 'native-base';
 
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
+import Navbar from '../molecules/challenges/ChallengeNavbar';
 
 import Progress from '../atoms/CircularProgress';
 
@@ -28,6 +29,7 @@ const Challenge = (props: any) => {
       {challenge && (
         <React.Fragment>
           <Header challenge={challenge} isLogin={isLogin} />
+          <Navbar challenge={challenge} isLogin={isLogin} />
           <Body challenge={challenge} isLogin={isLogin} />
         </React.Fragment>
       )}

@@ -1,5 +1,4 @@
 import React from 'react';
-import { Content, Tabs, ScrollableTab, Tab } from 'native-base';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
@@ -12,63 +11,8 @@ import { primaryColor } from '~/lib/theme';
 const ChallengeBody = (props: any) => {
   const { challenge, isLogin } = props;
 
-  const ChallengeTab = (props: any) => {
-    const { heading, component } = props;
-    return (
-      <Tab heading={heading}>
-        <Content padder>{component}</Content>
-      </Tab>
-    );
-  };
-
   return (
     <React.Fragment>
-      <Tabs
-        renderTabBar={() => (
-          <ScrollableTab style={{ backgroundColor: primaryColor }} />
-        )}
-      >
-        <ChallengeTab
-          heading="概要"
-          component={
-            <ChallengeOverview
-              text={challenge.overview}
-              youtubeId={challenge.youtubeId}
-              openedAt={challenge.openedAt.toDate()}
-              closedAt={challenge.closedAt.toDate()}
-            />
-          }
-        />
-        <ChallengeTab
-          heading="ルール"
-          component={<MarkdownView text={challenge.rules} />}
-        />
-        {/* タイムラインは一旦保留 */}
-        <ChallengeTab
-          heading="リーダーボード"
-          component={<ChallengeLeaderBoard challengeId={challenge.id} />}
-        />
-        {/* 他人の実績を見る方法がわからん。保留にする。 */}
-        {isLogin && (
-          <ChallengeTab
-            heading="ダッシュボード"
-            component={<ChallengeUserDashBoard challenge={challenge} />}
-          />
-        )}
-        <ChallengeTab
-          heading="トピック"
-          // path={`/c/${challenge.id}/topics`}
-          component={
-            <TopicWrapper collection="challenges" collectionId={challenge.id} />
-          }
-        />
-        {isLogin && (
-          <ChallengeTab
-            heading="ユーザ設定"
-            component={<ChallengeUserSettings challengeId={challenge.id} />}
-          />
-        )}
-      </Tabs>
       {/* <Content padder>
         <Switch>*/}
       {/* <Route
