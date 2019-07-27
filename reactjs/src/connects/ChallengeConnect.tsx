@@ -18,7 +18,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
-  const isLogin = !profile.isty && profile.isLoaded;
+  const isLogin = !profile.isEmpty && profile.isLoaded;
 
   return {
     challenge,
