@@ -3,6 +3,7 @@ import { Text } from 'react-native';
 import CollectionCard from '../atoms/CollectionCard';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
+import MoreLink from '../atoms/MoreLink';
 
 const DashBoard = (props: any) => {
   const {
@@ -36,6 +37,7 @@ const DashBoard = (props: any) => {
               key={pinned.id}
             />
           ))}
+          <MoreLink to="/challenges" />
           <Title text="人気のカテゴリ" />
           {categories.map((category: any) => (
             <CollectionCard
@@ -44,6 +46,7 @@ const DashBoard = (props: any) => {
               key={category.id}
             />
           ))}
+          <MoreLink to="/categories" />
           <Title text="人気のチャレンジ" />
           {challenges.map((challenge: any) => (
             <CollectionCard
@@ -52,6 +55,7 @@ const DashBoard = (props: any) => {
               key={challenge.id}
             />
           ))}
+          <MoreLink to="/challenges" />
         </React.Fragment>
       )}
     </React.Fragment>
