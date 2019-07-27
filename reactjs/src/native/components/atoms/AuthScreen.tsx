@@ -103,26 +103,56 @@ const AuthScreen = (props: any) => {
   };
 
   const signInWithTwitter = async () => {
-    const { oauth_token, oauth_token_secret } = await getTwitterRequestToken(); //eslint-disable-line
+    const res: any = await getTwitterRequestToken();
+    const { oauth_token, oauth_token_secret } = res; //eslint-disable-line
 
-    const oauth_verifier = await AuthSession.startAsync({ // eslint-disable-line
-      authUrl: `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}` //eslint-disable-line
-    }).then((res: any) => res.params);
+    /* eslint-disable */
+    if (!oauth_token || !oauth_token_secret) {
+      errorToast(oauth_token);
+      return;
+    }
+    /* eslint-enable */
 
-    const result = await getTwitterAccessToken({
+    const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
+
+    /* eslint-disable */
+    const oauth_verifier = await AuthSession.startAsync({ authUrl }).then(
+      (res: any) => res.params.oauth_verifier
+    );
+    /* eslint-enable */
+
+    const result: any = await getTwitterAccessToken({
       oauth_token, //eslint-disable-line
       oauth_token_secret, //eslint-disable-line
-      oauth_verifier　//eslint-disable-line
+      oauth_verifier //eslint-disable-line
     });
 
+    /* eslint-disable */
+    if (
+      result.status !== 200 ||
+      !(result.data.oauth_token && result.data.oauth_token_secret)
+    ) {
+      console.log(result.deata.message);
+      errorToast(result.data.message);
+      return;
+    }
+    /* eslint-enable */
+
     const credential = firebase.auth.TwitterAuthProvider.credential(
-      result.oauth_token, //eslint-disable-line
-      result.oauth_token_secret //eslint-disable-line
+      result.data.oauth_token, //eslint-disable-line
+      result.data.oauth_token_secret //eslint-disable-line
     );
+
+    /* eslint-disable */
+    if (!credential) {
+      errorToast(oauth_token);
+      return;
+    }
+    /* eslint-enable */
 
     firebase
       .auth()
-      .signInAndRetrieveDataWithCredential(credential)
+      .signInWithCredential(credential)
       .then(credential => signInSuccessWithAuthCallback(credential))
       .then(() => successToast('/settings'))
       .catch(error => errorToast(error.message));

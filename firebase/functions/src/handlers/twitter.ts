@@ -34,14 +34,14 @@ exports.postTweet = (req: any, res: any) => {
 
   busboy.on('finish', function() {
     const client = new Twit({
-      consumer_key: CONSUMER_KEY,  // eslint-disable-line
+      consumer_key: CONSUMER_KEY, // eslint-disable-line
       consumer_secret: CONSUMER_SECRET, // eslint-disable-line
       access_token: formData.get('token'), // eslint-disable-line
       access_token_secret: formData.get('secret') // eslint-disable-line
     });
 
     client
-      .post('media/upload', { media_data: formData.get('image').split(',')[1] })  // eslint-disable-line
+      .post('media/upload', { media_data: formData.get('image').split(',')[1] }) // eslint-disable-line
       .then((media: any) => {
         const status = {
           status: formData.get('content'),
@@ -93,6 +93,7 @@ exports.requestToken = async (req: any, res: any) => {
   });
 
   const text = await response.text();
+  res.status = response.status;
   return res.json(qs.parse(text));
 };
 
@@ -132,10 +133,7 @@ exports.accessToken = async (req: any, res: any) => {
     headers
   });
 
-  if (response.status !== 200) {
-    res.status = response.status;
-    return res.json({ message: 'something wrong' });
-  }
+  res.status = response.status;
   const text = await response.text();
   return res.json(qs.parse(text));
 };
