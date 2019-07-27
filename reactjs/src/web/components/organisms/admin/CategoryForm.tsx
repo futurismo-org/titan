@@ -62,7 +62,7 @@ const CategoryForm = (props: any) => {
           ? null
           : challengeRefs
               .split(',')
-              .map((path: string) => firebase.firestore().doc(path))
+              .map((path: string) => firebase.firestore().doc(path.trim()))
     };
     firebase
       .firestore()
