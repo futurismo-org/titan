@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Title from '../atoms/Title';
 import Progress from '../atoms/CircularProgress';
+import Error from '../atoms/Error';
 import CollectionCard from '../atoms/CollectionCard';
 
 const Challenges = (props: any) => {
@@ -19,7 +20,7 @@ const Challenges = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       <Title text="開催中のチャレンジ" />
       {openingChallenges.map((challenge: any) => (
