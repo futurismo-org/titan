@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Content, Card, CardItem } from 'native-base';
+import { Content, Text } from 'native-base';
 
 import shortId from 'shortid';
 import Title from '../../atoms/Title';
@@ -7,38 +7,25 @@ import MarkdownView from '../../atoms/MarkdownView';
 
 import CategoryChallenge from './CategoryChallenge';
 
+const Space = (props: any) => <Text />;
+
 const CategoryBody = (props: any) => {
   const { category } = props;
   return (
     <Content padder>
-      <Card>
-        <CardItem header>
-          <Title text="概要" />
-        </CardItem>
-        <CardItem>
-          <MarkdownView text={category.overview} />
-        </CardItem>
-      </Card>
-      <Card>
-        <CardItem header>
-          <Title text="チャレンジ一覧" />
-        </CardItem>
-        {category.challengeRefs &&
-          category.challengeRefs.map((challengeRef: any) => (
-            <CardItem key={shortId.generate()}>
-              <CategoryChallenge
-                key={shortId.generate()}
-                challengeRef={challengeRef}
-              />
-            </CardItem>
-          ))}
-      </Card>
-      <Card>
-        <CardItem header>
-          <Title text="トピック" />
-        </CardItem>
-        <CardItem></CardItem>
-      </Card>
+      <Title text="概要" />
+      <MarkdownView text={category.overview} />
+      <Space />
+      <Title text="チャレンジ一覧" />
+      {category.challengeRefs &&
+        category.challengeRefs.map((challengeRef: any) => (
+          <CategoryChallenge
+            key={shortId.generate()}
+            challengeRef={challengeRef}
+          />
+        ))}
+      <Space />
+      <Title text="トピック" />
     </Content>
   );
 };
