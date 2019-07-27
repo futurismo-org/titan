@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 const StyledPaper = styled(Paper)`
   && {

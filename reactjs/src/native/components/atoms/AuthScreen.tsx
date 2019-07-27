@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Container, Form, Item, Label, Input, Text, Toast } from 'native-base';
+import {
+  Container,
+  Form,
+  Item,
+  Label,
+  Input,
+  Text,
+  Toast,
+  Button
+} from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
@@ -93,11 +102,11 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      {/* <Button full rounded info>
+      <Button full rounded info>
         <Text>Twitterでログイン</Text>
       </Button>
-      <Text /> */}
-      {/* <Text style={{ textAlign: 'center' }}>または</Text> */}
+      <Text />
+      <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
         <Item floatingLabel>
           <Label>メールアドレス</Label>

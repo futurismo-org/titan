@@ -4,7 +4,7 @@ import Container, { ContainerProps } from '@material-ui/core/Container';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 import TopToolbar from '../molecules/TopToolbar';
 
 const LayoutWrapperContainer = styled(Container)`

@@ -7,7 +7,7 @@ import Link from '@material-ui/core/Link';
 
 import styled from 'styled-components';
 import moment from 'moment';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 

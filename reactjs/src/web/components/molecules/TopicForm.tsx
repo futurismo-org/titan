@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import Progress from '../atoms/CircularProgress';
 
 const db = firebase.firestore();

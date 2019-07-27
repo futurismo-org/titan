@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 
-import theme from 'lib/theme';
-import firebase from 'lib/firebase';
 import CheckoutForm from 'web/components/atoms/CheckoutForm';
 import ChallengePosts from 'web/components/molecules/challenges/ChallengePostController';
+import theme from '~/lib/theme';
+import firebase from '~/lib/firebase';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;

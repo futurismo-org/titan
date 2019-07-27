@@ -7,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import shortid from 'shortid';
 import moment from 'moment';
 
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
 const ChallengeForm = (props: any) => {

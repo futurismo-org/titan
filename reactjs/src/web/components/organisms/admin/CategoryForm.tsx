@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 import shortid from 'shortid';
 import moment from 'moment';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
 const CategoryForm = (props: any) => {

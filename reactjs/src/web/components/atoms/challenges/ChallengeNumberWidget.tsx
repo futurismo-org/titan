@@ -4,7 +4,7 @@ import { Paper, Typography } from '@material-ui/core';
 
 import styled from 'styled-components';
 import { PaperProps } from '@material-ui/core/Paper';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 const WidgetWrapper = styled.div`
   display: flex;

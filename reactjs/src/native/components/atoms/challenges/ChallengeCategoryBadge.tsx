@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import firebase from 'lib/firebase';
 import { Badge, Text } from 'native-base';
 import { Link } from 'react-router-native';
+import firebase from '~/lib/firebase';
 
 const ChallengeCategoryBadge = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.categoryRef;
