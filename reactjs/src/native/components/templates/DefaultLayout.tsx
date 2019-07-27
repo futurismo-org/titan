@@ -3,7 +3,7 @@ import { ScrollView, Platform } from 'react-native';
 import { StyleProvider, Container, Content, Drawer, Root } from 'native-base';
 
 import styled from 'styled-components';
-import Header from '~/native/components/molecules/Header';
+import Header from '~/native/containers/HeaderContainer';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
 import NavDrawer from '~/native/components/molecules/NavDrawer';

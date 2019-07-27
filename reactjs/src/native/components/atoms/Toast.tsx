@@ -14,6 +14,13 @@ export const successToast = (
     onClose: () => redirectHandler(path)
   });
 
+export const successToastWithNoRedirect = (message: string) =>
+  Toast.show({
+    text: message,
+    duration: TOAST_DURATION,
+    type: 'success'
+  });
+
 export const errorToast = (errorMessage: string) =>
   Toast.show({
     text: `エラーが発生ました。(${errorMessage})`,

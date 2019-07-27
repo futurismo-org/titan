@@ -3,14 +3,14 @@ import 'moment/locale/ja';
 
 moment.locale('ja');
 
-const now = new Date();
+export const now = new Date();
+export const nowMoment = moment();
 
 export const fromNow = (date: Date) => moment(date).fromNow() || '';
 export const isClosed = (date: Date) => moment(date).diff(now, 'days') <= 0;
 
-export const formatDatetime = (date: string) =>
+export const formatDatetime = (date: Date) =>
   moment(date).format('MM月DD日 HH:mm');
-
 export const formatDate = (date: string) => moment(date).format('MM月DD日');
 
 export default moment;

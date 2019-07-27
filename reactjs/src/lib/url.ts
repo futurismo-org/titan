@@ -21,7 +21,10 @@ export const collectionShort = (collection: string) =>
 export const collectionURL = (
   collection: 'challenges' | 'categories',
   collectionId: string
-) => `/${collectionShort(collection)}/${collectionId}`;
+) =>
+  collection === 'challenges'
+    ? `/c/${collectionId}/overview`
+    : `/cat/${collectionId}/dashboard`;
 
 export const getTwitterProfileURL = (username: string) =>
   username ? `https://twitter.com/${username}` : 'https://twitter.com';

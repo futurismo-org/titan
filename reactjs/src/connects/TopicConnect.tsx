@@ -17,8 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const collectionId = props.match.params.collectionId;
-  const { topicId } = props.match.params;
+  const { topicId, collectionId } = props.match.params;
 
   const resourceId =
     collection === 'general'

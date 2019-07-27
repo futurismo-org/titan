@@ -17,12 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
 
-  const profile = state.firebase.profile;
-  const selfShortId = profile.shortId;
-
-  // 他人のidは外部から指定される。指定されないときは自分。
-  const userShortId = props.match ? props.match.params.userId : selfShortId;
-
+  const userShortId = props.match.params.userShortId;
   const resourceId = `/challenges/${challenge.id}/participants/${userShortId}`;
 
   const user = state.user.target;
@@ -32,7 +27,6 @@ const mapStateToProps = (state: any, props: any) => {
     user,
     loading: state.user.loading,
     error: state.user.error,
-    userShortId,
     resourceId,
     joinDate,
     ...props

@@ -4,6 +4,7 @@ import { Text } from 'native-base';
 
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
+import Navbar from '../molecules/challenges/ChallengeNavbar';
 
 import Progress from '../atoms/CircularProgress';
 
@@ -14,7 +15,8 @@ const Challenge = (props: any) => {
     fetchChallenge,
     resourceId,
     challenge,
-    isLogin
+    isLogin,
+    userShortId
   } = props;
 
   React.useEffect(() => {
@@ -27,7 +29,12 @@ const Challenge = (props: any) => {
       {loading && <Progress />}
       {challenge && (
         <React.Fragment>
-          <Header challenge={challenge} />
+          <Header challenge={challenge} isLogin={isLogin} />
+          <Navbar
+            challenge={challenge}
+            isLogin={isLogin}
+            userShortId={userShortId}
+          />
           <Body challenge={challenge} isLogin={isLogin} />
         </React.Fragment>
       )}

@@ -49,7 +49,6 @@ const ChallengeNavbar = (props: any) => {
         onClose={handleClose}
       >
         <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
-        <NavItem to={`/c/${props.id}/topics`} text="トピック" />
         <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
         {props.userId && (
           <NavItem
@@ -57,6 +56,7 @@ const ChallengeNavbar = (props: any) => {
             text="ダッシュボード"
           />
         )}
+        <NavItem to={`/c/${props.id}/topics`} text="トピック" />
         {props.userId && (
           <NavItem
             to={`/c/${props.id}/u/${props.userId}/settings`}

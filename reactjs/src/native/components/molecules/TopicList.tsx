@@ -4,13 +4,19 @@ import { Link } from 'react-router-native';
 import { fromNow } from '~/lib/moment';
 
 const TopicList = (props: any) => {
-  const { topics, topicPath } = props;
+  const { topics, topicPath, limit } = props;
   return (
     <List>
-      {topics.map((topic: any) => (
+      {topics.slice(0, limit).map((topic: any) => (
         <ListItem thumbnail key={topic.id}>
           <Left>
-            <Thumbnail square source={{ uri: topic.userPhotoURL }} />
+            <Thumbnail
+              square
+              source={{
+                uri:
+                  topic.userPhotoURL || 'https://titan-fire.com/anonymous.png'
+              }}
+            />
           </Left>
           <Body>
             <Link to={topicPath(topic.id)}>

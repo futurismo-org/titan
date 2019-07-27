@@ -1,43 +1,51 @@
 import * as React from 'react';
-import { Content, Card, CardItem } from 'native-base';
+import { Content } from 'native-base';
+import { Switch, Route } from 'react-router-native';
 
-import shortId from 'shortid';
-import Title from '../../atoms/Title';
-import MarkdownView from '../../atoms/MarkdownView';
-
-import CategoryChallenge from './CategoryChallenge';
+import CategoryDashBoard from './CategoryDashBoard';
+import Topic from '~/native/containers/TopicContainer';
+import TopicForm from '~/native/containers/TopicFormContainer';
+import Topics from '~/native/containers/TopicsContainer';
 
 const CategoryBody = (props: any) => {
-  const { category } = props;
+  const { category, topics, topicPath } = props;
   return (
     <Content padder>
-      <Card>
-        <CardItem header>
-          <Title text="概要" />
-        </CardItem>
-        <CardItem>
-          <MarkdownView text={category.overview} />
-        </CardItem>
-      </Card>
-      <Card>
-        <CardItem header>
-          <Title text="チャレンジ一覧" />
-        </CardItem>
-        {category.challengeRefs.map((challengeRef: any) => (
-          <CardItem key={shortId.generate()}>
-            <CategoryChallenge
-              key={shortId.generate()}
-              challengeRef={challengeRef}
+      <Switch>
+        <Route
+          path="/cat/:collectionId/t/:topicId/edit"
+          render={props => <TopicForm collection="categories" {...props} />}
+        />
+        <Route
+          path="/cat/:collectionId/t/new"
+          render={props => <TopicForm collection="categories" {...props} />}
+        />
+        <Route
+          path="/cat/:collectionId/t/:topicId"
+          render={props => <Topic collection="categories" {...props} />}
+        />
+        <Route
+          path="/cat/:id/topics"
+          render={props => (
+            <Topics
+              collection="categories"
+              collectionId={category.id}
+              {...props}
             />
-          </CardItem>
-        ))}
-      </Card>
-      <Card>
-        <CardItem header>
-          <Title text="トピック" />
-        </CardItem>
-        <CardItem></CardItem>
-      </Card>
+          )}
+        />
+        <Route
+          path="/cat/:id/dashboard"
+          render={props => (
+            <CategoryDashBoard
+              category={category}
+              topics={topics}
+              topicPath={topicPath}
+              {...props}
+            />
+          )}
+        />
+      </Switch>
     </Content>
   );
 };

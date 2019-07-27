@@ -17,7 +17,6 @@ const Space = () => <Text />;
 const ChallengeUserDashBoard = (props: any) => {
   const {
     challenge,
-    userShortId,
     joinDate,
     user,
     error,
@@ -34,7 +33,7 @@ const ChallengeUserDashBoard = (props: any) => {
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
-      {user && (
+      {!loading && user && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
           <Space />
@@ -62,7 +61,7 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space />
           <ChallengeHistories histories={user.histories} />
           <Space />
-          <TwitterButton challenge={challenge} userShortId={userShortId} />
+          <TwitterButton challenge={challenge} userShortId={user.id} />
         </React.Fragment>
       )}
     </React.Fragment>
