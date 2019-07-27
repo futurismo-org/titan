@@ -49,12 +49,13 @@ const CategoryDashBoard = (props: any) => {
         <Space />
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>
-          {category.challengeRefs.map((challengeRef: any) => (
-            <CategoryChallenge
-              key={shortId.generate()}
-              challengeRef={challengeRef}
-            />
-          ))}
+          {category.challengeRefs &&
+            category.challengeRefs.map((challengeRef: any) => (
+              <CategoryChallenge
+                key={shortId.generate()}
+                challengeRef={challengeRef}
+              />
+            ))}
         </StyledCardGrid>
         <Space />
         <Title text="トピック" />

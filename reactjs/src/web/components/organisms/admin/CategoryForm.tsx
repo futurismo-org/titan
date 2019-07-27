@@ -59,7 +59,7 @@ const CategoryForm = (props: any) => {
       channelId,
       challengeRefs:
         challengeRefs === ''
-          ? ''
+          ? null
           : challengeRefs
               .split(',')
               .map((path: string) => firebase.firestore().doc(path))
