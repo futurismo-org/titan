@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Content, View } from 'native-base';
 
+import { Link } from 'react-router-native';
 import {
   StyledHero as Hero,
   Title,
@@ -22,7 +23,9 @@ const ChallengeHeader = (props: any) => {
         source={{ uri: 'https://source.unsplash.com/random' }}
         renderOverlay={() => (
           <Content padder>
-            <Title>{challenge.title}</Title>
+            <Link to={`/c/${challenge.id}/overview`}>
+              <Title>{challenge.title}</Title>
+            </Link>
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />

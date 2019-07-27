@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Content } from 'native-base';
 
+import { Link } from 'react-router-native';
 import {
   StyledHero as Hero,
   Title,
@@ -15,7 +16,9 @@ const CategoryHeader = (props: any) => {
       source={{ uri: 'https://source.unsplash.com/random' }}
       renderOverlay={() => (
         <Content padder>
-          <Title>{category.title}</Title>
+          <Link to={`/cat/${category.id}/dashboard`}>
+            <Title>{category.title}</Title>
+          </Link>
           <Description>{category.description}</Description>
         </Content>
       )}
