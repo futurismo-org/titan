@@ -78,10 +78,6 @@ const ChallengeBody = (props: any) => {
             render={props => <TopicForm collection="challenges" {...props} />}
           />
           <Route
-            path="/c/:collectionId/t/:topicId"
-            render={props => <Topic collection="challenges" {...props} />}
-          />
-          <Route
             path="/c/:collectionId/topics"
             render={props => (
               <Topics

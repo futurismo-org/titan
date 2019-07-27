@@ -24,7 +24,7 @@ export const collectionURL = (
 ) =>
   collection === 'challenges'
     ? `/c/${collectionId}/overview`
-    : `/cat/${collectionId}`;
+    : `/cat/${collectionId}/dashboard`;
 
 export const getTwitterProfileURL = (username: string) =>
   username ? `https://twitter.com/${username}` : 'https://twitter.com';
