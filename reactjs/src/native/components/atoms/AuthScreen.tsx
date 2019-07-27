@@ -154,7 +154,7 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithCredential(credential)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/settings'))
+      .then(() => successToast('/'))
       .catch(error => errorToast(error.message));
   };
 
