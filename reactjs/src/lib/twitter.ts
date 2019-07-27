@@ -3,32 +3,18 @@ import axios from '~/lib/axios';
 
 const REDIRECT_URL = AuthSession.getRedirectUrl();
 
-export const getTwitterRequestToken = () => {
+export const getTwitterRequestToken = async () => {
   const data = {
-    redirectUri: REDIRECT_URL
+    redirect_uri: REDIRECT_URL //eslint-disable-line
   };
 
-  return axios
-    .post('/auth/twitter/request_token', data, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((res: any) => res.json());
+  return await axios.post('/twitter/request_token', data);
 };
 
-export const getTwitterAccessToken = (params: any) => {
-  const { oauthToken, oauthTokenSecret, oauthVerifier } = params;
+export const getTwitterAccessToken = async (params: any) => {
+  const { oauth_token, oauth_token_secret, oauth_verifier } = params;  //eslint-disable-line
 
-  const data = { oauthToken, oauthTokenSecret, oauthVerifier };
+  const data = { oauth_token, oauth_token_secret, oauth_verifier }; //eslint-disable-line
 
-  return axios
-    .post('/auth/twitter/access_token', data, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((res: any) => res.json());
+  return await axios.post('/twitter/access_token', data);
 };

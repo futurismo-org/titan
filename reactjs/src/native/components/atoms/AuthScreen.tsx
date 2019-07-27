@@ -103,21 +103,21 @@ const AuthScreen = (props: any) => {
   };
 
   const signInWithTwitter = async () => {
-    const { oauthToken, oauthTokenSecret } = await getTwitterRequestToken();
+    const { oauth_token, oauth_token_secret } = await getTwitterRequestToken(); //eslint-disable-line
 
-    const oauthVerifier = await AuthSession.startAsync({
-      authUrl: `https://api.twitter.com/oauth/authenticate?oauth_token=${oauthToken}`
+    const oauth_verifier = await AuthSession.startAsync({ // eslint-disable-line
+      authUrl: `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}` //eslint-disable-line
     }).then((res: any) => res.params);
 
     const result = await getTwitterAccessToken({
-      oauthToken,
-      oauthTokenSecret,
-      oauthVerifier
+      oauth_token, //eslint-disable-line
+      oauth_token_secret, //eslint-disable-line
+      oauth_verifier　//eslint-disable-line
     });
 
     const credential = firebase.auth.TwitterAuthProvider.credential(
-      result.oauth_token,
-      result.oauth_token_secret
+      result.oauth_token, //eslint-disable-line
+      result.oauth_token_secret //eslint-disable-line
     );
 
     firebase

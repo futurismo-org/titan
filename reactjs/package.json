@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "PORT=3000 REACT_APP_ENV=development react-app-rewired start",
-    "start": "REACT_APP_ENV=development expo start",
+    "start": "expo start",
     "build": "GENERATE_SOURCEMAP=true react-app-rewired build",
     "android": "expo start --android",
     "ios": "expo start --ios",
