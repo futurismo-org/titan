@@ -11,7 +11,9 @@ import {
 } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
+import { AuthSession } from 'expo';
 import firebase from '~/lib/firebase';
+import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
 
 import SubmitButton from './SubmitButton';
 
@@ -100,9 +102,35 @@ const AuthScreen = (props: any) => {
       );
   };
 
+  const signInWithTwitter = async () => {
+    const { oauthToken, oauthTokenSecret } = await getTwitterRequestToken();
+
+    const oauthVerifier = await AuthSession.startAsync({
+      authUrl: `https://api.twitter.com/oauth/authenticate?oauth_token=${oauthToken}`
+    }).then((res: any) => res.params);
+
+    const result = await getTwitterAccessToken({
+      oauthToken,
+      oauthTokenSecret,
+      oauthVerifier
+    });
+
+    const credential = firebase.auth.TwitterAuthProvider.credential(
+      result.oauth_token,
+      result.oauth_token_secret
+    );
+
+    firebase
+      .auth()
+      .signInAndRetrieveDataWithCredential(credential)
+      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(() => successToast('/settings'))
+      .catch(error => errorToast(error.message));
+  };
+
   return (
     <Container>
-      <Button full rounded info>
+      <Button full rounded info onPress={signInWithTwitter}>
         <Text>Twitterでログイン</Text>
       </Button>
       <Text />
