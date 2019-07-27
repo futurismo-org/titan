@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Image, FlatList } from 'react-native';
 import { Container, Content, ListItem, Text } from 'native-base';
 import { Link } from 'react-router-native';
+import { getRandomImageURL } from '~/lib/url';
 
 const NavDrawer = (props: any) => {
   const routes = [
@@ -18,7 +19,7 @@ const NavDrawer = (props: any) => {
       <Content>
         <Image
           source={{
-            uri: 'https://source.unsplash.com/random'
+            uri: getRandomImageURL()
           }}
           style={{
             height: 120,

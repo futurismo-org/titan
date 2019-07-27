@@ -3,7 +3,7 @@ import { Image, ImageProps } from 'react-native';
 import { Text, H2, Card, CardItem } from 'native-base';
 import styled from 'styled-components';
 import { Link } from 'react-router-native';
-import { collectionURL } from '~/lib/url';
+import { collectionURL, getRandomImageURL } from '~/lib/url';
 
 const StyledImage = styled(Image)`
   height: 200px;
@@ -24,9 +24,7 @@ const CollectionCard = (props: any) => {
         </CardItem>
         {!small && (
           <CardItem cardBody>
-            <StyledImage
-              source={{ uri: 'https://source.unsplash.com/random' }}
-            />
+            <StyledImage source={{ uri: getRandomImageURL() }} />
           </CardItem>
         )}
         <CardItem footer>

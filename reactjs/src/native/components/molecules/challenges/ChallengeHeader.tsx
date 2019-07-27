@@ -13,6 +13,7 @@ import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
 import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryBadge';
 
 import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
+import { getRandomImageURL } from '~/lib/url';
 
 const ChallengeHeader = (props: any) => {
   const { challenge, isLogin } = props;
@@ -20,7 +21,7 @@ const ChallengeHeader = (props: any) => {
   return (
     <React.Fragment>
       <Hero
-        source={{ uri: 'https://source.unsplash.com/random' }}
+        source={{ uri: getRandomImageURL() }}
         renderOverlay={() => (
           <Content padder>
             <Link to={`/c/${challenge.id}/overview`}>

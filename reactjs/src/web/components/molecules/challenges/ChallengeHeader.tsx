@@ -9,6 +9,7 @@ import ChallengeButton from '../../atoms/challenges/ChallengeButton';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
+import { getRandomImageURL } from '~/lib/url';
 
 const HeaderInfo = styled.div`
   display: flex;
@@ -58,7 +59,7 @@ const ChallengeHeader = (props: any) => {
       {
         <img
           style={{ display: 'none' }}
-          src="https://source.unsplash.com/random"
+          src={getRandomImageURL()}
           alt="background"
         />
       }

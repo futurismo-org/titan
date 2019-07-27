@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 
 import NoStyledLink from '../NoStyledLink';
+import { getRandomImageURL } from '~/lib/url';
 
 const StyledCard = styled(Card)`
   && {
@@ -58,7 +59,7 @@ const ChallengeCard = (props: any) => {
             </StyledCardDetails>
             <Hidden xsDown>
               <StyledCardMedia
-                image="https://source.unsplash.com/random"
+                image={getRandomImageURL()}
                 title="Image title"
               />
             </Hidden>
