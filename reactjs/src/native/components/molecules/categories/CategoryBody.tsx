@@ -23,14 +23,15 @@ const CategoryBody = (props: any) => {
         <CardItem header>
           <Title text="チャレンジ一覧" />
         </CardItem>
-        {category.challengeRefs.map((challengeRef: any) => (
-          <CardItem key={shortId.generate()}>
-            <CategoryChallenge
-              key={shortId.generate()}
-              challengeRef={challengeRef}
-            />
-          </CardItem>
-        ))}
+        {category.challengeRefs &&
+          category.challengeRefs.map((challengeRef: any) => (
+            <CardItem key={shortId.generate()}>
+              <CategoryChallenge
+                key={shortId.generate()}
+                challengeRef={challengeRef}
+              />
+            </CardItem>
+          ))}
       </Card>
       <Card>
         <CardItem header>

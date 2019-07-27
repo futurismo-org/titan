@@ -16,9 +16,8 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
   const userResourceId = getParticipantsUserId(challengeId, userShortId);
-  const redirectPath = getUserDashboardPath(challengeId, userShortId);
-
   const participants = state.user.items;
+  const redirectPath = getUserDashboardPath(challengeId, userShortId);
 
   const join =
     participants.filter((paritcipant: any) => paritcipant.id === userShortId)
