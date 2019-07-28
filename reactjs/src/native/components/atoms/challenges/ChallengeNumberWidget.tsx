@@ -17,7 +17,7 @@ const NumberWidget = ({ title, number, unit, ...props }: any) => (
         <View style={{ paddingLeft: 10, flex: 1 }}>
           <Text>
             <Text style={{ fontWeight: 'bold', fontSize: 48 }}>{number}</Text>
-            <Text style={{ fontSize: 24 }}>{unit}</Text>
+            <Text style={{ fontSize: 20 }}>{unit}</Text>
           </Text>
         </View>
       </Body>
