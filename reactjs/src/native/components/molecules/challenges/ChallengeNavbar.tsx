@@ -30,14 +30,13 @@ const ChallengeNavbar = (props: any) => {
         alignSelf: 'center'
       }}
     >
-      <Button small bordered style={{ width: 100, justifyContent: 'center' }}>
+      <Button bordered style={{ width: 100, justifyContent: 'center' }}>
         <Link to={`/c/${challengeId}/overview`}>
           <Text>概要</Text>
         </Link>
       </Button>
       <Button
         bordered
-        small
         style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
       >
         <Link to={`/c/${challengeId}/rules`}>
@@ -49,7 +48,6 @@ const ChallengeNavbar = (props: any) => {
         button={
           <Button
             bordered
-            small
             style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
           >
             <Text onPress={showMenu}>その他</Text>

@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Form,
-  Item,
-  Label,
-  Input,
-  Text,
-  Toast,
-  Button
-} from 'native-base';
+import { Container, Form, Item, Label, Input, Text, Button } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
@@ -16,8 +7,12 @@ import firebase from '~/lib/firebase';
 import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
 
 import SubmitButton from './SubmitButton';
+import { successToast, errorToast } from './Toast';
+
+const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
 const AuthScreen = (props: any) => {
+  const { history } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -73,31 +68,20 @@ const AuthScreen = (props: any) => {
     return false;
   };
 
-  const successToast = (path: string) =>
-    Toast.show({
-      text: 'ログインに成功しました！',
-      duration: 3000,
-      onClose: () => props.history.push(path)
-    });
-
-  const errorToast = (message: string) =>
-    Toast.show({
-      text: `ログインに失敗しました。(${message})`,
-      duration: 3000
-    });
-
   const signInWithEmail = (email: string, password: string) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/'))
+      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
       .catch(() =>
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(credential => signInSuccessWithAuthCallback(credential))
-          .then(() => successToast('/settings'))
+          .then(() =>
+            successToast('/settings', history.push, LOGIN_MESSAGE_SUCCESS)
+          )
           .catch(error => errorToast(error.message))
       );
   };
@@ -154,7 +138,7 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithCredential(credential)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/'))
+      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
       .catch(error => errorToast(error.message));
   };
 
