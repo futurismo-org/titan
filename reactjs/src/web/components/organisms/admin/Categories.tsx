@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 import Link from '../../atoms/NoStyledLink';

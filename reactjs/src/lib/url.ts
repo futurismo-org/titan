@@ -1,5 +1,7 @@
 import { APP_URL } from '../constants/appInfo';
 
+const UNSPLASH_RANDOM_URL = 'https://source.unsplash.com/random';
+
 export const withDomain = (url: string) => APP_URL + url;
 
 const collectionMap = new Map([
@@ -21,7 +23,10 @@ export const collectionShort = (collection: string) =>
 export const collectionURL = (
   collection: 'challenges' | 'categories',
   collectionId: string
-) => `/${collectionShort(collection)}/${collectionId}`;
+) =>
+  collection === 'challenges'
+    ? `/c/${collectionId}/overview`
+    : `/cat/${collectionId}/dashboard`;
 
 export const getTwitterProfileURL = (username: string) =>
   username ? `https://twitter.com/${username}` : 'https://twitter.com';
@@ -42,3 +47,8 @@ export const getTopicsPath = (
   collection === 'general'
     ? `/topics`
     : `/${collectionShort(collection)}/${collectionId}/topics`;
+
+export const getRandomImageURL = () => {
+  const randnum = Math.floor(Math.random() * 100);
+  return `${UNSPLASH_RANDOM_URL}/${randnum}`;
+};

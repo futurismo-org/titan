@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Link } from 'react-router-native';
 import { Text, Thumbnail } from 'native-base';
-// import { getTwitterProfileURL } from '~/lib/url';
+import { Link } from 'react-router-native';
 import Progress from '../../atoms/CircularProgress';
 
 const { Table, Row } = require('react-native-table-component');
@@ -35,7 +34,9 @@ const ChallengeLeaderBoard = (props: any) => {
               <Thumbnail source={{ uri: user.photoURL }} key={user.id} />,
               <React.Fragment key={user.id}>
                 <Link to={user.profilePath}>
-                  <Text>{user.displayName}</Text>
+                  <Text style={{ textDecorationLine: 'underline' }}>
+                    {user.displayName}
+                  </Text>
                 </Link>
               </React.Fragment>,
               user.score,

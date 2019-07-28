@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { getRandomImageURL } from '~/lib/url';
 
 const StyledCard = styled(Card)`
   && {
@@ -56,7 +57,7 @@ const CategoryCard = (props: any) => {
             </StyledCardDetails>
             <Hidden xsDown>
               <StyledCardMedia
-                image="https://source.unsplash.com/random"
+                image={getRandomImageURL()}
                 title="Image title"
               />
             </Hidden>

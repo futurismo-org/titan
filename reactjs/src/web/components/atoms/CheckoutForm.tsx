@@ -7,10 +7,10 @@ import Button from '@material-ui/core/Button';
 // import TextField from '@material-ui/core/TextField';
 // import styled from 'styled-components';
 import { firestore } from 'firebase';
-import axios from 'lib/axios';
+import axios from '~/lib/axios';
 
-import firebase from 'lib/firebase';
-import { postMessage } from 'lib/discord.client.api';
+import firebase from '~/lib/firebase';
+import { postMessage } from '~/lib/discord.client.api';
 
 // const CardElementWrapper = styled.div`
 //   margin: 15px;

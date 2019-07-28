@@ -4,8 +4,8 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 
 import styled from 'styled-components';
-import theme from 'lib/theme';
 import UserAvatar from 'web/components/atoms/UserAvatar';
+import theme from '~/lib/theme';
 
 import { getTwitterProfileURL } from '~/lib/url';
 

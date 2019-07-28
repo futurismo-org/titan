@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-native';
 import { Toast, Form, Text, Item, Label, Input, Textarea } from 'native-base';
 
+import { KeyboardAvoidingView } from 'react-native';
 import firebase from '~/lib/firebase';
 import SubmitButton from '../atoms/SubmitButton';
 import Progress from '~/native/components/atoms/CircularProgress';
@@ -69,30 +70,34 @@ const TopicForm = (props: any) => {
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
-      {topic && (
-        <Form>
-          <Item floatingLabel>
-            <Label>タイトル</Label>
-            <Input value={title} onChangeText={text => setTitle(text)} />
-          </Item>
-          <Item floatingLabel>
-            <Label>URL</Label>
-            <Input value={url} onChangeText={text => setURL(text)} />
-          </Item>
-          <Text />
-          <Text>
-            情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
-          </Text>
-          <Textarea
-            bordered
-            rowSpan={5}
-            placeholder="テキスト"
-            value={text}
-            onChangeText={text => setText(text)}
-          />
-          <Text />
-          <SubmitButton handler={() => updateHandler()} />
-        </Form>
+      {!loading && (
+        <KeyboardAvoidingView behavior="height">
+          <Form>
+            <Item floatingLabel>
+              <Label>タイトル</Label>
+              <Input value={title} onChangeText={text => setTitle(text)} />
+            </Item>
+            <Item floatingLabel>
+              <Label>URL</Label>
+              <Input value={url} onChangeText={text => setURL(text)} />
+            </Item>
+            <Text />
+            <Text>
+              情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
+            </Text>
+            <Text />
+            <Text />
+            <Textarea
+              bordered
+              rowSpan={5}
+              placeholder="テキスト"
+              value={text}
+              onChangeText={text => setText(text)}
+            />
+            <Text />
+            <SubmitButton handler={() => updateHandler()} />
+          </Form>
+        </KeyboardAvoidingView>
       )}
     </React.Fragment>
   );

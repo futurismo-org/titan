@@ -11,7 +11,7 @@ import {
 import moment from 'moment';
 import MediaQuery from 'react-responsive';
 import styled from 'styled-components';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 const Wrapper = styled.div`
   margin-top: 50px;

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Text, Thumbnail } from 'native-base';
 
 import Progress from '../atoms/CircularProgress';
+import Error from '../atoms/Error';
 import Title from '../atoms/Title';
 
 import { fromNow } from '~/lib/moment';
@@ -28,7 +29,7 @@ const Ranking = (props: any) => {
       <Text>ランキング機能は準備中です...</Text>
       <Text>データが不十分なため、 アクティブユーザを順に表示しています。</Text>
       <Text />
-      {error && <strong>Error: {error}</strong>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       {users && (
         <Table borderStyle={{ borderColor: '#ffffff' }}>

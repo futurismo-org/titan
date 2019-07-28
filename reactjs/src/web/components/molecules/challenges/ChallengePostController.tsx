@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { useDocument } from 'react-firebase-hooks/firestore';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 
-import { postMessage } from 'lib/discord.client.api';
+import { postMessage } from '~/lib/discord.client.api';
 
-import rollbar from 'lib/rollbar';
+import rollbar from '~/lib/rollbar';
 import { getUserDashboardPath, withDomain } from '~/lib/url';
 import { getParticipantsUserId } from '~/lib/resource';
 import Progress from '../../atoms/CircularProgress';
@@ -116,7 +116,7 @@ ${url}`;
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories, displayName } = props;
+    const { score, histories, displayName, accDays } = props;
 
     const newScore = score - 3;
 
@@ -126,7 +126,8 @@ ${url}`;
       score: newScore,
       days: 0,
       pastDays: 0,
-      diff: moment().diff(moment(openedAt), 'days'),
+      accDays,
+      diff: moment().diff(moment(openedAt.toDate()), 'days'),
       type: 'RESET'
     };
 

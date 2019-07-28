@@ -70,7 +70,12 @@ jobs:
           name: 'Deploy to Functions(development) Functions'
           working_directory: firebase/functions
           command: APP_ENV=development ../../node_modules/.bin/firebase deploy --only functions -P development --token "$FIREBASE_TOKEN"
-          
+
+      - run:
+          name: 'Deploy to Expo'
+          working_directory: reactjs
+          command: exp login -u \"$EXPO_ACCOUNT\" -p \"$EXPO_PASSWORD\" && exp publish
+
 workflows:
   main:
     jobs:

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 
 const StyledTypography = styled(Typography)`
   && {

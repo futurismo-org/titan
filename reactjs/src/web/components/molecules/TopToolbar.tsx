@@ -4,7 +4,7 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AuthContainer from 'containers/authContainer';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 import NavDrawer from './NavDrawer';
 
 const StyledToolbar = styled(Toolbar)`

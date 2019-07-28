@@ -1,10 +1,6 @@
 import * as React from 'react';
-import moment from 'moment';
-import { useDocument } from 'react-firebase-hooks/firestore';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import { APP_URL } from 'constants/appInfo';
-import firebase from 'lib/firebase';
 
 import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
@@ -17,6 +13,8 @@ import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
 
+import { formatDays } from '~/lib/challenge';
+
 const StyledCenterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,92 +22,79 @@ const StyledCenterContainer = styled.div`
   align-items: center;
 `;
 
+const DashBoardWrapper = styled.div`
+  max-width: 750px;
+  margin: auto;
+`;
+
 const ChallengeUserDashBoard = (props: any) => {
   const {
-    userId,
-    challengeId,
-    openedAt,
-    closedAt,
-    challengeTitle,
-    hashtag
+    challenge,
+    joinDate,
+    user,
+    error,
+    loading,
+    fetchUser,
+    resourceId,
+    setOgpInfo,
+    resetOgpInfo
   } = props;
 
-  const resourceId = `challenges/${challengeId}/participants/${userId}`;
-
-  const [value, loading, error] = useDocument(
-    firebase.firestore().doc(resourceId)
-  );
-
-  const isDaysValid = (days: number) => {
-    return days !== undefined && days !== null && !isNaN(days);
-  };
-
-  const formatDays = (days: any) => {
-    if (!isDaysValid(days)) {
-      return 0;
-    }
-    return days;
-  };
-
-  const DashBoardWrapper = styled.div`
-    max-width: 750px;
-    margin: auto;
-  `;
-
-  const data = value && value.data();
-  const accDays = data ? formatDays(data.accDays) : '0';
-  const title = data ? `${data.displayName} さんの記録` : '';
-  const description = `現在、${challengeTitle}に参加中。${accDays}日達成しました！`;
-  const url = `${APP_URL}/c/${challengeId}/u/${userId}`;
+  const title = user ? `${user.displayName} さんの記録` : '';
+  const description = `現在、${challenge.title}に参加中。`;
+  const url = user
+    ? `https://titan-fire.com/c/${challenge.id} /u/${user.id}`
+    : 'https://titan-fire.com';
 
   React.useEffect(() => {
-    props.setOgpInfo({ title, description, url });
+    fetchUser(resourceId);
+    setOgpInfo({ title, description, url });
 
     return () => {
-      props.resetOgpInfo();
+      resetOgpInfo();
     };
-  }, [description, props, title, url]);
+  }, [
+    description,
+    fetchUser,
+    resetOgpInfo,
+    resourceId,
+    setOgpInfo,
+    title,
+    url
+  ]);
 
   return (
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {data && (
+      {user && (
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Title text={title} />
             <div id="challenge-card">
               <ChallengeRecord
                 days={formatDays(
-                  data && data.showMode === '過去連続日数'
-                    ? data.pastDays
-                    : data.accDays
+                  user.showMode === '過去連続日数'
+                    ? user.pastDays
+                    : user.accDays
                 )}
               />
             </div>
             <ChallengeStatistics
-              data={data}
-              openedAt={openedAt}
-              closedAt={closedAt}
+              data={user}
+              openedAt={challenge.openedAt}
+              closedAt={challenge.closedAt}
             />
-            <ChallengeChart histories={data.histories} />
+            <ChallengeChart histories={user.histories} />
             <ChallengeGrass
-              data={data}
-              openedAt={openedAt}
-              closedAt={closedAt}
+              histories={user.histories}
+              openedAt={challenge.openedAt}
+              closedAt={challenge.closedAt}
             />
-            <Typography variant="h6">
-              参加日: {moment(data.createdAt.toDate()).format('MM月DD日')}
-            </Typography>
-            <ChallengeHistories histories={data.histories} />
+            <Typography variant="h6">参加日: {joinDate}</Typography>
+            <ChallengeHistories histories={user.histories} />
           </StyledCenterContainer>
-          <TwitterButton
-            title={challengeTitle}
-            days={data.days}
-            userId={userId}
-            challengeId={challengeId}
-            hashtag={hashtag}
-          />
+          <TwitterButton challenge={challenge} userShortId={user.id} />
         </DashBoardWrapper>
       )}
     </React.Fragment>

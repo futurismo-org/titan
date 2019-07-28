@@ -18,8 +18,14 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.futurismo.titan"
     },
-    "entryPoint": "./src/index.native.tsx"
+    "android": {
+      "package": "com.futurismo.titan"
+    },
+    "entryPoint": "./src/index.native.tsx",
+    "description": "自己変革の火をつけるアプリ a.k.a. 地獄から天国へ",
+    "githubUrl": "https://github.com/futurismo-org/titan"
   }
 }

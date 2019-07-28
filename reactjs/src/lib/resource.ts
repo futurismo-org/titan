@@ -1,7 +1,10 @@
+export const getParticipantsId = (challengeId: string) =>
+  `/challenges/${challengeId}/participants`;
+
 export const getParticipantsUserId = (
   challengeId: string,
   userShortId: string
-) => `challenges/${challengeId}/participants/${userShortId}`;
+) => `/challenges/${challengeId}/participants/${userShortId}`;
 
 export const getTopicsId = (
   collection: 'general' | 'challenges' | 'categories',

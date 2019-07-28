@@ -1,5 +1,4 @@
 import * as React from 'react';
-import moment from 'moment';
 import {
   Table,
   Paper,
@@ -11,9 +10,8 @@ import {
   Chip
 } from '@material-ui/core';
 
-const formatDate = (date: string): string => {
-  return moment(date).format('MM/DD HH:mm');
-};
+import { formatDatetime } from '~/lib/moment';
+import { wrapShowN, wrapShowS } from '~/lib/general';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -23,17 +21,19 @@ const ConditionalTableCell = (props: any) => (
 
 const getType = (type: string) => {
   if (type === 'RESET') {
-    return <Chip color="primary" label="リセット" />;
+    return <Chip color="primary" label="RESET" />;
   }
-  return <Chip color="secondary" label="記録" />;
+  return <Chip color="secondary" label="RECORD" />;
 };
 
 const HistoryHead = (props: any) => (
   <TableHead>
     <TableRow>
       <TableCell>日時</TableCell>
-      <TableCell>スコア</TableCell>
+      <TableCell>点数</TableCell>
       <ConditionalTableCell>連続</ConditionalTableCell>
+      <ConditionalTableCell>累積</ConditionalTableCell>
+      <ConditionalTableCell>過去</ConditionalTableCell>
       <ConditionalTableCell>経過</ConditionalTableCell>
       <TableCell>タイプ</TableCell>
     </TableRow>
@@ -41,18 +41,23 @@ const HistoryHead = (props: any) => (
 );
 
 const HistoryRow = (props: any) => {
-  const { timestamp, score, type, days, diff } = props.history;
-
-  const wrapShowS = (x: string) => x || '';
-  const wrapShowN = (x: string) => x || 0;
+  const {
+    timestamp,
+    score,
+    type,
+    days,
+    diff,
+    accDays,
+    pastDays
+  } = props.history;
 
   return (
     <TableRow>
-      <TableCell>
-        {wrapShowS(formatDate(timestamp.toDate().toISOString()))}
-      </TableCell>
+      <TableCell>{wrapShowS(formatDatetime(timestamp.toDate()))}</TableCell>
       <TableCell>{wrapShowN(score)}</TableCell>
       <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
+      <ConditionalTableCell>{wrapShowN(accDays)}</ConditionalTableCell>
+      <ConditionalTableCell>{wrapShowN(pastDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
       <TableCell>{getType(type)}</TableCell>
     </TableRow>
