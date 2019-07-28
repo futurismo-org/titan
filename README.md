@@ -42,6 +42,7 @@
 - Blog https://note.mu/titan_dev
 - Twitter:  https://twitter.com/titan_dev_1234
 - Twitter2: https://twitter.com/titan_onakin
+- Expo: https://expo.io/@tsu-nera/titan-expo
 
 ### How to Contribute
 
