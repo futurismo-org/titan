@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text } from 'react-native';
 import { Header, Title, Body, Icon, Left, Right, Button } from 'native-base';
 import { Link } from 'react-router-native';
