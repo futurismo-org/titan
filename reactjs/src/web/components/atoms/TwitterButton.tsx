@@ -8,7 +8,7 @@ import Link from './NoStyledExternalLink';
 // import { TextField } from '@material-ui/core';
 // import FormData from 'form-data';
 // import domtoimage from 'dom-to-image';
-// import axios from 'lib/axios';
+// import axios from '~/lib/axios';
 // import SimpleModal from '../molecules/SimpleModal';
 
 const ButtonWrapper = styled.div`

@@ -7,13 +7,14 @@ import {
   Title,
   Description
 } from '~/native/components/atoms/Hero';
+import { getRandomImageURL } from '~/lib/url';
 
 const CategoryHeader = (props: any) => {
   const { category } = props;
 
   return (
     <Hero
-      source={{ uri: 'https://source.unsplash.com/random' }}
+      source={{ uri: getRandomImageURL() }}
       renderOverlay={() => (
         <Content padder>
           <Link to={`/cat/${category.id}/dashboard`}>

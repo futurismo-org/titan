@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { useDocument } from 'react-firebase-hooks/firestore';
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 
-import { postMessage } from 'lib/discord.client.api';
+import { postMessage } from '~/lib/discord.client.api';
 
-import rollbar from 'lib/rollbar';
+import rollbar from '~/lib/rollbar';
 import { getUserDashboardPath, withDomain } from '~/lib/url';
 import { getParticipantsUserId } from '~/lib/resource';
 import Progress from '../../atoms/CircularProgress';

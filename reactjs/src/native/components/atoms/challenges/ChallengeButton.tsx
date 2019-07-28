@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Button, Text } from 'native-base';
 
 import { firestore } from 'firebase';
+import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
 
-import { successToastWithNoRedirect } from '~/native/components/atoms/Toast';
+import { successToast } from '~/native/components/atoms/Toast';
 import ChallengePostController from '../../molecules/challenges/ChallengePostController';
 
 const ChallengeButton = (props: any) => {
@@ -19,13 +20,16 @@ const ChallengeButton = (props: any) => {
     fetchUser,
     userResourceId,
     participant,
-    redirectPath
+    redirectPath,
+    history
   } = props;
+
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetchParticipants(resourceId);
     join && fetchUser(userResourceId);
-  }, [fetchParticipants, resourceId, fetchUser, userResourceId, join]);
+  }, [fetchParticipants, resourceId, fetchUser, userResourceId, join, refresh]);
 
   const joinHandler = (
     challengeId: string,
@@ -68,8 +72,13 @@ const ChallengeButton = (props: any) => {
           .set(newData);
       })
       .then(() => {
-        successToastWithNoRedirect('チャレンジに参加しました');
-      });
+        successToast(
+          `/c/${challengeId}/overview`,
+          history.push,
+          'チャレンジに参加しました'
+        );
+      })
+      .then(() => setRefresh(!refresh));
   };
 
   const PostButton = (props: any) => (
@@ -104,4 +113,4 @@ const ChallengeButton = (props: any) => {
   );
 };
 
-export default ChallengeButton;
+export default withRouter(ChallengeButton);

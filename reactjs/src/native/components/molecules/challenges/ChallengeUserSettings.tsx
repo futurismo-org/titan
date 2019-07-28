@@ -35,14 +35,12 @@ const ChallengeUserSettings = (props: any) => {
   const [pastDays, setPastDays] = useState('');
   const [showMode, setShowMode] = useState('');
 
-  const onDisplayNameChange = (e: any) => {
-    e.preventDefault();
-    setDisplayName(e.target.value);
+  const onDisplayNameChange = (text: string) => {
+    setDisplayName(text);
   };
 
-  const onPastDaysChange = (e: any) => {
-    e.preventDefault();
-    setPastDays(e.target.value);
+  const onPastDaysChange = (text: string) => {
+    setPastDays(text);
   };
 
   const updateHandler = (data: any) => {
@@ -59,10 +57,6 @@ const ChallengeUserSettings = (props: any) => {
       .catch(error => errorToast(error.message));
   };
 
-  const initDisplayName = user && user.displayName;
-  const initPastDays = user && user.pastDays.toString();
-  const initShowMode = user && user.showMode;
-
   const CHALLENGE_ACC_DAYS = '大会累積日数';
   const PAST_DAYS = '過去連続日数';
   const radioList = [CHALLENGE_ACC_DAYS, PAST_DAYS];
@@ -78,10 +72,14 @@ const ChallengeUserSettings = (props: any) => {
   };
 
   useEffect(() => {
+    const initDisplayName = user && user.displayName;
+    const initPastDays = user && user.pastDays && user.pastDays.toString();
+    const initShowMode = user && user.showMode;
+
     setDisplayName(initDisplayName ? initDisplayName : '');
     setPastDays(initPastDays ? initPastDays : '');
     setShowMode(initShowMode ? initShowMode : CHALLENGE_ACC_DAYS);
-  }, [initDisplayName, initPastDays, initShowMode]);
+  }, [user]);
 
   return (
     <React.Fragment>
@@ -95,11 +93,14 @@ const ChallengeUserSettings = (props: any) => {
               <Form>
                 <Item>
                   <Label>ユーザ名</Label>
-                  <Input value={displayName} onChange={onDisplayNameChange} />
+                  <Input
+                    value={displayName}
+                    onChangeText={onDisplayNameChange}
+                  />
                 </Item>
                 <Item>
                   <Label>過去連続日数</Label>
-                  <Input value={pastDays} onChange={onPastDaysChange} />
+                  <Input value={pastDays} onChangeText={onPastDaysChange} />
                 </Item>
               </Form>
               <Text />

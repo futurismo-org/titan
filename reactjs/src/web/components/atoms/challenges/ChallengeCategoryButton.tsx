@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 
-import firebase from 'lib/firebase';
+import firebase from '~/lib/firebase';
 import NoStyledLink from '../NoStyledLink';
 
 const ColorButton = styled(Button)`

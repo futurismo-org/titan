@@ -3,7 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container, { ContainerProps } from '@material-ui/core/Container';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 import Header from '../molecules/Header';
 import Footer from '../molecules/Footer';
 

@@ -6,8 +6,8 @@ import styled from 'styled-components';
 import shortid from 'shortid';
 import * as firebaseui from 'firebaseui';
 
-import firebase from 'lib/firebase';
-import theme from 'lib/theme';
+import firebase from '~/lib/firebase';
+import theme from '~/lib/theme';
 
 const StyledContainer = styled.div`
   && {

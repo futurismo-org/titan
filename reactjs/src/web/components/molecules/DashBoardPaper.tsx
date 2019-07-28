@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import theme from 'lib/theme';
+import theme from '~/lib/theme';
 import ChallengeCard from '../atoms/challenges/ChallengeCard';
 import CategoryCard from '../atoms/CategoryCard';
 

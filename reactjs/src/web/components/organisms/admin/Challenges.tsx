@@ -5,8 +5,8 @@ import * as React from 'react';
 
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import shortid from 'shortid';
-import { isClosed } from 'lib/moment';
-import firebase from 'lib/firebase';
+import { isClosed } from '~/lib/moment';
+import firebase from '~/lib/firebase';
 import Progress from '../../atoms/CircularProgress';
 
 import Link from '../../atoms/NoStyledLink';

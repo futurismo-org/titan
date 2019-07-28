@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItemText from '@material-ui/core/ListItemText';
 
 import moment from 'moment';
-import { getMessages } from 'lib/discord.client.api';
+import { getMessages } from '~/lib/discord.client.api';
 
 const changeAgo = (timestamp: Date) =>
   moment(timestamp)
