@@ -74,7 +74,7 @@ jobs:
       - run:
           name: 'Deploy to Expo'
           working_directory: reactjs
-          command: exp login -u \"$EXPO_ACCOUNT\" -p \"$EXPO_PASSWORD\" && exp publish
+          command: expo login -u \"$EXPO_ACCOUNT\" -p \"$EXPO_PASSWORD\" && expo publish
 
 workflows:
   main:
