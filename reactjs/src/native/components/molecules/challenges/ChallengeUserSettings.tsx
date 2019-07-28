@@ -60,7 +60,7 @@ const ChallengeUserSettings = (props: any) => {
   };
 
   const initDisplayName = user && user.displayName;
-  const initPastDays = user && user.pastDays.toString();
+  const initPastDays = user && user.pastDays && user.pastDays.toString();
   const initShowMode = user && user.showMode;
 
   const CHALLENGE_ACC_DAYS = '大会累積日数';
