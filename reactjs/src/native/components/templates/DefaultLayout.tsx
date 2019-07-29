@@ -11,6 +11,7 @@ import material from '~/native/native-base-theme/variables/material';
 import NavDrawer from '~/native/components/molecules/NavDrawer';
 
 const padding = Platform.OS === 'ios' ? 0 : 20;
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const StyledContainer = styled(Container)`
   padding-top: ${padding}px;
@@ -20,7 +21,9 @@ const DefaultLayout = (props: any) => {
   const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
-    (global as any).ga.hit(new PageHit(props.history.location.pathname));
+    if (!isDevelopment) {
+      (global as any).ga.hit(new PageHit(props.history.location.pathname));
+    }
   }, [props.history.location.pathname]);
 
   const closeDrawer = () => {
