@@ -25,7 +25,10 @@ const isLocalhost = Boolean(
 export function register(config?: any) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL || 'http://localhost:3000', window.location.href);
+    const publicUrl = new URL(
+      process.env.PUBLIC_URL || 'http://localhost:3000',
+      window.location.href
+    );
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -56,7 +59,7 @@ export function register(config?: any) {
   }
 }
 
-function registerValidSW(swUrl: string, config : any) {
+function registerValidSW(swUrl: string, config: any) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -71,15 +74,18 @@ function registerValidSW(swUrl: string, config : any) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
+
               console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                '新しいバージョンがみつかりました。更新してインストールしてください。'
               );
 
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);
               }
+
+              const event = new Event('newContentAvailable');
+              window.dispatchEvent(event);
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a

@@ -7,6 +7,8 @@ import theme from '~/lib/theme';
 import Header from '../molecules/Header';
 import Footer from '../molecules/Footer';
 
+import ReloadModal from '../atoms/ReloadModal';
+
 const LayoutWrapperContainer = styled(Container)`
   && {
     margin: 0px;
@@ -21,6 +23,7 @@ const LayoutWrapperContainer = styled(Container)`
 const DefaultLayout = (props: any) => (
   <React.Fragment>
     <CssBaseline />
+    <ReloadModal />
     <MuiThemeProvider theme={theme}>
       <LayoutWrapperContainer>
         <Header />
