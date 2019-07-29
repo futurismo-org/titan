@@ -46,6 +46,6 @@ export const fetchError = (state: any, error: any) => {
   return Object.assign({}, state, {
     ...state,
     loading: false,
-    error: error
+    error
   });
 };

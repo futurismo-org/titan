@@ -69,7 +69,7 @@ const CategoryForm = (props: any) => {
       .collection('categories')
       .doc(id)
       .set(newData)
-      .then(() => (window.location.href = '/admin')); //eslint-disable-line no-undef
+      .then(() => (window.location.href = '/admin')); // eslint-disable-line no-undef
   };
 
   useEffect(() => {

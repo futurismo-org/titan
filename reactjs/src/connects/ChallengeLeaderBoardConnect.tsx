@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
-  const challengeId = props.challengeId;
+  const { challengeId } = props;
   const resourceId = `/challenges/${challengeId}/participants`;
 
   const users = state.user.items
@@ -41,12 +41,12 @@ const mapStateToProps = (state: any, props: any) => {
 
   const rankings = new Array(size);
   rankings[0] = 1;
-  for (let i = 1; i < size; i++) {
+  for (let i = 1; i < size; i += 1) {
     rankings[i] = isSameScore(users, i) ? rankings[i - 1] : i + 1;
   }
 
   const rankedUsers = new Array(size);
-  for (let i = 0; i < size; i++) {
+  for (let i = 0; i < size; i += 1) {
     rankedUsers[i] = { rank: rankings[i], ...users[i] };
   }
 

@@ -10,9 +10,9 @@ import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchChallenges: fetchChallenges,
-      fetchCategories: fetchCategories,
-      fetchPinnedChallenges: fetchPinnedChallenges,
+      fetchChallenges,
+      fetchCategories,
+      fetchPinnedChallenges,
       resetChallengeInfo,
       resetCategoryInfo
     },

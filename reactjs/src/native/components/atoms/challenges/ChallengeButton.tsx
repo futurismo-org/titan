@@ -28,7 +28,9 @@ const ChallengeButton = (props: any) => {
 
   useEffect(() => {
     fetchParticipants(resourceId);
-    join && fetchUser(userResourceId);
+    if (join) {
+      fetchUser(userResourceId);
+    }
   }, [fetchParticipants, resourceId, fetchUser, userResourceId, join, refresh]);
 
   const joinHandler = (
@@ -104,11 +106,13 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
+  const renderButton = () => (join ? <PostButton /> : <JoinButton />);
+
   return (
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
       {loading && null}
-      {!loading ? join ? <PostButton /> : <JoinButton /> : null}
+      {!loading ? renderButton() : null}
     </React.Fragment>
   );
 };

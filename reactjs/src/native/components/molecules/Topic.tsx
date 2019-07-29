@@ -62,7 +62,7 @@ const Topic = (props: any) => {
           {!!topic.url && (
             <React.Fragment>
               <Text onPress={() => Linking.openURL(topic.url)}>
-                {topic.url.substr(0, 30) + '...'}
+                {`${topic.url.substr(0, 30)}...`}
               </Text>
               <Text />
             </React.Fragment>

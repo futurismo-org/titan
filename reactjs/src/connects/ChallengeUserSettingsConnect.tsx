@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ fetchUser, push }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const profile = state.firebase.profile;
+  const { profile } = state.firebase;
   const profileShortId = profile.shortId;
 
   const challengeId = props.challengeId || props.match.params.id;

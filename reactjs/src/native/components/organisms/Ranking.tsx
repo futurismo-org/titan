@@ -41,7 +41,7 @@ const Ranking = (props: any) => {
 
             const rowData = [
               `${index + 1}位`,
-              <Thumbnail source={{ uri: uri }} key={user.id} />,
+              <Thumbnail source={{ uri }} key={user.id} />,
               user.displayName || 'Annonymous',
               fromNow(user.updatedAt.toDate())
             ];

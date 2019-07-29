@@ -5,7 +5,7 @@ import NoStyledExternalLink from './NoStyledExternalLink';
 const UserAvatar = (props: any) => {
   const { profileURL, photoURL } = props;
 
-  const src = photoURL ? photoURL : 'https://titan-fire.com/anonymous.png';
+  const src = photoURL || 'https://titan-fire.com/anonymous.png';
 
   return (
     <NoStyledExternalLink href={profileURL}>

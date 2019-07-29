@@ -10,4 +10,4 @@ urlMap.set('development', APP_DEVELOPMENT_URL);
 urlMap.set('production', APP_PRODUCTION_URL);
 export const APP_URL = urlMap.get(process.env.REACT_APP_ENV);
 
-export const APP_ICON_URL = APP_URL + '/icon.png';
+export const APP_ICON_URL = `${APP_URL}/icon.png`;

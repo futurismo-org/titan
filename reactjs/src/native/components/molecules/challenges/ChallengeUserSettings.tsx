@@ -76,9 +76,9 @@ const ChallengeUserSettings = (props: any) => {
     const initPastDays = user && user.pastDays && user.pastDays.toString();
     const initShowMode = user && user.showMode;
 
-    setDisplayName(initDisplayName ? initDisplayName : '');
-    setPastDays(initPastDays ? initPastDays : '');
-    setShowMode(initShowMode ? initShowMode : CHALLENGE_ACC_DAYS);
+    setDisplayName(initDisplayName || '');
+    setPastDays(initPastDays || '');
+    setShowMode(initShowMode || CHALLENGE_ACC_DAYS);
   }, [user]);
 
   return (

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as AppInfo from 'constants/appInfo';
 
 const Head = (props: any) => {
-  const title = props.title + ' | ' + AppInfo.APP_NAME || AppInfo.APP_TITLE;
+  const title = `${props.title} | ${AppInfo.APP_NAME}` || AppInfo.APP_TITLE;
   const description = props.description || AppInfo.APP_DESCRIPTION;
   // const url = props.url || AppInfo.APP_URL;
 

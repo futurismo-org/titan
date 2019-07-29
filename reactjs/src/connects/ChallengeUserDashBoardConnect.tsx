@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
 
-  const userShortId = props.match.params.userShortId;
+  const { userShortId } = props.match.params;
   const resourceId = `/challenges/${challenge.id}/participants/${userShortId}`;
 
   const user = state.user.target;
