@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ScrollView, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { StyleProvider, Container, Content, Drawer, Root } from 'native-base';
 
 import styled from 'styled-components';
@@ -33,27 +33,25 @@ const DefaultLayout = (props: any) => {
   return (
     <Root>
       <StyleProvider style={getTheme(material as any)}>
-        <ScrollView>
-          <StyledContainer>
-            <Drawer
-              open={open}
-              type="overlay"
-              content={<NavDrawer />}
-              onClose={() => closeDrawer()}
-              tapToClose
-              openDrawerOffset={0.2}
-              panCloseMask={0.2}
-              closedDrawerOffset={-3}
-              styles={drawerStyles}
-              tweenHandler={(ratio: number) => ({
-                main: { opacity: (2 - ratio) / 2 }
-              })}
-            >
-              <Header openDrawer={openDrawer} />
-              {props.children}
-            </Drawer>
-          </StyledContainer>
-        </ScrollView>
+        <StyledContainer>
+          <Drawer
+            open={open}
+            type="overlay"
+            content={<NavDrawer />}
+            onClose={() => closeDrawer()}
+            tapToClose
+            openDrawerOffset={0.2}
+            panCloseMask={0.2}
+            closedDrawerOffset={-3}
+            styles={drawerStyles}
+            tweenHandler={(ratio: number) => ({
+              main: { opacity: (2 - ratio) / 2 }
+            })}
+          >
+            <Header openDrawer={openDrawer} />
+            {props.children}
+          </Drawer>
+        </StyledContainer>
       </StyleProvider>
     </Root>
   );
