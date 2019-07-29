@@ -95,7 +95,7 @@ const Topic = (props: any) => {
             <TwitterShareIcon title={topic.title} url={shareURL} />
             {topic.url && (
               <a href={topic.url} rel="noopener noreferrer" target="_blank">
-                {topic.url.substr(0, 30) + '...'}
+                {`${topic.url.substr(0, 30)}...`}
               </a>
             )}
             <p />

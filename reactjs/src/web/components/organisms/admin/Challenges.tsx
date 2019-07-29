@@ -28,7 +28,7 @@ const Challenges = () => {
     const uid = shortid.generate();
 
     data!.id = uid;
-    data!.title = data!.title + ' - Copy';
+    data!.title = `${data!.title} - Copy`;
     data!.draft = true;
     data!.participantsCount = 0;
 

@@ -13,7 +13,7 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.challenge.id;
   const resourceId = getParticipantsId(challengeId);
 
-  const profile = state.firebase.profile;
+  const { profile } = state.firebase;
   const userShortId = profile.shortId;
   const userResourceId = getParticipantsUserId(challengeId, userShortId);
   const participants = state.user.items;

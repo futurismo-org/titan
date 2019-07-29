@@ -5,7 +5,7 @@ import { fetchChallenge } from '~/actions/challengeAction';
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchChallenge: fetchChallenge
+      fetchChallenge
     },
     dispatch
   );
@@ -16,7 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const challenge = state.challenge.target;
 
-  const profile = state.firebase.profile;
+  const { profile } = state.firebase;
   const userShortId = profile.shortId;
   const isLogin = !profile.isEmpty && profile.isLoaded;
 

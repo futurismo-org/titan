@@ -26,9 +26,8 @@ export const getTotalDays = (
   if (today.isAfter(closedAt)) {
     if (moment(createdAt).isAfter(moment(openedAt))) {
       return moment(closedAt).diff(createdAt, 'days') + 1;
-    } else {
-      return moment(closedAt).diff(openedAt, 'days') + 1;
     }
+    return moment(closedAt).diff(openedAt, 'days') + 1;
   }
 
   return moment(createdAt).isAfter(moment(openedAt))

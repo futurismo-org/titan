@@ -75,9 +75,9 @@ const ChallengeUserSettings = (props: any) => {
   const initShowMode = user && user.showMode;
 
   useEffect(() => {
-    setDisplayName(initDisplayName ? initDisplayName : '');
-    setPastDays(initPastDays ? initPastDays : '');
-    setShowMode(initShowMode ? initShowMode : '大会累積日数');
+    setDisplayName(initDisplayName || '');
+    setPastDays(initPastDays || '');
+    setShowMode(initShowMode || '大会累積日数');
   }, [initDisplayName, initPastDays, initShowMode]);
 
   return (
