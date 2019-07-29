@@ -4,7 +4,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button
+  Button,
+  DialogTitle
 } from '@material-ui/core';
 
 const ReloadModal = (props: any) => {
@@ -26,16 +27,20 @@ const ReloadModal = (props: any) => {
     <Dialog
       open={show}
       onClose={() => setShow(false)}
+      aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
+      <DialogTitle id="alert-dialog-title">
+        {'新しいバージョンがあります'}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          新しいバージョンがみつかりました。更新してインストールしてください。
+          画面を更新してインストールしてください。
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="secondary">
-          インストール
+          更新
         </Button>
       </DialogActions>
     </Dialog>
