@@ -84,8 +84,9 @@ function registerValidSW(swUrl: string, config: any) {
                 config.onUpdate(registration);
               }
 
-              const event = new Event('newContentAvailable');
-              window.dispatchEvent(event);
+              // いったんマスクする。頻繁に更新を促されたら迷惑かなと。
+              // const event = new Event('newContentAvailable');
+              // window.dispatchEvent(event);
             } else {
               // At this point, everything has been precached.
               // It's the perfect time to display a
@@ -144,6 +145,6 @@ export function unregister() {
   }
 }
 
-self.addEventListener('install', (event: any) => {
-  event.waitUntil((self as any).skipWaiting() );
-});
+// self.addEventListener('install', (event: any) => {
+//   event.waitUntil((self as any).skipWaiting() );
+// });
