@@ -1,8 +1,10 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
-import { StyleProvider, Container, Content, Drawer, Root } from 'native-base';
+import { StyleProvider, Container, Drawer, Root } from 'native-base';
 
 import styled from 'styled-components';
+import { PageHit } from 'expo-analytics';
+import { withRouter } from 'react-router-native';
 import Header from '~/native/containers/HeaderContainer';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
@@ -16,6 +18,10 @@ const StyledContainer = styled(Container)`
 
 const DefaultLayout = (props: any) => {
   const [open, setOpen] = React.useState(false);
+
+  useEffect(() => {
+    (global as any).ga.hit(new PageHit(props.history.location.pathname));
+  }, [props.history.location.pathname]);
 
   const closeDrawer = () => {
     setOpen(false);
@@ -57,4 +63,4 @@ const DefaultLayout = (props: any) => {
   );
 };
 
-export default DefaultLayout;
+export default withRouter(DefaultLayout);

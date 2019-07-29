@@ -7539,6 +7539,13 @@ expo-analytics-segment@~5.0.1:
   resolved "https://registry.yarnpkg.com/expo-analytics-segment/-/expo-analytics-segment-5.0.1.tgz#63443c0c8fa133ce558b557e28baad12326c8bd2"
   integrity sha512-IfGmtzbyBOJEvDYKiXbr/L5RMtZsVqagnOXDhd5LlHYXPSsVyLZUYzi61blyy/Yoc3fPDfAzk9BTfjYR+zD3MQ==
 
+expo-analytics@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/expo-analytics/-/expo-analytics-1.0.11.tgz#1a2e475f21183008e0e9ed4f584ae5a9e3103ddf"
+  integrity sha512-pSG7u/HFKo/jplBexXlXDasONfCU1Wqi2weKN3a9hZROOnbWy8ZzXxqKA2CZS6P41uygbSAyCr9jBBXfBxS34g==
+  dependencies:
+    expo-constants "^5.0.1"
+
 expo-app-auth@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/expo-app-auth/-/expo-app-auth-5.0.1.tgz#ddf5417d33931870311c8b7571f8d2ad13bbfc2a"
@@ -7663,7 +7670,7 @@ expo-cli@^3.0.4:
     "@expo/traveling-fastlane-darwin" "1.9.11"
     "@expo/traveling-fastlane-linux" "1.9.11"
 
-expo-constants@~5.0.1:
+expo-constants@^5.0.1, expo-constants@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-5.0.1.tgz#597263397f269d7fe37d9cd6b30e305c16635a00"
   integrity sha512-Ny3teALKaE/jFzBg6DHr2GOoHpwQ/OLs3q3VugZOoR6hXCeVcCEP9MyNvhgn/cheeBDAa6UIgarv2Yufb5RMqQ==
