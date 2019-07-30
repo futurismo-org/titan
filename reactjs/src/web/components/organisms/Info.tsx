@@ -35,9 +35,6 @@ const Info = (props: any) => {
             <ListItemText>ご意見お問い合わせ</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>FAQ</ListItemText>
-          </ListItem>
-          <ListItem>
             <ListItemText>
               <NoStyledExternalLink href="https://titan-fire.netlify.com">
                 Titan紹介ペーシ
