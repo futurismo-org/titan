@@ -14,7 +14,7 @@ const padding = Platform.OS === 'ios' ? 0 : 20;
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const StyledContainer = styled(Container)`
-  padding-top: ${padding}px;
+  /* padding-top: ${padding}px; */
 `;
 
 const DefaultLayout = (props: any) => {
