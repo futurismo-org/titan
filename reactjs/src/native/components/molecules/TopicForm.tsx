@@ -82,12 +82,15 @@ const TopicForm = (props: any) => {
               <Input value={url} onChangeText={text => setURL(text)} />
             </Item>
             <Text />
-            <Text>
-              情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
-            </Text>
+            <Item>
+              <Text style={{ lineHeight: 20 }}>
+                情報をシェアするときは、URLを入力してください。質問するときは、URLを空にしてください。
+              </Text>
+            </Item>
             <Text />
             <Text />
             <Textarea
+              style={{ marginHorizontal: 15 }}
               bordered
               rowSpan={5}
               placeholder="テキスト"
