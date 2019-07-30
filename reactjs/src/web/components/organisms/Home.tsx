@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
-import DashBoard from 'web/containers/DashBoardContainer';
+import DashBoard from '~/web/containers/DashBoardContainer';
 import Challenges from '~/web/containers/ChallengesContainer';
 import GeneralTopics from '../molecules/GeneralTopics';
 import Challenge from '~/web/containers/ChallengeContainer';
@@ -10,6 +10,7 @@ import Categories from '~/web/containers/CategoriesContainer';
 import Category from '~/web/containers/CategoryContainer';
 import Ranking from '../../containers/RankingContainer';
 import Settings from '~/web/containers/SettingsContainer';
+import Info from './Info';
 
 const Home = () => (
   <Layout>
@@ -21,6 +22,7 @@ const Home = () => (
       <Route path="/topics" component={GeneralTopics} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/settings" component={Settings} />
+      <Route path="/info" component={Info} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
