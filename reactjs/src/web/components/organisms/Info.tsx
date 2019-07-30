@@ -8,6 +8,11 @@ import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import NoStyledLink from '../atoms/NoStyledLink';
+import {
+  TITAN_PRIVACY_POLICY,
+  TITAN_TERMS_OF_USE,
+  TITAN_LANDING_PAGE
+} from '~/constants/appInfo';
 
 const Info = (props: any) => {
   return (
@@ -17,14 +22,14 @@ const Info = (props: any) => {
         <List>
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href="https://titan-fire.com/terms_of_use.html">
+              <NoStyledExternalLink href={TITAN_TERMS_OF_USE}>
                 利用規約
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href="https://titan-fire.com/privacy_policy.html">
+              <NoStyledExternalLink href={TITAN_PRIVACY_POLICY}>
                 プライバシーポリシー
               </NoStyledExternalLink>
             </ListItemText>
@@ -36,7 +41,7 @@ const Info = (props: any) => {
           </ListItem>
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href="https://titan-fire.netlify.com">
+              <NoStyledExternalLink href={TITAN_LANDING_PAGE}>
                 Titan紹介ペーシ
               </NoStyledExternalLink>
             </ListItemText>

@@ -2397,6 +2397,15 @@
     react-native-maps "*"
     react-native-svg "*"
 
+"@types/expo__vector-icons@^9.0.1":
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/@types/expo__vector-icons/-/expo__vector-icons-9.0.1.tgz#46a0a9701cb69e632a05b87aafa7b0f537919896"
+  integrity sha512-xcdtdQSojtUO0mSuVDCP01cyqAXhZCIMGN1jXuqfA6DbOIg5cIcIBLIC5vhiGP0vR5gdviSyIHgPf4NR2d3wOg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+    "@types/react-native-vector-icons" "*"
+
 "@types/express-serve-static-core@*":
   version "4.16.7"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.16.7.tgz#50ba6f8a691c08a3dd9fa7fba25ef3133d298049"
@@ -2638,7 +2647,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native-vector-icons@^6.4.1":
+"@types/react-native-vector-icons@*", "@types/react-native-vector-icons@^6.4.1":
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.1.tgz#d0862f3eb97bbe5720ab604f2f10ee07dacb31ef"
   integrity sha512-2C9jyyJKEjzX0C4nP+9rNNjEhutWwalkRdaSTEYtNjUkkkTk68WGG2hgjrcBjdm4Gn1Vi9OgUd+FR8GNmCyp+A==

@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import Link from '../atoms/NoStyledLink';
+import { TITAN_DISCORD_INVITE_URL } from '~/constants/appInfo';
 
 const StyledRoot = styled.div`
   position: relative;
@@ -78,7 +79,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('ランキング', '/ranking')}
             <Divider />
-            {DrawerButtonALink('チャット', 'https://discord.gg/S3t5WgE')}
+            {DrawerButtonALink('チャット', TITAN_DISCORD_INVITE_URL)}
             <Divider />
             {DrawerButton('ユーザ設定', '/settings')}
             <Divider />

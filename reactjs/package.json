@@ -109,6 +109,7 @@
     "@types/color": "^3.0.0",
     "@types/dom-to-image": "^2.6.0",
     "@types/expo": "^32.0.0",
+    "@types/expo__vector-icons": "^9.0.1",
     "@types/form-data": "^2.2.1",
     "@types/history": "^4.7.2",
     "@types/html2canvas": "^0.0.35",

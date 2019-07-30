@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { Image, FlatList, Linking } from 'react-native';
-import { Container, Content, ListItem, Text } from 'native-base';
+import { Container, Content, ListItem, Text, View } from 'native-base';
 import { Link } from 'react-router-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { getRandomImageURL } from '~/lib/url';
+import {
+  TITAN_BLOG_URL,
+  TITAN_TWITTER_URL,
+  TITAN_DISCORD_INVITE_URL
+} from '~/constants/appInfo';
 
 const NavDrawer = (props: any) => {
   const routes = [
@@ -14,7 +20,7 @@ const NavDrawer = (props: any) => {
     {
       title: 'チャット',
       key: '6',
-      path: 'https://discord.gg/S3t5WgE',
+      path: TITAN_DISCORD_INVITE_URL,
       external: true
     },
     { title: 'ユーザ設定', key: '7', path: '/settings', external: false },
@@ -50,6 +56,24 @@ const NavDrawer = (props: any) => {
             </ListItem>
           )}
         />
+        <View style={{ marginStart: 10, flex: 1, flexDirection: 'row' }}>
+          <Icon size={40} name="twitter" color="#4099FF" />
+          <Text
+            style={{ alignSelf: 'center' }}
+            onPress={() => Linking.openURL(TITAN_TWITTER_URL)}
+          >
+            Twitter
+          </Text>
+        </View>
+        <View style={{ marginStart: 10, flex: 1, flexDirection: 'row' }}>
+          <Icon size={40} name="rss" color="orange" />
+          <Text
+            style={{ alignSelf: 'center' }}
+            onPress={() => Linking.openURL(TITAN_BLOG_URL)}
+          >
+            公式プログ(Note)
+          </Text>
+        </View>
       </Content>
     </Container>
   );

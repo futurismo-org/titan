@@ -8,13 +8,14 @@ import Link from '@material-ui/core/Link';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '~/lib/theme';
+import { TITAN_LANDING_PAGE } from '~/constants/appInfo';
 
 interface LinkProps {
   text?: string;
 }
 
 const StyledLink = (props: LinkProps) => (
-  <Link color="inherit" href="https://titan-fire.netlify.com">
+  <Link color="inherit" href={TITAN_LANDING_PAGE}>
     {props.text}
   </Link>
 );
