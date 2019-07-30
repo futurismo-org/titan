@@ -8,15 +8,14 @@ import Link from '@material-ui/core/Link';
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '~/lib/theme';
-
-import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+import { TITAN_LANDING_PAGE } from '~/constants/appInfo';
 
 interface LinkProps {
   text?: string;
 }
 
 const StyledLink = (props: LinkProps) => (
-  <Link color="inherit" href="https://titan-fire.netlify.com">
+  <Link color="inherit" href={TITAN_LANDING_PAGE}>
     {props.text}
   </Link>
 );
@@ -56,14 +55,6 @@ const Footer = () => (
       >
         自己変革の火をつけるアプリ <br />
         a.k.a. 地獄から天国へ
-      </Typography>
-      <Typography align="center" variant="body2" color="textSecondary">
-        <NoStyledExternalLink href="https://titan-fire.com/terms_of_use.html">
-          利用規約
-        </NoStyledExternalLink>{' '}
-        <NoStyledExternalLink href="https://titan-fire.com/privacy_policy.html">
-          プライバシーポリシー
-        </NoStyledExternalLink>
       </Typography>
       <MadeWithLove />
     </Container>

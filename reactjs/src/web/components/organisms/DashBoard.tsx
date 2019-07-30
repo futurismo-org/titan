@@ -2,7 +2,7 @@ import * as React from 'react';
 import DashBoardPaper from 'web/components/molecules/DashBoardPaper';
 import Progress from 'web/components/atoms/CircularProgress';
 
-import DiscordWidget from '../atoms/DiscordWidget';
+import DiscordHistories from '../atoms/DiscordHistories';
 
 const DashBoard = (props: any) => {
   const {
@@ -47,7 +47,7 @@ const DashBoard = (props: any) => {
           type="challenge"
         />
       )}
-      <DiscordWidget />
+      <DiscordHistories channelId="591410583463526430" limit={4} />
     </React.Fragment>
   );
 };

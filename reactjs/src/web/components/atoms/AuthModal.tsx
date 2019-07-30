@@ -8,6 +8,7 @@ import * as firebaseui from 'firebaseui';
 
 import firebase from '~/lib/firebase';
 import theme from '~/lib/theme';
+import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
 
 const StyledContainer = styled.div`
   && {
@@ -34,8 +35,8 @@ const AuthModal = (props: any) => {
       // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID
     ],
-    tosUrl: 'https://titan-fire.com/terms_of_use.html',
-    privacyPolicyUrl: 'https://titan-fire.com/privacy_policy.html',
+    tosUrl: TITAN_TERMS_OF_USE,
+    privacyPolicyUrl: TITAN_PRIVACY_POLICY,
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     callbacks: {
       signInSuccessWithAuthResult: (
