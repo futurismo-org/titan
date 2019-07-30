@@ -2,13 +2,35 @@ import React, { useState } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
+import clsx from 'clsx';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Link from '../atoms/NoStyledLink';
-import { TITAN_DISCORD_INVITE_URL } from '~/constants/appInfo';
+import {
+  TITAN_DISCORD_INVITE_URL,
+  TITAN_TWITTER_URL,
+  TITAN_BLOG_URL
+} from '~/constants/appInfo';
+import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+
+const { loadCSS } = require('fg-loadcss');
+
+const useStyles = makeStyles(theme => ({
+  twitter: {
+    margin: theme.spacing(2),
+    color: '#4099FF'
+  },
+  rss: {
+    margin: theme.spacing(2),
+    color: 'orange'
+  }
+}));
 
 const StyledRoot = styled.div`
   position: relative;
@@ -54,6 +76,15 @@ const Drawer = (props: any) => {
   const { user } = props;
   const [open, setOpen] = useState(false);
 
+  const classes = useStyles();
+
+  React.useEffect(() => {
+    loadCSS(
+      'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
+      document.querySelector('#font-awesome-css') // eslint-disable-line
+    );
+  }, []);
+
   return (
     <React.Fragment>
       <StyledRoot>
@@ -87,6 +118,14 @@ const Drawer = (props: any) => {
             <Divider />
             {user.isAdmin && DrawerButton('管理設定', '/admin')}
             {user.isAdmin && <Divider />}
+            <div style={{ textAlign: 'center' }}>
+              <NoStyledExternalLink href={TITAN_TWITTER_URL}>
+                <Icon className={clsx(classes.twitter, 'fab fa-twitter')} />
+              </NoStyledExternalLink>
+              <NoStyledExternalLink href={TITAN_BLOG_URL}>
+                <Icon className={clsx(classes.rss, 'fas fa-rss')} />
+              </NoStyledExternalLink>
+            </div>
           </StyledDrawer>
         </SwipeableDrawer>
       </StyledRoot>
