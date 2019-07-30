@@ -13,7 +13,7 @@ const Info = (props: any) => {
   return (
     <React.Fragment>
       <Paper>
-        <Title text="その他" />
+        <Title text="関連情報" />
         <List>
           <ListItem>
             <ListItemText>

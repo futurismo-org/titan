@@ -82,7 +82,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButton('ユーザ設定', '/settings')}
             <Divider />
-            {DrawerButton('その他', '/info')}
+            {DrawerButton('関連情報', '/info')}
             <Divider />
             {user.isAdmin && DrawerButton('管理設定', '/admin')}
             {user.isAdmin && <Divider />}

@@ -8,6 +8,7 @@ import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
 import AuthScreen from '../atoms/AuthScreen';
 import Layout from '../templates/PaddingLayout';
+import Info from './Info';
 
 const Home = () => (
   <Layout>
@@ -18,6 +19,7 @@ const Home = () => (
       <Route path="/categories" component={Categories} />
       <Route path="/challenges" component={Challenges} />
       <Route path="/login" component={AuthScreen} />
+      <Route path="/info" component={Info} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
