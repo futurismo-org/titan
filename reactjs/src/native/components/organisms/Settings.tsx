@@ -4,11 +4,19 @@ import { Form, Item, Label, Text, Input } from 'native-base';
 import Title from '../atoms/Title';
 import SubmitButton from '../atoms/SubmitButton';
 
+import { successToastWithNoRedirect, errorToast } from '../atoms/Toast';
+
 const Settings = (props: any) => {
   const { user, isLogin, updateHandler } = props;
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
+
+  const updateHandlerWithMessage = (data: any) => {
+    updateHandler(data)
+      .then(() => successToastWithNoRedirect('設定を更新しました。'))
+      .catch(() => errorToast('エラーが発生しました。'));
+  };
 
   useEffect(() => {
     setDisplayName(user.displayName ? user.displayName : '');
@@ -35,7 +43,9 @@ const Settings = (props: any) => {
             />
           </Item>
           <SubmitButton
-            handler={() => updateHandler({ displayName, twitterUsername })}
+            handler={() =>
+              updateHandlerWithMessage({ displayName, twitterUsername })
+            }
           />
         </Form>
       ) : (

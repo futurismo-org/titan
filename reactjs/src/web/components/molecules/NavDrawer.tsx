@@ -78,6 +78,8 @@ const Drawer = (props: any) => {
 
   const classes = useStyles();
 
+  const isLogin = !user.isEmpty && user.isLoaded;
+
   React.useEffect(() => {
     loadCSS(
       'https://use.fontawesome.com/releases/v5.1.0/css/all.css',
@@ -112,7 +114,7 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButtonALink('チャット', TITAN_DISCORD_INVITE_URL)}
             <Divider />
-            {DrawerButton('ユーザ設定', '/settings')}
+            {isLogin && DrawerButton('ユーザ設定', '/settings')}
             <Divider />
             {DrawerButton('関連情報', '/info')}
             <Divider />

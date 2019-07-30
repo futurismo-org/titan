@@ -20,12 +20,10 @@ const mapStateToProps = (state: any, props: any) => {
       updatedAt: new Date()
     };
 
-    firebase
+    return firebase
       .firestore()
       .doc(resourceId)
-      .update(updateData)
-      .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
+      .update(updateData);
   };
 
   return {
