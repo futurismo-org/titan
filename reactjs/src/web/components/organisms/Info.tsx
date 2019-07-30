@@ -6,6 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
+import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 const Info = (props: any) => {
   return (
@@ -14,10 +15,18 @@ const Info = (props: any) => {
         <Title text="その他" />
         <List>
           <ListItem>
-            <ListItemText>利用規約</ListItemText>
+            <ListItemText>
+              <NoStyledExternalLink href="https://titan-fire.com/terms_of_use.html">
+                利用規約
+              </NoStyledExternalLink>
+            </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>プライバシーポリシー</ListItemText>
+            <ListItemText>
+              <NoStyledExternalLink href="https://titan-fire.com/privacy_policy.html">
+                プライバシーポリシー
+              </NoStyledExternalLink>
+            </ListItemText>
           </ListItem>
           <ListItem>
             <ListItemText>お知らせ</ListItemText>
@@ -29,7 +38,11 @@ const Info = (props: any) => {
             <ListItemText>FAQ</ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>ランディングペーシ</ListItemText>
+            <ListItemText>
+              <NoStyledExternalLink href="https://titan-fire.netlify.com">
+                Titan紹介ペーシ
+              </NoStyledExternalLink>
+            </ListItemText>
           </ListItem>
         </List>
       </Paper>
