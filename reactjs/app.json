@@ -24,6 +24,7 @@
     "android": {
       "package": "com.futurismo.titan"
     },
+    "androidStatusBar": { "backgroundColor": "#000000" },
     "entryPoint": "./src/index.native.tsx",
     "description": "自己変革の火をつけるアプリ a.k.a. 地獄から天国へ",
     "githubUrl": "https://github.com/futurismo-org/titan"
