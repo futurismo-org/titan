@@ -5,7 +5,7 @@ import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 
 const Settings = (props: any) => {
-  const { user, isLogin, updateHandler } = props;
+  const { user, updateHandler } = props;
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
