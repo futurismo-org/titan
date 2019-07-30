@@ -11,6 +11,7 @@ import Category from '~/web/containers/CategoryContainer';
 import Ranking from '../../containers/RankingContainer';
 import Settings from '~/web/containers/SettingsContainer';
 import Info from './Info';
+import Announce from './Announce';
 
 const Home = () => (
   <Layout>
@@ -22,6 +23,7 @@ const Home = () => (
       <Route path="/topics" component={GeneralTopics} />
       <Route path="/ranking" component={Ranking} />
       <Route path="/settings" component={Settings} />
+      <Route path="/info/announce" component={Announce} />
       <Route path="/info" component={Info} />
       <Route path="/" component={DashBoard} />
     </Switch>

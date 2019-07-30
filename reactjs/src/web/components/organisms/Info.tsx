@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+import NoStyledLink from '../atoms/NoStyledLink';
 
 const Info = (props: any) => {
   return (
@@ -29,7 +30,9 @@ const Info = (props: any) => {
             </ListItemText>
           </ListItem>
           <ListItem>
-            <ListItemText>お知らせ</ListItemText>
+            <ListItemText>
+              <NoStyledLink to="/info/announce">お知らせ</NoStyledLink>
+            </ListItemText>
           </ListItem>
           <ListItem>
             <ListItemText>ご意見お問い合わせ</ListItemText>
