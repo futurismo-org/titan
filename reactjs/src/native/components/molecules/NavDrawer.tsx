@@ -56,23 +56,21 @@ const NavDrawer = (props: any) => {
             </ListItem>
           )}
         />
-        <View style={{ marginStart: 10, flex: 1, flexDirection: 'row' }}>
-          <Icon size={40} name="twitter" color="#4099FF" />
-          <Text
-            style={{ alignSelf: 'center' }}
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <Icon
+            size={40}
+            name="twitter"
+            color="#4099FF"
+            style={{ marginLeft: 10 }}
             onPress={() => Linking.openURL(TITAN_TWITTER_URL)}
-          >
-            Twitter
-          </Text>
-        </View>
-        <View style={{ marginStart: 10, flex: 1, flexDirection: 'row' }}>
-          <Icon size={40} name="rss" color="orange" />
-          <Text
-            style={{ alignSelf: 'center' }}
+          />
+          <Icon
+            size={40}
+            name="rss"
+            color="orange"
+            style={{ marginLeft: 30 }}
             onPress={() => Linking.openURL(TITAN_BLOG_URL)}
-          >
-            公式プログ(Note)
-          </Text>
+          />
         </View>
       </Content>
     </Container>
