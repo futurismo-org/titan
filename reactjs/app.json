@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Client App for Titan",
-    "slug": "titan-expo",
+    "name": "Titan",
+    "slug": "titan",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
