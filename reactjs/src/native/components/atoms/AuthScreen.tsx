@@ -3,6 +3,7 @@ import { Container, Form, Item, Label, Input, Text, Button } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
+import { Keyboard } from 'react-native';
 import firebase from '~/lib/firebase';
 import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
 
@@ -69,6 +70,9 @@ const AuthScreen = (props: any) => {
   };
 
   const signInWithEmail = (email: string, password: string) => {
+    // キーボードは閉じる
+    Keyboard.dismiss();
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
