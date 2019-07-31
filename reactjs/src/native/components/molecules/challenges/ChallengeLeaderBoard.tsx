@@ -14,10 +14,14 @@ const ChallengeLeaderBoard = (props: any) => {
   }, [fetchUsers, resourceId]);
 
   const NoStyledRow = ({ data }: any) => (
-    <Row borderStyle={{ borderColor: '#ffffff' }} data={data} />
+    <Row
+      borderStyle={{ borderColor: '#ffffff' }}
+      data={data}
+      flexArr={[1, 1, 2, 1, 1, 1, 1]}
+    />
   );
 
-  const tableHead = ['順位', '', '名前', 'スコア', '最新'];
+  const tableHead = ['順位', '', 'ユーザ名', 'スコア', '連続', '最長', '最新'];
 
   const LeaderBoardHead = () => <NoStyledRow data={tableHead} />;
 
@@ -31,7 +35,7 @@ const ChallengeLeaderBoard = (props: any) => {
           {users.map((user: any) => {
             const rowData = [
               `${user.rank}位`,
-              <Thumbnail source={{ uri: user.photoURL }} key={user.id} />,
+              <Thumbnail source={{ uri: user.photoURL }} key={user.id} small />,
               <React.Fragment key={user.id}>
                 <Link to={user.profilePath}>
                   <Text style={{ textDecorationLine: 'underline' }}>
@@ -40,6 +44,8 @@ const ChallengeLeaderBoard = (props: any) => {
                 </Link>
               </React.Fragment>,
               user.score,
+              user.days,
+              user.maxDays,
               user.latest
             ];
             return <NoStyledRow data={rowData} key={user.id} />;

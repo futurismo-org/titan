@@ -30,7 +30,7 @@ const ChallengeLeaderBoard = (props: any) => {
       <TableRow>
         <TableCell>順位</TableCell>
         <TableCell />
-        <TableCell>名前</TableCell>
+        <TableCell>ユーザ</TableCell>
         <TableCell>スコア</TableCell>
         <ConditionalTableCell>大会連続</ConditionalTableCell>
         <ConditionalTableCell>最長</ConditionalTableCell>

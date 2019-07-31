@@ -56,7 +56,7 @@ const ChallengeNavbar = (props: any) => {
       >
         {/* <MenuItem onPress={hideMenu}>タイムライン</MenuItem> */}
         <MenuItem onPress={() => hideMenu(`/c/${challengeId}/leaderboard`)}>
-          リーダボード
+          リーダーボード
         </MenuItem>
         {isLogin && (
           <MenuItem
