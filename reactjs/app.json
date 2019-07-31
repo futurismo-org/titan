@@ -19,14 +19,11 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.futurismo.titan",
-      "CFBundleVersion": 3,
-      "CFBundleShortVersionString": "1.0.3"
+      "bundleIdentifier": "com.futurismo.titan"
     },
     "android": {
       "package": "com.futurismo.titan",
-      "versionCode": 3,
-      "versionName": "1.0.3"
+      "versionCode": 3
     },
     "androidStatusBar": { "backgroundColor": "#000000" },
     "entryPoint": "./src/index.native.tsx",
