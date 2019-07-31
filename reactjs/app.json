@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Titan",
-    "slug": "titan",
+    "slug": "titan-expo",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
@@ -22,7 +22,8 @@
       "bundleIdentifier": "com.futurismo.titan"
     },
     "android": {
-      "package": "com.futurismo.titan"
+      "package": "com.futurismo.titan",
+      "versionCode": 2
     },
     "androidStatusBar": { "backgroundColor": "#000000" },
     "entryPoint": "./src/index.native.tsx",
