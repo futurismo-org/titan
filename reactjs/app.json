@@ -4,7 +4,10 @@
     "slug": "titan-expo",
     "privacy": "public",
     "sdkVersion": "34.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./public/icon.png",
@@ -16,7 +19,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.futurismo.titan"
@@ -25,9 +30,13 @@
       "package": "com.futurismo.titan",
       "versionCode": 3
     },
-    "androidStatusBar": { "backgroundColor": "#000000" },
+    "androidStatusBar": {
+      "backgroundColor": "#000000"
+    },
     "entryPoint": "./src/index.native.tsx",
     "description": "自己変革の火をつけるアプリ a.k.a. 地獄から天国へ",
     "githubUrl": "https://github.com/futurismo-org/titan"
-  }
+  },
+  "displayName": "Titan",
+  "name": "titanclientapp"
 }

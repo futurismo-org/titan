@@ -297,5 +297,8 @@ buck-out/
 
 ### custom
 .expo-shared
+ios
+android
+index.js
 
 # End of https://www.gitignore.io/api/reactnative
