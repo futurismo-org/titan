@@ -100,6 +100,7 @@
     "remark": "^10.0.1",
     "remark-react": "^5.0.1",
     "rollbar": "^2.7.1",
+    "sentry-expo": "^1.13.0",
     "shortid": "^2.2.14",
     "styled-components": "^4.2.0",
     "typescript": "^3.4.5"
