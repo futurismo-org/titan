@@ -18,3 +18,7 @@ export const getTwitterAccessToken = (params: any) => {
 
   return axios.post('/twitter/access_token', data);
 };
+
+export const getTwitterAccessToken2 = () => {
+  return axios.get('/twitter/access_token');
+};

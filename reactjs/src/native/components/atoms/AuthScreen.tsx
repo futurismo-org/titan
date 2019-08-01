@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Item, Label, Input, Text, Button } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
+import twitter, { TWLoginButton } from 'react-native-simple-twitter';
 import firebase from '~/lib/firebase';
 import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
 
 import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
+
+const {
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET
+} = require('react-native-dotenv');
 
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
@@ -16,7 +22,15 @@ const AuthScreen = (props: any) => {
   const { history } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [twitterUsername, setTwitterUsername] = useState('');
+  const [oauthToken, setOauthToken] = useState('');
+  const [oauthTokenSecret, setOauthTokenSecret] = useState('');
+
+  useEffect(() => {
+    twitter.setConsumerKey(
+      TWITTER_CONSUMER_KEY as string,
+      TWITTER_CONSUMER_SECRET as string
+    );
+  }, []);
 
   const signInSuccessWithAuthCallback = (
     credentials: firebase.auth.UserCredential
@@ -142,10 +156,19 @@ const AuthScreen = (props: any) => {
       .catch(error => errorToast(error.message));
   };
 
-  const signInWithTwitter = (username: string) => {
-    const oauthToken = '';
-    const oauthTokenSecret = '';
+  const onGetAccessToken = ({
+    oauth_token: token,
+    oauth_token_secret: tokenSecret
+  }: any) => {
+    setOauthToken(token);
+    setOauthTokenSecret(tokenSecret);
+  };
 
+  const onError = (err: any) => {
+    errorToast(err.message);
+  };
+
+  const onSuccess = async (user: any) => {
     const credential = firebase.auth.TwitterAuthProvider.credential(
       oauthToken,
       oauthTokenSecret
@@ -161,25 +184,13 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      <Form>
-        <Item floatingLabel>
-          <Label>Twitter ユーザ名</Label>
-          <Input
-            autoCapitalize="none"
-            autoCorrect={false}
-            onChangeText={text => setTwitterUsername(text)}
-          />
-        </Item>
-        <Text />
-        <Button
-          full
-          rounded
-          info
-          onPress={() => signInWithTwitter(twitterUsername)}
-        >
-          <Text>Twitterでログイン</Text>
-        </Button>
-      </Form>
+      <TWLoginButton
+        onGetAccessToken={onGetAccessToken}
+        onSuccess={onSuccess}
+        onError={onError}
+      >
+        <Text style={{ textAlign: 'center' }}>Twitterでログイン</Text>
+      </TWLoginButton>
       <Text />
       <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
@@ -187,7 +198,7 @@ const AuthScreen = (props: any) => {
           <Label>メールアドレス</Label>
           <Input
             autoCapitalize="none"
-            autoCorrect={false}
+            autoCorrect
             onChangeText={text => setEmail(text)}
           />
         </Item>
