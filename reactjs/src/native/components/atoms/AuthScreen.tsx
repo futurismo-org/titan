@@ -181,13 +181,15 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      <TWLoginButton
-        onGetAccessToken={onGetAccessToken}
-        onSuccess={onSuccess}
-        onError={onError}
-      >
-        <Text style={{ textAlign: 'center' }}>Twitterでログイン</Text>
-      </TWLoginButton>
+      <Button full rounded info>
+        <TWLoginButton
+          onGetAccessToken={onGetAccessToken}
+          onSuccess={onSuccess}
+          onError={onError}
+        >
+          <Text>Twitterでログイン</Text>
+        </TWLoginButton>
+      </Button>
       <Text />
       <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
@@ -209,10 +211,14 @@ const AuthScreen = (props: any) => {
           />
         </Item>
         <Text />
-        <SubmitButton
-          handler={() => signInWithEmail(email, password)}
-          text="メールでログイン"
-        />
+        <Button
+          full
+          rounded
+          primary
+          onPress={() => signInWithEmail(email, password)}
+        >
+          <Text>メールでログイン</Text>
+        </Button>
       </Form>
     </Container>
   );
