@@ -6,15 +6,15 @@ import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
 import twitter, { TWLoginButton } from 'react-native-simple-twitter';
 import firebase from '~/lib/firebase';
-import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
+import {
+  getTwitterAccessToken,
+  getTwitterRequestToken,
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET
+} from '~/lib/twitter';
 
 import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
-
-const {
-  TWITTER_CONSUMER_KEY,
-  TWITTER_CONSUMER_SECRET
-} = require('react-native-dotenv');
 
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
@@ -26,10 +26,7 @@ const AuthScreen = (props: any) => {
   const [oauthTokenSecret, setOauthTokenSecret] = useState('');
 
   useEffect(() => {
-    twitter.setConsumerKey(
-      TWITTER_CONSUMER_KEY as string,
-      TWITTER_CONSUMER_SECRET as string
-    );
+    twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
   }, []);
 
   const signInSuccessWithAuthCallback = (
