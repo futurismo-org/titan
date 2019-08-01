@@ -104,7 +104,7 @@ const AuthScreen = (props: any) => {
     const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
 
     /* eslint-disable */
-    const oauth_verifier = await AuthSession.startAsync({ authUrl }).then(
+    const oauth_verifier = await AuthSession.startAsync({ authUrl, returnUrl: "scheme://" }).then(
       (res: any) => res.params.oauth_verifier
     );
     /* eslint-enable */
