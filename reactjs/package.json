@@ -18,7 +18,7 @@
     "deploy:netlify": "REACT_APP_ENV=development npm run build && npm run export",
     "deploy:development": "REACT_APP_ENV=development npm run build && firebase deploy -P development",
     "deploy:production": "REACT_APP_GIT_SHA=`git rev-parse HEAD` REACT_APP_ENV=production npm run build && npm run upload-source-maps && firebase deploy -P production",
-    "deploy:expo": "expo publish",
+    "deploy:expo": "REACT_APP_ENV=production expo publish",
     "login:expo": "expo login",
     "deploy:web:netlify": "netlify deploy --dir web-build",
     "publish:web:netlify": "REACT_APP_ENV=development build:web && deploy:web:netlify",
