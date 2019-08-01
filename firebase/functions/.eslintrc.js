@@ -7,10 +7,10 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended'
   ],
-  plugins: ['prettier','@typescript-eslint', 'import'],
+  plugins: ['prettier', '@typescript-eslint', 'import'],
   rules: {
-    "no-console": 0,
-    "import/no-unresolved": 'error',
+    'no-console': 0,
+    'import/no-unresolved': 'error',
     'import/prefer-default-export': 0,
     'global-require': 0,
     'prettier/prettier': 'error',
@@ -24,16 +24,17 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/explicit-function-return-type': 0, // TODO あとで消す
     '@typescript-eslint/no-explicit-any': 0, // TODO あとで消す,
-    'no-control-regex': 0
+    'no-control-regex': 0,
+    '@typescript-eslint/explicit-member-accessibility': 0
   },
   parser: '@typescript-eslint/parser',
-  "settings": {
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+  settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx']
     },
-    "import/resolver": {
+    'import/resolver': {
       // use <root>/tsconfig.json
-      "typescript": {}
+      typescript: {}
     }
   }
-}
+};

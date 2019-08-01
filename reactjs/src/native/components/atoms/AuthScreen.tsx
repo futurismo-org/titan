@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Item, Label, Input, Text, Button } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
+import twitter, { TWLoginButton } from 'react-native-simple-twitter';
 import firebase from '~/lib/firebase';
-import { getTwitterAccessToken, getTwitterRequestToken } from '~/lib/twitter';
+import {
+  getTwitterAccessToken,
+  getTwitterRequestToken,
+  TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET
+} from '~/lib/twitter';
 
 import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
@@ -16,6 +22,12 @@ const AuthScreen = (props: any) => {
   const { history } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [oauthToken, setOauthToken] = useState('');
+  const [oauthTokenSecret, setOauthTokenSecret] = useState('');
+
+  useEffect(() => {
+    twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
+  }, []);
 
   const signInSuccessWithAuthCallback = (
     credentials: firebase.auth.UserCredential
@@ -90,7 +102,8 @@ const AuthScreen = (props: any) => {
       );
   };
 
-  const signInWithTwitter = async () => {
+  // 一旦お蔵入り...
+  const signUpWithTwitter = async () => {
     const res: any = await getTwitterRequestToken();
     const { oauth_token, oauth_token_secret } = res; //eslint-disable-line
 
@@ -104,9 +117,10 @@ const AuthScreen = (props: any) => {
     const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
 
     /* eslint-disable */
-    const oauth_verifier = await AuthSession.startAsync({ authUrl, returnUrl: "scheme://" }).then(
-      (res: any) => res.params.oauth_verifier
-    );
+    const oauth_verifier = await AuthSession.startAsync({
+      authUrl,
+      returnUrl: 'scheme://'
+    }).then((res: any) => res.params.oauth_verifier);
     /* eslint-enable */
 
     const result: any = await getTwitterAccessToken({
@@ -131,12 +145,31 @@ const AuthScreen = (props: any) => {
       result.data.oauth_token_secret //eslint-disable-line
     );
 
-    /* eslint-disable */
-    if (!credential) {
-      errorToast(oauth_token);
-      return;
-    }
-    /* eslint-enable */
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+      .catch(error => errorToast(error.message));
+  };
+
+  const onGetAccessToken = ({
+    oauth_token: token,
+    oauth_token_secret: tokenSecret
+  }: any) => {
+    setOauthToken(token);
+    setOauthTokenSecret(tokenSecret);
+  };
+
+  const onError = (err: any) => {
+    errorToast(err.message);
+  };
+
+  const onSuccess = async (user: any) => {
+    const credential = firebase.auth.TwitterAuthProvider.credential(
+      oauthToken,
+      oauthTokenSecret
+    );
 
     firebase
       .auth()
@@ -148,8 +181,14 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      <Button full rounded info onPress={signInWithTwitter}>
-        <Text>Twitterでログイン</Text>
+      <Button full rounded info>
+        <TWLoginButton
+          onGetAccessToken={onGetAccessToken}
+          onSuccess={onSuccess}
+          onError={onError}
+        >
+          <Text>Twitterでログイン</Text>
+        </TWLoginButton>
       </Button>
       <Text />
       <Text style={{ textAlign: 'center' }}>または</Text>
@@ -158,7 +197,7 @@ const AuthScreen = (props: any) => {
           <Label>メールアドレス</Label>
           <Input
             autoCapitalize="none"
-            autoCorrect={false}
+            autoCorrect
             onChangeText={text => setEmail(text)}
           />
         </Item>
@@ -172,10 +211,14 @@ const AuthScreen = (props: any) => {
           />
         </Item>
         <Text />
-        <SubmitButton
-          handler={() => signInWithEmail(email, password)}
-          text="メールでログイン"
-        />
+        <Button
+          full
+          rounded
+          primary
+          onPress={() => signInWithEmail(email, password)}
+        >
+          <Text>メールでログイン</Text>
+        </Button>
       </Form>
     </Container>
   );

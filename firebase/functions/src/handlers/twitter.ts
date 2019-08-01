@@ -1,5 +1,7 @@
 import Busboy from 'busboy';
 
+import twitter from '../utils/twitter/index';
+
 const Twit = require('twit');
 
 const functions = require('firebase-functions');
@@ -136,4 +138,13 @@ exports.accessToken = async (req: any, res: any) => {
   res.status = response.status;
   const text = await response.text();
   return res.json(qs.parse(text));
+};
+
+exports.accessToken2 = (req: any, res: any) => {
+  twitter.setConsumerKey(CONSUMER_KEY, CONSUMER_SECRET);
+  return twitter.getAccessToken().then(token => {
+    console.log(token);
+    res.status(200);
+    return res.json(qs.parse(token));
+  });
 };
