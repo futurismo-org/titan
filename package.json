@@ -6,7 +6,7 @@
     "install:react": "cd reactjs && yarn install",
     "install:firebase": "cd firebase/functions && yarn install",
     "install:all": "yarn install && run-p install:react install:firebase",
-    "install:all:ci": "npm install && cd reactjs && npm install && cd ../firebase/functions && npm install",
+    "install:all:ci": "yarn install && cd reactjs && yarn install && cd ../firebase/functions && yarn install",
     "deploy:development:react": "cd reactjs && npm run deploy:development",
     "deploy:development:firebase": "cd firebase/functions && npm run deploy:development",
     "deploy:development": "npm run verify && npm run deploy:development:react && cp reactjs/build/index.html firebase/functions/lib && npm run deploy:development:firebase",
