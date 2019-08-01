@@ -16,6 +16,7 @@ const AuthScreen = (props: any) => {
   const { history } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [twitterUsername, setTwitterUsername] = useState('');
 
   const signInSuccessWithAuthCallback = (
     credentials: firebase.auth.UserCredential
@@ -90,7 +91,8 @@ const AuthScreen = (props: any) => {
       );
   };
 
-  const signInWithTwitter = async () => {
+  // 一旦お蔵入り...
+  const signUpWithTwitter = async () => {
     const res: any = await getTwitterRequestToken();
     const { oauth_token, oauth_token_secret } = res; //eslint-disable-line
 
@@ -104,9 +106,10 @@ const AuthScreen = (props: any) => {
     const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
 
     /* eslint-disable */
-    const oauth_verifier = await AuthSession.startAsync({ authUrl, returnUrl: "scheme://" }).then(
-      (res: any) => res.params.oauth_verifier
-    );
+    const oauth_verifier = await AuthSession.startAsync({
+      authUrl,
+      returnUrl: 'scheme://'
+    }).then((res: any) => res.params.oauth_verifier);
     /* eslint-enable */
 
     const result: any = await getTwitterAccessToken({
@@ -131,12 +134,22 @@ const AuthScreen = (props: any) => {
       result.data.oauth_token_secret //eslint-disable-line
     );
 
-    /* eslint-disable */
-    if (!credential) {
-      errorToast(oauth_token);
-      return;
-    }
-    /* eslint-enable */
+    firebase
+      .auth()
+      .signInWithCredential(credential)
+      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+      .catch(error => errorToast(error.message));
+  };
+
+  const signInWithTwitter = (username: string) => {
+    const oauthToken = '';
+    const oauthTokenSecret = '';
+
+    const credential = firebase.auth.TwitterAuthProvider.credential(
+      oauthToken,
+      oauthTokenSecret
+    );
 
     firebase
       .auth()
@@ -148,9 +161,25 @@ const AuthScreen = (props: any) => {
 
   return (
     <Container>
-      <Button full rounded info onPress={signInWithTwitter}>
-        <Text>Twitterでログイン</Text>
-      </Button>
+      <Form>
+        <Item floatingLabel>
+          <Label>Twitter ユーザ名</Label>
+          <Input
+            autoCapitalize="none"
+            autoCorrect={false}
+            onChangeText={text => setTwitterUsername(text)}
+          />
+        </Item>
+        <Text />
+        <Button
+          full
+          rounded
+          info
+          onPress={() => signInWithTwitter(twitterUsername)}
+        >
+          <Text>Twitterでログイン</Text>
+        </Button>
+      </Form>
       <Text />
       <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
