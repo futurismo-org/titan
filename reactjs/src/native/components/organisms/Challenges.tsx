@@ -2,7 +2,7 @@ import * as React from 'react';
 import Title from '../atoms/Title';
 import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
-import CollectionCard from '../atoms/CollectionCard';
+import CollectionCard from '~/native/containers/CollectionCardContainer';
 
 const Challenges = (props: any) => {
   const {

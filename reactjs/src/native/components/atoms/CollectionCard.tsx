@@ -14,13 +14,13 @@ const StyledImage = styled(Image)`
 ` as React.ComponentType<ImageProps>;
 
 const CollectionCard = (props: any) => {
-  const { collection, type, small } = props;
+  const { collection, type, small, allowSensitive } = props;
 
   const path = collectionURL(type, collection.id);
 
   return (
     <React.Fragment>
-      {isiOS && collection.sensitive ? (
+      {isiOS && collection.sensitive && !allowSensitive ? (
         <Link to="/settings">
           <Card>
             <CardItem header>
