@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { Text } from 'native-base';
-import CollectionCard from '~/native/components/atoms/CollectionCard';
+import CollectionCard from '~/native/containers/CollectionCardContainer';
 
 const CategoryChallenge = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.challengeRef;

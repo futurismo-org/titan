@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text } from 'react-native';
-import CollectionCard from '../atoms/CollectionCard';
+import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
