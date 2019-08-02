@@ -9,6 +9,9 @@ import {
   APP_PRODUCTION_URL,
   TITAN_LANDING_PAGE
 } from '~/constants/appInfo';
+import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
+
+import { isAndroid } from '~/lib/native';
 
 const Info = (props: any) => {
   return (
@@ -30,10 +33,15 @@ const Info = (props: any) => {
             Titan for Web App
           </Text>
         </ListItem>
+        {isAndroid && ( // ガイドラインの関係でiOSはリンクを貼らない
+          <ListItem>
+            <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
+              Titan紹介ページ
+            </Text>
+          </ListItem>
+        )}
         <ListItem>
-          <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
-            Titan紹介ページ
-          </Text>
+          <Text>Build: {BUILD_TIMESTAMP}</Text>
         </ListItem>
       </List>
     </React.Fragment>

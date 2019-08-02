@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-native';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
+import { isiOS } from '~/lib/native';
+
 const StyledImage = styled(Image)`
   height: 200px;
   width: null;
@@ -12,26 +14,43 @@ const StyledImage = styled(Image)`
 ` as React.ComponentType<ImageProps>;
 
 const CollectionCard = (props: any) => {
-  const { collection, type, small } = props;
+  const { collection, type, small, allowSensitive } = props;
 
   const path = collectionURL(type, collection.id);
 
   return (
-    <Link to={path}>
-      <Card>
-        <CardItem header>
-          <H2 style={{ width: '100%' }}>{collection.title}</H2>
-        </CardItem>
-        {!small && (
-          <CardItem cardBody>
-            <StyledImage source={{ uri: getRandomImageURL() }} />
-          </CardItem>
-        )}
-        <CardItem footer>
-          <Text>{collection.description}</Text>
-        </CardItem>
-      </Card>
-    </Link>
+    <React.Fragment>
+      {isiOS && collection.sensitive && !allowSensitive ? (
+        <Link to="/settings">
+          <Card>
+            <CardItem header>
+              <H2 style={{ width: '100%' }}>
+                センシティブな内容が含まれている可能性のあるコンテンツです
+              </H2>
+            </CardItem>
+            <CardItem footer>
+              <Text>設定を変更</Text>
+            </CardItem>
+          </Card>
+        </Link>
+      ) : (
+        <Link to={path}>
+          <Card>
+            <CardItem header>
+              <H2 style={{ width: '100%' }}>{collection.title}</H2>
+            </CardItem>
+            {!small && (
+              <CardItem cardBody>
+                <StyledImage source={{ uri: getRandomImageURL() }} />
+              </CardItem>
+            )}
+            <CardItem footer>
+              <Text>{collection.description}</Text>
+            </CardItem>
+          </Card>
+        </Link>
+      )}
+    </React.Fragment>
   );
 };
 

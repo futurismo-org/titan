@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 
 import shortid from 'shortid';
 import moment from 'moment';
+import { Switch } from '@material-ui/core';
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
@@ -15,6 +16,7 @@ const CategoryForm = (props: any) => {
 
   const [channelId, setChannelId] = useState('');
   const [challengeRefs, setChallengeRefs] = useState('');
+  const [sensitive, setSensitive] = useState(false);
 
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -40,6 +42,10 @@ const CategoryForm = (props: any) => {
     e.preventDefault();
     setChallengeRefs(e.target.value);
   };
+  const onSensitiveChange = (e: any) => {
+    e.preventDefault();
+    setSensitive(e.target.checked);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -57,6 +63,7 @@ const CategoryForm = (props: any) => {
       createdAt: new Date(createdAt),
       updatedAt: new Date(),
       channelId,
+      sensitive,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -80,15 +87,15 @@ const CategoryForm = (props: any) => {
         .doc(props.match.params.id)
         .get()
         .then(doc => doc.data())
-        .then(challenge => {
-          setTitle(challenge!.title);
-          setDescription(challenge!.description);
-          setOverview(challenge!.overview);
-          setChannelId(challenge!.channelId);
+        .then(category => {
+          setTitle(category!.title);
+          setDescription(category!.description);
+          setOverview(category!.overview);
+          setChannelId(category!.channelId);
           setChallengeRefs(
-            !challenge!.challengeRefs
+            !category!.challengeRefs
               ? ''
-              : challenge!.challengeRefs
+              : category!.challengeRefs
                   .map(
                     (docRef: firebase.firestore.DocumentReference) =>
                       docRef.path
@@ -96,8 +103,9 @@ const CategoryForm = (props: any) => {
                   .toString()
           );
           setCreatedAt(
-            moment(challenge!.createdAt.toDate()).format('YYYY-MM-DD')
+            moment(category!.createdAt.toDate()).format('YYYY-MM-DD')
           );
+          setSensitive(category!.sensitive ? category!.sensitive : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -147,6 +155,8 @@ const CategoryForm = (props: any) => {
           multiline
           onChange={onChallengeRefsChange}
         />
+        {'センシティブな内容'}
+        <Switch checked={sensitive} onChange={onSensitiveChange} />
         <TextField
           value={overview}
           variant="outlined"

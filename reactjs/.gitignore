@@ -51,7 +51,6 @@ __generated__
 *.class
 
 # Generated files
-bin/
 gen/
 out/
 
@@ -297,5 +296,9 @@ buck-out/
 
 ### custom
 .expo-shared
+ios
+android
+index.js
+src/constants/buildInfo.ts
 
 # End of https://www.gitignore.io/api/reactnative

@@ -9,16 +9,16 @@ const app = express();
 app.use(cors({ origin: true }));
 
 const { chargeProduct, validCoupon } = require('./handlers/stripe');
-const { postTweet, requestToken, accessToken } = require('./handlers/twitter');
+// const { postTweet, requestToken, accessToken } = require('./handlers/twitter');
 const { dashboard, topic, challenge } = require('./handlers/ogp');
 
 // stripe
 app.post('/charges', chargeProduct);
 app.post('/coupons/valid', validCoupon);
 
-app.post('/twitter/post', postTweet);
-app.post('/twitter/request_token', requestToken);
-app.post('/twitter/access_token', accessToken);
+// app.post('/twitter/post', postTweet);
+// app.post('/twitter/request_token', requestToken);
+// app.post('/twitter/access_token', accessToken);
 
 app.get('/c/:cid/u/:uid', dashboard);
 app.get('/c/:cid/t/:tid', topic);

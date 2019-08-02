@@ -5,6 +5,8 @@ executors:
     working_directory: ~/workspace
     docker:
       - image: circleci/node:8.11.4
+        environment:
+          TZ: Asia/Tokyo
 
 jobs:
   deploy-firebase-hosting:

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Text, Thumbnail } from 'native-base';
 import { Link } from 'react-router-native';
 import Progress from '../../atoms/CircularProgress';
+import Avatar from '../../atoms/Avatar';
 
 const { Table, Row } = require('react-native-table-component');
 
@@ -35,7 +36,12 @@ const ChallengeLeaderBoard = (props: any) => {
           {users.map((user: any) => {
             const rowData = [
               `${user.rank}位`,
-              <Thumbnail source={{ uri: user.photoURL }} key={user.id} small />,
+              <Avatar
+                photoURL={user.photoURL}
+                key={user.id}
+                small
+                twitterUsername={user.twitterUsername}
+              />,
               <React.Fragment key={user.id}>
                 <Link to={user.profilePath}>
                   <Text style={{ textDecorationLine: 'underline' }}>
