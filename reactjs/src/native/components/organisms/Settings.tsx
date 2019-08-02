@@ -34,14 +34,14 @@ const Settings = (props: any) => {
       <Title text="ユーザ設定" />
       {isLogin ? (
         <Form>
-          <Item floatingLabel>
+          <Item>
             <Label>ユーザ名</Label>
             <Input
               value={displayName}
               onChangeText={text => setDisplayName(text)}
             />
           </Item>
-          <Item floatingLabel>
+          <Item>
             <Label>TwitterID</Label>
             <Input
               value={twitterUsername}
