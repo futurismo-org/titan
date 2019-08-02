@@ -51,7 +51,6 @@ __generated__
 *.class
 
 # Generated files
-bin/
 gen/
 out/
 
@@ -300,5 +299,6 @@ buck-out/
 ios
 android
 index.js
+src/constants/buildInfo.ts
 
 # End of https://www.gitignore.io/api/reactnative
