@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-native';
 import Header from '~/native/containers/HeaderContainer';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
-import NavDrawer from '~/native/components/molecules/NavDrawer';
+import NavDrawer from '~/native/containers/NavDrawer';
 
 const padding = Platform.OS === 'ios' ? 0 : 20;
 const isDevelopment = process.env.NODE_ENV === 'development';

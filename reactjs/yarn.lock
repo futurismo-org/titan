@@ -15033,6 +15033,13 @@ react-native-hero@^0.3.1:
     prop-types "^15.5.8"
     react-native-injectable-component "^0.1.2"
 
+react-native-image-overlay@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-overlay/-/react-native-image-overlay-0.1.2.tgz#9a8be747ae081140fb8125e1c0c66fc7b80fc3d1"
+  integrity sha512-0bM8Zc8/GZWvvbGccADPmw1onhE9ZVrq/brOSoNIoJU0Kp+8G7lJ2w5+7Us3wIVKHi6Syji/KNypS91svCH8gA==
+  dependencies:
+    prop-types "^15.6.1"
+
 react-native-injectable-component@^0.1.2:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/react-native-injectable-component/-/react-native-injectable-component-0.1.3.tgz#f3a36ca3965fac2d44ba874a97a1ac96f2d620b1"
