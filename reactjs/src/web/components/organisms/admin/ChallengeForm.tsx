@@ -26,6 +26,7 @@ const ChallengeForm = (props: any) => {
   const [length, setLength] = useState(0);
   const [hashtag, setHashtag] = useState('');
   const [youtubeId, setYoutubeId] = useState('');
+  const [sensitive, setSensitive] = useState(false);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -106,6 +107,11 @@ const ChallengeForm = (props: any) => {
     setYoutubeId(e.target.value);
   };
 
+  const onSensitiveChange = (e: any) => {
+    e.preventDefault();
+    setSensitive(e.target.checked);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
@@ -132,7 +138,8 @@ const ChallengeForm = (props: any) => {
       hashtag,
       draft,
       pinned,
-      youtubeId
+      youtubeId,
+      sensitive
     };
     firebase
       .firestore()
@@ -173,6 +180,7 @@ const ChallengeForm = (props: any) => {
           setHashtag(challenge!.hashtag || '');
           setPinned(challenge!.pinned ? challenge!.pinned : false);
           setYoutubeId(challenge!.youtubeId || '');
+          setSensitive(challenge!.sensitive ? challenge!.sensitive : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -302,6 +310,8 @@ const ChallengeForm = (props: any) => {
         <Switch checked={draft} onChange={onDraftChange} />
         {'おすすめ'}
         <Switch checked={pinned} onChange={onPinnedChange} />
+        {'センシティブな内容'}
+        <Switch checked={sensitive} onChange={onSensitiveChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
