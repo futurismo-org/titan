@@ -19,6 +19,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "icon": "./public/icon-ios.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.futurismo.titan"
     },
