@@ -9,7 +9,7 @@ import {
   APP_PRODUCTION_URL,
   TITAN_LANDING_PAGE
 } from '~/constants/appInfo';
-import { BUILD_TIMESTAMP } from '~/constants/buildInfo';
+import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
 
 const Info = (props: any) => {
   return (
