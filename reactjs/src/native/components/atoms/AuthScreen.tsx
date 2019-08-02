@@ -13,7 +13,7 @@ import {
   TWITTER_CONSUMER_SECRET
 } from '~/lib/twitter';
 
-import SubmitButton from './SubmitButton';
+// import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
 
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
