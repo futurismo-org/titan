@@ -33,7 +33,18 @@
     },
     "entryPoint": "./src/index.native.tsx",
     "description": "自己変革の火をつけるアプリ a.k.a. 地獄から天国へ",
-    "githubUrl": "https://github.com/futurismo-org/titan"
+    "githubUrl": "https://github.com/futurismo-org/titan",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "Futurismo",
+            "project": "Titan"
+          }
+        }
+      ]
+    }
   },
   "displayName": "Titan",
   "name": "titanclientapp"
