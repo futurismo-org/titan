@@ -9,6 +9,7 @@ import {
   APP_PRODUCTION_URL,
   TITAN_LANDING_PAGE
 } from '~/constants/appInfo';
+import { BUILD_TIMESTAMP } from '~/constants/buildInfo';
 
 const Info = (props: any) => {
   return (
@@ -34,6 +35,9 @@ const Info = (props: any) => {
           <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
             Titan紹介ページ
           </Text>
+        </ListItem>
+        <ListItem>
+          <Text>Build: {BUILD_TIMESTAMP}</Text>
         </ListItem>
       </List>
     </React.Fragment>

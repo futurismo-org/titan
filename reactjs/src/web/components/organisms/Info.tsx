@@ -13,6 +13,7 @@ import {
   TITAN_TERMS_OF_USE,
   TITAN_LANDING_PAGE
 } from '~/constants/appInfo';
+import { BUILD_TIMESTAMP } from '~/constants/buildInfo';
 
 const Info = (props: any) => {
   return (
@@ -45,6 +46,9 @@ const Info = (props: any) => {
                 Titan紹介ペーシ
               </NoStyledExternalLink>
             </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>Build: {BUILD_TIMESTAMP}</ListItemText>
           </ListItem>
         </List>
       </Paper>
