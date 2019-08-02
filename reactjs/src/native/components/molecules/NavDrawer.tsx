@@ -1,8 +1,16 @@
 import * as React from 'react';
-import { Image, FlatList, Linking } from 'react-native';
-import { Container, Content, ListItem, Text, View } from 'native-base';
+import { FlatList, Linking, Image } from 'react-native';
+import {
+  Container,
+  Content,
+  ListItem,
+  Text,
+  View,
+  Thumbnail
+} from 'native-base';
 import { Link } from 'react-router-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImageOverlay from 'react-native-image-overlay';
 import { getRandomImageURL } from '~/lib/url';
 import {
   TITAN_BLOG_URL,
@@ -11,6 +19,8 @@ import {
 } from '~/constants/appInfo';
 
 const NavDrawer = (props: any) => {
+  const { isLogin, displayName, photoURL } = props;
+
   const routes = [
     { title: 'ホーム', key: '1', path: '/', external: false },
     { title: 'チャレンジ', key: '2', path: '/challenges', external: false },
@@ -29,17 +39,29 @@ const NavDrawer = (props: any) => {
   return (
     <Container>
       <Content>
-        <Image
+        <ImageOverlay
           source={{
             uri: getRandomImageURL()
           }}
-          style={{
-            height: 120,
-            alignSelf: 'stretch',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}
-        />
+          height={120}
+          contentPosition="bottom"
+          containerStyle={{ alignSelf: 'center' }}
+        >
+          {isLogin ? (
+            <View>
+              <Thumbnail
+                source={{ uri: photoURL }}
+                large
+                style={{ alignSelf: 'center' }}
+              />
+              <Text
+                style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}
+              >
+                {displayName}
+              </Text>
+            </View>
+          ) : null}
+        </ImageOverlay>
         <FlatList
           data={routes}
           renderItem={({ item }) => (
