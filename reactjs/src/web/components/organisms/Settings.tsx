@@ -9,7 +9,7 @@ const Settings = (props: any) => {
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
-  const [photoURL, setPhotoURL] = useState('');
+  const [file, setFile] = useState('');
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -21,9 +21,9 @@ const Settings = (props: any) => {
     setTwitterUsername(e.target.value);
   };
 
-  const onPhotoURLChange = (e: any) => {
+  const onFileChange = (e: any) => {
     e.preventDefault();
-    setPhotoURL(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   const updateHandlerWithMessage = (data: any) => {
@@ -31,8 +31,8 @@ const Settings = (props: any) => {
     uploadData.displayName = data.displayName;
     uploadData.twitterUsername = data.twitterUsername;
 
-    if (data.photoURL !== '') {
-      uploadData.photoURL = data.photoURL;
+    if (data.file !== '') {
+      uploadData.file = data.file;
     }
 
     updateHandler(uploadData)
@@ -46,6 +46,8 @@ const Settings = (props: any) => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
   }, [user]);
+
+  console.log(file);
 
   return (
     <React.Fragment>
@@ -74,7 +76,7 @@ const Settings = (props: any) => {
             accept="image/*"
             id="contained-button-file"
             type="file"
-            onChange={onPhotoURLChange}
+            onChange={onFileChange}
           />
         </div>
         <br />
@@ -87,7 +89,7 @@ const Settings = (props: any) => {
             updateHandlerWithMessage({
               displayName,
               twitterUsername,
-              photoURL
+              file
             })
           }
         >
