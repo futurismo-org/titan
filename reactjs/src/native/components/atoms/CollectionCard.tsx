@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-native';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
-import { isiOS } from '~/lib/native';
-
 const StyledImage = styled(Image)`
   height: 200px;
   width: null;
@@ -20,7 +18,7 @@ const CollectionCard = (props: any) => {
 
   return (
     <React.Fragment>
-      {isiOS && collection.sensitive && !allowSensitive ? (
+      {collection.sensitive && !allowSensitive ? (
         <Link to="/settings">
           <Card>
             <CardItem header>

@@ -7,8 +7,6 @@ import SubmitButton from '../atoms/SubmitButton';
 
 import { successToastWithNoRedirect, errorToast } from '../atoms/Toast';
 
-import { isiOS } from '~/lib/native';
-
 const Settings = (props: any) => {
   const { user, isLogin, updateHandler } = props;
 
@@ -51,16 +49,14 @@ const Settings = (props: any) => {
               onChangeText={text => setTwitterUsername(text)}
             />
           </Item>
-          {isiOS && (
-            <View style={{ padding: 10 }}>
-              <Text>センシティブなコンテンツを表示する</Text>
-              <Switch
-                value={allowSensitive}
-                onValueChange={onAllowSensitiveChange}
-                style={{ marginTop: 10 }}
-              />
-            </View>
-          )}
+          <View style={{ padding: 10 }}>
+            <Text>センシティブなコンテンツを表示する</Text>
+            <Switch
+              value={allowSensitive}
+              onValueChange={onAllowSensitiveChange}
+              style={{ alignSelf: 'flex-start', marginTop: 10 }}
+            />
+          </View>
           <Text />
           <Text style={{ padding: 10, lineHeight: 20 }}>
             ユーザアイコンのアップロードはWebのみサポートしています。
