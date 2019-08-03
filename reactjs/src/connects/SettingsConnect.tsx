@@ -16,10 +16,27 @@ const mapStateToProps = (state: any, props: any) => {
 
   const updateHandler = (data: any) => {
     const updateData = {
-      ...data,
+      displayName: data.displayName,
+      twitterUsername: data.twitterUsername,
       updatedAt: new Date()
     };
 
+    if (data.file) {
+      const storageRef = firebase.storage().ref();
+      const avatarImagesRef = storageRef.child(
+        `users/${user.shortId}/avatar.png`
+      );
+
+      return avatarImagesRef
+        .put(data.file)
+        .then(() => avatarImagesRef.getDownloadURL())
+        .then(url =>
+          firebase
+            .firestore()
+            .doc(resourceId)
+            .update({ ...updateData, photoURL: url })
+        );
+    }
     return firebase
       .firestore()
       .doc(resourceId)

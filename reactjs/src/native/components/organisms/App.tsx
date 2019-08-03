@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch, NativeRouter, BackButton } from 'react-router-native';
 import * as Expo from 'expo';
-import { Alert, View, Text } from 'react-native';
+import { Alert } from 'react-native';
 
 import { store } from '~/native/store';
 import Home from './Home';

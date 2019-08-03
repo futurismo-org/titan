@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Form, Item, Label, Text, Input, Switch, View } from 'native-base';
+import { Keyboard } from 'react-native';
 import Title from '../atoms/Title';
 import SubmitButton from '../atoms/SubmitButton';
 
@@ -16,6 +17,8 @@ const Settings = (props: any) => {
   const [allowSensitive, setAllowSensitive] = useState(false);
 
   const updateHandlerWithMessage = (data: any) => {
+    Keyboard.dismiss();
+
     updateHandler(data)
       .then(() => successToastWithNoRedirect('設定を更新しました。'))
       .catch(() => errorToast('エラーが発生しました。'));
@@ -42,7 +45,7 @@ const Settings = (props: any) => {
             />
           </Item>
           <Item>
-            <Label>TwitterID</Label>
+            <Label>Twitterユーザ名</Label>
             <Input
               value={twitterUsername}
               onChangeText={text => setTwitterUsername(text)}
@@ -58,6 +61,10 @@ const Settings = (props: any) => {
               />
             </View>
           )}
+          <Text />
+          <Text style={{ padding: 10, lineHeight: 20 }}>
+            ユーザアイコンのアップロードはWebのみサポートしています。
+          </Text>
           <SubmitButton
             handler={() =>
               updateHandlerWithMessage({

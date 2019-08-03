@@ -9,6 +9,7 @@ const Settings = (props: any) => {
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
+  const [file, setFile] = useState(null);
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -20,9 +21,17 @@ const Settings = (props: any) => {
     setTwitterUsername(e.target.value);
   };
 
+  const onFileChange = (e: any) => {
+    e.preventDefault();
+    setFile(e.target.files[0]);
+  };
+
   const updateHandlerWithMessage = (data: any) => {
-    window.alert('設定を更新しました。'); // eslint-disable-line
-    updateHandler(data).catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
+    updateHandler(data)
+      .then(() => window.alert('ユーザ設定を更新しました。')) // eslint-disable-line
+      .catch(
+        () => window.alert('エラーが発生しました。') // eslint-disable-line
+      );
   };
 
   useEffect(() => {
@@ -34,33 +43,48 @@ const Settings = (props: any) => {
     <React.Fragment>
       <Paper>
         <Title text="ユーザ設定" />
-        <form
-          noValidate
-          onSubmit={() =>
-            updateHandlerWithMessage({ displayName, twitterUsername })
+        <TextField
+          value={displayName}
+          variant="outlined"
+          margin="normal"
+          required
+          id="displayName"
+          label="ユーザ名"
+          onChange={onDisplayNameChange}
+        />
+        <TextField
+          value={twitterUsername}
+          variant="outlined"
+          margin="normal"
+          id="twitterId"
+          label="Twitterユーザ名"
+          onChange={onTwitterUsernameChange}
+        />
+        <div>
+          <p>ユーザアイコンをアップロード</p>
+          <input
+            accept="image/*"
+            id="contained-button-file"
+            type="file"
+            onChange={onFileChange}
+          />
+        </div>
+        <br />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            updateHandlerWithMessage({
+              displayName,
+              twitterUsername,
+              file
+            })
           }
         >
-          <TextField
-            value={displayName}
-            variant="outlined"
-            margin="normal"
-            required
-            id="displayName"
-            label="ユーザ名"
-            onChange={onDisplayNameChange}
-          />
-          <TextField
-            value={twitterUsername}
-            variant="outlined"
-            margin="normal"
-            id="twitterId"
-            label="TwitterID"
-            onChange={onTwitterUsernameChange}
-          />
-          <Button type="submit" fullWidth variant="contained" color="primary">
-            投稿
-          </Button>
-        </form>
+          投稿
+        </Button>
       </Paper>
     </React.Fragment>
   );
