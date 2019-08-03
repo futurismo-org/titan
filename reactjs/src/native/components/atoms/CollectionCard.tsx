@@ -3,6 +3,7 @@ import { Image, ImageProps } from 'react-native';
 import { Text, H2, Card, CardItem } from 'native-base';
 import styled from 'styled-components';
 import { Link } from 'react-router-native';
+import { human } from 'react-native-typography';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
 const StyledImage = styled(Image)`
@@ -27,7 +28,7 @@ const CollectionCard = (props: any) => {
               </H2>
             </CardItem>
             <CardItem footer>
-              <Text>設定を変更</Text>
+              <Text style={human.headline}>設定を変更</Text>
             </CardItem>
           </Card>
         </Link>
@@ -35,7 +36,9 @@ const CollectionCard = (props: any) => {
         <Link to={path}>
           <Card>
             <CardItem header>
-              <H2 style={{ width: '100%' }}>{collection.title}</H2>
+              <Text style={{ width: '100%' } && human.title1}>
+                {collection.title}
+              </Text>
             </CardItem>
             {!small && (
               <CardItem cardBody>
@@ -43,7 +46,7 @@ const CollectionCard = (props: any) => {
               </CardItem>
             )}
             <CardItem footer>
-              <Text>{collection.description}</Text>
+              <Text style={human.headline}>{collection.description}</Text>
             </CardItem>
           </Card>
         </Link>
