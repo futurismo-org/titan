@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch, NativeRouter, BackButton } from 'react-router-native';
-import * as Expo from 'expo';
-import { Alert } from 'react-native';
+import Expo, { SplashScreen } from 'expo';
+import { Alert, View, Text } from 'react-native';
+
 import { store } from '~/native/store';
 import Home from './Home';
 import Hero from './Hero';
 
 import '~/lib/fixtimerbug';
+import SplashHome from './Splash';
 
 const App = () => {
+  const [isReady, setIsReady] = useState(false);
+
   useEffect(() => {
     !__DEV__ && // eslint-disable-line
       Expo.Updates.checkForUpdateAsync().then(
@@ -32,8 +36,28 @@ const App = () => {
             )
           )
       );
+
+    // return () => {
+    //   SplashScreen.preventAutoHide();
+    // };
   });
 
+  const sleep = (waitSeconds: number, func: any) => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(func());
+      }, waitSeconds * 1000);
+    });
+  };
+
+  const Splash = (prpos: any) => {
+    sleep(6, () => setIsReady(true));
+    return <SplashHome />;
+  };
+
+  if (!isReady) {
+    return <Splash />;
+  }
   return (
     <React.Fragment>
       <Provider store={store}>
