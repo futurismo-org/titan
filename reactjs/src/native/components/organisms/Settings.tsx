@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { Form, Item, Label, Text, Input, Switch, View } from 'native-base';
+import { Keyboard } from 'react-native';
 import Title from '../atoms/Title';
 import SubmitButton from '../atoms/SubmitButton';
 
@@ -16,6 +17,8 @@ const Settings = (props: any) => {
   const [allowSensitive, setAllowSensitive] = useState(false);
 
   const updateHandlerWithMessage = (data: any) => {
+    Keyboard.dismiss();
+
     updateHandler(data)
       .then(() => successToastWithNoRedirect('設定を更新しました。'))
       .catch(() => errorToast('エラーが発生しました。'));
