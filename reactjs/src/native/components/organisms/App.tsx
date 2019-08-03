@@ -37,9 +37,9 @@ const App = () => {
           )
       );
 
-    // return () => {
-    //   SplashScreen.preventAutoHide();
-    // };
+    return () => {
+      SplashScreen.preventAutoHide();
+    };
   });
 
   const sleep = (waitSeconds: number, func: any) => {
