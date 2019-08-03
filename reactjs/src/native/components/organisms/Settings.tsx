@@ -61,6 +61,10 @@ const Settings = (props: any) => {
               />
             </View>
           )}
+          <Text />
+          <Text style={{ padding: 10, lineHeight: 20 }}>
+            ユーザアイコンのアップロードはWebのみサポートしています。
+          </Text>
           <SubmitButton
             handler={() =>
               updateHandlerWithMessage({
