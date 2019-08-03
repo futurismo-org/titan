@@ -45,7 +45,7 @@ const Settings = (props: any) => {
             />
           </Item>
           <Item>
-            <Label>TwitterID</Label>
+            <Label>Twitterユーザ名</Label>
             <Input
               value={twitterUsername}
               onChangeText={text => setTwitterUsername(text)}

@@ -3,6 +3,7 @@ import { configDev, configProd } from './config';
 
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
 
 if (firebase.apps.length === 0) {
   if (

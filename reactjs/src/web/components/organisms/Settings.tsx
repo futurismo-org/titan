@@ -9,7 +9,7 @@ const Settings = (props: any) => {
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
-  const [file, setFile] = useState('');
+  const [file, setFile] = useState(null);
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -27,15 +27,7 @@ const Settings = (props: any) => {
   };
 
   const updateHandlerWithMessage = (data: any) => {
-    const uploadData = {} as any;
-    uploadData.displayName = data.displayName;
-    uploadData.twitterUsername = data.twitterUsername;
-
-    if (data.file !== '') {
-      uploadData.file = data.file;
-    }
-
-    updateHandler(uploadData)
+    updateHandler(data)
       .then(() => window.alert('ユーザ設定を更新しました。')) // eslint-disable-line
       .catch(
         () => window.alert('エラーが発生しました。') // eslint-disable-line
@@ -46,8 +38,6 @@ const Settings = (props: any) => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
   }, [user]);
-
-  console.log(file);
 
   return (
     <React.Fragment>
@@ -67,7 +57,7 @@ const Settings = (props: any) => {
           variant="outlined"
           margin="normal"
           id="twitterId"
-          label="TwitterID"
+          label="Twitterユーザ名"
           onChange={onTwitterUsernameChange}
         />
         <div>
