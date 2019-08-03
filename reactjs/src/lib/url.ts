@@ -52,3 +52,8 @@ export const getRandomImageURL = () => {
   const randnum = Math.floor(Math.random() * 100);
   return `${UNSPLASH_RANDOM_URL}/${randnum}`;
 };
+
+export const getRandomSplashImageURL = () => {
+  const randnum = Math.floor(Math.random() * 10000);
+  return `${UNSPLASH_RANDOM_URL}/${randnum}`;
+};
