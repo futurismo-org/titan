@@ -14,7 +14,7 @@ const Home = () => (
   <Layout>
     <Switch>
       <Route path="/settings" component={Settings} />
-      <Route path="/ranking" component={Ranking} />
+      <Route path="/users" component={Ranking} />
       <Route path="/topics" component={GeneralTopics} />
       <Route path="/categories" component={Categories} />
       <Route path="/challenges" component={Challenges} />

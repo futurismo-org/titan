@@ -26,7 +26,7 @@ const NavDrawer = (props: any) => {
     { title: 'チャレンジ', key: '2', path: '/challenges', external: false },
     { title: 'カテゴリ', key: '3', path: '/categories', external: false },
     { title: 'トピック', key: '4', path: '/topics', external: false },
-    { title: 'ランキング', key: '5', path: '/ranking', external: false },
+    { title: 'ランキング', key: '5', path: '/users', external: false },
     {
       title: 'チャット',
       key: '6',

@@ -21,7 +21,7 @@ const Home = () => (
       <Route path="/c/:id" component={Challenge} />
       <Route path="/challenges" component={Challenges} />
       <Route path="/topics" component={GeneralTopics} />
-      <Route path="/ranking" component={Ranking} />
+      <Route path="/users" component={Ranking} />
       <Route path="/settings" component={Settings} />
       <Route path="/info/announce" component={Announce} />
       <Route path="/info" component={Info} />
