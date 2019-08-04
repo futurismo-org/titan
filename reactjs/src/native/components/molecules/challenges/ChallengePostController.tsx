@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-native';
 import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
+import { postMessage } from '~/lib/discord.client.api';
+import { getUserDashboardPath, withDomain } from '~/lib/url';
+
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
 import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
 
@@ -15,15 +18,7 @@ const ChallengePostController = (props: any) => {
   const [alert, setAlert] = useState();
 
   const writeRecord = (props: any) => {
-    const {
-      days,
-      score,
-      accDays,
-      maxDays,
-      pastDays,
-      histories
-      // displayName
-    } = props;
+    const { days, score, accDays, maxDays, pastDays, histories } = props;
 
     if (
       histories.length > 0 &&
@@ -72,6 +67,15 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
+        const url = `https://titan-fire.com${getUserDashboardPath(
+          challenge.id,
+          participant.id
+        )}`;
+        const message = `${participant.displayName}さんが計${newAccDays}日達成しました！
+${url}`;
+        postMessage(challenge.webhookURL, message);
+      })
+      .then(() => {
         successToastWithNoRedirect('投稿が完了しました');
       })
       .then(() => history.push(redirectPath));
@@ -108,14 +112,19 @@ const ChallengePostController = (props: any) => {
       .update(resetData)
       .then(() => {
         successToastWithNoRedirect('リセットしました');
-      });
-    //       .then(() => {
-    //         const url = withDomain(getUserDashboardPath(challengeId, userShortId));
-    //         const message = `${displayName}さんがリセットしました。
-    // ${url}`;
-    //         postMessage(webhookURL, message);
-    //       })
-    // .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      })
+      .then(() => {
+        const url = `https://titan-fire.com${getUserDashboardPath(
+          challenge.id,
+          participant.id
+        )}`;
+        const message = `${participant.displayName}さんがリセットしました。
+    ${url}`;
+        postMessage(challenge.webhookURL, message);
+      })
+      .then(() =>
+        history.push(getUserDashboardPath(challenge.id, participant.id))
+      );
   };
 
   return (
