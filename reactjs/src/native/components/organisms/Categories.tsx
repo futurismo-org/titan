@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { View } from 'react-native';
 import Title from '../atoms/Title';
 import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
@@ -17,11 +18,13 @@ const Categories = (props: any) => {
       {loading && <Progress />}
       <Title text="カテゴリ一覧" />
       {categories.map((category: any) => (
-        <CollectionCard
-          collection={category}
-          type="categories"
-          key={category.id}
-        />
+        <View style={{ marginTop: 5, marginBottom: 5 }} key={category.id}>
+          <CollectionCard
+            collection={category}
+            type="categories"
+            key={category.id}
+          />
+        </View>
       ))}
     </React.Fragment>
   );

@@ -83,6 +83,7 @@
     "react-native-material-menu": "^0.6.6",
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-simple-twitter": "^2.3.0",
+    "react-native-snap-carousel": "^3.8.0",
     "react-native-table-component": "^1.2.0",
     "react-native-typography": "^1.4.1",
     "react-native-vector-icons": "^6.6.0",
@@ -108,7 +109,8 @@
     "rollbar": "^2.7.1",
     "sentry-expo": "^1.13.0",
     "shortid": "^2.2.14",
-    "styled-components": "^4.2.0",
+    "styled-components": "^4.3.2",
+    "styled-components-native": "^1.0.2",
     "typescript": "^3.4.5"
   },
   "devDependencies": {
@@ -131,6 +133,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
     "@types/react-native": "^0.57.0",
+    "@types/react-native-snap-carousel": "^3.7.4",
     "@types/react-native-vector-icons": "^6.4.1",
     "@types/react-redux": "^7.1.1",
     "@types/react-responsive": "^3.0.3",
