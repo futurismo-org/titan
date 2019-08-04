@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -34,6 +34,8 @@ const DashBoard = (props: any) => {
     return <CollectionCard collection={item} type="categories" key={index} />;
   };
 
+  const layout = 'stack';
+
   return (
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
@@ -44,9 +46,28 @@ const DashBoard = (props: any) => {
           <Carousel
             data={pinned}
             renderItem={_renderChallengeItem}
-            sliderWidth={400}
             itemWidth={400}
+            sliderWidth={400}
           />
+          {/* <Pagination
+            dotsLength={pinned.length}
+            activeDotIndex={0}
+            containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+            dotStyle={{
+              width: 10,
+              height: 10,
+              borderRadius: 5,
+              marginHorizontal: 8,
+              backgroundColor: 'rgba(255, 255, 255, 0.92)'
+            }}
+            inactiveDotStyle={
+              {
+                // Define styles for inactive dots here
+              }
+            }
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+          /> */}
           <MoreLink to="/challenges" />
           <Title text="人気のカテゴリ" />
           <Carousel

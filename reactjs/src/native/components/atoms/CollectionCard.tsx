@@ -8,7 +8,7 @@ import {
   Dimensions
 } from 'react-native';
 import { Text } from 'native-base';
-import { Link } from 'react-router-native';
+import { withRouter } from 'react-router-native';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
 import { isiOS } from '~/lib/native';
@@ -33,9 +33,7 @@ const entryBorderRadius = 8;
 
 const colors = {
   black: '#1a1917',
-  gray: '#888888',
-  background1: '#B721FF',
-  background2: '#21D4FD'
+  gray: '#888888'
 };
 
 const styles = StyleSheet.create({
@@ -116,70 +114,65 @@ const styles = StyleSheet.create({
 });
 
 const CollectionCard = (props: any) => {
-  const { collection, type, allowSensitive } = props;
+  const { collection, type, allowSensitive, history } = props;
 
   const path = collectionURL(type, collection.id);
 
   return (
     <React.Fragment>
       {collection.sensitive && !allowSensitive ? (
-        <Link to="/settings">
-          <TouchableOpacity
-            activeOpacity={1}
-            style={styles.slideInnerContainer}
-          >
-            <View style={styles.shadow} />
-            <View style={styles.imageContainer}>
-              <Image
-                source={{
-                  uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
-                }}
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignSelf: 'center',
-                  resizeMode: 'contain',
-                  width: 144,
-                  height: 144
-                }}
-              />
-              <View style={styles.radiusMask} />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.title2}>
-                センシティブな内容が含まれている可能性のあるコンテンツです
-              </Text>
-              <Text style={styles.subtitle}>設定を変更</Text>
-            </View>
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={styles.slideInnerContainer}
+          onPress={() => history.push('/settings')}
+        >
+          <View style={styles.shadow} />
+          <View style={styles.imageContainer}>
+            <Image
+              source={{
+                uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
+              }}
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignSelf: 'center',
+                resizeMode: 'contain',
+                width: 144,
+                height: 144
+              }}
+            />
+            <View style={styles.radiusMask} />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.title2}>
+              センシティブな内容が含まれている可能性のあるコンテンツです
+            </Text>
+            <Text style={styles.subtitle}>設定を変更</Text>
+          </View>
+        </TouchableOpacity>
       ) : (
-        <Link to={path}>
-          <TouchableOpacity
-            activeOpacity={1}
-            style={styles.slideInnerContainer}
-          >
-            <View style={styles.shadow} />
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: getRandomImageURL() }}
-                style={styles.image}
-              />
-              <View style={styles.radiusMask} />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.title} numberOfLines={2}>
-                {collection.title}
-              </Text>
-              <Text style={styles.subtitle} numberOfLines={2}>
-                {collection.description}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={styles.slideInnerContainer}
+          onPress={() => history.push(path)}
+        >
+          <View style={styles.shadow} />
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: getRandomImageURL() }} style={styles.image} />
+            <View style={styles.radiusMask} />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.title} numberOfLines={2}>
+              {collection.title}
+            </Text>
+            <Text style={styles.subtitle} numberOfLines={2}>
+              {collection.description}
+            </Text>
+          </View>
+        </TouchableOpacity>
       )}
     </React.Fragment>
   );
 };
 
-export default CollectionCard;
+export default withRouter(CollectionCard);
