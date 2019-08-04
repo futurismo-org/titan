@@ -133,6 +133,7 @@
     "@types/react-dom": "^16.8.4",
     "@types/react-helmet": "^5.0.8",
     "@types/react-native": "^0.57.0",
+    "@types/react-native-snap-carousel": "^3.7.4",
     "@types/react-native-vector-icons": "^6.4.1",
     "@types/react-redux": "^7.1.1",
     "@types/react-responsive": "^3.0.3",
