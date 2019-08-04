@@ -10,7 +10,14 @@ const MoreLink = (props: any) => {
   return (
     <View style={{ flex: 1 }}>
       <Link to={to}>
-        <Text style={{ color: primaryColor, textAlign: 'right' }}>
+        <Text
+          style={{
+            color: primaryColor,
+            textAlign: 'right',
+            fontSize: 15,
+            marginTop: 10
+          }}
+        >
           もっと見る
         </Text>
       </Link>

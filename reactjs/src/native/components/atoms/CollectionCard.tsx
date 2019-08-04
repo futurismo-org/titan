@@ -8,7 +8,6 @@ import {
   Dimensions
 } from 'react-native';
 import { Text } from 'native-base';
-import styled from 'styled-components/native';
 import { Link } from 'react-router-native';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
@@ -43,8 +42,11 @@ const styles = StyleSheet.create({
   slideInnerContainer: {
     width: itemWidth,
     height: slideHeight,
-    paddingHorizontal: itemHorizontalMargin,
-    paddingBottom: 18 // needed for shadow
+    // paddingHorizontal: itemHorizontalMargin,
+    paddingBottom: 18, // needed for shadow
+    borderWidth: 1,
+    borderColor: colors.gray,
+    borderRadius: entryBorderRadius
   },
   shadow: {
     position: 'absolute',
@@ -65,9 +67,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius
   },
-  imageContainerEven: {
-    backgroundColor: colors.black
-  },
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
@@ -84,13 +83,9 @@ const styles = StyleSheet.create({
     height: entryBorderRadius,
     backgroundColor: 'white'
   },
-  radiusMaskEven: {
-    backgroundColor: colors.black
-  },
   textContainer: {
     justifyContent: 'center',
-    paddingTop: 20 - entryBorderRadius,
-    paddingBottom: 20,
+    paddingTop: 16 - entryBorderRadius,
     paddingHorizontal: 16,
     backgroundColor: 'white',
     borderBottomLeftRadius: entryBorderRadius,
@@ -105,22 +100,23 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.5
   },
-  titleEven: {
-    color: 'white'
+  title2: {
+    color: colors.black,
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+    lineHeight: 30
   },
   subtitle: {
     marginTop: 6,
     color: colors.gray,
-    fontSize: 16,
+    fontSize: 18,
     fontStyle: 'italic'
-  },
-  subtitleEven: {
-    color: 'rgba(255, 255, 255, 0.7)'
   }
 });
 
 const CollectionCard = (props: any) => {
-  const { collection, type, small, allowSensitive } = props;
+  const { collection, type, allowSensitive } = props;
 
   const path = collectionURL(type, collection.id);
 
@@ -134,15 +130,26 @@ const CollectionCard = (props: any) => {
           >
             <View style={styles.shadow} />
             <View style={styles.imageContainer}>
+              <Image
+                source={{
+                  uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
+                }}
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  resizeMode: 'contain',
+                  width: 144,
+                  height: 144
+                }}
+              />
               <View style={styles.radiusMask} />
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.title} numberOfLines={2}>
+              <Text style={styles.title2}>
                 センシティブな内容が含まれている可能性のあるコンテンツです
               </Text>
-              <Text style={styles.subtitle} numberOfLines={2}>
-                設定を変更
-              </Text>
+              <Text style={styles.subtitle}>設定を変更</Text>
             </View>
           </TouchableOpacity>
         </Link>
