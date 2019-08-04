@@ -67,9 +67,10 @@ const ChallengePostController = (props: any) => {
       .doc(resourceId)
       .update(updateData)
       .then(() => {
-        const url = withDomain(
-          getUserDashboardPath(challenge.id, participant.id)
-        );
+        const url = `https://titan-fire.com${getUserDashboardPath(
+          challenge.id,
+          participant.id
+        )}`;
         const message = `${participant.displayName}さんが計${newAccDays}日達成しました！
 ${url}`;
         postMessage(challenge.webhookURL, message);
@@ -113,9 +114,10 @@ ${url}`;
         successToastWithNoRedirect('リセットしました');
       })
       .then(() => {
-        const url = withDomain(
-          getUserDashboardPath(challenge.id, participant.id)
-        );
+        const url = `https://titan-fire.com${getUserDashboardPath(
+          challenge.id,
+          participant.id
+        )}`;
         const message = `${participant.displayName}さんがリセットしました。
     ${url}`;
         postMessage(challenge.webhookURL, message);
