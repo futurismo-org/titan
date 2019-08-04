@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const StyledText = styled(Text)`
   margin-bottom: 12px;
+  margin-top: 6px;
 `;
 
 const Title = (props: any) => {
