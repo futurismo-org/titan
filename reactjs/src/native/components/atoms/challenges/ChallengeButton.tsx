@@ -8,6 +8,8 @@ import firebase from '~/lib/firebase';
 import { successToast } from '~/native/components/atoms/Toast';
 import ChallengePostController from '../../molecules/challenges/ChallengePostController';
 
+import { postMessage } from '~/lib/discord.client.api';
+
 const ChallengeButton = (props: any) => {
   const {
     challenge,
@@ -64,7 +66,17 @@ const ChallengeButton = (props: any) => {
           .then((doc: firestore.DocumentSnapshot) => {
             const current: number = doc.data()!.participantsCount;
             doc.ref.update({ participantsCount: current + 1 });
+            return doc;
+          })
+          .then((doc: firestore.DocumentSnapshot) => {
+            const message = `${user.displayName}さんが${
+              doc.data()!.title
+            }に参加しました。 https://titan-fire.com/c/${challengeId}/u/${
+              user.shortId
+            }`;
+            postMessage(doc.data()!.webhookURL, message);
           });
+
         await firebase
           .firestore()
           .collection('challenges')
