@@ -23,8 +23,8 @@ function wp(percentage: number) {
   return Math.round(value);
 }
 
-const slideHeight = viewportHeight * 0.36;
-const slideWidth = wp(75);
+const slideHeight = viewportHeight * 0.4;
+const slideWidth = wp(90);
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = viewportWidth;
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.black,
-    fontSize: 13,
+    fontSize: 24,
     fontWeight: 'bold',
     letterSpacing: 0.5
   },
@@ -111,19 +111,13 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 6,
     color: colors.gray,
-    fontSize: 12,
+    fontSize: 16,
     fontStyle: 'italic'
   },
   subtitleEven: {
     color: 'rgba(255, 255, 255, 0.7)'
   }
 });
-
-const StyledImage = styled(Image)`
-  height: 200px;
-  width: null;
-  flex: 1px;
-` as React.ComponentType<ImageProps>;
 
 const CollectionCard = (props: any) => {
   const { collection, type, small, allowSensitive } = props;
@@ -139,6 +133,9 @@ const CollectionCard = (props: any) => {
             style={styles.slideInnerContainer}
           >
             <View style={styles.shadow} />
+            <View style={styles.imageContainer}>
+              <View style={styles.radiusMask} />
+            </View>
             <View style={styles.textContainer}>
               <Text style={styles.title} numberOfLines={2}>
                 センシティブな内容が含まれている可能性のあるコンテンツです
