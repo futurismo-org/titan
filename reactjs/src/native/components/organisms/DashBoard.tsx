@@ -5,11 +5,7 @@ import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
-
-const colors = {
-  black: '#1a1917',
-  gray: '#888888'
-};
+import { carouselGray } from '~/lib/theme';
 
 const DashBoard = (props: any) => {
   const {
@@ -54,7 +50,7 @@ const DashBoard = (props: any) => {
         <React.Fragment>
           <Title text="運営からのおすすめ" />
           <Carousel
-            ref={c => setPinnedSliderRef(c)}
+            ref={(c: any) => setPinnedSliderRef(c)}
             data={pinned}
             renderItem={_renderChallengeItem}
             itemWidth={400}
@@ -74,7 +70,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={colors.gray}
+            inactiveDotColor={carouselGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={pinnedSliderRef}
@@ -83,7 +79,7 @@ const DashBoard = (props: any) => {
           <MoreLink to="/challenges" />
           <Title text="人気のカテゴリ" />
           <Carousel
-            ref={c => setCategorySliderRef(c)}
+            ref={(c: any) => setCategorySliderRef(c)}
             data={categories}
             renderItem={_renderCategoryItem}
             sliderWidth={400}
@@ -103,7 +99,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={colors.gray}
+            inactiveDotColor={carouselGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={categorySliderRef}
@@ -112,7 +108,7 @@ const DashBoard = (props: any) => {
           <MoreLink to="/categories" />
           <Title text="人気のチャレンジ" />
           <Carousel
-            ref={c => setChallengeSliderRef(c)}
+            ref={(c: any) => setChallengeSliderRef(c)}
             data={challenges}
             renderItem={_renderChallengeItem}
             sliderWidth={400}
@@ -132,7 +128,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={colors.gray}
+            inactiveDotColor={carouselGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={challengeSliderRef}

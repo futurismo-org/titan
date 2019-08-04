@@ -14,7 +14,8 @@ const MoreLink = (props: any) => {
           style={{
             color: primaryColor,
             textAlign: 'right',
-            fontSize: 15
+            fontSize: 15,
+            marginTop: 10
           }}
         >
           もっと見る

@@ -4,6 +4,8 @@ import blue from '@material-ui/core/colors/blue';
 
 export const primaryColor = '#f44336';
 export const secondaryColor = '#2196f3';
+export const carouselBlack = '#1a1917';
+export const carouselGray = '#888888';
 
 const theme = createMuiTheme({
   palette: {

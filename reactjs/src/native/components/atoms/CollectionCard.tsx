@@ -39,7 +39,7 @@ const colors = {
 const styles = StyleSheet.create({
   slideInnerContainer: {
     width: itemWidth,
-    height: slideHeight,
+    // height: slideHeight,
     // paddingHorizontal: itemHorizontalMargin,
     paddingBottom: 18, // needed for shadow
     borderWidth: 1,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 });
 
 const CollectionCard = (props: any) => {
-  const { collection, type, allowSensitive, history } = props;
+  const { collection, type, allowSensitive, history, small } = props;
 
   const path = collectionURL(type, collection.id);
 
@@ -123,26 +123,31 @@ const CollectionCard = (props: any) => {
       {collection.sensitive && !allowSensitive ? (
         <TouchableOpacity
           activeOpacity={1}
-          style={styles.slideInnerContainer}
+          style={[
+            styles.slideInnerContainer,
+            { height: !small ? slideHeight : 100 }
+          ]}
           onPress={() => history.push('/settings')}
         >
           <View style={styles.shadow} />
-          <View style={styles.imageContainer}>
-            <Image
-              source={{
-                uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
-              }}
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignSelf: 'center',
-                resizeMode: 'contain',
-                width: 144,
-                height: 144
-              }}
-            />
-            <View style={styles.radiusMask} />
-          </View>
+          {!small && (
+            <View style={styles.imageContainer}>
+              <Image
+                source={{
+                  uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
+                }}
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignSelf: 'center',
+                  resizeMode: 'contain',
+                  width: 144,
+                  height: 144
+                }}
+              />
+              <View style={styles.radiusMask} />
+            </View>
+          )}
           <View style={styles.textContainer}>
             <Text style={styles.title2}>
               センシティブな内容が含まれている可能性のあるコンテンツです
@@ -153,14 +158,22 @@ const CollectionCard = (props: any) => {
       ) : (
         <TouchableOpacity
           activeOpacity={1}
-          style={styles.slideInnerContainer}
+          style={[
+            styles.slideInnerContainer,
+            { height: !small ? slideHeight : 100 }
+          ]}
           onPress={() => history.push(path)}
         >
           <View style={styles.shadow} />
-          <View style={styles.imageContainer}>
-            <Image source={{ uri: getRandomImageURL() }} style={styles.image} />
-            <View style={styles.radiusMask} />
-          </View>
+          {!small && (
+            <View style={styles.imageContainer}>
+              <Image
+                source={{ uri: getRandomImageURL() }}
+                style={styles.image}
+              />
+              <View style={styles.radiusMask} />
+            </View>
+          )}
           <View style={styles.textContainer}>
             <Text style={styles.title} numberOfLines={2}>
               {collection.title}
