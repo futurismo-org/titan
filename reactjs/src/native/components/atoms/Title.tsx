@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from 'react-native';
+import { Text } from 'native-base';
 import { human } from 'react-native-typography';
 import styled from 'styled-components';
 
