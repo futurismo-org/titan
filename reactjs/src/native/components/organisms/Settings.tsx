@@ -6,6 +6,7 @@ import Title from '../atoms/Title';
 import SubmitButton from '../atoms/SubmitButton';
 
 import { successToastWithNoRedirect, errorToast } from '../atoms/Toast';
+import { primaryColor } from '~/lib/theme';
 
 const Settings = (props: any) => {
   const { user, isLogin, updateHandler } = props;
@@ -54,11 +55,15 @@ const Settings = (props: any) => {
             <Switch
               value={allowSensitive}
               onValueChange={onAllowSensitiveChange}
-              style={{ alignSelf: 'flex-start', marginTop: 10 }}
+              thumbColor={primaryColor}
+              style={{
+                alignSelf: 'flex-start',
+                marginTop: 10
+              }}
             />
           </View>
           <Text />
-          <Text style={{ padding: 10, lineHeight: 20 }}>
+          <Text style={{ marginHorizontal: 10, lineHeight: 20 }}>
             ユーザアイコンのアップロードはWebのみサポートしています。
           </Text>
           <SubmitButton
