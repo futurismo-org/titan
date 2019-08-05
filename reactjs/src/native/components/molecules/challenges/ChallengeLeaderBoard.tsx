@@ -18,11 +18,11 @@ const ChallengeLeaderBoard = (props: any) => {
     <Row
       borderStyle={{ borderColor: '#ffffff' }}
       data={data}
-      flexArr={[1, 1, 2, 1, 1, 1, 1]}
+      flexArr={[1, 1, 3, 1, 1, 1, 2]}
     />
   );
 
-  const tableHead = ['順位', '', 'ユーザ名', 'スコア', '連続', '最長', '最新'];
+  const tableHead = ['#', '', '名前', '点数', '連続', '最長', '最新'];
 
   const LeaderBoardHead = () => <NoStyledRow data={tableHead} />;
 
@@ -35,20 +35,18 @@ const ChallengeLeaderBoard = (props: any) => {
           <LeaderBoardHead />
           {users.map((user: any) => {
             const rowData = [
-              `${user.rank}位`,
+              `${user.rank}`,
               <Avatar
                 photoURL={user.photoURL}
                 key={user.id}
                 small
                 twitterUsername={user.twitterUsername}
               />,
-              <React.Fragment key={user.id}>
-                <Link to={user.profilePath}>
-                  <Text style={{ textDecorationLine: 'underline' }}>
-                    {user.displayName}
-                  </Text>
-                </Link>
-              </React.Fragment>,
+              <Link to={user.profilePath} key={user.id}>
+                <Text style={{ textDecorationLine: 'underline', fontSize: 15 }}>
+                  {user.displayName}
+                </Text>
+              </Link>,
               user.score,
               user.days,
               user.maxDays,
