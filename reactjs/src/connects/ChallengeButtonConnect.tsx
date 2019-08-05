@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchParticipants, fetchUser } from '~/actions/userAction';
+import { showGiphy } from '~/actions/giphyAction';
 
 import { getUserDashboardPath } from '~/lib/url';
 
 import { getParticipantsUserId, getParticipantsId } from '~/lib/resource';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipants, fetchUser }, dispatch);
+  bindActionCreators({ fetchParticipants, fetchUser, showGiphy }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.challenge.id;

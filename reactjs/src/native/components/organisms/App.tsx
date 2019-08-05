@@ -12,7 +12,9 @@ import Hero from './Hero';
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
-const App = () => {
+import { sleep } from '~/lib/general';
+
+const App = (props: any) => {
   const [isSplashReady, setIsSplashReady] = useState(false);
   const [isFontReady, setIsFontReady] = useState(false);
 
@@ -44,14 +46,6 @@ const App = () => {
       );
   });
 
-  const sleep = (waitSeconds: number, func: any) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(func());
-      }, waitSeconds * 1000);
-    });
-  };
-
   const Splash = (prpos: any) => {
     sleep(6, () => setIsSplashReady(true));
     return <SplashHome />;
@@ -77,4 +71,5 @@ const App = () => {
     </React.Fragment>
   );
 };
+
 export default App;

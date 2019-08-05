@@ -1,12 +1,10 @@
 import * as React from 'react';
 
-import { Text } from 'native-base';
-
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 import Navbar from '../molecules/challenges/ChallengeNavbar';
 
-import Progress from '../atoms/CircularProgress';
+import Error from '../atoms/Error';
 
 const Challenge = (props: any) => {
   const {
@@ -25,8 +23,8 @@ const Challenge = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
-      {loading && <Progress />}
+      {error && <Error error={error} />}
+      {loading && null}
       {challenge && (
         <React.Fragment>
           <Header challenge={challenge} isLogin={isLogin} />

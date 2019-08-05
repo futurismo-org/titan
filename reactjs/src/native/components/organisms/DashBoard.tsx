@@ -55,7 +55,6 @@ const DashBoard = (props: any) => {
             renderItem={_renderChallengeItem}
             itemWidth={400}
             sliderWidth={400}
-            loop
             onSnapToItem={index => setPinnedActiveSlide(index)}
           />
           <Pagination
@@ -84,7 +83,6 @@ const DashBoard = (props: any) => {
             renderItem={_renderCategoryItem}
             sliderWidth={400}
             itemWidth={400}
-            loop
             onSnapToItem={index => setCategoryActiveSlide(index)}
           />
           <Pagination
@@ -113,7 +111,6 @@ const DashBoard = (props: any) => {
             renderItem={_renderChallengeItem}
             sliderWidth={400}
             itemWidth={400}
-            loop
             onSnapToItem={index => setChallengeActiveSlide(index)}
           />
           <Pagination

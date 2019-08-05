@@ -2,6 +2,10 @@
 export const SET_OGP_INFO = 'SET_OGP_INFO';
 export const RESET_OGP_INFO = 'RESET_OGP_INFO';
 
+// giphy
+export const SHOW_GIPHY = 'SHOW_GIPHY';
+export const HIDE_GIPHY = 'HIDE_GIPHY';
+
 // challenge
 export const RESET_CHALLENGE_INFO = 'RESET_CHALLENGE_INFO';
 export const FETCH_CHALLENGES_REQUEST = 'FETCH_CHALLENGES_REQUEST';

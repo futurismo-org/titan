@@ -23,7 +23,8 @@ const ChallengeButton = (props: any) => {
     userResourceId,
     participant,
     redirectPath,
-    history
+    history,
+    showGiphy
   } = props;
 
   const [refresh, setRefresh] = useState(false);
@@ -102,6 +103,7 @@ const ChallengeButton = (props: any) => {
       resourceId={userResourceId}
       participant={participant}
       redirectPath={redirectPath}
+      showGiphy={showGiphy}
     />
   );
 
