@@ -16,6 +16,7 @@ export const Title = styled(Text)`
 export const Description = styled(Text)`
   font-size: 18px;
   color: #ffffff;
+  font-style: italic;
 `;
 
 export const Info = styled(Text)`

@@ -15049,6 +15049,13 @@ react-native-hero@^0.3.1:
     prop-types "^15.5.8"
     react-native-injectable-component "^0.1.2"
 
+react-native-image-header-scroll-view@^0.10.3:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/react-native-image-header-scroll-view/-/react-native-image-header-scroll-view-0.10.3.tgz#1de117fc6a8735aa345a8e6d3bf22f45c4c41742"
+  integrity sha512-5eYNcnZA8Q3jdi/uAIuKvsVg6xg9XNLwF8Bgb7ePtAMVOS5WQgJwgewCNWm191HQ+uLYq35B2wNkFK5rUPYZCw==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-image-overlay@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/react-native-image-overlay/-/react-native-image-overlay-0.1.2.tgz#9a8be747ae081140fb8125e1c0c66fc7b80fc3d1"
