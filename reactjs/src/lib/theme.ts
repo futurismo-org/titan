@@ -7,6 +7,8 @@ export const secondaryColor = '#2196f3';
 export const carouselBlack = '#1a1917';
 export const carouselGray = '#888888';
 
+export const leaderboardMyColor = '#FFE4E1';
+
 const theme = createMuiTheme({
   palette: {
     primary: red,

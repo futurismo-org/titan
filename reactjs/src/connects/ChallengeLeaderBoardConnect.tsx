@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const { challengeId } = props;
   const resourceId = `/challenges/${challengeId}/participants`;
+  const myId = state.firebase.profile.shortId;
 
   const users = state.user.items
     .sort(
@@ -54,6 +55,7 @@ const mapStateToProps = (state: any, props: any) => {
     users: rankedUsers,
     loading: state.user.loading,
     error: state.user.error,
+    myId,
     resourceId,
     ...props
   };

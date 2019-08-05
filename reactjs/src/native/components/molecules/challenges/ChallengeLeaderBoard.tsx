@@ -1,28 +1,36 @@
 import React, { useEffect } from 'react';
 
-import { Text, Thumbnail } from 'native-base';
+import { Text } from 'native-base';
 import { Link } from 'react-router-native';
 import Progress from '../../atoms/CircularProgress';
 import Avatar from '../../atoms/Avatar';
 
+import { leaderboardMyColor } from '~/lib/theme';
+
 const { Table, Row } = require('react-native-table-component');
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers } = props;
+  const { users, loading, error, resourceId, fetchUsers, myId } = props;
 
   useEffect(() => {
     fetchUsers(resourceId);
   }, [fetchUsers, resourceId]);
 
-  const NoStyledRow = ({ data }: any) => (
-    <Row
-      borderStyle={{ borderColor: '#ffffff' }}
-      data={data}
-      flexArr={[1, 1, 2, 1, 1, 1, 1]}
-    />
-  );
+  const NoStyledRow = (props: any) => {
+    const { data, userId } = props;
+    const color = myId === userId ? leaderboardMyColor : '#fff';
 
-  const tableHead = ['順位', '', 'ユーザ名', 'スコア', '連続', '最長', '最新'];
+    return (
+      <Row
+        borderStyle={{ borderColor: color }}
+        style={{ backgroundColor: color }}
+        data={data}
+        flexArr={[1, 1, 3, 1, 1, 1, 2]}
+      />
+    );
+  };
+
+  const tableHead = ['#', '', '名前', '点数', '連続', '最長', '最新'];
 
   const LeaderBoardHead = () => <NoStyledRow data={tableHead} />;
 
@@ -35,26 +43,26 @@ const ChallengeLeaderBoard = (props: any) => {
           <LeaderBoardHead />
           {users.map((user: any) => {
             const rowData = [
-              `${user.rank}位`,
+              `${user.rank}`,
               <Avatar
                 photoURL={user.photoURL}
                 key={user.id}
                 small
                 twitterUsername={user.twitterUsername}
               />,
-              <React.Fragment key={user.id}>
-                <Link to={user.profilePath}>
-                  <Text style={{ textDecorationLine: 'underline' }}>
-                    {user.displayName}
-                  </Text>
-                </Link>
-              </React.Fragment>,
+              <Link to={user.profilePath} key={user.id}>
+                <Text style={{ textDecorationLine: 'underline', fontSize: 15 }}>
+                  {user.displayName}
+                </Text>
+              </Link>,
               user.score,
               user.days,
               user.maxDays,
               user.latest
             ];
-            return <NoStyledRow data={rowData} key={user.id} />;
+            return (
+              <NoStyledRow data={rowData} key={user.id} userId={user.id} />
+            );
           })}
         </Table>
       )}

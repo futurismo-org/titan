@@ -12,6 +12,8 @@ import Progress from '../../atoms/CircularProgress';
 
 import UserAvatar from '../../atoms/UserAvatar';
 
+import { leaderboardMyColor } from '~/lib/theme';
+
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
     <TableCell>{props.children}</TableCell>
@@ -19,7 +21,7 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers } = props;
+  const { users, loading, error, resourceId, fetchUsers, myId } = props;
 
   useEffect(() => {
     fetchUsers(resourceId);
@@ -49,7 +51,13 @@ const ChallengeLeaderBoard = (props: any) => {
           <LeaderBoardHead />
           <TableBody>
             {users.map((user: any) => (
-              <TableRow key={user.id}>
+              <TableRow
+                key={user.id}
+                style={{
+                  backgroundColor:
+                    user.id === myId ? leaderboardMyColor : '#fff'
+                }}
+              >
                 <TableCell component="th" scope="row">
                   {user.rank}位
                 </TableCell>
