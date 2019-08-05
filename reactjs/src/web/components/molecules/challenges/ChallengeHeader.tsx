@@ -85,7 +85,12 @@ const ChallengeHeader = (props: any) => {
               </MediaQuery>
             </HeaderInfo>
             <HeaderInfo>
-              <Typography variant="h5" color="inherit">
+              <Typography
+                variant="h5"
+                color="inherit"
+                paragraph
+                style={{ fontStyle: 'italic' }}
+              >
                 {challenge.description}
               </Typography>
             </HeaderInfo>

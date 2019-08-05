@@ -94,21 +94,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.black,
-    fontSize: 24,
-    fontWeight: 'bold',
-    letterSpacing: 0.5
-  },
-  title2: {
-    color: colors.black,
     fontSize: 20,
     fontWeight: 'bold',
     letterSpacing: 0.5,
     lineHeight: 30
   },
   subtitle: {
-    marginTop: 6,
+    marginTop: 3,
     color: colors.gray,
-    fontSize: 18,
+    fontSize: 16,
     fontStyle: 'italic'
   }
 });
@@ -149,7 +143,7 @@ const CollectionCard = (props: any) => {
             </View>
           )}
           <View style={styles.textContainer}>
-            <Text style={styles.title2}>
+            <Text style={styles.title}>
               センシティブな内容が含まれている可能性のあるコンテンツです
             </Text>
             <Text style={styles.subtitle}>設定を変更</Text>

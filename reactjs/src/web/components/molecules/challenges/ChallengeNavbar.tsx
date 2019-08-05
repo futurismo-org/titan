@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
 
+import { Typography } from '@material-ui/core';
 import NoStyledLink from '../../atoms/NoStyledLink';
 
 const ChallengeNavbar = (props: any) => {

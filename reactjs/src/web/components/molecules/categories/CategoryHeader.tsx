@@ -62,7 +62,12 @@ const CategoryHeader = (props: any) => {
             >
               {category.title}
             </Typography>
-            <Typography variant="h5" color="inherit" paragraph>
+            <Typography
+              variant="h5"
+              color="inherit"
+              paragraph
+              style={{ fontStyle: 'italic' }}
+            >
               {category.description}
             </Typography>
           </MainFeaturedPostContent>
