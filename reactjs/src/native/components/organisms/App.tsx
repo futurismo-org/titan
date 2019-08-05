@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     Font.loadAsync({
-      MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf')
+      MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf') // eslint-disable-line
     }).then(() => setIsFontReady(true));
 
     !__DEV__ && // eslint-disable-line
