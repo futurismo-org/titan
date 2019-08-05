@@ -20,15 +20,15 @@ const CategoryDashBoard = (props: any) => {
       <Title text="概要" />
       <MarkdownView text={category.overview} />
       <Space />
-      <Title text="チャレンジ一覧" />
+      {/* <Title text="チャレンジ一覧" />
       {category.challengeRefs &&
         category.challengeRefs.map((challengeRef: any) => (
           <CategoryChallenge
             key={shortId.generate()}
             challengeRef={challengeRef}
           />
-        ))}
-      <Space />
+        ))} */}
+      {/* <Space /> */}
       <Title text="トピック" />
       <TopicList topics={topics} topicPath={topicPath} limit={6} />
       <MoreLink to={`/cat/${category.id}/topics`} />

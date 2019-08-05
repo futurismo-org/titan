@@ -8,13 +8,13 @@ export const StyledHero = styled(Hero)`
 `;
 
 export const Title = styled(Text)`
-  font-size: 27px;
+  font-size: 30px;
   color: #ffffff;
   font-weight: bold;
 `;
 
 export const Description = styled(Text)`
-  font-size: 18px;
+  font-size: 24px;
   color: #ffffff;
   font-style: italic;
 `;
