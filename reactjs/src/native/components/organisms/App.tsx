@@ -11,6 +11,7 @@ import Hero from './Hero';
 
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
+import GiphyHome from './Giphy';
 
 const App = () => {
   const [isSplashReady, setIsSplashReady] = useState(false);
@@ -54,7 +55,7 @@ const App = () => {
 
   const Splash = (prpos: any) => {
     sleep(6, () => setIsSplashReady(true));
-    return <SplashHome />;
+    return <GiphyHome />;
   };
 
   if (!isSplashReady || !isFontReady) {
