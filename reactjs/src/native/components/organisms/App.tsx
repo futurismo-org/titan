@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch, NativeRouter, BackButton } from 'react-router-native';
 import * as Expo from 'expo';
+import * as Font from 'expo-font';
 import { Alert } from 'react-native';
 
 import { store } from '~/native/store';
@@ -12,9 +13,14 @@ import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
+  const [isSplashReady, setIsSplashReady] = useState(false);
+  const [isFontReady, setIsFontReady] = useState(false);
 
   useEffect(() => {
+    Font.loadAsync({
+      MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf')
+    }).then(() => setIsFontReady(true));
+
     !__DEV__ && // eslint-disable-line
       Expo.Updates.checkForUpdateAsync().then(
         (update: any) =>
@@ -47,13 +53,14 @@ const App = () => {
   };
 
   const Splash = (prpos: any) => {
-    sleep(6, () => setIsReady(true));
+    sleep(6, () => setIsSplashReady(true));
     return <SplashHome />;
   };
 
-  if (!isReady) {
+  if (!isSplashReady || !isFontReady) {
     return <Splash />;
   }
+
   return (
     <React.Fragment>
       <Provider store={store}>
