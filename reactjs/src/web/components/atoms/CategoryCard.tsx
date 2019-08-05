@@ -14,6 +14,7 @@ import { getRandomImageURL } from '~/lib/url';
 const StyledCard = styled(Card)`
   && {
     display: flex;
+    font-family: 'M Plus 1p';
   }
 ` as React.ComponentType<CardProps>;
 
