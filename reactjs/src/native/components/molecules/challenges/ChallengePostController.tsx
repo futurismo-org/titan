@@ -6,7 +6,7 @@ import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
 import { postMessage } from '~/lib/discord.client.api';
-import { getUserDashboardPath, withDomain } from '~/lib/url';
+import { getUserDashboardPath } from '~/lib/url';
 
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
 import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
