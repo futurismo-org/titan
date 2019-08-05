@@ -9,8 +9,6 @@
     "orientation": "portrait",
     "icon": "./public/icon.png",
     "splash": {
-      "image": "./public/images/splash.png",
-      "resizeMode": "contain",
       "backgroundColor": "#f44336"
     },
     "updates": {
