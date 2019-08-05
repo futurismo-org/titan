@@ -48,7 +48,7 @@ const DefaultLayout = (props: any) => {
   };
 
   const Giphy = (prpos: any) => {
-    sleep(6, () => hideGiphy(false));
+    sleep(8, () => hideGiphy(false));
     return <GiphyHome type={giphyType} />;
   };
 

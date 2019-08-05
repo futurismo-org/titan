@@ -12,8 +12,6 @@ export const getRandomGiphyImageURL = () => {
 export const getRecordGiphyImageURL = (type: 'win' | 'lose') => {
   return client
     .random('gifs', { tag: type })
-    .then(
-      (response: any) => response.data.images.fixed_width_downsampled.gif_url
-    )
+    .then((response: any) => response.data.images.original.gif_url)
     .catch((err: any) => console.log(err));
 };
