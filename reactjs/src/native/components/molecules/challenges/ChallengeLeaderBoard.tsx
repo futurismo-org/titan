@@ -10,19 +10,25 @@ import { leaderboardMyColor } from '~/lib/theme';
 const { Table, Row } = require('react-native-table-component');
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers } = props;
+  const { users, loading, error, resourceId, fetchUsers, myId } = props;
 
   useEffect(() => {
     fetchUsers(resourceId);
   }, [fetchUsers, resourceId]);
 
-  const NoStyledRow = ({ data }: any) => (
-    <Row
-      borderStyle={{ borderColor: '#ffffff' }}
-      data={data}
-      flexArr={[1, 1, 3, 1, 1, 1, 2]}
-    />
-  );
+  const NoStyledRow = (props: any) => {
+    const { data, userId } = props;
+    const color = myId === userId ? leaderboardMyColor : '#fff';
+
+    return (
+      <Row
+        borderStyle={{ borderColor: color }}
+        style={{ backgroundColor: color }}
+        data={data}
+        flexArr={[1, 1, 3, 1, 1, 1, 2]}
+      />
+    );
+  };
 
   const tableHead = ['#', '', '名前', '点数', '連続', '最長', '最新'];
 
@@ -54,7 +60,9 @@ const ChallengeLeaderBoard = (props: any) => {
               user.maxDays,
               user.latest
             ];
-            return <NoStyledRow data={rowData} key={user.id} />;
+            return (
+              <NoStyledRow data={rowData} key={user.id} userId={user.id} />
+            );
           })}
         </Table>
       )}
