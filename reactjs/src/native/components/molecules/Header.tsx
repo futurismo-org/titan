@@ -1,6 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Header, Title, Body, Icon, Left, Right, Button } from 'native-base';
+import {
+  Header,
+  Title,
+  Body,
+  Icon,
+  Left,
+  Right,
+  Button,
+  Text
+} from 'native-base';
 import { Link } from 'react-router-native';
 
 import firebase from '~/lib/firebase';

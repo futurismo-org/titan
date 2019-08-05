@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { carouselGray } from '~/lib/theme';
+import Error from '~/native/components/atoms/Error';
 
 const DashBoard = (props: any) => {
   const {
@@ -44,7 +44,7 @@ const DashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && (
         <React.Fragment>

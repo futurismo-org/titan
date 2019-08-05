@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Item, Label, Input, Text, Button } from 'native-base';
+import { Container, Form, Item, Label, Input, Button, Text } from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
