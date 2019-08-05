@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { Text, Thumbnail } from 'native-base';
+import { Text } from 'native-base';
 import { Link } from 'react-router-native';
 import Progress from '../../atoms/CircularProgress';
 import Avatar from '../../atoms/Avatar';
+
+import { leaderboardMyColor } from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
 
