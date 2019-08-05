@@ -4,6 +4,8 @@ import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
 import { getRecordGiphyImageURL } from '~/lib/giphy';
 
+import { primaryColor } from '~/lib/theme';
+
 const Giphy = (props: any) => {
   const { type } = props;
   const message = type === 'win' ? 'You Win' : 'Never Mind';
@@ -26,7 +28,26 @@ const Giphy = (props: any) => {
   }, [type]);
 
   if (giphyURL === '') {
-    return null;
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: primaryColor
+        }}
+      >
+        <Text
+          style={{
+            color: '#fff',
+            fontSize: 60
+          }}
+        >
+          {message}
+        </Text>
+      </View>
+    );
   }
 
   return (

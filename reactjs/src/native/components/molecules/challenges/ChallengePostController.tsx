@@ -12,7 +12,15 @@ import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
 import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
-  const { challenge, participant, resourceId, history, redirectPath } = props;
+  const {
+    challenge,
+    participant,
+    resourceId,
+    history,
+    redirectPath,
+    showGiphy
+  } = props;
+
   const { openedAt, closedAt } = challenge;
 
   const [alert, setAlert] = useState();
@@ -66,6 +74,7 @@ const ChallengePostController = (props: any) => {
       .firestore()
       .doc(resourceId)
       .update(updateData)
+      .then(() => showGiphy('win'))
       .then(() => {
         const url = `https://titan-fire.com${getUserDashboardPath(
           challenge.id,
@@ -75,9 +84,9 @@ const ChallengePostController = (props: any) => {
 ${url}`;
         postMessage(challenge.webhookURL, message);
       })
-      .then(() => {
-        successToastWithNoRedirect('投稿が完了しました');
-      })
+      // .then(() => {
+      //   successToastWithNoRedirect('投稿が完了しました');
+      // })
       .then(() => history.push(redirectPath));
   };
 
@@ -110,9 +119,10 @@ ${url}`;
       .firestore()
       .doc(resourceId)
       .update(resetData)
-      .then(() => {
-        successToastWithNoRedirect('リセットしました');
-      })
+      .then(() => showGiphy('lose'))
+      // .then(() => {
+      //   successToastWithNoRedirect('リセットしました');
+      // })
       .then(() => {
         const url = `https://titan-fire.com${getUserDashboardPath(
           challenge.id,

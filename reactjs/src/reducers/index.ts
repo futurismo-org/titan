@@ -7,6 +7,7 @@ import ogpReducer from './ogpReducer';
 import challengeReducer from './challengeReducer';
 import categoryReducer from './categoryReducer';
 import topicReducer from './topicReducer';
+import giphyReducer from './gitphyReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -27,5 +28,6 @@ export const createRootReducerForRN = () =>
     user: userReducer,
     challenge: challengeReducer,
     category: categoryReducer,
-    topic: topicReducer
+    topic: topicReducer,
+    giphy: giphyReducer
   });
