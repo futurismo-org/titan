@@ -6,6 +6,7 @@ import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
 import Progress from '../atoms/CircularProgress';
+import Error from '../atoms/Error';
 
 const Category = (props: any) => {
   const {
@@ -27,8 +28,8 @@ const Category = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
-      {loading && <Progress />}
+      {error && <Error error={error} />}
+      {loading && null}
       {category && (
         <React.Fragment>
           <Header category={category} />

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { View } from 'react-native';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { carouselGray } from '~/lib/theme';
 import Error from '~/native/components/atoms/Error';
-
 import { deviceWidth } from '~/lib/native';
 
 const DashBoard = (props: any) => {
@@ -49,7 +49,7 @@ const DashBoard = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && (
-        <React.Fragment>
+        <View>
           <Title text="運営からのおすすめ" />
           <Carousel
             ref={(c: any) => setPinnedSliderRef(c)}
@@ -134,7 +134,7 @@ const DashBoard = (props: any) => {
             tappableDots={!!challengeSliderRef}
           />
           <MoreLink to="/challenges" />
-        </React.Fragment>
+        </View>
       )}
     </React.Fragment>
   );

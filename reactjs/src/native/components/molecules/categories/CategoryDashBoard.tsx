@@ -17,10 +17,10 @@ const CategoryDashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      <Title text="概要" />
+      <Title text="概要" left />
       <MarkdownView text={category.overview} />
       <Space />
-      <Title text="チャレンジ一覧" />
+      <Title text="チャレンジ一覧" left />
       {category.challengeRefs &&
         category.challengeRefs.map((challengeRef: any) => (
           <CategoryChallenge
@@ -29,7 +29,7 @@ const CategoryDashBoard = (props: any) => {
           />
         ))}
       <Space />
-      <Title text="トピック" />
+      <Title text="トピック" left />
       <TopicList topics={topics} topicPath={topicPath} limit={6} />
       <MoreLink to={`/cat/${category.id}/topics`} />
     </React.Fragment>
