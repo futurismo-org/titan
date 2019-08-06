@@ -12,6 +12,7 @@ const Title = (props: any) => {
     margin-bottom: 12px;
     margin-top: 6px;
     text-align: ${align};
+    font-weight: bold;
   `;
 
   return <StyledText style={human.title1}>{text}</StyledText>;
