@@ -5,8 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import theme from '~/lib/theme';
-import ChallengeCard from '../atoms/challenges/ChallengeCard';
-import CategoryCard from '../atoms/CategoryCard';
+import CollectionCard from '~/web/containers/CollectionCardContainer';
 
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
@@ -35,8 +34,12 @@ const DashBoardCard = (props: any) => {
 
   return (
     <React.Fragment key={item.id}>
-      {type === 'challenge' && <ChallengeCard challenge={item} />}
-      {type === 'category' && <CategoryCard category={item} />}
+      {type === 'challenge' && (
+        <CollectionCard collection={item} type="challenges" />
+      )}
+      {type === 'category' && (
+        <CollectionCard collection={item} type="categories" />
+      )}
     </React.Fragment>
   );
 };

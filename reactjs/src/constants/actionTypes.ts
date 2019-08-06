@@ -6,6 +6,10 @@ export const RESET_OGP_INFO = 'RESET_OGP_INFO';
 export const SHOW_GIPHY = 'SHOW_GIPHY';
 export const HIDE_GIPHY = 'HIDE_GIPHY';
 
+// sensitive
+export const SHOW_SENSITIVE = 'SHOW_SENSITIVE';
+export const HIDE_SENSITIVE = 'HIDE_SENSITIVE';
+
 // challenge
 export const RESET_CHALLENGE_INFO = 'RESET_CHALLENGE_INFO';
 export const FETCH_CHALLENGES_REQUEST = 'FETCH_CHALLENGES_REQUEST';

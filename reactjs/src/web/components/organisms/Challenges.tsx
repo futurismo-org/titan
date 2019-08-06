@@ -2,7 +2,7 @@ import * as React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
-import ChallengeCard from '../atoms/challenges/ChallengeCard';
+import CollectionCard from '~/web/containers/CollectionCardContainer';
 
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -42,7 +42,11 @@ const Challenges = (props: any) => {
         {openingChallenges && (
           <StyledCardGrid container spacing={4}>
             {openingChallenges.map((challenge: any) => (
-              <ChallengeCard challenge={challenge} key={challenge.id} />
+              <CollectionCard
+                type="challenges"
+                collection={challenge}
+                key={challenge.id}
+              />
             ))}
           </StyledCardGrid>
         )}
@@ -52,7 +56,11 @@ const Challenges = (props: any) => {
         {preOpenChallenges && (
           <StyledCardGrid container spacing={4}>
             {preOpenChallenges.map((challenge: any) => (
-              <ChallengeCard challenge={challenge} key={challenge.id} />
+              <CollectionCard
+                type="challenges"
+                collection={challenge}
+                key={challenge.id}
+              />
             ))}
           </StyledCardGrid>
         )}
@@ -62,7 +70,11 @@ const Challenges = (props: any) => {
         {closedChallenges && (
           <StyledCardGrid container spacing={4}>
             {closedChallenges.map((challenge: any) => (
-              <ChallengeCard challenge={challenge} key={challenge.id} />
+              <CollectionCard
+                type="challeges"
+                collection={challenge}
+                key={challenge.id}
+              />
             ))}
           </StyledCardGrid>
         )}

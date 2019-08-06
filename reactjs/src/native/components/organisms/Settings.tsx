@@ -67,6 +67,7 @@ const Settings = (props: any) => {
             ユーザアイコンのアップロードはWebのみサポートしています。
           </Text>
           <SubmitButton
+            text="設定を更新"
             handler={() =>
               updateHandlerWithMessage({
                 displayName,

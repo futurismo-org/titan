@@ -10,6 +10,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     allowSensitive,
+    debugSensitive: state.sensitive && state.sensitive.show,
     ...props
   };
 };
