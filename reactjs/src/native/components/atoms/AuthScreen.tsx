@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Item, Label, Input, Button, Text } from 'native-base';
+import {
+  Container,
+  Form,
+  Item,
+  Label,
+  Input,
+  Button,
+  Text,
+  View
+} from 'native-base';
 import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
@@ -12,6 +21,10 @@ import {
   TWITTER_CONSUMER_KEY,
   TWITTER_CONSUMER_SECRET
 } from '~/lib/twitter';
+
+import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
+
+import TouchableText from './TouchableText';
 
 // import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
@@ -220,6 +233,24 @@ const AuthScreen = (props: any) => {
           <Text>メールでログイン</Text>
         </Button>
       </Form>
+      <Text style={{ padding: 10 }}>
+        ユーザ登録がまだの方も、ログインの延長でユーザ登録が可能です。
+        登録の前に、利用規約とプライバシーポリシーをご確認ください。
+        登録の完了を以て、利用規約に同意したものとします。
+      </Text>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center'
+        }}
+      >
+        <TouchableText external url={TITAN_TERMS_OF_USE} text="利用規約" />
+        <TouchableText
+          external
+          url={TITAN_PRIVACY_POLICY}
+          text="プライバシーポリシー"
+        />
+      </View>
     </Container>
   );
 };
