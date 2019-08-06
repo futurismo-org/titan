@@ -30,12 +30,14 @@ const HistoryHead = (props: any) => (
   <TableHead>
     <TableRow>
       <TableCell>日時</TableCell>
+      <TableCell>タイプ</TableCell>
+
       <TableCell>点数</TableCell>
       <ConditionalTableCell>連続</ConditionalTableCell>
       <ConditionalTableCell>累積</ConditionalTableCell>
       <ConditionalTableCell>過去</ConditionalTableCell>
       <ConditionalTableCell>経過</ConditionalTableCell>
-      <TableCell>タイプ</TableCell>
+      <ConditionalTableCell>操作</ConditionalTableCell>
     </TableRow>
   </TableHead>
 );
@@ -54,12 +56,15 @@ const HistoryRow = (props: any) => {
   return (
     <TableRow>
       <TableCell>{wrapShowS(formatDatetime(timestamp.toDate()))}</TableCell>
+      <TableCell>{getType(type)}</TableCell>
       <TableCell>{wrapShowN(score)}</TableCell>
       <ConditionalTableCell>{wrapShowN(days)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(accDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(pastDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
-      <TableCell>{getType(type)}</TableCell>
+      <ConditionalTableCell>
+        <span style={{ textDecoration: 'underline' }}>削除</span>
+      </ConditionalTableCell>
     </TableRow>
   );
 };
