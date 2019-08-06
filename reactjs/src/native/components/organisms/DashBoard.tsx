@@ -7,6 +7,8 @@ import MoreLink from '../atoms/MoreLink';
 import { carouselGray } from '~/lib/theme';
 import Error from '~/native/components/atoms/Error';
 
+import { deviceWidth } from '~/lib/native';
+
 const DashBoard = (props: any) => {
   const {
     challenges,
@@ -53,8 +55,8 @@ const DashBoard = (props: any) => {
             ref={(c: any) => setPinnedSliderRef(c)}
             data={pinned}
             renderItem={_renderChallengeItem}
-            itemWidth={400}
-            sliderWidth={400}
+            itemWidth={deviceWidth}
+            sliderWidth={deviceWidth}
             onSnapToItem={index => setPinnedActiveSlide(index)}
           />
           <Pagination
@@ -81,8 +83,8 @@ const DashBoard = (props: any) => {
             ref={(c: any) => setCategorySliderRef(c)}
             data={categories}
             renderItem={_renderCategoryItem}
-            sliderWidth={400}
-            itemWidth={400}
+            sliderWidth={deviceWidth}
+            itemWidth={deviceWidth}
             onSnapToItem={index => setCategoryActiveSlide(index)}
           />
           <Pagination
@@ -109,8 +111,8 @@ const DashBoard = (props: any) => {
             ref={(c: any) => setChallengeSliderRef(c)}
             data={challenges}
             renderItem={_renderChallengeItem}
-            sliderWidth={400}
-            itemWidth={400}
+            sliderWidth={deviceWidth}
+            itemWidth={deviceWidth}
             onSnapToItem={index => setChallengeActiveSlide(index)}
           />
           <Pagination
