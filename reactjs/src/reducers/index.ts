@@ -8,6 +8,7 @@ import challengeReducer from './challengeReducer';
 import categoryReducer from './categoryReducer';
 import topicReducer from './topicReducer';
 import giphyReducer from './gitphyReducer';
+import sensitiveReducer from './sensitiveReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -18,7 +19,8 @@ export const createRootReducer = (history: any) =>
     router: connectRouter(history),
     challenge: challengeReducer,
     category: categoryReducer,
-    topic: topicReducer
+    topic: topicReducer,
+    sensitive: sensitiveReducer
   });
 
 export const createRootReducerForRN = () =>

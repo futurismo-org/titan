@@ -36,13 +36,13 @@ const NoStyledLink = styled(Link)`
 `;
 
 const CollectionCard = (props: any) => {
-  const { collection, type, allowSensitive } = props;
+  const { collection, type, allowSensitive, debugSensitive } = props;
 
   const path = collectionURL(type, collection.id);
 
   return (
     <React.Fragment>
-      {collection.sensitive && !allowSensitive ? (
+      {!debugSensitive && (collection.sensitive && !allowSensitive) ? (
         <Grid item key={collection.id} xs={12} md={6}>
           <NoStyledLink to="/settings">
             <CardActionArea>

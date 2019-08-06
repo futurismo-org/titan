@@ -6,6 +6,7 @@ import {
   resetChallengeInfo
 } from '~/actions/challengeAction';
 import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
+import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -14,7 +15,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
       fetchCategories,
       fetchPinnedChallenges,
       resetChallengeInfo,
-      resetCategoryInfo
+      resetCategoryInfo,
+      showSensitive,
+      hideSensitive
     },
     dispatch
   );
@@ -23,6 +26,7 @@ const mapStateToProps = (state: any, props: any) => ({
   challenges: state.challenge.items,
   categories: state.category.items,
   pinned: state.challenge.pinned,
+  debugSensitive: state.sensitive.show,
   loading:
     state.challenge.loading ||
     state.category.loading ||
