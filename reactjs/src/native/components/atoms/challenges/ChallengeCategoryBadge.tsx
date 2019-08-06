@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 
-import { Badge, Text } from 'native-base';
-import { Link } from 'react-router-native';
+import { Button, Text } from 'native-base';
+import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
 
 const ChallengeCategoryBadge = (props: any) => {
+  const { history } = props;
   const docRef: firebase.firestore.DocumentReference = props.categoryRef;
 
   const [title, setTitle] = useState('');
@@ -18,13 +19,11 @@ const ChallengeCategoryBadge = (props: any) => {
       setPath(`/cat/${category!.id}/dashboard`);
     });
 
-  return (
-    <Badge>
-      <Link to={path}>
-        <Text>{title}</Text>
-      </Link>
-    </Badge>
-  );
+  return title ? (
+    <Button style={{ margin: 2 }} onPress={() => history.push(path)}>
+      <Text>{title}</Text>
+    </Button>
+  ) : null;
 };
 
-export default ChallengeCategoryBadge;
+export default withRouter(ChallengeCategoryBadge);
