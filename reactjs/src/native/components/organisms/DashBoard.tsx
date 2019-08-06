@@ -50,7 +50,7 @@ const DashBoard = (props: any) => {
       {loading && <Progress />}
       {!loading && (
         <View>
-          <Title text="おすすめのチャレンジ" />
+          <Title text="オススメのチャレンジ" />
           <Carousel
             ref={(c: any) => setPinnedSliderRef(c)}
             data={pinned}

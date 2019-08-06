@@ -28,7 +28,7 @@ const DashBoard = (props: any) => {
       {loading && <Progress />}
       {pinned && (
         <DashBoardPaper
-          title="おすすめのチャレンジ"
+          title="オススメのチャレンジ"
           items={pinned}
           type="challenge"
         />
