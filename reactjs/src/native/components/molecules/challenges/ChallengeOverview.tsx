@@ -8,9 +8,9 @@ const ChallengeOverview = (props: any) => {
 
   return (
     <React.Fragment>
-      {!!youtubeId && <Youtube id={youtubeId} />}
       <ChallengeSchedule openedAt={openedAt} closedAt={closedAt} />
       <MarkdownView text={text} />
+      {!!youtubeId && <Youtube id={youtubeId} />}
     </React.Fragment>
   );
 };
