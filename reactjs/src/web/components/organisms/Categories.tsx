@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
-import CategoryCard from '../atoms/CategoryCard';
+import CollectionCard from '~/web/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
@@ -34,7 +34,11 @@ const Categories = (props: any) => {
         {categories && (
           <StyledCardGrid container spacing={4}>
             {categories.map((category: any) => (
-              <CategoryCard category={category} key={category.id} />
+              <CollectionCard
+                type="categories"
+                collection={category}
+                key={category.id}
+              />
             ))}
           </StyledCardGrid>
         )}

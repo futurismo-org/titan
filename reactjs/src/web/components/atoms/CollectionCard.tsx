@@ -8,9 +8,8 @@ import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
-
-import NoStyledLink from '../NoStyledLink';
-import { getRandomImageURL } from '~/lib/url';
+import { Link } from 'react-router-dom';
+import { collectionURL, getRandomImageURL } from '~/lib/url';
 
 const StyledCard = styled(Card)`
   && {
@@ -29,24 +28,23 @@ const StyledCardMedia = styled(CardMedia)`
   }
 ` as React.ComponentType<CardMediaProps>;
 
-const ChallengeCard = (props: any) => {
-  const { challenge, allowSensitive } = props;
-
-  if (!challenge) {
-    return <React.Fragment />;
+const NoStyledLink = styled(Link)`
+  && {
+    text-decoration: none;
+    color: inherit;
   }
+`;
 
-  if (challenge.draft) {
-    return <React.Fragment />;
-  }
+const CollectionCard = (props: any) => {
+  const { collection, type, allowSensitive } = props;
 
-  //
+  const path = collectionURL(type, collection.id);
 
   return (
     <React.Fragment>
-      {challenge.sensitive && !allowSensitive ? (
-        <Grid item key={challenge.title} xs={12} md={6}>
-          <NoStyledLink to={`/c/${challenge.id}/overview`}>
+      {collection.sensitive && !allowSensitive ? (
+        <Grid item key={collection.id} xs={12} md={6}>
+          <NoStyledLink to="/settings">
             <CardActionArea>
               <StyledCard>
                 <StyledCardDetails>
@@ -54,7 +52,7 @@ const ChallengeCard = (props: any) => {
                     <Typography component="h2" variant="h5">
                       センシティブな内容が含まれている可能性のあるコンテンツです
                     </Typography>
-                    <Typography variant="subtitle1" paragraph color="primary">
+                    <Typography variant="subtitle1" color="primary">
                       設定を変更
                     </Typography>
                   </CardContent>
@@ -70,21 +68,17 @@ const ChallengeCard = (props: any) => {
           </NoStyledLink>
         </Grid>
       ) : (
-        <Grid item key={challenge.title} xs={12} md={6}>
-          <NoStyledLink to={`/c/${challenge.id}/overview`}>
+        <Grid item key={collection.id} xs={12} md={6}>
+          <NoStyledLink to={path}>
             <CardActionArea>
               <StyledCard>
                 <StyledCardDetails>
                   <CardContent>
                     <Typography component="h2" variant="h5">
-                      {challenge.title}
+                      {collection.title}
                     </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      paragraph
-                      style={{ fontStyle: 'italic' }}
-                    >
-                      {challenge.description}
+                    <Typography variant="subtitle1" paragraph>
+                      {collection.description}
                     </Typography>
                     <Typography variant="subtitle1" color="primary">
                       もっと読む...
@@ -106,4 +100,4 @@ const ChallengeCard = (props: any) => {
   );
 };
 
-export default ChallengeCard;
+export default CollectionCard;
