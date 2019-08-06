@@ -20,7 +20,7 @@ import {
 } from '~/constants/appInfo';
 
 const NavDrawer = (props: any) => {
-  const { isLogin, displayName, photoURL, history } = props;
+  const { isLogin, displayName, photoURL, history, closeHandler } = props;
 
   const routes = [
     { title: 'ホーム', key: '1', path: '/', external: false },
@@ -75,7 +75,10 @@ const NavDrawer = (props: any) => {
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity
-                  onPress={() => history.push(item.path)}
+                  onPress={() => {
+                    history.push(item.path);
+                    closeHandler();
+                  }}
                   style={{ flex: 1, alignSelf: 'center' }}
                 >
                   <Text>{item.title}</Text>

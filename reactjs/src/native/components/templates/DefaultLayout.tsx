@@ -63,7 +63,7 @@ const DefaultLayout = (props: any) => {
           <Drawer
             open={open}
             type="overlay"
-            content={<NavDrawer />}
+            content={<NavDrawer closeHandler={closeDrawer} />}
             onClose={() => closeDrawer()}
             tapToClose
             openDrawerOffset={0.2}
