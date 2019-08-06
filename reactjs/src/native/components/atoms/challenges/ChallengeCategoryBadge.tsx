@@ -20,7 +20,7 @@ const ChallengeCategoryBadge = (props: any) => {
     });
 
   return title ? (
-    <Button style={{ margin: 2 }} onPress={() => history.push(path)}>
+    <Button rounded style={{ margin: 2 }} onPress={() => history.push(path)}>
       <Text>{title}</Text>
     </Button>
   ) : null;
