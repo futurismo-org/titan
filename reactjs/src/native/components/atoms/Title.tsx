@@ -11,7 +11,7 @@ const StyledText = styled(Text)`
 const Title = (props: any) => {
   const { text } = props;
 
-  return <StyledText style={human.largeTitle}>{text}</StyledText>;
+  return <StyledText style={human.title1}>{text}</StyledText>;
 };
 
 export default Title;
