@@ -12,6 +12,7 @@ import Hero from './Hero';
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
+import { isAndroid } from '~/lib/native';
 import { sleep } from '~/lib/general';
 
 const App = (props: any) => {
@@ -24,6 +25,7 @@ const App = (props: any) => {
     }).then(() => setIsFontReady(true));
 
     !__DEV__ && // eslint-disable-line
+    isAndroid && // Appleストアはガイドラインによってストア経由でのアプリの更新しか許可していない
       Expo.Updates.checkForUpdateAsync().then(
         (update: any) =>
           update.isAvailable &&
