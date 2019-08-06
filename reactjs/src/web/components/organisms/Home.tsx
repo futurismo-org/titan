@@ -10,6 +10,7 @@ import Categories from '~/web/containers/CategoriesContainer';
 import Category from '~/web/containers/CategoryContainer';
 import Ranking from '../../containers/RankingContainer';
 import Settings from '~/web/containers/SettingsContainer';
+import Profile from '~/web/containers/ProfileContainer';
 import Info from './Info';
 import Announce from './Announce';
 
@@ -21,7 +22,8 @@ const Home = () => (
       <Route path="/c/:id" component={Challenge} />
       <Route path="/challenges" component={Challenges} />
       <Route path="/topics" component={GeneralTopics} />
-      <Route path="/ranking" component={Ranking} />
+      <Route path="/u/:id" component={Profile} />
+      <Route path="/users" component={Ranking} />
       <Route path="/settings" component={Settings} />
       <Route path="/info/announce" component={Announce} />
       <Route path="/info" component={Info} />
