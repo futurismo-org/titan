@@ -15,6 +15,7 @@ const YoutubeWidget = (props: any) => {
       style={{ width, height, alignSelf: 'center', flex: 1, marginBottom: 10 }}
       javaScriptEnabled
       domStorageEnabled
+      useWebKit
       source={{ uri: url }}
     />
   );
