@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Content } from 'native-base';
 
-import { Link } from 'react-router-native';
+import { TouchableOpacity } from 'react-native';
+import { withRouter } from 'react-router-native';
 import {
   StyledHero as Hero,
   Title,
@@ -10,16 +11,18 @@ import {
 import { getRandomImageURL } from '~/lib/url';
 
 const CategoryHeader = (props: any) => {
-  const { category } = props;
+  const { category, history } = props;
 
   return (
     <Hero
       source={{ uri: getRandomImageURL() }}
       renderOverlay={() => (
         <Content padder>
-          <Link to={`/cat/${category.id}/dashboard`}>
+          <TouchableOpacity
+            onPress={() => history.push(`/cat/${category.id}/dashboard`)}
+          >
             <Title>{category.title}</Title>
-          </Link>
+          </TouchableOpacity>
           <Description>{category.description}</Description>
         </Content>
       )}
@@ -27,4 +30,4 @@ const CategoryHeader = (props: any) => {
   );
 };
 
-export default CategoryHeader;
+export default withRouter(CategoryHeader);

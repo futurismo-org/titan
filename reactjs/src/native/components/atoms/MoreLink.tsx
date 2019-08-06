@@ -1,28 +1,28 @@
 import * as React from 'react';
-import { Link } from 'react-router-native';
+import { withRouter } from 'react-router-native';
+import { TouchableOpacity } from 'react-native';
 import { Text, View } from 'native-base';
 
 import { primaryColor } from '~/lib/theme';
 
 const MoreLink = (props: any) => {
-  const { to } = props;
+  const { to, history } = props;
 
   return (
-    <View style={{ flex: 1 }}>
-      <Link to={to}>
+    <View style={{ flex: 1, alignItems: 'flex-end' }}>
+      <TouchableOpacity onPress={() => history.push(to)}>
         <Text
           style={{
             color: primaryColor,
-            textAlign: 'right',
             fontSize: 15,
             marginTop: 10
           }}
         >
           もっと見る
         </Text>
-      </Link>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default MoreLink;
+export default withRouter(MoreLink);

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {
-  ImageProps,
   View,
   Image,
   TouchableOpacity,

@@ -154,14 +154,13 @@ ${url}`;
       {isChallengeOpening(openedAt.toDate(), closedAt.toDate()) ? (
         <React.Fragment>
           <Button
+            style={{ margin: 2 }}
             success
-            small
-            rounded
             onPress={() => writeRecord(participant)}
           >
             <Text>記録する</Text>
           </Button>
-          <Button warning small rounded onPress={() => alert.open()}>
+          <Button warning style={{ margin: 2 }} onPress={() => alert.open()}>
             <Text>リセット</Text>
           </Button>
         </React.Fragment>

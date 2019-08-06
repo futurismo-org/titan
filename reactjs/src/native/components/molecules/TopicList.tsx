@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { List, ListItem, Left, Thumbnail, Body, Text } from 'native-base';
-import { Link } from 'react-router-native';
+
+import { withRouter } from 'react-router-native';
+import { TouchableOpacity } from 'react-native';
 import { fromNow } from '~/lib/moment';
 
 const TopicList = (props: any) => {
-  const { topics, topicPath, limit } = props;
+  const { topics, topicPath, limit, history } = props;
   return (
     <List>
       {topics.slice(0, limit).map((topic: any) => (
@@ -19,12 +21,12 @@ const TopicList = (props: any) => {
             />
           </Left>
           <Body>
-            <Link to={topicPath(topic.id)}>
+            <TouchableOpacity onPress={() => history.push(topicPath(topic.id))}>
               <Text>{topic.title}</Text>
-            </Link>
-            <Text note>
-              Posted by {topic.userName} {fromNow(topic.createdAt.toDate())}
-            </Text>
+              <Text note>
+                Posted by {topic.userName} {fromNow(topic.createdAt.toDate())}
+              </Text>
+            </TouchableOpacity>
           </Body>
         </ListItem>
       ))}
@@ -32,4 +34,4 @@ const TopicList = (props: any) => {
   );
 };
 
-export default TopicList;
+export default withRouter(TopicList);

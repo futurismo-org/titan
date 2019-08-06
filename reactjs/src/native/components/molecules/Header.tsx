@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-  Header,
-  Title,
-  Body,
-  Icon,
-  Left,
-  Right,
-  Button,
-  Text
-} from 'native-base';
-import { Link } from 'react-router-native';
+import { Header, Body, Icon, Left, Right, Button, Text } from 'native-base';
+import { TouchableOpacity } from 'react-native';
+import { Link, withRouter } from 'react-router-native';
 
 import firebase from '~/lib/firebase';
 
 const HeaderWrapper = (props: any) => {
-  const { openDrawer, isLogin } = props;
+  const { openDrawer, isLogin, history } = props;
 
   return (
     <React.Fragment>
@@ -25,9 +17,17 @@ const HeaderWrapper = (props: any) => {
           </Button>
         </Left>
         <Body>
-          <Link to="/">
-            <Title>Titan</Title>
-          </Link>
+          <TouchableOpacity onPress={() => history.push('/')}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 24,
+                fontWeight: 'bold'
+              }}
+            >
+              Titan
+            </Text>
+          </TouchableOpacity>
         </Body>
         <Right>
           {isLogin ? (
@@ -47,4 +47,4 @@ const HeaderWrapper = (props: any) => {
   );
 };
 
-export default HeaderWrapper;
+export default withRouter(HeaderWrapper);

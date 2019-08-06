@@ -10,6 +10,8 @@ import ChallengePostController from '../../molecules/challenges/ChallengePostCon
 
 import { postMessage } from '~/lib/discord.client.api';
 
+import Error from '../Error';
+
 const ChallengeButton = (props: any) => {
   const {
     challenge,
@@ -111,8 +113,7 @@ const ChallengeButton = (props: any) => {
     <React.Fragment>
       <Button
         info
-        small
-        rounded
+        style={{ margin: 2 }}
         onPress={() => joinHandler(challenge.id, challenge.title, user)}
       >
         <Text>参加する</Text>
@@ -124,7 +125,7 @@ const ChallengeButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
+      {error && <Error error={error} />}
       {loading && null}
       {!loading ? renderButton() : null}
     </React.Fragment>

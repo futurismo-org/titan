@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { FlatList, Linking, Image } from 'react-native';
+import { Linking, TouchableOpacity } from 'react-native';
 import {
   Container,
   Content,
+  List,
   ListItem,
   Text,
   View,
   Thumbnail
 } from 'native-base';
-import { Link } from 'react-router-native';
+import { withRouter } from 'react-router-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageOverlay from 'react-native-image-overlay';
 import { getRandomImageURL } from '~/lib/url';
@@ -19,7 +20,7 @@ import {
 } from '~/constants/appInfo';
 
 const NavDrawer = (props: any) => {
-  const { isLogin, displayName, photoURL } = props;
+  const { isLogin, displayName, photoURL, history, closeHandler } = props;
 
   const routes = [
     { title: 'ホーム', key: '1', path: '/', external: false },
@@ -62,28 +63,35 @@ const NavDrawer = (props: any) => {
             </View>
           ) : null}
         </ImageOverlay>
-        <FlatList
-          data={routes}
-          renderItem={({ item }) => (
-            <ListItem>
+        <List>
+          {routes.map((item: any) => (
+            <ListItem key={item.key}>
               {item.external ? (
-                <Text onPress={() => Linking.openURL(item.path)}>
-                  {item.title}
-                </Text>
-              ) : (
-                <Link to={item.path}>
+                <TouchableOpacity
+                  onPress={() => Linking.openURL(item.path)}
+                  style={{ flex: 1, alignSelf: 'center' }}
+                >
                   <Text>{item.title}</Text>
-                </Link>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => {
+                    history.push(item.path);
+                    closeHandler();
+                  }}
+                  style={{ flex: 1, alignSelf: 'center' }}
+                >
+                  <Text>{item.title}</Text>
+                </TouchableOpacity>
               )}
             </ListItem>
-          )}
-        />
-        <View style={{ flex: 1, flexDirection: 'row' }}>
+          ))}
+        </List>
+        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
           <Icon
             size={40}
             name="twitter"
             color="#4099FF"
-            style={{ marginLeft: 10 }}
             onPress={() => Linking.openURL(TITAN_TWITTER_URL)}
           />
           <Icon
@@ -99,4 +107,4 @@ const NavDrawer = (props: any) => {
   );
 };
 
-export default NavDrawer;
+export default withRouter(NavDrawer);

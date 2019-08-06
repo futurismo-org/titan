@@ -62,9 +62,9 @@ const DefaultLayout = (props: any) => {
         <StyledContainer>
           <Drawer
             open={open}
-            type="overlay"
-            content={<NavDrawer />}
-            onClose={() => closeDrawer()}
+            type="displace"
+            content={<NavDrawer closeHandler={closeDrawer} />}
+            onClose={closeDrawer}
             tapToClose
             openDrawerOffset={0.2}
             panCloseMask={0.2}

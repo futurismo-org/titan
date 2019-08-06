@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { Button, Text } from 'native-base';
-import { Linking, Alert, View } from 'react-native';
+import { Linking, Alert, View, TouchableOpacity } from 'react-native';
 import { withRouter, Link } from 'react-router-native';
-import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
+import Error from '../atoms/Error';
 
 import { fromNow } from '~/lib/moment';
 import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
+
+import Progress from '../atoms/CircularProgress';
 
 import { deleteResource } from '~/lib/firebase';
 
@@ -50,7 +52,7 @@ const Topic = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       {topic && (
         <React.Fragment>
@@ -58,15 +60,24 @@ const Topic = (props: any) => {
             Posted by {topic.userName || 'Anonymous'}{' '}
             {fromNow(topic.createdAt.toDate())}{' '}
           </Text>
-          <Title text={topic.title} />
-          {!!topic.url && (
-            <React.Fragment>
-              <Text onPress={() => Linking.openURL(topic.url)}>
-                {`${topic.url.substr(0, 30)}...`}
-              </Text>
-              <Text />
-            </React.Fragment>
-          )}
+          <TouchableOpacity
+            onPress={
+              topic.url && topic.url !== ''
+                ? () => Linking.openURL(topic.url)
+                : () => null
+            }
+          >
+            <Title text={topic.title} />
+            {!!topic.url && (
+              <React.Fragment>
+                <Text style={{ color: 'blue' }}>{`${topic.url.substr(
+                  0,
+                  30
+                )}...`}</Text>
+                <Text />
+              </React.Fragment>
+            )}
+          </TouchableOpacity>
           <MarkdownView text={topic.text} />
           <TwitterShareIcon
             title={topic.title}

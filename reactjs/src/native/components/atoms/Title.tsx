@@ -3,15 +3,19 @@ import { Text } from 'native-base';
 import { human } from 'react-native-typography';
 import styled from 'styled-components';
 
-const StyledText = styled(Text)`
-  margin-bottom: 12px;
-  margin-top: 6px;
-`;
-
 const Title = (props: any) => {
-  const { text } = props;
+  const { text, left } = props;
 
-  return <StyledText style={human.largeTitle}>{text}</StyledText>;
+  const align = left ? 'left' : 'center';
+
+  const StyledText = styled(Text)`
+    margin-bottom: 12px;
+    margin-top: 6px;
+    text-align: ${align};
+    font-weight: bold;
+  `;
+
+  return <StyledText style={human.title1}>{text}</StyledText>;
 };
 
 export default Title;

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import Title from '../atoms/Title';
-import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 
@@ -22,15 +21,15 @@ const Challenges = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading && <Progress />}
-      <Title text="開催中のチャレンジ" />
+      {loading && null}
+      {openingChallenges && <Title text="開催中のチャレンジ" />}
       {openingChallenges &&
         openingChallenges.map((challenge: any) => (
           <View style={{ marginTop: 5, marginBottom: 5 }} key={challenge.id}>
             <CollectionCard collection={challenge} type="challenges" />
           </View>
         ))}
-      <Title text="開催前のチャレンジ" />
+      {preOpenChallenges && <Title text="開催前のチャレンジ" />}
       {preOpenChallenges &&
         preOpenChallenges.map((challenge: any) => (
           <View style={{ marginTop: 5, marginBottom: 5 }} key={challenge.id}>
@@ -41,7 +40,7 @@ const Challenges = (props: any) => {
             />
           </View>
         ))}
-      <Title text="開催終了のチャレンジ" />
+      {closedChallenges && <Title text="開催終了のチャレンジ" />}
       {closedChallenges &&
         closedChallenges.map((challenge: any) => (
           <View style={{ marginTop: 5, marginBottom: 5 }} key={challenge.id}>
