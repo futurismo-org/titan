@@ -51,12 +51,13 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space />
           <ChallengeChart histories={user.histories} />
           <Space />
-          <ChallengeGrass
+          {/* バグっているのでgrassはいったん封印 */}
+          {/* <ChallengeGrass
             histories={user.histories}
             openedAt={challenge.openedAt}
             closedAt={challenge.closedAt}
           />
-          <Space />
+          <Space /> */}
           <H2 style={{ textAlign: 'center' }}>参加日: {joinDate}</H2>
           <Space />
           <ChallengeHistories histories={user.histories} />
