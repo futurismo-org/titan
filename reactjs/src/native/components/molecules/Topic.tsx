@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import { Button, Text } from 'native-base';
 import { Linking, Alert, View } from 'react-native';
 import { withRouter, Link } from 'react-router-native';
-import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
+import Error from '../atoms/Error';
 
 import { fromNow } from '~/lib/moment';
 import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
+
+import Progress from '../atoms/CircularProgress';
 
 import { deleteResource } from '~/lib/firebase';
 
@@ -50,7 +52,7 @@ const Topic = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       {topic && (
         <React.Fragment>

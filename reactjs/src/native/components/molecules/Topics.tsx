@@ -2,7 +2,6 @@ import * as React from 'react';
 import ActionButton from 'react-native-action-button';
 import { Icon } from 'native-base';
 import { withRouter } from 'react-router-native';
-import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
 import Title from '../atoms/Title';
 import TopicList from './TopicList';
@@ -28,7 +27,7 @@ const Topics = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading && <Progress />}
+      {loading && null}
       {topics && (
         <React.Fragment>
           <Title text="トピック" />
