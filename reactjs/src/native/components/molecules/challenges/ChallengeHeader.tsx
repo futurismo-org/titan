@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Content, View } from 'native-base';
 
-import { Link } from 'react-router-native';
+import { withRouter } from 'react-router-native';
+import { TouchableOpacity } from 'react-native';
 import {
   StyledHero as Hero,
   Title,
@@ -16,7 +17,7 @@ import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
 
 const ChallengeHeader = (props: any) => {
-  const { challenge, isLogin } = props;
+  const { challenge, isLogin, history } = props;
 
   return (
     <React.Fragment>
@@ -24,9 +25,11 @@ const ChallengeHeader = (props: any) => {
         source={{ uri: getRandomImageURL() }}
         renderOverlay={() => (
           <Content padder>
-            <Link to={`/c/${challenge.id}/overview`}>
+            <TouchableOpacity
+              onPress={() => history.push(`/c/${challenge.id}/overview`)}
+            >
               <Title>{challenge.title}</Title>
-            </Link>
+            </TouchableOpacity>
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
@@ -45,4 +48,4 @@ const ChallengeHeader = (props: any) => {
   );
 };
 
-export default ChallengeHeader;
+export default withRouter(ChallengeHeader);
