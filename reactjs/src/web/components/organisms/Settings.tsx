@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Switch from '@material-ui/core/Switch';
 
 import { TextField, Button } from '@material-ui/core';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
+import { primaryColor } from '~/lib/theme';
 
 const Settings = (props: any) => {
   const { user, updateHandler } = props;
@@ -10,6 +12,7 @@ const Settings = (props: any) => {
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
   const [file, setFile] = useState(null);
+  const [allowSensitive, setAllowSensitive] = useState(false);
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -26,6 +29,11 @@ const Settings = (props: any) => {
     setFile(e.target.files[0]);
   };
 
+  const onSensitiveChange = (e: any) => {
+    e.preventDefault();
+    setAllowSensitive(e.target.checked);
+  };
+
   const updateHandlerWithMessage = (data: any) => {
     updateHandler(data)
       .then(() => window.alert('ユーザ設定を更新しました。')) // eslint-disable-line
@@ -37,6 +45,7 @@ const Settings = (props: any) => {
   useEffect(() => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
+    setAllowSensitive(user.allowSensitive ? user.allowSensitive : false);
   }, [user]);
 
   return (
@@ -70,6 +79,13 @@ const Settings = (props: any) => {
           />
         </div>
         <br />
+        <p>センシティブなコンテンツを表示する</p>
+        <Switch
+          checked={allowSensitive}
+          onChange={onSensitiveChange}
+          style={{ color: primaryColor }}
+        />
+        <br />
         <Button
           type="submit"
           fullWidth
@@ -79,11 +95,12 @@ const Settings = (props: any) => {
             updateHandlerWithMessage({
               displayName,
               twitterUsername,
-              file
+              file,
+              allowSensitive
             })
           }
         >
-          投稿
+          設定を更新
         </Button>
       </Paper>
     </React.Fragment>
