@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Text } from 'native-base';
 import { Link } from 'react-router-native';
-import Progress from '../../atoms/CircularProgress';
+import Error from '../../atoms/Error';
 import Avatar from '../../atoms/Avatar';
 
 import { leaderboardMyColor } from '~/lib/theme';
@@ -36,9 +36,9 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Text>Error: {error}</Text>}
-      {loading && <Progress />}
-      {users && (
+      {error && <Error error={error} />}
+      {loading && null}
+      {!loading && users && (
         <Table borderStyle={{ borderColor: '#ffffff' }}>
           <LeaderBoardHead />
           {users.map((user: any) => {
