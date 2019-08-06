@@ -18,7 +18,7 @@ const ChallengeLeaderBoard = (props: any) => {
 
   const NoStyledRow = (props: any) => {
     const { data, userId } = props;
-    const color = myId === userId ? leaderboardMyColor : '#fff';
+    const color = userId && myId === userId ? leaderboardMyColor : '#fff';
 
     return (
       <Row
