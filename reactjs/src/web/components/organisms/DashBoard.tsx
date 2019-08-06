@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import DashBoardPaper from 'web/components/molecules/DashBoardPaper';
 import Progress from 'web/components/atoms/CircularProgress';
 
@@ -19,7 +19,8 @@ const DashBoard = (props: any) => {
     fetchPinnedChallenges,
     debugSensitive,
     showSensitive,
-    hideSensitive
+    hideSensitive,
+    isLogin
   } = props;
 
   React.useEffect(() => {
@@ -49,16 +50,18 @@ const DashBoard = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      <Paper>
-        <Typography component="h3" variant="subtitle1">
-          センシティブなコンテンツを表示する
-        </Typography>
-        <Switch
-          checked={debugSensitive}
-          onChange={onSensitiveChange}
-          style={{ color: primaryColor }}
-        />
-      </Paper>
+      {!isLogin && (
+        <Paper>
+          <Typography component="h3" variant="subtitle1">
+            センシティブなコンテンツを表示する
+          </Typography>
+          <Switch
+            checked={debugSensitive}
+            onChange={onSensitiveChange}
+            style={{ color: primaryColor }}
+          />
+        </Paper>
+      )}
       {pinned && (
         <DashBoardPaper
           title="オススメのチャレンジ"

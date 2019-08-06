@@ -26,7 +26,8 @@ const mapStateToProps = (state: any, props: any) => ({
   challenges: state.challenge.items,
   categories: state.category.items,
   pinned: state.challenge.pinned,
-  debugSensitive: state.sensitive.show,
+  debugSensitive: state.sensitive && state.sensitive.show,
+  isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
   loading:
     state.challenge.loading ||
     state.category.loading ||
