@@ -1,12 +1,9 @@
 import * as React from 'react';
-import ActionButton from 'react-native-action-button';
-import { Icon } from 'native-base';
 import { withRouter } from 'react-router-native';
+import { Button, Text } from 'native-base';
+import { View } from 'react-native';
 import Error from '../atoms/Error';
-import Title from '../atoms/Title';
 import TopicList from './TopicList';
-
-import { primaryColor } from '~/lib/theme';
 
 const Topics = (props: any) => {
   const {
@@ -30,16 +27,18 @@ const Topics = (props: any) => {
       {loading && null}
       {topics && (
         <React.Fragment>
-          <Title text="トピック" />
+          <View style={{ flex: 1, alignSelf: 'flex-end' }}>
+            <Button
+              rounded
+              primary
+              onPress={() => history.push(postButtonPath)}
+            >
+              <Text>トピックを新規投稿</Text>
+            </Button>
+          </View>
           <TopicList topics={topics} topicPath={topicPath} />
         </React.Fragment>
       )}
-      <ActionButton
-        buttonColor={primaryColor}
-        onPress={() => history.push(postButtonPath)}
-      >
-        <Icon name="md-create" />
-      </ActionButton>
     </React.Fragment>
   );
 };
