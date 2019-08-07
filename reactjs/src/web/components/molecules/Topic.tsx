@@ -80,53 +80,58 @@ const Topic = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {topic && (
-        <React.Fragment>
-          <Paper>
-            <Typography component="span" variant="body2" color="textPrimary">
-              Posted by {topic.userName || 'Anonymous'}
-            </Typography>
-            {'     '}
-            {fromNow(topic.createdAt.toDate())}
-            {topic.url ? (
-              <NoStyledExternalLink href={topic.url} target="_blank">
+      {topic &&
+        (topic.banned ? (
+          <p>
+            このコンテンツは不適切なコンテンツと判断して運営が削除しました。
+          </p>
+        ) : (
+          <React.Fragment>
+            <Paper>
+              <Typography component="span" variant="body2" color="textPrimary">
+                Posted by {topic.userName || 'Anonymous'}
+              </Typography>
+              {'     '}
+              {fromNow(topic.createdAt.toDate())}
+              {topic.url ? (
+                <NoStyledExternalLink href={topic.url} target="_blank">
+                  <Title text={topic.title} />
+                </NoStyledExternalLink>
+              ) : (
                 <Title text={topic.title} />
-              </NoStyledExternalLink>
-            ) : (
-              <Title text={topic.title} />
-            )}
-            <TwitterShareIcon title={topic.title} url={shareURL} />
-            {topic.url && (
-              <a href={topic.url} rel="noopener noreferrer" target="_blank">
-                {`${topic.url.substr(0, 30)}...`}
-              </a>
-            )}
-            <p />
-            <MarkdownView text={topic.text} />
-            <div style={{ textAlign: 'right' }}>
-              <TopicFlag isLogin={isLogin} topic={topic} type={topicType} />
-            </div>
-          </Paper>
-          {isCurrentUser ? (
-            <div style={{ textAlign: 'center' }}>
+              )}
+              <TwitterShareIcon title={topic.title} url={shareURL} />
+              {topic.url && (
+                <a href={topic.url} rel="noopener noreferrer" target="_blank">
+                  {`${topic.url.substr(0, 30)}...`}
+                </a>
+              )}
               <p />
-              <NoStyledLink to={editTopicPath}>
-                <Button type="button" color="default" variant="contained">
-                  編集
+              <MarkdownView text={topic.text} />
+              <div style={{ textAlign: 'right' }}>
+                <TopicFlag isLogin={isLogin} topic={topic} type={topicType} />
+              </div>
+            </Paper>
+            {isCurrentUser ? (
+              <div style={{ textAlign: 'center' }}>
+                <p />
+                <NoStyledLink to={editTopicPath}>
+                  <Button type="button" color="default" variant="contained">
+                    編集
+                  </Button>
+                </NoStyledLink>
+                <Button
+                  type="button"
+                  color="default"
+                  variant="contained"
+                  onClick={() => handleDelete(redirectPath, resourceId)}
+                >
+                  削除
                 </Button>
-              </NoStyledLink>
-              <Button
-                type="button"
-                color="default"
-                variant="contained"
-                onClick={() => handleDelete(redirectPath, resourceId)}
-              >
-                削除
-              </Button>
-            </div>
-          ) : null}
-        </React.Fragment>
-      )}
+              </div>
+            ) : null}
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
