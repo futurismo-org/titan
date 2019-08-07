@@ -1,140 +1,91 @@
 import React, { useState } from 'react';
 
-import { Text, Textarea } from 'native-base';
-import { carouselGray } from '~/lib/theme';
-import { postSubmission } from '~/lib/formcarry';
+import { Text, Textarea, Button, View } from 'native-base';
+import RadioForm from 'react-native-simple-radio-button';
+import { carouselGray as gray } from '~/lib/theme';
+import { successToastWithNoRedirect } from './Toast';
+
+const SEXCIAL_CONTENT = '性的なコンテンツ';
+const VIOLENT_CONTENT = '暴力的または不快なコンテンツ';
+const OFFENSIVE_CONTENT = '差別的または攻撃的なコンテンツ';
+const SPAM_CONTENT = 'スパムの可能性のあるコンテンツ';
 
 const TopicFlagForm = (props: any) => {
-  const { topic, type, reportUser, handleClose } = props;
+  const { topic, collectionType, collectionId, handleClose, handler } = props;
 
   const [content, setContent] = useState('');
-  const [reportType, setReportType] = useState('');
+  const [reportType, setReportType] = useState(SEXCIAL_CONTENT);
 
-  const onContentChange = (e: any) => {
-    e.preventDefault();
-    setContent(e.target.value);
-  };
+  const radioList = [
+    SEXCIAL_CONTENT,
+    VIOLENT_CONTENT,
+    OFFENSIVE_CONTENT,
+    SPAM_CONTENT
+  ];
 
-  const onReportTypeChange = (e: any) => {
-    e.preventDefault();
-    setReportType(e.target.value);
+  // const radioMap = new Map([
+  //   [SEXCIAL_CONTENT, 0],
+  //   [VIOLENT_CONTENT, 1],
+  //   [OFFENSIVE_CONTENT, 2],
+  //   [SPAM_CONTENT, 3]
+  // ]);
+
+  const radioProps = [
+    { label: SEXCIAL_CONTENT, value: 0 },
+    { label: VIOLENT_CONTENT, value: 1 },
+    { label: OFFENSIVE_CONTENT, value: 2 },
+    { label: SPAM_CONTENT, value: 3 }
+  ];
+
+  const onReportTypePress = (value: number) => {
+    setReportType(radioList[value]);
   };
 
   const postHandler = (data: any) => {
-    const params = {
-      url: '',
-      topicTitle: topic.title,
-      topicId: topic.id,
-      topicType: type,
-      postUserName: topic.userName,
-      postUserId: topic.userId,
-      reportUserName: reportUser.displayName,
-      reportUserId: reportUser.id,
-      reportUserShortId: reportUser.shortId,
-      reportedAt: new Date(),
-      ...data
-    };
-    postSubmission(params)
+    handler(topic, collectionType, collectionId, data)
       .then(() => handleClose())
-      .then(() => window.alert('報告が完了しました。')); // eslint-disable-line
+      .then(() => successToastWithNoRedirect('報告が完了しました。'));
   };
 
   return (
     <React.Fragment>
+      <Text />
+      <RadioForm
+        buttonSize={15}
+        radio_props={radioProps}
+        initial={0}
+        onPress={onReportTypePress}
+        labelStyle={{ color: '#fff' }}
+      />
+      <Text />
       <Textarea
-        style={{ marginHorizontal: 15 }}
         bordered
         rowSpan={5}
-        placeholder="テキスト"
+        placeholder="問題の内容"
+        placeholderTextColor="#fff"
         value={content}
+        style={{ color: '#fff' }}
         onChangeText={(text: string) => setContent(text)}
       />
-      {/* <FormControl component="fieldset">
-        <RadioGroup
-          aria-label="問題の種類"
-          name="showmode"
-          value={reportType}
-          onChange={onReportTypeChange}
-        >
-          <FormControlLabel
-            value="性的なコンテンツ"
-            control={<GreyRadio />}
-            label="性的なコンテンツ"
-          />
-          <FormControlLabel
-            value="暴力的または不快なコンテンツ"
-            control={<GreyRadio />}
-            label="暴力的または不快なコンテンツ"
-          />
-          <FormControlLabel
-            value="差別的または攻撃的なコンテンツ"
-            control={<GreyRadio />}
-            label="差別的または攻撃的なコンテンツ"
-          />
-          <FormControlLabel
-            value="スパムの可能性のあるコンテンツ"
-            control={<GreyRadio />}
-            label="スパムの可能性のあるコンテンツ"
-          />
-        </RadioGroup>
-      </FormControl>
-      <TextField
-        value={content}
-        variant="outlined"
-        margin="normal"
-        required
-        id="content"
-        label="問題の内容"
-        fullWidth
-        multiline
-        rows={8}
-        style={{
-          backgroundColor: carouselGray
-        }}
-        InputProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        FormHelperTextProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        SelectProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        InputLabelProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        onChange={onContentChange}
-      />
-      <br />
-      <br />
-      <span style={{ color: carouselGray }}>
-        報告されたコンテンツについては、Titanの運営が毎日24時間体制で審査し、
-        そのコンテンツを削除するか、センシティブフィルターの対象にするか、報告を却下するかを決定します。
-      </span>
-      <br />
-      <br />
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        style={{ color: carouselGray }}
-        onClick={() =>
-          postHandler({
-            content,
-            reportType
-          })
-        }
+      <Text />
+      <View
+        style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end' }}
       >
-        報告する
-      </Button> */}
+        <Button style={{ backgroundColor: gray }} onPress={handleClose}>
+          <Text>閉じる</Text>
+        </Button>
+        <Button
+          style={{ backgroundColor: gray, marginLeft: 10 }}
+          onPress={() =>
+            postHandler({
+              content,
+              reportType
+            })
+          }
+        >
+          <Text>報告</Text>
+        </Button>
+      </View>
     </React.Fragment>
   );
 };

@@ -21,7 +21,7 @@ const ModalContent = styled.div`
 `;
 
 const TopicFlag = (props: any) => {
-  const { isLogin, topic, type } = props;
+  const { isLogin, topic, collectionType, collectionId } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -53,7 +53,8 @@ const TopicFlag = (props: any) => {
             {isLogin ? (
               <TopicFlagForm
                 topic={topic}
-                type={type}
+                collectionType={collectionType}
+                collectionId={collectionId}
                 handleClose={handleClose}
               />
             ) : (

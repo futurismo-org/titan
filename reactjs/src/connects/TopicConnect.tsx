@@ -61,7 +61,8 @@ const mapStateToProps = (state: any, props: any) => {
     redirectPath,
     isCurrentUser,
     isLogin,
-    topicType: collection,
+    collection,
+    collectionId,
     allowSensitive,
     ...props
   };

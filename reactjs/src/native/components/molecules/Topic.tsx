@@ -28,7 +28,8 @@ const Topic = (props: any) => {
     history,
     isCurrentUser,
     isLogin,
-    topicType
+    collection,
+    collectionId
   } = props;
 
   useEffect(() => {
@@ -84,7 +85,12 @@ const Topic = (props: any) => {
           </TouchableOpacity>
           <MarkdownView text={topic.text} />
           <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <TopicFlag isLogin={isLogin} topic={topic} type={topicType} />
+            <TopicFlag
+              isLogin={isLogin}
+              topic={topic}
+              collectionType={collection}
+              collectionId={collectionId}
+            />
           </View>
           <Text />
           <View style={{ flex: 1, alignSelf: 'center' }}>

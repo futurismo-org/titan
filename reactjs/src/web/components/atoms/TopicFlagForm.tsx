@@ -12,8 +12,6 @@ import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
 import { carouselGray } from '~/lib/theme';
 
-import { postSubmission } from '~/lib/formcarry';
-
 const GreyRadio = withStyles({
   root: {
     color: grey[400],
@@ -25,7 +23,7 @@ const GreyRadio = withStyles({
 })(props => <Radio color="default" {...props} />);
 
 const TopicFlagForm = (props: any) => {
-  const { topic, type, reportUser, handleClose } = props;
+  const { topic, collectionType, collectionId, handler, handleClose } = props;
 
   const [content, setContent] = useState('');
   const [reportType, setReportType] = useState('');
@@ -40,23 +38,8 @@ const TopicFlagForm = (props: any) => {
     setReportType(e.target.value);
   };
 
-  const url = location.href; // eslint-disable-line
-
   const postHandler = (data: any) => {
-    const params = {
-      url: url,
-      topicTitle: topic.title,
-      topicId: topic.id,
-      topicType: type,
-      postUserName: topic.userName,
-      postUserId: topic.userId,
-      reportUserName: reportUser.displayName,
-      reportUserId: reportUser.id,
-      reportUserShortId: reportUser.shortId,
-      reportedAt: new Date(),
-      ...data
-    };
-    postSubmission(params)
+    handler(topic, collectionType, collectionId, data)
       .then(() => handleClose())
       .then(() => window.alert('報告が完了しました。')); // eslint-disable-line
   };

@@ -1,65 +1,56 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 
-import { Text, View } from 'native-base';
+import { Text, View, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Modalize from 'react-native-modalize';
+import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
 import { carouselGray as gray, carouselBlack as black } from '~/lib/theme';
 
 import TopicFlagForm from '~/native/containers/TopicFlagFormContainer';
 
 const TopicFlag = (props: any) => {
-  const { isLogin, topic, type } = props;
+  const { isLogin, topic, collectionType, collectionId } = props;
 
-  const modalRef = useRef<Modalize>(null);
+  const [modal, setModal] = useState(false);
 
-  const onOpen = () => {
-    const modal = modalRef.current;
-
-    if (modal) {
-      modal.open();
-    }
-  };
-
-  const onClosed = () => {
-    const modal = modalRef.current;
-
-    if (modal) {
-      modal.close();
-    }
+  const toggleModal = () => {
+    setModal(!modal);
   };
 
   return (
     <React.Fragment>
-      <TouchableOpacity onPress={onOpen}>
+      <TouchableOpacity onPress={toggleModal}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Icon name="flag" color={gray} size={20} />
           <Text style={{ color: gray }}> 報告</Text>
         </View>
       </TouchableOpacity>
-      <Modalize
-        ref={modalRef}
-        onClosed={onClosed}
-        adjustToContentHeight
-        modalStyle={{ backgroundColor: black }}
-      >
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
+      <Modal isVisible={modal}>
+        <View style={{ padding: 10 }}>
           <Text style={{ fontSize: 20, color: '#fff' }}>
             不適切なコンテンツの報告
           </Text>
           {isLogin ? (
-            <TopicFlagForm topic={topic} type={type} handleClose={onClosed} />
+            <TopicFlagForm
+              topic={topic}
+              collectionType={collectionType}
+              collectionId={collectionId}
+              handleClose={toggleModal}
+            />
           ) : (
-            <Text>報告にはログインが必要です。</Text>
+            <View>
+              <Text />
+              <Text style={{ color: '#fff' }}>
+                報告にはログインが必要です。
+              </Text>
+              <Text />
+              <Button style={{ backgroundColor: gray }} onPress={toggleModal}>
+                <Text>了解</Text>
+              </Button>
+            </View>
           )}
         </View>
-      </Modalize>
+      </Modal>
     </React.Fragment>
   );
 };

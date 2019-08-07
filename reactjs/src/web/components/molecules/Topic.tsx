@@ -33,7 +33,8 @@ const Topic = (props: any) => {
     history,
     isCurrentUser,
     isLogin,
-    topicType,
+    collection,
+    collectionId,
     allowSensitive
   } = props;
 
@@ -117,7 +118,12 @@ const Topic = (props: any) => {
               <p />
               <MarkdownView text={topic.text} />
               <div style={{ textAlign: 'right' }}>
-                <TopicFlag isLogin={isLogin} topic={topic} type={topicType} />
+                <TopicFlag
+                  isLogin={isLogin}
+                  topic={topic}
+                  collectionType={collection}
+                  collectionId={collectionId}
+                />
               </div>
             </Paper>
             {isCurrentUser ? (
