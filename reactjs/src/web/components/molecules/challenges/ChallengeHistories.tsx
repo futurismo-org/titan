@@ -58,8 +58,10 @@ const HistoryRow = (props: any) => {
   const handleClose = () => setOpen(false);
 
   const deleteHandler = (handler: any) => {
-    handler();
-    handleClose();
+    handler().then(() => {
+      handleClose();
+      window.location.reload(); // eslint-disable-line
+    });
   };
 
   return (
