@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Button, Text } from 'native-base';
-import { Linking, Alert, View, TouchableOpacity } from 'react-native';
+import { Button, Text, View } from 'native-base';
+import { Linking, Alert, TouchableOpacity } from 'react-native';
 import { withRouter, Link } from 'react-router-native';
 import Title from '../atoms/Title';
 import Error from '../atoms/Error';
@@ -13,6 +13,8 @@ import Progress from '../atoms/CircularProgress';
 
 import { deleteResource } from '~/lib/firebase';
 
+import TopicFlag from '../atoms/TopicFlag';
+
 const Topic = (props: any) => {
   const {
     topic,
@@ -24,7 +26,9 @@ const Topic = (props: any) => {
     redirectPath,
     fetchTopic,
     history,
-    isCurrentUser
+    isCurrentUser,
+    isLogin,
+    topicType
   } = props;
 
   useEffect(() => {
@@ -67,7 +71,7 @@ const Topic = (props: any) => {
                 : () => null
             }
           >
-            <Title text={topic.title} />
+            <Title text={topic.title} left />
             {!!topic.url && (
               <React.Fragment>
                 <Text style={{ color: 'blue' }}>{`${topic.url.substr(
@@ -79,13 +83,19 @@ const Topic = (props: any) => {
             )}
           </TouchableOpacity>
           <MarkdownView text={topic.text} />
-          <TwitterShareIcon
-            title={topic.title}
-            url={shareURL}
-            hashtag="#Titan"
-          />
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <TopicFlag isLogin={isLogin} topic={topic} type={topicType} />
+          </View>
+          <Text />
+          <View style={{ flex: 1, alignSelf: 'center' }}>
+            <TwitterShareIcon
+              title={topic.title}
+              url={shareURL}
+              hashtag="#Titan"
+            />
+          </View>
           {isCurrentUser ? (
-            <React.Fragment>
+            <View style={{ flex: 1, alignSelf: 'center' }}>
               <Text />
               <View style={{ flexDirection: 'row' }}>
                 <Button light>
@@ -100,7 +110,7 @@ const Topic = (props: any) => {
                   <Text>削除</Text>
                 </Button>
               </View>
-            </React.Fragment>
+            </View>
           ) : null}
         </React.Fragment>
       )}

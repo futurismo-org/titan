@@ -20,7 +20,7 @@ const ModalContent = styled.div`
   width: 400px;
 `;
 
-const TopicReport = (props: any) => {
+const TopicFlag = (props: any) => {
   const { isLogin, topic, type } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -66,4 +66,4 @@ const TopicReport = (props: any) => {
   );
 };
 
-export default TopicReport;
+export default TopicFlag;
