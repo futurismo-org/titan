@@ -41,7 +41,9 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 0,
     'no-shadow': 0,
     'no-return-assign': 0,
-    'no-restricted-globals': 0
+    'no-restricted-globals': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/interactive-supports-focus': 0
   },
   parser: '@typescript-eslint/parser',
   settings: {
