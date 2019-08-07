@@ -1,24 +1,43 @@
 import React, { useState } from 'react';
 
-import { TextField, Button } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Radio,
+  FormControl,
+  RadioGroup,
+  FormControlLabel
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { grey } from '@material-ui/core/colors';
 import { carouselGray } from '~/lib/theme';
 
 import { postSubmission } from '~/lib/formcarry';
 
+const GreyRadio = withStyles({
+  root: {
+    color: grey[400],
+    '&$checked': {
+      color: grey[600]
+    }
+  },
+  checked: {}
+})(props => <Radio color="default" {...props} />);
+
 const TopicFlagForm = (props: any) => {
   const { topic, type, reportUser, handleClose } = props;
 
-  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
-  const onTitleChange = (e: any) => {
-    e.preventDefault();
-    setTitle(e.target.value);
-  };
+  const [reportType, setReportType] = useState('');
 
   const onContentChange = (e: any) => {
     e.preventDefault();
     setContent(e.target.value);
+  };
+
+  const onReportTypeChange = (e: any) => {
+    e.preventDefault();
+    setReportType(e.target.value);
   };
 
   const url = location.href; // eslint-disable-line
@@ -44,39 +63,35 @@ const TopicFlagForm = (props: any) => {
 
   return (
     <React.Fragment>
-      <TextField
-        value={title}
-        variant="outlined"
-        margin="normal"
-        required
-        id="title"
-        label="タイトル"
-        fullWidth
-        style={{
-          backgroundColor: carouselGray
-        }}
-        InputProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        FormHelperTextProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        SelectProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        InputLabelProps={{
-          style: {
-            color: '#fff'
-          }
-        }}
-        onChange={onTitleChange}
-      />
+      <FormControl component="fieldset">
+        <RadioGroup
+          aria-label="問題の種類"
+          name="showmode"
+          value={reportType}
+          onChange={onReportTypeChange}
+        >
+          <FormControlLabel
+            value="性的なコンテンツ"
+            control={<GreyRadio />}
+            label="性的なコンテンツ"
+          />
+          <FormControlLabel
+            value="暴力的または不快なコンテンツ"
+            control={<GreyRadio />}
+            label="暴力的または不快なコンテンツ"
+          />
+          <FormControlLabel
+            value="差別的または攻撃的なコンテンツ"
+            control={<GreyRadio />}
+            label="差別的または攻撃的なコンテンツ"
+          />
+          <FormControlLabel
+            value="スパムの可能性のあるコンテンツ"
+            control={<GreyRadio />}
+            label="スパムの可能性のあるコンテンツ"
+          />
+        </RadioGroup>
+      </FormControl>
       <TextField
         value={content}
         variant="outlined"
@@ -128,7 +143,7 @@ const TopicFlagForm = (props: any) => {
         onClick={() =>
           postHandler({
             content,
-            title
+            reportType
           })
         }
       >
