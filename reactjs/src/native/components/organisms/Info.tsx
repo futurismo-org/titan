@@ -7,11 +7,12 @@ import {
   TITAN_PRIVACY_POLICY,
   TITAN_TERMS_OF_USE,
   APP_PRODUCTION_URL,
-  TITAN_LANDING_PAGE
+  TITAN_LANDING_PAGE,
+  TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
 
-import { isAndroid } from '~/lib/native';
+import { isAndroid, isiOS } from '~/lib/native';
 
 const Info = (props: any) => {
   return (
@@ -37,6 +38,20 @@ const Info = (props: any) => {
           <ListItem>
             <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
               Titan紹介ページ
+            </Text>
+          </ListItem>
+        )}
+        {isAndroid && (
+          <ListItem>
+            <Text onPress={() => Linking.openURL(TITAN_GOOGLE_PLAY_STORE)}>
+              Google Play Store
+            </Text>
+          </ListItem>
+        )}
+        {isiOS && (
+          <ListItem>
+            <Text onPress={() => Linking.openURL('#')}>
+              Apple Store(準備中)
             </Text>
           </ListItem>
         )}

@@ -37,7 +37,8 @@ const ChallengeUserDashBoard = (props: any) => {
     fetchUser,
     resourceId,
     setOgpInfo,
-    resetOgpInfo
+    resetOgpInfo,
+    deleteHistoryHandler
   } = props;
 
   const title = user ? `${user.displayName} さんの記録` : '';
@@ -92,7 +93,10 @@ const ChallengeUserDashBoard = (props: any) => {
               closedAt={challenge.closedAt}
             />
             <Typography variant="h6">参加日: {joinDate}</Typography>
-            <ChallengeHistories histories={user.histories} />
+            <ChallengeHistories
+              histories={user.histories}
+              handler={deleteHistoryHandler}
+            />
           </StyledCenterContainer>
           <TwitterButton challenge={challenge} userShortId={user.id} />
         </DashBoardWrapper>

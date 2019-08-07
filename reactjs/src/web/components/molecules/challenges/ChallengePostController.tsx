@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 import { useDocument } from 'react-firebase-hooks/firestore';
+import shortId from 'shortid';
 import firebase from '~/lib/firebase';
 
 import { postMessage } from '~/lib/discord.client.api';
@@ -74,7 +75,7 @@ const ChallengePostController = (props: any) => {
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
-      id: histories.length + 1,
+      id: shortId.generate(),
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
@@ -112,16 +113,17 @@ ${url}`;
       })
       .then(() => closeHandler())
       .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      .then(() => window.location.reload()) // eslint-disable-line
       .catch(error => rollbar.error(error));
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories, displayName, accDays } = props;
+    const { score, displayName, accDays } = props;
 
     const newScore = score - 3;
 
     const newHistory = {
-      id: histories.length + 1,
+      id: shortId.generate(),
       timestamp: new Date(),
       score: newScore,
       days: 0,
@@ -152,6 +154,7 @@ ${url}`;
       })
       .then(() => closeHandler())
       .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      .then(() => window.location.reload()) // eslint-disable-line
       .catch(error => rollbar.error(error));
   };
 

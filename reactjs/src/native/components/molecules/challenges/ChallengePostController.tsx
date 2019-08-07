@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
 import { withRouter } from 'react-router-native';
+import shortId from 'shortid';
 import moment, { now, nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
@@ -9,7 +10,7 @@ import { postMessage } from '~/lib/discord.client.api';
 import { getUserDashboardPath } from '~/lib/url';
 
 import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
-import { successToastWithNoRedirect, errorToast } from '../../atoms/Toast';
+import { errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
   const {
@@ -47,7 +48,7 @@ const ChallengePostController = (props: any) => {
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
     const newHistory = {
-      id: histories.length + 1,
+      id: shortId.generate(),
       timestamp: new Date(),
       score: newScore,
       days: tomorrow,
@@ -96,7 +97,7 @@ ${url}`;
     const newScore = score - 3;
 
     const newHistory = {
-      id: histories.length + 1,
+      id: shortId.generate(),
       timestamp: now,
       score: newScore,
       days: 0,
