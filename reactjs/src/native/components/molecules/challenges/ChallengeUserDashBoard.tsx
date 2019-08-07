@@ -5,7 +5,7 @@ import { H1, Text, H2 } from 'native-base';
 import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
-import ChallengeGrass from './ChallengeGrass';
+// import ChallengeGrass from './ChallengeGrass';
 import ChallengeChart from './ChallengeChart';
 import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeRecord from './ChallengePostRecord';
@@ -22,7 +22,8 @@ const ChallengeUserDashBoard = (props: any) => {
     error,
     loading,
     fetchUser,
-    resourceId
+    resourceId,
+    deleteHistoryHandler
   } = props;
 
   useEffect(() => {
@@ -60,7 +61,10 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space /> */}
           <H2 style={{ textAlign: 'center' }}>参加日: {joinDate}</H2>
           <Space />
-          <ChallengeHistories histories={user.histories} />
+          <ChallengeHistories
+            histories={user.histories}
+            handler={deleteHistoryHandler}
+          />
           <Space />
           <TwitterButton challenge={challenge} userShortId={user.id} />
         </React.Fragment>

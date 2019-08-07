@@ -105,7 +105,7 @@ const HistoryRow = (props: any) => {
             color="primary"
             autoFocus
           >
-            はい
+            削除
           </Button>
         </DialogActions>
       </Dialog>
