@@ -49,6 +49,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   const isLogin = !currentUser.isEmpty && currentUser.isLoaded;
 
+  const allowSensitive = currentUser && currentUser.allowSensitive;
+
   return {
     topic,
     loading: state.topic.loading,
@@ -60,6 +62,7 @@ const mapStateToProps = (state: any, props: any) => {
     isCurrentUser,
     isLogin,
     topicType: collection,
+    allowSensitive,
     ...props
   };
 };

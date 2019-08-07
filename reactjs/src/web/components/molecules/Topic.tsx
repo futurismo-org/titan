@@ -33,7 +33,8 @@ const Topic = (props: any) => {
     history,
     isCurrentUser,
     isLogin,
-    topicType
+    topicType,
+    allowSensitive
   } = props;
 
   const title = useMemo(() => {
@@ -85,6 +86,13 @@ const Topic = (props: any) => {
           <p>
             このコンテンツは不適切なコンテンツと判断して運営が削除しました。
           </p>
+        ) : topic.sensitive && !allowSensitive ? (
+          <Paper>
+            <NoStyledLink to="/settings">
+              <Title text="センシティブな内容のあるコンテンツです" />
+              <p>設定を変更</p>
+            </NoStyledLink>
+          </Paper>
         ) : (
           <React.Fragment>
             <Paper>

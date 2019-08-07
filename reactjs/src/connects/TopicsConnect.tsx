@@ -27,6 +27,9 @@ const mapStateToProps = (state: any, props: any) => {
   const topicPath = (topicId: string) =>
     getTopicPath(topicId, collection, collectionId);
 
+  const allowSensitive =
+    !state.firebase.profile.isEmpty && state.firebase.profile.allowSensitive;
+
   return {
     topics: state.topic.items,
     loading: state.topic.loading,
@@ -34,6 +37,7 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     postButtonPath,
     topicPath,
+    allowSensitive,
     ...props
   };
 };

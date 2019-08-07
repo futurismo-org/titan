@@ -14,7 +14,8 @@ const Topics = (props: any) => {
     resourceId,
     postButtonPath,
     fetchTopics,
-    topicPath
+    topicPath,
+    allowSensitive
   } = props;
 
   React.useEffect(() => {
@@ -32,7 +33,13 @@ const Topics = (props: any) => {
       <ListItem />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {topics && <TopicList topics={topics} topicPath={topicPath} />}
+      {topics && (
+        <TopicList
+          topics={topics}
+          topicPath={topicPath}
+          allowSensitive={allowSensitive}
+        />
+      )}
     </React.Fragment>
   );
 };
