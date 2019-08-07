@@ -3,7 +3,11 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { carouselGray } from '~/lib/theme';
 
+import { postSubmission } from '~/lib/formcarry';
+
 const TopicFlagForm = (props: any) => {
+  const { topic, type, reportUser } = props;
+
   const [content, setContent] = useState('');
 
   const onContentChange = (e: any) => {
@@ -11,7 +15,24 @@ const TopicFlagForm = (props: any) => {
     setContent(e.target.value);
   };
 
-  const postHandler = (data: any) => {};
+  const url = location.href; // eslint-disable-line
+
+  const postHandler = (data: any) => {
+    const params = {
+      url: url,
+      topicTitle: topic.title,
+      topicId: topic.id,
+      topicType: type,
+      postUserName: topic.userName,
+      postUserId: topic.userId,
+      reportUserName: reportUser.displayName,
+      reportUserId: reportUser.id,
+      reportUserShortId: reportUser.shortId,
+      reportedAt: new Date(),
+      ...data
+    };
+    postSubmission(params).then(() => window.alert('報告が完了しました。')); // eslint-disable-line
+  };
 
   return (
     <React.Fragment>

@@ -5,7 +5,7 @@ import { Modal } from '@material-ui/core';
 import styled from 'styled-components';
 import { carouselBlack as black } from '~/lib/theme';
 
-import TopicFlagForm from './TopicFlagForm';
+import TopicFlagForm from '~/web/containers/TopicFlagFormContainer';
 
 const ModalContent = styled.div`
   position: absolute;
@@ -21,7 +21,7 @@ const ModalContent = styled.div`
 `;
 
 const TopicReport = (props: any) => {
-  const { isLogin } = props;
+  const { isLogin, topic, type } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -51,7 +51,7 @@ const TopicReport = (props: any) => {
           <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
           <div id="simple-modal-description">
             {isLogin ? (
-              <TopicFlagForm />
+              <TopicFlagForm topic={topic} type={type} />
             ) : (
               <React.Fragment>報告にはログインが必要です。</React.Fragment>
             )}
