@@ -4,7 +4,6 @@ import { fetchTopic } from '~/actions/topicAction';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 
 import { collectionShort } from '../lib/url';
-import Profile from '~/web/components/organisms/Profile';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import FlagIcon from '@material-ui/icons/Flag';
-import { Modal, Grid } from '@material-ui/core';
+import { Modal } from '@material-ui/core';
 
 import styled from 'styled-components';
 import { carouselBlack as black } from '~/lib/theme';
