@@ -7,15 +7,15 @@ import {
   TableHead,
   TableBody,
   Hidden,
-  Chip,
-  Typography,
-  Button
+  Chip
+  // Typography,
+  // Button
 } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
@@ -43,26 +43,26 @@ const HistoryHead = (props: any) => (
       <ConditionalTableCell>累積</ConditionalTableCell>
       <ConditionalTableCell>過去</ConditionalTableCell>
       <ConditionalTableCell>経過</ConditionalTableCell>
-      <ConditionalTableCell>操作</ConditionalTableCell>
+      {/* <ConditionalTableCell>操作</ConditionalTableCell> */}
     </TableRow>
   </TableHead>
 );
 
 const HistoryRow = (props: any) => {
-  const { history, handler } = props;
+  const { history } = props;
   const { timestamp, score, type, days, diff, accDays, pastDays } = history;
 
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClickOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
 
-  const deleteHandler = (handler: any) => {
-    handler().then(() => {
-      handleClose();
-      window.location.reload(); // eslint-disable-line
-    });
-  };
+  // const deleteHandler = (handler: any) => {
+  //   handler().then(() => {
+  //     handleClose();
+  //     window.location.reload(); // eslint-disable-line
+  //   });
+  // };
 
   return (
     <TableRow>
@@ -73,7 +73,7 @@ const HistoryRow = (props: any) => {
       <ConditionalTableCell>{wrapShowN(accDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(pastDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
-      <ConditionalTableCell>
+      {/* <ConditionalTableCell>
         <Typography
           onClick={() => handleClickOpen()}
           component="span"
@@ -82,8 +82,8 @@ const HistoryRow = (props: any) => {
         >
           削除
         </Typography>
-      </ConditionalTableCell>
-      <Dialog
+      </ConditionalTableCell> */}
+      {/* <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
@@ -108,7 +108,7 @@ const HistoryRow = (props: any) => {
             削除
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog> */}
     </TableRow>
   );
 };

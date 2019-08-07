@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
+
 import { withRouter } from 'react-router-native';
 import { formatDatetime } from '~/lib/moment';
 
@@ -61,7 +62,7 @@ const getType = (type: string) => {
 
 const flexArr = [3, 2, 1, 1, 1, 1];
 
-const tableHead = ['日時', 'タイプ', '点数', '連続', '累積', '過去', ''];
+const tableHead = ['日時', 'タイプ', '点数', '連続', '累積', '過去'];
 const HistoryHead = () => (
   <Row
     flexArr={flexArr}
@@ -86,12 +87,12 @@ const ChallengeHistories = (props: any) => {
             wrapShowN(history.score),
             wrapShowN(history.days),
             wrapShowN(history.accDays),
-            wrapShowN(history.pastDays),
-            <DeleteWithAlertWithRouter
-              key={history.id}
-              historyObj={history}
-              handler={handler(history)}
-            />
+            wrapShowN(history.pastDays)
+            // <DeleteWithAlertWithRouter
+            //   key={history.id}
+            //   historyObj={history}
+            //   handler={handler(history)}
+            // />
           ];
           return (
             <Row
