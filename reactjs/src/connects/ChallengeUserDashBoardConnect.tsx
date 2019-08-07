@@ -4,6 +4,8 @@ import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 import { fetchUser } from '~/actions/userAction';
 import { formatDate } from '~/lib/moment';
 
+import firebase from '~/lib/firebase';
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
@@ -23,10 +25,20 @@ const mapStateToProps = (state: any, props: any) => {
   const user = state.user.target;
   const joinDate = user && formatDate(user.createdAt.toDate());
 
+  const deleteHistoryHandler = (history: any) => () => {
+    return firebase
+      .firestore()
+      .doc(resourceId)
+      .update({
+        histories: firebase.firestore.FieldValue.arrayRemove(history)
+      });
+  };
+
   return {
     user,
     loading: state.user.loading,
     error: state.user.error,
+    deleteHistoryHandler,
     resourceId,
     joinDate,
     ...props
