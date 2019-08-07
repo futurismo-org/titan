@@ -5,6 +5,8 @@ import { Modal } from '@material-ui/core';
 import styled from 'styled-components';
 import { carouselBlack as black } from '~/lib/theme';
 
+import TopicFlagForm from './TopicFlagForm';
+
 const ModalContent = styled.div`
   position: absolute;
   left: 50%;
@@ -15,7 +17,7 @@ const ModalContent = styled.div`
   @media screen and (min-width: 768px) {
     width: 500px;
   }
-  width: 300px;
+  width: 400px;
 `;
 
 const TopicReport = (props: any) => {
@@ -34,7 +36,7 @@ const TopicReport = (props: any) => {
     <React.Fragment>
       <div onClick={handleOpen} role="button" className="flag-button">
         <FlagIcon color="action" />
-        <span>通報</span>
+        <span>報告</span>
       </div>
       <Modal
         aria-labelledby="simple-modal-title"
@@ -46,16 +48,14 @@ const TopicReport = (props: any) => {
         }}
       >
         <ModalContent>
-          <h2 id="simple-modal-title">不適切なコンテンツを通報</h2>
-          <p id="simple-modal-description">
+          <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
+          <div id="simple-modal-description">
             {isLogin ? (
-              <React.Fragment>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </React.Fragment>
+              <TopicFlagForm />
             ) : (
-              <React.Fragment>通報にはログインが必要です。</React.Fragment>
+              <React.Fragment>報告にはログインが必要です。</React.Fragment>
             )}
-          </p>
+          </div>
         </ModalContent>
       </Modal>
     </React.Fragment>
