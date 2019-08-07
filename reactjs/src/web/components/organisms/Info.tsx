@@ -11,9 +11,10 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import {
   TITAN_PRIVACY_POLICY,
   TITAN_TERMS_OF_USE,
-  TITAN_LANDING_PAGE
+  TITAN_LANDING_PAGE,
+  TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
-import { BUILD_TIMESTAMP } from '~/constants/buildInfo';// eslint-disable-line
+import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
 
 const Info = (props: any) => {
   return (
@@ -42,8 +43,31 @@ const Info = (props: any) => {
           </ListItem>
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href={TITAN_LANDING_PAGE}>
+              <NoStyledExternalLink
+                href={TITAN_LANDING_PAGE}
+                style={{ textDecoration: 'underline' }}
+              >
                 Titan紹介ペーシ
+              </NoStyledExternalLink>
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>
+              <NoStyledExternalLink
+                href={TITAN_GOOGLE_PLAY_STORE}
+                style={{ textDecoration: 'underline' }}
+              >
+                Androidアプリ[Google Play]
+              </NoStyledExternalLink>
+            </ListItemText>
+          </ListItem>
+          <ListItem>
+            <ListItemText>
+              <NoStyledExternalLink
+                href="#"
+                style={{ textDecoration: 'underline' }}
+              >
+                iOSアプリ[Apple Store](準備中)
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>

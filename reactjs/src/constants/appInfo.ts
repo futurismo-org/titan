@@ -13,6 +13,9 @@ export const TITAN_BLOG_URL = 'https://note.mu/titan_dev';
 export const TITAN_TWITTER_URL = 'https://twitter.com/titan_dev_1234';
 export const TITAN_DISCORD_INVITE_URL = 'https://discord.gg/S3t5WgE';
 
+export const TITAN_GOOGLE_PLAY_STORE =
+  'https://play.google.com/store/apps/details?id=com.futurismo.titan';
+
 const urlMap = new Map();
 urlMap.set('development', APP_DEVELOPMENT_URL);
 urlMap.set('production', APP_PRODUCTION_URL);
