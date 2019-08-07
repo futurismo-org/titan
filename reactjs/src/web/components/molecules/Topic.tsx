@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import FlagIcon from '@material-ui/icons/Flag';
 import { fromNow } from '~/lib/moment';
 import Progress from '../atoms/CircularProgress';
 
@@ -100,6 +101,10 @@ const Topic = (props: any) => {
             )}
             <p />
             <MarkdownView text={topic.text} />
+            <div style={{ textAlign: 'right' }}>
+              <FlagIcon color="action" />
+              <span>通報</span>
+            </div>
           </Paper>
           {isCurrentUser ? (
             <div style={{ textAlign: 'center' }}>
