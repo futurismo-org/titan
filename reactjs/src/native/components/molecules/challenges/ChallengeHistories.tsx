@@ -13,7 +13,7 @@ const getDatetime = (date: Date) => (
 );
 
 const getDelete = () => (
-  <Text style={{ fontSize: 14, textDecorationLine: 'underline' }}>削除</Text>
+  <Text style={{ textDecorationLine: 'underline' }}>削除</Text>
 );
 
 const getType = (type: string) => {
