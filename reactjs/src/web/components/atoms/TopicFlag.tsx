@@ -51,7 +51,11 @@ const TopicReport = (props: any) => {
           <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
           <div id="simple-modal-description">
             {isLogin ? (
-              <TopicFlagForm topic={topic} type={type} />
+              <TopicFlagForm
+                topic={topic}
+                type={type}
+                handleClose={handleClose}
+              />
             ) : (
               <React.Fragment>報告にはログインが必要です。</React.Fragment>
             )}

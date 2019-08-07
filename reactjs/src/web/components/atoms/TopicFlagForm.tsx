@@ -6,9 +6,15 @@ import { carouselGray } from '~/lib/theme';
 import { postSubmission } from '~/lib/formcarry';
 
 const TopicFlagForm = (props: any) => {
-  const { topic, type, reportUser } = props;
+  const { topic, type, reportUser, handleClose } = props;
 
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+
+  const onTitleChange = (e: any) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
 
   const onContentChange = (e: any) => {
     e.preventDefault();
@@ -31,11 +37,46 @@ const TopicFlagForm = (props: any) => {
       reportedAt: new Date(),
       ...data
     };
-    postSubmission(params).then(() => window.alert('報告が完了しました。')); // eslint-disable-line
+    postSubmission(params)
+      .then(() => handleClose())
+      .then(() => window.alert('報告が完了しました。')); // eslint-disable-line
   };
 
   return (
     <React.Fragment>
+      <TextField
+        value={title}
+        variant="outlined"
+        margin="normal"
+        required
+        id="title"
+        label="タイトル"
+        fullWidth
+        style={{
+          backgroundColor: carouselGray
+        }}
+        InputProps={{
+          style: {
+            color: '#fff'
+          }
+        }}
+        FormHelperTextProps={{
+          style: {
+            color: '#fff'
+          }
+        }}
+        SelectProps={{
+          style: {
+            color: '#fff'
+          }
+        }}
+        InputLabelProps={{
+          style: {
+            color: '#fff'
+          }
+        }}
+        onChange={onTitleChange}
+      />
       <TextField
         value={content}
         variant="outlined"
@@ -86,7 +127,8 @@ const TopicFlagForm = (props: any) => {
         style={{ color: carouselGray }}
         onClick={() =>
           postHandler({
-            content
+            content,
+            title
           })
         }
       >
