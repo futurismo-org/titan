@@ -4,6 +4,7 @@ import { fetchTopic } from '~/actions/topicAction';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 
 import { collectionShort } from '../lib/url';
+import Profile from '~/web/components/organisms/Profile';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -47,6 +48,8 @@ const mapStateToProps = (state: any, props: any) => {
   const isCurrentUser =
     topic && currentUser && topic.userId === currentUser.shortId;
 
+  const isLogin = !currentUser.isEmpty && currentUser.isLoaded;
+
   return {
     topic,
     loading: state.topic.loading,
@@ -56,6 +59,7 @@ const mapStateToProps = (state: any, props: any) => {
     editTopicPath,
     redirectPath,
     isCurrentUser,
+    isLogin,
     ...props
   };
 };

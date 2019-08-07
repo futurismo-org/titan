@@ -31,7 +31,8 @@ const Topic = (props: any) => {
     setOgpInfo,
     resetOgpInfo,
     history,
-    isCurrentUser
+    isCurrentUser,
+    isLogin
   } = props;
 
   const title = useMemo(() => {
@@ -102,7 +103,7 @@ const Topic = (props: any) => {
             <p />
             <MarkdownView text={topic.text} />
             <div style={{ textAlign: 'right' }}>
-              <TopicFlag />
+              <TopicFlag isLogin={isLogin} />
             </div>
           </Paper>
           {isCurrentUser ? (

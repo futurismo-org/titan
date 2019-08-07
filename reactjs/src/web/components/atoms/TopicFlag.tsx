@@ -2,9 +2,24 @@ import * as React from 'react';
 import FlagIcon from '@material-ui/icons/Flag';
 import { Modal, Grid } from '@material-ui/core';
 
+import styled from 'styled-components';
 import { carouselBlack as black } from '~/lib/theme';
 
+const ModalContent = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: ${black};
+  padding: 20px;
+  @media screen and (min-width: 768px) {
+    width: 500px;
+  }
+  width: 300px;
+`;
+
 const TopicReport = (props: any) => {
+  const { isLogin } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -30,21 +45,18 @@ const TopicReport = (props: any) => {
           color: '#fff'
         }}
       >
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            backgroundColor: black,
-            padding: 20
-          }}
-        >
-          <h2 id="simple-modal-title">不適切なコンテンツを報告</h2>
+        <ModalContent>
+          <h2 id="simple-modal-title">不適切なコンテンツを通報</h2>
           <p id="simple-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            {isLogin ? (
+              <React.Fragment>
+                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              </React.Fragment>
+            ) : (
+              <React.Fragment>通報にはログインが必要です。</React.Fragment>
+            )}
           </p>
-        </div>
+        </ModalContent>
       </Modal>
     </React.Fragment>
   );
