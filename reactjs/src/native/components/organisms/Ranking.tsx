@@ -1,13 +1,14 @@
 import * as React from 'react';
 
-import { Text, Thumbnail } from 'native-base';
+import { Text } from 'native-base';
 
 import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
 import Title from '../atoms/Title';
 
 import { fromNow } from '~/lib/moment';
-import Avatar from '../atoms/Avatar';
+import UserAvatar from '../atoms/UserAvatar';
+import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 const { Table, Row } = require('react-native-table-component');
 
@@ -19,10 +20,11 @@ const Ranking = (props: any) => {
   }, [fetchUsers]);
 
   const tableHead = ['順位', '', '名前', '最新'];
+  const flexArr = [1, 1, 3, 1];
 
   const LeaderBoardHead = () => (
     <Row
-      flexArr={[1, 1, 2, 1]}
+      flexArr={flexArr}
       borderStyle={{ borderColor: '#ffffff' }}
       data={tableHead}
     />
@@ -40,22 +42,18 @@ const Ranking = (props: any) => {
         <Table borderStyle={{ borderColor: '#ffffff' }}>
           <LeaderBoardHead />
           {users.map((user: any, index: number) => {
-            const uri = user.photoURL
-              ? user.photoURL
-              : 'https://titan-fire.com/anonymous.png';
-
             const rowData = [
               `${index + 1}位`,
-              <Avatar
-                photoURL={uri}
+              <UserAvatar
+                photoURL={user.photoURL}
                 key={user.id}
                 small
-                twitterUsername={user.twitterUsername}
+                userId={user.shortId}
               />,
               user.displayName || 'Annonymous',
               fromNow(user.updatedAt.toDate())
             ];
-            return <Row data={rowData} key={user.id} flexArr={[1, 1, 2, 1]} />;
+            return <Row data={rowData} key={user.id} flexArr={flexArr} />;
           })}
         </Table>
       )}

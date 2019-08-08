@@ -2,12 +2,13 @@ import * as React from 'react';
 import { Thumbnail } from 'native-base';
 import { TouchableOpacity } from 'react-native';
 import { withRouter } from 'react-router-native';
+import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 const Avatar = (props: any) => {
   const { photoURL, userId, small, large, history, additionalHandler } = props;
 
   const path = userId ? `/u/${userId}` : '/users';
-  const src = photoURL || 'https://titan-fire.com/anonymous.png';
+  const src = photoURL || ANONYMOUS_AVATAR_URL;
 
   const handler = () => {
     history.push(path);
