@@ -24,7 +24,7 @@ const Profile = (props: any) => {
           <Title text={`${user.displayName}さんのプロフィール`} />
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
           <Follow username={user.twitterUsername} />
-          <p>コンテンツ準備中です...もうしばらくお待ち下さいm(._.)m</p>
+          <p>コンテンツ準備中...</p>
         </Paper>
       )}
     </React.Fragment>
