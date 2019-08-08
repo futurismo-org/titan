@@ -35,7 +35,7 @@ const ChallengeLeaderBoard = (props: any) => {
         <TableCell>スコア</TableCell>
         <ConditionalTableCell>大会連続</ConditionalTableCell>
         <ConditionalTableCell>最長</ConditionalTableCell>
-        <ConditionalTableCell>過去連続(計算対象外)</ConditionalTableCell>
+        <ConditionalTableCell>過去連続</ConditionalTableCell>
         <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
@@ -64,7 +64,9 @@ const ChallengeLeaderBoard = (props: any) => {
                   <UserAvatar photoURL={user.photoURL} userId={user.id} />
                 </TableCell>
                 <TableCell>
-                  <Link to={user.profilePath}>{user.displayName}</Link>
+                  <Link style={{ color: 'inherit' }} to={user.profilePath}>
+                    {user.displayName}
+                  </Link>
                 </TableCell>
                 <TableCell>{user.score}</TableCell>
                 <ConditionalTableCell>{user.days}</ConditionalTableCell>

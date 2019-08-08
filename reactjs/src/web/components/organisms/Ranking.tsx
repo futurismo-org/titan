@@ -43,7 +43,7 @@ const Ranking = (props: any) => {
   return (
     <Paper>
       <Title text="ユーザランキング" />
-      <p>ランキング機能は準備中です...</p>
+      <p>ランキング機能は準備中です。</p>
       <p>データが不十分なため、 アクティブユーザを順に表示しています。</p>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
@@ -60,11 +60,12 @@ const Ranking = (props: any) => {
                   <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
                 </TableCell>
                 <TableCell>
-                  <NoStyledExternalLink
+                  <a
+                    style={{ color: 'inherit' }}
                     href={getTwitterProfileURL(user.twitterUsername)}
                   >
                     {user.displayName || 'Annonymous'}
-                  </NoStyledExternalLink>
+                  </a>
                 </TableCell>
                 <ConditionalTableCell>
                   {fromNow(user.updatedAt.toDate())}
