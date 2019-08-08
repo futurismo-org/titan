@@ -25,7 +25,7 @@ const TopicFlag = (props: any) => {
           <Text style={{ color: gray }}> 報告</Text>
         </View>
       </TouchableOpacity>
-      <Modal isVisible={modal}>
+      <Modal isVisible={modal} avoidKeyboard>
         <View style={{ padding: 10 }}>
           <Text style={{ fontSize: 20, color: '#fff' }}>
             不適切なコンテンツの報告
