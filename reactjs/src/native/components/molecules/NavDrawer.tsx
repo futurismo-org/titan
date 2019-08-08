@@ -25,7 +25,13 @@ const NavDrawer = (props: any) => {
 
   const routes = [
     { title: 'ホーム', key: '1', path: '/', external: false },
-    { title: 'マイページ', key: '2', path: '/u/:id', external: false },
+    {
+      title: 'マイページ',
+      key: '2',
+      path: '/u/:id',
+      external: false,
+      loginonly: true
+    },
     { title: 'チャレンジ', key: '3', path: '/challenges', external: false },
     { title: 'カテゴリ', key: '4', path: '/categories', external: false },
     { title: 'トピック', key: '5', path: '/topics', external: false },
@@ -36,7 +42,13 @@ const NavDrawer = (props: any) => {
       path: TITAN_DISCORD_INVITE_URL,
       external: true
     },
-    { title: 'ユーザ設定', key: '8', path: '/settings', external: false },
+    {
+      title: 'ユーザ設定',
+      key: '8',
+      path: '/settings',
+      external: false,
+      loginonly: true
+    },
     { title: '関連情報', key: '9', path: '/info', external: false }
   ];
   return (
@@ -67,28 +79,34 @@ const NavDrawer = (props: any) => {
           ) : null}
         </ImageOverlay>
         <List>
-          {routes.map((item: any) => (
-            <ListItem key={item.key}>
-              {item.external ? (
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(item.path)}
-                  style={{ flex: 1, alignSelf: 'center' }}
-                >
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    history.push(item.path);
-                    closeHandler();
-                  }}
-                  style={{ flex: 1, alignSelf: 'center' }}
-                >
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              )}
-            </ListItem>
-          ))}
+          {routes.map((item: any) => {
+            if (item.loginonly && !isLogin) {
+              return null;
+            }
+
+            return (
+              <ListItem key={item.key}>
+                {item.external ? (
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL(item.path)}
+                    style={{ flex: 1, alignSelf: 'center' }}
+                  >
+                    <Text>{item.title}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      history.push(item.path);
+                      closeHandler();
+                    }}
+                    style={{ flex: 1, alignSelf: 'center' }}
+                  >
+                    <Text>{item.title}</Text>
+                  </TouchableOpacity>
+                )}
+              </ListItem>
+            );
+          })}
         </List>
         <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
           <Icon
