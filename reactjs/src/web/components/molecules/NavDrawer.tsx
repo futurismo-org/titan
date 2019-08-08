@@ -104,6 +104,8 @@ const Drawer = (props: any) => {
           <StyledDrawer>
             {DrawerButton('ホーム', '/')}
             <Divider />
+            {DrawerButton('マイページ', `/u/${user.shortId}`)}
+            <Divider />
             {DrawerButton('チャレンジ', '/challenges')}
             <Divider />
             {DrawerButton('カテゴリ', '/categories')}
