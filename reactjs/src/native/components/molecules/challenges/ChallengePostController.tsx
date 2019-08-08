@@ -42,7 +42,7 @@ const ChallengePostController = (props: any) => {
     }
 
     const tomorrow = !isDaysValid(days) ? 1 : days + 1;
-    const newPastDays = !isDaysValid ? undefined : pastDays + 1;
+    const newPastDays = !isDaysValid(pastDays) ? 1 : pastDays + 1;
     const newScore = score + 1;
     const newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;

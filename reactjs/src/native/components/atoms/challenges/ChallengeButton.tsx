@@ -55,6 +55,7 @@ const ChallengeButton = (props: any) => {
       days: 0,
       maxDays: 0,
       accDays: 0,
+      pastDays: 0,
       challengeName
     };
 
