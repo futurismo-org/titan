@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { View } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
-import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { carouselGray } from '~/lib/theme';
@@ -47,7 +47,7 @@ const DashBoard = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading && <Progress />}
+      {<Spinner visible={loading} />}
       {!loading && (
         <View>
           <Title text="オススメのチャレンジ" />
