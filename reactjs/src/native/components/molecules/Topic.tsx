@@ -29,7 +29,8 @@ const Topic = (props: any) => {
     isCurrentUser,
     isLogin,
     collection,
-    collectionId
+    collectionId,
+    allowSensitive
   } = props;
 
   useEffect(() => {
@@ -59,67 +60,77 @@ const Topic = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {topic && (
-        <React.Fragment>
+      {topic &&
+        (topic.banned ? (
           <Text>
-            Posted by {topic.userName || 'Anonymous'}{' '}
-            {fromNow(topic.createdAt.toDate())}{' '}
+            このコンテンツは不適切なコンテンツと判断して運営が削除しました。
           </Text>
-          <TouchableOpacity
-            onPress={
-              topic.url && topic.url !== ''
-                ? () => Linking.openURL(topic.url)
-                : () => null
-            }
-          >
-            <Title text={topic.title} left />
-            {!!topic.url && (
-              <React.Fragment>
-                <Text style={{ color: 'blue' }}>{`${topic.url.substr(
-                  0,
-                  30
-                )}...`}</Text>
-                <Text />
-              </React.Fragment>
-            )}
+        ) : topic.sensitive && !allowSensitive ? (
+          <TouchableOpacity onPress={() => history.path('/settings')}>
+            <Title text="センシティブな内容のあるコンテンツです" />
+            <Text>設定を変更</Text>
           </TouchableOpacity>
-          <MarkdownView text={topic.text} />
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <TopicFlag
-              isLogin={isLogin}
-              topic={topic}
-              collectionType={collection}
-              collectionId={collectionId}
-            />
-          </View>
-          <Text />
-          <View style={{ flex: 1, alignSelf: 'center' }}>
-            <TwitterShareIcon
-              title={topic.title}
-              url={shareURL}
-              hashtag="#Titan"
-            />
-          </View>
-          {isCurrentUser ? (
-            <View style={{ flex: 1, alignSelf: 'center' }}>
-              <Text />
-              <View style={{ flexDirection: 'row' }}>
-                <Button light>
-                  <Link to={editTopicPath}>
-                    <Text>編集</Text>
-                  </Link>
-                </Button>
-                <Button
-                  light
-                  onPress={() => handleDelete(redirectPath, resourceId)}
-                >
-                  <Text>削除</Text>
-                </Button>
-              </View>
+        ) : (
+          <React.Fragment>
+            <Text>
+              Posted by {topic.userName || 'Anonymous'}{' '}
+              {fromNow(topic.createdAt.toDate())}{' '}
+            </Text>
+            <TouchableOpacity
+              onPress={
+                topic.url && topic.url !== ''
+                  ? () => Linking.openURL(topic.url)
+                  : () => null
+              }
+            >
+              <Title text={topic.title} left />
+              {!!topic.url && (
+                <React.Fragment>
+                  <Text style={{ color: 'blue' }}>{`${topic.url.substr(
+                    0,
+                    30
+                  )}...`}</Text>
+                  <Text />
+                </React.Fragment>
+              )}
+            </TouchableOpacity>
+            <MarkdownView text={topic.text} />
+            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+              <TopicFlag
+                isLogin={isLogin}
+                topic={topic}
+                collectionType={collection}
+                collectionId={collectionId}
+              />
             </View>
-          ) : null}
-        </React.Fragment>
-      )}
+            <Text />
+            <View style={{ flex: 1, alignSelf: 'center' }}>
+              <TwitterShareIcon
+                title={topic.title}
+                url={shareURL}
+                hashtag="#Titan"
+              />
+            </View>
+            {isCurrentUser ? (
+              <View style={{ flex: 1, alignSelf: 'center' }}>
+                <Text />
+                <View style={{ flexDirection: 'row' }}>
+                  <Button light>
+                    <Link to={editTopicPath}>
+                      <Text>編集</Text>
+                    </Link>
+                  </Button>
+                  <Button
+                    light
+                    onPress={() => handleDelete(redirectPath, resourceId)}
+                  >
+                    <Text>削除</Text>
+                  </Button>
+                </View>
+              </View>
+            ) : null}
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
