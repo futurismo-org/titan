@@ -1,14 +1,6 @@
 import * as React from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
-import {
-  Container,
-  Content,
-  List,
-  ListItem,
-  Text,
-  View,
-  Thumbnail
-} from 'native-base';
+import { Container, Content, List, ListItem, Text, View } from 'native-base';
 import { withRouter } from 'react-router-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageOverlay from 'react-native-image-overlay';
@@ -19,23 +11,33 @@ import {
   TITAN_DISCORD_INVITE_URL
 } from '~/constants/appInfo';
 
+import UserAvatar from '~/native/components/atoms/UserAvatar';
+
 const NavDrawer = (props: any) => {
-  const { isLogin, displayName, photoURL, history, closeHandler } = props;
+  const {
+    isLogin,
+    displayName,
+    photoURL,
+    history,
+    closeHandler,
+    userId
+  } = props;
 
   const routes = [
     { title: 'ホーム', key: '1', path: '/', external: false },
-    { title: 'チャレンジ', key: '2', path: '/challenges', external: false },
-    { title: 'カテゴリ', key: '3', path: '/categories', external: false },
-    { title: 'トピック', key: '4', path: '/topics', external: false },
-    { title: 'ランキング', key: '5', path: '/users', external: false },
+    { title: 'マイページ', key: '2', path: '/u/:id', external: false },
+    { title: 'チャレンジ', key: '3', path: '/challenges', external: false },
+    { title: 'カテゴリ', key: '4', path: '/categories', external: false },
+    { title: 'トピック', key: '5', path: '/topics', external: false },
+    { title: 'ランキング', key: '6', path: '/users', external: false },
     {
       title: 'チャット',
-      key: '6',
+      key: '7',
       path: TITAN_DISCORD_INVITE_URL,
       external: true
     },
-    { title: 'ユーザ設定', key: '7', path: '/settings', external: false },
-    { title: '関連情報', key: '8', path: '/info', external: false }
+    { title: 'ユーザ設定', key: '8', path: '/settings', external: false },
+    { title: '関連情報', key: '9', path: '/info', external: false }
   ];
   return (
     <Container>
@@ -49,11 +51,12 @@ const NavDrawer = (props: any) => {
           containerStyle={{ alignSelf: 'center' }}
         >
           {isLogin ? (
-            <View>
-              <Thumbnail
-                source={{ uri: photoURL }}
+            <View style={{ alignItems: 'center' }}>
+              <UserAvatar
+                userId={userId}
+                photoURL={photoURL}
                 large
-                style={{ alignSelf: 'center' }}
+                additionalHandler={closeHandler}
               />
               <Text
                 style={{ color: 'white', fontWeight: 'bold', fontSize: 20 }}

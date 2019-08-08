@@ -6,7 +6,6 @@ const UserAvatar = (props: any) => {
   const { photoURL, userId, large } = props;
 
   const path = userId ? `/u/${userId}` : '/users';
-
   const src = photoURL || 'https://titan-fire.com/anonymous.png';
 
   const style = large

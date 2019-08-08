@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchUserWithShortId } from 'actions/userAction';
+import { fetchUserWithShortId } from '~/actions/userAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
