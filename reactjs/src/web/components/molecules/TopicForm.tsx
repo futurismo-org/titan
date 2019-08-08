@@ -111,7 +111,13 @@ const TopicForm = (props: any) => {
               multiline
               onChange={onTextChange}
             />
-            <Button type="submit" fullWidth variant="contained" color="primary">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              style={{ fontWeight: 'bold' }}
+            >
               投稿
             </Button>
           </form>

@@ -100,6 +100,7 @@ const Settings = (props: any) => {
               fullWidth
               variant="contained"
               color="primary"
+              style={{ fontWeight: 'bold' }}
               onClick={() =>
                 updateHandlerWithMessage({
                   displayName,

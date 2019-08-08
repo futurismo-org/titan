@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Text, Textarea, Button, View } from 'native-base';
 import RadioForm from 'react-native-simple-radio-button';
-import { carouselGray as gray } from '~/lib/theme';
+import { brandGray as gray } from '~/lib/theme';
 import { successToastWithNoRedirect } from './Toast';
 
 const SEXCIAL_CONTENT = '性的なコンテンツ';

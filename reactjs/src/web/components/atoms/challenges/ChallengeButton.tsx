@@ -90,12 +90,7 @@ const ChallengeButton = (props: any) => {
 
   const renderCheckoutButton = (props: any) => (
     <React.Fragment>
-      <Button
-        color="inherit"
-        variant="outlined"
-        size="small"
-        onClick={handleOpen}
-      >
+      <Button size="small" onClick={handleOpen}>
         参加
       </Button>
       <Modal

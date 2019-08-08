@@ -28,8 +28,10 @@ const ChallengeCategoryButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <ColorButton variant="contained" color="default">
-        <NoStyledLink to={path}>{title}</NoStyledLink>
+      <ColorButton variant="contained" color="primary">
+        <NoStyledLink to={path} style={{ fontWeight: 'bold' }}>
+          {title}
+        </NoStyledLink>
       </ColorButton>
     </React.Fragment>
   );

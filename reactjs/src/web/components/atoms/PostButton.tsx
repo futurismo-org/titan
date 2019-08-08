@@ -7,7 +7,12 @@ import NoStyledLink from 'web/components/atoms/NoStyledLink';
 const PostButton = (props: any) =>
   props.isLogin ? (
     <NoStyledLink to={props.to}>
-      <Button type="button" variant="contained" color="primary">
+      <Button
+        type="button"
+        variant="contained"
+        color="primary"
+        style={{ fontWeight: 'bold' }}
+      >
         投稿
       </Button>
     </NoStyledLink>
