@@ -2,7 +2,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import App from 'web/components/organisms/App';
-import * as sw from './service-worker';
+// import * as sw from './service-worker';
 
 require('dotenv').config();
 
@@ -15,4 +15,12 @@ ReactDOM.render(
   document.getElementById('root') // eslint-disable-line no-undef
 );
 
-sw.register();
+// PWA廃止 不具合が多いので
+
+// sw.register();
+/* eslint-disable no-undef */
+navigator.serviceWorker.getRegistrations().then(registrations => {
+  for (let registration of registrations) {
+    registration.unregister();
+  }
+});
