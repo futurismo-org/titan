@@ -9,7 +9,15 @@ import Paper from '../templates/PaperWrapper';
 import UserAvatar from '../atoms/UserAvatar';
 
 const Profile = (props: any) => {
-  const { fetchUserWithShortId, userShortId, user, error, loading } = props;
+  const {
+    fetchUserWithShortId,
+    userShortId,
+    user,
+    error,
+    loading,
+    isMyProfile,
+    isLogin
+  } = props;
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
@@ -25,6 +33,10 @@ const Profile = (props: any) => {
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
           {!!user.twitterUsername && <Follow username={user.twitterUsername} />}
           <p>コンテンツ準備中...</p>
+          <br />
+          {isLogin && !isMyProfile && (
+            <p style={{ textDecoration: 'underline' }}>ミュートする</p>
+          )}
         </Paper>
       )}
     </React.Fragment>
