@@ -1,7 +1,7 @@
-// import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const Profile = (props: any) => {
-  return null;
+  return <p>プロフィール</p>;
 };
 
 export default Profile;
