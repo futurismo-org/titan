@@ -24,18 +24,17 @@ const NavDrawer = (props: any) => {
   } = props;
 
   const routes = [
-    { title: 'ホーム', key: '1', path: '/', external: false },
+    { title: 'ホーム', key: '1', path: '/' },
     {
       title: 'マイページ',
       key: '2',
-      path: '/u/:id',
-      external: false,
+      path: `/u/${userId}`,
       loginonly: true
     },
-    { title: 'チャレンジ', key: '3', path: '/challenges', external: false },
-    { title: 'カテゴリ', key: '4', path: '/categories', external: false },
-    { title: 'トピック', key: '5', path: '/topics', external: false },
-    { title: 'ランキング', key: '6', path: '/users', external: false },
+    { title: 'チャレンジ', key: '3', path: '/challenges' },
+    { title: 'カテゴリ', key: '4', path: '/categories' },
+    { title: 'トピック', key: '5', path: '/topics' },
+    { title: 'ランキング', key: '6', path: '/users' },
     {
       title: 'チャット',
       key: '7',
@@ -46,10 +45,9 @@ const NavDrawer = (props: any) => {
       title: 'ユーザ設定',
       key: '8',
       path: '/settings',
-      external: false,
       loginonly: true
     },
-    { title: '関連情報', key: '9', path: '/info', external: false }
+    { title: '関連情報', key: '9', path: '/info' }
   ];
   return (
     <Container>

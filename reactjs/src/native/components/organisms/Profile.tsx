@@ -13,9 +13,6 @@ const Profile = (props: any) => {
     fetchUserWithShortId(userShortId);
   }, [fetchUserWithShortId, userShortId]);
 
-  const twitterURL =
-    user && user.twitterUsername && getTwitterProfileURL(user.twitterUsername);
-
   return (
     <React.Fragment>
       {error && <Error error={error} />}
@@ -33,7 +30,11 @@ const Profile = (props: any) => {
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
           {user.twitterUsername && (
             <Button style={{ marginVertical: 15 }} info small>
-              <TouchableText text="Twitter" path={twitterURL} />
+              <TouchableText
+                text="Twitter"
+                url={getTwitterProfileURL(user.twitterUsername)}
+                external
+              />
             </Button>
           )}
           <Text>コンテンツ準備中...</Text>

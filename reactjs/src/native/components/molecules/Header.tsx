@@ -33,7 +33,13 @@ const HeaderWrapper = (props: any) => {
         </Body>
         <Right>
           {isLogin ? (
-            <Button bordered onPress={() => firebase.auth().signOut()}>
+            <Button
+              bordered
+              onPress={() => {
+                firebase.auth().signOut();
+                history.push('/');
+              }}
+            >
               <Text style={{ color: brandWhite, fontWeight: 'bold' }}>
                 ログアウト
               </Text>
