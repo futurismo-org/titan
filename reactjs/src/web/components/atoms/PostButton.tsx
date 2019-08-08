@@ -2,10 +2,12 @@ import * as React from 'react';
 import { Button } from '@material-ui/core';
 
 import { connect } from 'react-redux';
-import NoStyledLink from 'web/components/atoms/NoStyledLink';
+import NoStyledLink from '~/web/components/atoms/NoStyledLink';
 
-const PostButton = (props: any) =>
-  props.isLogin ? (
+const PostButton = (props: any) => {
+  const text = props.text ? props.text : '投稿';
+
+  return props.isLogin ? (
     <NoStyledLink to={props.to}>
       <Button
         type="button"
@@ -13,10 +15,11 @@ const PostButton = (props: any) =>
         color="primary"
         style={{ fontWeight: 'bold' }}
       >
-        投稿
+        {text}
       </Button>
     </NoStyledLink>
   ) : null;
+};
 
 const mapStateToProps = (state: any, props: any) => ({
   isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
