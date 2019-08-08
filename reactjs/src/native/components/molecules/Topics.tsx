@@ -14,7 +14,8 @@ const Topics = (props: any) => {
     fetchTopics,
     postButtonPath,
     topicPath,
-    history
+    history,
+    allowSensitive
   } = props;
 
   React.useEffect(() => {
@@ -36,7 +37,11 @@ const Topics = (props: any) => {
               <Text>トピックを新規投稿</Text>
             </Button>
           </View>
-          <TopicList topics={topics} topicPath={topicPath} />
+          <TopicList
+            topics={topics}
+            topicPath={topicPath}
+            allowSensitive={allowSensitive}
+          />
         </React.Fragment>
       )}
     </React.Fragment>
