@@ -1,16 +1,25 @@
 import * as React from 'react';
 import { Avatar } from '@material-ui/core';
-import NoStyledExternalLink from './NoStyledExternalLink';
+import NoStyledLink from './NoStyledLink';
 
 const UserAvatar = (props: any) => {
-  const { profileURL, photoURL } = props;
+  const { photoURL, userId, large } = props;
 
+  const path = userId ? `/u/${userId}` : '/users';
   const src = photoURL || 'https://titan-fire.com/anonymous.png';
 
+  const style = large
+    ? {
+        margin: 10,
+        width: 60,
+        height: 60
+      }
+    : {};
+
   return (
-    <NoStyledExternalLink href={profileURL}>
-      <Avatar src={src} />
-    </NoStyledExternalLink>
+    <NoStyledLink to={path}>
+      <Avatar src={src} style={style} />
+    </NoStyledLink>
   );
 };
 

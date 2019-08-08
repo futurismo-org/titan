@@ -34,7 +34,7 @@ const ChallengeUserDashBoard = (props: any) => {
     <React.Fragment>
       {error && <Text>Error: {error}</Text>}
       {loading && <Progress />}
-      {!loading && user && (
+      {!loading && user && user.histories && (
         <React.Fragment>
           <H1 style={{ textAlign: 'center' }}>{user.displayName}さんの記録</H1>
           <Space />

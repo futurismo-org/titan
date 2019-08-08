@@ -2,6 +2,8 @@ import { APP_URL } from '../constants/appInfo';
 
 const UNSPLASH_RANDOM_URL = 'https://source.unsplash.com/random';
 
+export const ANONYMOUS_AVATAR_URL = 'https://titan-fire.com/anonymous.png';
+
 export const withDomain = (url: string) => APP_URL + url;
 
 const collectionMap = new Map([

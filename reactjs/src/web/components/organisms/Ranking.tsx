@@ -57,10 +57,7 @@ const Ranking = (props: any) => {
                   {index + 1}位
                 </TableCell>
                 <TableCell>
-                  <UserAvatar
-                    photoURL={user.photoURL}
-                    profileURL={getTwitterProfileURL(user.twitterUsername)}
-                  />
+                  <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
                 </TableCell>
                 <TableCell>
                   <NoStyledExternalLink

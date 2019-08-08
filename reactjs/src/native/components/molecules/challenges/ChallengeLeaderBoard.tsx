@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Text } from 'native-base';
 import { Link } from 'react-router-native';
 import Error from '../../atoms/Error';
-import Avatar from '../../atoms/Avatar';
+import UserAvatar from '../../atoms/UserAvatar';
 
 import { leaderboardMyColor } from '~/lib/theme';
 
@@ -44,11 +44,11 @@ const ChallengeLeaderBoard = (props: any) => {
           {users.map((user: any) => {
             const rowData = [
               `${user.rank}`,
-              <Avatar
+              <UserAvatar
                 photoURL={user.photoURL}
-                key={user.id}
+                userId={user.id}
                 small
-                twitterUsername={user.twitterUsername}
+                key={user.id}
               />,
               <Link to={user.profilePath} key={user.id}>
                 <Text style={{ textDecorationLine: 'underline', fontSize: 15 }}>

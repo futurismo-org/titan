@@ -60,6 +60,21 @@ export const fetchParticipants = (resourceId: string, num: number = 1000) => {
   };
 };
 
+export const fetchUserWithShortId = (userShortId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchUserRequest());
+    firebase
+      .firestore()
+      .collection('users')
+      .where('shortId', '==', userShortId)
+      .get()
+      .then((s: any) => s.docs[0])
+      .then((doc: any) => doc.data())
+      .then((data: any) => dispatch(fetchUserSuccess(data)))
+      .catch((error: any) => dispatch(fetchUserError(error)));
+  };
+};
+
 export const fetchUser = (resourceId: string) => {
   return fetchTarget(
     resourceId,

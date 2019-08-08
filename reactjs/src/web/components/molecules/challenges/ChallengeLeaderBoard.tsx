@@ -7,7 +7,6 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
-import { getTwitterProfileURL } from '~/lib/url';
 import Progress from '../../atoms/CircularProgress';
 
 import UserAvatar from '../../atoms/UserAvatar';
@@ -62,10 +61,7 @@ const ChallengeLeaderBoard = (props: any) => {
                   {user.rank}位
                 </TableCell>
                 <TableCell>
-                  <UserAvatar
-                    photoURL={user.photoURL}
-                    profileURL={getTwitterProfileURL(user.twitterUsername)}
-                  />
+                  <UserAvatar photoURL={user.photoURL} userId={user.id} />
                 </TableCell>
                 <TableCell>
                   <Link to={user.profilePath}>{user.displayName}</Link>

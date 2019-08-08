@@ -68,7 +68,7 @@ const ChallengeUserDashBoard = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {user && (
+      {!loading && user && user.histories && (
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Title text={title} />

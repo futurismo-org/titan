@@ -5,12 +5,13 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemAvatar,
-  Avatar
+  ListItemAvatar
 } from '@material-ui/core';
 
 import { fromNow } from '~/lib/moment';
 import NoStyledLink from '../atoms/NoStyledLink';
+
+import UserAvatar from '../atoms/UserAvatar';
 
 const TopicListItem = (props: any) => {
   const { topic, topicPath, allowSensitive } = props;
@@ -18,10 +19,7 @@ const TopicListItem = (props: any) => {
   return (
     <ListItem alignItems="flex-start">
       <ListItemAvatar>
-        <Avatar
-          alt={topic.userName || 'anonymous'}
-          src={topic.userPhotoURL || `${process.env.PUBLIC_URL}/anonymous.png`}
-        />
+        <UserAvatar photoURL={topic.userPhotoURL} userId={topic.userId} />
       </ListItemAvatar>
       <ListItemText
         primary={

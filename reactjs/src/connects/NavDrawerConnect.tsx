@@ -16,6 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
     isLogin,
     displayName,
     photoURL,
+    userId: profile.shortId,
     ...props
   };
 };
