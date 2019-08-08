@@ -19,8 +19,10 @@ ReactDOM.render(
 
 // sw.register();
 /* eslint-disable no-undef */
-navigator.serviceWorker.getRegistrations().then(registrations => {
-  for (let registration of registrations) {
-    registration.unregister();
-  }
-});
+navigator &&
+  navigator.serviceWorker &&
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (let registration of registrations) {
+      registration.unregister();
+    }
+  });
