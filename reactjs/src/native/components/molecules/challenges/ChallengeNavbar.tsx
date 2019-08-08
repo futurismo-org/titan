@@ -5,6 +5,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 
 import { Link, withRouter } from 'react-router-native';
 import { Button, Text } from 'native-base';
+import TouchableText from '../../atoms/TouchableText';
 
 const ChallengeNavbar = (props: any) => {
   const { challenge, isLogin, userShortId, history } = props;
@@ -31,17 +32,13 @@ const ChallengeNavbar = (props: any) => {
       }}
     >
       <Button bordered style={{ width: 100, justifyContent: 'center' }}>
-        <Link to={`/c/${challengeId}/overview`}>
-          <Text>概要</Text>
-        </Link>
+        <TouchableText path={`/c/${challengeId}/overview`} text="概要" />
       </Button>
       <Button
         bordered
         style={{ width: 100, marginLeft: 5, justifyContent: 'center' }}
       >
-        <Link to={`/c/${challengeId}/rules`}>
-          <Text>ルール</Text>
-        </Link>
+        <TouchableText path={`/c/${challengeId}/rules`} text="ルール" />
       </Button>
       <Menu
         ref={(ref: any) => setMenuRef(ref)}

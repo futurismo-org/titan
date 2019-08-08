@@ -5,7 +5,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
-import { carouselGray } from '~/lib/theme';
+import { brandGray } from '~/lib/theme';
 import Error from '~/native/components/atoms/Error';
 import { deviceWidth } from '~/lib/native';
 
@@ -71,7 +71,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={carouselGray}
+            inactiveDotColor={brandGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={pinnedSliderRef}
@@ -99,7 +99,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={carouselGray}
+            inactiveDotColor={brandGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={categorySliderRef}
@@ -127,7 +127,7 @@ const DashBoard = (props: any) => {
               marginHorizontal: 8,
               marginVertical: 8
             }}
-            inactiveDotColor={carouselGray}
+            inactiveDotColor={brandGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
             carouselRef={challengeSliderRef}

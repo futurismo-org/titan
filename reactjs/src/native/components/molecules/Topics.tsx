@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { withRouter } from 'react-router-native';
-import { Button, Text } from 'native-base';
 import { View } from 'react-native';
 import Error from '../atoms/Error';
 import TopicList from './TopicList';
+import PostButton from '~/native/containers/PostButtonContainer';
 
 const Topics = (props: any) => {
   const {
@@ -14,7 +13,6 @@ const Topics = (props: any) => {
     fetchTopics,
     postButtonPath,
     topicPath,
-    history,
     allowSensitive
   } = props;
 
@@ -29,13 +27,7 @@ const Topics = (props: any) => {
       {topics && (
         <React.Fragment>
           <View style={{ flex: 1, alignSelf: 'flex-end' }}>
-            <Button
-              rounded
-              primary
-              onPress={() => history.push(postButtonPath)}
-            >
-              <Text>トピックを新規投稿</Text>
-            </Button>
+            <PostButton to={postButtonPath} text="トピックを新規投稿" />
           </View>
           <TopicList
             topics={topics}
@@ -48,4 +40,4 @@ const Topics = (props: any) => {
   );
 };
 
-export default withRouter(Topics);
+export default Topics;

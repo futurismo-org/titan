@@ -1,16 +1,8 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
+import Fab from '@material-ui/core/Fab';
 
 import firebase from '~/lib/firebase';
 import NoStyledLink from '../NoStyledLink';
-
-const ColorButton = styled(Button)`
-  && {
-    font-size: 15px;
-    margin: 5px;
-  }
-`;
 
 const ChallengeCategoryButton = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.categoryRef;
@@ -28,9 +20,11 @@ const ChallengeCategoryButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <ColorButton variant="contained" color="default">
-        <NoStyledLink to={path}>{title}</NoStyledLink>
-      </ColorButton>
+      <NoStyledLink to={path}>
+        <Fab variant="extended" style={{ fontWeight: 'bold' }} color="primary">
+          {title}
+        </Fab>
+      </NoStyledLink>
     </React.Fragment>
   );
 };

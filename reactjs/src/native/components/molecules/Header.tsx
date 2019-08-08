@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native';
 import { Link, withRouter } from 'react-router-native';
 
 import firebase from '~/lib/firebase';
+import TouchableText from '../atoms/TouchableText';
+import { brandWhite } from '~/lib/theme';
 
 const HeaderWrapper = (props: any) => {
   const { openDrawer, isLogin, history } = props;
@@ -13,14 +15,14 @@ const HeaderWrapper = (props: any) => {
       <Header>
         <Left>
           <Button transparent onPress={() => openDrawer()}>
-            <Icon name="menu" style={{ color: '#ffffff' }} />
+            <Icon name="menu" style={{ color: brandWhite }} />
           </Button>
         </Left>
         <Body>
           <TouchableOpacity onPress={() => history.push('/')}>
             <Text
               style={{
-                color: '#fff',
+                color: brandWhite,
                 fontSize: 24,
                 fontWeight: 'bold'
               }}
@@ -31,14 +33,20 @@ const HeaderWrapper = (props: any) => {
         </Body>
         <Right>
           {isLogin ? (
-            <Button bordered onPress={() => firebase.auth().signOut()}>
-              <Text style={{ color: '#ffffff' }}>ログアウト</Text>
+            <Button
+              bordered
+              onPress={() => {
+                firebase.auth().signOut();
+                history.push('/');
+              }}
+            >
+              <Text style={{ color: brandWhite, fontWeight: 'bold' }}>
+                ログアウト
+              </Text>
             </Button>
           ) : (
             <Button bordered>
-              <Link to="/login">
-                <Text style={{ color: '#ffffff' }}>ログイン</Text>
-              </Link>
+              <TouchableText path="/login" text="ログイン" color={brandWhite} />
             </Button>
           )}
         </Right>

@@ -3,7 +3,7 @@ import FlagIcon from '@material-ui/icons/Flag';
 import { Modal } from '@material-ui/core';
 
 import styled from 'styled-components';
-import { carouselBlack as black } from '~/lib/theme';
+import { brandDark as black } from '~/lib/theme';
 
 import TopicFlagForm from '~/web/containers/TopicFlagFormContainer';
 

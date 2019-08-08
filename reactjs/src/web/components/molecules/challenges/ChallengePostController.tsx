@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 
 import { useDocument } from 'react-firebase-hooks/firestore';
 import shortId from 'shortid';
+import { Button } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 import firebase from '~/lib/firebase';
 
 import { postMessage } from '~/lib/discord.client.api';
@@ -13,8 +13,9 @@ import { postMessage } from '~/lib/discord.client.api';
 import rollbar from '~/lib/rollbar';
 import { getUserDashboardPath, withDomain } from '~/lib/url';
 import { getParticipantsUserId } from '~/lib/resource';
-import Progress from '../../atoms/CircularProgress';
-import RecordButton from '../../atoms/challenges/ChallengeRecordButton';
+
+import Error from '../../atoms/Error';
+import { brandSuccess, brandWhite, brandWarning } from '~/lib/theme';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -23,14 +24,8 @@ const StyledCenterContainer = styled.div`
   align-items: center;
 `;
 
-const StyledTimerButtonContainer = styled.div`
-  margin: 10px;
-  display: flex;
-  justify-content: space-around;
-`;
-
 const ChallengePostController = (props: any) => {
-  const { userShortId, closeHandler, push } = props;
+  const { userShortId, history } = props;
   const { webhookURL, openedAt, closedAt, id } = props.challenge;
 
   const challengeId = id;
@@ -111,8 +106,7 @@ ${url}`;
       .then(() => {
         window.alert('投稿が完了しました。'); // eslint-disable-line
       })
-      .then(() => closeHandler())
-      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      .then(() => history.push(getUserDashboardPath(challengeId, userShortId)))
       .then(() => window.location.reload()) // eslint-disable-line
       .catch(error => rollbar.error(error));
   };
@@ -152,8 +146,7 @@ ${url}`;
 ${url}`;
         postMessage(webhookURL, message);
       })
-      .then(() => closeHandler())
-      .then(() => push(getUserDashboardPath(challengeId, userShortId)))
+      .then(() => history.push(getUserDashboardPath(challengeId, userShortId)))
       .then(() => window.location.reload()) // eslint-disable-line
       .catch(error => rollbar.error(error));
   };
@@ -221,38 +214,42 @@ ${url}`;
 
   return (
     <StyledCenterContainer>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <Progress />}
-      {hide ? (
-        <h3>チャレンジ開始までお待ちください</h3>
-      ) : (
-        data && (
-          <React.Fragment>
-            <StyledTimerButtonContainer>
-              <RecordButton
-                text="記録する"
-                color="primary"
-                handleClick={() => writeRecord(data)}
-              />
-              <RecordButton
-                text="リセット"
-                color="inherit"
-                handleClick={() => confirm(data)}
-              />
-            </StyledTimerButtonContainer>
-          </React.Fragment>
-        )
-      )}
+      {error && <Error error={error} />}
+      {loading && null}
+      {hide
+        ? null
+        : data && (
+            <React.Fragment>
+              <div style={{ float: 'left' }}>
+                <Button
+                  variant="contained"
+                  onClick={() => writeRecord(data)}
+                  style={{
+                    backgroundColor: brandSuccess,
+                    color: brandWhite,
+                    marginLeft: 5,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  記録する
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => confirm(data)}
+                  style={{
+                    backgroundColor: brandWarning,
+                    color: brandWhite,
+                    marginLeft: 5,
+                    fontWeight: 'bold'
+                  }}
+                >
+                  リセット
+                </Button>
+              </div>
+            </React.Fragment>
+          )}
     </StyledCenterContainer>
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  userShortId: state.firebase.profile.shortId,
-  ...props
-});
-
-export default connect(
-  mapStateToProps,
-  { push }
-)(ChallengePostController);
+export default withRouter(ChallengePostController);

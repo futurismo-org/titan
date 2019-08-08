@@ -99,7 +99,7 @@ const ChallengeButton = (props: any) => {
       .then(() => setRefresh(!refresh));
   };
 
-  const PostButton = (props: any) => (
+  const PostButtonController = (props: any) => (
     <ChallengePostController
       challenge={challenge}
       fetchUser={fetchUser}
@@ -122,7 +122,7 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
-  const renderButton = () => (join ? <PostButton /> : <JoinButton />);
+  const renderButton = () => (join ? <PostButtonController /> : <JoinButton />);
 
   return (
     <React.Fragment>

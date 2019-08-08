@@ -4,7 +4,7 @@ import { Text, View, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
-import { carouselGray as gray, carouselBlack as black } from '~/lib/theme';
+import { brandGray as gray, brandDark as black } from '~/lib/theme';
 
 import TopicFlagForm from '~/native/containers/TopicFlagFormContainer';
 

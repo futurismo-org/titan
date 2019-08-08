@@ -51,59 +51,69 @@ const Settings = (props: any) => {
   return (
     <React.Fragment>
       {isLogin ? (
-        <Paper>
-          <Title text="ユーザ設定" />
-          <TextField
-            value={displayName}
-            variant="outlined"
-            margin="normal"
-            required
-            id="displayName"
-            label="ユーザ名"
-            onChange={onDisplayNameChange}
-          />
-          <TextField
-            value={twitterUsername}
-            variant="outlined"
-            margin="normal"
-            id="twitterId"
-            label="Twitterユーザ名"
-            onChange={onTwitterUsernameChange}
-          />
-          <div>
-            <p>ユーザアイコンをアップロード</p>
-            <input
-              accept="image/*"
-              id="contained-button-file"
-              type="file"
-              onChange={onFileChange}
+        <React.Fragment>
+          <Paper>
+            <Title text="ユーザ設定" />
+            <TextField
+              value={displayName}
+              variant="outlined"
+              margin="normal"
+              required
+              id="displayName"
+              label="ユーザ名"
+              onChange={onDisplayNameChange}
             />
-          </div>
+            <TextField
+              value={twitterUsername}
+              variant="outlined"
+              margin="normal"
+              id="twitterId"
+              label="Twitterユーザ名"
+              onChange={onTwitterUsernameChange}
+            />
+            <div>
+              <p>ユーザアイコンをアップロード</p>
+              <input
+                accept="image/*"
+                id="contained-button-file"
+                type="file"
+                onChange={onFileChange}
+              />
+            </div>
+          </Paper>
           <br />
-          <p>センシティブなコンテンツを表示する</p>
-          <Switch
-            checked={allowSensitive}
-            onChange={onSensitiveChange}
-            style={{ color: primaryColor }}
-          />
+          <Paper>
+            <Title text="セキュリティ・プライバシー" />
+            <p>センシティブなコンテンツを表示する</p>
+            <Switch
+              checked={allowSensitive}
+              onChange={onSensitiveChange}
+              style={{ color: primaryColor }}
+            />
+            <p>ミュートしているユーザ</p>
+            <p>ブロックしているユーザ</p>
+          </Paper>
           <br />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={() =>
-              updateHandlerWithMessage({
-                displayName,
-                twitterUsername,
-                file,
-                allowSensitive
-              })
-            }
-          >
-            設定を更新
-          </Button>
-        </Paper>
+          <Paper>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              style={{ fontWeight: 'bold' }}
+              onClick={() =>
+                updateHandlerWithMessage({
+                  displayName,
+                  twitterUsername,
+                  file,
+                  allowSensitive
+                })
+              }
+            >
+              設定を更新
+            </Button>
+          </Paper>
+        </React.Fragment>
       ) : (
         <Paper>
           <Title text="ユーザ設定" />

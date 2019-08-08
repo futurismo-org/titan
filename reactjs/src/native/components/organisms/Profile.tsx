@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Text, View, Button } from 'native-base';
-import { Linking } from 'expo';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import UserAvatar from '../atoms/UserAvatar';
 import { getTwitterProfileURL } from '~/lib/url';
+import TouchableText from '../atoms/TouchableText';
 
 const Profile = (props: any) => {
   const { fetchUserWithShortId, userShortId, user, error, loading } = props;
@@ -12,9 +12,6 @@ const Profile = (props: any) => {
   useEffect(() => {
     fetchUserWithShortId(userShortId);
   }, [fetchUserWithShortId, userShortId]);
-
-  const twitterURL =
-    user && user.twitterUsername && getTwitterProfileURL(user.twitterUsername);
 
   return (
     <React.Fragment>
@@ -31,14 +28,15 @@ const Profile = (props: any) => {
             }}
           >{`${user.displayName}さんのプロフィール`}</Text>
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
-          <Button
-            style={{ marginVertical: 15 }}
-            info
-            small
-            onPress={() => Linking.openURL(twitterURL)}
-          >
-            <Text>Twitter</Text>
-          </Button>
+          {user.twitterUsername && (
+            <Button style={{ marginVertical: 15 }} info small>
+              <TouchableText
+                text="Twitter"
+                url={getTwitterProfileURL(user.twitterUsername)}
+                external
+              />
+            </Button>
+          )}
           <Text>コンテンツ準備中...</Text>
         </View>
       )}

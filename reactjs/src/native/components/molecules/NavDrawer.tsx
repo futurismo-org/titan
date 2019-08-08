@@ -24,20 +24,30 @@ const NavDrawer = (props: any) => {
   } = props;
 
   const routes = [
-    { title: 'ホーム', key: '1', path: '/', external: false },
-    { title: 'マイページ', key: '2', path: '/u/:id', external: false },
-    { title: 'チャレンジ', key: '3', path: '/challenges', external: false },
-    { title: 'カテゴリ', key: '4', path: '/categories', external: false },
-    { title: 'トピック', key: '5', path: '/topics', external: false },
-    { title: 'ランキング', key: '6', path: '/users', external: false },
+    { title: 'ホーム', key: '1', path: '/' },
+    {
+      title: 'マイページ',
+      key: '2',
+      path: `/u/${userId}`,
+      loginonly: true
+    },
+    { title: 'チャレンジ', key: '3', path: '/challenges' },
+    { title: 'カテゴリ', key: '4', path: '/categories' },
+    { title: 'トピック', key: '5', path: '/topics' },
+    { title: 'ランキング', key: '6', path: '/users' },
     {
       title: 'チャット',
       key: '7',
       path: TITAN_DISCORD_INVITE_URL,
       external: true
     },
-    { title: 'ユーザ設定', key: '8', path: '/settings', external: false },
-    { title: '関連情報', key: '9', path: '/info', external: false }
+    {
+      title: 'ユーザ設定',
+      key: '8',
+      path: '/settings',
+      loginonly: true
+    },
+    { title: '関連情報', key: '9', path: '/info' }
   ];
   return (
     <Container>
@@ -67,28 +77,34 @@ const NavDrawer = (props: any) => {
           ) : null}
         </ImageOverlay>
         <List>
-          {routes.map((item: any) => (
-            <ListItem key={item.key}>
-              {item.external ? (
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(item.path)}
-                  style={{ flex: 1, alignSelf: 'center' }}
-                >
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => {
-                    history.push(item.path);
-                    closeHandler();
-                  }}
-                  style={{ flex: 1, alignSelf: 'center' }}
-                >
-                  <Text>{item.title}</Text>
-                </TouchableOpacity>
-              )}
-            </ListItem>
-          ))}
+          {routes.map((item: any) => {
+            if (item.loginonly && !isLogin) {
+              return null;
+            }
+
+            return (
+              <ListItem key={item.key}>
+                {item.external ? (
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL(item.path)}
+                    style={{ flex: 1, alignSelf: 'center' }}
+                  >
+                    <Text>{item.title}</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => {
+                      history.push(item.path);
+                      closeHandler();
+                    }}
+                    style={{ flex: 1, alignSelf: 'center' }}
+                  >
+                    <Text>{item.title}</Text>
+                  </TouchableOpacity>
+                )}
+              </ListItem>
+            );
+          })}
         </List>
         <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
           <Icon

@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
-import { carouselGray } from '~/lib/theme';
+import { brandGray } from '~/lib/theme';
 
 const GreyRadio = withStyles({
   root: {
@@ -86,7 +86,7 @@ const TopicFlagForm = (props: any) => {
         multiline
         rows={8}
         style={{
-          backgroundColor: carouselGray
+          backgroundColor: brandGray
         }}
         InputProps={{
           style: {
@@ -112,7 +112,7 @@ const TopicFlagForm = (props: any) => {
       />
       <br />
       <br />
-      <span style={{ color: carouselGray }}>
+      <span style={{ color: brandGray }}>
         報告されたコンテンツについては、Titanの運営が毎日24時間体制で審査し、
         そのコンテンツを削除するか、センシティブフィルターの対象にするか、報告を却下するかを決定します。
       </span>
@@ -122,7 +122,7 @@ const TopicFlagForm = (props: any) => {
         type="submit"
         fullWidth
         variant="contained"
-        style={{ color: carouselGray }}
+        style={{ color: brandGray }}
         onClick={() =>
           postHandler({
             content,
