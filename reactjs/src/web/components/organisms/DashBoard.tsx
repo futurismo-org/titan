@@ -53,7 +53,7 @@ const DashBoard = (props: any) => {
       {!isLogin && (
         <Paper>
           <Typography component="h3" variant="subtitle1">
-            センシティブなコンテンツを表示する
+            センシティブなコンテンツをログインせずに表示する
           </Typography>
           <Switch
             checked={debugSensitive}

@@ -4,6 +4,7 @@ import { List, ListItem, Left, Thumbnail, Body, Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { TouchableOpacity } from 'react-native';
 import { fromNow } from '~/lib/moment';
+import UserAvatar from '../atoms/UserAvatar';
 
 const TopicListItem = (props: any) => {
   const { topic, history, allowSensitive, topicPath } = props;
@@ -11,12 +12,7 @@ const TopicListItem = (props: any) => {
   return (
     <ListItem thumbnail>
       <Left>
-        <Thumbnail
-          square
-          source={{
-            uri: topic.userPhotoURL || 'https://titan-fire.com/anonymous.png'
-          }}
-        />
+        <UserAvatar userId={topic.userId} photoURL={topic.userPhotoURL} />
       </Left>
       <Body>
         {topic.sensitive && !allowSensitive ? (

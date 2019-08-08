@@ -8,7 +8,6 @@ import Title from '../atoms/Title';
 
 import { fromNow } from '~/lib/moment';
 import UserAvatar from '../atoms/UserAvatar';
-import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 const { Table, Row } = require('react-native-table-component');
 
