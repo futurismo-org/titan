@@ -59,7 +59,7 @@ const CollectionCard = (props: any) => {
                 </StyledCardDetails>
                 <Hidden xsDown>
                   <StyledCardMedia
-                    image="http://titan-fire.com/images/icons/icon-144x144.png"
+                    image="https://titan-fire.com/images/icons/icon-144x144.png"
                     title="Image title"
                   />
                 </Hidden>
