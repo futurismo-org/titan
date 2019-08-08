@@ -31,9 +31,9 @@ const ChallengeChart = (props: any) => {
     formatDate(history.timestamp.toDate().toISOString())
   );
 
-  const scoreList = sorted.map((history: any) => history.score);
-  const daysList = sorted.map((history: any) => history.days);
-  const accDaysList = sorted.map((history: any) => history.accDays);
+  const scoreList = sorted.map((history: any) => history.score || 0);
+  const daysList = sorted.map((history: any) => history.days || 0);
+  const accDaysList = sorted.map((history: any) => history.accDays || 0);
 
   const data = {
     labels,
