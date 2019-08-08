@@ -29,6 +29,9 @@ exports.dashboard = (req: any, res: any) => {
       const title = `${userName}さんの記録 | Titan`;
       const description = `${challengeName}に参加中。`;
       const url = `https://titan-fire.com/c/${challengeId}/u/${userShortId}`;
+      const image = userItem.photoURL
+        ? userItem.photoURL
+        : 'https://titan-fire.com/icon.png';
 
       res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
 
@@ -47,6 +50,10 @@ exports.dashboard = (req: any, res: any) => {
           html = html.replace(
             html.match(/<meta property="og:url"[^>]*>/),
             `<meta property="og:url" content="${url}">`
+          );
+          html = html.replace(
+            html.match(/<meta property="og:image"[^>]*>/),
+            `<meta property="og:image" content="${image}">`
           );
           res.status(200).send(html);
         }
