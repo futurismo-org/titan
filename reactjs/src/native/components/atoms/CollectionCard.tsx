@@ -127,7 +127,7 @@ const CollectionCard = (props: any) => {
             <View style={styles.imageContainer}>
               <Image
                 source={{
-                  uri: 'http://titan-fire.com/images/icons/icon-144x144.png'
+                  uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
                 }}
                 style={{
                   flex: 1,
