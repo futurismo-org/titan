@@ -28,7 +28,7 @@ const Profile = (props: any) => {
             }}
           >{`${user.displayName}さんのプロフィール`}</Text>
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
-          {user.twitterUsername && (
+          {!!user.twitterUsername && (
             <Button style={{ marginVertical: 15 }} info small>
               <TouchableText
                 text="Twitter"
