@@ -104,8 +104,8 @@ const Drawer = (props: any) => {
           <StyledDrawer>
             {DrawerButton('ホーム', '/')}
             <Divider />
-            {DrawerButton('マイページ', `/u/${user.shortId}`)}
-            <Divider />
+            {isLogin && DrawerButton('マイページ', `/u/${user.shortId}`)}
+            {isLogin && <Divider />}
             {DrawerButton('チャレンジ', '/challenges')}
             <Divider />
             {DrawerButton('カテゴリ', '/categories')}
@@ -117,7 +117,7 @@ const Drawer = (props: any) => {
             {DrawerButtonALink('チャット', TITAN_DISCORD_INVITE_URL)}
             <Divider />
             {isLogin && DrawerButton('ユーザ設定', '/settings')}
-            <Divider />
+            {isLogin && <Divider />}
             {DrawerButton('関連情報', '/info')}
             <Divider />
             {user.isAdmin && DrawerButton('管理設定', '/admin')}
