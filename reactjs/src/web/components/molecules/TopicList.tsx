@@ -16,7 +16,7 @@ const TopicListItem = (props: any) => {
   const { topic, topicPath, allowSensitive } = props;
 
   return (
-    <ListItem alignItems="flex-start" key={topic.id}>
+    <ListItem alignItems="flex-start">
       <ListItemAvatar>
         <Avatar
           alt={topic.userName || 'anonymous'}

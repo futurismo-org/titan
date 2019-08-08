@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 
 import { postSubmission } from '~/lib/formcarry';
 
-import { getTopicPath, withDomain } from '~/lib/url';
+import { getTopicPath } from '~/lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
