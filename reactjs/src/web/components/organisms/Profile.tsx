@@ -23,7 +23,9 @@ const Profile = (props: any) => {
         <Paper>
           <Title text={`${user.displayName}さんのプロフィール`} />
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
-          <Follow username={user.twitterUsername} />
+          {user.twitterUsername ? (
+            <Follow username={user.twitterUsername} />
+          ) : null}
           <p>コンテンツ準備中...</p>
         </Paper>
       )}

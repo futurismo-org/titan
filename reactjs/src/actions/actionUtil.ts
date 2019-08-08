@@ -14,8 +14,10 @@ export const fetchTarget = (
   resourceId: string,
   requestAction: any,
   successAction: any,
-  errorAction: any
+  errorAction: any,
+  resetAction?: any
 ) => (dispatch: Dispatch) => {
+  resetAction && dispatch(resetAction());
   dispatch(requestAction());
   firebase
     .firestore()
