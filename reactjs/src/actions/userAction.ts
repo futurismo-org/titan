@@ -48,7 +48,6 @@ export const fetchUsers = (num: number = 1000) => {
 
 export const fetchParticipants = (resourceId: string, num: number = 1000) => {
   return (dispatch: Dispatch) => {
-    dispatch(resetUserInfo());
     dispatch(fetchUsersRequest());
     firebase
       .firestore()
@@ -63,7 +62,6 @@ export const fetchParticipants = (resourceId: string, num: number = 1000) => {
 
 export const fetchUserWithShortId = (userShortId: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(resetUserInfo());
     dispatch(fetchUserRequest());
     firebase
       .firestore()
