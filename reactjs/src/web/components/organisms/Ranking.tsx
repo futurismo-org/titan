@@ -12,7 +12,6 @@ import { getTwitterProfileURL } from '~/lib/url';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
-import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import UserAvatar from '../atoms/UserAvatar';
 
 const ConditionalTableCell = (props: any) => (
