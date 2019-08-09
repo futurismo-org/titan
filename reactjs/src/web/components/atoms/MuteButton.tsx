@@ -11,12 +11,10 @@ import { withRouter } from 'react-router-dom';
 const MuteButton = (props: any) => {
   const { user, updateHandler, removeHandler, isExistLazy, history } = props;
   const [open, setOpen] = useState(false);
-  const [mute, setMute] = useState({ result: false, data: null });
+  const [mute, setMute] = useState(false);
 
   useEffect(() => {
-    isExistLazy().then((response: any) => {
-      setMute(response);
-    });
+    isExistLazy().then((exist: boolean) => setMute(exist));
   }, [isExistLazy]);
 
   const handleOpen = () => {
@@ -35,7 +33,7 @@ const MuteButton = (props: any) => {
   };
 
   const handleRemove = () => {
-    removeHandler(mute.data)
+    removeHandler()
       .then(
         () => window.alert('ミュートを解除しました。') // eslint-disable-line
       )
@@ -44,7 +42,7 @@ const MuteButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {mute.result ? (
+      {mute ? (
         <div role="button" onClick={handleRemove}>
           <p style={{ textDecoration: 'underline' }}>ミュート解除</p>
         </div>

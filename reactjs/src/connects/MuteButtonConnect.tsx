@@ -1,33 +1,17 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import shortId from 'shortid';
 
-import firebase from '~/lib/firebase';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({}, dispatch);
+import * as firebase from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = state.user.target;
-  const myResourceId = user ? `/users/${user.id}` : null;
+  const myUserId = state.firebase.profile.shortId;
+  const targetUserId = user.shortId;
 
-  const isExistLazy = () =>
-    firebase
-      .firestore()
-      .doc(myResourceId!)
-      .get()
-      .then(doc => doc.data()!.muteList)
-      .then(list => list.filter((m: any) => m.userShortId === user.shortId))
-      .then(list => {
-        const result = list.length === 1;
-        const data = result ? list[0] : null;
-
-        return { result, data };
-      });
+  const resourceId = `/securities/${myUserId}/mutes/${targetUserId}`;
 
   const updateHandler = () => {
     const newData = {
-      id: shortId.generate(),
+      id: targetUserId,
       createdAt: new Date(),
       userId: user.id,
       userShortId: user.shortId,
@@ -35,27 +19,11 @@ const mapStateToProps = (state: any, props: any) => {
       userPhotoURL: user.photoURL
     };
 
-    const updateData = {
-      muteList: firebase.firestore.FieldValue.arrayUnion(newData),
-      createdAt: new Date()
-    };
-
-    return firebase
-      .firestore()
-      .doc(myResourceId!)
-      .update(updateData);
+    return firebase.create(resourceId, newData);
   };
 
-  const removeHandler = (data: any) => {
-    const updateData = {
-      muteList: firebase.firestore.FieldValue.arrayRemove(data)
-    };
-
-    return firebase
-      .firestore()
-      .doc(myResourceId!)
-      .update(updateData);
-  };
+  const isExistLazy = () => firebase.isExist(resourceId);
+  const removeHandler = () => firebase.remove(resourceId);
 
   return {
     updateHandler,
@@ -65,7 +33,4 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+export default connect(mapStateToProps);

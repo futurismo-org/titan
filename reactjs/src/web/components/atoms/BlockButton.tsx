@@ -11,12 +11,10 @@ import { withRouter } from 'react-router-dom';
 const BlockButton = (props: any) => {
   const { user, updateHandler, removeHandler, isExistLazy, history } = props;
   const [open, setOpen] = useState(false);
-  const [block, setBlock] = useState({ result: false, data: null });
+  const [block, setBlock] = useState(false);
 
   useEffect(() => {
-    isExistLazy().then((response: any) => {
-      setBlock(response);
-    });
+    isExistLazy().then((exist: boolean) => setBlock(exist));
   }, [isExistLazy]);
 
   const handleOpen = () => {
@@ -35,7 +33,7 @@ const BlockButton = (props: any) => {
   };
 
   const handleRemove = () => {
-    removeHandler(block.data)
+    removeHandler()
       .then(
         () => window.alert('ブロックを解除しました。') // eslint-disable-line
       )
@@ -44,7 +42,7 @@ const BlockButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {block.result ? (
+      {block ? (
         <div role="button" onClick={handleRemove}>
           <p style={{ textDecoration: 'underline', marginLeft: 10 }}>
             ブロック解除

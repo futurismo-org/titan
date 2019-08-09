@@ -10,9 +10,7 @@ import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
 
 import Progress from '../atoms/CircularProgress';
-
-import { deleteResource } from '~/lib/firebase';
-
+import * as firebase from '~/lib/firebase';
 import TopicFlag from '../atoms/TopicFlag';
 
 const Topic = (props: any) => {
@@ -45,7 +43,7 @@ const Topic = (props: any) => {
         {
           text: 'はい',
           onPress: () =>
-            deleteResource(resourceId).then(() => history.push(redirectPath))
+            firebase.remove(resourceId).then(() => history.push(redirectPath))
         },
         {
           text: 'いいえ',

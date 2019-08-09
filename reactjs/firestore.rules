@@ -23,6 +23,11 @@ service cloud.firestore {
       allow read;
       allow create,update,delete: if request.auth != null;
     }
+
+    match /securities/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
     
     match /users/{userID} {
       allow read;
