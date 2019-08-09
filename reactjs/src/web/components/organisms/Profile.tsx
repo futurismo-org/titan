@@ -8,8 +8,8 @@ import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
 import UserAvatar from '../atoms/UserAvatar';
 
-import MuteButton from '../atoms/MuteButton';
-import BlockButton from '../atoms/BlockButton';
+import MuteButton from '~/web/containers/MuteButtonContainer';
+import BlockButton from '~/web/containers/BlockButtonContainer';
 
 const Profile = (props: any) => {
   const {
@@ -19,8 +19,7 @@ const Profile = (props: any) => {
     error,
     loading,
     isMyProfile,
-    isLogin,
-    handleSensitiveListUpdate
+    isLogin
   } = props;
 
   useEffect(() => {
@@ -40,14 +39,8 @@ const Profile = (props: any) => {
           {isLogin && !isMyProfile && (
             <React.Fragment>
               <div style={{ marginTop: 20, display: 'flex' }}>
-                <MuteButton
-                  user={user}
-                  updateHandler={handleSensitiveListUpdate('mute')}
-                />
-                <BlockButton
-                  user={user}
-                  updateHandler={handleSensitiveListUpdate('block')}
-                />
+                <MuteButton user={user} />
+                <BlockButton user={user} />
               </div>
             </React.Fragment>
           )}
