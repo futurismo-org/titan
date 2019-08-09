@@ -92,7 +92,7 @@ ${url}`;
   };
 
   const resetRecord = (props: any) => {
-    const { score, histories, accDays } = props;
+    const { score, accDays } = props;
 
     const newScore = score - 3;
 
@@ -151,6 +151,9 @@ ${url}`;
         message="本当に記録をリセットしますか？"
         textCancel="キャンセル"
         textConfirm="リセット"
+        customStyles={{
+          message: { lineHeight: 15 }
+        }}
       />
       {isChallengeOpening(openedAt.toDate(), closedAt.toDate()) ? (
         <React.Fragment>

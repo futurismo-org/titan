@@ -6,8 +6,18 @@ import UserAvatar from '../atoms/UserAvatar';
 import { getTwitterProfileURL } from '~/lib/url';
 import TouchableText from '../atoms/TouchableText';
 
+import MuteButton from '~/native/containers/MuteButtonContainer';
+
 const Profile = (props: any) => {
-  const { fetchUserWithShortId, userShortId, user, error, loading } = props;
+  const {
+    fetchUserWithShortId,
+    userShortId,
+    user,
+    error,
+    loading,
+    isLogin,
+    isMyProfile
+  } = props;
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
@@ -38,6 +48,12 @@ const Profile = (props: any) => {
             </Button>
           )}
           <Text>コンテンツ準備中...</Text>
+          {isLogin && !isMyProfile && (
+            <View style={{ marginTop: 20, flex: 1, flexDirection: 'row' }}>
+              <MuteButton user={user} />
+              {/* <BlockButton user={user} /> */}
+            </View>
+          )}
         </View>
       )}
     </React.Fragment>

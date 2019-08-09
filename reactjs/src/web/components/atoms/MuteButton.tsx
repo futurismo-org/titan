@@ -9,7 +9,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withRouter } from 'react-router-dom';
 
 const MuteButton = (props: any) => {
-  const { user, updateHandler, removeHandler, isExistLazy, history } = props;
+  const {
+    user,
+    updateHandler,
+    removeHandler,
+    isExistLazy,
+    history,
+    location
+  } = props;
   const [open, setOpen] = useState(false);
   const [mute, setMute] = useState(false);
 
@@ -29,7 +36,7 @@ const MuteButton = (props: any) => {
     updateHandler()
       .then(() => window.alert('ミュートが完了しました。')) // eslint-disable-line
       .then(() => setOpen(false))
-      .then(() => history.push(window.location.pathname)); // eslint-disable-line
+      .then(() => history.push(location.pathname)); // eslint-disable-line
   };
 
   const handleRemove = () => {
@@ -37,7 +44,7 @@ const MuteButton = (props: any) => {
       .then(
         () => window.alert('ミュートを解除しました。') // eslint-disable-line
       )
-      .then(() => history.push(window.location.pathname)); // eslint-disable-line
+      .then(() => history.push(location.pathname)); // eslint-disable-line
   };
 
   return (
