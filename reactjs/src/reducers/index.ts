@@ -9,6 +9,8 @@ import categoryReducer from './categoryReducer';
 import topicReducer from './topicReducer';
 import giphyReducer from './gitphyReducer';
 import sensitiveReducer from './sensitiveReducer';
+import muteReducer from './muteReducer';
+import blockReducer from './blockReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -20,7 +22,9 @@ export const createRootReducer = (history: any) =>
     challenge: challengeReducer,
     category: categoryReducer,
     topic: topicReducer,
-    sensitive: sensitiveReducer
+    sensitive: sensitiveReducer,
+    mute: muteReducer,
+    block: blockReducer
   });
 
 export const createRootReducerForRN = () =>
@@ -31,5 +35,7 @@ export const createRootReducerForRN = () =>
     challenge: challengeReducer,
     category: categoryReducer,
     topic: topicReducer,
-    giphy: giphyReducer
+    giphy: giphyReducer,
+    mute: muteReducer,
+    block: blockReducer
   });
