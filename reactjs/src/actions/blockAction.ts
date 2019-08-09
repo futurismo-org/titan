@@ -14,6 +14,8 @@ export const fetchBlocksError = fetchError(FETCH_BLOCKS_ERROR);
 
 export const fetchBlockedUsers = (blockingUserId: string) => {
   return (dispatch: Dispatch) => {
+    if (!blockingUserId || blockingUserId === '') return;
+
     const resourceId = `/blocks`;
     dispatch(fetchBlocksRequest());
     firebase
@@ -31,6 +33,8 @@ export const fetchBlockedUsers = (blockingUserId: string) => {
 
 export const fetchBlockingUsers = (blockedUserId: string) => {
   return (dispatch: Dispatch) => {
+    if (!blockedUserId || blockedUserId === '') return;
+
     const resourceId = `/blocks`;
     dispatch(fetchBlocksRequest());
     firebase

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopic } from '~/actions/topicAction';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
+import { fetchBlockingUsers } from '~/actions/blockAction';
 
 import { collectionShort } from '../lib/url';
 
@@ -10,7 +11,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       fetchTopic,
       setOgpInfo,
-      resetOgpInfo
+      resetOgpInfo,
+      fetchBlockingUsers
     },
     dispatch
   );
@@ -46,10 +48,14 @@ const mapStateToProps = (state: any, props: any) => {
 
   const isCurrentUser =
     topic && currentUser && topic.userId === currentUser.shortId;
-
   const isLogin = !currentUser.isEmpty && currentUser.isLoaded;
-
   const allowSensitive = currentUser && currentUser.allowSensitive;
+
+  const myUserId = currentUser.shortId;
+
+  const blockingUsers = state.block.items;
+  const blockedUserIds = blockingUsers.map((item: any) => item.blockedUserId);
+  const blocked = blockedUserIds.includes(myUserId);
 
   return {
     topic,
@@ -64,6 +70,8 @@ const mapStateToProps = (state: any, props: any) => {
     collection,
     collectionId,
     allowSensitive,
+    blocked,
+    myUserId,
     ...props
   };
 };

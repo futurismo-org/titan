@@ -35,7 +35,10 @@ const Topic = (props: any) => {
     isLogin,
     collection,
     collectionId,
-    allowSensitive
+    allowSensitive,
+    blocked,
+    fetchBlockingUsers,
+    myUserId
   } = props;
 
   const title = useMemo(() => {
@@ -50,6 +53,7 @@ const Topic = (props: any) => {
 
   useEffect(() => {
     fetchTopic(resourceId);
+    fetchBlockingUsers(myUserId);
 
     setOgpInfo({
       title,
@@ -62,7 +66,9 @@ const Topic = (props: any) => {
     };
   }, [
     description,
+    fetchBlockingUsers,
     fetchTopic,
+    myUserId,
     resetOgpInfo,
     resourceId,
     setOgpInfo,
@@ -93,6 +99,13 @@ const Topic = (props: any) => {
               <Title text="センシティブな内容のあるコンテンツです" />
               <p>設定を変更</p>
             </NoStyledLink>
+          </Paper>
+        ) : blocked ? (
+          <Paper>
+            <Title text="表示をブロックしました" />
+            <p>
+              あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
+            </p>
           </Paper>
         ) : (
           <React.Fragment>
