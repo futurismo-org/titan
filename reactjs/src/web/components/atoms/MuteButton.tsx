@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -6,9 +6,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { withRouter } from 'react-router-dom';
+
 const MuteButton = (props: any) => {
-  const { user, updateHandler } = props;
+  const { user, updateHandler, removeHandler, isExistLazy, history } = props;
   const [open, setOpen] = useState(false);
+  const [mute, setMute] = useState({ result: false, data: null });
+
+  useEffect(() => {
+    isExistLazy().then((response: any) => {
+      setMute(response);
+    });
+  }, [isExistLazy]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -20,15 +29,36 @@ const MuteButton = (props: any) => {
 
   const handleUpdate = () => {
     updateHandler()
-      .then(() => window.alert('設定が完了しました。')) // eslint-disable-line
-      .then(() => setOpen(false));
+      .then(() => window.alert('ミュートが完了しました。')) // eslint-disable-line
+      .then(() => setOpen(false))
+      .then(() => {
+        const current = window.location.pathname; // eslint-disable-line
+        history.push(current);
+      });
+  };
+
+  const handleRemove = () => {
+    removeHandler(mute.data)
+      .then(
+        () => window.alert('ミュートを解除しました。') // eslint-disable-line
+      )
+      .then(() => {
+        const current = window.location.pathname; // eslint-disable-line
+        history.push(current);
+      });
   };
 
   return (
     <React.Fragment>
-      <div role="button" onClick={handleOpen}>
-        <p style={{ textDecoration: 'underline' }}>ミュート</p>
-      </div>
+      {mute.result ? (
+        <div role="button" onClick={handleRemove}>
+          <p style={{ textDecoration: 'underline' }}>ミュート解除</p>
+        </div>
+      ) : (
+        <div role="button" onClick={handleOpen}>
+          <p style={{ textDecoration: 'underline' }}>ミュート</p>
+        </div>
+      )}
       <Dialog
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -61,4 +91,4 @@ const MuteButton = (props: any) => {
   );
 };
 
-export default MuteButton;
+export default withRouter(MuteButton);
