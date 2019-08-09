@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MuteButton = (props: any) => {
-  const { user } = props;
+  const { user, updateHandler } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -19,7 +19,9 @@ const MuteButton = (props: any) => {
   };
 
   const handleUpdate = () => {
-    setOpen(false);
+    updateHandler()
+      .then(() => window.alert('設定が完了しました。')) // eslint-disable-line
+      .then(() => setOpen(false));
   };
 
   return (

@@ -19,7 +19,8 @@ const Profile = (props: any) => {
     error,
     loading,
     isMyProfile,
-    isLogin
+    isLogin,
+    handleSensitiveListUpdate
   } = props;
 
   useEffect(() => {
@@ -39,8 +40,14 @@ const Profile = (props: any) => {
           {isLogin && !isMyProfile && (
             <React.Fragment>
               <div style={{ marginTop: 20, display: 'flex' }}>
-                <MuteButton user={user} />
-                <BlockButton user={user} />
+                <MuteButton
+                  user={user}
+                  updateHandler={handleSensitiveListUpdate('mute')}
+                />
+                <BlockButton
+                  user={user}
+                  updateHandler={handleSensitiveListUpdate('bloc')}
+                />
               </div>
             </React.Fragment>
           )}

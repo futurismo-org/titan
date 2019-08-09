@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const BlockButton = (props: any) => {
-  const { user } = props;
+  const { user, updateHandler } = props;
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -19,13 +19,15 @@ const BlockButton = (props: any) => {
   };
 
   const handleUpdate = () => {
-    setOpen(false);
+    updateHandler()
+      .then(() => window.alert('設定が完了しました。')) // eslint-disable-line
+      .then(() => setOpen(false));
   };
 
   return (
     <React.Fragment>
       <div role="button" onClick={handleOpen}>
-        <p style={{ textDecoration: 'underline', marginLeft: 10 }}>ブロック</p>
+        <p style={{ textDecoration: 'underline' }}>ブロック</p>
       </div>
       <Dialog
         aria-labelledby="simple-modal-title"
