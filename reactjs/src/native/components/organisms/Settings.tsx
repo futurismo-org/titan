@@ -33,7 +33,7 @@ const Settings = (props: any) => {
 
   return (
     <React.Fragment>
-      <Title text="ユーザ設定" />
+      <Title text="設定" />
       {isLogin ? (
         <Form>
           <Item>
