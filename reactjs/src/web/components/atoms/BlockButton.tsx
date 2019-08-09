@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -6,9 +6,18 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { withRouter } from 'react-router-dom';
+
 const BlockButton = (props: any) => {
-  const { user, updateHandler } = props;
+  const { user, updateHandler, removeHandler, isExistLazy, history } = props;
   const [open, setOpen] = useState(false);
+  const [block, setBlock] = useState({ result: false, data: null });
+
+  useEffect(() => {
+    isExistLazy().then((response: any) => {
+      setBlock(response);
+    });
+  }, [isExistLazy]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -20,15 +29,34 @@ const BlockButton = (props: any) => {
 
   const handleUpdate = () => {
     updateHandler()
-      .then(() => window.alert('設定が完了しました。')) // eslint-disable-line
-      .then(() => setOpen(false));
+      .then(() => window.alert('ブロックが完了しました。')) // eslint-disable-line
+      .then(() => setOpen(false))
+      .then(() => history.push(window.location.pathname)); // eslint-disable-line
+  };
+
+  const handleRemove = () => {
+    removeHandler(block.data)
+      .then(
+        () => window.alert('ブロックを解除しました。') // eslint-disable-line
+      )
+      .then(() => history.push(window.location.pathname)); // eslint-disable-line
   };
 
   return (
     <React.Fragment>
-      <div role="button" onClick={handleOpen}>
-        <p style={{ textDecoration: 'underline', marginLeft: 10 }}>ブロック</p>
-      </div>
+      {block.result ? (
+        <div role="button" onClick={handleRemove}>
+          <p style={{ textDecoration: 'underline', marginLeft: 10 }}>
+            ブロック解除
+          </p>
+        </div>
+      ) : (
+        <div role="button" onClick={handleOpen}>
+          <p style={{ textDecoration: 'underline', marginLeft: 10 }}>
+            ブロック
+          </p>
+        </div>
+      )}
       <Dialog
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
@@ -61,4 +89,4 @@ const BlockButton = (props: any) => {
   );
 };
 
-export default BlockButton;
+export default withRouter(BlockButton);
