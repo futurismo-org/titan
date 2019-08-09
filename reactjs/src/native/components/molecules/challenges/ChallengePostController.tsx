@@ -77,7 +77,7 @@ const ChallengePostController = (props: any) => {
       .update(updateData)
       .then(() => showGiphy('win'))
       .then(() => {
-        const url = `https://titan-fire.com${getUserDashboardPath(
+        const url = `https://titan-fire.com/#${getUserDashboardPath(
           challenge.id,
           participant.id
         )}`;
@@ -125,7 +125,7 @@ ${url}`;
       //   successToastWithNoRedirect('リセットしました');
       // })
       .then(() => {
-        const url = `https://titan-fire.com${getUserDashboardPath(
+        const url = `https://titan-fire.com/#${getUserDashboardPath(
           challenge.id,
           participant.id
         )}`;

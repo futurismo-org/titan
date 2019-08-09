@@ -16,6 +16,10 @@
         "function": "api"
       },
       {
+        "source": "/topics/*",
+        "function": "api"
+      },
+      {
         "source": "/c/*/overview",
         "function": "api"
       },

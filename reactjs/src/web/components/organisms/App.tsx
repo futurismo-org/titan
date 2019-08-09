@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
 import { store, history } from '~/web/store';
@@ -23,14 +22,14 @@ const App = () => {
   return (
     <React.Fragment>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
+        <Router>
           <Head />
           <GlobalStyle />
           <Switch>
             <AdminRoute path="/admin" component={Admin} />
             <Route path="/" component={Home} />
           </Switch>
-        </ConnectedRouter>
+        </Router>
       </Provider>
     </React.Fragment>
   );

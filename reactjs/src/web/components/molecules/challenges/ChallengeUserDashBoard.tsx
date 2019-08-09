@@ -44,7 +44,7 @@ const ChallengeUserDashBoard = (props: any) => {
   const title = user ? `${user.displayName} さんの記録` : '';
   const description = `現在、${challenge.title}に参加中。`;
   const url = user
-    ? `https://titan-fire.com/c/${challenge.id} /u/${user.id}`
+    ? `https://titan-fire.com/c/${challenge.id}/u/${user.id}`
     : 'https://titan-fire.com';
 
   React.useEffect(() => {

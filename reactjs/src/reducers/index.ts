@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
-import { connectRouter } from 'connected-react-router';
 import userReducer from './userReducer';
 import ogpReducer from './ogpReducer';
 import challengeReducer from './challengeReducer';
@@ -16,7 +15,6 @@ export const createRootReducer = (history: any) =>
     firestore: firestoreReducer,
     user: userReducer,
     ogp: ogpReducer,
-    router: connectRouter(history),
     challenge: challengeReducer,
     category: categoryReducer,
     topic: topicReducer,
