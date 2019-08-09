@@ -7,6 +7,7 @@ import { getTwitterProfileURL } from '~/lib/url';
 import TouchableText from '../atoms/TouchableText';
 
 import MuteButton from '~/native/containers/MuteButtonContainer';
+import BlockButton from '~/native/containers/BlockButtonContainer';
 
 const Profile = (props: any) => {
   const {
@@ -51,7 +52,9 @@ const Profile = (props: any) => {
           {isLogin && !isMyProfile && (
             <View style={{ marginTop: 20, flex: 1, flexDirection: 'row' }}>
               <MuteButton user={user} />
-              {/* <BlockButton user={user} /> */}
+              <View style={{ marginLeft: 10 }}>
+                <BlockButton user={user} />
+              </View>
             </View>
           )}
         </View>

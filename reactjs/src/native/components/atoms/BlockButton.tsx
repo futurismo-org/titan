@@ -16,7 +16,7 @@ const MuteButton = (props: any) => {
   } = props;
 
   const [alert, setAlert] = useState();
-  const [mute, setMute] = useState(false);
+  const [block, setBlock] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -25,7 +25,7 @@ const MuteButton = (props: any) => {
       const exist = await handler();
 
       if (mounted) {
-        setMute(exist);
+        setBlock(exist);
       }
     };
 
@@ -46,7 +46,7 @@ const MuteButton = (props: any) => {
 
   const handleUpdate = () => {
     updateHandler()
-      .then(() => successToastWithNoRedirect('ミュートが完了しました。'))
+      .then(() => successToastWithNoRedirect('ブロックが完了しました。'))
       .then(() => alert.close())
       .then(() => {
         const path = location.pathname;
@@ -57,7 +57,7 @@ const MuteButton = (props: any) => {
 
   const handleRemove = () => {
     removeHandler()
-      .then(() => successToastWithNoRedirect('ミュートを解除しました。'))
+      .then(() => successToastWithNoRedirect('ブロックを解除しました。'))
       .then(() => {
         const path = location.pathname;
         history.push('/');
@@ -67,17 +67,17 @@ const MuteButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {mute ? (
-        <TouchableText text="ミュート解除" handler={handleRemove} underline />
+      {block ? (
+        <TouchableText text="ブロック解除" handler={handleRemove} underline />
       ) : (
-        <TouchableText text="ミュート" handler={handleOpen} underline />
+        <TouchableText text="ブロック" handler={handleOpen} underline />
       )}
       <AlertPro
         ref={(ref: any) => setAlert(ref)}
         onConfirm={handleUpdate}
         onCancel={handleClose}
-        title={`${user.displayName}さんをミュートしますか？`}
-        message="ミュートすると、そのユーザの投稿は表示されなくなります。"
+        title={`${user.displayName}さんをブロックしますか？`}
+        message="ブロックすると、そのユーザはあなたの投稿がみれなくなります。"
         textCancel="いいえ"
         textConfirm="はい"
         customStyles={{
