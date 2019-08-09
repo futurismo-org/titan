@@ -5,6 +5,7 @@ import Title from '../atoms/Title';
 
 import TopicList from './TopicList';
 import Progress from '../atoms/CircularProgress';
+import { fetchMutes } from '~/actions/securityAction';
 
 const Topics = (props: any) => {
   const {
@@ -15,12 +16,15 @@ const Topics = (props: any) => {
     postButtonPath,
     fetchTopics,
     topicPath,
-    allowSensitive
+    allowSensitive,
+    fetchMutes,
+    myUserId
   } = props;
 
   React.useEffect(() => {
     fetchTopics(resourceId);
-  }, [fetchTopics, resourceId]);
+    fetchMutes(myUserId);
+  }, [fetchMutes, fetchTopics, myUserId, resourceId]);
 
   return (
     <React.Fragment>
