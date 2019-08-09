@@ -3,11 +3,11 @@ import Error from '../atoms/Error';
 import BlockList from '../atoms/BlockList';
 
 const Blocks = (props: any) => {
-  const { blocks, loading, error, fetchBlocks, myUserId } = props;
+  const { blocks, loading, error, fetchBlockedUsers, myUserId } = props;
 
   useEffect(() => {
-    fetchBlocks(myUserId);
-  }, [fetchBlocks, myUserId]);
+    fetchBlockedUsers(myUserId);
+  }, [fetchBlockedUsers, myUserId]);
 
   return (
     <React.Fragment>

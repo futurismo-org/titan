@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchBlocks } from '~/actions/blockAction';
+import { fetchBlockedUsers } from '~/actions/blockAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchBlocks
+      fetchBlockedUsers
     },
     dispatch
   );

@@ -17,13 +17,15 @@ const Topics = (props: any) => {
     topicPath,
     allowSensitive,
     fetchMutes,
-    myUserId
+    myUserId,
+    fetchBlockingUsers
   } = props;
 
   React.useEffect(() => {
     fetchTopics(resourceId);
     fetchMutes(myUserId);
-  }, [fetchMutes, fetchTopics, myUserId, resourceId]);
+    fetchBlockingUsers(myUserId);
+  }, [fetchBlockingUsers, fetchMutes, fetchTopics, myUserId, resourceId]);
 
   return (
     <React.Fragment>

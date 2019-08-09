@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopics } from '~/actions/topicAction';
 import { fetchMutes } from '~/actions/muteAction';
+import { fetchBlockingUsers } from '~/actions/blockAction';
 
 import { collectionShort, getTopicPath } from '../lib/url';
 
@@ -9,7 +10,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchTopics,
-      fetchMutes
+      fetchMutes,
+      fetchBlockingUsers
     },
     dispatch
   );
@@ -34,16 +36,19 @@ const mapStateToProps = (state: any, props: any) => {
 
   const mutes = state.mute.items;
   const muteUserIds = mutes.map((mute: any) => mute.id);
+  const blockingUsers = state.block.items;
+  const blockingUserIds = blockingUsers.map((item: any) => item.blockingUserId);
+  const myUserId = state.firebase.profile.shortId;
+
   const topics = state.topic.items
     .filter((topic: any) => !topic.banned)
-    .filter((topic: any) => !muteUserIds.includes(topic.userId));
-
-  const myUserId = state.firebase.profile.shortId;
+    .filter((topic: any) => !muteUserIds.includes(topic.userId))
+    .filter((topic: any) => !blockingUserIds.includes(topic.userId));
 
   return {
     topics,
-    loading: state.topic.loading || state.mute.loading,
-    error: state.topic.error || state.mute.error,
+    loading: state.topic.loading || state.mute.loading || state.block.loading,
+    error: state.topic.error || state.mute.error || state.block.error,
     resourceId,
     postButtonPath,
     topicPath,
