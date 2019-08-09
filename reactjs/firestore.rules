@@ -24,7 +24,12 @@ service cloud.firestore {
       allow create,update,delete: if request.auth != null;
     }
 
-    match /securities/{id=**} {
+    match /mutes/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
+
+    match /blocks/{id=**} {
       allow read;
       allow create,update,delete: if request.auth != null;
     }

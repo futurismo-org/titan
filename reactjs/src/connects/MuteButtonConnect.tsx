@@ -7,7 +7,7 @@ const mapStateToProps = (state: any, props: any) => {
   const myUserId = state.firebase.profile.shortId;
   const targetUserId = user.shortId;
 
-  const resourceId = `/securities/${myUserId}/mutes/${targetUserId}`;
+  const resourceId = `/mutes/${myUserId}/users/${targetUserId}`;
 
   const updateHandler = () => {
     const newData = {

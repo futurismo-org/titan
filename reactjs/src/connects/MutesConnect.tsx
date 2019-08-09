@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchMutes } from '~/actions/securityAction';
+import { fetchMutes } from '~/actions/muteAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(

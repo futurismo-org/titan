@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchTopics } from '~/actions/topicAction';
-import { fetchMutes } from '~/actions/securityAction';
+import { fetchMutes } from '~/actions/muteAction';
 
 import { collectionShort, getTopicPath } from '../lib/url';
 
