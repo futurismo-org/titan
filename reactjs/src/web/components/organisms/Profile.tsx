@@ -46,7 +46,7 @@ const Profile = (props: any) => {
                 />
                 <BlockButton
                   user={user}
-                  updateHandler={handleSensitiveListUpdate('bloc')}
+                  updateHandler={handleSensitiveListUpdate('block')}
                 />
               </div>
             </React.Fragment>

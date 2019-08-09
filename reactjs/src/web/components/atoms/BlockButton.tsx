@@ -27,7 +27,7 @@ const BlockButton = (props: any) => {
   return (
     <React.Fragment>
       <div role="button" onClick={handleOpen}>
-        <p style={{ textDecoration: 'underline' }}>ブロック</p>
+        <p style={{ textDecoration: 'underline', marginLeft: 10 }}>ブロック</p>
       </div>
       <Dialog
         aria-labelledby="simple-modal-title"
