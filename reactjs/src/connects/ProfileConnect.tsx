@@ -21,7 +21,7 @@ const mapStateToProps = (state: any, props: any) => {
   const isLogin = !profile.isEmpty && profile.isLoaded;
   const isMyProfile = profile.shortId === userShortId;
 
-  const myResourceId = user ? `/users/${user.id}` : '';
+  const myResourceId = user ? `/users/${user.id}` : null;
 
   const handleSensitiveListUpdate = (type: 'mute' | 'block') => () => {
     const newData = {
@@ -35,17 +35,26 @@ const mapStateToProps = (state: any, props: any) => {
 
     const updateData =
       type === 'mute'
-        ? {
-            muteList: firebase.firestore.FieldValue.arrayUnion(newData)
-          } && { createdAt: new Date() }
-        : {
-            blockList: firebase.firestore.FieldValue.arrayUnion(newData)
-          } && { createdAt: new Date() };
+        ? Object.assign(
+            {
+              muteList: firebase.firestore.FieldValue.arrayUnion(newData)
+            },
+            { createdAt: new Date() }
+          )
+        : Object.assign(
+            {
+              blockList: firebase.firestore.FieldValue.arrayUnion(newData)
+            },
+            { createdAt: new Date() }
+          );
 
-    return firebase
-      .firestore()
-      .doc(myResourceId)
-      .update(updateData);
+    return (
+      myResourceId &&
+      firebase
+        .firestore()
+        .doc(myResourceId)
+        .update(updateData)
+    );
   };
 
   return {
