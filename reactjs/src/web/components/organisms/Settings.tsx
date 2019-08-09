@@ -6,6 +6,9 @@ import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 import { primaryColor } from '~/lib/theme';
 
+import Mutes from '~/web/containers/MutesContainer';
+import Blocks from '~/web/containers/BlocksContainer';
+
 const Settings = (props: any) => {
   const { user, updateHandler, isLogin } = props;
 
@@ -91,7 +94,9 @@ const Settings = (props: any) => {
               style={{ color: primaryColor }}
             />
             <p>ミュートしているユーザ</p>
+            <Mutes />
             <p>ブロックしているユーザ</p>
+            <Blocks />
           </Paper>
           <br />
           <Paper>
