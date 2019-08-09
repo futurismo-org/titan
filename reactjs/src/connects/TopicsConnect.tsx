@@ -30,8 +30,10 @@ const mapStateToProps = (state: any, props: any) => {
   const allowSensitive =
     !state.firebase.profile.isEmpty && state.firebase.profile.allowSensitive;
 
+  const topics = state.topic.items.filter((topic: any) => !topic.banned);
+
   return {
-    topics: state.topic.items,
+    topics,
     loading: state.topic.loading,
     error: state.topic.error,
     resourceId,

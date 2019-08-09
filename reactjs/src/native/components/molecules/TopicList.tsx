@@ -39,12 +39,9 @@ const TopicList = (props: any) => {
   const { topics, limit } = props;
   return (
     <List>
-      {topics
-        .slice(0, limit)
-        .filter((topic: any) => !topic.banned)
-        .map((topic: any) => (
-          <TopicListItem topic={topic} {...props} key={topic.id} />
-        ))}
+      {topics.slice(0, limit).map((topic: any) => (
+        <TopicListItem topic={topic} {...props} key={topic.id} />
+      ))}
     </List>
   );
 };
