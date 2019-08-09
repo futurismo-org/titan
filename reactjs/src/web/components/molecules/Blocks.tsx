@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Error from '../atoms/Error';
-import SecurityList from '../atoms/SecurityList';
+import BlockList from '../atoms/BlockList';
 
 const Blocks = (props: any) => {
   const { blocks, loading, error, fetchBlocks, myUserId } = props;
@@ -13,7 +13,7 @@ const Blocks = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && blocks && <SecurityList items={blocks} />}
+      {!loading && blocks && <BlockList blocks={blocks} />}
     </React.Fragment>
   );
 };

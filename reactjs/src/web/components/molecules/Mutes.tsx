@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Error from '../atoms/Error';
-import SecurityList from '../atoms/SecurityList';
+import MuteList from '../atoms/MuteList';
 
 const Mutes = (props: any) => {
   const { mutes, loading, error, fetchMutes, myUserId } = props;
@@ -13,7 +13,7 @@ const Mutes = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && mutes && <SecurityList items={mutes} />}
+      {!loading && mutes && <MuteList items={mutes} />}
     </React.Fragment>
   );
 };

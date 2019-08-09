@@ -5,7 +5,6 @@ import Title from '../atoms/Title';
 
 import TopicList from './TopicList';
 import Progress from '../atoms/CircularProgress';
-import { fetchMutes } from '~/actions/muteAction';
 
 const Topics = (props: any) => {
   const {

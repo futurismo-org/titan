@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchBlocks } from '~/actions/securityAction';
+import { fetchBlocks } from '~/actions/blockAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(

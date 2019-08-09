@@ -10,7 +10,7 @@ import {
 import { formatDatetime } from '~/lib/moment';
 import UserAvatar from './UserAvatar';
 
-const SecurityList = (props: any) => {
+const MuteList = (props: any) => {
   const { items } = props;
   return (
     <Grid container spacing={2}>
@@ -36,4 +36,4 @@ const SecurityList = (props: any) => {
   );
 };
 
-export default SecurityList;
+export default MuteList;

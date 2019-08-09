@@ -2,20 +2,24 @@ import { connect } from 'react-redux';
 import * as firebase from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
-  const user = state.user.target;
-  const myUserId = state.firebase.profile.shortId;
-  const targetUserId = user.shortId;
+  const blockedUser = state.user.target;
+  const blockingUser = state.firebase.profile;
+  const blockingUserId = blockingUser.shortId;
+  const blockedUserId = blockedUser.shortId;
 
-  const resourceId = `/securities/${myUserId}/blocks/${targetUserId}`;
+  const id = `${blockingUserId}_${blockedUserId}`;
+  const resourceId = `/blocks/${id}`;
 
   const updateHandler = () => {
     const newData = {
-      id: targetUserId,
+      id,
       createdAt: new Date(),
-      userId: user.id,
-      userShortId: user.shortId,
-      userDisplayName: user.displayName,
-      userPhotoURL: user.photoURL
+      blockingUserId: blockingUserId,
+      blockedUserId: blockedUserId,
+      blockingUserDisplayName: blockingUser.displayName,
+      blockingUserPhotoURL: blockingUser.photoURL,
+      blockedUserDisplayName: blockedUser.displayName,
+      blockedUserPhotoURL: blockedUser.photoURL
     };
 
     return firebase.create(resourceId, newData);
