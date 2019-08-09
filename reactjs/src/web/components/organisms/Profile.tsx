@@ -19,33 +19,48 @@ const Profile = (props: any) => {
     error,
     loading,
     isMyProfile,
-    isLogin
+    isLogin,
+    myUserId,
+    fetchBlockingUsers,
+    blocked
   } = props;
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
-  }, [fetchUserWithShortId, userShortId]);
+    fetchBlockingUsers(myUserId);
+  }, [fetchBlockingUsers, fetchUserWithShortId, myUserId, userShortId]);
 
   return (
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && user && (
-        <Paper>
-          <Title text={`${user.displayName}さんのプロフィール`} />
-          <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
-          {!!user.twitterUsername && <Follow username={user.twitterUsername} />}
-          <p>コンテンツ準備中...</p>
-          {isLogin && !isMyProfile && (
-            <React.Fragment>
-              <div style={{ marginTop: 20, display: 'flex' }}>
-                <MuteButton user={user} />
-                <BlockButton user={user} />
-              </div>
-            </React.Fragment>
-          )}
-        </Paper>
-      )}
+      {!loading &&
+        user &&
+        (blocked ? (
+          <Paper>
+            <Title text="表示をブロックしました" />
+            <p>
+              あなたはこのユーザからブロックされているため、プロフィールを閲覧できません。
+            </p>
+          </Paper>
+        ) : (
+          <Paper>
+            <Title text={`${user.displayName}さんのプロフィール`} />
+            <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
+            {!!user.twitterUsername && (
+              <Follow username={user.twitterUsername} />
+            )}
+            <p>コンテンツ準備中...</p>
+            {isLogin && !isMyProfile && (
+              <React.Fragment>
+                <div style={{ marginTop: 20, display: 'flex' }}>
+                  <MuteButton user={user} />
+                  <BlockButton user={user} />
+                </div>
+              </React.Fragment>
+            )}
+          </Paper>
+        ))}
     </React.Fragment>
   );
 };
