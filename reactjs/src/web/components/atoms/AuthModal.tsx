@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import shortid from 'shortid';
 import * as firebaseui from 'firebaseui';
 
-import firebase, { uploadToStorage } from '~/lib/firebase';
+import firebase, { uploadPhotoURLAsync } from '~/lib/firebase';
 import theme from '~/lib/theme';
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
 
@@ -87,7 +87,7 @@ const AuthModal = (props: any) => {
               .set(dataSecure)
               .then(() => {
                 if (data.photoURL && data.photoURL !== '') {
-                  uploadToStorage(
+                  uploadPhotoURLAsync(
                     data.photoURL,
                     data.shortId,
                     `/users/${data.id}`
