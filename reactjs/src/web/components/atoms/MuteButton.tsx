@@ -6,17 +6,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { withRouter } from 'react-router-dom';
-
 const MuteButton = (props: any) => {
-  const {
-    user,
-    updateHandler,
-    removeHandler,
-    isExistLazy,
-    history,
-    location
-  } = props;
+  const { user, updateHandler, removeHandler, isExistLazy } = props;
   const [open, setOpen] = useState(false);
   const [mute, setMute] = useState(false);
 
@@ -47,14 +38,7 @@ const MuteButton = (props: any) => {
   };
 
   const handleUpdate = () => {
-    updateHandler()
-      .then(() => window.alert('ミュートが完了しました。')) // eslint-disable-line
-      .then(() => setOpen(false))
-      .then(() => {
-        const path = location.pathname; // eslint-disable-line
-        history.push('/');
-        history.push(path);
-      });
+    updateHandler().then(() => window.alert('ミュートが完了しました。')); // eslint-disable-line
   };
 
   const handleRemove = () => {
@@ -62,11 +46,7 @@ const MuteButton = (props: any) => {
       .then(
         () => window.alert('ミュートを解除しました。') // eslint-disable-line
       )
-      .then(() => {
-        const path = location.pathname; // eslint-disable-line
-        history.push('/');
-        history.push(path);
-      });
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
@@ -112,4 +92,4 @@ const MuteButton = (props: any) => {
   );
 };
 
-export default withRouter(MuteButton);
+export default MuteButton;

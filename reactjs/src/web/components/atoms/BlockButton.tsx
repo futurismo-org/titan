@@ -6,16 +6,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { withRouter } from 'react-router-dom';
-
 const BlockButton = (props: any) => {
-  const { user, updateHandler, removeHandler, isExistLazy, history } = props;
+  const { user, updateHandler, removeHandler, isExistLazy } = props;
   const [open, setOpen] = useState(false);
   const [block, setBlock] = useState(false);
-
-  useEffect(() => {
-    isExistLazy().then((exist: boolean) => setBlock(exist));
-  }, [isExistLazy]);
 
   useEffect(() => {
     let mounted = true;
@@ -46,12 +40,7 @@ const BlockButton = (props: any) => {
   const handleUpdate = () => {
     updateHandler()
       .then(() => window.alert('ブロックが完了しました。')) // eslint-disable-line
-      .then(() => setOpen(false))
-      .then(() => {
-        const path = location.pathname; // eslint-disable-line
-        history.push('/');
-        history.push(path);
-      });
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   const handleRemove = () => {
@@ -59,11 +48,7 @@ const BlockButton = (props: any) => {
       .then(
         () => window.alert('ブロックを解除しました。') // eslint-disable-line
       )
-      .then(() => {
-        const path = location.pathname; // eslint-disable-line
-        history.push('/');
-        history.push(path);
-      });
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
@@ -113,4 +98,4 @@ const BlockButton = (props: any) => {
   );
 };
 
-export default withRouter(BlockButton);
+export default BlockButton;

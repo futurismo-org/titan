@@ -6,14 +6,7 @@ import { successToastWithNoRedirect } from './Toast';
 import TouchableText from './TouchableText';
 
 const MuteButton = (props: any) => {
-  const {
-    user,
-    updateHandler,
-    removeHandler,
-    isExistLazy,
-    history,
-    location
-  } = props;
+  const { user, updateHandler, removeHandler, isExistLazy, location } = props;
 
   const [alert, setAlert] = useState();
   const [block, setBlock] = useState(false);
@@ -49,9 +42,7 @@ const MuteButton = (props: any) => {
       .then(() => successToastWithNoRedirect('ブロックが完了しました。'))
       .then(() => alert.close())
       .then(() => {
-        const path = location.pathname;
-        history.push('/');
-        history.push(path);
+        location.href = location.pathname;
       });
   };
 
@@ -59,9 +50,7 @@ const MuteButton = (props: any) => {
     removeHandler()
       .then(() => successToastWithNoRedirect('ブロックを解除しました。'))
       .then(() => {
-        const path = location.pathname;
-        history.push('/');
-        history.push(path);
+        location.href = location.pathname;
       });
   };
 
