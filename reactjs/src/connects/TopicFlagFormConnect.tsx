@@ -18,7 +18,7 @@ const mapStateToProps = (state: any, props: any) => {
     data: any
   ) => {
     const path = getTopicPath(topic.id, collectionType, collectionId);
-    const url = `https://titan-fire.com${path}`;
+    const url = `https://titan-fire.com/#${path}`;
 
     const params = {
       url,

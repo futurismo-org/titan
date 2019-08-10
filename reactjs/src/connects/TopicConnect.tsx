@@ -39,7 +39,7 @@ const mapStateToProps = (state: any, props: any) => {
   const shareURL =
     collection === 'general'
       ? `https://titan-fire.com/topics/${topicId}`
-      : `httc/titan-fire.com/${collectionShort(
+      : `https://titan-fire.com/${collectionShort(
           collection
         )}/${collectionId}/t/${topicId}`;
 

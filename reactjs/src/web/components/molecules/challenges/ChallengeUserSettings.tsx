@@ -11,6 +11,7 @@ import {
   Grid
 } from '@material-ui/core';
 
+import { withRouter } from 'react-router-dom';
 import firebase from '~/lib/firebase';
 
 import Progress from '../../atoms/CircularProgress';
@@ -24,10 +25,10 @@ const ChallengeUserSettings = (props: any) => {
     resourceId,
     redirectPath,
     fetchUser,
-    push,
     error,
     loading,
-    isLogin
+    isLogin,
+    history
   } = props;
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const ChallengeUserSettings = (props: any) => {
     db.doc(resourceId)
       .update(newData)
       .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .then(() => push(redirectPath))
+      .then(() => history.push(redirectPath))
       .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
   };
 
@@ -152,4 +153,4 @@ const ChallengeUserSettings = (props: any) => {
   );
 };
 
-export default ChallengeUserSettings;
+export default withRouter(ChallengeUserSettings);

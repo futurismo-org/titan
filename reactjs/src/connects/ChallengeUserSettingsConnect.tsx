@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { push } from 'connected-react-router';
 import { getParticipantsUserId } from '~/lib/resource';
 import { fetchUser } from '~/actions/userAction';
 import { getUserDashboardPath } from '~/lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchUser, push }, dispatch);
+  bindActionCreators({ fetchUser }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { profile } = state.firebase;

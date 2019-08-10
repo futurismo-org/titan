@@ -3,7 +3,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 import { createRootReducer } from '~/reducers';
 import firebase from '~/lib/firebase';
@@ -15,10 +14,7 @@ const rrfConfig = {
 
 export const history = createBrowserHistory();
 
-const middlewares = [
-  thunk.withExtraArgument({ getFirebase, getFirestore }),
-  routerMiddleware(history)
-];
+const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
 const middlewareEnhancer = applyMiddleware(...middlewares);
 const storeEnhancers = [middlewareEnhancer];
 
