@@ -38,7 +38,9 @@ const MuteButton = (props: any) => {
   };
 
   const handleUpdate = () => {
-    updateHandler().then(() => window.alert('ミュートが完了しました。')); // eslint-disable-line
+    updateHandler()
+      .then(() => window.alert('ミュートが完了しました。')) // eslint-disable-line
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   const handleRemove = () => {
