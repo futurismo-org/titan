@@ -36,6 +36,7 @@ const ChallengeLeaderBoard = (props: any) => {
         <ConditionalTableCell>大会連続</ConditionalTableCell>
         <ConditionalTableCell>最長</ConditionalTableCell>
         <ConditionalTableCell>過去連続</ConditionalTableCell>
+        <ConditionalTableCell>投稿数</ConditionalTableCell>
         <ConditionalTableCell>最新</ConditionalTableCell>
       </TableRow>
     </TableHead>
@@ -73,6 +74,9 @@ const ChallengeLeaderBoard = (props: any) => {
                 <ConditionalTableCell>{user.maxDays}</ConditionalTableCell>
                 <ConditionalTableCell>
                   {user.pastDays || user.days}
+                </ConditionalTableCell>
+                <ConditionalTableCell>
+                  {user.histories.length}
                 </ConditionalTableCell>
                 <ConditionalTableCell>{user.latest}</ConditionalTableCell>
               </TableRow>

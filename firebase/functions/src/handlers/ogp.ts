@@ -52,7 +52,12 @@ exports.dashboard = (req: any, res: any) => {
         res.status(404).end('404 Not Found');
         return;
       }
+
       const userItem = doc.data();
+      if (!userItem) {
+        res.status(404).end('404 Not Found');
+        return;
+      }
 
       const userName = userItem ? userItem.displayName : 'Annonymous';
       const challengeName = userItem ? userItem.challengeName : '';
