@@ -11,12 +11,12 @@ import { formatDatetime } from '~/lib/moment';
 import UserAvatar from './UserAvatar';
 
 const BlockList = (props: any) => {
-  const { blocks } = props;
+  const { items } = props;
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
         <List dense>
-          {blocks.map((item: any) => (
+          {items.map((item: any) => (
             <ListItem key={item.id}>
               <ListItemAvatar>
                 <UserAvatar

@@ -21,7 +21,21 @@ const MuteButton = (props: any) => {
   const [mute, setMute] = useState(false);
 
   useEffect(() => {
-    isExistLazy().then((exist: boolean) => setMute(exist));
+    let mounted = true;
+
+    const getIsExist = async (handler: any) => {
+      const exist = await handler();
+
+      if (mounted) {
+        setMute(exist);
+      }
+    };
+
+    getIsExist(isExistLazy);
+
+    return () => {
+      mounted = false;
+    };
   }, [isExistLazy]);
 
   const handleOpen = () => {
@@ -36,7 +50,11 @@ const MuteButton = (props: any) => {
     updateHandler()
       .then(() => window.alert('ミュートが完了しました。')) // eslint-disable-line
       .then(() => setOpen(false))
-      .then(() => history.push(location.pathname)); // eslint-disable-line
+      .then(() => {
+        const path = location.pathname; // eslint-disable-line
+        history.push('/');
+        history.push(path);
+      });
   };
 
   const handleRemove = () => {
@@ -44,7 +62,11 @@ const MuteButton = (props: any) => {
       .then(
         () => window.alert('ミュートを解除しました。') // eslint-disable-line
       )
-      .then(() => history.push(location.pathname)); // eslint-disable-line
+      .then(() => {
+        const path = location.pathname; // eslint-disable-line
+        history.push('/');
+        history.push(path);
+      });
   };
 
   return (

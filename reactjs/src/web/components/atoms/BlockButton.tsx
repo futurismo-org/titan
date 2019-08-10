@@ -17,6 +17,24 @@ const BlockButton = (props: any) => {
     isExistLazy().then((exist: boolean) => setBlock(exist));
   }, [isExistLazy]);
 
+  useEffect(() => {
+    let mounted = true;
+
+    const getIsExist = async (handler: any) => {
+      const exist = await handler();
+
+      if (mounted) {
+        setBlock(exist);
+      }
+    };
+
+    getIsExist(isExistLazy);
+
+    return () => {
+      mounted = false;
+    };
+  }, [isExistLazy]);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -29,7 +47,11 @@ const BlockButton = (props: any) => {
     updateHandler()
       .then(() => window.alert('ブロックが完了しました。')) // eslint-disable-line
       .then(() => setOpen(false))
-      .then(() => history.push(window.location.pathname)); // eslint-disable-line
+      .then(() => {
+        const path = location.pathname; // eslint-disable-line
+        history.push('/');
+        history.push(path);
+      });
   };
 
   const handleRemove = () => {
@@ -37,7 +59,11 @@ const BlockButton = (props: any) => {
       .then(
         () => window.alert('ブロックを解除しました。') // eslint-disable-line
       )
-      .then(() => history.push(window.location.pathname)); // eslint-disable-line
+      .then(() => {
+        const path = location.pathname; // eslint-disable-line
+        history.push('/');
+        history.push(path);
+      });
   };
 
   return (
