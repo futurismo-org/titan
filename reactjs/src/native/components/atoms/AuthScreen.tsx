@@ -14,7 +14,7 @@ import { withRouter } from 'react-router-native';
 import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
 import twitter, { TWLoginButton } from 'react-native-simple-twitter';
-import firebase from '~/lib/firebase';
+import firebase, { uploadToStorage } from '~/lib/firebase';
 import {
   getTwitterAccessToken,
   getTwitterRequestToken,
@@ -87,7 +87,12 @@ const AuthScreen = (props: any) => {
         userRef
           .collection('securities')
           .doc(secureId)
-          .set(dataSecure);
+          .set(dataSecure)
+          .then(() => {
+            if (data.photoURL && data.photoURL !== '') {
+              uploadToStorage(data.photoURL, data.shortId, `/users/${data.id}`);
+            }
+          });
       }
     });
 

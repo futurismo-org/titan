@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import shortid from 'shortid';
 import * as firebaseui from 'firebaseui';
 
-import firebase from '~/lib/firebase';
+import firebase, { uploadToStorage } from '~/lib/firebase';
 import theme from '~/lib/theme';
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
 
@@ -84,7 +84,16 @@ const AuthModal = (props: any) => {
             userRef
               .collection('securities')
               .doc(secureId)
-              .set(dataSecure);
+              .set(dataSecure)
+              .then(() => {
+                if (data.photoURL && data.photoURL !== '') {
+                  uploadToStorage(
+                    data.photoURL,
+                    data.shortId,
+                    `/users/${data.id}`
+                  );
+                }
+              });
           }
         });
 
