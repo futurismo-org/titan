@@ -71,7 +71,7 @@ const Challenges = (props: any) => {
           <StyledCardGrid container spacing={4}>
             {closedChallenges.map((challenge: any) => (
               <CollectionCard
-                type="challeges"
+                type="challenges"
                 collection={challenge}
                 key={challenge.id}
               />
