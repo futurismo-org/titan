@@ -68,7 +68,7 @@ exports.dashboard = (req: any, res: any) => {
       const image = userItem.photoURL
         ? userItem.photoURL
         : 'https://titan-fire.com/icon.png';
-      const logo = 'https://titan-fire.com/icon.png';
+      // const logo = 'https://titan-fire.com/icon.png';
 
       const originalImage = image.replace('_normal.', '.');
 
@@ -92,15 +92,15 @@ exports.dashboard = (req: any, res: any) => {
           );
           html = html.replace(
             html.match(/<meta property="og:image"[^>]*>/),
-            `<meta property="twitter:image" content="${logo}">`
+            `<meta property="og:image" content="${originalImage}">`
           );
           html = html.replace(
             '<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf"></script>',
-            `<meta property="twitter:image" content="${originalImage}">`
+            ``
           );
           html = html.replace(
             '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
-            `<meta http-equiv="refresh" content="0;URL=${url}"`
+            `<meta http-equiv="refresh" content="0;URL=${url}">`
           );
           res.status(200).send(html);
         }
