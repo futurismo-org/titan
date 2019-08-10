@@ -78,24 +78,27 @@ const AuthModal = (props: any) => {
           // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
           .doc(user!.uid);
 
-        userRef.get().then(doc => {
-          if (!doc.exists) {
-            userRef.set(data);
-            userRef
-              .collection('securities')
-              .doc(secureId)
-              .set(dataSecure)
-              .then(() => {
-                if (data.photoURL && data.photoURL !== '') {
-                  uploadPhotoURLAsync(
-                    data.photoURL,
-                    data.shortId,
-                    `/users/${data.id}`
-                  );
-                }
-              });
-          }
-        });
+        userRef
+          .get()
+          .then(doc => {
+            if (!doc.exists) {
+              userRef.set(data);
+              userRef
+                .collection('securities')
+                .doc(secureId)
+                .set(dataSecure)
+                .then(() => {
+                  if (data.photoURL && data.photoURL !== '') {
+                    uploadPhotoURLAsync(
+                      data.photoURL,
+                      data.shortId,
+                      `/users/${data.id}`
+                    );
+                  }
+                });
+            }
+          })
+          .then(() => handleClose());
 
         return false;
       }
