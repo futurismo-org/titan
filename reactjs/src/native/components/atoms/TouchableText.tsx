@@ -5,17 +5,32 @@ import { Text } from 'native-base';
 import { Linking } from 'expo';
 
 const TouchableText = (props: any) => {
-  const { path, text, external, url, history, color } = props;
+  const {
+    path,
+    text,
+    external,
+    url,
+    history,
+    color,
+    handler,
+    underline
+  } = props;
 
-  const pressHandler = external
+  const pressHandler = handler
+    ? handler
+    : external
     ? () => Linking.openURL(url)
     : () => history.push(path);
 
+  const style = Object.assign(
+    { fontWeight: 'bold' },
+    color ? { color: color } : {},
+    underline ? { textDecorationLine: 'underline' } : {}
+  );
+
   return (
     <TouchableOpacity onPress={pressHandler}>
-      <Text style={{ fontWeight: 'bold' } && color ? { color: color } : {}}>
-        {text}
-      </Text>
+      <Text style={style}>{text}</Text>
     </TouchableOpacity>
   );
 };

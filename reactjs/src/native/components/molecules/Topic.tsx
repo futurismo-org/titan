@@ -10,9 +10,7 @@ import TwitterShareIcon from '~/native/components/atoms/TwitterShareIcon';
 import MarkdownView from '../atoms/MarkdownView';
 
 import Progress from '../atoms/CircularProgress';
-
-import { deleteResource } from '~/lib/firebase';
-
+import * as firebase from '~/lib/firebase';
 import TopicFlag from '../atoms/TopicFlag';
 
 const Topic = (props: any) => {
@@ -30,12 +28,16 @@ const Topic = (props: any) => {
     isLogin,
     collection,
     collectionId,
-    allowSensitive
+    allowSensitive,
+    fetchBlockingUsers,
+    myUserId,
+    blocked
   } = props;
 
   useEffect(() => {
     fetchTopic(resourceId);
-  }, [fetchTopic, resourceId]);
+    fetchBlockingUsers(myUserId);
+  }, [fetchBlockingUsers, fetchTopic, myUserId, resourceId]);
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
     Alert.alert(
@@ -45,7 +47,7 @@ const Topic = (props: any) => {
         {
           text: 'はい',
           onPress: () =>
-            deleteResource(resourceId).then(() => history.push(redirectPath))
+            firebase.remove(resourceId).then(() => history.push(redirectPath))
         },
         {
           text: 'いいえ',
@@ -70,6 +72,13 @@ const Topic = (props: any) => {
             <Title text="センシティブな内容のあるコンテンツです" />
             <Text>設定を変更</Text>
           </TouchableOpacity>
+        ) : blocked ? (
+          <React.Fragment>
+            <Title text="表示をブロックしました" />
+            <Text>
+              あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
+            </Text>
+          </React.Fragment>
         ) : (
           <React.Fragment>
             <Text>

@@ -4,6 +4,7 @@ export const APP_DESCRIPTION =
   'オナ禁・エロ禁を中心とした、自分を変える若者のためのアプリです。自己変革を支援します。';
 export const APP_PRODUCTION_URL = 'https://titan-fire.com';
 export const APP_DEVELOPMENT_URL = 'https://titan-dev-1234.firebaseapp.com';
+export const APP_DEVELOPMENT_LOCAL_URL = 'http://localhost:3000';
 
 export const TITAN_LANDING_PAGE = 'https://titan-fire.netlify.com';
 export const TITAN_PRIVACY_POLICY =
@@ -19,6 +20,10 @@ export const TITAN_GOOGLE_PLAY_STORE =
 const urlMap = new Map();
 urlMap.set('development', APP_DEVELOPMENT_URL);
 urlMap.set('production', APP_PRODUCTION_URL);
-export const APP_URL = urlMap.get(process.env.REACT_APP_ENV);
+
+export const APP_URL =
+  process.env.REACT_APP_ENV === 'development'
+    ? APP_DEVELOPMENT_LOCAL_URL
+    : urlMap.get(process.env.NODE_ENV);
 
 export const APP_ICON_URL = `${APP_URL}/icon.png`;

@@ -16,7 +16,7 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
 import TopicFlag from '../atoms/TopicFlag';
 
-import { deleteResource } from '~/lib/firebase';
+import * as firebase from '~/lib/firebase';
 
 const Topic = (props: any) => {
   const {
@@ -35,7 +35,10 @@ const Topic = (props: any) => {
     isLogin,
     collection,
     collectionId,
-    allowSensitive
+    allowSensitive,
+    blocked,
+    fetchBlockingUsers,
+    myUserId
   } = props;
 
   const title = useMemo(() => {
@@ -50,6 +53,7 @@ const Topic = (props: any) => {
 
   useEffect(() => {
     fetchTopic(resourceId);
+    fetchBlockingUsers(myUserId);
 
     setOgpInfo({
       title,
@@ -62,7 +66,9 @@ const Topic = (props: any) => {
     };
   }, [
     description,
+    fetchBlockingUsers,
     fetchTopic,
+    myUserId,
     resetOgpInfo,
     resourceId,
     setOgpInfo,
@@ -74,7 +80,7 @@ const Topic = (props: any) => {
     if (
       window.confirm('削除したデータは元に戻せません。本当に削除しますか？') // eslint-disable-line
     ) {
-      deleteResource(resourceId).then(() => history.push(redirectPath));
+      firebase.remove(resourceId).then(() => history.push(redirectPath));
     }
   };
 
@@ -93,6 +99,13 @@ const Topic = (props: any) => {
               <Title text="センシティブな内容のあるコンテンツです" />
               <p>設定を変更</p>
             </NoStyledLink>
+          </Paper>
+        ) : blocked ? (
+          <Paper>
+            <Title text="表示をブロックしました" />
+            <p>
+              あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
+            </p>
           </Paper>
         ) : (
           <React.Fragment>

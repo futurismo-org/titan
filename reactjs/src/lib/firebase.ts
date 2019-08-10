@@ -16,11 +16,19 @@ if (firebase.apps.length === 0) {
   }
 }
 
-export const deleteResource = (resourceId: string) =>
-  firebase
-    .firestore()
+const firestore = firebase.firestore();
+
+export const remove = (resourceId: string) =>
+  firestore.doc(resourceId).delete();
+
+export const create = (resourceId: string, data: any) =>
+  firestore.doc(resourceId).set(data);
+
+export const isExist = (resourceId: string) =>
+  firestore
     .doc(resourceId)
-    .delete();
+    .get()
+    .then(docSnapshot => docSnapshot.exists);
 
 // const getBlob = (url: string) => {
 //   return axios

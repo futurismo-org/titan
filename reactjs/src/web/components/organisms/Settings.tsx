@@ -6,6 +6,9 @@ import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 import { primaryColor } from '~/lib/theme';
 
+import Mutes from '~/web/containers/MutesContainer';
+import Blocks from '~/web/containers/BlocksContainer';
+
 const Settings = (props: any) => {
   const { user, updateHandler, isLogin } = props;
 
@@ -83,7 +86,7 @@ const Settings = (props: any) => {
           </Paper>
           <br />
           <Paper>
-            <Title text="セキュリティ・プライバシー" />
+            <Title text="セキュリティ・プライバシー設定" />
             <p>センシティブなコンテンツを表示する</p>
             <Switch
               checked={allowSensitive}
@@ -91,7 +94,9 @@ const Settings = (props: any) => {
               style={{ color: primaryColor }}
             />
             <p>ミュートしているユーザ</p>
+            <Mutes />
             <p>ブロックしているユーザ</p>
+            <Blocks />
           </Paper>
           <br />
           <Paper>
@@ -116,7 +121,7 @@ const Settings = (props: any) => {
         </React.Fragment>
       ) : (
         <Paper>
-          <Title text="ユーザ設定" />
+          <Title text="設定" />
           <p>ログインが必要です。</p>
         </Paper>
       )}

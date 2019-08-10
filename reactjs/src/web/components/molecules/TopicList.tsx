@@ -54,17 +54,14 @@ const TopicList = (props: any) => {
 
   return (
     <List>
-      {topics
-        .slice(0, limit)
-        .filter((topic: any) => !topic.banned)
-        .map((topic: any) => (
-          <TopicListItem
-            key={topic.id}
-            topic={topic}
-            topicPath={topicPath}
-            allowSensitive={allowSensitive}
-          />
-        ))}
+      {topics.slice(0, limit).map((topic: any) => (
+        <TopicListItem
+          key={topic.id}
+          topic={topic}
+          topicPath={topicPath}
+          allowSensitive={allowSensitive}
+        />
+      ))}
     </List>
   );
 };

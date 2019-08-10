@@ -42,7 +42,7 @@ const NavDrawer = (props: any) => {
       external: true
     },
     {
-      title: 'ユーザ設定',
+      title: '設定',
       key: '8',
       path: '/settings',
       loginonly: true

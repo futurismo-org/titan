@@ -8,6 +8,9 @@ import SubmitButton from '../atoms/SubmitButton';
 import { successToastWithNoRedirect, errorToast } from '../atoms/Toast';
 import { primaryColor } from '~/lib/theme';
 
+import Mutes from '~/native/containers/MutesContainer';
+import Blocks from '~/native/containers/BlocksContainer';
+
 const Settings = (props: any) => {
   const { user, isLogin, updateHandler } = props;
 
@@ -33,9 +36,10 @@ const Settings = (props: any) => {
 
   return (
     <React.Fragment>
-      <Title text="ユーザ設定" />
+      <Title text="設定" />
       {isLogin ? (
         <Form>
+          <Text style={{ fontSize: 20, padding: 10 }}>ユーザ設定</Text>
           <Item>
             <Label>ユーザ名</Label>
             <Input
@@ -50,6 +54,14 @@ const Settings = (props: any) => {
               onChangeText={text => setTwitterUsername(text)}
             />
           </Item>
+          <Text />
+          <Text style={{ marginHorizontal: 10, lineHeight: 20 }}>
+            ユーザアイコンのアップロードはWebのみサポートしています。
+          </Text>
+          <Text />
+          <Text style={{ fontSize: 20, padding: 10 }}>
+            セキュリティ・プライバシー設定
+          </Text>
           <View style={{ padding: 10 }}>
             <Text>センシティブなコンテンツを表示する</Text>
             <Switch
@@ -62,10 +74,11 @@ const Settings = (props: any) => {
               }}
             />
           </View>
+          <Text style={{ padding: 10 }}>ミュートしているユーザ</Text>
+          <Mutes />
+          <Text style={{ padding: 10 }}>ブロックしているユーザ</Text>
+          <Blocks />
           <Text />
-          <Text style={{ marginHorizontal: 10, lineHeight: 20 }}>
-            ユーザアイコンのアップロードはWebのみサポートしています。
-          </Text>
           <SubmitButton
             text="設定を更新"
             handler={() =>

@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Hidden from '@material-ui/core/Hidden';
 import { fromNow } from '~/lib/moment';
-import { getTwitterProfileURL } from '~/lib/url';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -58,14 +57,7 @@ const Ranking = (props: any) => {
                 <TableCell>
                   <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
                 </TableCell>
-                <TableCell>
-                  <a
-                    style={{ color: 'inherit' }}
-                    href={getTwitterProfileURL(user.twitterUsername)}
-                  >
-                    {user.displayName || 'Annonymous'}
-                  </a>
-                </TableCell>
+                <TableCell>{user.displayName || 'Annonymous'}</TableCell>
                 <ConditionalTableCell>
                   {fromNow(user.updatedAt.toDate())}
                 </ConditionalTableCell>
