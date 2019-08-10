@@ -28,12 +28,16 @@ const Topic = (props: any) => {
     isLogin,
     collection,
     collectionId,
-    allowSensitive
+    allowSensitive,
+    fetchBlockingUsers,
+    myUserId,
+    blocked
   } = props;
 
   useEffect(() => {
     fetchTopic(resourceId);
-  }, [fetchTopic, resourceId]);
+    fetchBlockingUsers(myUserId);
+  }, [fetchBlockingUsers, fetchTopic, myUserId, resourceId]);
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
     Alert.alert(
@@ -68,6 +72,13 @@ const Topic = (props: any) => {
             <Title text="センシティブな内容のあるコンテンツです" />
             <Text>設定を変更</Text>
           </TouchableOpacity>
+        ) : blocked ? (
+          <React.Fragment>
+            <Title text="表示をブロックしました" />
+            <Text>
+              あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
+            </Text>
+          </React.Fragment>
         ) : (
           <React.Fragment>
             <Text>
