@@ -13,6 +13,7 @@ import Settings from '~/web/containers/SettingsContainer';
 import Profile from '~/web/containers/ProfileContainer';
 import Info from './Info';
 import Announce from './Announce';
+import Meigen from './Meigen';
 
 const Home = () => (
   <Layout>
@@ -27,6 +28,7 @@ const Home = () => (
       <Route path="/settings" component={Settings} />
       <Route path="/info/announce" component={Announce} />
       <Route path="/info" component={Info} />
+      <Route path="/meigen" component={Meigen} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
