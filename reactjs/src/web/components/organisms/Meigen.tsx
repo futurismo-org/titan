@@ -18,7 +18,9 @@ const Item = (props: any) => {
       <ListItem>
         <ListItemText>
           <Typography variant="h6">{content}</Typography>
-          <Typography variant="body2">{author}</Typography>
+          <Typography variant="body2" style={{ color: 'gray' }}>
+            {author}
+          </Typography>
         </ListItemText>
       </ListItem>
       <Divider />
@@ -30,7 +32,7 @@ const Info = (props: any) => {
   return (
     <React.Fragment>
       <Paper>
-        <Title text="関連情報" />
+        <Title text="努力の名言" />
         <List>
           {meigens.map((meigen: any) => (
             <Item
