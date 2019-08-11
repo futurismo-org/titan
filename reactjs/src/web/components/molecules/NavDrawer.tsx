@@ -116,10 +116,10 @@ const Drawer = (props: any) => {
             <Divider />
             {DrawerButtonALink('チャット', TITAN_DISCORD_INVITE_URL)}
             <Divider />
-            {isLogin && DrawerButton('設定', '/settings')}
-            {isLogin && <Divider />}
             {DrawerButton('関連情報', '/info')}
             <Divider />
+            {isLogin && DrawerButton('設定', '/settings')}
+            {isLogin && <Divider />}
             {user.isAdmin && DrawerButton('管理設定', '/admin')}
             {user.isAdmin && <Divider />}
             <div style={{ textAlign: 'center' }}>

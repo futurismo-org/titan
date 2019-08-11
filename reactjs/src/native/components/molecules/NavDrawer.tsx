@@ -41,13 +41,13 @@ const NavDrawer = (props: any) => {
       path: TITAN_DISCORD_INVITE_URL,
       external: true
     },
+    { title: '関連情報', key: '8', path: '/info' },
     {
       title: '設定',
-      key: '8',
+      key: '9',
       path: '/settings',
       loginonly: true
-    },
-    { title: '関連情報', key: '9', path: '/info' }
+    }
   ];
   return (
     <Container>
