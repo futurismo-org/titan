@@ -5,6 +5,7 @@ import Title from '../atoms/Title';
 
 import TopicList from './TopicList';
 import Progress from '../atoms/CircularProgress';
+import NoStyledLink from '../atoms/NoStyledLink';
 
 const Topics = (props: any) => {
   const {
@@ -39,7 +40,18 @@ const Topics = (props: any) => {
           text="トピックを新規投稿"
         />
       </ListItem>
-      <ListItem />
+      <ListItem>
+        <p>
+          投稿する際は
+          <NoStyledLink
+            style={{ textDecoration: 'underline', fontWeight: 'bold' }}
+            to="/guidelines"
+          >
+            Titanのコミュニティガイドライン
+          </NoStyledLink>
+          を遵守ください。
+        </p>
+      </ListItem>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {topics && (
