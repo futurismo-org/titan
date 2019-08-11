@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
+import { withRouter } from 'react-router-native';
 import Error from '../atoms/Error';
 import TopicList from './TopicList';
 import PostButton from '~/native/containers/PostButtonContainer';
@@ -16,7 +17,8 @@ const Topics = (props: any) => {
     allowSensitive,
     fetchMutes,
     myUserId,
-    fetchBlockingUsers
+    fetchBlockingUsers,
+    history
   } = props;
 
   React.useEffect(() => {
@@ -34,6 +36,18 @@ const Topics = (props: any) => {
           <View style={{ flex: 1, alignSelf: 'flex-end' }}>
             <PostButton to={postButtonPath} text="トピックを新規投稿" />
           </View>
+          <Text />
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text>投稿する際は</Text>
+            <Text
+              style={{ textDecorationLine: 'underline' }}
+              onPress={() => history.push('/guidelines')}
+            >
+              コミュニティガイドライン
+            </Text>
+            <Text>を遵守ください。</Text>
+          </View>
+          <Text />
           <TopicList
             topics={topics}
             topicPath={topicPath}
@@ -45,4 +59,4 @@ const Topics = (props: any) => {
   );
 };
 
-export default Topics;
+export default withRouter(Topics);

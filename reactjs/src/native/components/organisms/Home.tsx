@@ -11,6 +11,7 @@ import AuthScreen from '../atoms/AuthScreen';
 import Layout from '../templates/PaddingLayout';
 import Info from './Info';
 import Meigen from './Meigen';
+import Document from './Document';
 
 const Home = () => (
   <Layout>
@@ -23,7 +24,19 @@ const Home = () => (
       <Route path="/challenges" component={Challenges} />
       <Route path="/login" component={AuthScreen} />
       <Route path="/info" component={Info} />
-      <Route path="/Meigen" component={Meigen} />
+      <Route path="/meigen" component={Meigen} />
+      <Route
+        path="/terms_of_use"
+        render={props => <Document id="terms_of_use" {...props} />}
+      />
+      <Route
+        path="/privacy_policy"
+        render={props => <Document id="privacy_policy" {...props} />}
+      />
+      <Route
+        path="/guidelines"
+        render={props => <Document id="guidelines" {...props} />}
+      />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>
