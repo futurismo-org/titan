@@ -5,6 +5,7 @@ import AdminRoute from '../../utils/AdminRoute';
 
 import ChallengeForm from './ChallengeForm';
 import CategoryForm from './CategoryForm';
+import DocumentForm from './DocumentForm';
 import DashBoard from './DashBoard';
 import Layout from '../../templates/AdminLayout';
 
@@ -20,6 +21,7 @@ const Admin = () => (
         <AdminRoute path="/admin/cat/new" component={CategoryForm} />
         <AdminRoute path="/admin/c/:id/edit" component={ChallengeForm} />
         <AdminRoute path="/admin/c/new" component={ChallengeForm} />
+        <AdminRoute path="/admin/documents/edit" component={DocumentForm} />
         <AdminRoute path="/admin" component={DashBoard} />
       </Switch>
     </AdminContainer>
