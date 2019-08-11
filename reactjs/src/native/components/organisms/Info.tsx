@@ -9,7 +9,8 @@ import {
   TITAN_TERMS_OF_USE,
   APP_PRODUCTION_URL,
   TITAN_LANDING_PAGE,
-  TITAN_GOOGLE_PLAY_STORE
+  TITAN_GOOGLE_PLAY_STORE,
+  TITAN_GUIDELINES
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
 
@@ -22,13 +23,16 @@ const Info = (props: any) => {
       <Title text="関連情報" />
       <List>
         <ListItem>
-          <Text onPress={() => Linking.openURL(TITAN_TERMS_OF_USE)}>
-            利用規約
+          <Text onPress={() => history.push('/terms_of_use')}>利用規約</Text>
+        </ListItem>
+        <ListItem>
+          <Text onPress={() => history.push('/privacy_policy')}>
+            プライバシーポリシー
           </Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => Linking.openURL(TITAN_PRIVACY_POLICY)}>
-            プライバシーポリシー
+          <Text onPress={() => history.push('/guidelines')}>
+            コミュニティガイドライン
           </Text>
         </ListItem>
         <ListItem>
