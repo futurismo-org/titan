@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { List, ListItem, Text } from 'native-base';
 import { Linking } from 'expo';
+import { withRouter } from 'react-router-native';
 import Title from '../atoms/Title';
 
 import {
@@ -15,6 +16,7 @@ import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
 import { isAndroid, isiOS } from '~/lib/native';
 
 const Info = (props: any) => {
+  const { history } = props;
   return (
     <React.Fragment>
       <Title text="関連情報" />
@@ -56,6 +58,10 @@ const Info = (props: any) => {
           </ListItem>
         )}
         <ListItem>
+          <Text onPress={() => history.push('/meigen')}>努力の名言集</Text>
+        </ListItem>
+
+        <ListItem>
           <Text>Build: {BUILD_TIMESTAMP}</Text>
         </ListItem>
       </List>
@@ -63,4 +69,4 @@ const Info = (props: any) => {
   );
 };
 
-export default Info;
+export default withRouter(Info);

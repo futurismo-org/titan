@@ -3,6 +3,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
@@ -29,6 +30,7 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink href={TITAN_PRIVACY_POLICY}>
@@ -36,11 +38,13 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>
               <NoStyledLink to="/info/announce">お知らせ</NoStyledLink>
             </ListItemText>
           </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink
@@ -51,6 +55,7 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink
@@ -61,6 +66,7 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink
@@ -71,6 +77,13 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>
+              <NoStyledLink to="/meigen">努力の名言集</NoStyledLink>
+            </ListItemText>
+          </ListItem>
+          <Divider />
           <ListItem>
             <ListItemText>Build: {BUILD_TIMESTAMP}</ListItemText>
           </ListItem>

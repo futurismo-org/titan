@@ -10,6 +10,7 @@ import GeneralTopics from '~/native/components/molecules/GeneralTopics';
 import AuthScreen from '../atoms/AuthScreen';
 import Layout from '../templates/PaddingLayout';
 import Info from './Info';
+import Meigen from './Meigen';
 
 const Home = () => (
   <Layout>
@@ -22,6 +23,7 @@ const Home = () => (
       <Route path="/challenges" component={Challenges} />
       <Route path="/login" component={AuthScreen} />
       <Route path="/info" component={Info} />
+      <Route path="/Meigen" component={Meigen} />
       <Route path="/" component={DashBoard} />
     </Switch>
   </Layout>

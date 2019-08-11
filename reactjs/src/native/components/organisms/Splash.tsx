@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from 'native-base';
 import { ImageBackground, View } from 'react-native';
 import { getRandomSplashImageURL } from '~/lib/url';
-import { getRandomMeigen } from '~/constants/meigen';
+import { getRandomMeigen } from '~/lib/meigen';
 
 const Splash = (prpos: any) => {
   const meigenData = getRandomMeigen();
