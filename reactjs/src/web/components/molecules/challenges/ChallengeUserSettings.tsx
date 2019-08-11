@@ -16,6 +16,7 @@ import firebase from '~/lib/firebase';
 
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
+import { brandDark } from '~/lib/theme';
 
 const db = firebase.firestore();
 
@@ -99,6 +100,7 @@ const ChallengeUserSettings = (props: any) => {
                     required
                     id="displayName"
                     label="ユーザ名"
+                    style={{ outlineColor: brandDark }}
                     onChange={onDisplayNameChange}
                   />
                 </Grid>
@@ -109,6 +111,7 @@ const ChallengeUserSettings = (props: any) => {
                     margin="normal"
                     id="pastAccDasy"
                     label="過去連続日数"
+                    style={{ outlineColor: brandDark }}
                     onChange={onPastDaysChange}
                   />
                 </Grid>

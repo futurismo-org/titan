@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
+import { brandDark } from '~/lib/theme';
 
 const ChallengeForm = (props: any) => {
   const [title, setTitle] = useState('');
@@ -194,6 +195,7 @@ const ChallengeForm = (props: any) => {
           label="開始日"
           type="date"
           value={openedAt}
+          style={{ outlineColor: brandDark }}
           onChange={onOpenedAtChange}
         />
         <TextField
@@ -201,6 +203,7 @@ const ChallengeForm = (props: any) => {
           label="終了日"
           type="date"
           value={closedAt}
+          style={{ outlineColor: brandDark }}
           onChange={onClosedAtChange}
         />
         <TextField
@@ -209,6 +212,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="length"
           label="開催日数"
+          style={{ outlineColor: brandDark }}
           onChange={onLengthChange}
         />
         <TextField
@@ -220,6 +224,7 @@ const ChallengeForm = (props: any) => {
           id="title"
           label="タイトル"
           name="title"
+          style={{ outlineColor: brandDark }}
           onChange={onTitleChange}
         />
         <TextField
@@ -231,6 +236,7 @@ const ChallengeForm = (props: any) => {
           id="description"
           name="description"
           label="説明"
+          style={{ outlineColor: brandDark }}
           onChange={onDescriptionChange}
         />
         <TextField
@@ -239,6 +245,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="channelId"
           label="チャンネルID"
+          style={{ outlineColor: brandDark }}
           onChange={onChannelIdChange}
         />
         <TextField
@@ -247,6 +254,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="categoryRef"
           label="カテゴリ参照"
+          style={{ outlineColor: brandDark }}
           onChange={onCategoryRefChange}
         />
         <TextField
@@ -255,6 +263,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="price"
           label="価格"
+          style={{ outlineColor: brandDark }}
           onChange={onPriceChange}
         />
         <TextField
@@ -263,6 +272,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="hashtag"
           label="ハッシュタグ"
+          style={{ outlineColor: brandDark }}
           onChange={onHashtagChange}
         />
         <TextField
@@ -271,6 +281,7 @@ const ChallengeForm = (props: any) => {
           margin="normal"
           id="youtubeId"
           label="YoutubeID"
+          style={{ outlineColor: brandDark }}
           onChange={onYoutubeIdChange}
         />
         <TextField
@@ -280,6 +291,7 @@ const ChallengeForm = (props: any) => {
           fullWidth
           id="webhookURL"
           label="WebhookURL"
+          style={{ outlineColor: brandDark }}
           onChange={onWebhookURLChange}
         />
         <TextField
@@ -292,6 +304,7 @@ const ChallengeForm = (props: any) => {
           label="概要"
           rows={8}
           multiline
+          style={{ outlineColor: brandDark }}
           onChange={onOverviewChange}
         />
         <TextField
@@ -304,6 +317,7 @@ const ChallengeForm = (props: any) => {
           label="ルール"
           rows={8}
           multiline
+          style={{ outlineColor: brandDark }}
           onChange={onRulesChange}
         />
         {'下書き'}

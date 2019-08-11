@@ -4,7 +4,7 @@ import Switch from '@material-ui/core/Switch';
 import { TextField, Button } from '@material-ui/core';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
-import { primaryColor } from '~/lib/theme';
+import { primaryColor, brandDark } from '~/lib/theme';
 
 import Mutes from '~/web/containers/MutesContainer';
 import Blocks from '~/web/containers/BlocksContainer';
@@ -64,6 +64,7 @@ const Settings = (props: any) => {
               required
               id="displayName"
               label="ユーザ名"
+              style={{ outlineColor: brandDark }}
               onChange={onDisplayNameChange}
             />
             <TextField
@@ -71,6 +72,7 @@ const Settings = (props: any) => {
               variant="outlined"
               margin="normal"
               id="twitterId"
+              style={{ outlineColor: brandDark }}
               label="Twitterユーザ名"
               onChange={onTwitterUsernameChange}
             />
