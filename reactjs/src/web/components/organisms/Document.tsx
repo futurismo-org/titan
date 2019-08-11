@@ -18,7 +18,7 @@ const Document = (props: any) => {
     firebase.firestore().doc(resourceId)
   );
 
-  const content = value && value.data()!.content;
+  const content = value && value.data() && value.data()!.content;
 
   return (
     <React.Fragment>

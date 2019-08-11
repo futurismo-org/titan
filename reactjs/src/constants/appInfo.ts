@@ -7,9 +7,9 @@ export const APP_DEVELOPMENT_URL = 'https://titan-dev-1234.firebaseapp.com';
 export const APP_DEVELOPMENT_LOCAL_URL = 'http://localhost:3000';
 
 export const TITAN_LANDING_PAGE = 'https://titan-fire.netlify.com';
-export const TITAN_PRIVACY_POLICY =
-  'https://titan-fire.com/privacy_policy.html';
-export const TITAN_TERMS_OF_USE = 'https://titan-fire.com/terms_of_use.html';
+export const TITAN_TERMS_OF_USE = 'https://titan-fire.com/#/terms_of_use';
+export const TITAN_PRIVACY_POLICY = 'https://titan-fire.com/#/privacy_policy';
+export const TITAN_GUIDELINES = 'https://titan-fire.com/#/guidelines';
 export const TITAN_BLOG_URL = 'https://note.mu/titan_dev';
 export const TITAN_TWITTER_URL = 'https://twitter.com/titan_dev_1234';
 export const TITAN_DISCORD_INVITE_URL = 'https://discord.gg/S3t5WgE';

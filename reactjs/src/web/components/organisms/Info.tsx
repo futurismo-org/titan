@@ -10,8 +10,6 @@ import Paper from '../templates/PaperWrapper';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import NoStyledLink from '../atoms/NoStyledLink';
 import {
-  TITAN_PRIVACY_POLICY,
-  TITAN_TERMS_OF_USE,
   TITAN_LANDING_PAGE,
   TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
@@ -25,17 +23,23 @@ const Info = (props: any) => {
         <List>
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href={TITAN_TERMS_OF_USE}>
-                利用規約
-              </NoStyledExternalLink>
+              <NoStyledLink to="/terms_of_use">利用規約</NoStyledLink>
             </ListItemText>
           </ListItem>
           <Divider />
           <ListItem>
             <ListItemText>
-              <NoStyledExternalLink href={TITAN_PRIVACY_POLICY}>
+              <NoStyledLink to="/privacy_policy">
                 プライバシーポリシー
-              </NoStyledExternalLink>
+              </NoStyledLink>
+            </ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>
+              <NoStyledLink to="/guidelines">
+                コミュニティガイドライン
+              </NoStyledLink>
             </ListItemText>
           </ListItem>
           <Divider />
