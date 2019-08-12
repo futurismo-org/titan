@@ -108,8 +108,6 @@
     "react-stripe-elements": "^3.0.0",
     "react-thunk": "^1.0.0",
     "react-twitter-widgets": "^1.7.1",
-    "reactotron-react-js": "^3.3.2",
-    "reactotron-react-native": "^3.6.4",
     "recharts": "^1.6.2",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
