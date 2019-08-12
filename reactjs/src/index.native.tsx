@@ -15,6 +15,10 @@ const GA_TRACKING_ID = 'UA-137986489-3';
 if (Platform.OS !== 'web') {
   // @ts-ignore
   window = undefined; // eslint-disable-line
+
+  import('./native/ReactotronConfig').then(() =>
+    console.log('Reactotron Configured')
+  );
 }
 
 // Sentry.enableInExpoDevelopment = true;
