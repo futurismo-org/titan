@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { WebView } from 'react-native';
 
-import { deviceWidth } from '~/lib/native';
+import { deviceWidth } from '~/native/lib/native';
 
 const YoutubeWidget = (props: any) => {
   const youtubeId = props.id;

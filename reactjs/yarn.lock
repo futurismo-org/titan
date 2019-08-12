@@ -15219,6 +15219,11 @@ react-native-modalize@^1.2.1:
   resolved "https://registry.yarnpkg.com/react-native-modalize/-/react-native-modalize-1.2.1.tgz#7c42f5ed22e1fa21314afa5b634c7e39d514a9f9"
   integrity sha512-j3+uJB0UtlSeQbwDZ+DEcvyUYN4vfZt4bczwPdG2NAoMbePSNV4iWcD6co0UonDuHZAcD0G9xZU6PU/wSGjGRQ==
 
+react-native-public-ip@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-public-ip/-/react-native-public-ip-1.0.1.tgz#f47c29efbb901135bde6af226eff882a1f3a94f5"
+  integrity sha512-o5wGIqajjwNnTzmrQk05/P4631vXJNNYjmVNIKrKX6SiPAHWDAPhWYv7H2QKHLyRn+W0Qh1ARWi06Db6Ro+xwg==
+
 react-native-safe-area-view@^0.13.1:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.13.2.tgz#fd8245182cfa3240dcc679b010cff43ad32cecb1"

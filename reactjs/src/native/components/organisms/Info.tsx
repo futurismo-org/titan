@@ -14,7 +14,7 @@ import {
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
-import { isAndroid, isiOS } from '~/lib/native';
+import { isAndroid, isiOS } from '~/native/lib/native';
 
 const Info = (props: any) => {
   const { history } = props;

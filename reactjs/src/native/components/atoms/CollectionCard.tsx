@@ -10,7 +10,7 @@ import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
-import { isiOS } from '~/lib/native';
+import { isiOS } from '~/native/lib/native';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   'window'

@@ -7,7 +7,7 @@ import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { brandGray } from '~/lib/theme';
 import Error from '~/native/components/atoms/Error';
-import { deviceWidth } from '~/lib/native';
+import { deviceWidth } from '~/native/lib/native';
 
 const DashBoard = (props: any) => {
   const {
