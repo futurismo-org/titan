@@ -97,7 +97,7 @@ ${url}`;
     const lastHistory = histories[histories.length - 1];
     const newAccDays =
       moment(lastHistory.timestamp.toDate()).isSame(moment(now), 'days') &&
-      lastHistory.type == 'RECORD'
+      lastHistory.type === 'RECORD'
         ? accDays - 1
         : accDays;
 
