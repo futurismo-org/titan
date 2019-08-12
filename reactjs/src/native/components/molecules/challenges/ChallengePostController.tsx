@@ -31,10 +31,8 @@ const ChallengePostController = (props: any) => {
 
     if (
       histories.length > 0 &&
-      histories.filter(
-        (history: any) =>
-          history.type === 'RECORD' &&
-          moment(history.timestamp.toDate()).isSame(nowMoment, 'days')
+      histories.filter((history: any) =>
+        moment(history.timestamp.toDate()).isSame(nowMoment, 'days')
       ).length !== 0
     ) {
       errorToast('記録の投稿は1日1回までです');
