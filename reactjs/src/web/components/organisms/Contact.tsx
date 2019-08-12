@@ -12,7 +12,7 @@ const Contact = (props: any) => {
       <Title text="お問い合わせ" />
       <p>お問い合わせは、こちらのフォームからお願いします。</p>
       <p>
-        TiwtterDMやチャットでも受け付けています。
+        TwitterDMやチャットでも受け付けています。
         <a href={TITAN_TWITTER_URL} target="_blank" rel="noopener noreferrer">
           @titan_dev_1234
         </a>

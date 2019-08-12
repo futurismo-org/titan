@@ -57,6 +57,12 @@ const Info = (props: any) => {
           <Divider />
           <ListItem>
             <ListItemText>
+              <NoStyledLink to="/meigen">努力の名言集</NoStyledLink>
+            </ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>
               <NoStyledExternalLink
                 href={TITAN_LANDING_PAGE}
                 style={{ textDecoration: 'underline' }}
@@ -85,12 +91,6 @@ const Info = (props: any) => {
               >
                 iOSアプリ[Apple Store](準備中)
               </NoStyledExternalLink>
-            </ListItemText>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText>
-              <NoStyledLink to="/meigen">努力の名言集</NoStyledLink>
             </ListItemText>
           </ListItem>
           <Divider />

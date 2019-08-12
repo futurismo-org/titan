@@ -86,7 +86,7 @@ const ContactForm = (props: any) => {
               })
             }
           >
-            連絡する
+            送信
           </Button>
         </React.Fragment>
       ) : (

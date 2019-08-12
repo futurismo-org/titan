@@ -12,6 +12,7 @@ import Layout from '../templates/PaddingLayout';
 import Info from './Info';
 import Meigen from './Meigen';
 import Document from './Document';
+import Contact from './Contact';
 
 const Home = () => (
   <Layout>
@@ -25,6 +26,7 @@ const Home = () => (
       <Route path="/login" component={AuthScreen} />
       <Route path="/info" component={Info} />
       <Route path="/meigen" component={Meigen} />
+      <Route path="/contact" component={Contact} />
       <Route
         path="/terms_of_use"
         render={props => <Document id="terms_of_use" {...props} />}
