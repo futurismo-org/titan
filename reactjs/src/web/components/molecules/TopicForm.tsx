@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import firebase from '~/lib/firebase';
 import Progress from '../atoms/CircularProgress';
+import { getPublicIP } from '~/web/lib/network';
 
 const db = firebase.firestore();
 
@@ -34,6 +35,8 @@ const TopicForm = (props: any) => {
         setText(topic.text);
       }
     }
+
+    getPublicIP().then((ip: string) => setIP(ip));
   }, [fetchTopic, isCreate, resourceId, topic]);
 
   const onTitleChange = (e: any) => {
@@ -60,7 +63,7 @@ const TopicForm = (props: any) => {
         .then(() => history.push(redirectPath))
         .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
     } else {
-      const updateData = { title, url, text, ...props.updateData };
+      const updateData = { title, url, text, ip, ...props.updateData };
       db.doc(resourceId)
         .update(updateData)
         .then(() => window.alert('更新が完了しました。')) // eslint-disable-line
