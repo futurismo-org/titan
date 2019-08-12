@@ -36,6 +36,12 @@ const Info = (props: any) => {
           </Text>
         </ListItem>
         <ListItem>
+          <Text onPress={() => history.push('/contact')}>お問い合わせ</Text>
+        </ListItem>
+        <ListItem>
+          <Text onPress={() => history.push('/meigen')}>努力の名言集</Text>
+        </ListItem>
+        <ListItem>
           <Text onPress={() => Linking.openURL(APP_PRODUCTION_URL)}>
             Titan for Web App
           </Text>
@@ -61,9 +67,6 @@ const Info = (props: any) => {
             </Text>
           </ListItem>
         )}
-        <ListItem>
-          <Text onPress={() => history.push('/meigen')}>努力の名言集</Text>
-        </ListItem>
         <ListItem>
           <Text>Build Date: {BUILD_TIMESTAMP}</Text>
         </ListItem>
