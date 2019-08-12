@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import firebase from '~/lib/firebase';
 import Progress from '../atoms/CircularProgress';
+import { getPublicIP } from '~/web/lib/network';
 
 const db = firebase.firestore();
 
@@ -22,6 +23,7 @@ const TopicForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
   const [text, setText] = useState('');
+  const [ip, setIP] = useState('');
 
   useEffect(() => {
     if (!isCreate) {
@@ -33,6 +35,8 @@ const TopicForm = (props: any) => {
         setText(topic.text);
       }
     }
+
+    getPublicIP().then((ip: string) => setIP(ip));
   }, [fetchTopic, isCreate, resourceId, topic]);
 
   const onTitleChange = (e: any) => {
@@ -52,14 +56,14 @@ const TopicForm = (props: any) => {
     e.preventDefault();
 
     if (isCreate) {
-      const newData = { title, url, text, ...props.newData };
+      const newData = { title, url, text, ip, ...props.newData };
       db.doc(resourceId)
         .set(newData)
         .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
         .then(() => history.push(redirectPath))
         .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
     } else {
-      const updateData = { title, url, text, ...props.updateData };
+      const updateData = { title, url, text, ip, ...props.updateData };
       db.doc(resourceId)
         .update(updateData)
         .then(() => window.alert('更新が完了しました。')) // eslint-disable-line

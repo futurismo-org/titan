@@ -5,6 +5,8 @@ import { Toast, Form, Text, Item, Label, Input, Textarea } from 'native-base';
 import firebase from '~/lib/firebase';
 import SubmitButton from '../atoms/SubmitButton';
 import Progress from '~/native/components/atoms/CircularProgress';
+import { getPublicIP } from '~/native/lib/network';
+import { successToast, errorToast } from '../atoms/Toast';
 
 const db = firebase.firestore();
 
@@ -23,6 +25,7 @@ const TopicForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
   const [text, setText] = useState('');
+  const [ip, setIP] = useState('');
 
   useEffect(() => {
     if (!isCreate) {
@@ -34,33 +37,26 @@ const TopicForm = (props: any) => {
         setText(topic.text);
       }
     }
+
+    getPublicIP().then((ip: string) => setIP(ip));
   }, [fetchTopic, isCreate, loading, resourceId, topic]);
-
-  const successToast = () =>
-    Toast.show({
-      text: '投稿に成功しました！',
-      duration: 3000,
-      onClose: () => history.push(redirectPath)
-    });
-
-  const errorToast = (message: string) =>
-    Toast.show({
-      text: `投稿に失敗しました。(${message})`,
-      duration: 3000
-    });
 
   const updateHandler = () => {
     if (isCreate) {
-      const newData = { title, url, text, ...props.newData };
+      const newData = { title, url, text, ip, ...props.newData };
       db.doc(resourceId)
         .set(newData)
-        .then(() => successToast())
+        .then(() =>
+          successToast(redirectPath, history.push, '投稿に成功しました')
+        )
         .catch(error => errorToast(error.message));
     } else {
-      const updateData = { title, url, text, ...props.updateData };
+      const updateData = { title, url, text, ip, ...props.updateData };
       db.doc(resourceId)
         .update(updateData)
-        .then(() => successToast())
+        .then(() =>
+          successToast(redirectPath, history.push, '投稿に成功しました')
+        )
         .catch(error => errorToast(error.message));
     }
   };
