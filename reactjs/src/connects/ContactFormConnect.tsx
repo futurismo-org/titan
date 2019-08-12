@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
+import shortId from 'shortid';
 import { postSubmission } from '~/lib/formcarry';
-
-import { getTopicPath } from '~/lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
@@ -11,27 +10,15 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const reportUser = state.firebase.profile;
 
-  const handler = (
-    topic: any,
-    collectionType: any,
-    collectionId: string,
-    data: any
-  ) => {
-    const path = getTopicPath(topic.id, collectionType, collectionId);
-    const url = `https://titan-fire.com/#${path}`;
+  const isLogin = !reportUser.isEmpty && reportUser.isLoaded;
 
+  const handler = (data: any) => {
     const params = {
-      url,
-      topicTitle: topic.title,
-      topicId: topic.id,
-      postUserName: topic.userName,
-      postUserId: topic.userId,
-      collectionType: collectionType,
-      collectionId: collectionId,
+      id: shortId.generate(),
       reportUserName: reportUser.displayName,
       reportUserId: reportUser.id,
       reportUserShortId: reportUser.shortId,
-      reportUserTwitterUserName: reportUser.twitterUserName,
+      reportUserTwitterName: reportUser.twitterUserName,
       reportedAt: new Date(),
       ...data
     };
@@ -40,6 +27,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     handler,
+    isLogin,
     ...props
   };
 };

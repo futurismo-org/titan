@@ -15,6 +15,7 @@ import Info from './Info';
 import Announce from './Announce';
 import Meigen from './Meigen';
 import Document from './Document';
+import Contact from './Contact';
 
 const Home = () => (
   <Layout>
@@ -30,6 +31,7 @@ const Home = () => (
       <Route path="/info/announce" component={Announce} />
       <Route path="/info" component={Info} />
       <Route path="/meigen" component={Meigen} />
+      <Route path="/contact" component={Contact} />
       <Route
         path="/terms_of_use"
         render={props => <Document id="terms_of_use" {...props} />}

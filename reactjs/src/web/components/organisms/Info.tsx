@@ -51,6 +51,12 @@ const Info = (props: any) => {
           <Divider />
           <ListItem>
             <ListItemText>
+              <NoStyledLink to="/contact">お問い合わせ</NoStyledLink>
+            </ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>
               <NoStyledExternalLink
                 href={TITAN_LANDING_PAGE}
                 style={{ textDecoration: 'underline' }}
