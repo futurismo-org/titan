@@ -90,9 +90,16 @@ ${url}`;
   };
 
   const resetRecord = (props: any) => {
-    const { score, accDays } = props;
+    const { score, accDays, histories } = props;
 
     const newScore = score - 3;
+
+    const lastHistory = histories[histories.length - 1];
+    const newAccDays =
+      moment(lastHistory.timestamp.toDate()).isSame(moment(now), 'days') &&
+      lastHistory.type == 'RECORD'
+        ? accDays - 1
+        : accDays;
 
     const newHistory = {
       id: shortId.generate(),
@@ -100,7 +107,7 @@ ${url}`;
       score: newScore,
       days: 0,
       pastDays: 0,
-      accDays,
+      accDays: newAccDays,
       diff: nowMoment.diff(moment(openedAt.toDate()), 'days'),
       type: 'RESET'
     };
@@ -111,6 +118,7 @@ ${url}`;
       days: 0,
       pastDays: 0,
       score: newScore,
+      accDays: newAccDays,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
