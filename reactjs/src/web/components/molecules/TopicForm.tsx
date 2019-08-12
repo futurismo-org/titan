@@ -22,6 +22,7 @@ const TopicForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [url, setURL] = useState('');
   const [text, setText] = useState('');
+  const [ip, setIP] = useState('');
 
   useEffect(() => {
     if (!isCreate) {
@@ -52,7 +53,7 @@ const TopicForm = (props: any) => {
     e.preventDefault();
 
     if (isCreate) {
-      const newData = { title, url, text, ...props.newData };
+      const newData = { title, url, text, ip, ...props.newData };
       db.doc(resourceId)
         .set(newData)
         .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
