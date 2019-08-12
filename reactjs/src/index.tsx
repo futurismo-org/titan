@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import App from 'web/components/organisms/App';
 // import * as sw from './service-worker';
-import '~/web/ReactotronConfig';
+import '~/web/lib/reactotron';
 
 require('dotenv').config();
 

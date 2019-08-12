@@ -16,7 +16,7 @@ if (Platform.OS !== 'web') {
   // @ts-ignore
   window = undefined; // eslint-disable-line
 
-  import('./native/ReactotronConfig').then(() =>
+  import('./native/lib/reactotron').then(() =>
     console.log('Reactotron Configured')
   );
 }

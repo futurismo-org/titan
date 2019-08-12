@@ -12,7 +12,7 @@ import Hero from './Hero';
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
-import { isAndroid } from '~/lib/native';
+import { isAndroid } from '~/native/lib/native';
 import { sleep } from '~/lib/general';
 
 const App = (props: any) => {
