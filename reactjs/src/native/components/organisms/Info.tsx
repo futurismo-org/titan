@@ -12,7 +12,7 @@ import {
   TITAN_GOOGLE_PLAY_STORE,
   TITAN_GUIDELINES
 } from '~/constants/appInfo';
-import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
+import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
 import { isAndroid, isiOS } from '~/lib/native';
 
@@ -64,9 +64,11 @@ const Info = (props: any) => {
         <ListItem>
           <Text onPress={() => history.push('/meigen')}>努力の名言集</Text>
         </ListItem>
-
         <ListItem>
-          <Text>Build: {BUILD_TIMESTAMP}</Text>
+          <Text>Build Date: {BUILD_TIMESTAMP}</Text>
+        </ListItem>
+        <ListItem>
+          <Text>Build ID: {BUILD_COMMIT_ID}</Text>
         </ListItem>
       </List>
     </React.Fragment>
