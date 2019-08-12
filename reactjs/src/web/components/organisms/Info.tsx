@@ -13,7 +13,7 @@ import {
   TITAN_LANDING_PAGE,
   TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
-import { BUILD_TIMESTAMP } from '~/constants/buildInfo'; // eslint-disable-line
+import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
 const Info = (props: any) => {
   return (
@@ -89,8 +89,13 @@ const Info = (props: any) => {
           </ListItem>
           <Divider />
           <ListItem>
-            <ListItemText>Build: {BUILD_TIMESTAMP}</ListItemText>
+            <ListItemText>Build Date: {BUILD_TIMESTAMP}</ListItemText>
           </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>Build ID: {BUILD_COMMIT_ID}</ListItemText>
+          </ListItem>
+          <Divider />
         </List>
       </Paper>
     </React.Fragment>

@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import ReactGA from 'react-ga';
 import App from 'web/components/organisms/App';
 // import * as sw from './service-worker';
+import '~/web/ReactotronConfig';
 
 require('dotenv').config();
 
 const GA_TRACKING_ID = 'UA-137986489-3';
-
 ReactGA.initialize(GA_TRACKING_ID);
 
 ReactDOM.render(
