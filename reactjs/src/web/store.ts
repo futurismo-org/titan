@@ -1,11 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, applyMiddleware, compose } from 'redux';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
 import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
 import { createRootReducer } from '~/reducers';
 import firebase from '~/lib/firebase';
+
+import reactotron from '~/web/lib/reactotron';
 
 const rrfConfig = {
   userProfile: 'users',
@@ -20,9 +22,10 @@ const storeEnhancers = [middlewareEnhancer];
 
 export const store = createStore(
   createRootReducer(history),
-  composeWithDevTools(
+  compose(
     ...storeEnhancers,
     reactReduxFirebase(firebase, rrfConfig),
-    reduxFirestore(firebase)
+    reduxFirestore(firebase),
+    reactotron.createEnhancer!()
   )
 );

@@ -1,7 +1,8 @@
 import Reactotron from 'reactotron-react-js';
+import { reactotronRedux } from 'reactotron-redux';
 
-// TODO 設定が途中です。。。
+const reactotron = Reactotron.configure({ name: 'web' })
+  .use(reactotronRedux())
+  .connect();
 
-Reactotron.configure({
-  name: 'web'
-}).connect();
+export default reactotron;
