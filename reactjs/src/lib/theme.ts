@@ -14,6 +14,7 @@ export const brandLight = '#f4f4f4';
 export const brandWhite = '#ffffff';
 
 export const leaderboardMyColor = '#FFE4E1';
+export const twitterColor = '#4099FF';
 
 const theme = createMuiTheme({
   palette: {
