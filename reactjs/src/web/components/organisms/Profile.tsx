@@ -11,11 +11,12 @@ import UserAvatar from '../atoms/UserAvatar';
 
 import MuteButton from '~/web/containers/MuteButtonContainer';
 import BlockButton from '~/web/containers/BlockButtonContainer';
-import { twitterColor } from '~/lib/theme';
+import { twitterColor, brandGray } from '~/lib/theme';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import { TITAN_TWITTER_URL } from '~/constants/appInfo';
 import NoStyledLink from '../atoms/NoStyledLink';
 import PostButton from '../atoms/PostButton';
+import { formatYearDate } from '~/lib/moment';
 
 const ProfileContainer = styled.div`
   text-align: center;
@@ -102,6 +103,18 @@ const Profile = (props: any) => {
                         <BlockButton user={user} />
                       </div>
                     )}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      color: brandGray
+                    }}
+                  >
+                    <p>{`登録日 ${formatYearDate(user.createdAt.toDate())}`}</p>
+                    <p style={{ marginLeft: 10 }}>{`最終更新日 ${formatYearDate(
+                      user.updatedAt.toDate()
+                    )}`}</p>
                   </div>
                 </ProfileContainer>
               </Grid>
