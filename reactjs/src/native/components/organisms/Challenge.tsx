@@ -25,7 +25,7 @@ const Challenge = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {challenge && (
+      {!loading && challenge && (
         <React.Fragment>
           <Header challenge={challenge} isLogin={isLogin} />
           <Navbar

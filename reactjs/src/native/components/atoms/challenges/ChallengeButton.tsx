@@ -10,11 +10,15 @@ import ChallengePostController from '~/native/containers/ChallengePostController
 
 import { postMessage } from '~/lib/discord.client.api';
 
+import Error from '../Error';
+
 const ChallengeButton = (props: any) => {
   const {
     challenge,
     user,
     join,
+    loading,
+    error,
     resourceId,
     fetchParticipants,
     history
@@ -105,7 +109,8 @@ const ChallengeButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {join ? <PostButtonController /> : <JoinButton />}
+      {error && <Error error={error} />}
+      {loading ? null : join ? <PostButtonController /> : <JoinButton />}
     </React.Fragment>
   );
 };

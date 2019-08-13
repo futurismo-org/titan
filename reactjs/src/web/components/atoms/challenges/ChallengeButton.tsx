@@ -8,6 +8,8 @@ import CheckoutForm from '~/web/components/atoms/CheckoutForm';
 import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
 import theme, { secondaryColor, brandWhite } from '~/lib/theme';
 
+import Error from '../Error';
+
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -35,7 +37,15 @@ const StyledModalContent = styled.div`
 `;
 
 const ChallengeButton = (props: any) => {
-  const { challenge, user, join, resourceId, fetchParticipants } = props;
+  const {
+    challenge,
+    user,
+    join,
+    resourceId,
+    fetchParticipants,
+    loading,
+    error
+  } = props;
 
   const challengeId = challenge.id;
   const { price, title } = challenge;
@@ -100,10 +110,18 @@ const ChallengeButton = (props: any) => {
     return null;
   }
 
-  return join ? (
-    <ChallengePostController userShortId={user.shortId} challenge={challenge} />
-  ) : (
-    renderCheckoutButton({ user, challengeId, price })
+  return (
+    <React.Fragment>
+      {error && <Error error={error} />}
+      {loading ? null : join ? (
+        <ChallengePostController
+          userShortId={user.shortId}
+          challenge={challenge}
+        />
+      ) : (
+        renderCheckoutButton({ user, challengeId, price })
+      )}
+    </React.Fragment>
   );
 };
 

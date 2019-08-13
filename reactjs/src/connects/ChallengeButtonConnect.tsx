@@ -21,6 +21,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     join,
+    loading: state.user.loading,
+    error: state.user.error,
     user: profile,
     resourceId,
     ...props

@@ -114,7 +114,9 @@ const ChallengeHeader = (props: any) => {
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
-              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              {challenge.categoryRef && (
+                <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              )}
               {!isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <ChallengeButton challenge={challenge} />
               ) : null}
