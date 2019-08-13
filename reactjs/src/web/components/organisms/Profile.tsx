@@ -85,7 +85,7 @@ const Profile = (props: any) => {
               </div>
             </MainFeaturedPost>
             <Grid container justify="center" style={{ padding: 20 }}>
-              <Grid item>
+              <Grid item md={12}>
                 <ProfileContent>
                   <div>
                     <h2>{user.displayName}</h2>
@@ -133,7 +133,8 @@ const Profile = (props: any) => {
                     )}`}</p>
                   </div>
                 </ProfileContent>
-
+              </Grid>
+              <Grid item md={12}>
                 <div style={{ textAlign: 'right' }}>
                   <PostButton
                     to="/settings"
