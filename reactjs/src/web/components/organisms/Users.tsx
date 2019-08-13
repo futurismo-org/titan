@@ -40,7 +40,7 @@ const Users = (props: any) => {
 
   return (
     <Paper>
-      <Title text="ユーザ一覧" />
+      <Title text="ユーザー一覧" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {users && (
