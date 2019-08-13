@@ -314,6 +314,8 @@ const userSeeds = seed.collection('users', [
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true,
     twitterUsername: 'titan_dev_1234',
+    introduction:
+      '人生のどん底にいる32歳のプログラマ。神奈川県在住。いろいろたいへんなので、底辺から自己変革して人生を逆転します。',
     securities: userSecuritiesSeeds
   }),
   createUserSeed({

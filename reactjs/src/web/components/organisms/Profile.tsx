@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Follow } from 'react-twitter-widgets';
-import { Grid, Icon } from '@material-ui/core';
+import { Grid, Icon, Button } from '@material-ui/core';
 import styled from 'styled-components';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
@@ -15,6 +14,8 @@ import BlockButton from '~/web/containers/BlockButtonContainer';
 import { twitterColor } from '~/lib/theme';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import { TITAN_TWITTER_URL } from '~/constants/appInfo';
+import NoStyledLink from '../atoms/NoStyledLink';
+import PostButton from '../atoms/PostButton';
 
 const ProfileContainer = styled.div`
   text-align: center;
@@ -54,6 +55,13 @@ const Profile = (props: any) => {
           </Paper>
         ) : (
           <Paper>
+            <div style={{ textAlign: 'right' }}>
+              <PostButton
+                to="/settings"
+                type="button"
+                text="プロフィールを編集"
+              />
+            </div>
             <Grid container justify="center">
               <Grid item>
                 <ProfileContainer>
@@ -65,17 +73,25 @@ const Profile = (props: any) => {
                   <div>
                     <h2>{user.displayName}</h2>
                   </div>
-                  {!!user.twitterUsername && (
-                    <NoStyledExternalLink href={TITAN_TWITTER_URL}>
-                      <Icon
-                        className="fab fa-twitter"
-                        style={{ color: twitterColor }}
-                      />
-                    </NoStyledExternalLink>
-                  )}
-                  {user.introduction && <p>{user.introduction}</p>}
-                  {isLogin && !isMyProfile && (
-                    <React.Fragment>
+                  <div>
+                    {!!user.twitterUsername && (
+                      <NoStyledExternalLink href={TITAN_TWITTER_URL}>
+                        <Icon
+                          className="fab fa-twitter"
+                          style={{ color: twitterColor }}
+                        />
+                      </NoStyledExternalLink>
+                    )}
+                  </div>
+                  <div>
+                    {user.introduction && (
+                      <div style={{ maxWidth: 600 }}>
+                        <p>{user.introduction}</p>
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    {isLogin && !isMyProfile && (
                       <div
                         style={{
                           display: 'flex',
@@ -85,8 +101,8 @@ const Profile = (props: any) => {
                         <MuteButton user={user} />
                         <BlockButton user={user} />
                       </div>
-                    </React.Fragment>
-                  )}
+                    )}
+                  </div>
                 </ProfileContainer>
               </Grid>
             </Grid>

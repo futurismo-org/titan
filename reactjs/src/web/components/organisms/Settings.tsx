@@ -16,6 +16,7 @@ const Settings = (props: any) => {
   const [twitterUsername, setTwitterUsername] = useState('');
   const [file, setFile] = useState(null);
   const [allowSensitive, setAllowSensitive] = useState(false);
+  const [introduction, setIntroduction] = useState('');
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
@@ -25,6 +26,11 @@ const Settings = (props: any) => {
   const onTwitterUsernameChange = (e: any) => {
     e.preventDefault();
     setTwitterUsername(e.target.value);
+  };
+
+  const onIntroductionChange = (e: any) => {
+    e.preventDefault();
+    setIntroduction(e.target.value);
   };
 
   const onFileChange = (e: any) => {
@@ -49,6 +55,7 @@ const Settings = (props: any) => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
     setAllowSensitive(user.allowSensitive ? user.allowSensitive : false);
+    setIntroduction(user.introduction ? user.introduction : '');
   }, [user]);
 
   return (
@@ -75,6 +82,18 @@ const Settings = (props: any) => {
               style={{ outlineColor: brandDark }}
               label="Twitterユーザ名"
               onChange={onTwitterUsernameChange}
+            />
+            <TextField
+              value={introduction}
+              variant="outlined"
+              margin="normal"
+              id="introduction"
+              multiline
+              rows={6}
+              fullWidth
+              style={{ outlineColor: brandDark }}
+              label="自己紹介"
+              onChange={onIntroductionChange}
             />
             <div>
               <p>ユーザアイコンをアップロード</p>
@@ -113,6 +132,7 @@ const Settings = (props: any) => {
                   displayName,
                   twitterUsername,
                   file,
+                  introduction,
                   allowSensitive
                 })
               }
