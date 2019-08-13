@@ -84,7 +84,7 @@ const Profile = (props: any) => {
                 />
               </div>
             </MainFeaturedPost>
-            <Grid container justify="center">
+            <Grid container justify="center" style={{ padding: 20 }}>
               <Grid item>
                 <ProfileContent>
                   <div>
