@@ -31,10 +31,8 @@ const ChallengePostController = (props: any) => {
 
     if (
       histories.length > 0 &&
-      histories.filter(
-        (history: any) =>
-          history.type === 'RECORD' &&
-          moment(history.timestamp.toDate()).isSame(nowMoment, 'days')
+      histories.filter((history: any) =>
+        moment(history.timestamp.toDate()).isSame(nowMoment, 'days')
       ).length !== 0
     ) {
       errorToast('記録の投稿は1日1回までです');
@@ -92,9 +90,16 @@ ${url}`;
   };
 
   const resetRecord = (props: any) => {
-    const { score, accDays } = props;
+    const { score, accDays, histories } = props;
 
     const newScore = score - 3;
+
+    const lastHistory = histories[histories.length - 1];
+    const newAccDays =
+      moment(lastHistory.timestamp.toDate()).isSame(moment(now), 'days') &&
+      lastHistory.type === 'RECORD'
+        ? accDays - 1
+        : accDays;
 
     const newHistory = {
       id: shortId.generate(),
@@ -102,7 +107,7 @@ ${url}`;
       score: newScore,
       days: 0,
       pastDays: 0,
-      accDays,
+      accDays: newAccDays,
       diff: nowMoment.diff(moment(openedAt.toDate()), 'days'),
       type: 'RESET'
     };
@@ -113,6 +118,7 @@ ${url}`;
       days: 0,
       pastDays: 0,
       score: newScore,
+      accDays: newAccDays,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
