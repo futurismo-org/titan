@@ -43,6 +43,24 @@ const mapStateToProps = (state: any, props: any) => {
       challengeName: challenge.title
     };
 
+    const newChallenge = {
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      title: challenge.title,
+      description: challenge.description,
+      id: challenge.id,
+      openedAt: challenge.openedAt,
+      closedAt: challenge.closedAt
+    };
+
+    const updateUser = {
+      updatedAt: new Date(),
+      categories: firebase.firestore.FieldValue.arrayUnion(
+        challenge.categoryRef
+      ),
+      currentChallenges: firebase.firestore.FieldValue.arrayUnion(newChallenge)
+    };
+
     return firebase
       .firestore()
       .runTransaction(async (transaction: firestore.Transaction) => {
@@ -72,6 +90,12 @@ const mapStateToProps = (state: any, props: any) => {
           .collection('participants')
           .doc(user.shortId)
           .set(newData);
+
+        await firebase
+          .firestore()
+          .collection('users')
+          .doc(user.id)
+          .update(updateUser);
       });
   };
 
