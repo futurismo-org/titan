@@ -19,7 +19,7 @@ const ConditionalTableCell = (props: any) => (
   </Hidden>
 );
 
-const Ranking = (props: any) => {
+const Users = (props: any) => {
   const { users, error, loading, fetchUsers } = props;
 
   React.useEffect(() => {
@@ -73,4 +73,4 @@ const Ranking = (props: any) => {
   );
 };
 
-export default Ranking;
+export default Users;

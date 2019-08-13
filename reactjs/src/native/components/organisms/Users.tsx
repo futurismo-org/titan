@@ -11,7 +11,7 @@ import UserAvatar from '../atoms/UserAvatar';
 
 const { Table, Row } = require('react-native-table-component');
 
-const Ranking = (props: any) => {
+const Users = (props: any) => {
   const { users, error, loading, fetchUsers } = props;
 
   React.useEffect(() => {
@@ -60,4 +60,4 @@ const Ranking = (props: any) => {
   );
 };
 
-export default Ranking;
+export default Users;
