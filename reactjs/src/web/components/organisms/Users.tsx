@@ -29,7 +29,7 @@ const Users = (props: any) => {
   const LeaderBoardHead = () => (
     <TableHead>
       <TableRow>
-        <TableCell>順位</TableCell>
+        <TableCell>#</TableCell>
         <TableCell />
         <TableCell>名前</TableCell>
         <ConditionalTableCell>最新</ConditionalTableCell>
@@ -40,9 +40,7 @@ const Users = (props: any) => {
 
   return (
     <Paper>
-      <Title text="ユーザランキング" />
-      <p>ランキング機能は準備中です。</p>
-      <p>データが不十分なため、 アクティブユーザを順に表示しています。</p>
+      <Title text="ユーザ一覧" />
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {users && (
@@ -52,7 +50,7 @@ const Users = (props: any) => {
             {users.map((user: any, index: number) => (
               <TableRow key={user.id}>
                 <TableCell component="th" scope="row">
-                  {index + 1}位
+                  {index + 1}
                 </TableCell>
                 <TableCell>
                   <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
