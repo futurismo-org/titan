@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Modal from '@material-ui/core/Modal';
 import { Elements, StripeProvider } from 'react-stripe-elements';
@@ -8,7 +7,6 @@ import { Elements, StripeProvider } from 'react-stripe-elements';
 import CheckoutForm from '~/web/components/atoms/CheckoutForm';
 import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
 import theme, { secondaryColor, brandWhite } from '~/lib/theme';
-import firebase from '~/lib/firebase';
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -37,13 +35,17 @@ const StyledModalContent = styled.div`
 `;
 
 const ChallengeButton = (props: any) => {
-  const { challenge, user } = props;
+  const { challenge, user, join, resourceId, fetchParticipants } = props;
+
   const challengeId = challenge.id;
   const { price, title } = challenge;
-  const [join, setJoin] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [modalStyle] = React.useState(getModalStyle);
+
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -98,15 +100,6 @@ const ChallengeButton = (props: any) => {
     return null;
   }
 
-  firebase
-    .firestore()
-    .collection('challenges')
-    .doc(challengeId)
-    .collection('participants')
-    .where('id', '==', user.shortId)
-    .get()
-    .then((s: any) => setJoin(!s.empty));
-
   return join ? (
     <ChallengePostController userShortId={user.shortId} challenge={challenge} />
   ) : (
@@ -114,9 +107,4 @@ const ChallengeButton = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(ChallengeButton);
+export default ChallengeButton;

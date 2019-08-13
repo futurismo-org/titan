@@ -10,8 +10,6 @@ import ChallengePostController from '~/native/containers/ChallengePostController
 
 import { postMessage } from '~/lib/discord.client.api';
 
-import Error from '../Error';
-
 const ChallengeButton = (props: any) => {
   const {
     challenge,
@@ -19,24 +17,14 @@ const ChallengeButton = (props: any) => {
     join,
     resourceId,
     fetchParticipants,
-    error,
-    loading,
-    fetchUser,
-    userResourceId,
-    participant,
-    redirectPath,
-    history,
-    showGiphy
+    history
   } = props;
 
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetchParticipants(resourceId);
-    if (join) {
-      fetchUser(userResourceId);
-    }
-  }, [fetchParticipants, resourceId, fetchUser, userResourceId, join, refresh]);
+  }, [fetchParticipants, resourceId, refresh]);
 
   const joinHandler = (
     challengeId: string,
@@ -100,14 +88,7 @@ const ChallengeButton = (props: any) => {
   };
 
   const PostButtonController = (props: any) => (
-    <ChallengePostController
-      challenge={challenge}
-      fetchUser={fetchUser}
-      resourceId={userResourceId}
-      participant={participant}
-      redirectPath={redirectPath}
-      showGiphy={showGiphy}
-    />
+    <ChallengePostController userShortId={user.shortId} challenge={challenge} />
   );
 
   const JoinButton = (props: any) => (
@@ -122,13 +103,9 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
-  const renderButton = () => (join ? <PostButtonController /> : <JoinButton />);
-
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && null}
-      {!loading ? renderButton() : null}
+      {join ? <PostButtonController /> : <JoinButton />}
     </React.Fragment>
   );
 };

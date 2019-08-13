@@ -2,18 +2,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import shortId from 'shortid';
-import { isDaysValid, RECORD, RESET } from '~/lib/challenge';
+import {
+  isDaysValid,
+  RECORD,
+  RESET,
+  isChallengeOpening
+} from '~/lib/challenge';
 
 import moment, { now, isToday } from '~/lib/moment';
 import { getParticipantsUserId } from '~/lib/resource';
 import { getUserDashboardPath } from '~/lib/url';
 
 import { postMessage } from '~/lib/discord.client.api';
+import { showGiphy } from '~/actions/giphyAction';
 
 import firebase from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({}, dispatch);
+  bindActionCreators({ showGiphy }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { userShortId, challenge } = props;
@@ -25,7 +31,7 @@ const mapStateToProps = (state: any, props: any) => {
   const dashBoardPath = getUserDashboardPath(challengeId, userShortId);
   const dashBoardURL = `https://titan-fire.com${dashBoardPath}`;
 
-  const recordHandler = (alert: any, redirect: any, reload: any) => (
+  const recordHandler = (alert: any, redirect: any, gifty: any) => (
     props: any
   ) => {
     const {
@@ -81,6 +87,7 @@ const mapStateToProps = (state: any, props: any) => {
       .firestore()
       .doc(resourceId)
       .update(updateData)
+      .then(() => gifty && gifty())
       .then(() => {
         const message = `${displayName}さんが計${newAccDays}日達成しました！
 ${dashBoardURL}`;
@@ -90,11 +97,10 @@ ${dashBoardURL}`;
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
-        reload && reload();
       });
   };
 
-  const resetHandler = (redirect: any, reload: any) => (props: any) => {
+  const resetHandler = (redirect: any, gifty: any) => (props: any) => {
     const { score, displayName, accDays, histories } = props;
 
     const newScore = score - 3;
@@ -130,6 +136,7 @@ ${dashBoardURL}`;
       .firestore()
       .doc(resourceId)
       .update(resetData)
+      .then(() => gifty && gifty())
       .then(() => {
         const message = `${displayName}さんがリセットしました。
 ${dashBoardURL}`;
@@ -138,14 +145,10 @@ ${dashBoardURL}`;
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
-        reload && reload();
       });
   };
 
-  const hide = !(
-    moment(now).diff(moment(openedAt.toDate())) >= 0 &&
-    moment(now).diff(moment(closedAt.toDate())) < 0
-  );
+  const hide = !isChallengeOpening(openedAt.toDate(), closedAt.toDate());
 
   const participantsRef = firebase.firestore().doc(resourceId);
 
