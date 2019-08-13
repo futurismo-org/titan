@@ -1,4 +1,5 @@
 import moment, { nowMoment } from '~/lib/moment';
+import firebase from '~/lib/firebase';
 
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
@@ -58,3 +59,62 @@ export const isChallengeClosed = (closedAt: Date) =>
 
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
   nowMoment.diff(moment(openedAt)) >= 0 && nowMoment.diff(moment(closedAt)) < 0;
+
+export const rankChallengeParticipants = (participants: any) => {
+  const users = participants.sort(
+    (x: any, y: any) =>
+      y.score - x.score ||
+      y.days - x.days ||
+      y.maxDays - x.maxDays ||
+      y.updatedAt.toDate() - x.updatedAt.toDate()
+  );
+
+  const size = users.length;
+
+  const isSameScore = (users: any, i: number) =>
+    users[i - 1].score === users[i].score &&
+    users[i - 1].days === users[i].days &&
+    users[i - 1].maxDays === users[i].maxDays;
+
+  const rankings = new Array(size);
+  rankings[0] = 1;
+  for (let i = 1; i < size; i += 1) {
+    rankings[i] = isSameScore(users, i) ? rankings[i - 1] : i + 1;
+  }
+
+  const rankedUsers = new Array(size);
+
+  for (let i = 0; i < size; i += 1) {
+    rankedUsers[i] = { rank: rankings[i], ...users[i] };
+  }
+
+  return rankedUsers;
+};
+
+export const aggregateChallenge = async (challengeId: string) => {
+  console.log('challenge aggregation end', challengeId);
+
+  const rankedUsers = await firebase
+    .firestore()
+    .collection('challenge')
+    .doc(challengeId)
+    .collection('participants')
+    .get()
+    .then(snap => snap.docs.map(doc => doc.data()))
+    .then(participants => rankChallengeParticipants(participants));
+
+  await firebase
+    .firestore()
+    .collection('challenge')
+    .doc(challengeId)
+    .update({
+      participants: rankedUsers
+    });
+
+  const challengeResults = await rankedUsers.map(user => ({
+    challengeId,
+    userId: user.id,
+    score: user.score,
+    rank: user.rank
+  }));
+};
