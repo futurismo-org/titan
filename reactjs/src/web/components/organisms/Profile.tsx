@@ -1,26 +1,39 @@
 import React, { useEffect } from 'react';
 
-import { Grid, Icon, Button } from '@material-ui/core';
+import { Grid, Icon } from '@material-ui/core';
 import styled from 'styled-components';
+import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
-import Paper from '../templates/PaperWrapper';
 import UserAvatar from '../atoms/UserAvatar';
 
 import MuteButton from '~/web/containers/MuteButtonContainer';
 import BlockButton from '~/web/containers/BlockButtonContainer';
-import { twitterColor, brandGray } from '~/lib/theme';
+import theme, { twitterColor, brandGray } from '~/lib/theme';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import { TITAN_TWITTER_URL } from '~/constants/appInfo';
-import NoStyledLink from '../atoms/NoStyledLink';
 import PostButton from '../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
+import { getRandomImageURL } from '~/lib/url';
 
-const ProfileContainer = styled.div`
+const ProfileContent = styled.div`
   text-align: center;
 `;
+
+const MainFeaturedPost = styled(Paper)`
+  && {
+    position: relative;
+    background-color: ${theme.palette.grey[800]};
+    color: ${theme.palette.common.white};
+    margin-bottom: ${theme.spacing(8)}px;
+    background-image: url(${getRandomImageURL()});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+` as React.ComponentType<PaperProps>;
 
 const Profile = (props: any) => {
   const {
@@ -55,22 +68,25 @@ const Profile = (props: any) => {
             </p>
           </Paper>
         ) : (
-          <Paper>
-            <div style={{ textAlign: 'right' }}>
-              <PostButton
-                to="/settings"
-                type="button"
-                text="プロフィールを編集"
-              />
-            </div>
+          <React.Fragment>
+            <MainFeaturedPost>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  transform: 'translate3d(0, 50%, 0)'
+                }}
+              >
+                <UserAvatar
+                  photoURL={user.photoURL}
+                  userId={user.shortId}
+                  xlarge
+                />
+              </div>
+            </MainFeaturedPost>
             <Grid container justify="center">
               <Grid item>
-                <ProfileContainer>
-                  <UserAvatar
-                    photoURL={user.photoURL}
-                    userId={user.shortId}
-                    xlarge
-                  />
+                <ProfileContent>
                   <div>
                     <h2>{user.displayName}</h2>
                   </div>
@@ -85,8 +101,8 @@ const Profile = (props: any) => {
                     )}
                   </div>
                   <div>
-                    {user.introduction && (
-                      <div style={{ maxWidth: 600 }}>
+                    {!!user.introduction && (
+                      <div>
                         <p>{user.introduction}</p>
                       </div>
                     )}
@@ -116,10 +132,18 @@ const Profile = (props: any) => {
                       user.updatedAt.toDate()
                     )}`}</p>
                   </div>
-                </ProfileContainer>
+                </ProfileContent>
+
+                <div style={{ textAlign: 'right' }}>
+                  <PostButton
+                    to="/settings"
+                    type="button"
+                    text="プロフィールを編集"
+                  />
+                </div>
               </Grid>
             </Grid>
-          </Paper>
+          </React.Fragment>
         ))}
     </React.Fragment>
   );

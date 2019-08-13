@@ -16,7 +16,7 @@ const UserAvatar = (props: any) => {
       }
     : xlarge
     ? {
-        margin: '0 auto',
+        margin: 10,
         width: 120,
         height: 120
       }
