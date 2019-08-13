@@ -9,7 +9,12 @@ import firebase from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
 import { getUserDashboardPath } from '~/lib/url';
 
-import { isChallengeOpening, isDaysValid } from '~/lib/challenge';
+import {
+  isChallengeOpening,
+  isDaysValid,
+  RECORD,
+  RESET
+} from '~/lib/challenge';
 import { errorToast } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
@@ -53,7 +58,7 @@ const ChallengePostController = (props: any) => {
       accDays: newAccDays,
       pastDays: newPastDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
-      type: 'RECORD'
+      type: RECORD
     };
 
     const updateData: any = {
@@ -97,7 +102,7 @@ ${url}`;
     const lastHistory = histories[histories.length - 1];
     const newAccDays =
       moment(lastHistory.timestamp.toDate()).isSame(moment(now), 'days') &&
-      lastHistory.type === 'RECORD'
+      lastHistory.type === RECORD
         ? accDays - 1
         : accDays;
 
@@ -109,7 +114,7 @@ ${url}`;
       pastDays: 0,
       accDays: newAccDays,
       diff: nowMoment.diff(moment(openedAt.toDate()), 'days'),
-      type: 'RESET'
+      type: RESET
     };
 
     const resetData = {
