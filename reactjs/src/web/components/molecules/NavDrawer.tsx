@@ -18,13 +18,14 @@ import {
   TITAN_BLOG_URL
 } from '~/constants/appInfo';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+import { twitterColor } from '~/lib/theme';
 
 const { loadCSS } = require('fg-loadcss');
 
 const useStyles = makeStyles(theme => ({
   twitter: {
     margin: theme.spacing(2),
-    color: '#4099FF'
+    color: twitterColor
   },
   rss: {
     margin: theme.spacing(2),
