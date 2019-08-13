@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-native';
 import firebase from '~/lib/firebase';
 
 import { successToast } from '~/native/components/atoms/Toast';
-import ChallengePostController from '../../molecules/challenges/ChallengePostController';
+import ChallengePostController from '~/native/containers/ChallengePostControllerContainer';
 
 import { postMessage } from '~/lib/discord.client.api';
 
