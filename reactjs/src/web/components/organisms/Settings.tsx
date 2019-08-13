@@ -44,6 +44,11 @@ const Settings = (props: any) => {
   };
 
   const updateHandlerWithMessage = (data: any) => {
+    if (data.introduction.length > 300) {
+      window.alert('自己紹介の文字数を確認してください。'); // eslint-disable-line
+      return;
+    }
+
     updateHandler(data)
       .then(() => window.alert('ユーザ設定を更新しました。')) // eslint-disable-line
       .catch(
@@ -92,7 +97,7 @@ const Settings = (props: any) => {
               rows={6}
               fullWidth
               style={{ outlineColor: brandDark }}
-              label="自己紹介"
+              label="自己紹介(300字まで)"
               onChange={onIntroductionChange}
             />
             <div>
