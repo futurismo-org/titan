@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-native';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
 import Error from '../../atoms/Error';
+import { successToastWithNoRedirect } from '../../atoms/Toast';
 
 const ChallengePostController = (props: any) => {
   const {
@@ -21,7 +22,7 @@ const ChallengePostController = (props: any) => {
   const [value, loading, error] = useDocument(participantsRef);
 
   const writeRecord = recordHandler(
-    window.alert, // eslint-disable-line
+    successToastWithNoRedirect,
     history.push,
     () => showGiphy('win')
   );

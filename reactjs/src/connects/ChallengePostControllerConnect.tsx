@@ -106,8 +106,11 @@ ${dashBoardURL}`;
     const newScore = score - 3;
 
     const lastHistory = histories[histories.length - 1];
+
     const newAccDays =
-      isToday(lastHistory.timestamp.toDate()) && lastHistory.type === RECORD
+      lastHistory &&
+      isToday(lastHistory.timestamp.toDate()) &&
+      lastHistory.type === RECORD
         ? accDays - 1
         : accDays;
 
