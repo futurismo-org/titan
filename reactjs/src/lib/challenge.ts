@@ -1,5 +1,8 @@
 import moment, { nowMoment } from '~/lib/moment';
 
+export const RECORD = 'RECORD';
+export const RESET = 'RESET';
+
 export const challengePeriod = (challenge: any) => {
   const openedAt = moment(challenge.openedAt.toDate());
   const closedAt = moment(challenge.closedAt.toDate());

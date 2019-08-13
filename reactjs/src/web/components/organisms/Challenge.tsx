@@ -17,7 +17,7 @@ const Challenge = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {challenge && (
+      {!loading && challenge && (
         <React.Fragment>
           <Header challenge={challenge} />
           <Paper>

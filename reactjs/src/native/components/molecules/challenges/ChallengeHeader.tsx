@@ -11,7 +11,7 @@ import {
 } from '~/native/components/atoms/Hero';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
-import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryBadge';
+import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryButton';
 
 import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
@@ -32,7 +32,9 @@ const ChallengeHeader = (props: any) => {
             </TouchableOpacity>
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
-              <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
+              {challenge.categoryRef && (
+                <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
+              )}
               {isLogin && !isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <ChallengeButton challenge={challenge} />
               ) : null}

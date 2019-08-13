@@ -8,6 +8,7 @@ import { formatDatetime } from '~/lib/moment';
 import { wrapShowN } from '~/lib/general';
 
 import { primaryColor, secondaryColor } from '~/lib/theme';
+import { RESET } from '~/lib/challenge';
 
 const { Table, Row } = require('react-native-table-component');
 
@@ -54,7 +55,7 @@ const DeleteWithAlert = (props: any) => {
 const DeleteWithAlertWithRouter = withRouter(DeleteWithAlert);
 
 const getType = (type: string) => {
-  if (type === 'RESET') {
+  if (type === RESET) {
     return <Text style={{ color: primaryColor }}>RESET</Text>;
   }
   return <Text style={{ color: secondaryColor }}>RECORD</Text>;

@@ -19,6 +19,7 @@ import {
 
 import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
+import { RESET, RECORD } from '~/lib/challenge';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -27,10 +28,10 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const getType = (type: string) => {
-  if (type === 'RESET') {
-    return <Chip color="primary" label="RESET" />;
+  if (type === RESET) {
+    return <Chip color="primary" label={RESET} />;
   }
-  return <Chip color="secondary" label="RECORD" />;
+  return <Chip color="secondary" label={RECORD} />;
 };
 
 const HistoryHead = (props: any) => (
