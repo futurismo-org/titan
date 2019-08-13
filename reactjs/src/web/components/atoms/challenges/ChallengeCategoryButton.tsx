@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Fab from '@material-ui/core/Fab';
 
+import { useDocument } from 'react-firebase-hooks/firestore';
 import firebase from '~/lib/firebase';
 import NoStyledLink from '../NoStyledLink';
+
+import Error from '../Error';
 
 const ChallengeCategoryButton = (props: any) => {
   const docRef: firebase.firestore.DocumentReference = props.categoryRef;
 
-  const [title, setTitle] = useState('');
-  const [path, setPath] = useState('');
-
-  docRef
-    .get()
-    .then((doc: firebase.firestore.DocumentSnapshot) => doc.data())
-    .then(category => {
-      setTitle(category!.title);
-      setPath(`/cat/${category!.id}/dashboard`);
-    });
+  const [value, loading, error] = useDocument(docRef);
+  const category = value && value.data();
 
   return (
     <React.Fragment>
-      <NoStyledLink to={path}>
-        <Fab variant="extended" style={{ fontWeight: 'bold' }} color="primary">
-          {title}
-        </Fab>
-      </NoStyledLink>
+      {error && <Error error={error} />}
+      {loading && null}
+      {!loading && category && (
+        <NoStyledLink to={`/cat/${category.id}/dashboard`}>
+          <Fab
+            variant="extended"
+            style={{ fontWeight: 'bold' }}
+            color="primary"
+          >
+            {category.title}
+          </Fab>
+        </NoStyledLink>
+      )}
     </React.Fragment>
   );
 };
