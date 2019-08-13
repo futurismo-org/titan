@@ -1,10 +1,14 @@
 import React from 'react';
 
+import Paper from '../templates/PaperWrapper';
+
 const ProfileBody = (props: any) => {
+  const { user } = props;
+
   return (
-    <React.Fragment>
+    <Paper>
       <p>test</p>
-    </React.Fragment>
+    </Paper>
   );
 };
 

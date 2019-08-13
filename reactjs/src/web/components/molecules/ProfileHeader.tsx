@@ -7,7 +7,7 @@ import Paper, { PaperProps } from '@material-ui/core/Paper';
 import UserAvatar from '../atoms/UserAvatar';
 import MuteButton from '~/web/containers/MuteButtonContainer';
 import BlockButton from '~/web/containers/BlockButtonContainer';
-import theme, { twitterColor, brandGray } from '~/lib/theme';
+import theme, { twitterColor, brandGray, brandWhite } from '~/lib/theme';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import { TITAN_TWITTER_URL } from '~/constants/appInfo';
 import PostButton from '../atoms/PostButton';
@@ -47,7 +47,11 @@ const ProfileHeader = (props: any) => {
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} xlarge />
         </div>
       </MainFeaturedPost>
-      <Grid container justify="center" style={{ padding: 20 }}>
+      <Grid
+        container
+        justify="center"
+        style={{ padding: 20, backgroundColor: brandWhite }}
+      >
         <Grid item md={12}>
           <ProfileContent>
             <div>

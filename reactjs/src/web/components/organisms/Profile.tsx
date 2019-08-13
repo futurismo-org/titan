@@ -47,7 +47,7 @@ const Profile = (props: any) => {
               isLogin={isLogin}
               isMyProfile={isMyProfile}
             />
-            <ProfileBody />
+            <ProfileBody user={user} />
           </React.Fragment>
         ))}
     </React.Fragment>
