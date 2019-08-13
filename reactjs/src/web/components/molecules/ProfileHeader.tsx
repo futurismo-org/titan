@@ -106,7 +106,7 @@ const ProfileHeader = (props: any) => {
             <PostButton
               to="/settings"
               type="button"
-              text="プロフィールを編集"
+              text="プロフィールを編集"
             />
           </div>
         </Grid>

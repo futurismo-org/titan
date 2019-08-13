@@ -18,9 +18,10 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {user.currentChallenges.map((item: any) => (
-          <CollectionCard collection={item} type="challenges" key={item.id} />
-        ))}
+        {user.currentChallenges &&
+          user.currentChallenges.map((item: any) => (
+            <CollectionCard collection={item} type="challenges" key={item.id} />
+          ))}
       </Grid>
       <Title text="参加中のカテゴリ" />
       <Grid
