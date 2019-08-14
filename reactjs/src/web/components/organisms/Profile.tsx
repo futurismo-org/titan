@@ -6,7 +6,7 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
 import ProfileHeader from '../molecules/ProfileHeader';
-import ProfileBody from '../molecules/ProfileBody';
+import ProfileBody from '~/web/containers/ProfileBodyContainer';
 
 const Profile = (props: any) => {
   const {
@@ -47,7 +47,7 @@ const Profile = (props: any) => {
               isLogin={isLogin}
               isMyProfile={isMyProfile}
             />
-            <ProfileBody user={user} />
+            <ProfileBody userShortId={userShortId} />
           </React.Fragment>
         ))}
     </React.Fragment>

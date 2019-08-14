@@ -75,6 +75,7 @@ const CollectionCard = (props: any) => {
                 <StyledCardDetails>
                   <CardContent>
                     <Typography component="h2" variant="h5">
+                      {console.log(collection.title)}
                       {collection.title}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>

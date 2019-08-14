@@ -127,6 +127,7 @@ export const aggregateChallenge = async (
       );
 
       const challengeResults = await rankedUsers.map(user => ({
+        id: challengeId,
         challengeId,
         userShortId: user.id,
         score: user.score,
@@ -148,8 +149,10 @@ export const aggregateChallenge = async (
       const categoryId = await getCategoryId(categoryRef);
 
       const challengeHistories = await rankedUsers.map(user => ({
+        id: categoryId,
         userShortId: user.id,
         categoryId,
+        ref: categoryRef,
         histories: user.histories,
         updatedAt: new Date()
       }));
