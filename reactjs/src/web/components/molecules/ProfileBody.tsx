@@ -6,7 +6,7 @@ import Title from '../atoms/Title';
 import CollectionCard from '../atoms/CollectionCard';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
-import { isChallengeOpening } from '~/lib/challenge';
+import { isChallengeClosed } from '~/lib/challenge';
 import ProfileChallenges from './ProfileChallenges';
 
 const ProfileBody = (props: any) => {
@@ -35,9 +35,7 @@ const ProfileBody = (props: any) => {
         {!loading &&
           challenges &&
           challenges
-            .filter((item: any) =>
-              isChallengeOpening(item.openedAt.toDate(), item.closedAt.toDate())
-            )
+            .filter((item: any) => !isChallengeClosed(item.closedAt.toDate()))
             .map((item: any) => (
               <CollectionCard
                 collection={item}

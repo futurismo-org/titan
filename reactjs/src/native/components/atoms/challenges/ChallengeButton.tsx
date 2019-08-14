@@ -3,10 +3,7 @@ import { Button, Text } from 'native-base';
 
 import { withRouter } from 'react-router-native';
 
-import {
-  successToastWithNoRedirect,
-  successToast
-} from '~/native/components/atoms/Toast';
+import { successToast } from '~/native/components/atoms/Toast';
 import ChallengePostController from '~/native/containers/ChallengePostControllerContainer';
 
 import Error from '../Error';

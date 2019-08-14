@@ -59,6 +59,7 @@ const ProfileChallenges = (props: any) => {
             .sort((x: any, y: any) =>
               moment(y.closedAt.toDate()).diff(moment(x.closedAt.toDate()))
             )
+            .filter((challenge: any) => challenge.score)
             .map((challenge: any) => {
               return <ChallengeRow key={challenge.id} challenge={challenge} />;
             })}

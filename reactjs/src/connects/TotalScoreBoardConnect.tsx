@@ -16,7 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
       .doc(userShortId)
       .get()
       .then(doc => doc.data())
-      .then(data => data!.totalScore);
+      .then(data => (data ? data.totalScore : 0));
   };
 
   return {

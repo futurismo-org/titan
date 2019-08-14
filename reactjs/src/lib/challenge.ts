@@ -264,6 +264,7 @@ export const aggregateChallenge = async (challenge: any) => {
       .then((snap: any) =>
         snap.docs
           .map((doc: any) => doc.data().score)
+          .filter((score: any) => score)
           .reduce((x: number, y: number) => x + y)
       );
 
