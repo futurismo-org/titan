@@ -105,7 +105,7 @@ export const aggregateChallenge = async (challenge: any) => {
   const categoryRef = challenge.categoryRef;
 
   // 参加処理が済んでいない場合は、先に参加処理を走らせる（互換性処理)
-  firebase
+  await firebase
     .firestore()
     .runTransaction(async (transaction: firestore.Transaction) => {
       const participantes = await firebase
@@ -158,7 +158,7 @@ export const aggregateChallenge = async (challenge: any) => {
     });
   // ここまで
 
-  return firebase
+  const profileRefs = await firebase
     .firestore()
     .runTransaction(async (transaction: firestore.Transaction) => {
       const rankedUsers = await firebase
@@ -190,15 +190,26 @@ export const aggregateChallenge = async (challenge: any) => {
         updatedAt: new Date()
       }));
 
-      await challengeResults.map(result =>
-        firebase
+      await challengeResults.map(data => {
+        const userRef = firebase
           .firestore()
           .collection('profiles')
-          .doc(result.userShortId)
+          .doc(data.userShortId);
+
+        userRef.set(
+          {
+            id: data.userShortId,
+            challengeId: data.challengeId,
+            updatedAt: new Date()
+          },
+          { merge: true }
+        );
+
+        return userRef
           .collection('challenges')
-          .doc(result.challengeId)
-          .set(result, { merge: true })
-      );
+          .doc(data.challengeId)
+          .set(data, { merge: true });
+      });
 
       const categoryId = await getCategoryId(categoryRef);
 
@@ -211,14 +222,55 @@ export const aggregateChallenge = async (challenge: any) => {
         updatedAt: new Date()
       }));
 
-      await challengeHistories.map(data => {
-        return firebase
-          .firestore()
-          .collection('profiles')
-          .doc(data.userShortId)
-          .collection('categories')
-          .doc(data.categoryId)
-          .set(data, { merge: true });
-      });
+      const profileRefs = await challengeHistories
+        .map(data => {
+          const userRef = firebase
+            .firestore()
+            .collection('profiles')
+            .doc(data.userShortId);
+
+          userRef.set(
+            {
+              id: data.userShortId,
+              categoryId: data.categoryId,
+              updatedAt: new Date()
+            },
+            { merge: true }
+          );
+
+          userRef
+            .collection('categories')
+            .doc(data.categoryId)
+            .set(data, { merge: true });
+
+          return data;
+        })
+        .map((data: any) =>
+          firebase
+            .firestore()
+            .collection('profiles')
+            .doc(data.userShortId)
+        );
+
+      return profileRefs;
     });
+
+  // 最後に総合スコアの算出
+  return await profileRefs.map(async (doc: any) => {
+    const userShortId = doc.id;
+    const totalScore = await doc
+      .collection('challenges')
+      .get()
+      .then((snap: any) =>
+        snap.docs
+          .map((doc: any) => doc.data().score)
+          .reduce((x: number, y: number) => x + y)
+      );
+
+    return firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .update({ id: userShortId, totalScore: totalScore });
+  });
 };
