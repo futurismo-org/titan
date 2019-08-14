@@ -58,6 +58,14 @@ const ProfileHeader = (props: any) => {
             <div>
               <h2>{user.displayName}</h2>
             </div>
+            <TotalScoreBoard userShortId={user.shortId} />
+            <div>
+              {!!user.introduction && (
+                <div>
+                  <p>{user.introduction}</p>
+                </div>
+              )}
+            </div>
             <div>
               {!!user.twitterUsername && (
                 <NoStyledExternalLink href={TITAN_TWITTER_URL}>
@@ -68,14 +76,6 @@ const ProfileHeader = (props: any) => {
                 </NoStyledExternalLink>
               )}
             </div>
-            <div>
-              {!!user.introduction && (
-                <div>
-                  <p>{user.introduction}</p>
-                </div>
-              )}
-            </div>
-            <TotalScoreBoard userShortId={user.shortId} />
             <div
               style={{
                 display: 'flex',
@@ -103,15 +103,17 @@ const ProfileHeader = (props: any) => {
             </div>
           </ProfileContent>
         </Grid>
-        <Grid item md={12}>
-          <div style={{ textAlign: 'right' }}>
-            <PostButton
-              to="/settings"
-              type="button"
-              text="プロフィールを編集"
-            />
-          </div>
-        </Grid>
+        {isLogin && isMyProfile && (
+          <Grid item md={12}>
+            <div style={{ textAlign: 'right' }}>
+              <PostButton
+                to="/settings"
+                type="button"
+                text="プロフィールを編集"
+              />
+            </div>
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );
