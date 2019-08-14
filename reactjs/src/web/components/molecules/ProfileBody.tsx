@@ -35,7 +35,7 @@ const ProfileBody = (props: any) => {
           challenges &&
           challenges
             .filter((item: any) =>
-              isChallengeOpening(item.openedAt, item.closedAt)
+              isChallengeOpening(item.openedAt.toDate(), item.closedAt.toDate())
             )
             .map((item: any) => (
               <CollectionCard
@@ -51,7 +51,11 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {/* {!loading && categories && <ProfileCategories refs={categories} />} */}
+        {!loading && categories && (
+          <ProfileCategories
+            refs={categories.map((category: any) => category.ref)}
+          />
+        )}
       </Grid>
       <Title text="過去のチャレンジ実績" />
       <Grid

@@ -100,10 +100,64 @@ export const rankChallengeParticipants = (participants: any) => {
 export const getCategoryId = (categoryRef: any) =>
   categoryRef.path.split('/')[1];
 
-export const aggregateChallenge = async (
-  challengeId: string,
-  categoryRef: any
-) => {
+export const aggregateChallenge = async (challenge: any) => {
+  const challengeId = challenge.id;
+  const categoryRef = challenge.categoryRef;
+
+  // 参加処理が済んでいない場合は、先に参加処理を走らせる（互換性処理)
+  firebase
+    .firestore()
+    .runTransaction(async (transaction: firestore.Transaction) => {
+      const participantes = await firebase
+        .firestore()
+        .collection('challenges')
+        .doc(challengeId)
+        .collection('participants')
+        .get()
+        .then(snap => snap.docs.map(doc => doc.data()));
+
+      return participantes.map(user => {
+        const userShortId = user.id;
+
+        const newChallenge = {
+          updatedAt: new Date(),
+          title: challenge.title,
+          description: challenge.description,
+          challengeId,
+          userShortId,
+          openedAt: challenge.openedAt,
+          closedAt: challenge.closedAt
+        };
+
+        const categoryId = getCategoryId(challenge.categoryRef);
+
+        const newCategory = {
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          ref: challenge.categoryRef,
+          categoryId,
+          userShortId
+        };
+
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('challenges')
+          .doc(challengeId)
+          .set(newChallenge, { merge: true });
+
+        return firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId)
+          .set(newCategory, { merge: true });
+      });
+    });
+  // ここまで
+
   return firebase
     .firestore()
     .runTransaction(async (transaction: firestore.Transaction) => {
