@@ -1,27 +1,40 @@
 import React from 'react';
-import { View, Button } from 'native-base';
+import { View } from 'native-base';
 
+import { Linking } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import UserAvatar from '../atoms/UserAvatar';
-import { getTwitterProfileURL } from '~/lib/url';
-import TouchableText from '../atoms/TouchableText';
+import { getTwitterProfileURL, getRandomImageURL } from '~/lib/url';
 
 import MuteButton from '~/native/containers/MuteButtonContainer';
 import BlockButton from '~/native/containers/BlockButtonContainer';
+import { StyledHero as Hero } from '~/native/components/atoms/Hero';
+
+import { twitterColor } from '~/lib/theme';
 
 const ProfileHeader = (props: any) => {
   const { user, isLogin, isMyProfile } = props;
 
   return (
-    <View>
-      <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
+    <View style={{ alignItems: 'center' }}>
+      <Hero
+        source={{ uri: getRandomImageURL() }}
+        renderOverlay={() => <View style={{ height: 150 }} />}
+      />
+      <View style={{ translateY: -50 }}>
+        <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
+      </View>
       {!!user.twitterUsername && (
-        <Button style={{ marginVertical: 15 }} info small>
-          <TouchableText
-            text="Twitter"
-            url={getTwitterProfileURL(user.twitterUsername)}
-            external
+        <View>
+          <Icon
+            size={40}
+            name="twitter"
+            color={twitterColor}
+            onPress={() =>
+              Linking.openURL(getTwitterProfileURL(user.twitterUsername))
+            }
           />
-        </Button>
+        </View>
       )}
       {isLogin && !isMyProfile && (
         <View style={{ marginTop: 20, flex: 1, flexDirection: 'row' }}>
