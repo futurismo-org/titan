@@ -85,36 +85,53 @@ export const rankChallengeParticipants = (participants: any) => {
   const rankedUsers = new Array(size);
 
   for (let i = 0; i < size; i += 1) {
-    rankedUsers[i] = { rank: rankings[i], ...users[i] };
+    rankedUsers[i] = {
+      ...users[i],
+      rank: rankings[i],
+      ratio: ((rankings[i] / rankings.length) * 100).toFixed(1),
+      updatedAt: new Date()
+    };
   }
 
   return rankedUsers;
 };
 
 export const aggregateChallenge = async (challengeId: string) => {
-  console.log('challenge aggregation end', challengeId);
-
   const rankedUsers = await firebase
     .firestore()
-    .collection('challenge')
+    .collection('challenges')
     .doc(challengeId)
     .collection('participants')
     .get()
     .then(snap => snap.docs.map(doc => doc.data()))
     .then(participants => rankChallengeParticipants(participants));
 
-  await firebase
-    .firestore()
-    .collection('challenge')
-    .doc(challengeId)
-    .update({
-      participants: rankedUsers
-    });
+  await rankedUsers.map(user => {
+    return firebase
+      .firestore()
+      .collection('challenges')
+      .doc(challengeId)
+      .collection('participants')
+      .doc(user.id)
+      .set(user);
+  });
 
   const challengeResults = await rankedUsers.map(user => ({
     challengeId,
     userShortId: user.id,
     score: user.score,
-    rank: user.rank
+    rank: user.rank,
+    ratio: user.ratio,
+    updatedAt: new Date()
   }));
+
+  return await challengeResults.map(result => {
+    return firebase
+      .firestore()
+      .collection('profiles')
+      .doc(result.userShortId)
+      .collection('challenges')
+      .doc(result.challengeId)
+      .set(result, { merge: true });
+  });
 };

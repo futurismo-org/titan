@@ -71,16 +71,18 @@ const Challenges = () => {
             閲覧
           </Button>
         </Link>
-        {isClosed(challenge.closedAt.toDate()) && (
-          <Button
-            type="button"
-            color="default"
-            variant="contained"
-            onClick={() => aggregateChallenge(doc.id)}
-          >
-            集計
-          </Button>
-        )}
+        <Button
+          type="button"
+          color="default"
+          variant="contained"
+          onClick={() =>
+            aggregateChallenge(doc.id).then(
+              () => window.alert('集計が完了しました') // eslint-disable-line
+            )
+          }
+        >
+          集計
+        </Button>
       </ListItem>
     );
   };

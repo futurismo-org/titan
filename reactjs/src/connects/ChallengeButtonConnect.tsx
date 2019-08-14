@@ -28,7 +28,9 @@ const mapStateToProps = (state: any, props: any) => {
 
   const joinHandler = () => {
     const newData = {
-      id: user.shortId,
+      id: userShortId,
+      userId: user.id,
+      userShortId,
       histories: [],
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -54,12 +56,14 @@ const mapStateToProps = (state: any, props: any) => {
       closedAt: challenge.closedAt
     };
 
-    const updateUser = {
+    const categoryId = challenge.categoryRef.path.split('/')[1];
+
+    const newCategory = {
+      createdAt: new Date(),
       updatedAt: new Date(),
-      categories: firebase.firestore.FieldValue.arrayUnion(
-        challenge.categoryRef
-      ),
-      challenges: firebase.firestore.FieldValue.arrayUnion(newChallenge)
+      ref: challenge.categoryRef,
+      categoryId,
+      userShortId
     };
 
     return firebase
@@ -94,9 +98,19 @@ const mapStateToProps = (state: any, props: any) => {
 
         await firebase
           .firestore()
-          .collection('users')
-          .doc(user.id)
-          .update(updateUser);
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('challenges')
+          .doc(challengeId)
+          .set(newChallenge, { merge: true });
+
+        await firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId)
+          .set(newCategory, { merge: true });
       });
   };
 
