@@ -7,6 +7,7 @@ import CollectionCard from '../atoms/CollectionCard';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import { isChallengeOpening } from '~/lib/challenge';
+import ProfileChallenges from './ProfileChallenges';
 
 const ProfileBody = (props: any) => {
   const {
@@ -63,11 +64,9 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {/* {!loading &&
-          challenges &&
-          challenges.map((item: any) => (
-            <CollectionCard collection={item} type="challenges" key={item.id} />
-          ))} */}
+        {!loading && challenges && (
+          <ProfileChallenges challenges={challenges} />
+        )}
       </Grid>
     </Paper>
   );
