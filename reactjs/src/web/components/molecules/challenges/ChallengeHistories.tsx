@@ -66,7 +66,7 @@ const HistoryRow = (props: any) => {
   // };
 
   return (
-    <TableRow>
+    <TableRow hover>
       <TableCell>{wrapShowS(formatDatetime(timestamp.toDate()))}</TableCell>
       <TableCell>{getType(type)}</TableCell>
       <TableCell>{wrapShowN(score)}</TableCell>

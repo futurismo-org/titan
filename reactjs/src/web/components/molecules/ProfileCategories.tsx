@@ -10,12 +10,12 @@ const ProfileCategories = (props: any) => {
     let mounted = true;
 
     const getCategories = async () => {
-      const categoryReads = categoryRefs.map((categoryRef: any) =>
-        categoryRef.get()
+      const categoryReads = await categoryRefs.map(
+        (categoryRef: any) => categoryRef && categoryRef.get()
       );
 
       const data = await Promise.all(categoryReads).then((docs: any) =>
-        docs.map((doc: any) => doc.data())
+        docs.map((doc: any) => doc && doc.data())
       );
 
       if (mounted) {
@@ -37,7 +37,6 @@ const ProfileCategories = (props: any) => {
             <CollectionCard collection={item} type="categories" key={item.id} />
           ))
         : null}
-      ;
     </React.Fragment>
   );
 };

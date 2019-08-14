@@ -217,7 +217,8 @@ const challengeSeeds = seed.collection('challenges', [
     categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
-    participantsCount: 0,
+    participants: challengeParticipantsSeeds,
+    participantsCount: 30,
     openedAt: new Date(
       moment()
         .toDate()
@@ -255,7 +256,8 @@ const challengeSeeds = seed.collection('challenges', [
     categoryRef: seed.docRef('categories', getUpCategoryId),
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
-    participantsCount: 0,
+    participants: challengeParticipantsSeeds,
+    participantsCount: 30,
     openedAt: new Date(
       moment()
         .subtract(60, 'days')

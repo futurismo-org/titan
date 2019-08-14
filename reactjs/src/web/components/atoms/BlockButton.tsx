@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { brandGray } from '~/lib/theme';
 
 const BlockButton = (props: any) => {
   const { user, updateHandler, removeHandler, isExistLazy } = props;
@@ -55,13 +56,25 @@ const BlockButton = (props: any) => {
     <React.Fragment>
       {block ? (
         <div role="button" onClick={handleRemove}>
-          <p style={{ textDecoration: 'underline', marginLeft: 10 }}>
+          <p
+            style={{
+              color: brandGray,
+              textDecoration: 'underline',
+              marginLeft: 10
+            }}
+          >
             ブロック解除
           </p>
         </div>
       ) : (
         <div role="button" onClick={handleOpen}>
-          <p style={{ textDecoration: 'underline', marginLeft: 10 }}>
+          <p
+            style={{
+              color: brandGray,
+              textDecoration: 'underline',
+              marginLeft: 10
+            }}
+          >
             ブロック
           </p>
         </div>

@@ -13,6 +13,7 @@ import { TITAN_TWITTER_URL } from '~/constants/appInfo';
 import PostButton from '../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
 import { getRandomImageURL } from '~/lib/url';
+import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';
 
 const ProfileContent = styled.div`
   text-align: center;
@@ -57,16 +58,7 @@ const ProfileHeader = (props: any) => {
             <div>
               <h2>{user.displayName}</h2>
             </div>
-            <div>
-              {!!user.twitterUsername && (
-                <NoStyledExternalLink href={TITAN_TWITTER_URL}>
-                  <Icon
-                    className="fab fa-twitter"
-                    style={{ color: twitterColor }}
-                  />
-                </NoStyledExternalLink>
-              )}
-            </div>
+            <TotalScoreBoard userShortId={user.shortId} />
             <div>
               {!!user.introduction && (
                 <div>
@@ -75,16 +67,13 @@ const ProfileHeader = (props: any) => {
               )}
             </div>
             <div>
-              {isLogin && !isMyProfile && (
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <MuteButton user={user} />
-                  <BlockButton user={user} />
-                </div>
+              {!!user.twitterUsername && (
+                <NoStyledExternalLink href={TITAN_TWITTER_URL}>
+                  <Icon
+                    className="fab fa-twitter"
+                    style={{ color: twitterColor }}
+                  />
+                </NoStyledExternalLink>
               )}
             </div>
             <div
@@ -99,17 +88,32 @@ const ProfileHeader = (props: any) => {
                 user.updatedAt.toDate()
               )}`}</p>
             </div>
+            <div>
+              {isLogin && !isMyProfile && (
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <MuteButton user={user} />
+                  <BlockButton user={user} />
+                </div>
+              )}
+            </div>
           </ProfileContent>
         </Grid>
-        <Grid item md={12}>
-          <div style={{ textAlign: 'right' }}>
-            <PostButton
-              to="/settings"
-              type="button"
-              text="プロフィールを編集"
-            />
-          </div>
-        </Grid>
+        {isLogin && isMyProfile && (
+          <Grid item md={12}>
+            <div style={{ textAlign: 'right' }}>
+              <PostButton
+                to="/settings"
+                type="button"
+                text="プロフィールを編集"
+              />
+            </div>
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );

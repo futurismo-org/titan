@@ -85,6 +85,21 @@ export const fetchChallengesWithRefs = (
   };
 };
 
+export const fetchProfileChallenges = (userShortId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchChallengesRequest());
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('challenges')
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchChallengesSuccess(data)))
+      .catch((error: any) => dispatch(fetchChallengesError(error)));
+  };
+};
+
 export const fetchChallenge = (resourceId: string) => {
   return fetchTarget(
     resourceId,

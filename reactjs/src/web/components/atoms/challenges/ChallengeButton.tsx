@@ -1,40 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
-import Modal from '@material-ui/core/Modal';
-import { Elements, StripeProvider } from 'react-stripe-elements';
+// import styled from 'styled-components';
+// import Modal from '@material-ui/core/Modal';
+// import { Elements, StripeProvider } from 'react-stripe-elements';
 
-import CheckoutForm from '~/web/components/atoms/CheckoutForm';
+import { withRouter } from 'react-router-dom';
+// import CheckoutForm from '~/web/components/atoms/CheckoutForm';
 import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
-import theme, { secondaryColor, brandWhite } from '~/lib/theme';
+import { secondaryColor, brandWhite } from '~/lib/theme';
 
 import Error from '../Error';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+// function rand() {
+//   return Math.round(Math.random() * 20) - 10;
+// }
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+// function getModalStyle() {
+//   const top = 50 + rand();
+//   const left = 50 + rand();
 
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
-  };
-}
+//   return {
+//     top: `${top}%`,
+//     left: `${left}%`,
+//     transform: `translate(-${top}%, -${left}%)`
+//   };
+// }
 
-const StyledModalContent = styled.div`
-  && {
-    position: absolute;
-    width: 350px;
-    background-color: ${theme.palette.background.paper};
-    box-shadow: ${theme.shadows[5]}px;
-    padding: ${theme.spacing(4)}px;
-    outline: none;
-  }
-`;
+// const StyledModalContent = styled.div`
+//   && {
+//     position: absolute;
+//     width: 350px;
+//     background-color: ${theme.palette.background.paper};
+//     box-shadow: ${theme.shadows[5]}px;
+//     padding: ${theme.spacing(4)}px;
+//     outline: none;
+//   }
+// `;
 
 const ChallengeButton = (props: any) => {
   const {
@@ -44,36 +45,48 @@ const ChallengeButton = (props: any) => {
     resourceId,
     fetchParticipants,
     loading,
-    error
+    error,
+    joinHandler,
+    redirectPath,
+    history
   } = props;
 
   const challengeId = challenge.id;
-  const { price, title } = challenge;
+  const { price } = challenge;
 
-  const [open, setOpen] = useState(false);
-  const [modalStyle] = React.useState(getModalStyle);
+  // const [open, setOpen] = useState(false);
+  // const [modalStyle] = React.useState(getModalStyle);
 
   useEffect(() => {
     fetchParticipants(resourceId);
   }, [fetchParticipants, resourceId]);
 
-  const handleOpen = () => {
-    setOpen(true);
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  const handleJoin = () => {
+    joinHandler()
+      .then(() => window.alert('チャレンジに参加しました')) // eslint-disable-line
+      .then(() => {
+        history.push('/');
+        history.push(redirectPath);
+      });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const STRIPE_PUB_KEY =
-    process.env.APP_ENV === 'development'
-      ? (process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string)
-      : (process.env.REACT_APP_STRIPE_PROD_PUB_KEY as string);
+  // const STRIPE_PUB_KEY =
+  //   process.env.APP_ENV === 'development'
+  //     ? (process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string)
+  //     : (process.env.REACT_APP_STRIPE_PROD_PUB_KEY as string);
 
   const renderCheckoutButton = (props: any) => (
     <React.Fragment>
       <Button
-        onClick={handleOpen}
+        onClick={handleJoin}
         variant="contained"
         style={{
           backgroundColor: secondaryColor,
@@ -84,7 +97,7 @@ const ChallengeButton = (props: any) => {
       >
         参加
       </Button>
-      <Modal
+      {/* <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         open={open}
@@ -98,11 +111,12 @@ const ChallengeButton = (props: any) => {
                 challengeId={challengeId}
                 price={price}
                 challengeName={title}
+                joinHandler={joinHandler}
               />
             </Elements>
           </StripeProvider>
         </StyledModalContent>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 
@@ -125,4 +139,4 @@ const ChallengeButton = (props: any) => {
   );
 };
 
-export default ChallengeButton;
+export default withRouter(ChallengeButton);

@@ -32,7 +32,7 @@ const Users = (props: any) => {
 
   return (
     <React.Fragment>
-      <Title text="ユーザー情報" />
+      <Title text="ユーザーランキング" />
       <Text />
       {error && <Error error={error} />}
       {loading && <Progress />}

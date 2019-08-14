@@ -58,6 +58,21 @@ export const fetchCategoriesWithRefs = (
   };
 };
 
+export const fetchProfileCategories = (userShortId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchCategoriesRequest());
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('categories')
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchCategoriesSuccess(data)))
+      .catch((error: any) => dispatch(fetchCategoriesError(error)));
+  };
+};
+
 export const fetchCategory = (resourceId: string) => {
   return fetchTarget(
     resourceId,
