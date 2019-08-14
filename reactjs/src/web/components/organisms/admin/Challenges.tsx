@@ -76,7 +76,7 @@ const Challenges = () => {
           color="default"
           variant="contained"
           onClick={() =>
-            aggregateChallenge(doc.id).then(
+            aggregateChallenge(doc.id, challenge.categoryRef).then(
               () => window.alert('集計が完了しました') // eslint-disable-line
             )
           }

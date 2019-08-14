@@ -8,6 +8,8 @@ import { getParticipantsId } from '~/lib/resource';
 import firebase from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
 
+import { getCategoryId } from '~/lib/challenge';
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ fetchParticipants }, dispatch);
 
@@ -56,7 +58,7 @@ const mapStateToProps = (state: any, props: any) => {
       closedAt: challenge.closedAt
     };
 
-    const categoryId = challenge.categoryRef.path.split('/')[1];
+    const categoryId = getCategoryId(challenge.categoryRef);
 
     const newCategory = {
       createdAt: new Date(),

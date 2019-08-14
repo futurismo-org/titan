@@ -1,3 +1,4 @@
+import { firestore } from 'firebase';
 import moment, { nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
@@ -96,42 +97,71 @@ export const rankChallengeParticipants = (participants: any) => {
   return rankedUsers;
 };
 
-export const aggregateChallenge = async (challengeId: string) => {
-  const rankedUsers = await firebase
+export const getCategoryId = (categoryRef: any) =>
+  categoryRef.path.split('/')[1];
+
+export const aggregateChallenge = async (
+  challengeId: string,
+  categoryRef: any
+) => {
+  return firebase
     .firestore()
-    .collection('challenges')
-    .doc(challengeId)
-    .collection('participants')
-    .get()
-    .then(snap => snap.docs.map(doc => doc.data()))
-    .then(participants => rankChallengeParticipants(participants));
+    .runTransaction(async (transaction: firestore.Transaction) => {
+      const rankedUsers = await firebase
+        .firestore()
+        .collection('challenges')
+        .doc(challengeId)
+        .collection('participants')
+        .get()
+        .then(snap => snap.docs.map(doc => doc.data()))
+        .then(participants => rankChallengeParticipants(participants));
 
-  await rankedUsers.map(user => {
-    return firebase
-      .firestore()
-      .collection('challenges')
-      .doc(challengeId)
-      .collection('participants')
-      .doc(user.id)
-      .set(user);
-  });
+      await rankedUsers.map(user =>
+        firebase
+          .firestore()
+          .collection('challenges')
+          .doc(challengeId)
+          .collection('participants')
+          .doc(user.id)
+          .set(user)
+      );
 
-  const challengeResults = await rankedUsers.map(user => ({
-    challengeId,
-    userShortId: user.id,
-    score: user.score,
-    rank: user.rank,
-    ratio: user.ratio,
-    updatedAt: new Date()
-  }));
+      const challengeResults = await rankedUsers.map(user => ({
+        challengeId,
+        userShortId: user.id,
+        score: user.score,
+        rank: user.rank,
+        ratio: user.ratio,
+        updatedAt: new Date()
+      }));
 
-  return await challengeResults.map(result => {
-    return firebase
-      .firestore()
-      .collection('profiles')
-      .doc(result.userShortId)
-      .collection('challenges')
-      .doc(result.challengeId)
-      .set(result, { merge: true });
-  });
+      await challengeResults.map(result =>
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(result.userShortId)
+          .collection('challenges')
+          .doc(result.challengeId)
+          .set(result, { merge: true })
+      );
+
+      const categoryId = await getCategoryId(categoryRef);
+
+      const challengeHistories = await rankedUsers.map(user => ({
+        userShortId: user.id,
+        categoryId,
+        histories: user.histories,
+        updatedAt: new Date()
+      }));
+
+      await challengeHistories.map(data => {
+        return firebase
+          .firestore()
+          .collection('profiles')
+          .doc(data.userShortId)
+          .collection('categories')
+          .doc(data.categoryId)
+          .set(data, { merge: true });
+      });
+    });
 };
