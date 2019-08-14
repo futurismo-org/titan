@@ -104,24 +104,14 @@ class CheckoutForm extends React.PureComponent<Props> {
           })
           .then((res: any) => console.log('Purchase Complete!'))
           .then((res: any) => event.complete('success'))
-          .then(() =>
-            joinHandler(
-              this.props.challengeId,
-              this.props.challengeName,
-              this.props.user
-            )
-          )
+          .then(() => this.props.joinHandler())
           .catch((err: any) => {
             event.complete('fail');
             console.error(err);
           });
       } else {
         console.log('do nothing.');
-        joinHandler(
-          this.props.challengeId,
-          this.props.challengeName,
-          this.props.user
-        );
+        this.props.joinHandler();
       }
     });
 
@@ -169,11 +159,7 @@ class CheckoutForm extends React.PureComponent<Props> {
     //     )
     //     .catch((err: any) => console.error(err));
     // } else {
-    joinHandler(
-      this.props.challengeId,
-      this.props.challengeName,
-      this.props.user
-    );
+    this.props.joinHandler();
     // }
   }
 
