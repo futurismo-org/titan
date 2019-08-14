@@ -45,7 +45,7 @@ const ProfileBody = (props: any) => {
               />
             ))}
       </Grid>
-      <Title text="参加中のカテゴリ" />
+      <Title text="所属カテゴリ" />
       <Grid
         container
         spacing={4}
