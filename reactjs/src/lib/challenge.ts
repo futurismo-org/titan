@@ -113,7 +113,7 @@ export const aggregateChallenge = async (challengeId: string) => {
 
   const challengeResults = await rankedUsers.map(user => ({
     challengeId,
-    userId: user.id,
+    userShortId: user.id,
     score: user.score,
     rank: user.rank
   }));

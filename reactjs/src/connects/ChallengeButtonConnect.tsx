@@ -48,7 +48,8 @@ const mapStateToProps = (state: any, props: any) => {
       updatedAt: new Date(),
       title: challenge.title,
       description: challenge.description,
-      id: challenge.id,
+      challengeId,
+      userShortId,
       openedAt: challenge.openedAt,
       closedAt: challenge.closedAt
     };
@@ -58,7 +59,7 @@ const mapStateToProps = (state: any, props: any) => {
       categories: firebase.firestore.FieldValue.arrayUnion(
         challenge.categoryRef
       ),
-      currentChallenges: firebase.firestore.FieldValue.arrayUnion(newChallenge)
+      challenges: firebase.firestore.FieldValue.arrayUnion(newChallenge)
     };
 
     return firebase
