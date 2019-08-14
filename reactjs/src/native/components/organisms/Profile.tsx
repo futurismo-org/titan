@@ -10,6 +10,9 @@ import MuteButton from '~/native/containers/MuteButtonContainer';
 import BlockButton from '~/native/containers/BlockButtonContainer';
 import Title from '../atoms/Title';
 
+import ProfileHeader from '../molecules/ProfileHeader';
+import ProfileBody from '~/native/containers/ProfileBodyContainer';
+
 const Profile = (props: any) => {
   const {
     fetchUserWithShortId,
@@ -44,6 +47,12 @@ const Profile = (props: any) => {
           </React.Fragment>
         ) : (
           <View>
+            <ProfileHeader
+              user={user}
+              isLogin={isLogin}
+              isMyProfile={isMyProfile}
+            />
+            <ProfileBody userShortId={userShortId} />
             <Text
               style={{
                 marginBottom: 12,
