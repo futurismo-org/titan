@@ -5,6 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { brandGray } from '~/lib/theme';
 
 const MuteButton = (props: any) => {
   const { user, updateHandler, removeHandler, isExistLazy } = props;
@@ -55,11 +56,15 @@ const MuteButton = (props: any) => {
     <React.Fragment>
       {mute ? (
         <div role="button" onClick={handleRemove}>
-          <p style={{ textDecoration: 'underline' }}>ミュート解除</p>
+          <p style={{ color: brandGray, textDecoration: 'underline' }}>
+            ミュート解除
+          </p>
         </div>
       ) : (
         <div role="button" onClick={handleOpen}>
-          <p style={{ textDecoration: 'underline' }}>ミュート</p>
+          <p style={{ color: brandGray, textDecoration: 'underline' }}>
+            ミュート
+          </p>
         </div>
       )}
       <Dialog

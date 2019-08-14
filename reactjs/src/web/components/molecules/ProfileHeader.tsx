@@ -13,6 +13,7 @@ import { TITAN_TWITTER_URL } from '~/constants/appInfo';
 import PostButton from '../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
 import { getRandomImageURL } from '~/lib/url';
+import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';
 
 const ProfileContent = styled.div`
   text-align: center;
@@ -74,6 +75,19 @@ const ProfileHeader = (props: any) => {
                 </div>
               )}
             </div>
+            <TotalScoreBoard userShortId={user.shortId} />
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                color: brandGray
+              }}
+            >
+              <p>{`登録日 ${formatYearDate(user.createdAt.toDate())}`}</p>
+              <p style={{ marginLeft: 10 }}>{`最終更新日 ${formatYearDate(
+                user.updatedAt.toDate()
+              )}`}</p>
+            </div>
             <div>
               {isLogin && !isMyProfile && (
                 <div
@@ -86,18 +100,6 @@ const ProfileHeader = (props: any) => {
                   <BlockButton user={user} />
                 </div>
               )}
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                color: brandGray
-              }}
-            >
-              <p>{`登録日 ${formatYearDate(user.createdAt.toDate())}`}</p>
-              <p style={{ marginLeft: 10 }}>{`最終更新日 ${formatYearDate(
-                user.updatedAt.toDate()
-              )}`}</p>
             </div>
           </ProfileContent>
         </Grid>
