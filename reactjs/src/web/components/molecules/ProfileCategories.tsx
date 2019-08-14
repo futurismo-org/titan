@@ -15,7 +15,7 @@ const ProfileCategories = (props: any) => {
       );
 
       const data = await Promise.all(categoryReads).then((docs: any) =>
-        docs.map((doc: any) => doc.data())
+        docs.map((doc: any) => doc && doc.data())
       );
 
       if (mounted) {

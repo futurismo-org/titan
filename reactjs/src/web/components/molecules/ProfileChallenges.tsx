@@ -9,10 +9,11 @@ import {
   Hidden
 } from '@material-ui/core';
 
+import { withRouter } from 'react-router-dom';
 import moment, { formatYearDate } from '~/lib/moment';
 
 const ProfileChallenges = (props: any) => {
-  const { challenges } = props;
+  const { challenges, history } = props;
 
   const ConditionalTableCell = (props: any) => (
     <Hidden only="xs">
@@ -36,7 +37,10 @@ const ProfileChallenges = (props: any) => {
     const { challenge } = props;
 
     return (
-      <TableRow>
+      <TableRow
+        hover
+        onClick={() => history.push(`/c/${challenge.id}/overview`)}
+      >
         <TableCell>{challenge.title}</TableCell>
         <TableCell>{challenge.rank}位</TableCell>
         <ConditionalTableCell>{challenge.score}</ConditionalTableCell>
@@ -64,4 +68,4 @@ const ProfileChallenges = (props: any) => {
   );
 };
 
-export default ProfileChallenges;
+export default withRouter(ProfileChallenges);

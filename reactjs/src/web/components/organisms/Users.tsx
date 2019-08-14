@@ -95,7 +95,7 @@ const Users = (props: any) => {
             <LeaderBoardHead />
             <TableBody>
               {users.sort(compare).map((user: any, index: number) => (
-                <TableRow key={user.id}>
+                <TableRow key={user.id} hover>
                   <TableCell component="th" scope="row">
                     {index + 1}
                   </TableCell>
