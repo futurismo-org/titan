@@ -54,11 +54,13 @@ const ChallengeChart = (props: any) => {
   };
 
   return (
+    // @ts-ignore
     <LineChart
       data={data}
       width={screenWidth - 20}
       height={220}
       withShadow={false}
+      withVerticalLabels={false}
       chartConfig={config}
     />
   );

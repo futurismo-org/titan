@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-native';
 import AlertPro from 'react-native-alert-pro';
 import { successToastWithNoRedirect } from './Toast';
 import TouchableText from './TouchableText';
+import { brandGray } from '~/lib/theme';
 
 const MuteButton = (props: any) => {
   const {
@@ -68,9 +69,19 @@ const MuteButton = (props: any) => {
   return (
     <React.Fragment>
       {block ? (
-        <TouchableText text="ブロック解除" handler={handleRemove} underline />
+        <TouchableText
+          text="ブロック解除"
+          handler={handleRemove}
+          underline
+          color={brandGray}
+        />
       ) : (
-        <TouchableText text="ブロック" handler={handleOpen} underline />
+        <TouchableText
+          text="ブロック"
+          handler={handleOpen}
+          underline
+          color={brandGray}
+        />
       )}
       <AlertPro
         ref={(ref: any) => setAlert(ref)}
