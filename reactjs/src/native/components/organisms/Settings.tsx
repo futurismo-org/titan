@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
-import { Form, Item, Label, Text, Input, Switch, View } from 'native-base';
+import {
+  Form,
+  Item,
+  Label,
+  Text,
+  Input,
+  Switch,
+  View,
+  Textarea
+} from 'native-base';
 import { Keyboard } from 'react-native';
 import Title from '../atoms/Title';
 import SubmitButton from '../atoms/SubmitButton';
@@ -16,10 +25,16 @@ const Settings = (props: any) => {
 
   const [displayName, setDisplayName] = useState('');
   const [twitterUsername, setTwitterUsername] = useState('');
+  const [introduction, setIntroduction] = useState('');
   const [allowSensitive, setAllowSensitive] = useState(false);
 
   const updateHandlerWithMessage = (data: any) => {
     Keyboard.dismiss();
+
+    if (data.introduction.length > 300) {
+      errorToast('自己紹介の文字数を確認してください。');
+      return;
+    }
 
     updateHandler(data)
       .then(() => successToastWithNoRedirect('設定を更新しました。'))
@@ -32,6 +47,7 @@ const Settings = (props: any) => {
     setDisplayName(user.displayName ? user.displayName : '');
     setTwitterUsername(user.twitterUsername ? user.twitterUsername : '');
     setAllowSensitive(user.allowSensitive ? user.allowSensitive : false);
+    setIntroduction(user.introduction ? user.introduction : '');
   }, [user]);
 
   return (
@@ -54,6 +70,14 @@ const Settings = (props: any) => {
               onChangeText={text => setTwitterUsername(text)}
             />
           </Item>
+          <Text />
+          <Textarea
+            bordered
+            rowSpan={6}
+            placeholder="自己紹介(300字まで)"
+            value={introduction}
+            onChangeText={(text: string) => setIntroduction(text)}
+          />
           <Text />
           <Text style={{ marginHorizontal: 10, lineHeight: 20 }}>
             ユーザアイコンのアップロードはWebのみサポートしています。
@@ -85,7 +109,8 @@ const Settings = (props: any) => {
               updateHandlerWithMessage({
                 displayName,
                 twitterUsername,
-                allowSensitive
+                allowSensitive,
+                introduction
               })
             }
           />
