@@ -52,7 +52,7 @@ const DeleteWithAlert = (props: any) => {
   );
 };
 
-const DeleteWithAlertWithRouter = withRouter(DeleteWithAlert);
+// const DeleteWithAlertWithRouter = withRouter(DeleteWithAlert);
 
 const getType = (type: string) => {
   if (type === RESET) {

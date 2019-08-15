@@ -6,12 +6,12 @@ import Title from '../atoms/Title';
 import CollectionCard from '../atoms/CollectionCard';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
-import { isChallengeClosed } from '~/lib/challenge';
 import ProfileChallenges from './ProfileChallenges';
 
 const ProfileBody = (props: any) => {
   const {
-    challenges,
+    currentChallenges,
+    pastChallenges,
     categories,
     fetchProfileChallenges,
     fetchProfileCategories,
@@ -32,17 +32,15 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {!loading &&
-          challenges &&
-          challenges
-            .filter((item: any) => !isChallengeClosed(item.closedAt.toDate()))
-            .map((item: any) => (
-              <CollectionCard
-                collection={item}
-                type="challenges"
-                key={item.id}
-              />
-            ))}
+        {!loading && currentChallenges && currentChallenges.length !== 0 ? (
+          currentChallenges.map((item: any) => (
+            <CollectionCard collection={item} type="challenges" key={item.id} />
+          ))
+        ) : (
+          <p style={{ marginLeft: 20 }}>
+            現在、参加中のチャレンジはありません。
+          </p>
+        )}
       </Grid>
       <Title text="所属カテゴリ" />
       <Grid
@@ -50,10 +48,14 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {!loading && categories && (
+        {!loading && categories && categories.length !== 0 ? (
           <ProfileCategories
             refs={categories.map((category: any) => category.ref)}
           />
+        ) : (
+          <p style={{ marginLeft: 20 }}>
+            現在、所属しているカテゴリはありません。
+          </p>
         )}
       </Grid>
       <Title text="過去のチャレンジ実績" />
@@ -62,8 +64,15 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {!loading && challenges && (
-          <ProfileChallenges challenges={challenges} />
+        {!loading && pastChallenges && pastChallenges.length !== 0 ? (
+          <ProfileChallenges
+            challenges={pastChallenges}
+            userShortId={userShortId}
+          />
+        ) : (
+          <p style={{ marginLeft: 20 }}>
+            過去に参加したチャレンジはありません。
+          </p>
         )}
       </Grid>
     </Paper>

@@ -147,7 +147,7 @@ export const meigens = [
     author: 'ヘンリー・フォード'
   },
   {
-    content: '自分に打ち勝つことが、最も偉大な勝利である.',
+    content: '自分に打ち勝つことが、最も偉大な勝利である。',
     author: 'プラトン'
   },
   {
@@ -278,6 +278,10 @@ export const meigens = [
   {
     content: '人間は、その人の思考の産物にすぎない。人は思っている通りになる。',
     author: 'ガンジー'
+  },
+  {
+    content: '意志あるところに道は開ける。',
+    author: 'リンカーン'
   }
 ];
 
