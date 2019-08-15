@@ -78,7 +78,7 @@ const ProfileBody = (props: any) => {
             </Text>
           )}
           <Text />
-          <Title text="所属カテゴリ" />
+          <Title text="所属カテゴリの記録" />
           {categories && categories.length !== 0 ? (
             <ProfileCategories
               refs={categories.map((category: any) => category.ref)}

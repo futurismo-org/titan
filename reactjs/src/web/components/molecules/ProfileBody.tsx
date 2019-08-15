@@ -42,7 +42,7 @@ const ProfileBody = (props: any) => {
           </p>
         )}
       </Grid>
-      <Title text="所属カテゴリ" />
+      <Title text="所属カテゴリの記録" />
       <Grid
         container
         spacing={4}
@@ -50,6 +50,7 @@ const ProfileBody = (props: any) => {
       >
         {!loading && categories && categories.length !== 0 ? (
           <ProfileCategories
+            userShortId={userShortId}
             refs={categories.map((category: any) => category.ref)}
           />
         ) : (

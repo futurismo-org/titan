@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import CollectionCard from '~/web/containers/CollectionCardContainer';
+import CategoryCard from '~/web/containers/ProfileCategoryCardContainer';
 
 const ProfileCategories = (props: any) => {
   const categoryRefs = props.refs;
+  const { userShortId } = props;
 
   const [categories, setCategories] = useState([]);
 
@@ -34,7 +35,11 @@ const ProfileCategories = (props: any) => {
     <React.Fragment>
       {categories.length !== 0
         ? categories.map((item: any) => (
-            <CollectionCard collection={item} type="categories" key={item.id} />
+            <CategoryCard
+              category={item}
+              userShortId={userShortId}
+              key={item.id}
+            />
           ))
         : null}
     </React.Fragment>
