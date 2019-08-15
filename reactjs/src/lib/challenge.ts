@@ -89,8 +89,7 @@ export const rankChallengeParticipants = (participants: any) => {
     rankedUsers[i] = {
       ...users[i],
       rank: rankings[i],
-      ratio: ((rankings[i] / rankings.length) * 100).toFixed(1),
-      updatedAt: new Date()
+      ratio: ((rankings[i] / rankings.length) * 100).toFixed(1)
     };
   }
 
@@ -123,6 +122,7 @@ export const aggregateChallenge = async (challenge: any) => {
           updatedAt: new Date(),
           title: challenge.title,
           description: challenge.description,
+          sensitive: challenge.sensitive,
           challengeId,
           userShortId,
           openedAt: challenge.openedAt,
@@ -135,6 +135,7 @@ export const aggregateChallenge = async (challenge: any) => {
           createdAt: new Date(),
           updatedAt: new Date(),
           ref: challenge.categoryRef,
+          sensitive: challenge.sensitive, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
           categoryId,
           userShortId
         };
@@ -265,7 +266,9 @@ export const aggregateChallenge = async (challenge: any) => {
         snap.docs
           .map((doc: any) => doc.data().score)
           .filter((score: any) => score)
-          .reduce((x: number, y: number) => x + y)
+          .reduce((x: number, y: number) => {
+            return x + y;
+          }, 0)
       );
 
     return firebase

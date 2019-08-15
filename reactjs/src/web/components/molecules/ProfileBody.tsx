@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
-import CollectionCard from '../atoms/CollectionCard';
+import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from './ProfileChallenges';

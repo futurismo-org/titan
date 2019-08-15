@@ -52,6 +52,7 @@ const mapStateToProps = (state: any, props: any) => {
       updatedAt: new Date(),
       title: challenge.title,
       description: challenge.description,
+      sensitive: challenge.sensitive,
       challengeId,
       userShortId,
       openedAt: challenge.openedAt,
@@ -63,6 +64,7 @@ const mapStateToProps = (state: any, props: any) => {
     const newCategory = {
       createdAt: new Date(),
       updatedAt: new Date(),
+      sensitive: challenge.sensitive, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
       ref: challenge.categoryRef,
       categoryId,
       userShortId

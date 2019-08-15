@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CollectionCard from '../atoms/CollectionCard';
+import CollectionCard from '~/web/containers/CollectionCardContainer';
 
 const ProfileCategories = (props: any) => {
   const categoryRefs = props.refs;

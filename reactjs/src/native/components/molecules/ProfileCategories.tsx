@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import CollectionCard from '../atoms/CollectionCard';
+import CollectionCard from '~/native/containers/CollectionCardContainer';
 
 import { deviceWidth } from '~/native/lib/native';
 import { brandGray } from '~/lib/theme';
