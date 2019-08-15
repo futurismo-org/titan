@@ -9,6 +9,7 @@ import { deviceWidth } from '~/native/lib/native';
 import Error from '../atoms/Error';
 import { brandGray } from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
+import ProfileChallenges from './ProfileChallenges';
 
 const ProfileBody = (props: any) => {
   const {
@@ -85,6 +86,14 @@ const ProfileBody = (props: any) => {
             <Text>現在、所属しているカテゴリはありません。</Text>
           )}
           <Title text="過去のチャレンジ実績" />
+          {pastChallenges && pastChallenges.length !== 0 ? (
+            <ProfileChallenges
+              challenges={pastChallenges}
+              userShortId={userShortId}
+            />
+          ) : (
+            <Text>過去に参加したチャレンジはありません。</Text>
+          )}
         </Content>
       )}
     </React.Fragment>

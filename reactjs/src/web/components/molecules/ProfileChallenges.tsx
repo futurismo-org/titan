@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import moment, { formatYearDate } from '~/lib/moment';
 
 const ProfileChallenges = (props: any) => {
-  const { challenges, history } = props;
+  const { challenges, userShortId, history } = props;
 
   const ConditionalTableCell = (props: any) => (
     <Hidden only="xs">
@@ -39,7 +39,9 @@ const ProfileChallenges = (props: any) => {
     return (
       <TableRow
         hover
-        onClick={() => history.push(`/c/${challenge.id}/overview`)}
+        onClick={() =>
+          history.push(`/c/${challenge.id}/u/${userShortId}/dashbaord`)
+        }
       >
         <TableCell>{challenge.title}</TableCell>
         <TableCell>{challenge.rank}位</TableCell>

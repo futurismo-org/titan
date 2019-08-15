@@ -10,13 +10,15 @@ const mapStateToProps = (state: any, props: any) => {
   const { userShortId } = props;
 
   const fetchTotalScore = () => {
-    return firebase
-      .firestore()
-      .collection('profiles')
-      .doc(userShortId)
-      .get()
-      .then(doc => doc.data())
-      .then(data => (data ? data.totalScore : 0));
+    return userShortId
+      ? firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .get()
+          .then(doc => doc.data())
+          .then(data => (data ? data.totalScore : 0))
+      : 0;
   };
 
   return {

@@ -65,7 +65,10 @@ const ProfileBody = (props: any) => {
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
         {!loading && pastChallenges && pastChallenges.length !== 0 ? (
-          <ProfileChallenges challenges={pastChallenges} />
+          <ProfileChallenges
+            challenges={pastChallenges}
+            userShortId={userShortId}
+          />
         ) : (
           <p style={{ marginLeft: 20 }}>
             過去に参加したチャレンジはありません。
