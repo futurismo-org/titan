@@ -77,7 +77,7 @@ const ChallengeLeaderBoard = (props: any) => {
                   {user.pastDays || user.days}
                 </ConditionalTableCell>
                 <ConditionalTableCell>
-                  {user.histories.length}
+                  {user.histories ? user.histories.length : 0}
                 </ConditionalTableCell>
                 <ConditionalTableCell>{user.latest}</ConditionalTableCell>
               </TableRow>
