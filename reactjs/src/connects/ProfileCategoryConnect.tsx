@@ -23,7 +23,7 @@ const mapStateToProps = (state: any, props: any) => {
   const category = state.category.target;
 
   const pageTitle = category
-    ? `${profileCategory.userDisplayName}さんの${category.title}記録`
+    ? `${profileCategory.userDisplayName}さんの記録`
     : '';
 
   const item =

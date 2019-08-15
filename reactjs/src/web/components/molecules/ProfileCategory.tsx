@@ -13,7 +13,7 @@ const CategoryButton = (props: any) => {
   return (
     <NoStyledLink to={`/cat/${category.id}/dashboard`}>
       <Fab variant="extended" style={{ fontWeight: 'bold' }} color="primary">
-        {category.title}
+        {`${category.title}カテゴリ`}
       </Fab>
     </NoStyledLink>
   );
@@ -46,12 +46,12 @@ const ProfileCategory = (props: any) => {
       {loading && <Progress />}
       {!loading && category && (
         <Paper>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ margin: 10 }}>
-              <Title text={category.pageTitle} />
-            </div>
+          <Title text={category.pageTitle} />
+          <div style={{ textAlign: 'right' }}>
             <CategoryButton category={category} />
           </div>
+          <Title text="記録継続分析" />
+          <Title text="リセット分析" />
         </Paper>
       )}
     </React.Fragment>
