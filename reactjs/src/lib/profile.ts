@@ -1,6 +1,8 @@
 export const mergeCategory = (currentData: any, newData: any) => {
   const days = newData.days;
-  const maxDays = Math.max(currentData.maxDays, newData.maxDays);
+  const maxDays = newData.maxDays
+    ? Math.max(currentData.maxDays, newData.maxDays)
+    : currentData.maxDays;
   const toMaxDays = maxDays - days > 0 ? maxDays - days : 0;
 
   const data = {
@@ -9,9 +11,9 @@ export const mergeCategory = (currentData: any, newData: any) => {
     toMaxDays
   };
 
-  if (newData.lastResetDays) {
+  if (newData.lastResetDate) {
     return Object.assign(data, {
-      lastResetDays: newData.lastResetDays
+      lastResetDate: newData.lastResetDate
     });
   } else {
     return data;
