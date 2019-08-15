@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'native-base';
+import { View, Text, Content } from 'native-base';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Title from '../atoms/Title';
 import CollectionCard from '../atoms/CollectionCard';
@@ -8,6 +8,7 @@ import { deviceWidth } from '~/native/lib/native';
 
 import Error from '../atoms/Error';
 import { brandGray } from '~/lib/theme';
+import ProfileCategories from './ProfileCategories';
 
 const ProfileBody = (props: any) => {
   const {
@@ -28,17 +29,10 @@ const ProfileBody = (props: any) => {
 
   const [currentActiveSlide, setCurrentActiveSlide] = useState(0);
   const [currentSliderRef, setCurrentSliderRef] = useState(undefined);
-  const [categoryActiveSlide, setCategoryActiveSlide] = useState(0);
-  const [categorySliderRef, setCategorySliderRef] = useState(undefined);
 
   const _renderChallengeItem = (props: any) => {
     const { item, index } = props;
     return <CollectionCard collection={item} type="challenges" key={index} />;
-  };
-
-  const _renderCategoryItem = (props: any) => {
-    const { item, index } = props;
-    return <CollectionCard collection={item} type="categories" key={index} />;
   };
 
   return (
@@ -46,11 +40,12 @@ const ProfileBody = (props: any) => {
       {error && <Error error={error} />}
       {loading && null}
       {!loading && (
-        <View style={{ alignItems: 'center' }}>
+        <Content padder>
           <Title text="参加中のチャレンジ" />
           {currentChallenges.length !== 0 ? (
             <React.Fragment>
               <Carousel
+                style={{}}
                 ref={(c: any) => setCurrentSliderRef(c)}
                 data={currentChallenges}
                 renderItem={_renderChallengeItem}
@@ -82,9 +77,15 @@ const ProfileBody = (props: any) => {
           )}
           <Text />
           <Title text="所属カテゴリ" />
-          <Text />
+          {categories && categories.length !== 0 ? (
+            <ProfileCategories
+              refs={categories.map((category: any) => category.ref)}
+            />
+          ) : (
+            <Text>現在、所属しているカテゴリはありません。</Text>
+          )}
           <Title text="過去のチャレンジ実績" />
-        </View>
+        </Content>
       )}
     </React.Fragment>
   );
