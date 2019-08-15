@@ -76,7 +76,6 @@ const mapStateToProps = (state: any, props: any) => {
       accDays: newAccDays,
       pastDays: newPastDays,
       maxDays: newMaxDays,
-      startedAt: now,
       updatedAt: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
