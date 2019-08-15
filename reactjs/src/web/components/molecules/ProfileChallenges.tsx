@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 
 import { withRouter } from 'react-router-dom';
-import moment, { formatYearDate } from '~/lib/moment';
+import { formatYearDate } from '~/lib/moment';
 
 const ProfileChallenges = (props: any) => {
   const { challenges, userShortId, history } = props;

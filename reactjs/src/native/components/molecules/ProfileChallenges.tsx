@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-native';
-import moment, { formatYearDate } from '~/lib/moment';
+import { formatYearDate } from '~/lib/moment';
 import { brandWhite } from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
