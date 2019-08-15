@@ -52,6 +52,7 @@ const ChallengeLeaderBoard = (props: any) => {
           <TableBody>
             {users.map((user: any) => (
               <TableRow
+                hover
                 key={user.id}
                 style={{
                   backgroundColor:

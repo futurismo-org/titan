@@ -16,9 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const updateHandler = (data: any) => {
     const updateData = {
-      displayName: data.displayName,
-      twitterUsername: data.twitterUsername,
-      allowSensitive: data.allowSensitive ? data.allowSensitive : false,
+      ...data,
       updatedAt: new Date()
     };
 

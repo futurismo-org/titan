@@ -12,6 +12,7 @@ import {
 } from '~/constants/appInfo';
 
 import UserAvatar from '~/native/components/atoms/UserAvatar';
+import { twitterColor } from '~/lib/theme';
 
 const NavDrawer = (props: any) => {
   const {
@@ -110,7 +111,7 @@ const NavDrawer = (props: any) => {
           <Icon
             size={40}
             name="twitter"
-            color="#4099FF"
+            color={twitterColor}
             onPress={() => Linking.openURL(TITAN_TWITTER_URL)}
           />
           <Icon

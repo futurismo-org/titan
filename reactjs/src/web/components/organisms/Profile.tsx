@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 
-import { Follow } from 'react-twitter-widgets';
+import Paper from '@material-ui/core/Paper';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
-import Paper from '../templates/PaperWrapper';
-import UserAvatar from '../atoms/UserAvatar';
-
-import MuteButton from '~/web/containers/MuteButtonContainer';
-import BlockButton from '~/web/containers/BlockButtonContainer';
+import ProfileHeader from '../molecules/ProfileHeader';
+import ProfileBody from '~/web/containers/ProfileBodyContainer';
 
 const Profile = (props: any) => {
   const {
@@ -44,22 +41,14 @@ const Profile = (props: any) => {
             </p>
           </Paper>
         ) : (
-          <Paper>
-            <Title text={`${user.displayName}さんのプロフィール`} />
-            <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
-            {!!user.twitterUsername && (
-              <Follow username={user.twitterUsername} />
-            )}
-            <p>コンテンツ準備中...</p>
-            {isLogin && !isMyProfile && (
-              <React.Fragment>
-                <div style={{ marginTop: 20, display: 'flex' }}>
-                  <MuteButton user={user} />
-                  <BlockButton user={user} />
-                </div>
-              </React.Fragment>
-            )}
-          </Paper>
+          <React.Fragment>
+            <ProfileHeader
+              user={user}
+              isLogin={isLogin}
+              isMyProfile={isMyProfile}
+            />
+            <ProfileBody userShortId={userShortId} />
+          </React.Fragment>
         ))}
     </React.Fragment>
   );

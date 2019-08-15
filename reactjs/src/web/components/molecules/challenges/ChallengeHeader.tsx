@@ -5,7 +5,7 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
-import ChallengeButton from '../../atoms/challenges/ChallengeButton';
+import ChallengeButton from '~/web/containers/ChallengeButtonContainer';
 import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
@@ -22,7 +22,7 @@ const MainFeaturedPost = styled(Paper)`
     background-color: ${theme.palette.grey[800]};
     color: ${theme.palette.common.white};
     margin-bottom: ${theme.spacing(4)}px;
-    background-image: url(https://source.unsplash.com/random);
+    background-image: url(${getRandomImageURL()});
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -114,7 +114,9 @@ const ChallengeHeader = (props: any) => {
               </HeaderInfoText>
             </HeaderInfo>
             <HeaderInfo>
-              <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              {challenge.categoryRef && (
+                <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
+              )}
               {!isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <ChallengeButton challenge={challenge} />
               ) : null}

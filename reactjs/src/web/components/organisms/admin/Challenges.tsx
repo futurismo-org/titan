@@ -12,6 +12,8 @@ import Progress from '../../atoms/CircularProgress';
 import Link from '../../atoms/NoStyledLink';
 import PostButton from '../../atoms/PostButton';
 
+import { aggregateChallenge } from '~/lib/challenge';
+
 const Challenges = () => {
   const [value, loading, error] = useCollection(
     firebase.firestore().collection('challenges')
@@ -42,12 +44,14 @@ const Challenges = () => {
   const ChallengeItem = (props: any) => {
     const { doc } = props;
 
+    const challenge = doc.data();
+
     return (
       <ListItem>
         <ListItemText>
-          {doc.data().id}
+          {challenge.id}
           <br />
-          {doc.data().title}
+          {challenge.title}
         </ListItemText>
         <Link to={`/admin/c/${doc.id}/edit`}>
           <Button type="button" color="primary" variant="contained">
@@ -67,6 +71,18 @@ const Challenges = () => {
             閲覧
           </Button>
         </Link>
+        <Button
+          type="button"
+          color="default"
+          variant="contained"
+          onClick={() =>
+            aggregateChallenge(challenge).then(
+              () => window.alert('集計が完了しました') // eslint-disable-line
+            )
+          }
+        >
+          集計
+        </Button>
       </ListItem>
     );
   };

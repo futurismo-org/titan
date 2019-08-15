@@ -39,6 +39,11 @@ service cloud.firestore {
       allow create,update,delete: if request.auth != null;
     }
 
+    match /profiles/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
+
     match /users/{userID} {
       allow read;
       allow create,update,delete: if request.auth != null;

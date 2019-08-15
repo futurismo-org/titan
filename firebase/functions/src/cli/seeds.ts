@@ -217,7 +217,8 @@ const challengeSeeds = seed.collection('challenges', [
     categoryRef: seed.docRef('categories', muscleCategoryId),
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
-    participantsCount: 0,
+    participants: challengeParticipantsSeeds,
+    participantsCount: 30,
     openedAt: new Date(
       moment()
         .toDate()
@@ -255,7 +256,8 @@ const challengeSeeds = seed.collection('challenges', [
     categoryRef: seed.docRef('categories', getUpCategoryId),
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
-    participantsCount: 0,
+    participants: challengeParticipantsSeeds,
+    participantsCount: 30,
     openedAt: new Date(
       moment()
         .subtract(60, 'days')
@@ -314,6 +316,8 @@ const userSeeds = seed.collection('users', [
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     isAdmin: true,
     twitterUsername: 'titan_dev_1234',
+    introduction:
+      '人生のどん底にいる32歳のプログラマ。神奈川県在住。いろいろたいへんなので、底辺から自己変革して人生を逆転します。',
     securities: userSecuritiesSeeds
   }),
   createUserSeed({

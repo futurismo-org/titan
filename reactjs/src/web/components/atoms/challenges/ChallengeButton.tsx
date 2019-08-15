@@ -1,67 +1,92 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Modal from '@material-ui/core/Modal';
-import { Elements, StripeProvider } from 'react-stripe-elements';
+// import styled from 'styled-components';
+// import Modal from '@material-ui/core/Modal';
+// import { Elements, StripeProvider } from 'react-stripe-elements';
 
-import CheckoutForm from '~/web/components/atoms/CheckoutForm';
-import ChallengePostController from '~/web/components/molecules/challenges/ChallengePostController';
-import theme, { secondaryColor, brandWhite } from '~/lib/theme';
-import firebase from '~/lib/firebase';
+import { withRouter } from 'react-router-dom';
+// import CheckoutForm from '~/web/components/atoms/CheckoutForm';
+import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
+import { secondaryColor, brandWhite } from '~/lib/theme';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+import Error from '../Error';
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+// function rand() {
+//   return Math.round(Math.random() * 20) - 10;
+// }
 
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
-  };
-}
+// function getModalStyle() {
+//   const top = 50 + rand();
+//   const left = 50 + rand();
 
-const StyledModalContent = styled.div`
-  && {
-    position: absolute;
-    width: 350px;
-    background-color: ${theme.palette.background.paper};
-    box-shadow: ${theme.shadows[5]}px;
-    padding: ${theme.spacing(4)}px;
-    outline: none;
-  }
-`;
+//   return {
+//     top: `${top}%`,
+//     left: `${left}%`,
+//     transform: `translate(-${top}%, -${left}%)`
+//   };
+// }
+
+// const StyledModalContent = styled.div`
+//   && {
+//     position: absolute;
+//     width: 350px;
+//     background-color: ${theme.palette.background.paper};
+//     box-shadow: ${theme.shadows[5]}px;
+//     padding: ${theme.spacing(4)}px;
+//     outline: none;
+//   }
+// `;
 
 const ChallengeButton = (props: any) => {
-  const { challenge, user } = props;
+  const {
+    challenge,
+    user,
+    join,
+    resourceId,
+    fetchParticipants,
+    loading,
+    error,
+    joinHandler,
+    redirectPath,
+    history
+  } = props;
+
   const challengeId = challenge.id;
-  const { price, title } = challenge;
-  const [join, setJoin] = useState(false);
+  const { price } = challenge;
 
-  const [open, setOpen] = useState(false);
-  const [modalStyle] = React.useState(getModalStyle);
+  // const [open, setOpen] = useState(false);
+  // const [modalStyle] = React.useState(getModalStyle);
 
-  const handleOpen = () => {
-    setOpen(true);
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
+
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
+
+  const handleJoin = () => {
+    joinHandler()
+      .then(() => window.alert('チャレンジに参加しました')) // eslint-disable-line
+      .then(() => {
+        history.push('/');
+        history.push(redirectPath);
+      });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const STRIPE_PUB_KEY =
-    process.env.APP_ENV === 'development'
-      ? (process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string)
-      : (process.env.REACT_APP_STRIPE_PROD_PUB_KEY as string);
+  // const STRIPE_PUB_KEY =
+  //   process.env.APP_ENV === 'development'
+  //     ? (process.env.REACT_APP_STRIPE_TEST_PUB_KEY as string)
+  //     : (process.env.REACT_APP_STRIPE_PROD_PUB_KEY as string);
 
   const renderCheckoutButton = (props: any) => (
     <React.Fragment>
       <Button
-        onClick={handleOpen}
+        onClick={handleJoin}
         variant="contained"
         style={{
           backgroundColor: secondaryColor,
@@ -72,7 +97,7 @@ const ChallengeButton = (props: any) => {
       >
         参加
       </Button>
-      <Modal
+      {/* <Modal
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
         open={open}
@@ -86,11 +111,12 @@ const ChallengeButton = (props: any) => {
                 challengeId={challengeId}
                 price={price}
                 challengeName={title}
+                joinHandler={joinHandler}
               />
             </Elements>
           </StripeProvider>
         </StyledModalContent>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 
@@ -98,25 +124,19 @@ const ChallengeButton = (props: any) => {
     return null;
   }
 
-  firebase
-    .firestore()
-    .collection('challenges')
-    .doc(challengeId)
-    .collection('participants')
-    .where('id', '==', user.shortId)
-    .get()
-    .then((s: any) => setJoin(!s.empty));
-
-  return join ? (
-    <ChallengePostController userShortId={user.shortId} challenge={challenge} />
-  ) : (
-    renderCheckoutButton({ user, challengeId, price })
+  return (
+    <React.Fragment>
+      {error && <Error error={error} />}
+      {loading ? null : join ? (
+        <ChallengePostController
+          userShortId={user.shortId}
+          challenge={challenge}
+        />
+      ) : (
+        renderCheckoutButton({ user, challengeId, price })
+      )}
+    </React.Fragment>
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(ChallengeButton);
+export default withRouter(ChallengeButton);
