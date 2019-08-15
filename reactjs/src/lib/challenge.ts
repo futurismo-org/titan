@@ -2,6 +2,8 @@ import { firestore } from 'firebase';
 import moment, { nowMoment } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
+import { mergeCategory } from './profile';
+
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
 
@@ -215,16 +217,54 @@ export const aggregateChallenge = async (challenge: any) => {
 
       const categoryId = await getCategoryId(categoryRef);
 
-      const challengeHistories = await rankedUsers.map(user => ({
-        id: categoryId,
-        userShortId: user.id,
-        categoryId,
-        ref: categoryRef,
-        histories: user.histories,
-        updatedAt: new Date()
-      }));
+      const profileCategories = await rankedUsers.map(challengeParticipant => {
+        const resourceId = `/profiles/${challengeParticipant.id}/categories/${categoryId}`;
+        const currentProfileCategory = firebase
+          .firestore()
+          .doc(resourceId)
+          .get()
+          .then(doc => doc.data());
 
-      const profileRefs = await challengeHistories
+        const mergedProfileCategory = mergeCategory(
+          currentProfileCategory,
+          challengeParticipant
+        );
+
+        return {
+          id: categoryId,
+          userShortId: challengeParticipant.id,
+          categoryId,
+          ref: categoryRef,
+          ...mergedProfileCategory,
+          updatedAt: new Date()
+        };
+      });
+
+      const profileCategoryHistories = await rankedUsers.map(
+        challengeParticipant => {
+          return {
+            userShortId: challengeParticipant.id,
+            historites: challengeParticipant.histories
+          };
+        }
+      );
+
+      // 通常はchallengeでの投稿時にhistoriesテーブルもupdateされるので、主にデバッグ用。
+      profileCategoryHistories.forEach(data => {
+        data.historites.forEach((history: any) =>
+          firebase
+            .firestore()
+            .collection('profiles')
+            .doc(data.userShortId)
+            .collection('categories')
+            .doc(categoryId)
+            .collection('histories')
+            .doc(history.id)
+            .set(history, { merge: true })
+        );
+      });
+
+      const profileRefs = await profileCategories
         .map(data => {
           const userRef = firebase
             .firestore()
@@ -242,7 +282,7 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef
             .collection('categories')
             .doc(data.categoryId)
-            .set(data, { merge: true });
+            .set(data);
 
           return data;
         })
