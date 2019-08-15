@@ -202,7 +202,6 @@ export const aggregateChallenge = async (challenge: any) => {
         userRef.set(
           {
             id: data.userShortId,
-            challengeId: data.challengeId,
             updatedAt: new Date()
           },
           { merge: true }
@@ -235,7 +234,6 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef.set(
             {
               id: data.userShortId,
-              categoryId: data.categoryId,
               updatedAt: new Date()
             },
             { merge: true }

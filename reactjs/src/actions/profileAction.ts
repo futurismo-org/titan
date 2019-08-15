@@ -43,3 +43,17 @@ export const fetchProfileCategory = (resourceId: string) => {
       .catch((error: any) => dispatch(fetchProfileError(error)));
   };
 };
+
+export const fetchCurrentChallengeIds = (resourceId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchProfileRequest());
+    firebase
+      .firestore()
+      .doc(resourceId)
+      .get()
+      .then((snap: any) => snap.docs)
+      .then(docs => docs.map((doc: any) => doc.id))
+      .then((ids: any) => dispatch(fetchProfileSuccess(ids)))
+      .catch((error: any) => dispatch(fetchProfileError(error)));
+  };
+};

@@ -3,6 +3,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { fetchProfileCategory } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 
+import firebase from '~/lib/firebase';
+
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
@@ -16,30 +18,95 @@ const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.userShortId;
   const categoryId = props.match.params.categoryId;
 
-  const profileResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
+  const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
+  const profileChallengesResourceId = `/profiles/${userShortId}/challenges`;
   const categoryResourceId = `/categories/${categoryId}`;
+
+  const fetchHistories = async () => {
+    const category = await firebase
+      .firestore()
+      .doc(categoryResourceId)
+      .get()
+      .then((doc: any) => doc.data());
+
+    const currentChallengeIds = await firebase
+      .firestore()
+      .collection(profileChallengesResourceId)
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.id));
+
+    const currentCategoryChallengeIds = await currentChallengeIds.filter(
+      (id: string) => id === category.id
+    );
+
+    const challengeHistoies = await currentCategoryChallengeIds
+      .map(async (id: any) => {
+        const resourceId = `/challenges/${id}/participants/${userShortId}`;
+        const histories = await firebase
+          .firestore()
+          .doc(resourceId)
+          .get()
+          .then((doc: any) => doc.data().histories);
+        return histories;
+      })
+      .reduce((x: any, y: any) => {
+        return x.concat(y);
+      }, []);
+
+    const profileHistoies = await firebase
+      .firestore()
+      .doc(profileCategoryResourceId)
+      .get()
+      .then((doc: any) => doc.data().histories);
+
+    const histories = await profileHistoies.concat(challengeHistoies);
+
+    return histories;
+  };
 
   const profileCategory = state.profile.target;
   const category = state.category.target;
 
-  const pageTitle = category
-    ? `${profileCategory.userDisplayName}さんの記録`
-    : '';
+  const headline =
+    category && profileCategory
+      ? `${profileCategory.userDisplayName}さんの記録`
+      : '';
 
-  const item =
-    profileCategory &&
-    category &&
-    Object.assign(profileCategory, {
-      title: category.title,
-      description: category.description,
-      pageTitle
-    });
+  const metadata = category && {
+    categoryTitle: category.title,
+    categoryDescription: category.description,
+    categoryId: category.id,
+    headline
+  };
+
+  const dataLazy = fetchHistories().then((histories: any) => {
+    const sorted = histories.sort(
+      (x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds
+    );
+
+    let days = 0;
+    let lastResetDate = new Date();
+    for (let i = 0; i < sorted.length; i++) {
+      if (sorted[i].type === 'RESET') {
+        lastResetDate = sorted[i].timestamp.toDate();
+        break;
+      } else {
+        days = days + 1;
+      }
+    }
+
+    return {
+      days,
+      lastResetDate
+    };
+  });
 
   return {
-    category: item,
+    dataLazy,
+    metadata,
     loading: state.profile.loading || state.category.loading,
     error: state.profile.error || state.category.error,
-    profileResourceId,
+    profileCategoryResourceId,
     categoryResourceId,
     ...props
   };
