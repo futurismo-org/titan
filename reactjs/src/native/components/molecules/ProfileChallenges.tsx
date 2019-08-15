@@ -24,32 +24,27 @@ const ProfileChallenges = (props: any) => {
   return (
     <Table borderStyle={{ borderColor: brandWhite }}>
       <HistoryHead />
-      {challenges
-        .sort((x: any, y: any) =>
-          moment(y.closedAt.toDate()).diff(moment(x.closedAt.toDate()))
-        )
-        .filter((challenge: any) => challenge.score)
-        .map((challenge: any) => {
-          const rowData = [
-            challenge.title,
-            `${challenge.rank}位`,
-            challenge.score,
-            `${challenge.ratio}%`,
-            formatYearDate(challenge.closedAt.toDate())
-          ];
-          return (
-            <Row
-              data={rowData}
-              key={challenge.id}
-              flexArr={flexArr}
-              borderStyle={{ borderColor: brandWhite }}
-              style={{ backgroundColor: brandWhite }}
-              onPress={() =>
-                history.push(`/c/${challenge.id}/u/${userShortId}/dashboard`)
-              }
-            />
-          );
-        })}
+      {challenges.map((challenge: any) => {
+        const rowData = [
+          challenge.title,
+          `${challenge.rank}位`,
+          challenge.score,
+          `${challenge.ratio}%`,
+          formatYearDate(challenge.closedAt.toDate())
+        ];
+        return (
+          <Row
+            data={rowData}
+            key={challenge.id}
+            flexArr={flexArr}
+            borderStyle={{ borderColor: brandWhite }}
+            style={{ backgroundColor: brandWhite }}
+            onPress={() =>
+              history.push(`/c/${challenge.id}/u/${userShortId}/dashboard`)
+            }
+          />
+        );
+      })}
     </Table>
   );
 };

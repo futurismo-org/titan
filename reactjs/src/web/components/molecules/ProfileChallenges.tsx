@@ -57,14 +57,9 @@ const ProfileChallenges = (props: any) => {
       <Table>
         <ChallengeHead />
         <TableBody>
-          {challenges
-            .sort((x: any, y: any) =>
-              moment(y.closedAt.toDate()).diff(moment(x.closedAt.toDate()))
-            )
-            .filter((challenge: any) => challenge.score)
-            .map((challenge: any) => {
-              return <ChallengeRow key={challenge.id} challenge={challenge} />;
-            })}
+          {challenges.map((challenge: any) => {
+            return <ChallengeRow key={challenge.id} challenge={challenge} />;
+          })}
         </TableBody>
       </Table>
     </React.Fragment>

@@ -278,3 +278,11 @@ export const aggregateChallenge = async (challenge: any) => {
       .update({ id: userShortId, totalScore: totalScore });
   });
 };
+
+export const isHideSensitive = (
+  debugSensitive: boolean,
+  collectionSensitive: boolean,
+  userSettingSenstivie: boolean
+) => {
+  return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
+};

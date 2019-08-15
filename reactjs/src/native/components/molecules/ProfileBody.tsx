@@ -9,7 +9,7 @@ import { deviceWidth } from '~/native/lib/native';
 import Error from '../atoms/Error';
 import { brandGray } from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
-import ProfileChallenges from './ProfileChallenges';
+import ProfileChallenges from '~/native/containers/ProfileChallengesContainer';
 
 const ProfileBody = (props: any) => {
   const {

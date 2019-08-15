@@ -6,7 +6,7 @@ import Title from '../atoms/Title';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
-import ProfileChallenges from './ProfileChallenges';
+import ProfileChallenges from '~/web/containers/ProfileChallengesContainer';
 
 const ProfileBody = (props: any) => {
   const {

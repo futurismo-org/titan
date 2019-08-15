@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
+import { isHideSensitive } from '~/lib/challenge';
+
 const StyledCard = styled(Card)`
   && {
     display: flex;
@@ -42,7 +44,7 @@ const CollectionCard = (props: any) => {
 
   return (
     <React.Fragment>
-      {!debugSensitive && (collection.sensitive && !allowSensitive) ? (
+      {isHideSensitive(debugSensitive, collection.sensitive, allowSensitive) ? (
         <Grid item key={collection.id} xs={12} md={6}>
           <NoStyledLink to="/settings">
             <CardActionArea>
