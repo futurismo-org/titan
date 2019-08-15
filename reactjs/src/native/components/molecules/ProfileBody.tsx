@@ -41,12 +41,11 @@ const ProfileBody = (props: any) => {
       {error && <Error error={error} />}
       {loading && null}
       {!loading && (
-        <Content padder>
+        <View style={{ padding: 10 }}>
           <Title text="参加中のチャレンジ" />
-          {currentChallenges.length !== 0 ? (
+          {currentChallenges && currentChallenges.length !== 0 ? (
             <React.Fragment>
               <Carousel
-                style={{}}
                 ref={(c: any) => setCurrentSliderRef(c)}
                 data={currentChallenges}
                 renderItem={_renderChallengeItem}
@@ -100,7 +99,7 @@ const ProfileBody = (props: any) => {
               過去に参加したチャレンジはありません。
             </Text>
           )}
-        </Content>
+        </View>
       )}
     </React.Fragment>
   );

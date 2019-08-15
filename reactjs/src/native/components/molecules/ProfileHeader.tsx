@@ -63,7 +63,7 @@ const ProfileHeader = (props: any) => {
           </Button>
         )}
         {isLogin && !isMyProfile && (
-          <View style={{ marginTop: 20, flex: 1, flexDirection: 'row' }}>
+          <View style={{ marginTop: 20, flexDirection: 'row' }}>
             <MuteButton user={user} />
             <View style={{ marginLeft: 10 }}>
               <BlockButton user={user} />

@@ -147,7 +147,7 @@ export const meigens = [
     author: 'ヘンリー・フォード'
   },
   {
-    content: '自分に打ち勝つことが、最も偉大な勝利である.',
+    content: '自分に打ち勝つことが、最も偉大な勝利である。',
     author: 'プラトン'
   },
   {
