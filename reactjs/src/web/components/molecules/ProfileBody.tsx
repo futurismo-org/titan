@@ -11,7 +11,8 @@ import ProfileChallenges from './ProfileChallenges';
 
 const ProfileBody = (props: any) => {
   const {
-    challenges,
+    currentChallenges,
+    pastChallenges,
     categories,
     fetchProfileChallenges,
     fetchProfileCategories,
@@ -33,16 +34,10 @@ const ProfileBody = (props: any) => {
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
         {!loading &&
-          challenges &&
-          challenges
-            .filter((item: any) => !isChallengeClosed(item.closedAt.toDate()))
-            .map((item: any) => (
-              <CollectionCard
-                collection={item}
-                type="challenges"
-                key={item.id}
-              />
-            ))}
+          currentChallenges &&
+          currentChallenges.map((item: any) => (
+            <CollectionCard collection={item} type="challenges" key={item.id} />
+          ))}
       </Grid>
       <Title text="所属カテゴリ" />
       <Grid
@@ -62,8 +57,8 @@ const ProfileBody = (props: any) => {
         spacing={4}
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
-        {!loading && challenges && (
-          <ProfileChallenges challenges={challenges} />
+        {!loading && pastChallenges && (
+          <ProfileChallenges challenges={pastChallenges} />
         )}
       </Grid>
     </Paper>
