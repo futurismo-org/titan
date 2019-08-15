@@ -9,10 +9,9 @@ import MuteButton from '~/web/containers/MuteButtonContainer';
 import BlockButton from '~/web/containers/BlockButtonContainer';
 import theme, { twitterColor, brandGray, brandWhite } from '~/lib/theme';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
-import { TITAN_TWITTER_URL } from '~/constants/appInfo';
 import PostButton from '../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
-import { getRandomImageURL } from '~/lib/url';
+import { getRandomImageURL, getTwitterProfileURL } from '~/lib/url';
 import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';
 
 const ProfileContent = styled.div`
@@ -68,7 +67,9 @@ const ProfileHeader = (props: any) => {
             </div>
             <div>
               {!!user.twitterUsername && (
-                <NoStyledExternalLink href={TITAN_TWITTER_URL}>
+                <NoStyledExternalLink
+                  href={getTwitterProfileURL(user.twitterUsername)}
+                >
                   <Icon
                     className="fab fa-twitter"
                     style={{ color: twitterColor }}
