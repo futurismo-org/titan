@@ -74,7 +74,9 @@ const ProfileBody = (props: any) => {
               />
             </React.Fragment>
           ) : (
-            <Text>現在、参加中のチャレンジはありません。</Text>
+            <Text style={{ alignSelf: 'center' }}>
+              現在、参加中のチャレンジはありません。
+            </Text>
           )}
           <Text />
           <Title text="所属カテゴリ" />
@@ -83,7 +85,9 @@ const ProfileBody = (props: any) => {
               refs={categories.map((category: any) => category.ref)}
             />
           ) : (
-            <Text>現在、所属しているカテゴリはありません。</Text>
+            <Text style={{ alignSelf: 'center' }}>
+              現在、所属しているカテゴリはありません。
+            </Text>
           )}
           <Title text="過去のチャレンジ実績" />
           {pastChallenges && pastChallenges.length !== 0 ? (
@@ -92,7 +96,9 @@ const ProfileBody = (props: any) => {
               userShortId={userShortId}
             />
           ) : (
-            <Text>過去に参加したチャレンジはありません。</Text>
+            <Text style={{ alignSelf: 'center' }}>
+              過去に参加したチャレンジはありません。
+            </Text>
           )}
         </Content>
       )}
