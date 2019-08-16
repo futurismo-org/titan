@@ -8,7 +8,6 @@ import ChallengePostRecord from './challenges/ChallengePostRecord';
 
 import Paper from '../templates/PaperWrapper';
 import NoStyledLink from '../atoms/NoStyledLink';
-import { formatDatetime } from '~/lib/moment';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -31,11 +30,8 @@ const ProfileCategory = (props: any) => {
     loading,
     error,
     metadata,
-    dataLazy
+    data
   } = props;
-
-  const [days, setDays] = useState(0);
-  const [lastResetDate, setLastResetDate] = useState(new Date());
 
   useEffect(() => {
     fetchProfileCategory(profileCategoryResourceId);
@@ -47,11 +43,6 @@ const ProfileCategory = (props: any) => {
     profileCategoryResourceId
   ]);
 
-  dataLazy.then((d: any) => {
-    setDays(d.days);
-    setLastResetDate(d.lastResetDate);
-  });
-
   return (
     <React.Fragment>
       {error && <Error error={error} />}
@@ -62,14 +53,14 @@ const ProfileCategory = (props: any) => {
             <Title text={metadata.headline} />
           </div>
           <div style={{ width: 320, margin: '0 auto' }}>
-            <ChallengePostRecord days={days} />
+            <ChallengePostRecord days={data.days} />
           </div>
           <br />
           <br />
           <Title text="記録継続分析" />
           <br />
           <Title text="リセット分析" />
-          <p>最終リセット日時: {formatDatetime(lastResetDate)}</p>
+          <p>最終リセット日時: {data.lastResetDate}</p>
           <div style={{ textAlign: 'right' }}>
             <CategoryButton
               categoryId={metadata.categoryId}
