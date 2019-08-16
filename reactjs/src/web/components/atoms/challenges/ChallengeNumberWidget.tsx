@@ -9,7 +9,6 @@ import theme from '~/lib/theme';
 const WidgetWrapper = styled.div`
   display: flex;
   min-height: 100%;
-  margin-top: 20px;
 `;
 
 const WidgetHeader = styled.div`
@@ -31,6 +30,7 @@ const StyledPaper = styled(Paper)`
     flex-grow: 1px;
     overflow: hidden;
     min-width: 150px;
+    height: 150px;
   }
 ` as React.ComponentType<PaperProps>;
 

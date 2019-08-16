@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
@@ -71,32 +71,51 @@ const ChallengeUserDashBoard = (props: any) => {
       {!loading && user && user.histories && (
         <DashBoardWrapper>
           <StyledCenterContainer>
-            <Title text={title} />
-            <div id="challenge-card">
-              <ChallengeRecord
-                days={formatDays(
-                  user.showMode === '過去連続日数'
-                    ? user.pastDays
-                    : user.accDays
-                )}
-              />
-            </div>
-            <ChallengeStatistics
-              data={user}
-              openedAt={challenge.openedAt}
-              closedAt={challenge.closedAt}
-            />
-            <ChallengeChart histories={user.histories} />
-            <ChallengeGrass
-              histories={user.histories}
-              openedAt={challenge.openedAt}
-              closedAt={challenge.closedAt}
-            />
-            <Typography variant="h6">参加日: {joinDate}</Typography>
-            <ChallengeHistories
-              histories={user.histories}
-              handler={deleteHistoryHandler}
-            />
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justify="space-between"
+            >
+              <Grid item>
+                <h2 style={{ textAlign: 'center' }}>{title}</h2>
+                <div id="challenge-card">
+                  <ChallengeRecord
+                    days={formatDays(
+                      user.showMode === '過去連続日数'
+                        ? user.pastDays
+                        : user.accDays
+                    )}
+                  />
+                </div>
+              </Grid>
+              <Grid item>
+                <ChallengeStatistics
+                  data={user}
+                  openedAt={challenge.openedAt}
+                  closedAt={challenge.closedAt}
+                />
+              </Grid>
+              <Grid item style={{ width: '100%', height: '100%' }}>
+                <ChallengeChart histories={user.histories} />
+              </Grid>
+              <Grid item>
+                <ChallengeGrass
+                  histories={user.histories}
+                  openedAt={challenge.openedAt}
+                  closedAt={challenge.closedAt}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="h6">参加日: {joinDate}</Typography>
+              </Grid>
+              <Grid item>
+                <ChallengeHistories
+                  histories={user.histories}
+                  handler={deleteHistoryHandler}
+                />
+              </Grid>
+            </Grid>
           </StyledCenterContainer>
           <TwitterButton challenge={challenge} userShortId={user.id} />
         </DashBoardWrapper>
