@@ -304,11 +304,14 @@ export const aggregateChallenge = async (challenge: any) => {
     .doc(challengeId)
     .collection('participants')
     .get()
-    .then(snap => snap.docs)
-    .then(docs => {
-      docs.map(async (doc: any) => {
-        const userShortId = doc.id;
-        const totalScore = await doc.ref
+    .then(snap => snap.docs.map(doc => doc.id))
+    .then(ids => {
+      ids.map(async (id: any) => {
+        const userShortId = id;
+        const totalScore = await firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
           .collection('challenges')
           .get()
           .then((snap: any) =>
