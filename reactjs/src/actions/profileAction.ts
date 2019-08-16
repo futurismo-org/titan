@@ -9,7 +9,12 @@ import {
   FETCH_PROFILE_ERROR
 } from '../constants/actionTypes';
 
-import { fetchRequest, fetchSuccess, fetchError } from './actionUtil';
+import {
+  fetchRequest,
+  fetchSuccess,
+  fetchError,
+  fetchTarget
+} from './actionUtil';
 
 export const fetchProfilesRequest = fetchRequest(FETCH_PROFILES_REQUEST);
 export const fetchProfilesSuccess = fetchSuccess(FETCH_PROFILES_SUCCESS);
@@ -29,6 +34,15 @@ export const fetchProfiles = () => {
       .then((data: any) => dispatch(fetchProfilesSuccess(data)))
       .catch((error: any) => dispatch(fetchProfilesError(error)));
   };
+};
+
+export const fetchProfile = (resourceId: string) => {
+  return fetchTarget(
+    resourceId,
+    fetchProfileRequest,
+    fetchProfileSuccess,
+    fetchProfileError
+  );
 };
 
 export const fetchProfileCategory = (resourceId: string) => {
