@@ -27,3 +27,19 @@ export const fetchTarget = (
     .then((data: any) => dispatch(successAction(data)))
     .catch((error: any) => dispatch(errorAction(error)));
 };
+
+export const fetchItems = (
+  resourceId: string,
+  requestAction: any,
+  successAction: any,
+  errorAction: any
+) => (dispatch: Dispatch) => {
+  dispatch(requestAction());
+  firebase
+    .firestore()
+    .collection(resourceId)
+    .get()
+    .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+    .then((data: any) => dispatch(successAction(data)))
+    .catch((error: any) => dispatch(errorAction(error)));
+};

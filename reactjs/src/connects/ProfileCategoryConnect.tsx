@@ -104,7 +104,6 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   let data;
-
   if (profileCategory) {
     const lastResetDate = profileCategory.lastResetDate
       ? formatDatetime(profileCategory.lastResetDate.toDate())
