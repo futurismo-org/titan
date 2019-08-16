@@ -20,12 +20,23 @@ import {
 import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
 import { RESET, RECORD } from '~/lib/challenge';
+import { brandWhite, primaryColor } from '~/lib/theme';
+import { isMobile } from '~/web/lib/web';
 
-const ConditionalTableCell = (props: any) => (
-  <Hidden only="xs">
-    <TableCell>{props.children}</TableCell>
-  </Hidden>
-);
+const cellstyle = {
+  backgroundColor: primaryColor,
+  color: brandWhite
+};
+
+const ConditionalTableCell = (props: any) => {
+  const style = props.head ? cellstyle : {};
+
+  return (
+    <Hidden only="xs">
+      <TableCell style={style}>{props.children}</TableCell>
+    </Hidden>
+  );
+};
 
 const getType = (type: string) => {
   if (type === RESET) {
@@ -34,16 +45,20 @@ const getType = (type: string) => {
   return <Chip color="secondary" label={RECORD} />;
 };
 
+const HistoryCellHead = (props: any) => (
+  <TableCell style={cellstyle}>{props.children}</TableCell>
+);
+
 const HistoryHead = (props: any) => (
   <TableHead>
     <TableRow>
-      <TableCell>日時</TableCell>
-      <TableCell>タイプ</TableCell>
-      <TableCell>点数</TableCell>
-      <ConditionalTableCell>連続</ConditionalTableCell>
-      <ConditionalTableCell>累積</ConditionalTableCell>
-      <ConditionalTableCell>過去</ConditionalTableCell>
-      <ConditionalTableCell>経過</ConditionalTableCell>
+      <HistoryCellHead>日時</HistoryCellHead>
+      <HistoryCellHead>タイプ</HistoryCellHead>
+      <HistoryCellHead>点数</HistoryCellHead>
+      <ConditionalTableCell head>連続</ConditionalTableCell>
+      <ConditionalTableCell head>累積</ConditionalTableCell>
+      <ConditionalTableCell head>過去</ConditionalTableCell>
+      <ConditionalTableCell head>経過</ConditionalTableCell>
       {/* <ConditionalTableCell>操作</ConditionalTableCell> */}
     </TableRow>
   </TableHead>
@@ -117,29 +132,25 @@ const HistoryRow = (props: any) => {
 const ChallengeHistories = (props: any) => {
   const { histories, handler } = props;
 
+  const size = isMobile ? 'small' : 'medium';
+
   return (
-    <React.Fragment>
-      <Paper>
-        <Table size="small">
-          <HistoryHead />
-          <TableBody>
-            {histories
-              .sort(
-                (x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds
-              )
-              .map((history: any) => {
-                return (
-                  <HistoryRow
-                    key={history.id}
-                    history={history}
-                    handler={handler(history)}
-                  />
-                );
-              })}
-          </TableBody>
-        </Table>
-      </Paper>
-    </React.Fragment>
+    <Table size={size} style={{ marginTop: 20 }}>
+      <HistoryHead />
+      <TableBody>
+        {histories
+          .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
+          .map((history: any) => {
+            return (
+              <HistoryRow
+                key={history.id}
+                history={history}
+                handler={handler(history)}
+              />
+            );
+          })}
+      </TableBody>
+    </Table>
   );
 };
 

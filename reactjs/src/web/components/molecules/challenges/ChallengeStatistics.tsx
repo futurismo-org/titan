@@ -12,7 +12,13 @@ const ChallengeStatistics = (props: any) => {
   const achieveRate = getAchieveRate(totalDays, data.accDays);
 
   return (
-    <Grid container spacing={3}>
+    <Grid
+      container
+      spacing={3}
+      alignItems="center"
+      justify="space-around"
+      style={{ marginTop: 20, marginBottom: 20 }}
+    >
       <Grid item lg={4} md={4} sm={6} xs={6}>
         <NumberWidget title="スコア" number={data.score} unit="" />
       </Grid>
