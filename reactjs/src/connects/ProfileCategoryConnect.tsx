@@ -7,7 +7,8 @@ import {
 } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 import { fetchHistories } from '~/actions/historyAction';
-import moment, { formatDatetime } from '~/lib/moment';
+import moment, { formatDatetime, formatDateShort } from '~/lib/moment';
+import { RESET } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -27,53 +28,51 @@ const summerizeHistories = (histories: any) => {
   let endHistory: any | null = null;
   let count = 1;
 
-  histories
-    .sort((x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds)
-    .forEach((history: any) => {
-      if (
-        startHistory === null &&
-        endHistory === null &&
-        history.type === 'RESET'
-      ) {
-        startHistory = history;
-        return;
-      }
+  histories.forEach((history: any) => {
+    if (
+      startHistory === null &&
+      endHistory === null &&
+      history.type === 'RESET'
+    ) {
+      startHistory = history;
+      return;
+    }
 
-      if (
-        startHistory !== null &&
-        endHistory === null &&
-        history.type === 'RESET'
-      ) {
-        endHistory = history;
+    if (
+      startHistory !== null &&
+      endHistory === null &&
+      history.type === 'RESET'
+    ) {
+      endHistory = history;
 
-        const startDate = startHistory.timestamp.toDate();
-        const endDate = endHistory.timestamp.toDate();
-        const duration = moment.duration(moment(endDate).diff(startDate));
+      const startDate = startHistory.timestamp.toDate();
+      const endDate = endHistory.timestamp.toDate();
+      const duration = moment.duration(moment(endDate).diff(startDate));
 
-        const days = duration.asDays();
-        const hours = duration.asHours() % 24;
-        const minutes = duration.asMinutes() % 60;
-        const durationMessage = `${days.toFixed(0)}日${hours.toFixed(
-          0
-        )}時間${minutes.toFixed(0)}分`;
+      const days = duration.asDays();
+      const hours = duration.asHours() % 24;
+      const minutes = duration.asMinutes() % 60;
+      const durationMessage = `${days.toFixed(0)}日${hours.toFixed(
+        0
+      )}時間${minutes.toFixed(0)}分`;
 
-        const record = {
-          id: shortId.generate(),
-          startDate,
-          endDate,
-          duration: durationMessage,
-          attempt: count
-        };
+      const record = {
+        id: shortId.generate(),
+        startDate,
+        endDate,
+        duration: durationMessage,
+        attempt: count
+      };
 
-        summerized.push(record);
+      summerized.push(record);
 
-        startHistory = endHistory;
-        endHistory = null;
-        count++;
+      startHistory = endHistory;
+      endHistory = null;
+      count++;
 
-        return;
-      }
-    });
+      return;
+    }
+  });
 
   return summerized;
 };
@@ -87,6 +86,20 @@ const summerizeChallenges = (challenges: any) => {
       resetCount: challenge.resetCount,
       percentage: (challenge.resetCount / challenge.totalDuration) * 100,
       closedAt: challenge.closedAt && challenge.closedAt.toDate()
+    };
+  });
+};
+
+const calcAccHistories = (histories: any) => {
+  const resets = histories.filter((history: any) => history.type === RESET);
+
+  let count = 0;
+  return resets.map((data: any) => {
+    count++;
+
+    return {
+      count,
+      date: formatDateShort(data.timestamp.toDate())
     };
   });
 };
@@ -115,10 +128,15 @@ const mapStateToProps = (state: any, props: any) => {
     headline
   };
 
-  const histories = state.history.items;
+  const histories = state.history.items.sort(
+    (x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds
+  );
+
   const challenges = state.profile.items;
   const summerized = summerizeHistories(histories);
   const challengeResults = summerizeChallenges(challenges);
+
+  const resetAccData = calcAccHistories(histories);
 
   let data;
   if (profileCategory) {
@@ -137,6 +155,7 @@ const mapStateToProps = (state: any, props: any) => {
       lastResetDate,
       myBest,
       summerized,
+      resetAccs: resetAccData,
       challenges: challengeResults
     };
   } else {

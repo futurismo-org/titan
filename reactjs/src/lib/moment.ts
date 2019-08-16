@@ -13,6 +13,8 @@ export const isToday = (date: Date) => moment(date).isSame(moment(now), 'days');
 export const formatDatetime = (date: Date) =>
   moment(date).format('MM月DD日 HH:mm');
 export const formatDate = (date: string) => moment(date).format('MM月DD日');
+export const formatDateShort = (date: string): string =>
+  moment(date).format('MM/DD');
 
 export const formatYearDate = (date: Date) => moment(date).format('YYYY/MM/DD');
 

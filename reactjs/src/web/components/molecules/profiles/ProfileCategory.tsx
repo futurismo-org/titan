@@ -1,5 +1,14 @@
 import React, { useEffect } from 'react';
 import { Fab } from '@material-ui/core';
+import {
+  LineChart,
+  CartesianGrid,
+  XAxis,
+  Tooltip,
+  Line,
+  Legend,
+  YAxis
+} from 'recharts';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
@@ -10,6 +19,7 @@ import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
+import theme from '~/lib/theme';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -92,6 +102,19 @@ const ProfileCategory = (props: any) => {
           <br />
           <Title text="リセット分析" />
           <p>最終リセット日時: {data.lastResetDate}</p>
+          <LineChart width={400} height={350} data={data.resetAccs}>
+            <CartesianGrid />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line
+              type="monotone"
+              dataKey="count"
+              name="リセット数"
+              stroke={theme.palette.primary.main}
+            />
+          </LineChart>
           <div style={{ textAlign: 'right' }}>
             <CategoryButton
               categoryId={metadata.categoryId}
