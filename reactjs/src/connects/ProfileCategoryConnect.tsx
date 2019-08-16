@@ -104,6 +104,85 @@ const calcAccHistories = (histories: any) => {
   });
 };
 
+const aggregateDayOfTheWeek = (histories: any) => {
+  const resets = histories.filter((history: any) => history.type === RESET);
+
+  const map = resets.reduce((result: any, current: any) => {
+    const day = current.timestamp.toDate().getDay();
+
+    const element = result.find((p: any) => {
+      return p.day === day;
+    });
+
+    if (element) {
+      element.count++; // count
+    } else {
+      result.push({
+        day,
+        count: 1
+      });
+    }
+    return result;
+  }, []);
+
+  return [
+    [0, '日'],
+    [1, '月'],
+    [2, '火'],
+    [3, '水'],
+    [4, '木'],
+    [5, '金'],
+    [6, '土']
+  ].map((pair: any) => {
+    const element = map.find((p: any) => p.day === pair[0]);
+    if (element) {
+      return {
+        day: pair[1],
+        count: element.count
+      };
+    } else {
+      return {
+        day: pair[1],
+        count: 0
+      };
+    }
+  });
+};
+
+const aggregateTimezone = (histories: any) => {
+  const resets = histories.filter((history: any) => history.type === RESET);
+
+  const map = resets.reduce((result: any, current: any) => {
+    const hour = current.timestamp.toDate().getHours();
+
+    const element = result.find((p: any) => {
+      return p.hour === hour;
+    });
+
+    if (element) {
+      element.count++; // count
+    } else {
+      result.push({
+        hour,
+        count: 1
+      });
+    }
+    return result;
+  }, []);
+
+  return [...Array(24).keys()].map(n => {
+    const element = map.find((p: any) => p.hour === n);
+    if (element) {
+      return element;
+    } else {
+      return {
+        hour: n,
+        count: 0
+      };
+    }
+  });
+};
+
 const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.userShortId;
   const categoryId = props.match.params.categoryId;
@@ -137,6 +216,8 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeResults = summerizeChallenges(challenges);
 
   const resetAccData = calcAccHistories(histories);
+  const resetTimezones = aggregateTimezone(histories);
+  const resetDaysOfTheWeek = aggregateDayOfTheWeek(histories);
 
   let data;
   if (profileCategory) {
@@ -156,7 +237,9 @@ const mapStateToProps = (state: any, props: any) => {
       myBest,
       summerized,
       resetAccs: resetAccData,
-      challenges: challengeResults
+      challenges: challengeResults,
+      resetTimezones,
+      resetDaysOfTheWeek
     };
   } else {
     data = {};

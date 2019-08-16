@@ -7,7 +7,9 @@ import {
   Tooltip,
   Line,
   Legend,
-  YAxis
+  YAxis,
+  Bar,
+  BarChart
 } from 'recharts';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
@@ -19,7 +21,8 @@ import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
-import theme from '~/lib/theme';
+import theme, { primaryColor } from '~/lib/theme';
+import { windowWidth } from '~/web/lib/web';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -91,6 +94,7 @@ const ProfileCategory = (props: any) => {
           <Title text="継続統計" />
           <p>{data.myBest}</p>
           <p>過去最高: {data.maxDays}日</p>
+          <p>最終リセット日時: {data.lastResetDate}</p>
           <br />
           <Title text="継続ログの要約" />
           <ProfileCategoryHistories histories={data.summerized} />
@@ -101,8 +105,12 @@ const ProfileCategory = (props: any) => {
           <br />
           <br />
           <Title text="リセット分析" />
-          <p>最終リセット日時: {data.lastResetDate}</p>
-          <LineChart width={400} height={350} data={data.resetAccs}>
+          <h3>リセット累積回数</h3>
+          <LineChart
+            width={windowWidth - 300}
+            height={350}
+            data={data.resetAccs}
+          >
             <CartesianGrid />
             <XAxis dataKey="date" />
             <YAxis />
@@ -115,6 +123,50 @@ const ProfileCategory = (props: any) => {
               stroke={theme.palette.primary.main}
             />
           </LineChart>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div>
+              <h3>時間帯別統計</h3>
+              <BarChart
+                width={400}
+                height={300}
+                data={data.resetTimezones}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="hour" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill={primaryColor} />
+              </BarChart>
+            </div>
+            <div>
+              <h3>曜日別統計</h3>
+              <BarChart
+                width={400}
+                height={300}
+                data={data.resetDaysOfTheWeek}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" fill={primaryColor} />
+              </BarChart>
+            </div>
+          </div>
           <div style={{ textAlign: 'right' }}>
             <CategoryButton
               categoryId={metadata.categoryId}
