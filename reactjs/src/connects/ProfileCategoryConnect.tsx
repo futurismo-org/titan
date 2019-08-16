@@ -4,8 +4,6 @@ import { fetchProfileCategory } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 import { formatDatetime } from '~/lib/moment';
 
-import firebase from '~/lib/firebase';
-
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
@@ -105,12 +103,27 @@ const mapStateToProps = (state: any, props: any) => {
     headline
   };
 
-  const data = profileCategory && {
-    days: profileCategory.days,
-    lastResetDate: profileCategory.lastResetDate
+  let data;
+
+  if (profileCategory) {
+    const lastResetDate = profileCategory.lastResetDate
       ? formatDatetime(profileCategory.lastResetDate.toDate())
-      : '記録なし'
-  };
+      : '記録なし';
+
+    const myBest =
+      profileCategory.toMaxDays && profileCategory.toMaxDays !== 0
+        ? `自己ベストまであと${profileCategory.toMaxDays}日`
+        : '自己ベスト更新中！';
+
+    data = {
+      days: profileCategory.days,
+      maxDays: profileCategory.maxDays,
+      lastResetDate,
+      myBest
+    };
+  } else {
+    data = {};
+  }
 
   return {
     data,

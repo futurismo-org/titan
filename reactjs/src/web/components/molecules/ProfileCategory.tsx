@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Fab } from '@material-ui/core';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
@@ -58,6 +58,8 @@ const ProfileCategory = (props: any) => {
           <br />
           <br />
           <Title text="記録継続分析" />
+          <p>{data.myBest}</p>
+          <p>過去最高: {data.maxDays}日</p>
           <br />
           <Title text="リセット分析" />
           <p>最終リセット日時: {data.lastResetDate}</p>
