@@ -74,8 +74,14 @@ const ProfileCategory = (props: any) => {
       {loading && <Progress />}
       {!loading && metadata && (
         <Paper>
+          <div style={{ textAlign: 'right' }}>
+            <CategoryButton
+              categoryId={metadata.categoryId}
+              categoryTitle={metadata.categoryTitle}
+            />
+          </div>
           <div style={{ textAlign: 'center' }}>
-            <Title text={metadata.headline} />
+            <h1>{metadata.headline}</h1>
           </div>
           <div style={{ maxWidth: 750, margin: 'auto' }}>
             <div
@@ -166,12 +172,6 @@ const ProfileCategory = (props: any) => {
                 <Bar dataKey="count" fill={primaryColor} />
               </BarChart>
             </div>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <CategoryButton
-              categoryId={metadata.categoryId}
-              categoryTitle={metadata.categoryTitle}
-            />
           </div>
         </Paper>
       )}
