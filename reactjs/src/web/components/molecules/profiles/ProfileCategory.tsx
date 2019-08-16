@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Fab } from '@material-ui/core';
+import { Fab, Grid } from '@material-ui/core';
 import {
   LineChart,
   CartesianGrid,
@@ -9,7 +9,8 @@ import {
   Legend,
   YAxis,
   Bar,
-  BarChart
+  BarChart,
+  ResponsiveContainer
 } from 'recharts';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
@@ -111,68 +112,46 @@ const ProfileCategory = (props: any) => {
           <br />
           <br />
           <Title text="リセット分析" />
-          <h3>リセット累積回数</h3>
-          <LineChart
-            width={windowWidth - 300}
-            height={350}
-            data={data.resetAccs}
-          >
-            <CartesianGrid />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="count"
-              name="リセット数"
-              stroke={theme.palette.primary.main}
-            />
-          </LineChart>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div>
-              <h3>時間帯別統計</h3>
-              <BarChart
-                width={400}
-                height={300}
-                data={data.resetTimezones}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="hour" />
+          <div>
+            <h3>積算回数</h3>
+            <ResponsiveContainer width="99%" aspect={4}>
+              <LineChart data={data.resetAccs}>
+                <CartesianGrid />
+                <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="count" fill={primaryColor} />
-              </BarChart>
-            </div>
-            <div>
-              <h3>曜日別統計</h3>
-              <BarChart
-                width={400}
-                height={300}
-                data={data.resetDaysOfTheWeek}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5
-                }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="count" fill={primaryColor} />
-              </BarChart>
-            </div>
+                <Line
+                  type="monotone"
+                  dataKey="count"
+                  name="リセット数"
+                  stroke={theme.palette.primary.main}
+                />
+              </LineChart>
+            </ResponsiveContainer>
           </div>
+          <h3>時間帯別統計</h3>
+          <ResponsiveContainer width="99%" aspect={4}>
+            <BarChart data={data.resetTimezones}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="hour" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="count" fill={primaryColor} />
+            </BarChart>
+          </ResponsiveContainer>
+          <h3>曜日別統計</h3>
+          <ResponsiveContainer width="99%" aspect={4}>
+            <BarChart data={data.resetDaysOfTheWeek}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="day" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="count" fill={primaryColor} />
+            </BarChart>
+          </ResponsiveContainer>
         </Paper>
       )}
     </React.Fragment>
