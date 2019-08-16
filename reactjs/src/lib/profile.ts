@@ -2,7 +2,7 @@ export const mergeCategory = (currentData: any, newData: any) => {
   const days = isNaN(newData.pastDays) ? 0 : newData.pastDays;
 
   let maxDays;
-  if (currentData.maxDays && newData.maxDays) {
+  if (currentData && currentData.maxDays && newData.maxDays) {
     maxDays = Math.max(currentData.maxDays, newData.maxDays);
   } else if (newData.maxDays) {
     maxDays = newData.maxDays;
