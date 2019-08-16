@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import shortId from 'shortid';
 import { fetchProfileCategory } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 import { fetchHistories } from '~/actions/historyAction';
@@ -16,57 +17,57 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const summerizeHistories = (histories: any) => {
-  const summerized: any[] = [];
+  let summerized: any[] = [];
 
   let startHistory: any | null = null;
   let endHistory: any | null = null;
   let count = 1;
 
-  histories.reverse().forEach((history: any) => {
-    if (
-      startHistory === null &&
-      endHistory === null &&
-      history.type === 'RECORD'
-    ) {
-      startHistory = history;
-      return;
-    }
+  histories
+    .sort((x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds)
+    .forEach((history: any) => {
+      if (
+        startHistory === null &&
+        endHistory === null &&
+        history.type === 'RESET'
+      ) {
+        startHistory = history;
+        return;
+      }
 
-    if (
-      startHistory !== null &&
-      endHistory === null &&
-      history.type === 'RESET'
-    ) {
-      endHistory = history;
-      return;
-    }
+      if (
+        startHistory !== null &&
+        endHistory === null &&
+        history.type === 'RESET'
+      ) {
+        endHistory = history;
 
-    if (startHistory && endHistory) {
-      const startDate = startHistory.timestamp.toDate();
-      const endDate = endHistory.timestamp.toDate();
-      const duration = moment.duration(moment(startDate).diff(endDate));
+        const startDate = startHistory.timestamp.toDate();
+        const endDate = endHistory.timestamp.toDate();
+        const duration = moment.duration(moment(endDate).diff(startDate));
 
-      const days = duration.asDays();
-      const hours = duration.asHours() % 24;
-      const minutes = duration.asMinutes() % 60;
-      const durationMessage = `${days}日${hours}時間${minutes}分`;
+        const days = duration.asDays();
+        const hours = duration.asHours() % 24;
+        const minutes = duration.asMinutes() % 60;
+        const durationMessage = `${days}日${hours}時間${minutes}分`;
 
-      const record = {
-        startDate,
-        endDate,
-        duration: durationMessage,
-        attempt: count
-      };
+        const record = {
+          id: shortId.generate(),
+          startDate,
+          endDate,
+          duration: durationMessage,
+          attempt: count
+        };
 
-      summerized.push(record);
+        summerized.push(record);
 
-      startHistory = null;
-      endHistory = null;
-      count++;
+        startHistory = endHistory;
+        endHistory = null;
+        count++;
 
-      return;
-    }
-  });
+        return;
+      }
+    });
 
   return summerized;
 };

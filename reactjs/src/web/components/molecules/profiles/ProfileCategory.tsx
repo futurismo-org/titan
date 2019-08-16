@@ -8,6 +8,7 @@ import ChallengePostRecord from '../challenges/ChallengePostRecord';
 
 import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
+import ProfileCategoryHistories from './ProfileCategoryHistories';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -71,11 +72,15 @@ const ProfileCategory = (props: any) => {
           </div>
           <br />
           <br />
-          <Title text="記録継続分析" />
+          <Title text="記録継続統計" />
           <p>{data.myBest}</p>
           <p>過去最高: {data.maxDays}日</p>
           <br />
-
+          <Title text="継続記録ログ" />
+          <ProfileCategoryHistories histories={data.summerized} />
+          <br />
+          <Title text="チャレンジごとの実績" />
+          {/* <ProfileCategoryHistories histories={data.summerized} /> */}
           <br />
           <Title text="リセット分析" />
           <p>最終リセット日時: {data.lastResetDate}</p>
