@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
-import Paper from '../templates/PaperWrapper';
-import Title from '../atoms/Title';
+import Paper from '../../templates/PaperWrapper';
+import Title from '../../atoms/Title';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
@@ -42,7 +42,7 @@ const ProfileBody = (props: any) => {
           </p>
         )}
       </Grid>
-      <Title text="所属カテゴリ" />
+      <Title text="所属カテゴリの記録" />
       <Grid
         container
         spacing={4}
@@ -50,6 +50,7 @@ const ProfileBody = (props: any) => {
       >
         {!loading && categories && categories.length !== 0 ? (
           <ProfileCategories
+            userShortId={userShortId}
             refs={categories.map((category: any) => category.ref)}
           />
         ) : (

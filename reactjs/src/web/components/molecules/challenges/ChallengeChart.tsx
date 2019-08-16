@@ -8,10 +8,10 @@ import {
   Tooltip,
   Legend
 } from 'recharts';
-import moment from 'moment';
 import MediaQuery from 'react-responsive';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
+import { formatDateShort } from '~/lib/moment';
 
 const Wrapper = styled.div`
   margin-top: 50px;
@@ -32,15 +32,11 @@ const LineChartWrapper = (props: any) => (
   </Wrapper>
 );
 
-const formatDate = (date: string): string => {
-  return moment(date).format('MM/DD');
-};
-
 const ChallengeChart = (props: any) => {
   const histories: [] = props.histories
     .sort((x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds)
     .map((history: any) => ({
-      date: formatDate(history.timestamp.toDate().toISOString()),
+      date: formatDateShort(history.timestamp.toDate().toISOString()),
       ...history
     }));
 

@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core';
 
 import { withRouter } from 'react-router-dom';
+import { ACC_DAYS, PAST_DAYS } from '~/lib/challenge';
+
 import firebase from '~/lib/firebase';
 
 import Progress from '../../atoms/CircularProgress';
@@ -37,17 +39,11 @@ const ChallengeUserSettings = (props: any) => {
   }, [fetchUser, resourceId]);
 
   const [displayName, setDisplayName] = useState('');
-  const [pastDays, setPastDays] = useState('');
   const [showMode, setShowMode] = useState('');
 
   const onDisplayNameChange = (e: any) => {
     e.preventDefault();
     setDisplayName(e.target.value);
-  };
-
-  const onPastDaysChange = (e: any) => {
-    e.preventDefault();
-    setPastDays(e.target.value);
   };
 
   const onShowModeChange = (e: any) => {
@@ -61,7 +57,6 @@ const ChallengeUserSettings = (props: any) => {
     const newData = {
       displayName,
       showMode,
-      pastDays: parseInt(pastDays),
       updatedAt: new Date()
     };
 
@@ -73,14 +68,12 @@ const ChallengeUserSettings = (props: any) => {
   };
 
   const initDisplayName = user && user.displayName;
-  const initPastDays = user && user.pastDays;
   const initShowMode = user && user.showMode;
 
   useEffect(() => {
     setDisplayName(initDisplayName || '');
-    setPastDays(initPastDays || '');
-    setShowMode(initShowMode || '大会累積日数');
-  }, [initDisplayName, initPastDays, initShowMode]);
+    setShowMode(initShowMode || ACC_DAYS);
+  }, [initDisplayName, initShowMode]);
 
   return (
     <React.Fragment>
@@ -105,17 +98,6 @@ const ChallengeUserSettings = (props: any) => {
                   />
                 </Grid>
                 <Grid item>
-                  <TextField
-                    value={pastDays}
-                    variant="outlined"
-                    margin="normal"
-                    id="pastAccDasy"
-                    label="過去連続日数"
-                    style={{ outlineColor: brandDark }}
-                    onChange={onPastDaysChange}
-                  />
-                </Grid>
-                <Grid item>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">日数表示設定</FormLabel>
                     <RadioGroup
@@ -125,14 +107,14 @@ const ChallengeUserSettings = (props: any) => {
                       onChange={onShowModeChange}
                     >
                       <FormControlLabel
-                        value="大会累積日数"
+                        value={ACC_DAYS}
                         control={<Radio />}
-                        label="大会累積日数"
+                        label={ACC_DAYS}
                       />
                       <FormControlLabel
-                        value="過去連続日数"
+                        value={PAST_DAYS}
                         control={<Radio />}
-                        label="過去連続日数"
+                        label={PAST_DAYS}
                       />
                     </RadioGroup>
                   </FormControl>

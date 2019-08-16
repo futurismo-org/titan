@@ -13,6 +13,8 @@ import SubmitButton from '../../atoms/SubmitButton';
 
 import { primaryColor } from '~/lib/theme';
 
+import { ACC_DAYS, PAST_DAYS } from '~/lib/challenge';
+
 const db = firebase.firestore();
 
 const ChallengeUserSettings = (props: any) => {
@@ -32,15 +34,10 @@ const ChallengeUserSettings = (props: any) => {
   }, [fetchUser, resourceId]);
 
   const [displayName, setDisplayName] = useState('');
-  const [pastDays, setPastDays] = useState('');
   const [showMode, setShowMode] = useState('');
 
   const onDisplayNameChange = (text: string) => {
     setDisplayName(text);
-  };
-
-  const onPastDaysChange = (text: string) => {
-    setPastDays(text);
   };
 
   const updateHandler = (data: any) => {
@@ -57,13 +54,11 @@ const ChallengeUserSettings = (props: any) => {
       .catch(error => errorToast(error.message));
   };
 
-  const CHALLENGE_ACC_DAYS = '大会累積日数';
-  const PAST_DAYS = '過去連続日数';
-  const radioList = [CHALLENGE_ACC_DAYS, PAST_DAYS];
-  const radioMap = new Map([[CHALLENGE_ACC_DAYS, 0], [PAST_DAYS, 1]]);
+  const radioList = [ACC_DAYS, PAST_DAYS];
+  const radioMap = new Map([[ACC_DAYS, 0], [PAST_DAYS, 1]]);
 
   const radioProps = [
-    { label: CHALLENGE_ACC_DAYS, value: 0 },
+    { label: ACC_DAYS, value: 0 },
     { label: PAST_DAYS, value: 1 }
   ];
 
@@ -73,12 +68,10 @@ const ChallengeUserSettings = (props: any) => {
 
   useEffect(() => {
     const initDisplayName = user && user.displayName;
-    const initPastDays = user && user.pastDays && user.pastDays.toString();
     const initShowMode = user && user.showMode;
 
     setDisplayName(initDisplayName || '');
-    setPastDays(initPastDays || '');
-    setShowMode(initShowMode || CHALLENGE_ACC_DAYS);
+    setShowMode(initShowMode || ACC_DAYS);
   }, [user]);
 
   return (
@@ -97,10 +90,6 @@ const ChallengeUserSettings = (props: any) => {
                     value={displayName}
                     onChangeText={onDisplayNameChange}
                   />
-                </Item>
-                <Item>
-                  <Label>過去連続日数</Label>
-                  <Input value={pastDays} onChangeText={onPastDaysChange} />
                 </Item>
               </Form>
               <Text />
@@ -121,7 +110,6 @@ const ChallengeUserSettings = (props: any) => {
                 handler={() =>
                   updateHandler({
                     displayName,
-                    pastDays: parseInt(pastDays),
                     showMode
                   })
                 }

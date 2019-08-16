@@ -6,12 +6,14 @@ import {
   isDaysValid,
   RECORD,
   RESET,
-  isChallengeOpening
+  isChallengeOpening,
+  getCategoryId
 } from '~/lib/challenge';
 
 import moment, { now, isToday } from '~/lib/moment';
 import { getParticipantsUserId } from '~/lib/resource';
 import { getUserDashboardPath } from '~/lib/url';
+import { mergeCategory } from '~/lib/profile';
 
 import { postMessage } from '~/lib/discord.client.api';
 import { showGiphy } from '~/actions/giphyAction';
@@ -67,6 +69,8 @@ const mapStateToProps = (state: any, props: any) => {
       accDays: newAccDays,
       pastDays: newPastDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      challengeId,
+      challengeTitle: challenge.title,
       type: RECORD
     };
 
@@ -97,6 +101,39 @@ ${dashBoardURL}`;
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
       });
+
+    // profiles テーブルも更新
+    const categoryId = getCategoryId(challenge.categoryRef);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('categories')
+      .doc(categoryId)
+      .get()
+      .then(doc => doc.data())
+      .then((currentCategory: any) => {
+        const updateProfileCategoryData = mergeCategory(
+          currentCategory,
+          updateData
+        );
+
+        return updateProfileCategoryData;
+      })
+      .then(data => {
+        const categoryRef = firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId);
+
+        categoryRef.set(data, { merge: true });
+        categoryRef
+          .collection('histoiries')
+          .doc(newHistory.id)
+          .set(newHistory);
+      });
   };
 
   const resetHandler = (redirect: any, gifty: any) => (props: any) => {
@@ -121,6 +158,8 @@ ${dashBoardURL}`;
       pastDays: 0,
       accDays: newAccDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      challengeId,
+      challengeTitle: challenge.title,
       type: RESET
     };
 
@@ -131,6 +170,7 @@ ${dashBoardURL}`;
       pastDays: 0,
       score: newScore,
       accDays: newAccDays,
+      lastResetDate: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
@@ -147,6 +187,39 @@ ${dashBoardURL}`;
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
+      });
+
+    // profiles テーブルも更新
+    const categoryId = getCategoryId(challenge.categoryRef);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('categories')
+      .doc(categoryId)
+      .get()
+      .then(doc => doc.data())
+      .then((currentCategory: any) => {
+        const updateProfileCategoryData = mergeCategory(
+          currentCategory,
+          resetData
+        );
+
+        return updateProfileCategoryData;
+      })
+      .then(data => {
+        const categoryRef = firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId);
+
+        categoryRef.set(data, { merge: true });
+        categoryRef
+          .collection('histoiries')
+          .doc(newHistory.id)
+          .set(newHistory);
       });
   };
 

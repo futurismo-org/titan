@@ -11,6 +11,7 @@ import sensitiveReducer from './sensitiveReducer';
 import muteReducer from './muteReducer';
 import blockReducer from './blockReducer';
 import profileReducer from './profileReducer';
+import historyReducer from './historyReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -24,7 +25,8 @@ export const createRootReducer = (history: any) =>
     sensitive: sensitiveReducer,
     mute: muteReducer,
     block: blockReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    history: historyReducer
   });
 
 export const createRootReducerForRN = () =>
@@ -38,5 +40,6 @@ export const createRootReducerForRN = () =>
     giphy: giphyReducer,
     mute: muteReducer,
     block: blockReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    history: historyReducer
   });

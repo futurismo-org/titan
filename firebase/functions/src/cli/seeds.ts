@@ -113,7 +113,7 @@ const createChallengeHistorySeed = (n: number) => {
   const array = ['RECORD', 'RESET'];
 
   return {
-    id: n,
+    id: shortid.generate(),
     timestamp: moment()
       .subtract(n, 'days')
       .toDate(),
