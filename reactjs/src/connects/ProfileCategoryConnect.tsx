@@ -108,7 +108,7 @@ const mapStateToProps = (state: any, props: any) => {
   const data = profileCategory && {
     days: profileCategory.days,
     lastResetDate: profileCategory.lastResetDate
-      ? formatDatetime(profileCategory.lastResetDate)
+      ? formatDatetime(profileCategory.lastResetDate.toDate())
       : '記録なし'
   };
 
