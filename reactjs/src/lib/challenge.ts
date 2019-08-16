@@ -191,6 +191,7 @@ export const aggregateChallenge = async (challenge: any) => {
       const challengeResults = await rankedUsers.map(user => ({
         id: challengeId,
         challengeId,
+        userDisplayName: user.displayName,
         userShortId: user.id,
         score: user.score,
         rank: user.rank,
@@ -207,6 +208,7 @@ export const aggregateChallenge = async (challenge: any) => {
         userRef.set(
           {
             id: data.userShortId,
+            displayName: data.userDisplayName,
             updatedAt: new Date()
           },
           { merge: true }
@@ -236,6 +238,7 @@ export const aggregateChallenge = async (challenge: any) => {
         return {
           id: categoryId,
           userShortId: challengeParticipant.id,
+          userDisplayName: challengeParticipant.displayName,
           categoryId,
           ref: categoryRef,
           ...mergedProfileCategory,
@@ -277,6 +280,7 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef.set(
             {
               id: data.userShortId,
+              displayName: data.userDisplayName,
               updatedAt: new Date()
             },
             { merge: true }
