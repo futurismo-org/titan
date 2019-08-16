@@ -166,7 +166,7 @@ export const aggregateChallenge = async (challenge: any) => {
     });
   // ここまで
 
-  const profileRefs = await firebase
+  await firebase
     .firestore()
     .runTransaction(async (transaction: firestore.Transaction) => {
       const rankedUsers = await firebase
@@ -199,6 +199,8 @@ export const aggregateChallenge = async (challenge: any) => {
         updatedAt: new Date()
       }));
 
+      const categoryId = getCategoryId(categoryRef);
+
       await challengeResults.map(data => {
         const userRef = firebase
           .firestore()
@@ -220,31 +222,32 @@ export const aggregateChallenge = async (challenge: any) => {
           .set(data, { merge: true });
       });
 
-      const categoryId = await getCategoryId(categoryRef);
+      const profileCategories = await rankedUsers.map(
+        async challengeParticipant => {
+          const resourceId = `/profiles/${challengeParticipant.id}/categories/${categoryId}`;
 
-      const profileCategories = await rankedUsers.map(challengeParticipant => {
-        const resourceId = `/profiles/${challengeParticipant.id}/categories/${categoryId}`;
-        const currentProfileCategory = firebase
-          .firestore()
-          .doc(resourceId)
-          .get()
-          .then(doc => doc.data());
+          const currentProfileCategory = await firebase
+            .firestore()
+            .doc(resourceId)
+            .get()
+            .then(doc => doc.data());
 
-        const mergedProfileCategory = mergeCategory(
-          currentProfileCategory,
-          challengeParticipant
-        );
+          const mergedProfileCategory = mergeCategory(
+            currentProfileCategory,
+            challengeParticipant
+          );
 
-        return {
-          id: categoryId,
-          userShortId: challengeParticipant.id,
-          userDisplayName: challengeParticipant.displayName,
-          categoryId,
-          ref: categoryRef,
-          ...mergedProfileCategory,
-          updatedAt: new Date()
-        };
-      });
+          return {
+            id: categoryId,
+            userShortId: challengeParticipant.id,
+            userDisplayName: challengeParticipant.displayName,
+            categoryId,
+            ref: categoryRef,
+            ...mergedProfileCategory,
+            updatedAt: new Date()
+          };
+        }
+      );
 
       const profileCategoryHistories = await rankedUsers.map(
         challengeParticipant => {
@@ -270,8 +273,8 @@ export const aggregateChallenge = async (challenge: any) => {
         );
       });
 
-      const profileRefs = await profileCategories
-        .map(data => {
+      profileCategories.forEach(data => {
+        data.then(data => {
           const userRef = firebase
             .firestore()
             .collection('profiles')
@@ -290,40 +293,40 @@ export const aggregateChallenge = async (challenge: any) => {
             .collection('categories')
             .doc(data.categoryId)
             .set(data);
-
-          return data;
-        })
-        .map((data: any) =>
-          firebase
-            .firestore()
-            .collection('profiles')
-            .doc(data.userShortId)
-        );
-
-      return profileRefs;
+        });
+      });
     });
 
   // 最後に総合スコアの算出
-  return await profileRefs.map(async (doc: any) => {
-    const userShortId = doc.id;
-    const totalScore = await doc
-      .collection('challenges')
-      .get()
-      .then((snap: any) =>
-        snap.docs
-          .map((doc: any) => doc.data().score)
-          .filter((score: any) => score)
-          .reduce((x: number, y: number) => {
-            return x + y;
-          }, 0)
-      );
+  await firebase
+    .firestore()
+    .collection('challenges')
+    .doc(challengeId)
+    .collection('participants')
+    .get()
+    .then(snap => snap.docs)
+    .then(docs => {
+      docs.map(async (doc: any) => {
+        const userShortId = doc.id;
+        const totalScore = await doc.ref
+          .collection('challenges')
+          .get()
+          .then((snap: any) =>
+            snap.docs
+              .map((doc: any) => doc.data().score)
+              .filter((score: any) => score)
+              .reduce((x: number, y: number) => {
+                return x + y;
+              }, 0)
+          );
 
-    return firebase
-      .firestore()
-      .collection('profiles')
-      .doc(userShortId)
-      .update({ id: userShortId, totalScore: totalScore });
-  });
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .update({ id: userShortId, totalScore: totalScore });
+      });
+    });
 };
 
 export const isHideSensitive = (

@@ -20,8 +20,6 @@ import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import { brandDark } from '~/lib/theme';
 
-const CHALLENGE_PAST_DAYS = '過去連続日数';
-
 const db = firebase.firestore();
 
 const ChallengeUserSettings = (props: any) => {
