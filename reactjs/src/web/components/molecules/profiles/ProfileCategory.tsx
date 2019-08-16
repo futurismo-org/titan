@@ -23,7 +23,7 @@ import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import theme, { primaryColor } from '~/lib/theme';
-import { windowWidth } from '~/web/lib/web';
+import { isMobile } from '~/web/lib/web';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -98,60 +98,68 @@ const ProfileCategory = (props: any) => {
           </div>
           <br />
           <br />
-          <Title text="継続統計" />
-          <p>{data.myBest}</p>
-          <p>過去最高: {data.maxDays}日</p>
-          <p>最終リセット日時: {data.lastResetDate}</p>
-          <br />
-          <Title text="継続ログの要約" />
-          <ProfileCategoryHistories histories={data.summerized} />
-          <br />
-          <br />
-          <Title text="チャレンジごとの実績" />
-          <ProfileCategoryChallenges challenges={data.challenges} />
-          <br />
-          <br />
-          <Title text="リセット分析" />
-          <div>
-            <h3>積算回数</h3>
-            <ResponsiveContainer width="99%" aspect={4}>
-              <LineChart data={data.resetAccs}>
-                <CartesianGrid />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey="count"
-                  name="リセット数"
-                  stroke={theme.palette.primary.main}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-          <h3>時間帯別統計</h3>
-          <ResponsiveContainer width="99%" aspect={4}>
-            <BarChart data={data.resetTimezones}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="hour" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="count" fill={primaryColor} />
-            </BarChart>
-          </ResponsiveContainer>
-          <h3>曜日別統計</h3>
-          <ResponsiveContainer width="99%" aspect={4}>
-            <BarChart data={data.resetDaysOfTheWeek}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="count" fill={primaryColor} />
-            </BarChart>
-          </ResponsiveContainer>
+          {!isMobile ? (
+            <React.Fragment>
+              <Title text="継続統計" />
+              <p>{data.myBest}</p>
+              <p>過去最高: {data.maxDays}日</p>
+              <p>最終リセット日時: {data.lastResetDate}</p>
+              <br />
+              <Title text="継続ログの要約" />
+              <ProfileCategoryHistories histories={data.summerized} />
+              <br />
+              <br />
+              <Title text="チャレンジごとの実績" />
+              <ProfileCategoryChallenges challenges={data.challenges} />
+              <br />
+              <br />
+              <Title text="リセット分析" />
+              <div>
+                <h3>積算回数</h3>
+                <ResponsiveContainer width="99%" aspect={4}>
+                  <LineChart data={data.resetAccs}>
+                    <CartesianGrid />
+                    <XAxis dataKey="date" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="count"
+                      name="リセット数"
+                      stroke={theme.palette.primary.main}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+              <h3>時間帯別統計</h3>
+              <ResponsiveContainer width="99%" aspect={4}>
+                <BarChart data={data.resetTimezones}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="hour" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="count" fill={primaryColor} />
+                </BarChart>
+              </ResponsiveContainer>
+              <h3>曜日別統計</h3>
+              <ResponsiveContainer width="99%" aspect={4}>
+                <BarChart data={data.resetDaysOfTheWeek}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="day" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="count" fill={primaryColor} />
+                </BarChart>
+              </ResponsiveContainer>
+            </React.Fragment>
+          ) : (
+            <p>
+              ダッシュボードによる分析は大きな画面からのアクセスで有効になります。
+            </p>
+          )}
         </Paper>
       )}
     </React.Fragment>
