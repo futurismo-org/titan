@@ -7,6 +7,9 @@ import { mergeCategory } from './profile';
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
 
+export const ACC_DAYS = '大会累積日数';
+export const PAST_DAYS = '過去連続日数';
+
 export const challengePeriod = (challenge: any) => {
   const openedAt = moment(challenge.openedAt.toDate());
   const closedAt = moment(challenge.closedAt.toDate());
