@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
-import Paper from '../templates/PaperWrapper';
-import Title from '../atoms/Title';
+import Paper from '../../templates/PaperWrapper';
+import Title from '../../atoms/Title';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';

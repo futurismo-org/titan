@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Content } from 'native-base';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import Title from '../atoms/Title';
+import Title from '../../atoms/Title';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 
 import { deviceWidth } from '~/native/lib/native';
 
-import Error from '../atoms/Error';
+import Error from '../../atoms/Error';
 import { brandGray } from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from '~/native/containers/ProfileChallengesContainer';

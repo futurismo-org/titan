@@ -4,7 +4,7 @@ import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
-import ProfileHeader from '../molecules/ProfileHeader';
+import ProfileHeader from '../molecules/profiles/ProfileHeader';
 import ProfileBody from '~/native/containers/ProfileBodyContainer';
 
 const Profile = (props: any) => {

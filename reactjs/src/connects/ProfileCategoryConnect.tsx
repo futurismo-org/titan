@@ -2,91 +2,82 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { fetchProfileCategory } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
-import { formatDatetime } from '~/lib/moment';
+import { fetchHistories } from '~/actions/historyAction';
+import moment, { formatDatetime } from '~/lib/moment';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
       fetchCategory,
-      fetchProfileCategory
+      fetchProfileCategory,
+      fetchHistories
     },
     dispatch
   );
+
+const summerizeHistories = (histories: any) => {
+  const summerized: any[] = [];
+
+  let startHistory: any | null = null;
+  let endHistory: any | null = null;
+  let count = 1;
+
+  histories.reverse().forEach((history: any) => {
+    if (
+      startHistory === null &&
+      endHistory === null &&
+      history.type === 'RECORD'
+    ) {
+      startHistory = history;
+      return;
+    }
+
+    if (
+      startHistory !== null &&
+      endHistory === null &&
+      history.type === 'RESET'
+    ) {
+      endHistory = history;
+      return;
+    }
+
+    if (startHistory && endHistory) {
+      const startDate = startHistory.timestamp.toDate();
+      const endDate = endHistory.timestamp.toDate();
+      const duration = moment.duration(moment(startDate).diff(endDate));
+
+      const days = duration.asDays();
+      const hours = duration.asHours() % 24;
+      const minutes = duration.asMinutes() % 60;
+      const durationMessage = `${days}日${hours}時間${minutes}分`;
+
+      const record = {
+        startDate,
+        endDate,
+        duration: durationMessage,
+        attempt: count
+      };
+
+      summerized.push(record);
+
+      startHistory = null;
+      endHistory = null;
+      count++;
+
+      return;
+    }
+  });
+
+  return summerized;
+};
 
 const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.userShortId;
   const categoryId = props.match.params.categoryId;
 
-  // const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
-  // const profileChallengesResourceId = `/profiles/${userShortId}/challenges`;
-  // const categoryResourceId = `/categories/${categoryId}`;
-
-  // const fetchHistories = async () => {
-  //   const category = await firebase
-  //     .firestore()
-  //     .doc(categoryResourceId)
-  //     .get()
-  //     .then((doc: any) => doc.data());
-
-  //   const currentChallengeIds = await firebase
-  //     .firestore()
-  //     .collection(profileChallengesResourceId)
-  //     .get()
-  //     .then((snap: any) => snap.docs.map((doc: any) => doc.id));
-
-  //   const currentCategoryChallengeIds = await currentChallengeIds.filter(
-  //     (id: string) => id === category.id
-  //   );
-
-  //   const challengeHistoies = await currentCategoryChallengeIds
-  //     .map(async (id: any) => {
-  //       const resourceId = `/challenges/${id}/participants/${userShortId}`;
-  //       const histories = await firebase
-  //         .firestore()
-  //         .doc(resourceId)
-  //         .get()
-  //         .then((doc: any) => doc.data().histories);
-  //       return histories;
-  //     })
-  //     .reduce((x: any, y: any) => {
-  //       return x.concat(y);
-  //     }, []);
-
-  //   const profileHistoies = await firebase
-  //     .firestore()
-  //     .doc(profileCategoryResourceId)
-  //     .get()
-  //     .then((doc: any) => doc.data().histories);
-
-  //   const histories = await profileHistoies.concat(challengeHistoies);
-
-  //   return histories;
-  // };
-
-  // const dataLazy = fetchHistories().then((histories: any) => {
-  //   const sorted = histories.sort(
-  //     (x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds
-  //   );
-
-  //   let days = 0;
-  //   let lastResetDate = new Date();
-  //   for (let i = 0; i < sorted.length; i++) {
-  //     if (sorted[i].type === 'RESET') {
-  //       lastResetDate = sorted[i].timestamp.toDate();
-  //       break;
-  //     } else {
-  //       days = days + 1;
-  //     }
-  //   }
-
-  //   return {
-  //     days,
-  //     lastResetDate
-  //   };
-  // });
-
-  const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
   const categoryResourceId = `/categories/${categoryId}`;
+  const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
+  const profileCategoryHistoriesResourceId = `/profiles/${userShortId}/categories/${categoryId}/histories`;
 
   const profileCategory = state.profile.target;
   const category = state.category.target;
@@ -103,6 +94,9 @@ const mapStateToProps = (state: any, props: any) => {
     headline
   };
 
+  const histories = state.history.items;
+  const summerized = summerizeHistories(histories);
+
   let data;
   if (profileCategory) {
     const lastResetDate = profileCategory.lastResetDate
@@ -118,7 +112,8 @@ const mapStateToProps = (state: any, props: any) => {
       days: profileCategory.days,
       maxDays: profileCategory.maxDays,
       lastResetDate,
-      myBest
+      myBest,
+      summerized
     };
   } else {
     data = {};
@@ -127,9 +122,11 @@ const mapStateToProps = (state: any, props: any) => {
   return {
     data,
     metadata,
-    loading: state.profile.loading || state.category.loading,
-    error: state.profile.error || state.category.error,
+    loading:
+      state.profile.loading || state.category.loading || state.history.loading,
+    error: state.profile.error || state.category.error || state.history.error,
     profileCategoryResourceId,
+    profileCategoryHistoriesResourceId,
     categoryResourceId,
     ...props
   };

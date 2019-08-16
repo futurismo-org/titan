@@ -4,7 +4,7 @@ import { View, Text, Button } from 'native-base';
 import { Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withRouter } from 'react-router-native';
-import UserAvatar from '../atoms/UserAvatar';
+import UserAvatar from '../../atoms/UserAvatar';
 import { getTwitterProfileURL, getRandomImageURL } from '~/lib/url';
 
 import MuteButton from '~/native/containers/MuteButtonContainer';
