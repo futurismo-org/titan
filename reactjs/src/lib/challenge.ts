@@ -124,6 +124,7 @@ export const aggregateChallenge = async (challenge: any) => {
         const userShortId = user.id;
 
         const newChallenge = {
+          id: challengeId,
           updatedAt: new Date(),
           title: challenge.title,
           description: challenge.description,
@@ -138,6 +139,7 @@ export const aggregateChallenge = async (challenge: any) => {
         const categoryId = getCategoryId(challenge.categoryRef);
 
         const newCategory = {
+          id: categoryId,
           createdAt: new Date(),
           updatedAt: new Date(),
           ref: challenge.categoryRef,

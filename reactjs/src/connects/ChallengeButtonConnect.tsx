@@ -56,6 +56,7 @@ const mapStateToProps = (state: any, props: any) => {
     };
 
     const newChallenge = {
+      id: challengeId,
       createdAt: new Date(),
       updatedAt: new Date(),
       title: challenge.title,
@@ -68,6 +69,7 @@ const mapStateToProps = (state: any, props: any) => {
     };
 
     const newCategory = {
+      id: categoryId,
       createdAt: new Date(),
       updatedAt: new Date(),
       sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
