@@ -9,6 +9,7 @@ import ChallengePostRecord from '../challenges/ChallengePostRecord';
 import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
+import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -30,6 +31,8 @@ const ProfileCategory = (props: any) => {
     fetchCategory,
     profileCategoryHistoriesResourceId,
     fetchHistories,
+    fetchProfileChallenges,
+    profileChallengesResourceId,
     loading,
     error,
     metadata,
@@ -40,13 +43,16 @@ const ProfileCategory = (props: any) => {
     fetchProfileCategory(profileCategoryResourceId);
     fetchCategory(categoryResourceId);
     fetchHistories(profileCategoryHistoriesResourceId);
+    fetchProfileChallenges(profileChallengesResourceId);
   }, [
     categoryResourceId,
     fetchCategory,
     fetchHistories,
     fetchProfileCategory,
+    fetchProfileChallenges,
     profileCategoryHistoriesResourceId,
-    profileCategoryResourceId
+    profileCategoryResourceId,
+    profileChallengesResourceId
   ]);
 
   return (
@@ -79,8 +85,10 @@ const ProfileCategory = (props: any) => {
           <Title text="継続ログの要約" />
           <ProfileCategoryHistories histories={data.summerized} />
           <br />
+          <br />
           <Title text="チャレンジごとの実績" />
-          {/* <ProfileCategoryHistories histories={data.summerized} /> */}
+          <ProfileCategoryChallenges challenges={data.challenges} />
+          <br />
           <br />
           <Title text="リセット分析" />
           <p>最終リセット日時: {data.lastResetDate}</p>

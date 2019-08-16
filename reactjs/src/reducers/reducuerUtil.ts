@@ -49,3 +49,34 @@ export const fetchError = (state: any, error: any) => {
     error
   });
 };
+
+export const fetchRequestSub = (state: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingSub: true
+  });
+};
+
+export const fetchItemsSuccessSub = (state: any, payload: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingSub: false,
+    itemsSub: payload
+  });
+};
+
+export const fetchTargetSuccessSub = (state: any, payload: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingSub: false,
+    targetSub: payload
+  });
+};
+
+export const fetchErrorSub = (state: any, error: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingSub: false,
+    errorSub: error
+  });
+};

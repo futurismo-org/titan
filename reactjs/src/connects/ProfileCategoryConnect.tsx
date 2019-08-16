@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
-import { fetchProfileCategory } from '~/actions/profileAction';
+import {
+  fetchProfileCategory,
+  fetchProfileChallenges
+} from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 import { fetchHistories } from '~/actions/historyAction';
 import moment, { formatDatetime } from '~/lib/moment';
@@ -11,6 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       fetchCategory,
       fetchProfileCategory,
+      fetchProfileChallenges,
       fetchHistories
     },
     dispatch
@@ -49,7 +53,9 @@ const summerizeHistories = (histories: any) => {
         const days = duration.asDays();
         const hours = duration.asHours() % 24;
         const minutes = duration.asMinutes() % 60;
-        const durationMessage = `${days}日${hours}時間${minutes}分`;
+        const durationMessage = `${days.toFixed(0)}日${hours.toFixed(
+          0
+        )}時間${minutes.toFixed(0)}分`;
 
         const record = {
           id: shortId.generate(),
@@ -72,6 +78,19 @@ const summerizeHistories = (histories: any) => {
   return summerized;
 };
 
+const summerizeChallenges = (challenges: any) => {
+  return challenges.map((challenge: any) => {
+    return {
+      id: shortId.generate(),
+      title: challenge.title,
+      totalDuration: challenge.totalDuration,
+      resetCount: challenge.resetCount,
+      percentage: (challenge.resetCount / challenge.totalDuration) * 100,
+      closedAt: challenge.closedAt.toDate()
+    };
+  });
+};
+
 const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.userShortId;
   const categoryId = props.match.params.categoryId;
@@ -79,6 +98,7 @@ const mapStateToProps = (state: any, props: any) => {
   const categoryResourceId = `/categories/${categoryId}`;
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
   const profileCategoryHistoriesResourceId = `/profiles/${userShortId}/categories/${categoryId}/histories`;
+  const profileChallengesResourceId = `/profiles/${userShortId}/challenges`;
 
   const profileCategory = state.profile.target;
   const category = state.category.target;
@@ -96,7 +116,9 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   const histories = state.history.items;
+  const challenges = state.profile.items;
   const summerized = summerizeHistories(histories);
+  const challengeResults = summerizeChallenges(challenges);
 
   let data;
   if (profileCategory) {
@@ -114,7 +136,8 @@ const mapStateToProps = (state: any, props: any) => {
       maxDays: profileCategory.maxDays,
       lastResetDate,
       myBest,
-      summerized
+      summerized,
+      challenges: challengeResults
     };
   } else {
     data = {};
@@ -124,10 +147,18 @@ const mapStateToProps = (state: any, props: any) => {
     data,
     metadata,
     loading:
-      state.profile.loading || state.category.loading || state.history.loading,
-    error: state.profile.error || state.category.error || state.history.error,
+      state.profile.loading ||
+      state.category.loading ||
+      state.history.loading ||
+      state.profile.loadingSub,
+    error:
+      state.profile.error ||
+      state.category.error ||
+      state.history.error ||
+      state.profile.errorSub,
     profileCategoryResourceId,
     profileCategoryHistoriesResourceId,
+    profileChallengesResourceId,
     categoryResourceId,
     ...props
   };

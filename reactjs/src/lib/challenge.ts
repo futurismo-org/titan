@@ -190,27 +190,31 @@ export const aggregateChallenge = async (challenge: any) => {
           .set(user)
       );
 
-      const challengeResults = await rankedUsers.map(user => ({
-        id: challengeId,
-        challengeId,
-        userDisplayName: user.displayName,
-        userShortId: user.id,
-        score: user.score,
-        rank: user.rank,
-        ratio: user.ratio,
-        totalCount: user.histories.length,
-        totalDuration: moment(user.histories[0].timestamp.toDate()).diff(
-          moment(user.histories[user.histories.length - 1].timestamp.toDate()),
-          'days'
-        ),
-        resetCount: user.histories.filter(
-          (history: any) => history.type === RESET
-        ).length,
-        recordCount: user.histories.filter(
-          (history: any) => history.type === RECORD
-        ).length,
-        updatedAt: new Date()
-      }));
+      const challengeResults = await rankedUsers.map(user => {
+        const histories = user.histories.sort(
+          (x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds
+        );
+        return {
+          id: challengeId,
+          challengeId,
+          userDisplayName: user.displayName,
+          userShortId: user.id,
+          score: user.score,
+          rank: user.rank,
+          ratio: user.ratio,
+          totalCount: histories.length,
+          totalDuration: moment(histories[0].timestamp.toDate()).diff(
+            moment(histories[histories.length - 1].timestamp.toDate()),
+            'days'
+          ),
+          resetCount: histories.filter((history: any) => history.type === RESET)
+            .length,
+          recordCount: histories.filter(
+            (history: any) => history.type === RECORD
+          ).length,
+          updatedAt: new Date()
+        };
+      });
 
       const categoryId = getCategoryId(categoryRef);
 
