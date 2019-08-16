@@ -159,6 +159,10 @@ exports.topic = (req: any, res: any) => {
             html.match(/<meta property="og:url"[^>]*>/),
             `<meta property="og:url" content="${url}">`
           );
+          html = html.replace(
+            '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+            `<meta http-equiv="refresh" content="0;URL=${url}">`
+          );
           res.status(200).send(html);
         }
       );
@@ -212,6 +216,10 @@ exports.challenge = (req: any, res: any) => {
           html = html.replace(
             html.match(/<meta property="og:url"[^>]*>/),
             `<meta property="og:url" content="${url}">`
+          );
+          html = html.replace(
+            '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+            `<meta http-equiv="refresh" content="0;URL=${url}">`
           );
           res.status(200).send(html);
         }
