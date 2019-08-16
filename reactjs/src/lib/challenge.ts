@@ -198,6 +198,17 @@ export const aggregateChallenge = async (challenge: any) => {
         score: user.score,
         rank: user.rank,
         ratio: user.ratio,
+        totalCount: user.histories.length,
+        totalDuration: moment(user.histories[0].timestamp.toDate()).diff(
+          moment(user.histories[user.histories.length - 1].timestamp.toDate()),
+          'days'
+        ),
+        resetCount: user.histories.filter(
+          (history: any) => history.type === RESET
+        ).length,
+        recordCount: user.histories.filter(
+          (history: any) => history.type === RECORD
+        ).length,
         updatedAt: new Date()
       }));
 

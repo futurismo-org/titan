@@ -72,11 +72,11 @@ const ProfileCategory = (props: any) => {
           </div>
           <br />
           <br />
-          <Title text="記録継続統計" />
+          <Title text="継続統計" />
           <p>{data.myBest}</p>
           <p>過去最高: {data.maxDays}日</p>
           <br />
-          <Title text="継続記録ログ" />
+          <Title text="継続ログの要約" />
           <ProfileCategoryHistories histories={data.summerized} />
           <br />
           <Title text="チャレンジごとの実績" />
