@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import BottomNavigation, {
   FullTab
 } from 'react-native-material-bottom-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withRouter } from 'react-router-native';
 import { connect } from 'react-redux';
+import Modalize from 'react-native-modalize';
 import { primaryColor } from '~/lib/theme';
+import QueckActionList from './QuickActionList';
 
 const Navigation = (props: any) => {
   const { history, userShortId, isLogin } = props;
   const [activeTab, setActiveTab] = useState('home');
+
+  const modalRef = useRef<Modalize>(null);
 
   const tabs = [
     {
@@ -50,20 +54,34 @@ const Navigation = (props: any) => {
     />
   );
 
+  const onOpen = () => {
+    const modal = modalRef.current;
+
+    if (modal) {
+      modal.open();
+    }
+  };
+
   const tabHandler = (newTab: any) => {
     setActiveTab(newTab.key);
     newTab.path && history.push(newTab.path);
+    !newTab.path && onOpen();
   };
 
   return (
     <React.Fragment>
       {isLogin ? (
-        <BottomNavigation
-          activeTab={activeTab}
-          onTabPress={tabHandler}
-          renderTab={renderTab}
-          tabs={tabs}
-        />
+        <React.Fragment>
+          <BottomNavigation
+            activeTab={activeTab}
+            onTabPress={tabHandler}
+            renderTab={renderTab}
+            tabs={tabs}
+          />
+          <Modalize ref={modalRef}>
+            <QueckActionList />
+          </Modalize>
+        </React.Fragment>
       ) : null}
     </React.Fragment>
   );
