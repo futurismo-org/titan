@@ -1,18 +1,10 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  Content,
-  Card,
-  CardItem,
-  Button,
-  Grid,
-  Col,
-  Row
-} from 'native-base';
+import React, { useEffect } from 'react';
+import { View, Text, Content, Card, Button, Grid, Col, Row } from 'native-base';
 import Title from '../atoms/Title';
 
 const QuickActionCard = (props: any) => {
+  const { challenge } = props;
+
   return (
     <Card>
       <Grid>
@@ -20,10 +12,12 @@ const QuickActionCard = (props: any) => {
           style={{
             height: 50,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            marginTop: 10,
+            marginBottom: 10
           }}
         >
-          <Text style={{ fontSize: 20 }}>オナ禁大会1ヶ月チャレンジ</Text>
+          <Text style={{ fontSize: 20 }}>{challenge.title}</Text>
         </Row>
         <Row>
           <Col>
@@ -48,11 +42,19 @@ const QuickActionCard = (props: any) => {
 };
 
 const QuickActionList = (props: any) => {
+  const { challenges, fetchProfileChallenges, resourceId } = props;
+
+  useEffect(() => {
+    fetchProfileChallenges(resourceId);
+  }, [fetchProfileChallenges, resourceId]);
+
   return (
     <View>
       <Content padder>
         <Title text="クイックアクション" />
-        <QuickActionCard />
+        {challenges.map((challenge: any) => (
+          <QuickActionCard challenge={challenge} key={challenge.id} />
+        ))}
       </Content>
     </View>
   );

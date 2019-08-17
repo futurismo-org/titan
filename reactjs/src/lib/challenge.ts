@@ -130,6 +130,7 @@ export const aggregateChallenge = async (challenge: any) => {
 
       return participantes.map(user => {
         const userShortId = user.id;
+        const challengeCategoryId = getCategoryId(challenge.categoryRef);
 
         const newChallenge = {
           id: challengeId,
@@ -141,7 +142,8 @@ export const aggregateChallenge = async (challenge: any) => {
           userShortId,
           userDisplayName: user.displayName,
           openedAt: challenge.openedAt,
-          closedAt: challenge.closedAt
+          closedAt: challenge.closedAt,
+          categoryId: challengeCategoryId
         };
 
         const categoryId = getCategoryId(challenge.categoryRef);

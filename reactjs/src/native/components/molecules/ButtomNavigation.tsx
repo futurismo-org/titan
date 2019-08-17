@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-native';
 import { connect } from 'react-redux';
 import Modalize from 'react-native-modalize';
 import { primaryColor } from '~/lib/theme';
-import QueckActionList from './QuickActionList';
+import QueckActionList from '~/native/containers/QuickActionListContainer';
 
 const Navigation = (props: any) => {
   const { history, userShortId, isLogin } = props;
