@@ -7,7 +7,8 @@ import {
   RECORD,
   RESET,
   isChallengeOpening,
-  getCategoryId
+  getCategoryId,
+  isPostPossible
 } from '~/lib/challenge';
 
 import moment, { now, isToday } from '~/lib/moment';
@@ -46,11 +47,7 @@ const mapStateToProps = (state: any, props: any) => {
       displayName
     } = props;
 
-    if (
-      histories.length > 0 &&
-      histories.filter((history: any) => isToday(history.timestamp.toDate()))
-        .length !== 0
-    ) {
+    if (!isPostPossible(histories)) {
       alert('記録の投稿は1日1回までです。');
       return;
     }
@@ -94,7 +91,7 @@ const mapStateToProps = (state: any, props: any) => {
       .then(() => {
         const message = `${displayName}さんが計${newAccDays}日達成しました！
 ${dashBoardURL}`;
-        postMessage(webhookURL, message);
+        webhookURL && postMessage(webhookURL, message);
       })
       .then(() => alert('投稿が完了しました。'))
       .then(() => {
@@ -182,7 +179,7 @@ ${dashBoardURL}`;
       .then(() => {
         const message = `${displayName}さんがリセットしました。
 ${dashBoardURL}`;
-        postMessage(webhookURL, message);
+        webhookURL && postMessage(webhookURL, message);
       })
       .then(() => {
         redirect && redirect('/');
@@ -223,7 +220,10 @@ ${dashBoardURL}`;
       });
   };
 
-  const hide = !isChallengeOpening(openedAt.toDate(), closedAt.toDate());
+  const hide =
+    openedAt &&
+    closedAt &&
+    !isChallengeOpening(openedAt.toDate(), closedAt.toDate());
 
   const participantsRef = firebase.firestore().doc(resourceId);
 

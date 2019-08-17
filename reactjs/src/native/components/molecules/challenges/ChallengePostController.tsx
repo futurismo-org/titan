@@ -31,7 +31,7 @@ const ChallengePostController = (props: any) => {
   const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
 
   const data = value && value.data();
-  const recordDisabled = isPostPossible(data);
+  const recordDisabled = !isPostPossible(data && data.histories);
 
   return (
     <React.Fragment>

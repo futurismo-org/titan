@@ -130,6 +130,7 @@ export const aggregateChallenge = async (challenge: any) => {
 
       return participantes.map(user => {
         const userShortId = user.id;
+        const challengeCategoryId = getCategoryId(challenge.categoryRef);
 
         const newChallenge = {
           id: challengeId,
@@ -141,7 +142,8 @@ export const aggregateChallenge = async (challenge: any) => {
           userShortId,
           userDisplayName: user.displayName,
           openedAt: challenge.openedAt,
-          closedAt: challenge.closedAt
+          closedAt: challenge.closedAt,
+          categoryId: challengeCategoryId
         };
 
         const categoryId = getCategoryId(challenge.categoryRef);
@@ -365,12 +367,13 @@ export const isHideSensitive = (
   return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
 };
 
-export const isPostPossible = (participant: any | undefined) => {
+export const isPostPossible = (histories: any[] | undefined) => {
+  if (!histories) {
+    return true;
+  }
+
   return (
-    participant &&
-    participant.histories.length > 0 &&
-    participant.histories.filter((history: any) =>
-      isToday(history.timestamp.toDate())
-    ).length !== 0
+    histories.filter((history: any) => isToday(history.timestamp.toDate()))
+      .length === 0
   );
 };

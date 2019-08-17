@@ -65,7 +65,8 @@ const mapStateToProps = (state: any, props: any) => {
       challengeId,
       userShortId,
       openedAt: challenge.openedAt,
-      closedAt: challenge.closedAt
+      closedAt: challenge.closedAt,
+      categoryId
     };
 
     const newCategory = {

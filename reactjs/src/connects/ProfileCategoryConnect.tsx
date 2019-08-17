@@ -84,7 +84,10 @@ const summerizeChallenges = (challenges: any) => {
       title: challenge.title,
       totalDuration: challenge.totalDuration,
       resetCount: challenge.resetCount,
-      percentage: (challenge.resetCount / challenge.totalDuration) * 100,
+      percentage: (
+        (challenge.resetCount / challenge.totalDuration) *
+        100
+      ).toFixed(0),
       closedAt: challenge.closedAt && challenge.closedAt.toDate()
     };
   });
