@@ -367,12 +367,13 @@ export const isHideSensitive = (
   return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
 };
 
-export const isPostPossible = (participant: any | undefined) => {
+export const isPostPossible = (histories: any[] | undefined) => {
+  if (!histories) {
+    return true;
+  }
+
   return (
-    participant &&
-    participant.histories.length > 0 &&
-    participant.histories.filter((history: any) =>
-      isToday(history.timestamp.toDate())
-    ).length !== 0
+    histories.filter((history: any) => isToday(history.timestamp.toDate()))
+      .length === 0
   );
 };

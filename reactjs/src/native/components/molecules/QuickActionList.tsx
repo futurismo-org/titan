@@ -3,61 +3,75 @@ import { View, Text, Content, Card, Button, Grid, Col, Row } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { withRouter } from 'react-router-native';
 import { TouchableOpacity } from 'react-native';
+import { useDocument } from 'react-firebase-hooks/firestore';
 import Title from '../atoms/Title';
 import Error from '../atoms/Error';
 
+import QuickPostChallengeButton from '~/native/containers/QuickActionChallengeButtonContainer';
+import firebase from '~/lib/firebase';
+
 const QuickActionCard = withRouter((props: any) => {
   const { challenge, history, userShortId, closeHandler } = props;
+
+  const resourceId = `/challenges/${challenge.id}`;
+
+  const [value, loading, error] = useDocument(
+    firebase.firestore().doc(resourceId)
+  );
 
   const handlePress = (path: string) => {
     history.push(path);
     closeHandler();
   };
 
+  const challengeData = value && value.data();
+
   return (
-    <Card>
-      <Grid>
-        <Row
-          style={{
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginTop: 10,
-            marginBottom: 10
-          }}
-        >
-          <TouchableOpacity
-            onPress={() => handlePress(`/c/${challenge.id}/u/${userShortId}`)}
-          >
-            <Text style={{ fontSize: 20, textDecorationLine: 'underline' }}>
-              {challenge.title}
-            </Text>
-          </TouchableOpacity>
-        </Row>
-        <Row>
-          <Col>
-            <Button full success>
-              <Text>記録する</Text>
-            </Button>
-          </Col>
-          <Col>
-            <Button full warning>
-              <Text>リセット</Text>
-            </Button>
-          </Col>
-          <Col>
-            <Button
-              full
-              onPress={() =>
-                handlePress(`/u/${userShortId}/cat/${challenge.categoryId}`)
-              }
+    <React.Fragment>
+      {error && <Error error={error} />}
+      {loading && null}
+      {!loading && (
+        <Card>
+          <Grid>
+            <Row
+              style={{
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 10,
+                marginBottom: 10
+              }}
             >
-              <Text>カテゴリ</Text>
-            </Button>
-          </Col>
-        </Row>
-      </Grid>
-    </Card>
+              <TouchableOpacity
+                onPress={() =>
+                  handlePress(`/c/${challenge.id}/u/${userShortId}`)
+                }
+              >
+                <Text style={{ fontSize: 20, textDecorationLine: 'underline' }}>
+                  {challenge.title}
+                </Text>
+              </TouchableOpacity>
+            </Row>
+            <Row>
+              <QuickPostChallengeButton
+                userShortId={userShortId}
+                challenge={challengeData}
+              />
+              <Col>
+                <Button
+                  full
+                  onPress={() =>
+                    handlePress(`/u/${userShortId}/cat/${challenge.categoryId}`)
+                  }
+                >
+                  <Text>カテゴリ</Text>
+                </Button>
+              </Col>
+            </Row>
+          </Grid>
+        </Card>
+      )}
+    </React.Fragment>
   );
 });
 

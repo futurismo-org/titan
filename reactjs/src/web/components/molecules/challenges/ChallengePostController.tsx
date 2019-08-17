@@ -42,7 +42,8 @@ const ChallengePostController = (props: any) => {
   };
 
   const data = value && value.data();
-  const recordDisabled = isPostPossible(data);
+
+  const recordDisabled = !isPostPossible(data && data.histories);
 
   return (
     <StyledCenterContainer>

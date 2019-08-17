@@ -72,8 +72,11 @@ const Navigation = (props: any) => {
 
   const tabHandler = (newTab: any) => {
     setActiveTab(newTab.key);
-    newTab.path && history.push(newTab.path);
-    !newTab.path && onOpen();
+    if (newTab.path) {
+      history.push(newTab.path);
+    } else {
+      onOpen();
+    }
   };
 
   return (
