@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { Fab } from '@material-ui/core';
 import {
-  LineChart,
   CartesianGrid,
   XAxis,
   Tooltip,
-  Line,
   Legend,
   YAxis,
   Bar,
@@ -24,6 +22,7 @@ import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import theme, { primaryColor } from '~/lib/theme';
 import { isMobile } from '~/web/lib/web';
+import ProfileCategoryResetChart from './ProfleCategoryResetChart';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -111,21 +110,7 @@ const ProfileCategory = (props: any) => {
               <Title text="リセット統計" />
               <div>
                 <h3>積算回数</h3>
-                <ResponsiveContainer width="99%" aspect={4}>
-                  <LineChart data={data.resetAccs}>
-                    <CartesianGrid />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="count"
-                      name="リセット数"
-                      stroke={theme.palette.primary.main}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                <ProfileCategoryResetChart data={data.resetAccs} />
               </div>
               <h3>時間帯別統計</h3>
               <ResponsiveContainer width="99%" aspect={4}>

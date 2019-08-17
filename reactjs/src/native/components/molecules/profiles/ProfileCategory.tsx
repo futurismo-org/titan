@@ -3,17 +3,26 @@ import { View, Content, Text, Button } from 'native-base';
 import { material } from 'react-native-typography';
 
 import { withRouter } from 'react-router-native';
+import { reset } from 'expo/build/AR';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
+import ProfileCategoryResetChart from './ProfileCategoryResetChart';
 
 const Headline = (props: any) => {
   const { text } = props;
   return (
     <Text style={[material.headline, { fontWeight: 'bold' }]}>{text}</Text>
+  );
+};
+
+const Subheading = (props: any) => {
+  const { text } = props;
+  return (
+    <Text style={[material.subheading, { fontWeight: 'bold' }]}>{text}</Text>
   );
 };
 
@@ -86,6 +95,10 @@ const ProfileCategory = (props: any) => {
           <ProfileCategoryHistories histories={data.summerized} />
           <Text />
           <Headline text="リセット統計" />
+          <Subheading text="積算回数" />
+          <ProfileCategoryResetChart data={data.resetAccs} />
+          <Subheading text="時間帯別統計" />
+          <Subheading text="曜日別統計" />
           <Text />
           <Headline text="チャレンジごとの実績" />
           <ProfileCategoryChallenges
