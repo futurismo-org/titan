@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import moment, { nowMoment } from '~/lib/moment';
+import moment, { nowMoment, isToday } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
 import { mergeCategory } from './profile';
@@ -363,4 +363,14 @@ export const isHideSensitive = (
   userSettingSenstivie: boolean
 ) => {
   return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
+};
+
+export const isPostPossible = (participant: any | undefined) => {
+  return (
+    participant &&
+    participant.histories.length > 0 &&
+    participant.histories.filter((history: any) =>
+      isToday(history.timestamp.toDate())
+    ).length !== 0
+  );
 };

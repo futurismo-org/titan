@@ -6,6 +6,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 
 import Error from '../../atoms/Error';
 import { successToastWithNoRedirect } from '../../atoms/Toast';
+import { isPostPossible } from '~/lib/challenge';
 
 const ChallengePostController = (props: any) => {
   const {
@@ -30,6 +31,7 @@ const ChallengePostController = (props: any) => {
   const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
 
   const data = value && value.data();
+  const recordDisabled = isPostPossible(data);
 
   return (
     <React.Fragment>
@@ -57,6 +59,7 @@ const ChallengePostController = (props: any) => {
               <Button
                 style={{ margin: 2 }}
                 success
+                disabled={recordDisabled}
                 onPress={() => writeRecord(data)}
               >
                 <Text>記録する</Text>
