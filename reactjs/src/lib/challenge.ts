@@ -45,6 +45,12 @@ export const getTotalDays = (
     : today.diff(openedAt, 'days') + 1;
 };
 
+export const getResetDays = (histories: any[]) => {
+  return histories
+    ? histories.filter((history: any) => history.type === RESET).length
+    : 0;
+};
+
 export const getAchieveRate = (resetDays: number, accDays: number) => {
   const totalDays = resetDays + accDays;
   return totalDays === 0 ? 0 : Math.round(((accDays || 0) / totalDays) * 100);
