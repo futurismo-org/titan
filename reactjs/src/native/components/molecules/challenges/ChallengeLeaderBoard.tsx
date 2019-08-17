@@ -14,7 +14,7 @@ import {
 
 const { Table, Row } = require('react-native-table-component');
 
-const flexArr = [1, 2, 6, 2, 2, 2, 3];
+const flexArr = [1, 1, 3, 1, 1, 1, 2];
 
 const ChallengeLeaderBoard = (props: any) => {
   const { users, loading, error, resourceId, fetchUsers, myId } = props;
@@ -70,7 +70,7 @@ const ChallengeLeaderBoard = (props: any) => {
       {error && <Error error={error} />}
       {loading && null}
       {!loading && users && (
-        <Table>
+        <Table style={{ margin: 5 }}>
           <LeaderBoardHead />
           {users.map((user: any) => {
             const rowData = [

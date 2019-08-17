@@ -75,7 +75,6 @@ const Users = (props: any) => {
   return (
     <React.Fragment>
       <Title text="ユーザーランキング" />
-      <Text />
       {/* <RadioForm
         buttonColor={primaryColor}
         selectedButtonColor={primaryColor}
@@ -89,7 +88,7 @@ const Users = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && users && (
-        <Table>
+        <Table style={{ margin: 10 }}>
           <LeaderBoardHead />
           {users.sort(compare).map((user: any, index: number) => {
             const rowData = [
