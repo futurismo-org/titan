@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { View, Content, Text } from 'native-base';
+import { View, Content, Text, Button } from 'native-base';
 import { material } from 'react-native-typography';
 
+import { withRouter } from 'react-router-native';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
@@ -28,7 +29,8 @@ const ProfileCategory = (props: any) => {
     loading,
     error,
     metadata,
-    data
+    data,
+    history
   } = props;
 
   useEffect(() => {
@@ -87,10 +89,19 @@ const ProfileCategory = (props: any) => {
           <Text />
           <Headline text="リセット統計" />
           <Text />
+          <Button
+            full
+            rounded
+            onPress={() =>
+              history.push(`/cat/${metadata.categoryId}/dashboard`)
+            }
+          >
+            <Text>{metadata.categoryTitle}カテゴリへ</Text>
+          </Button>
         </View>
       )}
     </React.Fragment>
   );
 };
 
-export default ProfileCategory;
+export default withRouter(ProfileCategory);
