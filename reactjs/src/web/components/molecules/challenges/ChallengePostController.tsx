@@ -6,9 +6,10 @@ import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 
 import Error from '../../atoms/Error';
-import { brandSuccess, brandWhite, brandWarning } from '~/lib/theme';
+import { brandSuccess, brandWhite, brandWarning, brandGray } from '~/lib/theme';
 
-import { isDaysValid } from '~/lib/challenge';
+import { isDaysValid, isPostPossible } from '~/lib/challenge';
+import { isToday } from '~/lib/moment';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -41,6 +42,7 @@ const ChallengePostController = (props: any) => {
   };
 
   const data = value && value.data();
+  const recordDisabled = isPostPossible(data);
 
   return (
     <StyledCenterContainer>
@@ -55,11 +57,12 @@ const ChallengePostController = (props: any) => {
                   variant="contained"
                   onClick={() => writeRecord(data)}
                   style={{
-                    backgroundColor: brandSuccess,
+                    backgroundColor: recordDisabled ? brandGray : brandSuccess,
                     color: brandWhite,
                     marginLeft: 5,
                     fontWeight: 'bold'
                   }}
+                  disabled={recordDisabled}
                 >
                   記録する
                 </Button>
