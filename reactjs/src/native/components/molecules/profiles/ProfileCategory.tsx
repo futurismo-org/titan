@@ -51,17 +51,38 @@ const ProfileCategory = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && metadata && (
-        <View>
-          <Content padder>
-            <Title text={metadata.headline} />
-            <ChallengePostRecord days={data.days} />
-            <View style={{ margin: 10 }}>
-              <Headline text="継続統計" />
-              <Headline text="継続ログの要約" />
-              <Headline text="チャレンジごとの実績" />
-              <Headline text="リセット統計" />
-            </View>
-          </Content>
+        <View
+          style={{
+            margin: 10
+          }}
+        >
+          <Title text={metadata.headline} />
+          <ChallengePostRecord days={data.days} />
+          <View
+            style={{
+              margin: 20,
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center'
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                textDecorationLine: 'underline'
+              }}
+            >
+              {data.myBest}
+            </Text>
+          </View>
+          <Headline text="継続統計" />
+          {/* 
+              <p>過去最高: {data.maxDays}日</p>
+              <p>最終リセット日時: {data.lastResetDate}</p> */}
+
+          <Headline text="継続ログの要約" />
+          <Headline text="チャレンジごとの実績" />
+          <Headline text="リセット統計" />
         </View>
       )}
     </React.Fragment>

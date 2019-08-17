@@ -94,14 +94,14 @@ const ProfileCategory = (props: any) => {
               }}
             >
               <ChallengePostRecord days={data.days} />
+              <p style={{ fontSize: 20, textDecorationLine: 'underline' }}>
+                {data.myBest}
+              </p>
             </div>
           </div>
-          <br />
-          <br />
           {!isMobile ? (
             <React.Fragment>
               <Title text="継続統計" />
-              <p>{data.myBest}</p>
               <p>過去最高: {data.maxDays}日</p>
               <p>最終リセット日時: {data.lastResetDate}</p>
               <br />
