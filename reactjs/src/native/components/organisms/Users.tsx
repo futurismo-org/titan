@@ -9,11 +9,11 @@ import Title from '../atoms/Title';
 
 import moment, { fromNow } from '~/lib/moment';
 import UserAvatar from '../atoms/UserAvatar';
-import { brandWhite } from '~/lib/theme';
+import { brandWhite, primaryColor, brandLightGray } from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
 
-const RADIO_SCORE_LABEL = 'スコア';
+const RADIO_SCORE_LABEL = '点数';
 const RADIO_LATEST_LABEL = '最新';
 // const RADIO_REGISTERD_LABEL = '登録';
 
@@ -33,7 +33,7 @@ const Users = (props: any) => {
   }, [fetchProfiles, fetchUsers, sortkey]);
 
   const tableHead = ['#', '', '名前', RADIO_SCORE_LABEL, RADIO_LATEST_LABEL];
-  const flexArr = [1, 1, 3, 1, 2];
+  const flexArr = [1, 2, 6, 2, 2];
 
   const compare = (x: any, y: any) => {
     if (sortkey === RADIO_LATEST) {
@@ -52,7 +52,13 @@ const Users = (props: any) => {
   const LeaderBoardHead = () => (
     <Row
       flexArr={flexArr}
-      borderStyle={{ borderColor: '#ffffff' }}
+      borderStyle={{ borderColor: primaryColor }}
+      style={{ backgroundColor: primaryColor }}
+      textStyle={{
+        color: brandWhite,
+        fontWeight: 'bold',
+        padding: 10
+      }}
       data={tableHead}
     />
   );
@@ -83,7 +89,7 @@ const Users = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && users && (
-        <Table borderStyle={{ borderColor: brandWhite }}>
+        <Table>
           <LeaderBoardHead />
           {users.sort(compare).map((user: any, index: number) => {
             const rowData = [
@@ -98,7 +104,18 @@ const Users = (props: any) => {
               user.totalScore || 0,
               fromNow(user.updatedAt.toDate())
             ];
-            return <Row data={rowData} key={user.id} flexArr={flexArr} />;
+            return (
+              <Row
+                data={rowData}
+                key={user.id}
+                flexArr={flexArr}
+                borderStyle={{ borderColor: brandLightGray }}
+                textStyle={{
+                  fontWeight: 'bold',
+                  padding: 5
+                }}
+              />
+            );
           })}
         </Table>
       )}

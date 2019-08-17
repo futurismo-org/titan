@@ -5,9 +5,16 @@ import { Link } from 'react-router-native';
 import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';
 
-import { leaderboardMyColor } from '~/lib/theme';
+import {
+  leaderboardMyColor,
+  brandWhite,
+  primaryColor,
+  brandLightGray
+} from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
+
+const flexArr = [1, 2, 6, 2, 2, 2, 3];
 
 const ChallengeLeaderBoard = (props: any) => {
   const { users, loading, error, resourceId, fetchUsers, myId } = props;
@@ -16,30 +23,54 @@ const ChallengeLeaderBoard = (props: any) => {
     fetchUsers(resourceId);
   }, [fetchUsers, resourceId]);
 
-  const NoStyledRow = (props: any) => {
+  const StyledHeadRow = (props: any) => {
     const { data, userId } = props;
-    const color = userId && myId === userId ? leaderboardMyColor : '#fff';
 
     return (
       <Row
-        borderStyle={{ borderColor: color }}
+        borderStyle={{ borderColor: primaryColor }}
+        style={{ backgroundColor: primaryColor }}
+        textStyle={{
+          color: brandWhite,
+          fontWeight: 'bold',
+          padding: 10
+        }}
+        data={data}
+        flexArr={flexArr}
+      />
+    );
+  };
+
+  const StyledRow = (props: any) => {
+    const { data, userId } = props;
+    const color = userId && myId === userId ? leaderboardMyColor : brandWhite;
+    const borderColor =
+      userId && myId === userId ? leaderboardMyColor : brandLightGray;
+
+    return (
+      <Row
+        borderStyle={{ borderColor: borderColor }}
+        textStyle={{
+          fontWeight: 'bold',
+          padding: 5
+        }}
         style={{ backgroundColor: color }}
         data={data}
-        flexArr={[1, 1, 3, 1, 1, 1, 2]}
+        flexArr={flexArr}
       />
     );
   };
 
   const tableHead = ['#', '', '名前', '点数', '連続', '最長', '最新'];
 
-  const LeaderBoardHead = () => <NoStyledRow data={tableHead} />;
+  const LeaderBoardHead = () => <StyledHeadRow data={tableHead} />;
 
   return (
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
       {!loading && users && (
-        <Table borderStyle={{ borderColor: '#ffffff' }}>
+        <Table>
           <LeaderBoardHead />
           {users.map((user: any) => {
             const rowData = [
@@ -60,9 +91,7 @@ const ChallengeLeaderBoard = (props: any) => {
               user.maxDays,
               user.latest
             ];
-            return (
-              <NoStyledRow data={rowData} key={user.id} userId={user.id} />
-            );
+            return <StyledRow data={rowData} key={user.id} userId={user.id} />;
           })}
         </Table>
       )}
