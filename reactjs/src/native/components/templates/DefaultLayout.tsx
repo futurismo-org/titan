@@ -59,9 +59,9 @@ const DefaultLayout = (props: any) => {
 
   const _refresh = () => {
     return new Promise(resolve => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
+      const currentPath = history.location.path;
+      history.push(currentPath);
+      resolve();
     });
   };
 
