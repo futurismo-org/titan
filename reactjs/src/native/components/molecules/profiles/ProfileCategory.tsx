@@ -76,13 +76,15 @@ const ProfileCategory = (props: any) => {
             </Text>
           </View>
           <Headline text="継続統計" />
-          {/* 
-              <p>過去最高: {data.maxDays}日</p>
-              <p>最終リセット日時: {data.lastResetDate}</p> */}
-
+          <Text>過去最高: {data.maxDays}日</Text>
+          <Text>最終リセット日時: {data.lastResetDate}</Text>
+          <Text />
           <Headline text="継続ログの要約" />
+          <Text />
           <Headline text="チャレンジごとの実績" />
+          <Text />
           <Headline text="リセット統計" />
+          <Text />
         </View>
       )}
     </React.Fragment>

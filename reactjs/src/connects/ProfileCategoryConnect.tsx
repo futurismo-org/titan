@@ -229,7 +229,7 @@ const mapStateToProps = (state: any, props: any) => {
 
     const myBest =
       profileCategory.toMaxDays && profileCategory.toMaxDays !== 0
-        ? `自己ベストまであと${profileCategory.toMaxDays}日`
+        ? `自己ベスト更新まであと${profileCategory.toMaxDays}日`
         : '自己ベスト更新中！';
 
     data = {
