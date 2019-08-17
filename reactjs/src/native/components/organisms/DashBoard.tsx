@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { View } from 'react-native';
-import Spinner from 'react-native-loading-spinner-overlay';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { brandGray } from '~/lib/theme';
 import Error from '~/native/components/atoms/Error';
 import { deviceWidth } from '~/native/lib/native';
+import Progress from '~/native/components/atoms/CircularProgress';
 
 const DashBoard = (props: any) => {
   const {
@@ -47,7 +47,7 @@ const DashBoard = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {<Spinner visible={loading} />}
+      {loading && <Progress />}
       {!loading && (
         <View>
           <Title text="オススメのチャレンジ" />
