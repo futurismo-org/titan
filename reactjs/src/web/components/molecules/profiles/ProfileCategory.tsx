@@ -1,15 +1,5 @@
 import React, { useEffect } from 'react';
 import { Fab } from '@material-ui/core';
-import {
-  CartesianGrid,
-  XAxis,
-  Tooltip,
-  Legend,
-  YAxis,
-  Bar,
-  BarChart,
-  ResponsiveContainer
-} from 'recharts';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
@@ -20,9 +10,10 @@ import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
-import theme, { primaryColor } from '~/lib/theme';
 import { isMobile } from '~/web/lib/web';
 import ProfileCategoryResetChart from './ProfleCategoryResetChart';
+import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
+import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -113,27 +104,11 @@ const ProfileCategory = (props: any) => {
                 <ProfileCategoryResetChart data={data.resetAccs} />
               </div>
               <h3>時間帯別統計</h3>
-              <ResponsiveContainer width="99%" aspect={4}>
-                <BarChart data={data.resetTimezones}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="hour" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="count" fill={primaryColor} />
-                </BarChart>
-              </ResponsiveContainer>
+              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
               <h3>曜日別統計</h3>
-              <ResponsiveContainer width="99%" aspect={4}>
-                <BarChart data={data.resetDaysOfTheWeek}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="count" fill={primaryColor} />
-                </BarChart>
-              </ResponsiveContainer>
+              <ProfileCategoryResetDaysOfTheWeekChart
+                data={data.resetDaysOfTheWeek}
+              />
               <Title text="チャレンジごとの実績" />
               <ProfileCategoryChallenges
                 challenges={data.challenges}

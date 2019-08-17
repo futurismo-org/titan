@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { View, Content, Text, Button } from 'native-base';
+import { View, Text, Button } from 'native-base';
 import { material } from 'react-native-typography';
 
 import { withRouter } from 'react-router-native';
-import { reset } from 'expo/build/AR';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
-import ProfileCategoryResetChart from './ProfileCategoryResetChart';
+import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
+import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
 
 const Headline = (props: any) => {
   const { text } = props;
@@ -95,10 +95,17 @@ const ProfileCategory = (props: any) => {
           <ProfileCategoryHistories histories={data.summerized} />
           <Text />
           <Headline text="リセット統計" />
-          <Subheading text="積算回数" />
-          <ProfileCategoryResetChart data={data.resetAccs} />
+          <Text />
+          {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
+          {/* <Subheading text="積算回数" />
+          <ProfileCategoryResetChart data={data.resetAccs} /> */}
           <Subheading text="時間帯別統計" />
+          <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
+          <Text />
           <Subheading text="曜日別統計" />
+          <ProfileCategoryResetDaysOfTheWeekChart
+            data={data.resetDaysOfTheWeek}
+          />
           <Text />
           <Headline text="チャレンジごとの実績" />
           <ProfileCategoryChallenges
