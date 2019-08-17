@@ -50,7 +50,8 @@ const ProfileCategory = (props: any) => {
     loading,
     error,
     metadata,
-    data
+    data,
+    userShortId
   } = props;
 
   useEffect(() => {
@@ -110,7 +111,10 @@ const ProfileCategory = (props: any) => {
               <br />
               <br />
               <Title text="チャレンジごとの実績" />
-              <ProfileCategoryChallenges challenges={data.challenges} />
+              <ProfileCategoryChallenges
+                challenges={data.challenges}
+                userShortId={userShortId}
+              />
               <br />
               <br />
               <Title text="リセット統計" />

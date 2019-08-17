@@ -3,10 +3,6 @@ import React from 'react';
 import { withRouter } from 'react-router-native';
 import { Body, List, ListItem, Text, Left, Right, Badge } from 'native-base';
 import { formatYearDate } from '~/lib/moment';
-import { brandWhite } from '~/lib/theme';
-
-const flexArr = [3, 1, 1, 1, 2];
-const tableHead = ['タイトル', '順位', 'スコア', '上位', '終了日'];
 
 const ChallengeItem = withRouter((props: any) => {
   const { challenge, history, userShortId } = props;

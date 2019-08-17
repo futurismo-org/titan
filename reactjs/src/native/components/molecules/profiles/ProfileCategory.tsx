@@ -8,6 +8,7 @@ import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
+import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 
 const Headline = (props: any) => {
   const { text } = props;
@@ -30,7 +31,8 @@ const ProfileCategory = (props: any) => {
     error,
     metadata,
     data,
-    history
+    history,
+    userShortId
   } = props;
 
   useEffect(() => {
@@ -85,9 +87,13 @@ const ProfileCategory = (props: any) => {
           <Headline text="継続ログの要約" />
           <ProfileCategoryHistories histories={data.summerized} />
           <Text />
-          <Headline text="チャレンジごとの実績" />
-          <Text />
           <Headline text="リセット統計" />
+          <Text />
+          <Headline text="チャレンジごとの実績" />
+          <ProfileCategoryChallenges
+            challenges={data.challenges}
+            userShortId={userShortId}
+          />
           <Text />
           <Button
             full
