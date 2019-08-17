@@ -21,7 +21,6 @@ import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
 import { RESET, RECORD } from '~/lib/challenge';
 import { brandWhite, primaryColor } from '~/lib/theme';
-import { isMobile } from '~/web/lib/web';
 
 const cellstyle = {
   backgroundColor: primaryColor,
@@ -133,11 +132,9 @@ const HistoryRow = (props: any) => {
 const ChallengeHistories = (props: any) => {
   const { histories, handler } = props;
 
-  const size = isMobile ? 'small' : 'medium';
-
   return (
     <Paper>
-      <Table size={size} style={{ marginTop: 20 }}>
+      <Table size="small" style={{ marginTop: 20 }}>
         <HistoryHead />
         <TableBody>
           {histories

@@ -10,6 +10,7 @@ import { brandGray } from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from '~/native/containers/ProfileChallengesContainer';
 import CollectionCard from '../../atoms/CollectionCard';
+import { getUserDashboardPath } from '~/lib/url';
 
 const ProfileBody = (props: any) => {
   const {
@@ -33,7 +34,15 @@ const ProfileBody = (props: any) => {
 
   const _renderChallengeItem = (props: any) => {
     const { item, index } = props;
-    return <CollectionCard collection={item} type="challenges" key={index} />;
+    const challengeDashboardPath = getUserDashboardPath(item.id, userShortId);
+    return (
+      <CollectionCard
+        collection={item}
+        type="challenges"
+        key={index}
+        profilePath={challengeDashboardPath}
+      />
+    );
   };
 
   return (
