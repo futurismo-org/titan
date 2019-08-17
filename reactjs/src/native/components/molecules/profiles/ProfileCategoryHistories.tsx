@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { formatDatetimeShort } from '~/lib/moment';
-import { primaryColor, brandWhite, brandGray } from '~/lib/theme';
+import { primaryColor, brandWhite, brandLightGray } from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
 
@@ -41,7 +41,7 @@ const ProfileCategoryHistories = (props: any) => {
             data={rowData}
             key={history.id}
             flexArr={flexArr}
-            borderStyle={{ borderColor: brandGray }}
+            borderStyle={{ borderColor: brandLightGray }}
             textStyle={{
               fontWeight: 'bold',
               padding: 5

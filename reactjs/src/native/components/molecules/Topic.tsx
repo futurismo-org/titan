@@ -113,13 +113,11 @@ const Topic = (props: any) => {
               />
             </View>
             <Text />
-            <View style={{ flex: 1, alignSelf: 'center' }}>
-              <TwitterShareIcon
-                title={topic.title}
-                url={shareURL}
-                hashtag="#Titan"
-              />
-            </View>
+            <TwitterShareIcon
+              title={topic.title}
+              url={shareURL}
+              hashtag="#Titan"
+            />
             {isCurrentUser ? (
               <View style={{ flex: 1, alignSelf: 'center' }}>
                 <Text />

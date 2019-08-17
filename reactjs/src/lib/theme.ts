@@ -10,6 +10,7 @@ export const brandDanger = '#d9534f';
 export const brandWarning = '#f0ad4e';
 export const brandDark = '#1a1917';
 export const brandGray = '#888888';
+export const brandLightGray = '#d3d3d3';
 export const brandLight = '#f4f4f4';
 export const brandWhite = '#ffffff';
 
