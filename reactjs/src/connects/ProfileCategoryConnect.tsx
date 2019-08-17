@@ -187,8 +187,6 @@ const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.userShortId;
   const categoryId = props.match.params.categoryId;
 
-  console.log(props.match.params.userShortId);
-
   const categoryResourceId = `/categories/${categoryId}`;
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
   const profileCategoryHistoriesResourceId = `/profiles/${userShortId}/categories/${categoryId}/histories`;
