@@ -15,6 +15,8 @@ export const formatDatetime = (date: Date) =>
 export const formatDate = (date: string) => moment(date).format('MM月DD日');
 export const formatDateShort = (date: string): string =>
   moment(date).format('MM/DD');
+export const formatDatetimeShort = (date: string): string =>
+  moment(date).format('MM/DD HH:mm');
 
 export const formatYearDate = (date: Date) => moment(date).format('YYYY/MM/DD');
 

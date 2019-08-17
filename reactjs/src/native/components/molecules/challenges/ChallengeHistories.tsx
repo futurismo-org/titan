@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
 
-import { withRouter } from 'react-router-native';
 import { formatDatetime } from '~/lib/moment';
 
 import { wrapShowN } from '~/lib/general';
@@ -62,7 +61,6 @@ const getType = (type: string) => {
 };
 
 const flexArr = [3, 2, 1, 1, 1, 1];
-
 const tableHead = ['日時', 'タイプ', '点数', '連続', '累積', '過去'];
 const HistoryHead = () => (
   <Row

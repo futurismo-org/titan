@@ -6,6 +6,7 @@ import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
+import ProfileCategoryHistories from './ProfileCategoryHistories';
 
 const Headline = (props: any) => {
   const { text } = props;
@@ -80,6 +81,7 @@ const ProfileCategory = (props: any) => {
           <Text>最終リセット日時: {data.lastResetDate}</Text>
           <Text />
           <Headline text="継続ログの要約" />
+          <ProfileCategoryHistories histories={data.summerized} />
           <Text />
           <Headline text="チャレンジごとの実績" />
           <Text />
