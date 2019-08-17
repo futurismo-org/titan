@@ -7,11 +7,12 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Hidden from '@material-ui/core/Hidden';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import Progress from '../../atoms/CircularProgress';
 
 import UserAvatar from '../../atoms/UserAvatar';
 
-import { leaderboardMyColor } from '~/lib/theme';
+import { leaderboardMyColor, brandWhite } from '~/lib/theme';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -50,38 +51,47 @@ const ChallengeLeaderBoard = (props: any) => {
         <Table size="small">
           <LeaderBoardHead />
           <TableBody>
-            {users.map((user: any) => (
-              <TableRow
-                hover
-                key={user.id}
-                style={{
-                  backgroundColor:
-                    user.id === myId ? leaderboardMyColor : '#fff'
-                }}
-              >
-                <TableCell component="th" scope="row">
-                  {user.rank}位
-                </TableCell>
-                <TableCell>
-                  <UserAvatar photoURL={user.photoURL} userId={user.id} />
-                </TableCell>
-                <TableCell>
-                  <Link style={{ color: 'inherit' }} to={user.profilePath}>
-                    {user.displayName}
-                  </Link>
-                </TableCell>
-                <TableCell>{user.score}</TableCell>
-                <ConditionalTableCell>{user.days}</ConditionalTableCell>
-                <ConditionalTableCell>{user.maxDays}</ConditionalTableCell>
-                <ConditionalTableCell>
-                  {user.pastDays || user.days}
-                </ConditionalTableCell>
-                <ConditionalTableCell>
-                  {user.histories ? user.histories.length : 0}
-                </ConditionalTableCell>
-                <ConditionalTableCell>{user.latest}</ConditionalTableCell>
-              </TableRow>
-            ))}
+            {users.map((user: any) => {
+              const StyledTableRow = styled(TableRow)`
+                && {
+                  background-color: ${user.shortId === myId
+                    ? leaderboardMyColor
+                    : brandWhite};
+                }
+              `;
+
+              return (
+                <StyledTableRow
+                  key={user.id}
+                  style={{
+                    backgroundColor:
+                      user.id === myId ? leaderboardMyColor : brandWhite
+                  }}
+                >
+                  <TableCell component="th" scope="row">
+                    {user.rank}位
+                  </TableCell>
+                  <TableCell>
+                    <UserAvatar photoURL={user.photoURL} userId={user.id} />
+                  </TableCell>
+                  <TableCell>
+                    <Link style={{ color: 'inherit' }} to={user.profilePath}>
+                      {user.displayName}
+                    </Link>
+                  </TableCell>
+                  <TableCell>{user.score}</TableCell>
+                  <ConditionalTableCell>{user.days}</ConditionalTableCell>
+                  <ConditionalTableCell>{user.maxDays}</ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {user.pastDays || user.days}
+                  </ConditionalTableCell>
+                  <ConditionalTableCell>
+                    {user.histories ? user.histories.length : 0}
+                  </ConditionalTableCell>
+                  <ConditionalTableCell>{user.latest}</ConditionalTableCell>
+                </StyledTableRow>
+              );
+            })}
           </TableBody>
         </Table>
       )}
