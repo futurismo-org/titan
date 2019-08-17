@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Tooltip } from '@material-ui/core';
 
 import styled from 'styled-components';
 import { PaperProps } from '@material-ui/core/Paper';
@@ -55,19 +55,21 @@ const NumberContainer = styled.div`
   /* padding-bottom: ${theme.spacing(1)}px; */
 `;
 
-const NumberWidget = ({ title, number, unit, ...props }: any) => (
+const NumberWidget = ({ title, number, unit, description, ...props }: any) => (
   <WidgetWrapper>
-    <StyledPaper>
-      <WidgetHeader>
-        <Typography color="textSecondary">{title}</Typography>
-      </WidgetHeader>
-      <WidgetBody>
-        <NumberContainer>
-          <StyledNumber>{number}</StyledNumber>
-          <StyledUnit>{unit}</StyledUnit>
-        </NumberContainer>
-      </WidgetBody>
-    </StyledPaper>
+    <Tooltip title={description}>
+      <StyledPaper>
+        <WidgetHeader>
+          <Typography color="textSecondary">{title}</Typography>
+        </WidgetHeader>
+        <WidgetBody>
+          <NumberContainer>
+            <StyledNumber>{number}</StyledNumber>
+            <StyledUnit>{unit}</StyledUnit>
+          </NumberContainer>
+        </WidgetBody>
+      </StyledPaper>
+    </Tooltip>
   </WidgetWrapper>
 );
 
