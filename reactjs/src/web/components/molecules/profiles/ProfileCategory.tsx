@@ -113,7 +113,7 @@ const ProfileCategory = (props: any) => {
               <ProfileCategoryChallenges challenges={data.challenges} />
               <br />
               <br />
-              <Title text="リセット分析" />
+              <Title text="リセット統計" />
               <div>
                 <h3>積算回数</h3>
                 <ResponsiveContainer width="99%" aspect={4}>
