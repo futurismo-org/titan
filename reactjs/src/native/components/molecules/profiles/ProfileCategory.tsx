@@ -80,11 +80,9 @@ const ProfileCategory = (props: any) => {
               {data.myBest}
             </Text>
           </View>
-          <Headline text="継続統計" />
-          <Text>過去最高: {data.maxDays}日</Text>
+          <Headline text="継続記録統計" />
+          <Text>過去最高継続日数: {data.maxDays}日</Text>
           <Text>最終リセット日時: {data.lastResetDate}</Text>
-          <Text />
-          <Headline text="継続ログの要約" />
           <ProfileCategoryHistories histories={data.summerized} />
           <Text />
           <Headline text="リセット統計" />

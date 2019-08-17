@@ -102,19 +102,10 @@ const ProfileCategory = (props: any) => {
           </div>
           {!isMobile ? (
             <React.Fragment>
-              <Title text="継続統計" />
-              <p>過去最高: {data.maxDays}日</p>
+              <Title text="継続記録統計" />
+              <p>過去最高継続日数: {data.maxDays}日</p>
               <p>最終リセット日時: {data.lastResetDate}</p>
-              <br />
-              <Title text="継続ログの要約" />
               <ProfileCategoryHistories histories={data.summerized} />
-              <br />
-              <br />
-              <Title text="チャレンジごとの実績" />
-              <ProfileCategoryChallenges
-                challenges={data.challenges}
-                userShortId={userShortId}
-              />
               <br />
               <br />
               <Title text="リセット統計" />
@@ -158,6 +149,11 @@ const ProfileCategory = (props: any) => {
                   <Bar dataKey="count" fill={primaryColor} />
                 </BarChart>
               </ResponsiveContainer>
+              <Title text="チャレンジごとの実績" />
+              <ProfileCategoryChallenges
+                challenges={data.challenges}
+                userShortId={userShortId}
+              />
             </React.Fragment>
           ) : (
             <p>
