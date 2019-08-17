@@ -62,6 +62,14 @@ const Navigation = (props: any) => {
     }
   };
 
+  const onClose = () => {
+    const modal = modalRef.current;
+
+    if (modal) {
+      modal.close();
+    }
+  };
+
   const tabHandler = (newTab: any) => {
     setActiveTab(newTab.key);
     newTab.path && history.push(newTab.path);
@@ -79,7 +87,7 @@ const Navigation = (props: any) => {
             tabs={tabs}
           />
           <Modalize ref={modalRef}>
-            <QueckActionList />
+            <QueckActionList closeHandler={onClose} />
           </Modalize>
         </React.Fragment>
       ) : null}

@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import { View, Text, Content, Card, Button, Grid, Col, Row } from 'native-base';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { withRouter } from 'react-router-native';
+import { TouchableOpacity } from 'react-native';
 import Title from '../atoms/Title';
 import Error from '../atoms/Error';
 
 const QuickActionCard = withRouter((props: any) => {
-  const { challenge, history, userShortId } = props;
+  const { challenge, history, userShortId, closeHandler } = props;
+
+  const handlePress = (path: string) => {
+    history.push(path);
+    closeHandler();
+  };
 
   return (
     <Card>
@@ -20,9 +26,13 @@ const QuickActionCard = withRouter((props: any) => {
             marginBottom: 10
           }}
         >
-          <Text style={{ fontSize: 20, textDecorationLine: 'underline' }}>
-            {challenge.title}
-          </Text>
+          <TouchableOpacity
+            onPress={() => handlePress(`/c/${challenge.id}/u/${userShortId}`)}
+          >
+            <Text style={{ fontSize: 20, textDecorationLine: 'underline' }}>
+              {challenge.title}
+            </Text>
+          </TouchableOpacity>
         </Row>
         <Row>
           <Col>
@@ -39,7 +49,7 @@ const QuickActionCard = withRouter((props: any) => {
             <Button
               full
               onPress={() =>
-                history.push(`/u/${userShortId}/cat/${challenge.categoryId}`)
+                handlePress(`/u/${userShortId}/cat/${challenge.categoryId}`)
               }
             >
               <Text>カテゴリ</Text>
@@ -58,7 +68,8 @@ const QuickActionList = (props: any) => {
     resourceId,
     error,
     loading,
-    userShortId
+    userShortId,
+    closeHandler
   } = props;
 
   useEffect(() => {
@@ -78,6 +89,7 @@ const QuickActionList = (props: any) => {
                 challenge={challenge}
                 key={challenge.id}
                 userShortId={userShortId}
+                closeHandler={closeHandler}
               />
             ))}
           </Content>
