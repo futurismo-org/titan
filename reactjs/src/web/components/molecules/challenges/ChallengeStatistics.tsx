@@ -3,21 +3,23 @@ import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
 
-import { getTotalDays, getAchieveRate } from '~/lib/challenge';
+import { getAchieveRate, RESET } from '~/lib/challenge';
 import {
   DEFINE_SCORE,
   DEFINE_DAYS,
   DEFINE_ACC_DAYS,
   DEFINE_PAST_DAYS,
-  DEFINE_TOTAL_DAYS,
-  DEFINE_ACHIEVE_RATE
+  DEFINE_ACHIEVE_RATE,
+  DEFINE_RESET_DAYS
 } from '~/constants/challenge';
 
 const ChallengeStatistics = (props: any) => {
-  const { data, openedAt, closedAt } = props;
+  const { data } = props;
 
-  const totalDays = getTotalDays(openedAt.toDate(), closedAt.toDate(), data);
-  const achieveRate = getAchieveRate(totalDays, data.accDays);
+  const resetDays = data.histories
+    ? data.histories.filter((history: any) => history.type === RESET).length
+    : 0;
+  const achieveRate = getAchieveRate(resetDays, data.accDays);
 
   return (
     <React.Fragment>
@@ -48,6 +50,14 @@ const ChallengeStatistics = (props: any) => {
         </Grid>
         <Grid item lg={4} md={4} sm={6} xs={6}>
           <NumberWidget
+            title="リセット回数"
+            number={resetDays}
+            unit="days"
+            description={DEFINE_RESET_DAYS}
+          />
+        </Grid>
+        <Grid item lg={4} md={4} sm={6} xs={6}>
+          <NumberWidget
             title="大会連続日数"
             number={data.days}
             unit="days"
@@ -62,16 +72,7 @@ const ChallengeStatistics = (props: any) => {
             description={DEFINE_PAST_DAYS}
           />
         </Grid>
-        <Grid item lg={4} md={4} sm={6} xs={6}>
-          <NumberWidget
-            title="経過日数"
-            number={totalDays}
-            unit="days"
-            description={DEFINE_TOTAL_DAYS}
-          />
-        </Grid>
       </Grid>
-      <br />
     </React.Fragment>
   );
 };
