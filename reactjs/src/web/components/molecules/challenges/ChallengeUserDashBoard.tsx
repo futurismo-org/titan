@@ -6,7 +6,6 @@ import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
 
 import Progress from '../../atoms/CircularProgress';
-import Title from '../../atoms/Title';
 
 import ChallengeHistories from './ChallengeHistories';
 import ChallengeStatistics from './ChallengeStatistics';

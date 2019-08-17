@@ -45,8 +45,10 @@ export const getTotalDays = (
     : today.diff(openedAt, 'days') + 1;
 };
 
-export const getAchieveRate = (totalDays: number, accDays: number) =>
-  totalDays === 0 ? 0 : Math.round(((accDays || 0) / totalDays) * 100);
+export const getAchieveRate = (resetDays: number, accDays: number) => {
+  const totalDays = resetDays + accDays;
+  return totalDays === 0 ? 0 : Math.round(((accDays || 0) / totalDays) * 100);
+};
 
 export const isDaysValid = (days: number) => {
   return days !== undefined && days !== null && !isNaN(days);
