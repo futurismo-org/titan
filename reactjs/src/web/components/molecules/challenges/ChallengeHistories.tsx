@@ -6,7 +6,8 @@ import {
   TableHead,
   TableBody,
   Hidden,
-  Chip
+  Chip,
+  Paper
   // Typography,
   // Button
 } from '@material-ui/core';
@@ -24,7 +25,8 @@ import { isMobile } from '~/web/lib/web';
 
 const cellstyle = {
   backgroundColor: primaryColor,
-  color: brandWhite
+  color: brandWhite,
+  fontWeight: 'bold'
 };
 
 const ConditionalTableCell = (props: any) => {
@@ -45,7 +47,7 @@ const getType = (type: string) => {
 };
 
 const HistoryCellHead = (props: any) => (
-  <TableCell style={cellstyle}>{props.children}</TableCell>
+  <TableCell style={cellstyle as any}>{props.children}</TableCell>
 );
 
 const HistoryHead = (props: any) => (
@@ -134,22 +136,24 @@ const ChallengeHistories = (props: any) => {
   const size = isMobile ? 'small' : 'medium';
 
   return (
-    <Table size={size} style={{ marginTop: 20 }}>
-      <HistoryHead />
-      <TableBody>
-        {histories
-          .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
-          .map((history: any) => {
-            return (
-              <HistoryRow
-                key={history.id}
-                history={history}
-                handler={handler(history)}
-              />
-            );
-          })}
-      </TableBody>
-    </Table>
+    <Paper>
+      <Table size={size} style={{ marginTop: 20 }}>
+        <HistoryHead />
+        <TableBody>
+          {histories
+            .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
+            .map((history: any) => {
+              return (
+                <HistoryRow
+                  key={history.id}
+                  history={history}
+                  handler={handler(history)}
+                />
+              );
+            })}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 };
 
