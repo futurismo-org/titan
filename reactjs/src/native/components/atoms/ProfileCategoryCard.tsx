@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const CollectionCard = (props: any) => {
+const ProfileCategoryCard = (props: any) => {
   const { category, allowSensitive, debugSensitive, path, history } = props;
 
   return (
@@ -167,4 +167,4 @@ const CollectionCard = (props: any) => {
   );
 };
 
-export default withRouter(CollectionCard);
+export default withRouter(ProfileCategoryCard);

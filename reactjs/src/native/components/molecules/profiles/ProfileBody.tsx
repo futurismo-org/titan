@@ -81,7 +81,7 @@ const ProfileBody = (props: any) => {
           <Title text="所属カテゴリの記録" />
           {categories && categories.length !== 0 ? (
             <ProfileCategories
-              userShortid={userShortId}
+              userShortId={userShortId}
               refs={categories.map((category: any) => category.ref)}
             />
           ) : (
