@@ -43,18 +43,19 @@ const ChallengeLeaderBoard = (props: any) => {
 
   const StyledRow = (props: any) => {
     const { data, userId } = props;
-    const color = userId && myId === userId ? leaderboardMyColor : brandWhite;
+    const backgroundColor =
+      userId && myId === userId ? leaderboardMyColor : brandWhite;
     const borderColor =
       userId && myId === userId ? leaderboardMyColor : brandLightGray;
 
     return (
       <Row
-        borderStyle={{ borderColor: borderColor }}
         textStyle={{
           fontWeight: 'bold',
           padding: 5
         }}
-        style={{ backgroundColor: color }}
+        borderStyle={{ borderColor }}
+        style={{ backgroundColor }}
         data={data}
         flexArr={flexArr}
       />

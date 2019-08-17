@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 
-import { Text } from 'native-base';
-
 // import RadioForm from 'react-native-simple-radio-button';
+import { Table, Row } from 'react-native-table-component';
 import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
 import Title from '../atoms/Title';
 
 import moment, { fromNow } from '~/lib/moment';
 import UserAvatar from '../atoms/UserAvatar';
-import { brandWhite, primaryColor, brandLightGray } from '~/lib/theme';
-
-const { Table, Row } = require('react-native-table-component');
+import {
+  brandWhite,
+  primaryColor,
+  brandLightGray,
+  leaderboardMyColor
+} from '~/lib/theme';
 
 const RADIO_SCORE_LABEL = '点数';
 const RADIO_LATEST_LABEL = '最新';
@@ -22,7 +24,7 @@ const RADIO_LATEST = 1;
 const RADIO_REGISTERD = 2;
 
 const Users = (props: any) => {
-  const { users, error, loading, fetchUsers, fetchProfiles } = props;
+  const { users, error, loading, fetchUsers, fetchProfiles, myId } = props;
 
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
@@ -91,24 +93,32 @@ const Users = (props: any) => {
         <Table style={{ margin: 10 }}>
           <LeaderBoardHead />
           {users.sort(compare).map((user: any, index: number) => {
+            const userId = user.shortId;
             const rowData = [
               `${index + 1}`,
               <UserAvatar
                 photoURL={user.photoURL}
                 key={user.id}
                 small
-                userId={user.shortId}
+                userId={userId}
               />,
               user.displayName || 'Annonymous',
               user.totalScore || 0,
               fromNow(user.updatedAt.toDate())
             ];
+
+            const backgroundColor =
+              userId && myId === userId ? leaderboardMyColor : brandWhite;
+            const borderColor =
+              userId && myId === userId ? leaderboardMyColor : brandLightGray;
+
             return (
               <Row
                 data={rowData}
                 key={user.id}
                 flexArr={flexArr}
-                borderStyle={{ borderColor: brandLightGray }}
+                borderStyle={{ borderColor }}
+                style={{ backgroundColor }}
                 textStyle={{
                   fontWeight: 'bold',
                   padding: 5
