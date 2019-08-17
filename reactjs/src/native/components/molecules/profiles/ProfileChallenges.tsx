@@ -1,52 +1,57 @@
 import React from 'react';
 
 import { withRouter } from 'react-router-native';
+import { Body, List, ListItem, Text, Left, Right, Badge } from 'native-base';
 import { formatYearDate } from '~/lib/moment';
 import { brandWhite } from '~/lib/theme';
-
-const { Table, Row } = require('react-native-table-component');
 
 const flexArr = [3, 1, 1, 1, 2];
 const tableHead = ['タイトル', '順位', 'スコア', '上位', '終了日'];
 
-const HistoryHead = () => (
-  <Row
-    flexArr={flexArr}
-    data={tableHead}
-    borderStyle={{ borderColor: brandWhite }}
-    style={{ backgroundColor: brandWhite }}
-  />
-);
-
-const ProfileChallenges = (props: any) => {
-  const { challenges, userShortId, history } = props;
+const ChallengeItem = withRouter((props: any) => {
+  const { challenge, history, userShortId } = props;
 
   return (
-    <Table borderStyle={{ borderColor: brandWhite }}>
-      <HistoryHead />
-      {challenges.map((challenge: any) => {
-        const rowData = [
-          challenge.title,
-          `${challenge.rank}位`,
-          challenge.score,
-          `${challenge.ratio}%`,
-          formatYearDate(challenge.closedAt.toDate())
-        ];
-        return (
-          <Row
-            data={rowData}
-            key={challenge.id}
-            flexArr={flexArr}
-            borderStyle={{ borderColor: brandWhite }}
-            style={{ backgroundColor: brandWhite }}
-            onPress={() =>
-              history.push(`/c/${challenge.id}/u/${userShortId}/dashboard`)
-            }
-          />
-        );
-      })}
-    </Table>
+    <ListItem
+      avatar
+      button
+      onPress={() => history.push(`/c/${challenge.id}/u/${userShortId}`)}
+    >
+      <Left style={{ justifyContent: 'center' }}>
+        <Badge>
+          <Text>{challenge.rank}位</Text>
+        </Badge>
+      </Left>
+      <Body>
+        <Text>{challenge.title}</Text>
+        <Text note>{formatYearDate(challenge.closedAt.toDate())}</Text>
+      </Body>
+      <Right style={{ justifyContent: 'center' }}>
+        <Text note>{challenge.score} score</Text>
+        <Text note>{challenge.ratio}%</Text>
+      </Right>
+    </ListItem>
+  );
+});
+
+const ProfileChallenges = (props: any) => {
+  const { challenges, userShortId } = props;
+
+  return (
+    <React.Fragment>
+      <List>
+        {challenges.map((challenge: any) => {
+          return (
+            <ChallengeItem
+              challenge={challenge}
+              key={challenge.id}
+              userShortId={userShortId}
+            />
+          );
+        })}
+      </List>
+    </React.Fragment>
   );
 };
 
-export default withRouter(ProfileChallenges);
+export default ProfileChallenges;

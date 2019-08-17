@@ -98,6 +98,7 @@ const ProfileBody = (props: any) => {
               現在、所属しているカテゴリはありません。
             </Text>
           )}
+          <Text />
           <Title text="過去のチャレンジ実績" />
           {pastChallenges && pastChallenges.length !== 0 ? (
             <ProfileChallenges
