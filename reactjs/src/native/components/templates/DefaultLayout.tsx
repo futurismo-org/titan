@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { PageHit } from 'expo-analytics';
 import { withRouter } from 'react-router-native';
+import PTRView from 'react-native-pull-to-refresh';
 import { hideGiphy } from '~/actions/giphyAction';
 import GiphyHome from '../organisms/Giphy';
 import Header from '~/native/containers/HeaderContainer';
@@ -56,6 +57,14 @@ const DefaultLayout = (props: any) => {
     return <Giphy />;
   }
 
+  const _refresh = () => {
+    return new Promise(resolve => {
+      const currentPath = history.location.path;
+      history.push(currentPath);
+      resolve();
+    });
+  };
+
   return (
     <Root>
       <StyleProvider style={getTheme(material as any)}>
@@ -75,7 +84,7 @@ const DefaultLayout = (props: any) => {
             })}
           >
             <Header openDrawer={openDrawer} />
-            {props.children}
+            <PTRView onRefresh={_refresh}>{props.children}</PTRView>
           </Drawer>
         </StyledContainer>
       </StyleProvider>

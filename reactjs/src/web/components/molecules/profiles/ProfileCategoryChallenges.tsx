@@ -7,8 +7,10 @@ import {
   TableHead,
   TableBody
 } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 import { formatYearDate } from '~/lib/moment';
 import { primaryColor, brandWhite } from '~/lib/theme';
+import { getUserDashboardPath } from '~/lib/url';
 
 const ChallengeCellHead = (props: any) => (
   <TableCell
@@ -34,12 +36,14 @@ const ChallengeHead = (props: any) => (
   </TableHead>
 );
 
-const ChallengeRow = (props: any) => {
-  const { challenge } = props;
+const ChallengeRow = withRouter((props: any) => {
+  const { challenge, userShortId, history } = props;
   const { title, totalDuration, resetCount, percentage, closedAt } = challenge;
 
+  const path = getUserDashboardPath(challenge.id, userShortId);
+
   return (
-    <TableRow hover>
+    <TableRow hover onClick={() => history.push(path)}>
       <TableCell>{title}</TableCell>
       <TableCell>{totalDuration}日</TableCell>
       <TableCell>{resetCount}回</TableCell>
@@ -47,10 +51,10 @@ const ChallengeRow = (props: any) => {
       <TableCell>{formatYearDate(closedAt)}</TableCell>
     </TableRow>
   );
-};
+});
 
 const ProfileCategoryChallenges = (props: any) => {
-  const { challenges } = props;
+  const { challenges, userShortId } = props;
 
   return (
     <React.Fragment>
@@ -59,7 +63,13 @@ const ProfileCategoryChallenges = (props: any) => {
           <ChallengeHead />
           <TableBody>
             {challenges.map((challenge: any) => {
-              return <ChallengeRow key={challenge.id} challenge={challenge} />;
+              return (
+                <ChallengeRow
+                  key={challenge.id}
+                  challenge={challenge}
+                  userShortId={userShortId}
+                />
+              );
             })}
           </TableBody>
         </Table>

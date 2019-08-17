@@ -65,6 +65,7 @@ const App = (props: any) => {
             <Switch>
               <Route path="/cat" component={Hero} />
               <Route path="/c" component={Hero} />
+              <Route path="/u/:userShortId/cat/:categoryId" component={Home} />
               <Route path="/u" component={Hero} />
               <Route path="/" component={Home} />
             </Switch>

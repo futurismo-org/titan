@@ -8,9 +8,10 @@ import {
 } from 'react-native';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
-import { collectionURL, getRandomImageURL } from '~/lib/url';
+import { getRandomImageURL } from '~/lib/url';
 
 import { isiOS } from '~/native/lib/native';
+import { isHideSensitive } from '~/lib/challenge';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   'window'
@@ -106,48 +107,34 @@ const styles = StyleSheet.create({
   }
 });
 
-const CollectionCard = (props: any) => {
-  const {
-    collection,
-    type,
-    allowSensitive,
-    history,
-    small,
-    profilePath
-  } = props;
-
-  const path = profilePath ? profilePath : collectionURL(type, collection.id);
+const ProfileCategoryCard = (props: any) => {
+  const { category, allowSensitive, debugSensitive, path, history } = props;
 
   return (
     <React.Fragment>
-      {collection.sensitive && !allowSensitive ? (
+      {isHideSensitive(debugSensitive, category.sensitive, allowSensitive) ? (
         <TouchableOpacity
           activeOpacity={1}
-          style={[
-            styles.slideInnerContainer,
-            { height: !small ? slideHeight : 100 }
-          ]}
+          style={[styles.slideInnerContainer, { height: slideHeight }]}
           onPress={() => history.push('/settings')}
         >
           <View style={styles.shadow} />
-          {!small && (
-            <View style={styles.imageContainer}>
-              <Image
-                source={{
-                  uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
-                }}
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignSelf: 'center',
-                  resizeMode: 'contain',
-                  width: 144,
-                  height: 144
-                }}
-              />
-              <View style={styles.radiusMask} />
-            </View>
-          )}
+          <View style={styles.imageContainer}>
+            <Image
+              source={{
+                uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
+              }}
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignSelf: 'center',
+                resizeMode: 'contain',
+                width: 144,
+                height: 144
+              }}
+            />
+            <View style={styles.radiusMask} />
+          </View>
           <View style={styles.textContainer}>
             <Text style={styles.title}>
               センシティブな内容が含まれている可能性のあるコンテンツです
@@ -158,28 +145,20 @@ const CollectionCard = (props: any) => {
       ) : (
         <TouchableOpacity
           activeOpacity={1}
-          style={[
-            styles.slideInnerContainer,
-            { height: !small ? slideHeight : 100 }
-          ]}
+          style={[styles.slideInnerContainer, { height: slideHeight }]}
           onPress={() => history.push(path)}
         >
           <View style={styles.shadow} />
-          {!small && (
-            <View style={styles.imageContainer}>
-              <Image
-                source={{ uri: getRandomImageURL() }}
-                style={styles.image}
-              />
-              <View style={styles.radiusMask} />
-            </View>
-          )}
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: getRandomImageURL() }} style={styles.image} />
+            <View style={styles.radiusMask} />
+          </View>
           <View style={styles.textContainer}>
             <Text style={styles.title} numberOfLines={2}>
-              {collection.title}
+              {category.title}
             </Text>
             <Text style={styles.subtitle} numberOfLines={2}>
-              {collection.description}
+              {category.description}
             </Text>
           </View>
         </TouchableOpacity>
@@ -188,4 +167,4 @@ const CollectionCard = (props: any) => {
   );
 };
 
-export default withRouter(CollectionCard);
+export default withRouter(ProfileCategoryCard);

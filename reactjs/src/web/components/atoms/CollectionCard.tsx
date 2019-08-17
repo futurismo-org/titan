@@ -38,9 +38,15 @@ const NoStyledLink = styled(Link)`
 `;
 
 const CollectionCard = (props: any) => {
-  const { collection, type, allowSensitive, debugSensitive } = props;
+  const {
+    collection,
+    type,
+    allowSensitive,
+    debugSensitive,
+    profilePath
+  } = props;
 
-  const path = collectionURL(type, collection.id);
+  const path = profilePath ? profilePath : collectionURL(type, collection.id);
 
   return (
     <React.Fragment>

@@ -253,9 +253,15 @@ const AuthScreen = (props: any) => {
           alignItems: 'center'
         }}
       >
-        <TouchableText external url={TITAN_TERMS_OF_USE} text="利用規約" />
         <TouchableText
           external
+          url={TITAN_TERMS_OF_USE}
+          text="利用規約"
+          underline
+        />
+        <TouchableText
+          external
+          underline
           url={TITAN_PRIVACY_POLICY}
           text="プライバシーポリシー"
         />

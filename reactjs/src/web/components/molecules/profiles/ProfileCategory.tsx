@@ -1,17 +1,5 @@
 import React, { useEffect } from 'react';
 import { Fab } from '@material-ui/core';
-import {
-  LineChart,
-  CartesianGrid,
-  XAxis,
-  Tooltip,
-  Line,
-  Legend,
-  YAxis,
-  Bar,
-  BarChart,
-  ResponsiveContainer
-} from 'recharts';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
@@ -22,8 +10,10 @@ import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
-import theme, { primaryColor } from '~/lib/theme';
 import { isMobile } from '~/web/lib/web';
+import ProfileCategoryResetChart from './ProfleCategoryResetChart';
+import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
+import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -50,7 +40,8 @@ const ProfileCategory = (props: any) => {
     loading,
     error,
     metadata,
-    data
+    data,
+    userShortId
   } = props;
 
   useEffect(() => {
@@ -94,66 +85,35 @@ const ProfileCategory = (props: any) => {
               }}
             >
               <ChallengePostRecord days={data.days} />
+              <p style={{ fontSize: 20, textDecorationLine: 'underline' }}>
+                {data.myBest}
+              </p>
             </div>
           </div>
-          <br />
-          <br />
           {!isMobile ? (
             <React.Fragment>
-              <Title text="継続統計" />
-              <p>{data.myBest}</p>
-              <p>過去最高: {data.maxDays}日</p>
+              <Title text="継続記録統計" />
+              <p>過去最高継続日数: {data.maxDays}日</p>
               <p>最終リセット日時: {data.lastResetDate}</p>
-              <br />
-              <Title text="継続ログの要約" />
               <ProfileCategoryHistories histories={data.summerized} />
               <br />
               <br />
-              <Title text="チャレンジごとの実績" />
-              <ProfileCategoryChallenges challenges={data.challenges} />
-              <br />
-              <br />
-              <Title text="リセット分析" />
+              <Title text="リセット統計" />
               <div>
                 <h3>積算回数</h3>
-                <ResponsiveContainer width="99%" aspect={4}>
-                  <LineChart data={data.resetAccs}>
-                    <CartesianGrid />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="count"
-                      name="リセット数"
-                      stroke={theme.palette.primary.main}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
+                <ProfileCategoryResetChart data={data.resetAccs} />
               </div>
               <h3>時間帯別統計</h3>
-              <ResponsiveContainer width="99%" aspect={4}>
-                <BarChart data={data.resetTimezones}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="hour" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="count" fill={primaryColor} />
-                </BarChart>
-              </ResponsiveContainer>
+              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
               <h3>曜日別統計</h3>
-              <ResponsiveContainer width="99%" aspect={4}>
-                <BarChart data={data.resetDaysOfTheWeek}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="day" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="count" fill={primaryColor} />
-                </BarChart>
-              </ResponsiveContainer>
+              <ProfileCategoryResetDaysOfTheWeekChart
+                data={data.resetDaysOfTheWeek}
+              />
+              <Title text="チャレンジごとの実績" />
+              <ProfileCategoryChallenges
+                challenges={data.challenges}
+                userShortId={userShortId}
+              />
             </React.Fragment>
           ) : (
             <p>

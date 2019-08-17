@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import CollectionCard from '~/native/containers/CollectionCardContainer';
+import CategoryCard from '~/native/containers/ProfileCategoryCardContainer';
 
 import { deviceWidth } from '~/native/lib/native';
 import { brandGray } from '~/lib/theme';
 
 const ProfileCategories = (props: any) => {
   const categoryRefs = props.refs;
+  const { userShortId } = props;
 
   const [categories, setCategories] = useState([]);
   const [categoryActiveSlide, setCategoryActiveSlide] = useState(0);
@@ -14,7 +15,9 @@ const ProfileCategories = (props: any) => {
 
   const _renderCategoryItem = (props: any) => {
     const { item, index } = props;
-    return <CollectionCard collection={item} type="categories" key={index} />;
+    return (
+      <CategoryCard category={item} userShortId={userShortId} key={index} />
+    );
   };
 
   useEffect(() => {

@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
 
-import { withRouter } from 'react-router-native';
 import { formatDatetime } from '~/lib/moment';
 
 import { wrapShowN } from '~/lib/general';
 
-import { primaryColor, secondaryColor } from '~/lib/theme';
+import {
+  primaryColor,
+  secondaryColor,
+  brandWhite,
+  brandLightGray
+} from '~/lib/theme';
 import { RESET } from '~/lib/challenge';
 
 const { Table, Row } = require('react-native-table-component');
@@ -62,22 +66,27 @@ const getType = (type: string) => {
 };
 
 const flexArr = [3, 2, 1, 1, 1, 1];
-
 const tableHead = ['日時', 'タイプ', '点数', '連続', '累積', '過去'];
-const HistoryHead = () => (
+
+const HistoryHead = (props: any) => (
   <Row
     flexArr={flexArr}
     data={tableHead}
-    borderStyle={{ borderColor: '#fff' }}
-    style={{ backgroundColor: '#fff' }}
+    borderStyle={{ borderColor: primaryColor }}
+    style={{ backgroundColor: primaryColor }}
+    textStyle={{
+      color: brandWhite,
+      fontWeight: 'bold',
+      padding: 10
+    }}
   />
 );
 
 const ChallengeHistories = (props: any) => {
-  const { histories, handler } = props;
+  const { histories } = props;
 
   return (
-    <Table borderStyle={{ borderColor: '#fff' }}>
+    <Table>
       <HistoryHead />
       {histories
         .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
@@ -100,8 +109,11 @@ const ChallengeHistories = (props: any) => {
               data={rowData}
               key={history.id}
               flexArr={flexArr}
-              borderStyle={{ borderColor: '#fff' }}
-              style={{ backgroundColor: '#fff' }}
+              borderStyle={{ borderColor: brandLightGray, borderWidth: 1 }}
+              textStyle={{
+                fontWeight: 'bold',
+                padding: 5
+              }}
             />
           );
         })}

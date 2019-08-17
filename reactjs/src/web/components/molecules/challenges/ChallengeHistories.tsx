@@ -6,7 +6,8 @@ import {
   TableHead,
   TableBody,
   Hidden,
-  Chip
+  Chip,
+  Paper
   // Typography,
   // Button
 } from '@material-ui/core';
@@ -20,11 +21,11 @@ import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
 import { RESET, RECORD } from '~/lib/challenge';
 import { brandWhite, primaryColor } from '~/lib/theme';
-import { isMobile } from '~/web/lib/web';
 
 const cellstyle = {
   backgroundColor: primaryColor,
-  color: brandWhite
+  color: brandWhite,
+  fontWeight: 'bold'
 };
 
 const ConditionalTableCell = (props: any) => {
@@ -45,7 +46,7 @@ const getType = (type: string) => {
 };
 
 const HistoryCellHead = (props: any) => (
-  <TableCell style={cellstyle}>{props.children}</TableCell>
+  <TableCell style={cellstyle as any}>{props.children}</TableCell>
 );
 
 const HistoryHead = (props: any) => (
@@ -131,25 +132,25 @@ const HistoryRow = (props: any) => {
 const ChallengeHistories = (props: any) => {
   const { histories, handler } = props;
 
-  const size = isMobile ? 'small' : 'medium';
-
   return (
-    <Table size={size} style={{ marginTop: 20 }}>
-      <HistoryHead />
-      <TableBody>
-        {histories
-          .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
-          .map((history: any) => {
-            return (
-              <HistoryRow
-                key={history.id}
-                history={history}
-                handler={handler(history)}
-              />
-            );
-          })}
-      </TableBody>
-    </Table>
+    <Paper>
+      <Table size="small" style={{ marginTop: 20 }}>
+        <HistoryHead />
+        <TableBody>
+          {histories
+            .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
+            .map((history: any) => {
+              return (
+                <HistoryRow
+                  key={history.id}
+                  history={history}
+                  handler={handler(history)}
+                />
+              );
+            })}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 };
 
