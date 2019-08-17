@@ -14,6 +14,7 @@ import Header from '~/native/containers/HeaderContainer';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
 import NavDrawer from '~/native/containers/NavDrawer';
+import BottomNavigation from '~/native/components/molecules/ButtomNavigation';
 
 import { sleep } from '~/lib/general';
 
@@ -85,6 +86,7 @@ const DefaultLayout = (props: any) => {
           >
             <Header openDrawer={openDrawer} />
             <PTRView onRefresh={_refresh}>{props.children}</PTRView>
+            <BottomNavigation />
           </Drawer>
         </StyledContainer>
       </StyleProvider>

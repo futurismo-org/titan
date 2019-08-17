@@ -15233,6 +15233,13 @@ react-native-markdown-renderer@^3.2.8:
     prop-types "^15.5.10"
     react-native-fit-image "^1.5.2"
 
+react-native-material-bottom-navigation@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-material-bottom-navigation/-/react-native-material-bottom-navigation-1.0.4.tgz#c9c9bf4a2f8d260a50703a39e01f600cc6cf66d6"
+  integrity sha512-g/2uaELl8Nhol5AVkFDUT6p4/nfLmTSlipjMrnw2kKBf1NBJuEZ2h/B7E4gg9KtryWPUjYc5Nixd9IwwNH2bLA==
+  dependencies:
+    prop-types "^15.6.1"
+
 react-native-material-menu@^0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/react-native-material-menu/-/react-native-material-menu-0.6.6.tgz#65518d544401de1642f02600964ee13489b01348"

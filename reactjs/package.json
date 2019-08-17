@@ -86,6 +86,7 @@
     "react-native-image-overlay": "^0.1.2",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-markdown-renderer": "^3.2.8",
+    "react-native-material-bottom-navigation": "^1.0.4",
     "react-native-material-menu": "^0.6.6",
     "react-native-modal": "^11.3.1",
     "react-native-modalize": "^1.2.1",
