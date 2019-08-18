@@ -9,7 +9,7 @@ import Error from '../../atoms/Error';
 import { brandGray } from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from '~/native/containers/ProfileChallengesContainer';
-import CollectionCard from '../../atoms/CollectionCard';
+import CollectionCard from '~/native/containers/CollectionCardContainer';
 import { getUserDashboardPath } from '~/lib/url';
 
 const ProfileBody = (props: any) => {
