@@ -38,8 +38,9 @@
         {
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
-            "organization": "Futurismo",
-            "project": "Titan"
+            "organization": "futurismo",
+            "project": "titan",
+            "authToken": "${SENTRY_SECURITY_TOKEN}"
           }
         }
       ]
