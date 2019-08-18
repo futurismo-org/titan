@@ -82,9 +82,13 @@ const summerizeHistories = (histories: any) => {
   return summerized;
 };
 
-const summerizeChallenges = (challenges: any) => {
+const summerizeChallenges = (challenges: any, categoryId: string) => {
   return challenges
-    .filter((challenge: any) => isClosed(challenge.closedAt.toDate()))
+    .filter(
+      (challenge: any) =>
+        challenge.closedAt && isClosed(challenge.closedAt.toDate())
+    )
+    .filter((challenge: any) => challenge.categoryId === categoryId)
     .map((challenge: any) => {
       return {
         id: challenge.id,
@@ -223,7 +227,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const challenges = state.profile.items;
   const summerized = summerizeHistories(histories);
-  const challengeResults = summerizeChallenges(challenges);
+  const challengeResults = summerizeChallenges(challenges, categoryId);
 
   const resetAccData = calcAccHistories(histories);
   const resetTimezones = aggregateTimezone(histories);

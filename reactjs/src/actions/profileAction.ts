@@ -9,7 +9,8 @@ import {
   FETCH_PROFILE_ERROR,
   FETCH_PROFILE_REQUEST_SUB,
   FETCH_PROFILE_SUCCESS_SUB,
-  FETCH_PROFILE_ERROR_SUB
+  FETCH_PROFILE_ERROR_SUB,
+  RESET_PROFILES_INFO
 } from '../constants/actionTypes';
 
 import {
@@ -17,7 +18,8 @@ import {
   fetchSuccess,
   fetchError,
   fetchTarget,
-  fetchItems
+  fetchItems,
+  reset
 } from './actionUtil';
 
 export const fetchProfilesRequest = fetchRequest(FETCH_PROFILES_REQUEST);
@@ -29,6 +31,7 @@ export const fetchProfileError = fetchError(FETCH_PROFILE_ERROR);
 export const fetchProfileRequestSub = fetchRequest(FETCH_PROFILE_REQUEST_SUB);
 export const fetchProfileSuccessSub = fetchSuccess(FETCH_PROFILE_SUCCESS_SUB);
 export const fetchProfileErrorSub = fetchError(FETCH_PROFILE_ERROR_SUB);
+export const resetProfilesInfo = reset(RESET_PROFILES_INFO);
 
 export const fetchProfiles = () => {
   return (dispatch: Dispatch) => {
