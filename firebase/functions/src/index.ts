@@ -23,6 +23,7 @@ app.post('/coupons/valid', validCoupon);
 app.get('/c/:cid/u/:uid', dashboard);
 app.get('/c/:cid/t/:tid', topic);
 app.get('/cat/:cid/t/:tid', topic);
+app.get('/topics/:tid', topic);
 
 app.get('/c/:cid/overview', challenge);
 

@@ -119,9 +119,17 @@ exports.dashboard = (req: any, res: any) => {
 exports.topic = (req: any, res: any) => {
   const [, collectionShort, collectionId, , topicId] = req.path.split('/');
 
-  const collection = collectionShort === 'c' ? 'challenges' : 'categories';
+  const collection =
+    collectionShort === 'c'
+      ? 'challenges'
+      : collectionShort === 'cat'
+      ? 'categories'
+      : '';
 
-  const resourceId = `${collection}/${collectionId}/topics/${topicId}`;
+  const resourceId =
+    collection === ''
+      ? `/topics/${collectionId}` // collectionIdの位置にtopicIDがはいっているはず。
+      : `/${collection}/${collectionId}/topics/${topicId}`;
 
   return admin
     .firestore()
@@ -139,7 +147,10 @@ exports.topic = (req: any, res: any) => {
 
       const title = `${topicTitle} | Titan`;
       const description = topicText;
-      const url = `https://titan-fire.com/#/${collectionShort}/${collectionId}/t/${topicId}`;
+      const url =
+        collection === ''
+          ? `https://titan-fire.com/#/topics/${collectionId}`
+          : `https://titan-fire.com/#/${collectionShort}/${collectionId}/t/${topicId}`;
 
       res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
 
