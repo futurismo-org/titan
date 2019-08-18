@@ -40,7 +40,7 @@
           "config": {
             "organization": "futurismo",
             "project": "titan",
-            "authToken": "${SENTRY_AUTH_TOKEN}"
+            "authToken": "76edfda99cc34fef95e030d8e516daf229fbd4147f4c4a4b9c6bb5c34704462b"
           }
         }
       ]
