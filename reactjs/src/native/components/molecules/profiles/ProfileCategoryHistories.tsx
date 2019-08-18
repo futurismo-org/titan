@@ -4,8 +4,8 @@ import { primaryColor, brandWhite, brandLightGray } from '~/lib/theme';
 
 const { Table, Row } = require('react-native-table-component');
 
-const flexArr = [1, 2, 2, 2];
-const tableHead = ['試み', '継続', '開始', '終了'];
+const flexArr = [1, 3, 2, 2];
+const tableHead = ['#', '継続', '開始', '終了'];
 
 const HistoryHead = (props: any) => (
   <Row
@@ -31,7 +31,7 @@ const ProfileCategoryHistories = (props: any) => {
         const { startDate, endDate, duration, attempt } = history;
 
         const rowData = [
-          `${attempt}回目`,
+          `${attempt}`,
           duration,
           formatDatetimeShort(startDate),
           formatDatetimeShort(endDate)
@@ -44,7 +44,8 @@ const ProfileCategoryHistories = (props: any) => {
             borderStyle={{ borderColor: brandLightGray }}
             textStyle={{
               fontWeight: 'bold',
-              padding: 5
+              padding: 4,
+              justifyContent: 'center'
             }}
           />
         );

@@ -62,7 +62,11 @@ const TwitterButton = (props: any) => {
     <React.Fragment>
       <ButtonWrapper>
         <Link href={`${textBuilder}`}>
-          <Button variant="contained" color="secondary">
+          <Button
+            variant="contained"
+            color="secondary"
+            style={{ fontWeight: 'bold' }}
+          >
             Twitterでシェア
           </Button>
         </Link>
