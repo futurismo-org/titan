@@ -95,7 +95,6 @@ ${dashBoardURL}`;
       })
       .then(() => alert && alert('投稿が完了しました。'))
       .then(() => {
-        console.log(dashBoardPath);
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
       });

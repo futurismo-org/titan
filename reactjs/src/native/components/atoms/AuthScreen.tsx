@@ -156,7 +156,6 @@ const AuthScreen = (props: any) => {
       result.status !== 200 ||
       !(result.data.oauth_token && result.data.oauth_token_secret)
     ) {
-      console.log(result.deata.message);
       errorToast(result.data.message);
       return;
     }
