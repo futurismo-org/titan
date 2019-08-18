@@ -27,4 +27,6 @@ const theme = createMuiTheme({
   }
 });
 
+export const previewImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8hQDwAEiAGBKJM0UQAAAABJRU5ErkJggg==' as any;
+
 export default theme;

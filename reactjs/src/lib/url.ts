@@ -51,7 +51,7 @@ export const getTopicsPath = (
     : `/${collectionShort(collection)}/${collectionId}/topics`;
 
 export const getRandomImageURL = () => {
-  const randnum = Math.floor(Math.random() * 100);
+  const randnum = Math.floor(Math.random() * 300);
   return `${UNSPLASH_RANDOM_URL}/${randnum}`;
 };
 
