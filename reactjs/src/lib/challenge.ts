@@ -213,10 +213,13 @@ export const aggregateChallenge = async (challenge: any) => {
           rank: user.rank,
           ratio: user.ratio,
           totalCount: histories.length,
-          totalDuration: moment(histories[0].timestamp.toDate()).diff(
-            moment(histories[histories.length - 1].timestamp.toDate()),
-            'days'
-          ),
+          totalDuration:
+            histories.length !== 0
+              ? moment(histories[0].timestamp.toDate()).diff(
+                  moment(histories[histories.length - 1].timestamp.toDate()),
+                  'days'
+                )
+              : 0,
           resetCount: histories.filter((history: any) => history.type === RESET)
             .length,
           recordCount: histories.filter(
@@ -287,17 +290,18 @@ export const aggregateChallenge = async (challenge: any) => {
 
       // 通常はchallengeでの投稿時にhistoriesテーブルもupdateされるので、主にデバッグ用。
       profileCategoryHistories.forEach(data => {
-        data.historites.forEach((history: any) =>
-          firebase
+        data.historites.forEach((history: any) => {
+          // 応急処置。historyのidは数値を入れていたが、これは文字列でないとこまるので、ここで書き換える。
+          return firebase
             .firestore()
             .collection('profiles')
             .doc(data.userShortId)
             .collection('categories')
             .doc(categoryId)
             .collection('histories')
-            .doc(history.id)
-            .set(history, { merge: true })
-        );
+            .doc(!isNaN(history.id) ? String(history.id) : history.id) // ここ
+            .set(history, { merge: true });
+        });
       });
 
       profileCategories.forEach(data => {
@@ -354,7 +358,7 @@ export const aggregateChallenge = async (challenge: any) => {
           .firestore()
           .collection('profiles')
           .doc(userShortId)
-          .update({ id: userShortId, totalScore: totalScore });
+          .set({ id: userShortId, totalScore }, { merge: true });
       });
     });
 };
