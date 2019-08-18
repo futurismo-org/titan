@@ -1,17 +1,13 @@
 import * as React from 'react';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions
-} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Image } from 'react-native-expo-image-cache';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { getRandomImageURL } from '~/lib/url';
 
 import { isiOS } from '~/native/lib/native';
 import { isHideSensitive } from '~/lib/challenge';
+import { previewImage } from '~/lib/theme';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   'window'
@@ -121,9 +117,8 @@ const ProfileCategoryCard = (props: any) => {
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>
             <Image
-              source={{
-                uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
-              }}
+              preview={{ uri: previewImage }}
+              uri="https://titan-fire.com/images/icons/icon-144x144.png"
               style={{
                 flex: 1,
                 flexDirection: 'row',
@@ -150,7 +145,11 @@ const ProfileCategoryCard = (props: any) => {
         >
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>
-            <Image source={{ uri: getRandomImageURL() }} style={styles.image} />
+            <Image
+              uri={getRandomImageURL()}
+              style={styles.image}
+              preview={{ uri: previewImage }}
+            />
             <View style={styles.radiusMask} />
           </View>
           <View style={styles.textContainer}>

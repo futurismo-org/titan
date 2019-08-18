@@ -7462,6 +7462,13 @@ expo-asset@~6.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-blur@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/expo-blur/-/expo-blur-6.0.0.tgz#c63e7c464e1a8137dae8a71f893426a538eb9ed9"
+  integrity sha512-UqMaE2G2DfoeEJCYFfFLXq9nBeD0m3G1IISpxmdLXHDvzQuFl0kzNAZXX81a9sByWTV85KsxxnxoLImbfxV33A==
+  dependencies:
+    prop-types "^15.6.0"
+
 expo-cli@^3.0.4:
   version "3.0.9"
   resolved "https://registry.yarnpkg.com/expo-cli/-/expo-cli-3.0.9.tgz#8226522f61958e31dec5eb9b066c8fee4a346515"
@@ -15163,6 +15170,14 @@ react-native-easy-grid@0.2.0:
   integrity sha512-ZTi84+nJq2wwov55s1rHez0twk/8bs/AGnA5ERF8eYsMbOhBhOzzclj+TyY+/woB/2REAd9QQmWmIT/L999n6Q==
   dependencies:
     lodash "^4.11.1"
+
+react-native-expo-image-cache@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-expo-image-cache/-/react-native-expo-image-cache-4.0.8.tgz#51763f22c2684edfe8e7229481da45727f2268a1"
+  integrity sha512-2KVZnZsDQV9y8GAfZzF6sQQdEwzNVEbxaRIdeefRlIrNLS69ab93m+0gE2xO2gnBF2oc0dYWrW4w7NvFrw/Fdw==
+  dependencies:
+    crypto-js "^3.1.9-1"
+    lodash "^4.17.4"
 
 react-native-fit-image@^1.5.2:
   version "1.5.4"

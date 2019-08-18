@@ -1,16 +1,12 @@
 import * as React from 'react';
-import {
-  View,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions
-} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
+import { Image } from 'react-native-expo-image-cache';
 import { collectionURL, getRandomImageURL } from '~/lib/url';
 
 import { isiOS } from '~/native/lib/native';
+import { previewImage } from '~/lib/theme';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   'window'
@@ -133,9 +129,6 @@ const CollectionCard = (props: any) => {
           {!small && (
             <View style={styles.imageContainer}>
               <Image
-                source={{
-                  uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
-                }}
                 style={{
                   flex: 1,
                   flexDirection: 'row',
@@ -144,6 +137,8 @@ const CollectionCard = (props: any) => {
                   width: 144,
                   height: 144
                 }}
+                preview={{ uri: previewImage }}
+                uri="https://titan-fire.com/images/icons/icon-144x144.png"
               />
               <View style={styles.radiusMask} />
             </View>
@@ -168,8 +163,9 @@ const CollectionCard = (props: any) => {
           {!small && (
             <View style={styles.imageContainer}>
               <Image
-                source={{ uri: getRandomImageURL() }}
                 style={styles.image}
+                preview={{ uri: previewImage }}
+                uri={getRandomImageURL()}
               />
               <View style={styles.radiusMask} />
             </View>
