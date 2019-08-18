@@ -8,9 +8,9 @@ import {
 import { fetchCategory } from '~/actions/categoryAction';
 import { fetchHistories } from '~/actions/historyAction';
 import moment, {
-  formatDatetime,
   formatDateShort,
-  isClosed
+  isClosed,
+  formatDatetime
 } from '~/lib/moment';
 import { RESET } from '~/lib/challenge';
 import { wrapShowN } from '~/lib/general';
@@ -229,12 +229,14 @@ const mapStateToProps = (state: any, props: any) => {
   const resetTimezones = aggregateTimezone(histories);
   const resetDaysOfTheWeek = aggregateDayOfTheWeek(histories);
 
+  const resets = histories.filter((history: any) => history.type === RESET);
+  const lastResetDate =
+    !resets || resets.length === 0
+      ? '記録なし'
+      : formatDatetime(resets[resets.length - 1].timestamp.toDate());
+
   let data;
   if (profileCategory) {
-    const lastResetDate = profileCategory.lastResetDate
-      ? formatDatetime(profileCategory.lastResetDate.toDate())
-      : '記録なし';
-
     const myBest = !profileCategory.toMaxDays
       ? ''
       : profileCategory.toMaxDays !== 0
