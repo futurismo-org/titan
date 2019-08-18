@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 
 import { Grid } from '@material-ui/core';
-import Paper from '../templates/PaperWrapper';
-import Title from '../atoms/Title';
+import Paper from '../../templates/PaperWrapper';
+import Title from '../../atoms/Title';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from '~/web/containers/ProfileChallengesContainer';
+import { getUserDashboardPath } from '~/lib/url';
 
 const ProfileBody = (props: any) => {
   const {
@@ -33,16 +34,28 @@ const ProfileBody = (props: any) => {
         style={{ marginTop: theme.spacing(3), marginBottom: theme.spacing(3) }}
       >
         {!loading && currentChallenges && currentChallenges.length !== 0 ? (
-          currentChallenges.map((item: any) => (
-            <CollectionCard collection={item} type="challenges" key={item.id} />
-          ))
+          currentChallenges.map((item: any) => {
+            const challengeDashboardPath = getUserDashboardPath(
+              item.id,
+              userShortId
+            );
+
+            return (
+              <CollectionCard
+                collection={item}
+                type="challenges"
+                key={item.id}
+                profilePath={challengeDashboardPath}
+              />
+            );
+          })
         ) : (
           <p style={{ marginLeft: 20 }}>
             現在、参加中のチャレンジはありません。
           </p>
         )}
       </Grid>
-      <Title text="所属カテゴリ" />
+      <Title text="所属カテゴリの記録" />
       <Grid
         container
         spacing={4}
@@ -50,6 +63,7 @@ const ProfileBody = (props: any) => {
       >
         {!loading && categories && categories.length !== 0 ? (
           <ProfileCategories
+            userShortId={userShortId}
             refs={categories.map((category: any) => category.ref)}
           />
         ) : (

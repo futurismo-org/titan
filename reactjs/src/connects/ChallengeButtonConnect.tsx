@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { firestore } from 'firebase';
 import { fetchParticipants } from '~/actions/userAction';
+import { fetchProfileCategory } from '~/actions/profileAction';
 
 import { getParticipantsId } from '~/lib/resource';
 
@@ -11,7 +12,7 @@ import { postMessage } from '~/lib/discord.client.api';
 import { getCategoryId } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipants }, dispatch);
+  bindActionCreators({ fetchParticipants, fetchProfileCategory }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
@@ -21,12 +22,19 @@ const mapStateToProps = (state: any, props: any) => {
   const user = state.firebase.profile;
   const userShortId = user.shortId;
   const participants = state.user.items;
+  const categoryId = getCategoryId(challenge.categoryRef);
+  const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
 
   const join =
     participants.filter((paritcipant: any) => paritcipant.id === userShortId)
       .length === 1;
 
   const redirectPath = `/c/${challengeId}/overview`;
+
+  const categoryDays =
+    state.profile.target && state.profile.target.days
+      ? state.profile.target.days
+      : 0;
 
   const joinHandler = () => {
     const newData = {
@@ -43,31 +51,34 @@ const mapStateToProps = (state: any, props: any) => {
       days: 0,
       maxDays: 0,
       accDays: 0,
-      pastDays: 0,
+      pastDays: categoryDays,
       challengeName: challenge.title
     };
 
     const newChallenge = {
+      id: challengeId,
       createdAt: new Date(),
       updatedAt: new Date(),
       title: challenge.title,
       description: challenge.description,
-      sensitive: challenge.sensitive,
+      sensitive: challenge.sensitive ? challenge.sensitive : false,
       challengeId,
       userShortId,
       openedAt: challenge.openedAt,
-      closedAt: challenge.closedAt
+      closedAt: challenge.closedAt,
+      categoryId,
+      userDisplayName: user.displayName
     };
 
-    const categoryId = getCategoryId(challenge.categoryRef);
-
     const newCategory = {
+      id: categoryId,
       createdAt: new Date(),
       updatedAt: new Date(),
-      sensitive: challenge.sensitive, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
+      sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
       ref: challenge.categoryRef,
       categoryId,
-      userShortId
+      userShortId,
+      userDisplayName: user.displayName
     };
 
     return firebase
@@ -124,6 +135,7 @@ const mapStateToProps = (state: any, props: any) => {
     error: state.user.error,
     user,
     resourceId,
+    profileCategoryResourceId,
     joinHandler,
     redirectPath,
     ...props

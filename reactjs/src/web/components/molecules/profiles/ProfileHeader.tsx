@@ -4,12 +4,12 @@ import { Grid, Icon } from '@material-ui/core';
 import styled from 'styled-components';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 
-import UserAvatar from '../atoms/UserAvatar';
+import UserAvatar from '../../atoms/UserAvatar';
 import MuteButton from '~/web/containers/MuteButtonContainer';
 import BlockButton from '~/web/containers/BlockButtonContainer';
 import theme, { twitterColor, brandGray, brandWhite } from '~/lib/theme';
-import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
-import PostButton from '../atoms/PostButton';
+import NoStyledExternalLink from '../../atoms/NoStyledExternalLink';
+import PostButton from '../../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
 import { getRandomImageURL, getTwitterProfileURL } from '~/lib/url';
 import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';

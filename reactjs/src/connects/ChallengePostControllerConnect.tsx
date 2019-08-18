@@ -6,12 +6,15 @@ import {
   isDaysValid,
   RECORD,
   RESET,
-  isChallengeOpening
+  isChallengeOpening,
+  getCategoryId,
+  isPostPossible
 } from '~/lib/challenge';
 
 import moment, { now, isToday } from '~/lib/moment';
 import { getParticipantsUserId } from '~/lib/resource';
 import { getUserDashboardPath } from '~/lib/url';
+import { mergeCategory } from '~/lib/profile';
 
 import { postMessage } from '~/lib/discord.client.api';
 import { showGiphy } from '~/actions/giphyAction';
@@ -44,12 +47,8 @@ const mapStateToProps = (state: any, props: any) => {
       displayName
     } = props;
 
-    if (
-      histories.length > 0 &&
-      histories.filter((history: any) => isToday(history.timestamp.toDate()))
-        .length !== 0
-    ) {
-      alert('記録の投稿は1日1回までです。');
+    if (!isPostPossible(histories)) {
+      alert && alert('記録の投稿は1日1回までです。');
       return;
     }
 
@@ -67,6 +66,8 @@ const mapStateToProps = (state: any, props: any) => {
       accDays: newAccDays,
       pastDays: newPastDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      challengeId,
+      challengeTitle: challenge.title,
       type: RECORD
     };
 
@@ -90,12 +91,45 @@ const mapStateToProps = (state: any, props: any) => {
       .then(() => {
         const message = `${displayName}さんが計${newAccDays}日達成しました！
 ${dashBoardURL}`;
-        postMessage(webhookURL, message);
+        webhookURL && postMessage(webhookURL, message);
       })
-      .then(() => alert('投稿が完了しました。'))
+      .then(() => alert && alert('投稿が完了しました。'))
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
+      });
+
+    // profiles テーブルも更新
+    const categoryId = getCategoryId(challenge.categoryRef);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('categories')
+      .doc(categoryId)
+      .get()
+      .then(doc => doc.data())
+      .then((currentCategory: any) => {
+        const updateProfileCategoryData = mergeCategory(
+          currentCategory,
+          updateData
+        );
+
+        return updateProfileCategoryData;
+      })
+      .then(data => {
+        const categoryRef = firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId);
+
+        categoryRef.set(data, { merge: true });
+        categoryRef
+          .collection('histories')
+          .doc(newHistory.id)
+          .set(newHistory);
       });
   };
 
@@ -121,6 +155,8 @@ ${dashBoardURL}`;
       pastDays: 0,
       accDays: newAccDays,
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
+      challengeId,
+      challengeTitle: challenge.title,
       type: RESET
     };
 
@@ -131,6 +167,7 @@ ${dashBoardURL}`;
       pastDays: 0,
       score: newScore,
       accDays: newAccDays,
+      lastResetDate: now,
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
@@ -142,15 +179,51 @@ ${dashBoardURL}`;
       .then(() => {
         const message = `${displayName}さんがリセットしました。
 ${dashBoardURL}`;
-        postMessage(webhookURL, message);
+        webhookURL && postMessage(webhookURL, message);
       })
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
       });
+
+    // profiles テーブルも更新
+    const categoryId = getCategoryId(challenge.categoryRef);
+    firebase
+      .firestore()
+      .collection('profiles')
+      .doc(userShortId)
+      .collection('categories')
+      .doc(categoryId)
+      .get()
+      .then(doc => doc.data())
+      .then((currentCategory: any) => {
+        const updateProfileCategoryData = mergeCategory(
+          currentCategory,
+          resetData
+        );
+
+        return updateProfileCategoryData;
+      })
+      .then(data => {
+        const categoryRef = firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('categories')
+          .doc(categoryId);
+
+        categoryRef.set(data, { merge: true });
+        categoryRef
+          .collection('histories')
+          .doc(newHistory.id)
+          .set(newHistory);
+      });
   };
 
-  const hide = !isChallengeOpening(openedAt.toDate(), closedAt.toDate());
+  const hide =
+    openedAt &&
+    closedAt &&
+    !isChallengeOpening(openedAt.toDate(), closedAt.toDate());
 
   const participantsRef = firebase.firestore().doc(resourceId);
 

@@ -43,7 +43,9 @@ const ChallengeButton = (props: any) => {
     user,
     join,
     resourceId,
+    profileCategoryResourceId,
     fetchParticipants,
+    fetchProfileCategory,
     loading,
     error,
     joinHandler,
@@ -59,7 +61,13 @@ const ChallengeButton = (props: any) => {
 
   useEffect(() => {
     fetchParticipants(resourceId);
-  }, [fetchParticipants, resourceId]);
+    fetchProfileCategory(profileCategoryResourceId);
+  }, [
+    fetchParticipants,
+    fetchProfileCategory,
+    profileCategoryResourceId,
+    resourceId
+  ]);
 
   // const handleOpen = () => {
   //   setOpen(true);

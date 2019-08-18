@@ -107,9 +107,16 @@ const styles = StyleSheet.create({
 });
 
 const CollectionCard = (props: any) => {
-  const { collection, type, allowSensitive, history, small } = props;
+  const {
+    collection,
+    type,
+    allowSensitive,
+    history,
+    small,
+    profilePath
+  } = props;
 
-  const path = collectionURL(type, collection.id);
+  const path = profilePath ? profilePath : collectionURL(type, collection.id);
 
   return (
     <React.Fragment>

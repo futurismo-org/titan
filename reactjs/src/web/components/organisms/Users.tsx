@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import {
+  Paper as MaterialPaper,
   Radio,
   FormControl,
   RadioGroup,
@@ -14,6 +15,7 @@ import {
 } from '@material-ui/core';
 
 import Hidden from '@material-ui/core/Hidden';
+import styled from 'styled-components';
 import moment, { fromNow } from '~/lib/moment';
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
@@ -21,6 +23,7 @@ import Title from '../atoms/Title';
 import UserAvatar from '../atoms/UserAvatar';
 
 import Error from '../atoms/Error';
+import { primaryColor, brandWhite, leaderboardMyColor } from '~/lib/theme';
 
 const ConditionalTableCell = (props: any) => (
   <Hidden only="xs">
@@ -30,10 +33,9 @@ const ConditionalTableCell = (props: any) => (
 
 const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
-const RADIO_REGISTERD = '登録';
 
 const Users = (props: any) => {
-  const { users, error, loading, fetchUsers, fetchProfiles } = props;
+  const { users, error, loading, fetchUsers, fetchProfiles, myId } = props;
 
   useEffect(() => {
     fetchUsers();
@@ -47,15 +49,33 @@ const Users = (props: any) => {
     setSortKey(e.target.value);
   };
 
+  const StyledTableCell = (props: any) => (
+    <TableCell
+      style={{
+        backgroundColor: primaryColor,
+        color: brandWhite,
+        fontWeight: 'bold'
+      }}
+    >
+      {props.children}
+    </TableCell>
+  );
+
+  const StyledConditionalTableCell = (props: any) => (
+    <Hidden only="xs">
+      <StyledTableCell>{props.children}</StyledTableCell>
+    </Hidden>
+  );
+
   const LeaderBoardHead = () => (
     <TableHead>
       <TableRow>
-        <TableCell>#</TableCell>
-        <TableCell />
-        <TableCell>名前</TableCell>
-        <TableCell>スコア</TableCell>
-        <ConditionalTableCell>最新</ConditionalTableCell>
-        <ConditionalTableCell>登録</ConditionalTableCell>
+        <StyledTableCell>#</StyledTableCell>
+        <StyledTableCell />
+        <StyledTableCell>名前</StyledTableCell>
+        <StyledTableCell>スコア</StyledTableCell>
+        <StyledConditionalTableCell>最新</StyledConditionalTableCell>
+        <StyledConditionalTableCell>登録</StyledConditionalTableCell>
       </TableRow>
     </TableHead>
   );
@@ -63,8 +83,6 @@ const Users = (props: any) => {
   const compare = (x: any, y: any) => {
     if (sortkey === RADIO_LATEST) {
       return moment(y.updatedAt.toDate()).diff(moment(x.updatedAt.toDate()));
-    } else if (sortkey === RADIO_REGISTERD) {
-      return moment(y.createdAt.toDate()).diff(moment(x.createdAt.toDate()));
     } else if (sortkey === RADIO_SCORE) {
       return y.toralScore === x.totalScore
         ? 0
@@ -81,7 +99,10 @@ const Users = (props: any) => {
       {loading && <Progress />}
       {!loading && users && (
         <React.Fragment>
-          <FormControl component="fieldset">
+          <FormControl
+            component="fieldset"
+            style={{ marginTop: 10, marginBottom: 10 }}
+          >
             <RadioGroup
               aria-label="sortkey"
               name="sortkey"
@@ -99,40 +120,47 @@ const Users = (props: any) => {
                   control={<Radio color="primary" />}
                   label={RADIO_LATEST}
                 />
-                <FormControlLabel
-                  value={RADIO_REGISTERD}
-                  control={<Radio color="primary" />}
-                  label={RADIO_REGISTERD}
-                />
               </div>
             </RadioGroup>
           </FormControl>
-          <Table>
-            <LeaderBoardHead />
-            <TableBody>
-              {users.sort(compare).map((user: any, index: number) => (
-                <TableRow key={user.id} hover>
-                  <TableCell component="th" scope="row">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>
-                    <UserAvatar
-                      photoURL={user.photoURL}
-                      userId={user.shortId}
-                    />
-                  </TableCell>
-                  <TableCell>{user.displayName || 'Annonymous'}</TableCell>
-                  <TableCell>{user.totalScore || 0}</TableCell>
-                  <ConditionalTableCell>
-                    {fromNow(user.updatedAt.toDate())}
-                  </ConditionalTableCell>
-                  <ConditionalTableCell>
-                    {fromNow(user.createdAt.toDate())}
-                  </ConditionalTableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <MaterialPaper>
+            <Table>
+              <LeaderBoardHead />
+              <TableBody>
+                {users.sort(compare).map((user: any, index: number) => {
+                  const StyledTableRow = styled(TableRow)`
+                    && {
+                      background-color: ${user.shortId === myId
+                        ? leaderboardMyColor
+                        : brandWhite};
+                    }
+                  `;
+
+                  return (
+                    <StyledTableRow key={user.id} hover>
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>
+                        <UserAvatar
+                          photoURL={user.photoURL}
+                          userId={user.shortId}
+                        />
+                      </TableCell>
+                      <TableCell>{user.displayName || 'Annonymous'}</TableCell>
+                      <TableCell>{user.totalScore || 0}</TableCell>
+                      <ConditionalTableCell>
+                        {fromNow(user.updatedAt.toDate())}
+                      </ConditionalTableCell>
+                      <ConditionalTableCell>
+                        {fromNow(user.createdAt.toDate())}
+                      </ConditionalTableCell>
+                    </StyledTableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </MaterialPaper>
         </React.Fragment>
       )}
     </Paper>

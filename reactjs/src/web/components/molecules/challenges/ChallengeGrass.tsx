@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import moment from 'moment';
 
 const SquareWrapper = styled.div`
-  max-width: 600px;
-  margin: 40px;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 `;
 
 const notAchievedColor = '#ffcdd2';

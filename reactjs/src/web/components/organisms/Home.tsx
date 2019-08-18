@@ -16,6 +16,7 @@ import Announce from './Announce';
 import Meigen from './Meigen';
 import Document from './Document';
 import Contact from './Contact';
+import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
 
 const Home = () => (
   <Layout>
@@ -25,6 +26,10 @@ const Home = () => (
       <Route path="/c/:id" component={Challenge} />
       <Route path="/challenges" component={Challenges} />
       <Route path="/topics" component={GeneralTopics} />
+      <Route
+        path="/u/:userShortId/cat/:categoryId"
+        component={ProfileCategory}
+      />
       <Route path="/u/:id" component={Profile} />
       <Route path="/users" component={Users} />
       <Route path="/settings" component={Settings} />

@@ -16,6 +16,8 @@ const mapStateToProps = (state: any, props: any) => {
   const users = state.user.items;
   const profiles = state.profile.items;
 
+  const myId = state.firebase.profile.shortId;
+
   const marged =
     users && profiles
       ? users.map((user: any) => {
@@ -37,6 +39,7 @@ const mapStateToProps = (state: any, props: any) => {
     users: marged,
     loading: state.user.loading || state.profile.loading,
     error: state.user.error || state.profile.error,
+    myId,
     ...props
   };
 };

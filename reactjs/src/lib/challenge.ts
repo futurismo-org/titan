@@ -1,9 +1,14 @@
 import { firestore } from 'firebase';
-import moment, { nowMoment } from '~/lib/moment';
+import moment, { nowMoment, isToday } from '~/lib/moment';
 import firebase from '~/lib/firebase';
+
+import { mergeCategory } from './profile';
 
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
+
+export const ACC_DAYS = '大会累積日数';
+export const PAST_DAYS = '過去連続日数';
 
 export const challengePeriod = (challenge: any) => {
   const openedAt = moment(challenge.openedAt.toDate());
@@ -38,6 +43,12 @@ export const getTotalDays = (
   return moment(createdAt).isAfter(moment(openedAt))
     ? today.diff(createdAt, 'days') + 1
     : today.diff(openedAt, 'days') + 1;
+};
+
+export const getResetDays = (histories: any[]) => {
+  return histories
+    ? histories.filter((history: any) => history.type === RESET).length
+    : 0;
 };
 
 export const getAchieveRate = (resetDays: number, accDays: number) => {
@@ -119,25 +130,31 @@ export const aggregateChallenge = async (challenge: any) => {
 
       return participantes.map(user => {
         const userShortId = user.id;
+        const challengeCategoryId = getCategoryId(challenge.categoryRef);
 
         const newChallenge = {
+          id: challengeId,
           updatedAt: new Date(),
           title: challenge.title,
           description: challenge.description,
-          sensitive: challenge.sensitive,
+          sensitive: challenge.sensitive ? challenge.sensitive : false,
           challengeId,
           userShortId,
+          userDisplayName: user.displayName,
           openedAt: challenge.openedAt,
-          closedAt: challenge.closedAt
+          closedAt: challenge.closedAt,
+          categoryId: challengeCategoryId
         };
 
         const categoryId = getCategoryId(challenge.categoryRef);
 
         const newCategory = {
+          id: categoryId,
           createdAt: new Date(),
           updatedAt: new Date(),
           ref: challenge.categoryRef,
-          sensitive: challenge.sensitive, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
+          sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
+          userDisplayName: user.displayName,
           categoryId,
           userShortId
         };
@@ -161,7 +178,7 @@ export const aggregateChallenge = async (challenge: any) => {
     });
   // ここまで
 
-  const profileRefs = await firebase
+  await firebase
     .firestore()
     .runTransaction(async (transaction: firestore.Transaction) => {
       const rankedUsers = await firebase
@@ -183,15 +200,33 @@ export const aggregateChallenge = async (challenge: any) => {
           .set(user)
       );
 
-      const challengeResults = await rankedUsers.map(user => ({
-        id: challengeId,
-        challengeId,
-        userShortId: user.id,
-        score: user.score,
-        rank: user.rank,
-        ratio: user.ratio,
-        updatedAt: new Date()
-      }));
+      const challengeResults = await rankedUsers.map(user => {
+        const histories = user.histories.sort(
+          (x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds
+        );
+        return {
+          id: challengeId,
+          challengeId,
+          userDisplayName: user.displayName,
+          userShortId: user.id,
+          score: user.score,
+          rank: user.rank,
+          ratio: user.ratio,
+          totalCount: histories.length,
+          totalDuration: moment(histories[0].timestamp.toDate()).diff(
+            moment(histories[histories.length - 1].timestamp.toDate()),
+            'days'
+          ),
+          resetCount: histories.filter((history: any) => history.type === RESET)
+            .length,
+          recordCount: histories.filter(
+            (history: any) => history.type === RECORD
+          ).length,
+          updatedAt: new Date()
+        };
+      });
+
+      const categoryId = getCategoryId(categoryRef);
 
       await challengeResults.map(data => {
         const userRef = firebase
@@ -202,7 +237,7 @@ export const aggregateChallenge = async (challenge: any) => {
         userRef.set(
           {
             id: data.userShortId,
-            challengeId: data.challengeId,
+            displayName: data.userDisplayName,
             updatedAt: new Date()
           },
           { merge: true }
@@ -214,19 +249,59 @@ export const aggregateChallenge = async (challenge: any) => {
           .set(data, { merge: true });
       });
 
-      const categoryId = await getCategoryId(categoryRef);
+      const profileCategories = await rankedUsers.map(
+        async challengeParticipant => {
+          const resourceId = `/profiles/${challengeParticipant.id}/categories/${categoryId}`;
 
-      const challengeHistories = await rankedUsers.map(user => ({
-        id: categoryId,
-        userShortId: user.id,
-        categoryId,
-        ref: categoryRef,
-        histories: user.histories,
-        updatedAt: new Date()
-      }));
+          const currentProfileCategory = await firebase
+            .firestore()
+            .doc(resourceId)
+            .get()
+            .then(doc => doc.data());
 
-      const profileRefs = await challengeHistories
-        .map(data => {
+          const mergedProfileCategory = mergeCategory(
+            currentProfileCategory,
+            challengeParticipant
+          );
+
+          return {
+            id: categoryId,
+            userShortId: challengeParticipant.id,
+            userDisplayName: challengeParticipant.displayName,
+            categoryId,
+            ref: categoryRef,
+            ...mergedProfileCategory,
+            updatedAt: new Date()
+          };
+        }
+      );
+
+      const profileCategoryHistories = await rankedUsers.map(
+        challengeParticipant => {
+          return {
+            userShortId: challengeParticipant.id,
+            historites: challengeParticipant.histories
+          };
+        }
+      );
+
+      // 通常はchallengeでの投稿時にhistoriesテーブルもupdateされるので、主にデバッグ用。
+      profileCategoryHistories.forEach(data => {
+        data.historites.forEach((history: any) =>
+          firebase
+            .firestore()
+            .collection('profiles')
+            .doc(data.userShortId)
+            .collection('categories')
+            .doc(categoryId)
+            .collection('histories')
+            .doc(history.id)
+            .set(history, { merge: true })
+        );
+      });
+
+      profileCategories.forEach(data => {
+        data.then(data => {
           const userRef = firebase
             .firestore()
             .collection('profiles')
@@ -235,7 +310,7 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef.set(
             {
               id: data.userShortId,
-              categoryId: data.categoryId,
+              displayName: data.userDisplayName,
               updatedAt: new Date()
             },
             { merge: true }
@@ -244,41 +319,44 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef
             .collection('categories')
             .doc(data.categoryId)
-            .set(data, { merge: true });
-
-          return data;
-        })
-        .map((data: any) =>
-          firebase
-            .firestore()
-            .collection('profiles')
-            .doc(data.userShortId)
-        );
-
-      return profileRefs;
+            .set(data);
+        });
+      });
     });
 
   // 最後に総合スコアの算出
-  return await profileRefs.map(async (doc: any) => {
-    const userShortId = doc.id;
-    const totalScore = await doc
-      .collection('challenges')
-      .get()
-      .then((snap: any) =>
-        snap.docs
-          .map((doc: any) => doc.data().score)
-          .filter((score: any) => score)
-          .reduce((x: number, y: number) => {
-            return x + y;
-          }, 0)
-      );
+  await firebase
+    .firestore()
+    .collection('challenges')
+    .doc(challengeId)
+    .collection('participants')
+    .get()
+    .then(snap => snap.docs.map(doc => doc.id))
+    .then(ids => {
+      ids.map(async (id: any) => {
+        const userShortId = id;
+        const totalScore = await firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .collection('challenges')
+          .get()
+          .then((snap: any) =>
+            snap.docs
+              .map((doc: any) => doc.data().score)
+              .filter((score: any) => score)
+              .reduce((x: number, y: number) => {
+                return x + y;
+              }, 0)
+          );
 
-    return firebase
-      .firestore()
-      .collection('profiles')
-      .doc(userShortId)
-      .update({ id: userShortId, totalScore: totalScore });
-  });
+        firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .update({ id: userShortId, totalScore: totalScore });
+      });
+    });
 };
 
 export const isHideSensitive = (
@@ -287,4 +365,15 @@ export const isHideSensitive = (
   userSettingSenstivie: boolean
 ) => {
   return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
+};
+
+export const isPostPossible = (histories: any[] | undefined) => {
+  if (!histories) {
+    return true;
+  }
+
+  return (
+    histories.filter((history: any) => isToday(history.timestamp.toDate()))
+      .length === 0
+  );
 };

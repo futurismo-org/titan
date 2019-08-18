@@ -13,7 +13,12 @@ const TwitterShareIcon = (props: any) => {
   const twitterShareURLBuilder = `https://twitter.com/intent/tweet?text=${buildTweetContent}&hashtags=${buildHashTags}`;
 
   return (
-    <Button info onPress={() => Linking.openURL(twitterShareURLBuilder)}>
+    <Button
+      info
+      full
+      rounded
+      onPress={() => Linking.openURL(twitterShareURLBuilder)}
+    >
       <Text>Twitterでシェア</Text>
     </Button>
   );

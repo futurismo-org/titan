@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Grid } from '@material-ui/core';
 import NumberWidget from '../../atoms/challenges/ChallengeNumberWidget';
 
-import { getAchieveRate, RESET } from '~/lib/challenge';
+import { getAchieveRate, getResetDays } from '~/lib/challenge';
 import {
   DEFINE_SCORE,
   DEFINE_DAYS,
@@ -16,14 +16,18 @@ import {
 const ChallengeStatistics = (props: any) => {
   const { data } = props;
 
-  const resetDays = data.histories
-    ? data.histories.filter((history: any) => history.type === RESET).length
-    : 0;
+  const resetDays = getResetDays(data.histories);
   const achieveRate = getAchieveRate(resetDays, data.accDays);
 
   return (
     <React.Fragment>
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+        alignItems="center"
+        justify="space-around"
+        style={{ marginTop: 20, marginBottom: 20 }}
+      >
         <Grid item lg={4} md={4} sm={6} xs={6}>
           <NumberWidget
             title="スコア"

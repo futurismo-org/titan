@@ -156,7 +156,6 @@ const AuthScreen = (props: any) => {
       result.status !== 200 ||
       !(result.data.oauth_token && result.data.oauth_token_secret)
     ) {
-      console.log(result.deata.message);
       errorToast(result.data.message);
       return;
     }
@@ -253,9 +252,15 @@ const AuthScreen = (props: any) => {
           alignItems: 'center'
         }}
       >
-        <TouchableText external url={TITAN_TERMS_OF_USE} text="利用規約" />
         <TouchableText
           external
+          url={TITAN_TERMS_OF_USE}
+          text="利用規約"
+          underline
+        />
+        <TouchableText
+          external
+          underline
           url={TITAN_PRIVACY_POLICY}
           text="プライバシーポリシー"
         />
