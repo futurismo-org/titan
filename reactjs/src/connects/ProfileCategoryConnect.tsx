@@ -7,8 +7,13 @@ import {
 } from '~/actions/profileAction';
 import { fetchCategory } from '~/actions/categoryAction';
 import { fetchHistories } from '~/actions/historyAction';
-import moment, { formatDatetime, formatDateShort } from '~/lib/moment';
+import moment, {
+  formatDatetime,
+  formatDateShort,
+  isClosed
+} from '~/lib/moment';
 import { RESET } from '~/lib/challenge';
+import { wrapShowN } from '~/lib/general';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -32,7 +37,7 @@ const summerizeHistories = (histories: any) => {
     if (
       startHistory === null &&
       endHistory === null &&
-      history.type === 'RESET'
+      history.type === RESET
     ) {
       startHistory = history;
       return;
@@ -41,7 +46,7 @@ const summerizeHistories = (histories: any) => {
     if (
       startHistory !== null &&
       endHistory === null &&
-      history.type === 'RESET'
+      history.type === RESET
     ) {
       endHistory = history;
 
@@ -78,19 +83,21 @@ const summerizeHistories = (histories: any) => {
 };
 
 const summerizeChallenges = (challenges: any) => {
-  return challenges.map((challenge: any) => {
-    return {
-      id: challenge.id,
-      title: challenge.title,
-      totalDuration: challenge.totalDuration,
-      resetCount: challenge.resetCount,
-      percentage: (
-        (challenge.resetCount / challenge.totalDuration) *
-        100
-      ).toFixed(0),
-      closedAt: challenge.closedAt && challenge.closedAt.toDate()
-    };
-  });
+  return challenges
+    .filter((challenge: any) => isClosed(challenge.closedAt.toDate()))
+    .map((challenge: any) => {
+      return {
+        id: challenge.id,
+        title: challenge.title,
+        totalDuration: challenge.totalDuration,
+        resetCount: challenge.resetCount,
+        percentage: (
+          (challenge.resetCount / challenge.totalDuration) *
+          100
+        ).toFixed(0),
+        closedAt: challenge.closedAt && challenge.closedAt.toDate()
+      };
+    });
 };
 
 const calcAccHistories = (histories: any) => {
@@ -228,14 +235,15 @@ const mapStateToProps = (state: any, props: any) => {
       ? formatDatetime(profileCategory.lastResetDate.toDate())
       : '記録なし';
 
-    const myBest =
-      profileCategory.toMaxDays && profileCategory.toMaxDays !== 0
-        ? `自己ベスト更新まであと${profileCategory.toMaxDays}日`
-        : '自己ベスト更新中！';
+    const myBest = !profileCategory.toMaxDays
+      ? ''
+      : profileCategory.toMaxDays !== 0
+      ? `自己ベスト更新まであと${profileCategory.toMaxDays}日`
+      : '自己ベスト更新中！';
 
     data = {
-      days: profileCategory.days,
-      maxDays: profileCategory.maxDays,
+      days: wrapShowN(profileCategory.days),
+      maxDays: wrapShowN(profileCategory.maxDays),
       lastResetDate,
       myBest,
       summerized,

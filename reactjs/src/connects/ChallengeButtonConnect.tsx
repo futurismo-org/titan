@@ -66,7 +66,8 @@ const mapStateToProps = (state: any, props: any) => {
       userShortId,
       openedAt: challenge.openedAt,
       closedAt: challenge.closedAt,
-      categoryId
+      categoryId,
+      userDisplayName: user.displayName
     };
 
     const newCategory = {
@@ -76,7 +77,8 @@ const mapStateToProps = (state: any, props: any) => {
       sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
       ref: challenge.categoryRef,
       categoryId,
-      userShortId
+      userShortId,
+      userDisplayName: user.displayName
     };
 
     return firebase

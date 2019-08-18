@@ -9,7 +9,6 @@ import Error from '../../atoms/Error';
 import { brandSuccess, brandWhite, brandWarning, brandGray } from '~/lib/theme';
 
 import { isDaysValid, isPostPossible } from '~/lib/challenge';
-import { isToday } from '~/lib/moment';
 
 const StyledCenterContainer = styled.div`
   display: flex;

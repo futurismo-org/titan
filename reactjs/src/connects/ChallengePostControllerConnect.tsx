@@ -48,7 +48,7 @@ const mapStateToProps = (state: any, props: any) => {
     } = props;
 
     if (!isPostPossible(histories)) {
-      alert('記録の投稿は1日1回までです。');
+      alert && alert('記録の投稿は1日1回までです。');
       return;
     }
 
@@ -93,8 +93,9 @@ const mapStateToProps = (state: any, props: any) => {
 ${dashBoardURL}`;
         webhookURL && postMessage(webhookURL, message);
       })
-      .then(() => alert('投稿が完了しました。'))
+      .then(() => alert && alert('投稿が完了しました。'))
       .then(() => {
+        console.log(dashBoardPath);
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);
       });
@@ -127,7 +128,7 @@ ${dashBoardURL}`;
 
         categoryRef.set(data, { merge: true });
         categoryRef
-          .collection('histoiries')
+          .collection('histories')
           .doc(newHistory.id)
           .set(newHistory);
       });
@@ -214,7 +215,7 @@ ${dashBoardURL}`;
 
         categoryRef.set(data, { merge: true });
         categoryRef
-          .collection('histoiries')
+          .collection('histories')
           .doc(newHistory.id)
           .set(newHistory);
       });

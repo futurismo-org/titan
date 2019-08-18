@@ -47,7 +47,7 @@ const ChallengeRow = withRouter((props: any) => {
       <TableCell>{title}</TableCell>
       <TableCell>{totalDuration}日</TableCell>
       <TableCell>{resetCount}回</TableCell>
-      <TableCell>{percentage.toFixed(1)}%</TableCell>
+      <TableCell>{percentage}%</TableCell>
       <TableCell>{formatYearDate(closedAt)}</TableCell>
     </TableRow>
   );

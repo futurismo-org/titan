@@ -17,11 +17,7 @@ const QuickActionChallengeButton = (props: any) => {
 
   const [value, loading, error] = useDocument(participantsRef);
 
-  const writeRecord = recordHandler(
-    successToastWithNoRedirect,
-    history.push,
-    () => showGiphy('win')
-  );
+  const writeRecord = recordHandler(null, history.push, () => showGiphy('win'));
   const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
 
   const challenge = value && value.data();
