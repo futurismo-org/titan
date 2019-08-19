@@ -7,8 +7,6 @@ import TextField from '~/web/components/atoms/TextField';
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
-import { brandDark } from '~/lib/theme';
-
 const Form = (props: any) => {
   const [content, setContent] = useState('');
   const [preview, setPreview] = useState(false);
@@ -70,7 +68,6 @@ const Form = (props: any) => {
           label=""
           rows={10}
           multiline
-          style={{ outlineColor: brandDark }}
           onChange={onContentChange}
         />
         <h3>プレビュー</h3>

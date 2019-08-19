@@ -78,7 +78,6 @@ const Settings = (props: any) => {
               required
               id="displayName"
               label="ユーザ名"
-              style={{ outlineColor: brandDark }}
               onChange={onDisplayNameChange}
             />
             <TextField
@@ -86,7 +85,6 @@ const Settings = (props: any) => {
               variant="outlined"
               margin="normal"
               id="twitterId"
-              style={{ outlineColor: brandDark }}
               label="Twitterユーザ名"
               onChange={onTwitterUsernameChange}
             />
@@ -98,7 +96,6 @@ const Settings = (props: any) => {
               multiline
               rows={6}
               fullWidth
-              style={{ outlineColor: brandDark }}
               label="自己紹介(300字まで)"
               onChange={onIntroductionChange}
             />

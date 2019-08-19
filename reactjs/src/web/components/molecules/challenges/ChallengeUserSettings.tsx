@@ -94,7 +94,6 @@ const ChallengeUserSettings = (props: any) => {
                     required
                     id="displayName"
                     label="ユーザ名"
-                    style={{ outlineColor: brandDark }}
                     onChange={onDisplayNameChange}
                   />
                 </Grid>

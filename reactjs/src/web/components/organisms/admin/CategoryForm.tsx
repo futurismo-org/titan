@@ -8,7 +8,6 @@ import { Switch } from '@material-ui/core';
 import TextField from '~/web/components/atoms/TextField';
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
-import { brandDark } from '~/lib/theme';
 
 const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
@@ -124,7 +123,6 @@ const CategoryForm = (props: any) => {
           id="title"
           label="タイトル"
           name="title"
-          style={{ outlineColor: brandDark }}
           onChange={onTitleChange}
         />
         <TextField
@@ -136,7 +134,6 @@ const CategoryForm = (props: any) => {
           id="description"
           name="description"
           label="説明"
-          style={{ outlineColor: brandDark }}
           onChange={onDescriptionChange}
         />
         <TextField
@@ -145,7 +142,6 @@ const CategoryForm = (props: any) => {
           margin="normal"
           id="channelId"
           label="チャンネルID"
-          style={{ outlineColor: brandDark }}
           onChange={onChannelIdChange}
         />
         <TextField
@@ -157,7 +153,6 @@ const CategoryForm = (props: any) => {
           label="チャレンジ参照"
           rows={4}
           multiline
-          style={{ outlineColor: brandDark }}
           onChange={onChallengeRefsChange}
         />
         {'センシティブな内容'}
@@ -172,7 +167,6 @@ const CategoryForm = (props: any) => {
           label="概要"
           rows={8}
           multiline
-          style={{ outlineColor: brandDark }}
           onChange={onOverviewChange}
         />
         <Button type="submit" fullWidth variant="contained" color="primary">
