@@ -19,7 +19,6 @@ import firebase from '~/lib/firebase';
 
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
-import { brandDark } from '~/lib/theme';
 
 const db = firebase.firestore();
 

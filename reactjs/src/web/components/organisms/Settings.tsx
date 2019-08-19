@@ -6,7 +6,7 @@ import TextField from '~/web/components/atoms/TextField';
 
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
-import { primaryColor, brandDark } from '~/lib/theme';
+import { primaryColor } from '~/lib/theme';
 
 import Mutes from '~/web/containers/MutesContainer';
 import Blocks from '~/web/containers/BlocksContainer';
