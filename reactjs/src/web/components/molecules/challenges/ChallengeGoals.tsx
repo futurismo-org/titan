@@ -5,7 +5,14 @@ import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 
 const ChallengeGoals = (props: any) => {
-  const { fetchParticipants, resourceId, users, loading, error } = props;
+  const {
+    fetchParticipants,
+    resourceId,
+    users,
+    loading,
+    error,
+    challengeId
+  } = props;
 
   useEffect(() => {
     users === [] && fetchParticipants(resourceId);
@@ -18,7 +25,11 @@ const ChallengeGoals = (props: any) => {
       {!loading && users && (
         <StackGrid columnWidth={300}>
           {users.map((user: any) => (
-            <ChallengeGoalCard user={user} key={user.id} />
+            <ChallengeGoalCard
+              user={user}
+              key={user.id}
+              challengeId={challengeId}
+            />
           ))}
         </StackGrid>
       )}

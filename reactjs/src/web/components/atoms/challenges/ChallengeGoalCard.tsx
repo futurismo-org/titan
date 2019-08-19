@@ -1,12 +1,14 @@
 import React from 'react';
 import { Card, CardHeader } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 import UserAvatar from '../UserAvatar';
 import { formatDateShort } from '~/lib/moment';
 
 const ChallengeGoalCard = (props: any) => {
-  const { user } = props;
+  const { user, history, challengeId } = props;
+  const path = `/c/${challengeId}/u/${user.id}`;
   return (
-    <Card>
+    <Card onClick={() => history.push(path)}>
       <CardHeader
         avatar={<UserAvatar photoURL={user.photoURL} userId={user.id} />}
         title={user.displayName}
@@ -18,4 +20,4 @@ const ChallengeGoalCard = (props: any) => {
   );
 };
 
-export default ChallengeGoalCard;
+export default withRouter(ChallengeGoalCard);
