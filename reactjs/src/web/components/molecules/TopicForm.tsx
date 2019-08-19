@@ -9,13 +9,6 @@ import { getPublicIP } from '~/web/lib/network';
 
 const db = firebase.firestore();
 
-const styles = (theme: any) => ({
-  notchedOutline: {
-    borderWidth: '1px',
-    borderColor: 'gray !important'
-  }
-});
-
 const TopicForm = (props: any) => {
   const {
     resourceId,
