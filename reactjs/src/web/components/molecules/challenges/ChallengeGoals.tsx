@@ -8,22 +8,18 @@ const ChallengeGoals = (props: any) => {
   const { fetchParticipants, resourceId, users, loading, error } = props;
 
   useEffect(() => {
-    fetchParticipants(resourceId);
-  });
+    users === [] && fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId, users]);
 
   return (
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && users && (
-        <StackGrid columnWidth={150}>
-          {users.map((user: any) => (
-            <React.Fragment key={user.id}>
-              <ChallengeGoalCard />
-            </React.Fragment>
-          ))}
-        </StackGrid>
-      )}
+      <StackGrid>
+        {users.map((user: any) => (
+          <ChallengeGoalCard user={user} key={user.id} />
+        ))}
+      </StackGrid>
     </React.Fragment>
   );
 };
