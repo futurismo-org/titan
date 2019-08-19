@@ -286,6 +286,6 @@ export const meigens = [
 ];
 
 export const getRandomMeigen = () => {
-  const randnum = Math.floor(Math.random() * meigens.length) + 1;
+  const randnum = Math.floor(Math.random() * meigens.length);
   return meigens[randnum];
 };
