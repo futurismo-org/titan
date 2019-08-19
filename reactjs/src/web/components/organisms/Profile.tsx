@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import Paper from '@material-ui/core/Paper';
+import Paper from '../templates/PaperWrapper';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
