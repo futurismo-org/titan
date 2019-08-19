@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
+import TextField from '~/web/components/atoms/TextField';
 
 import firebase from '~/lib/firebase';
 import Progress from '../atoms/CircularProgress';
 import { getPublicIP } from '~/web/lib/network';
 
 const db = firebase.firestore();
+
+const styles = (theme: any) => ({
+  notchedOutline: {
+    borderWidth: '1px',
+    borderColor: 'gray !important'
+  }
+});
 
 const TopicForm = (props: any) => {
   const {
