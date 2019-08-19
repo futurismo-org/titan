@@ -10,8 +10,8 @@ import TopicForm from '~/web/containers/TopicFormContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
-import ChallengeGoals from './ChallengeGoals';
-import ChallengeJournal from './ChallengeJournal';
+import ChallengeGoals from '~/web/containers/ChallengeGoalsContainer';
+import ChallengeJournal from '~/web/containers/ChallengeJournalContainer';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
