@@ -23,7 +23,7 @@ const ChallengeGoals = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && users && (
-        <StackGrid columnWidth={300}>
+        <StackGrid columnWidth={300} style={{ marginTop: 20 }}>
           {users.map((user: any) => (
             <ChallengeGoalCard
               user={user}
