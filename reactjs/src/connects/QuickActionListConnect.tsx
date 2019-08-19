@@ -16,9 +16,15 @@ const mapStateToProps = (state: any, props: any) => {
   const userShortId = profile.shortId;
 
   const resourceId = `/profiles/${userShortId}/challenges`;
-  const challenges = state.profile.items.filter((challenge: any) =>
-    isChallengeOpening(challenge.openedAt.toDate(), challenge.closedAt.toDate())
-  );
+  const challenges = state.profile.items.filter((challenge: any) => {
+    if (!challenge.openedAt) return false;
+    if (!challenge.closedAt) return false;
+
+    return isChallengeOpening(
+      challenge.openedAt.toDate(),
+      challenge.closedAt.toDate()
+    );
+  });
 
   return {
     loading: state.challenge.loading,
