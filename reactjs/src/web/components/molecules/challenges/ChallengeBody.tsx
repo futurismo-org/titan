@@ -10,6 +10,8 @@ import TopicForm from '~/web/containers/TopicFormContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
+import ChallengeGoals from './ChallengeGoals';
+import ChallengeJournal from './ChallengeJournal';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
@@ -52,6 +54,24 @@ const ChallengeBody = (props: any) => {
         path="/c/:id/leaderboard"
         render={props => (
           <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/u/:userShortId/settings"
+        render={props => (
+          <ChallengeUserSettings challengeId={challenge.id} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/goals"
+        render={props => (
+          <ChallengeGoals challengeId={challenge.id} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/u/:userShortId/journal"
+        render={props => (
+          <ChallengeJournal challengeId={challenge.id} {...props} />
         )}
       />
       <Route
