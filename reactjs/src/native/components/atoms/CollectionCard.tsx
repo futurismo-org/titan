@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  Image as NativeImage
+} from 'react-native';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { Image } from 'react-native-expo-image-cache';
@@ -128,7 +134,7 @@ const CollectionCard = (props: any) => {
           <View style={styles.shadow} />
           {!small && (
             <View style={styles.imageContainer}>
-              <Image
+              <NativeImage
                 style={{
                   flex: 1,
                   flexDirection: 'row',
@@ -137,8 +143,9 @@ const CollectionCard = (props: any) => {
                   width: 144,
                   height: 144
                 }}
-                preview={{ uri: previewImage }}
-                uri="https://titan-fire.com/images/icons/icon-144x144.png"
+                source={{
+                  uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
+                }}
               />
               <View style={styles.radiusMask} />
             </View>

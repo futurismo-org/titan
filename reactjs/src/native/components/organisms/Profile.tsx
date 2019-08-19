@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, View } from 'native-base';
+import { Text, View, Content } from 'native-base';
 import Error from '../atoms/Error';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
@@ -34,10 +34,12 @@ const Profile = (props: any) => {
         user &&
         (blocked ? (
           <React.Fragment>
-            <Title text="表示をブロックしました" />
-            <Text>
-              あなたはこのユーザからブロックされているため、プロフィールを閲覧できません。
-            </Text>
+            <Content padder>
+              <Title text="表示をブロックしました" />
+              <Text>
+                あなたはこのユーザからブロックされているため、プロフィールを閲覧できません。
+              </Text>
+            </Content>
           </React.Fragment>
         ) : (
           <View>

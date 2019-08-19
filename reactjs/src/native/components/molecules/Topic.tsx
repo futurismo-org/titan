@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Text, View } from 'native-base';
+import { Button, Text, View, Content } from 'native-base';
 import { Linking, Alert, TouchableOpacity } from 'react-native';
 import { withRouter, Link } from 'react-router-native';
 import Title from '../atoms/Title';
@@ -73,12 +73,12 @@ const Topic = (props: any) => {
             <Text>設定を変更</Text>
           </TouchableOpacity>
         ) : blocked ? (
-          <React.Fragment>
+          <Content padder>
             <Title text="表示をブロックしました" />
             <Text>
               あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
             </Text>
-          </React.Fragment>
+          </Content>
         ) : (
           <React.Fragment>
             <Text>

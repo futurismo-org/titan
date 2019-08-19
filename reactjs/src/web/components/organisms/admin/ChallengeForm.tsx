@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+
 import Switch from '@material-ui/core/Switch';
 
 import shortid from 'shortid';
 import moment from 'moment';
+import TextField from '~/web/components/atoms/TextField';
 
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
