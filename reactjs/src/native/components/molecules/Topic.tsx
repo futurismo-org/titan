@@ -73,13 +73,12 @@ const Topic = (props: any) => {
             <Text>設定を変更</Text>
           </TouchableOpacity>
         ) : blocked ? (
-            <Content padder>
-              <Title text="表示をブロックしました" />
-              <Text>
-                あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
-              </Text>
-            </Content>
-          </React.Fragment>
+          <Content padder>
+            <Title text="表示をブロックしました" />
+            <Text>
+              あなたはこの記事を投稿したユーザからブロックされているため、記事を閲覧できません。
+            </Text>
+          </Content>
         ) : (
           <React.Fragment>
             <Text>
