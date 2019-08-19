@@ -1,24 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import StackGrid from 'react-stack-grid';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
+import Error from '../../atoms/Error';
+import Progress from '../../atoms/CircularProgress';
 
 const ChallengeGoals = (props: any) => {
+  const { fetchParticipants, resourceId, users, loading, error } = props;
+
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  });
+
   return (
     <React.Fragment>
-      <StackGrid columnWidth={200}>
-        <ChallengeGoalCard key={1} />
-        <ChallengeGoalCard key={2} />
-        <ChallengeGoalCard key={3} />
-        <ChallengeGoalCard key={4} />
-        <ChallengeGoalCard key={5} />
-        <ChallengeGoalCard key={6} />
-        <ChallengeGoalCard key={7} />
-        <ChallengeGoalCard key={8} />
-        <ChallengeGoalCard key={9} />
-        <ChallengeGoalCard key={10} />
-        <ChallengeGoalCard key={11} />
-        <ChallengeGoalCard key={12} />
-      </StackGrid>
+      {error && <Error error={error} />}
+      {loading && <Progress />}
+      {!loading && users && (
+        <StackGrid columnWidth={150}>
+          {users.map((user: any) => (
+            <React.Fragment key={user.id}>
+              <ChallengeGoalCard />
+            </React.Fragment>
+          ))}
+        </StackGrid>
+      )}
     </React.Fragment>
   );
 };

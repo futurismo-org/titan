@@ -2,6 +2,8 @@ import React from 'react';
 import { CardContent, Typography, Card } from '@material-ui/core';
 
 const ChallengeGoalCard = (props: any) => {
+  const { user } = props;
+
   return (
     <Card>
       <CardContent>
