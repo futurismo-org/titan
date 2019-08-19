@@ -15,11 +15,13 @@ const ChallengeGoals = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      <StackGrid>
-        {users.map((user: any) => (
-          <ChallengeGoalCard user={user} key={user.id} />
-        ))}
-      </StackGrid>
+      {!loading && users && (
+        <StackGrid columnWidth={300}>
+          {users.map((user: any) => (
+            <ChallengeGoalCard user={user} key={user.id} />
+          ))}
+        </StackGrid>
+      )}
     </React.Fragment>
   );
 };

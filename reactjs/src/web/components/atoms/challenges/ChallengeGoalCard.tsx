@@ -1,17 +1,21 @@
 import React from 'react';
-import { CardContent, Typography, Card } from '@material-ui/core';
+import { Card, CardHeader } from '@material-ui/core';
+import UserAvatar from '../UserAvatar';
+import { formatDateShort } from '~/lib/moment';
 
 const ChallengeGoalCard = (props: any) => {
-  // return (
-  //   <Card>
-  //     <CardContent>
-  //       <Typography component="p" variant="caption">
-  //         tsu-nera
-  //       </Typography>
-  //     </CardContent>
-  //   </Card>
-  // );
-  return <p>test</p>;
+  const { user } = props;
+  return (
+    <Card>
+      <CardHeader
+        avatar={<UserAvatar photoURL={user.photoURL} userId={user.id} />}
+        title={user.displayName}
+        subheader={`${user.days}days, Joined at ${formatDateShort(
+          user.startedAt && user.startedAt.toDate()
+        )}`}
+      />
+    </Card>
+  );
 };
 
 export default ChallengeGoalCard;
