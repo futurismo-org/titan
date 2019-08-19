@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Switch from '@material-ui/core/Switch';
 
-import { TextField, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import TextField from '~/web/components/atoms/TextField';
+
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
 import { primaryColor, brandDark } from '~/lib/theme';

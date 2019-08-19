@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import {
-  TextField,
   Button,
   Radio,
   FormControl,
@@ -12,6 +11,8 @@ import {
 } from '@material-ui/core';
 
 import { withRouter } from 'react-router-dom';
+import TextField from '~/web/components/atoms/TextField';
+
 import { ACC_DAYS, PAST_DAYS } from '~/lib/challenge';
 
 import firebase from '~/lib/firebase';
