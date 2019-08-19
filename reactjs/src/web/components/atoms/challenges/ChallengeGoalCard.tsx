@@ -30,7 +30,7 @@ const ChallengeGoalCard = (props: any) => {
           style={{ height: 0, paddingTop: '56.25%' }}
         />
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" component="p">
             30日間自宅で毎日筋トレをします。
           </Typography>
         </CardContent>
