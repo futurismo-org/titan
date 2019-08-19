@@ -39,6 +39,10 @@ const Home = () => (
         render={props => <Document id="guidelines" {...props} />}
       />
       <Route
+        path="/about"
+        render={props => <Document id="about" {...props} />}
+      />
+      <Route
         path="/u/:userShortId/cat/:categoryId"
         component={ProfileCategory}
       />

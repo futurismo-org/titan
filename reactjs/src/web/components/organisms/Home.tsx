@@ -42,6 +42,10 @@ const Home = () => (
         render={props => <Document id="terms_of_use" {...props} />}
       />
       <Route
+        path="/about"
+        render={props => <Document id="about" {...props} />}
+      />
+      <Route
         path="/privacy_policy"
         render={props => <Document id="privacy_policy" {...props} />}
       />
