@@ -7,7 +7,7 @@ import { getRandomMeigen } from '~/lib/meigen';
 
 const Splash = (prpos: any) => {
   const meigenData = getRandomMeigen();
-  const { content, author }: any = meigenData;
+  const { content, author } = meigenData;
 
   const colorWhite = 'white';
 
