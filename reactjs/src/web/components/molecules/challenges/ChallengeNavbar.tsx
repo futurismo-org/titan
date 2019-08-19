@@ -46,6 +46,7 @@ const ChallengeNavbar = (props: any) => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         onClose={handleClose}
       >
         <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
