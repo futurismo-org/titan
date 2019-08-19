@@ -3,6 +3,15 @@
 import color from 'color';
 
 import { Platform, Dimensions, PixelRatio } from 'react-native';
+import {
+  brandDanger,
+  brandWarning,
+  brandWhite,
+  primaryColor,
+  secondaryColor,
+  brandSuccess,
+  brandDark
+} from '../../../lib/theme';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -21,9 +30,9 @@ export default {
 
   // Accordion
   headerStyle: '#edebed',
-  iconStyle: '#000',
+  iconStyle: brandDark,
   contentStyle: '#f5f4f5',
-  expandedIconStyle: '#000',
+  expandedIconStyle: brandDark,
   accordionBorderColor: '#d3d3d3',
 
   // Android
@@ -109,19 +118,19 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: '#f44336',
-  brandInfo: '#62B1F6',
-  brandSuccess: '#5cb85c',
-  brandDanger: '#d9534f',
-  brandWarning: '#f0ad4e',
-  brandDark: '#000',
-  brandLight: '#f4f4f4',
+  brandPrimary: primaryColor,
+  brandInfo: secondaryColor,
+  brandSuccess: brandSuccess,
+  brandDanger: brandDanger,
+  brandWarning: brandWarning,
+  brandDark: brandDark,
+  brandLight: brandWhite,
 
   // Container
   containerBgColor: '#fff',
 
   // Date Picker
-  datePickerTextColor: '#000',
+  datePickerTextColor: brandDark,
   datePickerBg: 'transparent',
 
   // Font
@@ -153,14 +162,14 @@ export default {
 
   // Header
   toolbarBtnColor: '#fff',
-  toolbarDefaultBg: '#f44336',
+  toolbarDefaultBg: primaryColor,
   toolbarHeight: 60,
   toolbarSearchIconSize: 23,
   toolbarInputColor: '#fff',
   searchBarHeight: platform === 'ios' ? 30 : 40,
   searchBarInputHeight: platform === 'ios' ? 40 : 50,
   toolbarBtnTextColor: '#fff',
-  toolbarDefaultBorder: '#f44336',
+  toolbarDefaultBorder: primaryColor,
   iosStatusbar: 'light-content',
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
@@ -201,39 +210,39 @@ export default {
   // List
   listBg: 'transparent',
   listBorderColor: '#c9c9c9',
-  listDividerBg: '#f4f4f4',
+  listDividerBg: brandWhite,
   listBtnUnderlayColor: '#DDD',
   listItemPadding: 12,
   listNoteColor: '#808080',
   listNoteSize: 13,
-  listItemSelected: '#f44336',
+  listItemSelected: primaryColor,
 
   // Progress Bar
-  defaultProgressColor: '#f44336',
+  defaultProgressColor: primaryColor,
   inverseProgressColor: '#1A191B',
 
   // Radio Button
   radioBtnSize: 23,
-  radioSelectedColorAndroid: '#f44336',
+  radioSelectedColorAndroid: primaryColor,
   radioBtnLineHeight: 24,
   get radioColor() {
     return this.brandPrimary;
   },
 
   // Segment
-  segmentBackgroundColor: '#f44336',
+  segmentBackgroundColor: primaryColor,
   segmentActiveBackgroundColor: '#fff',
   segmentTextColor: '#fff',
-  segmentActiveTextColor: '#f44336',
+  segmentActiveTextColor: primaryColor,
   segmentBorderColor: '#fff',
-  segmentBorderColorMain: '#f44336',
+  segmentBorderColorMain: primaryColor,
 
   // Spinner
   defaultSpinnerColor: '#45D56E',
   inverseSpinnerColor: '#1A191B',
 
   // Tab
-  tabDefaultBg: '#f44336',
+  tabDefaultBg: primaryColor,
   topTabBarTextColor: '#b3c7f9',
   topTabBarActiveTextColor: '#fff',
   topTabBarBorderColor: '#fff',
@@ -244,7 +253,7 @@ export default {
   tabFontSize: 15,
 
   // Text
-  textColor: '#000',
+  textColor: brandDark,
   inverseTextColor: '#fff',
   noteFontSize: 14,
   get defaultTextColor() {
