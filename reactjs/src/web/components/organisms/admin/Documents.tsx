@@ -10,6 +10,7 @@ const Documents = () => (
         <li>利用規約</li>
         <li>プライバシーポリシー</li>
         <li>コミュニティガイドライン</li>
+        <li>Titanについて</li>
       </ul>
       <Button
         style={{ fontWeight: 'bold' }}

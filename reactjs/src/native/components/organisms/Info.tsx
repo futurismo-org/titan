@@ -36,6 +36,9 @@ const Info = (props: any) => {
           </Text>
         </ListItem>
         <ListItem>
+          <Text onPress={() => history.push('/about')}>Titanについて</Text>
+        </ListItem>
+        <ListItem>
           <Text onPress={() => history.push('/contact')}>お問い合わせ</Text>
         </ListItem>
         <ListItem>
@@ -49,7 +52,7 @@ const Info = (props: any) => {
         {isAndroid && ( // ガイドラインの関係でiOSはリンクを貼らない
           <ListItem>
             <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
-              Titan紹介ページ
+              Titan宣伝用特設サイト
             </Text>
           </ListItem>
         )}

@@ -96,6 +96,7 @@ const DocumentForm = (props: any) => {
       <Form title="利用規約" id="terms_of_use" />
       <Form title="プライバシーポリシー" id="privacy_policy" />
       <Form title="コミュニティガイドライン" id="guidelines" />
+      <Form title="Titanについて" id="about" />
     </React.Fragment>
   );
 };

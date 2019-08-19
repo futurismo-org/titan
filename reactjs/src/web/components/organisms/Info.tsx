@@ -45,6 +45,12 @@ const Info = (props: any) => {
           <Divider />
           <ListItem>
             <ListItemText>
+              <NoStyledLink to="/about">Titanについて</NoStyledLink>
+            </ListItemText>
+          </ListItem>
+          <Divider />
+          <ListItem>
+            <ListItemText>
               <NoStyledLink to="/info/announce">お知らせ</NoStyledLink>
             </ListItemText>
           </ListItem>
@@ -67,7 +73,7 @@ const Info = (props: any) => {
                 href={TITAN_LANDING_PAGE}
                 style={{ textDecoration: 'underline' }}
               >
-                Titan紹介ペーシ
+                Titan宣伝用特設サイト
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
