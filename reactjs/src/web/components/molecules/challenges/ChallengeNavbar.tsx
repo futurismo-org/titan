@@ -46,9 +46,10 @@ const ChallengeNavbar = (props: any) => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         onClose={handleClose}
+        getContentAnchorEl={null}
       >
-        <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
         <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
         {props.userId && (
           <NavItem
@@ -56,7 +57,15 @@ const ChallengeNavbar = (props: any) => {
             text="ダッシュボード"
           />
         )}
+        <NavItem to={`/c/${props.id}/goals`} text="ゴールボード" />
         <NavItem to={`/c/${props.id}/topics`} text="トピック" />
+        <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
+        {/* {props.userId && (
+          <NavItem
+            to={`/c/${props.id}/u/${props.userId}/journal`}
+            text="努力記録"
+          />
+        )} */}
         {props.userId && (
           <NavItem
             to={`/c/${props.id}/u/${props.userId}/settings`}

@@ -159,7 +159,10 @@ const challengeParticipantsSeeds = seed.subcollection([
     pastDays: 9,
     displayName: 'Titan@公式',
     photoURL:
-      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
+    createdAt: new Date(),
+    startedAt: new Date(),
+    updatedAt: new Date()
   }),
   createParticipationSeed({
     id: tsuneraShortId,
@@ -170,7 +173,10 @@ const challengeParticipantsSeeds = seed.subcollection([
     accDays: 5,
     pastDays: 9,
     displayName: 'tsu-nera',
-    photoURL: ''
+    photoURL: '',
+    createdAt: new Date(),
+    startedAt: new Date(),
+    updatedAt: new Date()
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({

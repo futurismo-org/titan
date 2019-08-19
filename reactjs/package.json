@@ -111,6 +111,7 @@
     "react-router-navigation": "^2.0.0-alpha.10",
     "react-scripts": "3.0.1",
     "react-share": "^3.0.0",
+    "react-stack-grid": "^0.7.1",
     "react-stripe-elements": "^3.0.0",
     "react-thunk": "^1.0.0",
     "react-twitter-widgets": "^1.7.1",

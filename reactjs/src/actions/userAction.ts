@@ -49,7 +49,7 @@ export const fetchUsers = (num: number = 1000) => {
 export const fetchParticipants = (resourceId: string, num: number = 1000) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchUsersRequest());
-    firebase
+    return firebase
       .firestore()
       .collection(resourceId)
       .limit(num)
@@ -63,7 +63,7 @@ export const fetchParticipants = (resourceId: string, num: number = 1000) => {
 export const fetchUserWithShortId = (userShortId: string) => {
   return (dispatch: Dispatch) => {
     dispatch(fetchUserRequest());
-    firebase
+    return firebase
       .firestore()
       .collection('users')
       .where('shortId', '==', userShortId)

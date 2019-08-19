@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Paper } from '@material-ui/core';
 import Progress from '../../atoms/CircularProgress';
+import Error from '../../atoms/Error';
 
 import UserAvatar from '../../atoms/UserAvatar';
 
@@ -64,7 +65,7 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
+      {error && <Error error={error} />}
       {loading && <Progress />}
       {users && (
         <Paper style={{ marginTop: 20 }}>

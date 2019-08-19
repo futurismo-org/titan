@@ -9,6 +9,8 @@ import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardCo
 import TopicForm from '~/native/containers/TopicFormContainer';
 import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
+import ChallengeGoals from '~/native/containers/ChallengeGoalsContainer';
+import ChallengeJournal from '~/native/containers/ChallengeJournalContainer';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
@@ -37,6 +39,18 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/leaderboard"
             render={props => (
               <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
+            )}
+          />
+          <Route
+            path="/c/:id/goals"
+            render={props => (
+              <ChallengeGoals challengeId={challenge.id} {...props} />
+            )}
+          />
+          <Route
+            path="/c/:id/u/:userShortId/journal"
+            render={props => (
+              <ChallengeJournal challengeId={challenge.id} {...props} />
             )}
           />
           <Route
