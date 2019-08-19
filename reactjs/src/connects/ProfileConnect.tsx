@@ -22,9 +22,9 @@ const mapStateToProps = (state: any, props: any) => {
 
   const myUserId = profile.shortId;
 
-  const blockingUsers = state.block.items;
-  const blockedUserIds = blockingUsers.map((item: any) => item.blockedUserId);
-  const blocked = blockedUserIds.includes(myUserId);
+  const blockingUsers = state.block.items; // 自分をブロックしているユーザたち
+  const blockingUserIds = blockingUsers.map((item: any) => item.blockingUserId);
+  const blocked = blockingUserIds.includes(userShortId);
 
   return {
     user,

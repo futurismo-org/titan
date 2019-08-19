@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  Image as NativeImage
+} from 'react-native';
 import { Image } from 'react-native-expo-image-cache';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
@@ -116,9 +122,10 @@ const ProfileCategoryCard = (props: any) => {
         >
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>
-            <Image
-              preview={{ uri: previewImage }}
-              uri="https://titan-fire.com/images/icons/icon-144x144.png"
+            <NativeImage
+              source={{
+                uri: 'https://titan-fire.com/images/icons/icon-144x144.png'
+              }}
               style={{
                 flex: 1,
                 flexDirection: 'row',
