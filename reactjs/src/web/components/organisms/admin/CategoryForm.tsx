@@ -5,11 +5,14 @@ import Button from '@material-ui/core/Button';
 import shortid from 'shortid';
 import moment from 'moment';
 import { Switch } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 import TextField from '~/web/components/atoms/TextField';
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
 const CategoryForm = (props: any) => {
+  const { history } = props;
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
@@ -17,6 +20,7 @@ const CategoryForm = (props: any) => {
   const [channelId, setChannelId] = useState('');
   const [challengeRefs, setChallengeRefs] = useState('');
   const [sensitive, setSensitive] = useState(false);
+  const [freezed, setFreezed] = useState(false);
 
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -46,6 +50,10 @@ const CategoryForm = (props: any) => {
     e.preventDefault();
     setSensitive(e.target.checked);
   };
+  const onFreezedChange = (e: any) => {
+    e.preventDefault();
+    setFreezed(e.target.checked);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -64,6 +72,7 @@ const CategoryForm = (props: any) => {
       updatedAt: new Date(),
       channelId,
       sensitive,
+      freezed,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -76,7 +85,8 @@ const CategoryForm = (props: any) => {
       .collection('categories')
       .doc(id)
       .set(newData)
-      .then(() => (window.location.href = '/admin')); // eslint-disable-line no-undef
+      .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
+      .then(() => history.push('/admin'));
   };
 
   useEffect(() => {
@@ -106,6 +116,7 @@ const CategoryForm = (props: any) => {
             moment(category!.createdAt.toDate()).format('YYYY-MM-DD')
           );
           setSensitive(category!.sensitive ? category!.sensitive : false);
+          setFreezed(category!.freezed ? category!.freezed : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -157,6 +168,8 @@ const CategoryForm = (props: any) => {
         />
         {'センシティブな内容'}
         <Switch checked={sensitive} onChange={onSensitiveChange} />
+        {'凍結'}
+        <Switch checked={freezed} onChange={onFreezedChange} />
         <TextField
           value={overview}
           variant="outlined"
@@ -179,4 +192,4 @@ const CategoryForm = (props: any) => {
   );
 };
 
-export default CategoryForm;
+export default withRouter(CategoryForm);
