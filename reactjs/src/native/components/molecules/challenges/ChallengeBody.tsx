@@ -10,6 +10,8 @@ import TopicForm from '~/native/containers/TopicFormContainer';
 import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
 
+import Flag from '~/native/containers/FlagContainer';
+
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
 
@@ -21,6 +23,7 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/overview"
             render={props => (
               <ChallengeOverview
+                challenge={challenge}
                 text={challenge.overview}
                 youtubeId={challenge.youtubeId}
                 openedAt={challenge.openedAt.toDate()}
@@ -31,7 +34,12 @@ const ChallengeBody = (props: any) => {
           />
           <Route
             path="/c/:id/rules"
-            render={props => <MarkdownView text={challenge.rules} {...props} />}
+            render={props => (
+              <React.Fragment>
+                <MarkdownView text={challenge.rules} {...props} />
+                <Flag challenge={challenge} {...props} />
+              </React.Fragment>
+            )}
           />
           <Route
             path="/c/:id/leaderboard"

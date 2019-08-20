@@ -11,6 +11,8 @@ import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
 
+import Flag from '~/web/containers/FlagContainer';
+
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
 
@@ -20,6 +22,7 @@ const ChallengeBody = (props: any) => {
         path="/c/:id/overview"
         render={() => (
           <ChallengeOverview
+            challenge={challenge}
             text={challenge.overview}
             youtubeId={challenge.youtubeId}
             openedAt={challenge.openedAt.toDate()}
@@ -46,7 +49,12 @@ const ChallengeBody = (props: any) => {
       <Route path="/c/:id/topics" component={ChallengeTopics} />
       <Route
         path="/c/:id/rules"
-        render={() => <MarkdownView text={challenge.rules} />}
+        render={() => (
+          <React.Fragment>
+            <MarkdownView text={challenge.rules} />
+            <Flag challenge={challenge} />
+          </React.Fragment>
+        )}
       />
       <Route
         path="/c/:id/leaderboard"

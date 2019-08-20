@@ -14,6 +14,7 @@ import { StyledHero as Hero } from '~/native/components/atoms/Hero';
 import TotalScoreBoard from '~/native/containers/TotalScoreBoardContainer';
 
 import { twitterColor, brandGray, primaryColor } from '~/lib/theme';
+import Flag from '~/native/containers/FlagContainer';
 
 import { formatYearDate } from '~/lib/moment';
 
@@ -70,6 +71,7 @@ const ProfileHeader = (props: any) => {
             </View>
           </View>
         )}
+        <Flag profile={user} />
       </View>
     </View>
   );
