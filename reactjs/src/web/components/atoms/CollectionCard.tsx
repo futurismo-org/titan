@@ -50,7 +50,11 @@ const CollectionCard = (props: any) => {
 
   return (
     <React.Fragment>
-      {isHideSensitive(debugSensitive, collection.sensitive, allowSensitive) ? (
+      {collection && collection.freezed ? null : isHideSensitive(
+          debugSensitive,
+          collection.sensitive,
+          allowSensitive
+        ) ? (
         <Grid item key={collection.id} xs={12} md={6}>
           <NoStyledLink to="/settings">
             <CardActionArea>

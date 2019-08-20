@@ -30,29 +30,36 @@ const Profile = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {user && user.freezed ? (
-        <Content padder>
-          <Title text="凍結しました" />
-          <Text>このユーザは不適切なユーザと判断して運営が凍結しました。</Text>
-        </Content>
-      ) : blocked ? (
-        <Content padder>
-          <Title text="表示をブロックしました" />
-          <Text>
-            あなたはこのユーザからブロックされているため、プロフィールを閲覧できません。
-          </Text>
-        </Content>
-      ) : (
-        <View>
-          <ProfileHeader
-            user={user}
-            isLogin={isLogin}
-            isMyProfile={isMyProfile}
-          />
-          <ProfileBody userShortId={userShortId} />
-        </View>
-      )}
-      )
+      {!loading &&
+        user &&
+        (user.freezed ? (
+          <React.Fragment>
+            <Content padder>
+              <Title text="凍結しました" />
+              <Text>
+                このユーザは不適切なユーザと判断して運営が凍結しました。
+              </Text>
+            </Content>
+          </React.Fragment>
+        ) : blocked ? (
+          <React.Fragment>
+            <Content padder>
+              <Title text="表示をブロックしました" />
+              <Text>
+                あなたはこのユーザからブロックされているため、プロフィールを閲覧できません。
+              </Text>
+            </Content>
+          </React.Fragment>
+        ) : (
+          <View>
+            <ProfileHeader
+              user={user}
+              isLogin={isLogin}
+              isMyProfile={isMyProfile}
+            />
+            <ProfileBody userShortId={userShortId} />
+          </View>
+        ))}
     </React.Fragment>
   );
 };
