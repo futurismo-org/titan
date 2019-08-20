@@ -14,7 +14,7 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
-import TopicFlag from '../atoms/TopicFlag';
+import Flag from '../atoms/Flag';
 
 import * as firebase from '~/lib/firebase';
 
@@ -131,7 +131,7 @@ const Topic = (props: any) => {
               <p />
               <MarkdownView text={topic.text} />
               <div style={{ textAlign: 'right' }}>
-                <TopicFlag
+                <Flag
                   isLogin={isLogin}
                   topic={topic}
                   collectionType={collection}

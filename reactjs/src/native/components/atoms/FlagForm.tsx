@@ -10,7 +10,7 @@ const VIOLENT_CONTENT = '暴力的または不快なコンテンツ';
 const OFFENSIVE_CONTENT = '差別的または攻撃的なコンテンツ';
 const SPAM_CONTENT = 'スパムの可能性のあるコンテンツ';
 
-const TopicFlagForm = (props: any) => {
+const FlagForm = (props: any) => {
   const { topic, collectionType, collectionId, handleClose, handler } = props;
 
   const [content, setContent] = useState('');
@@ -90,4 +90,4 @@ const TopicFlagForm = (props: any) => {
   );
 };
 
-export default TopicFlagForm;
+export default FlagForm;

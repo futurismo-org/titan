@@ -6,9 +6,9 @@ import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
 import { brandGray as gray, brandDark as black } from '~/lib/theme';
 
-import TopicFlagForm from '~/native/containers/TopicFlagFormContainer';
+import FlagForm from '~/native/containers/FlagFormContainer';
 
-const TopicFlag = (props: any) => {
+const Flag = (props: any) => {
   const { isLogin, topic, collectionType, collectionId } = props;
 
   const [modal, setModal] = useState(false);
@@ -31,7 +31,7 @@ const TopicFlag = (props: any) => {
             不適切なコンテンツの報告
           </Text>
           {isLogin ? (
-            <TopicFlagForm
+            <FlagForm
               topic={topic}
               collectionType={collectionType}
               collectionId={collectionId}
@@ -55,4 +55,4 @@ const TopicFlag = (props: any) => {
   );
 };
 
-export default TopicFlag;
+export default Flag;

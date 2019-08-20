@@ -5,7 +5,7 @@ import { Modal } from '@material-ui/core';
 import styled from 'styled-components';
 import { brandDark as black } from '~/lib/theme';
 
-import TopicFlagForm from '~/web/containers/TopicFlagFormContainer';
+import FlagForm from '~/web/containers/FlagFormContainer';
 
 const ModalContent = styled.div`
   position: absolute;
@@ -20,7 +20,7 @@ const ModalContent = styled.div`
   width: 400px;
 `;
 
-const TopicFlag = (props: any) => {
+const Flag = (props: any) => {
   const { isLogin, topic, collectionType, collectionId } = props;
   const [open, setOpen] = React.useState(false);
 
@@ -51,7 +51,7 @@ const TopicFlag = (props: any) => {
           <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
           <div id="simple-modal-description">
             {isLogin ? (
-              <TopicFlagForm
+              <FlagForm
                 topic={topic}
                 collectionType={collectionType}
                 collectionId={collectionId}
@@ -67,4 +67,4 @@ const TopicFlag = (props: any) => {
   );
 };
 
-export default TopicFlag;
+export default Flag;

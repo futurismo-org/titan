@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, Textarea, Button } from 'native-base';
 import { successToastWithNoRedirect, errorToast } from '../atoms/Toast';
 
-const TopicFlagForm = (props: any) => {
+const FlagForm = (props: any) => {
   const { isLogin, handler } = props;
 
   const [title, setTitle] = useState('');
@@ -69,4 +69,4 @@ const TopicFlagForm = (props: any) => {
   );
 };
 
-export default TopicFlagForm;
+export default FlagForm;

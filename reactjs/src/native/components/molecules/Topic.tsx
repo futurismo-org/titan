@@ -11,7 +11,7 @@ import MarkdownView from '../atoms/MarkdownView';
 
 import Progress from '../atoms/CircularProgress';
 import * as firebase from '~/lib/firebase';
-import TopicFlag from '../atoms/TopicFlag';
+import Flag from '../atoms/Flag';
 
 const Topic = (props: any) => {
   const {
@@ -105,7 +105,7 @@ const Topic = (props: any) => {
             </TouchableOpacity>
             <MarkdownView text={topic.text} />
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
-              <TopicFlag
+              <Flag
                 isLogin={isLogin}
                 topic={topic}
                 collectionType={collection}

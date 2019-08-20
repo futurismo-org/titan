@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Content, View } from 'native-base';
-import { Image } from 'react-native-expo-image-cache';
 
 import { withRouter } from 'react-router-native';
 import { TouchableOpacity } from 'react-native';

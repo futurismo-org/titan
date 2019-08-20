@@ -22,7 +22,7 @@ const GreyRadio = withStyles({
   checked: {}
 })(props => <Radio color="default" {...props} />);
 
-const TopicFlagForm = (props: any) => {
+const FlagForm = (props: any) => {
   const { topic, collectionType, collectionId, handler, handleClose } = props;
 
   const [content, setContent] = useState('');
@@ -136,4 +136,4 @@ const TopicFlagForm = (props: any) => {
   );
 };
 
-export default TopicFlagForm;
+export default FlagForm;
