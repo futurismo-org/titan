@@ -27,29 +27,33 @@ const ProfileCategoryHistories = (props: any) => {
   return (
     <Table style={{ marginTop: 10 }}>
       <HistoryHead />
-      {histories.map((history: any) => {
-        const { startDate, endDate, duration, attempt } = history;
+      {histories ? (
+        histories.map((history: any) => {
+          const { startDate, endDate, duration, attempt } = history;
 
-        const rowData = [
-          `${attempt}`,
-          duration,
-          formatDatetimeShort(startDate),
-          formatDatetimeShort(endDate)
-        ];
-        return (
-          <Row
-            data={rowData}
-            key={history.id}
-            flexArr={flexArr}
-            borderStyle={{ borderColor: brandLightGray }}
-            textStyle={{
-              fontWeight: 'bold',
-              padding: 4,
-              justifyContent: 'center'
-            }}
-          />
-        );
-      })}
+          const rowData = [
+            `${attempt}`,
+            duration,
+            formatDatetimeShort(startDate),
+            formatDatetimeShort(endDate)
+          ];
+          return (
+            <Row
+              data={rowData}
+              key={history.id}
+              flexArr={flexArr}
+              borderStyle={{ borderColor: brandLightGray }}
+              textStyle={{
+                fontWeight: 'bold',
+                padding: 4,
+                justifyContent: 'center'
+              }}
+            />
+          );
+        })
+      ) : (
+        <React.Fragment />
+      )}
     </Table>
   );
 };
