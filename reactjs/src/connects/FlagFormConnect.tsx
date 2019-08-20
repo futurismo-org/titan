@@ -20,21 +20,48 @@ const mapStateToProps = (state: any, props: any) => {
     collectionId: string,
     data: any
   ) => {
-    const path = getTopicPath(topic.id, collectionType, collectionId);
-    const url = `https://titan-fire.com/#${path}`;
+    const getURL = (path: string) => `https://titan-fire.com/#${path}`;
 
     const topicInfo = topic
       ? {
           topicTitle: topic.title,
           topicId: topic.id,
           postUserName: topic.userName,
-          postUserId: topic.userId
+          postUserId: topic.userId,
+          url: getURL(getTopicPath(topic.id, collectionType, collectionId))
+        }
+      : {};
+
+    const challengeInfo = challenge
+      ? {
+          challengeTitle: challenge.title,
+          challengeId: challenge.id,
+          url: getURL(`/c/${challenge.id}`)
+        }
+      : {};
+
+    const categoryInfo = category
+      ? {
+          categoryTitle: category.title,
+          categoryId: category.id,
+          url: getURL(`/cat/${category.id}`)
+        }
+      : {};
+
+    const profileInfo = profile
+      ? {
+          profileUserId: profile.id,
+          profileUserShortId: profile.shortId,
+          profileDisplayName: profile.displayName,
+          url: getURL(`/u/${profile.shortId}`)
         }
       : {};
 
     const params = {
-      url,
       ...topicInfo,
+      ...challengeInfo,
+      ...categoryInfo,
+      ...profileInfo,
       collectionType: collectionType,
       collectionId: collectionId,
       reportUserName: reportUser.displayName,
