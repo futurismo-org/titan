@@ -5,7 +5,11 @@ import { Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withRouter } from 'react-router-native';
 import UserAvatar from '../../atoms/UserAvatar';
-import { getTwitterProfileURL, getRandomImageURL } from '~/lib/url';
+import {
+  getTwitterProfileURL,
+  getRandomImageURL,
+  ANONYMOUS_AVATAR_URL
+} from '~/lib/url';
 
 import MuteButton from '~/native/containers/MuteButtonContainer';
 import BlockButton from '~/native/containers/BlockButtonContainer';
@@ -14,6 +18,7 @@ import { StyledHero as Hero } from '~/native/components/atoms/Hero';
 import TotalScoreBoard from '~/native/containers/TotalScoreBoardContainer';
 
 import { twitterColor, brandGray, primaryColor } from '~/lib/theme';
+import Flag from '~/native/containers/FlagContainer';
 
 import { formatYearDate } from '~/lib/moment';
 
@@ -70,6 +75,7 @@ const ProfileHeader = (props: any) => {
             </View>
           </View>
         )}
+        {!isMyProfile && <Flag profile={user} />}
       </View>
     </View>
   );

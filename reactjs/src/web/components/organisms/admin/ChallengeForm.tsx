@@ -6,12 +6,15 @@ import Switch from '@material-ui/core/Switch';
 
 import shortid from 'shortid';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 import TextField from '~/web/components/atoms/TextField';
 
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
 
 const ChallengeForm = (props: any) => {
+  const { history } = props;
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
@@ -28,6 +31,7 @@ const ChallengeForm = (props: any) => {
   const [hashtag, setHashtag] = useState('');
   const [youtubeId, setYoutubeId] = useState('');
   const [sensitive, setSensitive] = useState(false);
+  const [freezed, setFreezed] = useState(false);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -113,6 +117,11 @@ const ChallengeForm = (props: any) => {
     setSensitive(e.target.checked);
   };
 
+  const onFreezedChange = (e: any) => {
+    e.preventDefault();
+    setFreezed(e.target.checked);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
@@ -140,14 +149,16 @@ const ChallengeForm = (props: any) => {
       draft,
       pinned,
       youtubeId,
-      sensitive
+      sensitive,
+      freezed
     };
     firebase
       .firestore()
       .collection('challenges')
       .doc(id)
       .set(newData)
-      .then(() => (window.location.href = '/admin')); // eslint-disable-line no-undef
+      .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
+      .then(() => history.push('/admin'));
   };
 
   useEffect(() => {
@@ -182,6 +193,7 @@ const ChallengeForm = (props: any) => {
           setPinned(challenge!.pinned ? challenge!.pinned : false);
           setYoutubeId(challenge!.youtubeId || '');
           setSensitive(challenge!.sensitive ? challenge!.sensitive : false);
+          setFreezed(challenge!.freezed ? challenge!.freezed : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -313,6 +325,8 @@ const ChallengeForm = (props: any) => {
         <Switch checked={pinned} onChange={onPinnedChange} />
         {'センシティブな内容'}
         <Switch checked={sensitive} onChange={onSensitiveChange} />
+        {'凍結'}
+        <Switch checked={freezed} onChange={onFreezedChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
@@ -324,4 +338,4 @@ const ChallengeForm = (props: any) => {
   );
 };
 
-export default ChallengeForm;
+export default withRouter(ChallengeForm);

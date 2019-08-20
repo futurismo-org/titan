@@ -5,6 +5,7 @@ import Body from '../molecules/challenges/ChallengeBody';
 
 import Paper from '../templates/PaperWrapper';
 import Progress from '../atoms/CircularProgress';
+import Title from '../atoms/Title';
 
 const Challenge = (props: any) => {
   const { loading, error, resourceId, fetchChallenge, challenge } = props;
@@ -17,15 +18,24 @@ const Challenge = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {!loading && challenge && (
-        <React.Fragment>
-          <Header challenge={challenge} />
+      {!loading &&
+        challenge &&
+        (challenge.freezed ? (
           <Paper>
-            <Navbar id={challenge.id} />
-            <Body challenge={challenge} />
+            <Title text="凍結しました" />
+            <p>
+              このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
+            </p>
           </Paper>
-        </React.Fragment>
-      )}
+        ) : (
+          <React.Fragment>
+            <Header challenge={challenge} />
+            <Paper>
+              <Navbar id={challenge.id} />
+              <Body challenge={challenge} />
+            </Paper>
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };

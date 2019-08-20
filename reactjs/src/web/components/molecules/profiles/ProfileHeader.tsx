@@ -13,6 +13,7 @@ import PostButton from '../../atoms/PostButton';
 import { formatYearDate } from '~/lib/moment';
 import { getRandomImageURL, getTwitterProfileURL } from '~/lib/url';
 import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';
+import Flag from '~/web/containers/FlagContainer';
 
 const ProfileContent = styled.div`
   text-align: center;
@@ -106,13 +107,18 @@ const ProfileHeader = (props: any) => {
         </Grid>
         {isLogin && isMyProfile && (
           <Grid item md={12}>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'center' }}>
               <PostButton
                 to="/settings"
                 type="button"
                 text="プロフィールを編集"
               />
             </div>
+          </Grid>
+        )}
+        {!isMyProfile && (
+          <Grid item md={12}>
+            <Flag profile={user} />
           </Grid>
         )}
       </Grid>

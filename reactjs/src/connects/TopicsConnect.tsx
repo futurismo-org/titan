@@ -41,7 +41,7 @@ const mapStateToProps = (state: any, props: any) => {
   const myUserId = state.firebase.profile.shortId;
 
   const topics = state.topic.items
-    .filter((topic: any) => !topic.banned)
+    .filter((topic: any) => !topic.freezed)
     .filter((topic: any) => !muteUserIds.includes(topic.userId))
     .filter((topic: any) => !blockingUserIds.includes(topic.userId));
 

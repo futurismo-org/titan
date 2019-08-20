@@ -9,6 +9,7 @@ import TopicList from '../TopicList';
 import CategoryChallenge from './CategoryChallenge';
 
 import MoreLink from '../../atoms/MoreLink';
+import Flag from '~/native/containers/FlagContainer';
 
 const Space = (props: any) => <Text />;
 
@@ -19,6 +20,7 @@ const CategoryDashBoard = (props: any) => {
     <React.Fragment>
       <Title text="概要" left />
       <MarkdownView text={category.overview} />
+      <Flag category={category} />
       <Space />
       <Title text="チャレンジ一覧" left />
       {category.challengeRefs &&

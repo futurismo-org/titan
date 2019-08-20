@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Text } from 'native-base';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 import Navbar from '../molecules/challenges/ChallengeNavbar';
@@ -25,17 +26,23 @@ const Challenge = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && challenge && (
-        <React.Fragment>
-          <Header challenge={challenge} isLogin={isLogin} />
-          <Navbar
-            challenge={challenge}
-            isLogin={isLogin}
-            userShortId={userShortId}
-          />
-          <Body challenge={challenge} isLogin={isLogin} />
-        </React.Fragment>
-      )}
+      {!loading &&
+        challenge &&
+        (challenge.freezed ? (
+          <Text>
+            このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
+          </Text>
+        ) : (
+          <React.Fragment>
+            <Header challenge={challenge} isLogin={isLogin} />
+            <Navbar
+              challenge={challenge}
+              isLogin={isLogin}
+              userShortId={userShortId}
+            />
+            <Body challenge={challenge} isLogin={isLogin} />
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
