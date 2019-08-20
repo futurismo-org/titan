@@ -122,7 +122,7 @@ const CollectionCard = (props: any) => {
 
   return (
     <React.Fragment>
-      {collection.freezed ? null : collection.sensitive && !allowSensitive ? (
+      {collection.sensitive && !allowSensitive ? (
         <TouchableOpacity
           activeOpacity={1}
           style={[
