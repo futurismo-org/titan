@@ -13,6 +13,9 @@ const mapStateToProps = (state: any, props: any) => {
 
   const handler = (
     topic: any,
+    challenge: any,
+    category: any,
+    profile: any,
     collectionType: any,
     collectionId: string,
     data: any
@@ -20,12 +23,18 @@ const mapStateToProps = (state: any, props: any) => {
     const path = getTopicPath(topic.id, collectionType, collectionId);
     const url = `https://titan-fire.com/#${path}`;
 
+    const topicInfo = topic
+      ? {
+          topicTitle: topic.title,
+          topicId: topic.id,
+          postUserName: topic.userName,
+          postUserId: topic.userId
+        }
+      : {};
+
     const params = {
       url,
-      topicTitle: topic.title,
-      topicId: topic.id,
-      postUserName: topic.userName,
-      postUserId: topic.userId,
+      ...topicInfo,
       collectionType: collectionType,
       collectionId: collectionId,
       reportUserName: reportUser.displayName,

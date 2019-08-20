@@ -21,7 +21,15 @@ const ModalContent = styled.div`
 `;
 
 const Flag = (props: any) => {
-  const { isLogin, topic, collectionType, collectionId } = props;
+  const {
+    isLogin,
+    topic,
+    profile,
+    challenge,
+    category,
+    collectionType,
+    collectionId
+  } = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -34,35 +42,40 @@ const Flag = (props: any) => {
 
   return (
     <React.Fragment>
-      <div onClick={handleOpen} role="button" className="flag-button">
-        <FlagIcon color="action" />
-        <span>報告</span>
+      <div style={{ textAlign: 'right' }}>
+        <div onClick={handleOpen} role="button" className="flag-button">
+          <FlagIcon color="action" />
+          <span>報告</span>
+        </div>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={open}
+          onClose={handleClose}
+          style={{
+            color: '#fff'
+          }}
+        >
+          <ModalContent>
+            <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
+            <div id="simple-modal-description">
+              {isLogin ? (
+                <FlagForm
+                  topic={topic}
+                  challenge={challenge}
+                  category={category}
+                  profile={profile}
+                  collectionType={collectionType}
+                  collectionId={collectionId}
+                  handleClose={handleClose}
+                />
+              ) : (
+                <React.Fragment>報告にはログインが必要です。</React.Fragment>
+              )}
+            </div>
+          </ModalContent>
+        </Modal>
       </div>
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={open}
-        onClose={handleClose}
-        style={{
-          color: '#fff'
-        }}
-      >
-        <ModalContent>
-          <h2 id="simple-modal-title">不適切なコンテンツの報告</h2>
-          <div id="simple-modal-description">
-            {isLogin ? (
-              <FlagForm
-                topic={topic}
-                collectionType={collectionType}
-                collectionId={collectionId}
-                handleClose={handleClose}
-              />
-            ) : (
-              <React.Fragment>報告にはログインが必要です。</React.Fragment>
-            )}
-          </div>
-        </ModalContent>
-      </Modal>
     </React.Fragment>
   );
 };

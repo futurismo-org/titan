@@ -11,7 +11,7 @@ import MarkdownView from '../atoms/MarkdownView';
 
 import Progress from '../atoms/CircularProgress';
 import * as firebase from '~/lib/firebase';
-import Flag from '../atoms/Flag';
+import Flag from '~/native/containers/FlagContainer';
 
 const Topic = (props: any) => {
   const {
@@ -25,7 +25,6 @@ const Topic = (props: any) => {
     fetchTopic,
     history,
     isCurrentUser,
-    isLogin,
     collection,
     collectionId,
     allowSensitive,
@@ -106,7 +105,6 @@ const Topic = (props: any) => {
             <MarkdownView text={topic.text} />
             <View style={{ flex: 1, alignItems: 'flex-end' }}>
               <Flag
-                isLogin={isLogin}
                 topic={topic}
                 collectionType={collection}
                 collectionId={collectionId}

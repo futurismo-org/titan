@@ -20,6 +20,7 @@ const ChallengeBody = (props: any) => {
         path="/c/:id/overview"
         render={() => (
           <ChallengeOverview
+            challenge={challenge}
             text={challenge.overview}
             youtubeId={challenge.youtubeId}
             openedAt={challenge.openedAt.toDate()}

@@ -14,7 +14,7 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
-import Flag from '../atoms/Flag';
+import Flag from '~/web/containers/FlagContainer';
 
 import * as firebase from '~/lib/firebase';
 
@@ -32,7 +32,6 @@ const Topic = (props: any) => {
     resetOgpInfo,
     history,
     isCurrentUser,
-    isLogin,
     collection,
     collectionId,
     allowSensitive,
@@ -130,14 +129,11 @@ const Topic = (props: any) => {
               )}
               <p />
               <MarkdownView text={topic.text} />
-              <div style={{ textAlign: 'right' }}>
-                <Flag
-                  isLogin={isLogin}
-                  topic={topic}
-                  collectionType={collection}
-                  collectionId={collectionId}
-                />
-              </div>
+              <Flag
+                topic={topic}
+                collectionType={collection}
+                collectionId={collectionId}
+              />
             </Paper>
             {isCurrentUser ? (
               <div style={{ textAlign: 'center' }}>

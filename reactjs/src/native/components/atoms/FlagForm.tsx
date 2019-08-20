@@ -11,7 +11,16 @@ const OFFENSIVE_CONTENT = '差別的または攻撃的なコンテンツ';
 const SPAM_CONTENT = 'スパムの可能性のあるコンテンツ';
 
 const FlagForm = (props: any) => {
-  const { topic, collectionType, collectionId, handleClose, handler } = props;
+  const {
+    topic,
+    challenge,
+    category,
+    profile,
+    collectionType,
+    collectionId,
+    handleClose,
+    handler
+  } = props;
 
   const [content, setContent] = useState('');
   const [reportType, setReportType] = useState(SEXCIAL_CONTENT);
@@ -42,7 +51,15 @@ const FlagForm = (props: any) => {
   };
 
   const postHandler = (data: any) => {
-    handler(topic, collectionType, collectionId, data)
+    handler(
+      topic,
+      challenge,
+      category,
+      profile,
+      collectionType,
+      collectionId,
+      data
+    )
       .then(() => handleClose())
       .then(() => successToastWithNoRedirect('報告が完了しました。'));
   };

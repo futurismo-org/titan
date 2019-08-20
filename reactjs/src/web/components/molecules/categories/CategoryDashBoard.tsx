@@ -15,6 +15,8 @@ import styled from 'styled-components';
 import TopicList from '~/web/components/molecules/TopicList';
 import theme from '~/lib/theme';
 
+import Flag from '~/web/containers/FlagContainer';
+
 import CategoryChallenge from './CategoryChallenge';
 
 const MoreLink = styled(Link)`
@@ -46,6 +48,7 @@ const CategoryDashBoard = (props: any) => {
       <Paper>
         <Title text="概要" />
         <MarkdownView text={category.overview} />
+        <Flag categoyry={category} />
         <Space />
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>
