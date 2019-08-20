@@ -101,9 +101,9 @@ const ChallengeHeader = (props: any) => {
                 </HeaderInfoText>
               ) : (
                 <React.Fragment>
-                  <HeaderInfoText color="inherit" variant="subtitle1">
+                  {/* <HeaderInfoText color="inherit" variant="subtitle1">
                     価格 {challenge.price || 0}円
-                  </HeaderInfoText>
+                  </HeaderInfoText> */}
                   <HeaderInfoText color="inherit" variant="subtitle1">
                     {challenge.participantsCount}人参加中
                   </HeaderInfoText>
