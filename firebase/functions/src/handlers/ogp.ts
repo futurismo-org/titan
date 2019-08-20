@@ -35,7 +35,7 @@ exports.dashboard = (req: any, res: any) => {
   //         ''
   //       );
   //       html = html.replace(
-  //         '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+  //         '<div id="refresh-target"></div>',
   //         `<meta http-equiv="refresh" content="0;URL=${url}"`
   //       );
   //       res.status(200).send(html);
@@ -99,12 +99,12 @@ exports.dashboard = (req: any, res: any) => {
             html.match(/<meta property="og:image"[^>]*>/),
             `<meta property="og:image" content="${originalImage}">`
           );
+          // html = html.replace(
+          //   '<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf"></script>',
+          //   ``
+          // );
           html = html.replace(
-            '<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d15ab4135aa44bf"></script>',
-            ``
-          );
-          html = html.replace(
-            '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+            '<div id="refresh-target"></div>',
             `<meta http-equiv="refresh" content="0;URL=${url}">`
           );
           res.status(200).send(html);
@@ -171,7 +171,7 @@ exports.topic = (req: any, res: any) => {
             `<meta property="og:url" content="${url}">`
           );
           html = html.replace(
-            '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+            '<div id="refresh-target"></div>',
             `<meta http-equiv="refresh" content="0;URL=${url}">`
           );
           res.status(200).send(html);
@@ -229,7 +229,7 @@ exports.challenge = (req: any, res: any) => {
             `<meta property="og:url" content="${url}">`
           );
           html = html.replace(
-            '<script src="https://embed.small.chat/TGZ3WBF55GHY896V7X.js" async></script>',
+            '<div id="refresh-target"></div>',
             `<meta http-equiv="refresh" content="0;URL=${url}">`
           );
           res.status(200).send(html);
