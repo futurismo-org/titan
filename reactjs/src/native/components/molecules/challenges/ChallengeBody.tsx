@@ -23,6 +23,7 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/overview"
             render={props => (
               <ChallengeOverview
+                challenge={challenge}
                 text={challenge.overview}
                 youtubeId={challenge.youtubeId}
                 openedAt={challenge.openedAt.toDate()}
@@ -36,7 +37,7 @@ const ChallengeBody = (props: any) => {
             render={props => (
               <React.Fragment>
                 <MarkdownView text={challenge.rules} {...props} />
-                <Flag challenge={challenge} />
+                <Flag challenge={challenge} {...props} />
               </React.Fragment>
             )}
           />

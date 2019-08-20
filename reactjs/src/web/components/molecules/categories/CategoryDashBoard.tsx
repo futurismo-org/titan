@@ -48,7 +48,7 @@ const CategoryDashBoard = (props: any) => {
       <Paper>
         <Title text="概要" />
         <MarkdownView text={category.overview} />
-        <Flag categoyry={category} />
+        <Flag category={category} />
         <Space />
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>

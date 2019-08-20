@@ -23,7 +23,16 @@ const GreyRadio = withStyles({
 })(props => <Radio color="default" {...props} />);
 
 const FlagForm = (props: any) => {
-  const { topic, collectionType, collectionId, handler, handleClose } = props;
+  const {
+    topic,
+    challenge,
+    category,
+    profile,
+    collectionType,
+    collectionId,
+    handler,
+    handleClose
+  } = props;
 
   const [content, setContent] = useState('');
   const [reportType, setReportType] = useState('');
@@ -39,7 +48,15 @@ const FlagForm = (props: any) => {
   };
 
   const postHandler = (data: any) => {
-    handler(topic, collectionType, collectionId, data)
+    handler(
+      topic,
+      challenge,
+      category,
+      profile,
+      collectionType,
+      collectionId,
+      data
+    )
       .then(() => handleClose())
       .then(() => window.alert('報告が完了しました。')); // eslint-disable-line
   };

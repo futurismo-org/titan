@@ -24,9 +24,9 @@ const Flag = (props: any) => {
   const {
     isLogin,
     topic,
-    profile,
     challenge,
     category,
+    profile,
     collectionType,
     collectionId
   } = props;
