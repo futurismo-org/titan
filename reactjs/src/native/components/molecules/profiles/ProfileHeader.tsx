@@ -75,7 +75,7 @@ const ProfileHeader = (props: any) => {
             </View>
           </View>
         )}
-        <Flag profile={user} />
+        {!isMyProfile && <Flag profile={user} />}
       </View>
     </View>
   );
