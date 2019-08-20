@@ -33,7 +33,12 @@ const Profile = (props: any) => {
       {loading && <Progress />}
       {!loading &&
         user &&
-        (blocked ? (
+        (user.freezed ? (
+          <Paper>
+            <Title text="凍結しました" />
+            <p>このユーザは不適切なユーザと判断して運営が凍結しました。</p>
+          </Paper>
+        ) : blocked ? (
           <Paper>
             <Title text="表示をブロックしました" />
             <p>

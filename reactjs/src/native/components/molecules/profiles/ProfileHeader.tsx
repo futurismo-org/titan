@@ -5,7 +5,11 @@ import { Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { withRouter } from 'react-router-native';
 import UserAvatar from '../../atoms/UserAvatar';
-import { getTwitterProfileURL, getRandomImageURL } from '~/lib/url';
+import {
+  getTwitterProfileURL,
+  getRandomImageURL,
+  ANONYMOUS_AVATAR_URL
+} from '~/lib/url';
 
 import MuteButton from '~/native/containers/MuteButtonContainer';
 import BlockButton from '~/native/containers/BlockButtonContainer';
