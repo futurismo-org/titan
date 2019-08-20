@@ -11,7 +11,7 @@ const CategoryChallenge = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <div />}
-      {!loading && value && (
+      {!loading && value && !value.data()!.freezed && (
         <React.Fragment>
           <CollectionCard type="challenges" collection={value.data()} />
         </React.Fragment>

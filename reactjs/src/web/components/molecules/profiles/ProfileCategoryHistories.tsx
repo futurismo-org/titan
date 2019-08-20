@@ -56,9 +56,13 @@ const ProfileCategoryHistories = (props: any) => {
         <Table>
           <HistoryHead />
           <TableBody>
-            {histories.map((history: any) => {
-              return <HistoryRow key={history.id} history={history} />;
-            })}
+            {histories ? (
+              histories.map((history: any) => {
+                return <HistoryRow key={history.id} history={history} />;
+              })
+            ) : (
+              <React.Fragment />
+            )}
           </TableBody>
         </Table>
       </Paper>

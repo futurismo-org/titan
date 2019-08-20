@@ -13,7 +13,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
-  const challenges = state.challenge.items;
+  const challenges = state.challenge.items.filter(
+    (challenge: any) => !challenge.freezed
+  );
 
   const preOpenChallenges = challenges.filter((challenge: any) =>
     moment(new Date().setHours(0, 0, 0, 0)).isBefore(

@@ -20,19 +20,21 @@ const mapStateToProps = (state: any, props: any) => {
 
   const marged =
     users && profiles
-      ? users.map((user: any) => {
-          const profile = profiles.filter(
-            (profile: any) => profile.id === user.shortId
-          );
+      ? users
+          .filter((user: any) => !user.freezed)
+          .map((user: any) => {
+            const profile = profiles.filter(
+              (profile: any) => profile.id === user.shortId
+            );
 
-          const totalScore =
-            profile && profile.length === 1 ? profile[0].totalScore : 0;
+            const totalScore =
+              profile && profile.length === 1 ? profile[0].totalScore : 0;
 
-          return {
-            ...user,
-            totalScore
-          };
-        })
+            return {
+              ...user,
+              totalScore
+            };
+          })
       : [];
 
   return {

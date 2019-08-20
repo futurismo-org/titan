@@ -107,7 +107,7 @@ const ProfileHeader = (props: any) => {
         </Grid>
         {isLogin && isMyProfile && (
           <Grid item md={12}>
-            <div style={{ textAlign: 'right' }}>
+            <div style={{ textAlign: 'center' }}>
               <PostButton
                 to="/settings"
                 type="button"
@@ -116,9 +116,11 @@ const ProfileHeader = (props: any) => {
             </div>
           </Grid>
         )}
-        <Grid item md={12}>
-          <Flag profile={user} />
-        </Grid>
+        {!isMyProfile && (
+          <Grid item md={12}>
+            <Flag profile={user} />
+          </Grid>
+        )}
       </Grid>
     </React.Fragment>
   );
