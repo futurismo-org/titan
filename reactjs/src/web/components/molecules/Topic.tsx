@@ -88,9 +88,9 @@ const Topic = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {topic &&
-        (topic.banned ? (
+        (topic.freezed ? (
           <p>
-            このコンテンツは不適切なコンテンツと判断して運営が削除しました。
+            このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
           </p>
         ) : topic.sensitive && !allowSensitive ? (
           <Paper>

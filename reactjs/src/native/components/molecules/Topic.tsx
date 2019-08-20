@@ -62,9 +62,9 @@ const Topic = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {topic &&
-        (topic.banned ? (
+        (topic.freezed ? (
           <Text>
-            このコンテンツは不適切なコンテンツと判断して運営が削除しました。
+            このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
           </Text>
         ) : topic.sensitive && !allowSensitive ? (
           <TouchableOpacity onPress={() => history.path('/settings')}>
