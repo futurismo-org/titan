@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { Text } from 'native-base';
-import { ImageBackground, View } from 'react-native';
+import { Image, View, ImageBackground } from 'react-native';
+import { ImageOverlay } from 'react-native-image-overlay';
+
 import { getRecordGiphyImageURL } from '~/lib/giphy';
 
 import { primaryColor } from '~/lib/theme';
@@ -71,7 +73,11 @@ const Giphy = (props: any) => {
         >
           {message}
         </Text>
-        <Text style={{ color: '#fff' }}>Powered By GIPHY</Text>
+        {/* <Text style={{ color: '#fff' }}>Powered By GIPHY</Text> */}
+        <Image
+          source={{ uri: 'https://titan-fire.com/images/PoweredByGIPHY.png' }}
+          style={{ width: 200, height: 26 }}
+        />
       </View>
     </ImageBackground>
   );
