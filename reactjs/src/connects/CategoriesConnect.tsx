@@ -13,7 +13,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   return {
-    categories: state.category.items,
+    categories: state.category.items.filter(
+      (category: any) => !category.freezed
+    ),
     loading: state.category.loading,
     error: state.category.error,
     ...props

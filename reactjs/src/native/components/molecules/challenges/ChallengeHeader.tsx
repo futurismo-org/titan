@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Content, View } from 'native-base';
-import { Image } from 'react-native-expo-image-cache';
 
 import { withRouter } from 'react-router-native';
 import { TouchableOpacity } from 'react-native';
@@ -41,8 +40,8 @@ const ChallengeHeader = (props: any) => {
               ) : null}
             </View>
             <Info>
-              価格 {challenge.price || 0}円 {challenge.participantsCount}
-              人参加中 {challengePeriod(challenge)}
+              {/* 価格 {challenge.price || 0}円 */}
+              {challenge.participantsCount}人参加中 {challengePeriod(challenge)}
             </Info>
           </Content>
         )}

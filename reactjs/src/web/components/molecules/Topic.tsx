@@ -14,7 +14,7 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 
 import TwitterShareIcon from '../atoms/TwitterShareIcon';
-import TopicFlag from '../atoms/TopicFlag';
+import Flag from '~/web/containers/FlagContainer';
 
 import * as firebase from '~/lib/firebase';
 
@@ -32,7 +32,6 @@ const Topic = (props: any) => {
     resetOgpInfo,
     history,
     isCurrentUser,
-    isLogin,
     collection,
     collectionId,
     allowSensitive,
@@ -89,9 +88,9 @@ const Topic = (props: any) => {
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {topic &&
-        (topic.banned ? (
+        (topic.freezed ? (
           <p>
-            このコンテンツは不適切なコンテンツと判断して運営が削除しました。
+            このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
           </p>
         ) : topic.sensitive && !allowSensitive ? (
           <Paper>
@@ -130,14 +129,11 @@ const Topic = (props: any) => {
               )}
               <p />
               <MarkdownView text={topic.text} />
-              <div style={{ textAlign: 'right' }}>
-                <TopicFlag
-                  isLogin={isLogin}
-                  topic={topic}
-                  collectionType={collection}
-                  collectionId={collectionId}
-                />
-              </div>
+              <Flag
+                topic={topic}
+                collectionType={collection}
+                collectionId={collectionId}
+              />
             </Paper>
             {isCurrentUser ? (
               <div style={{ textAlign: 'center' }}>

@@ -23,9 +23,11 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => ({
-  challenges: state.challenge.items,
-  categories: state.category.items,
-  pinned: state.challenge.pinned,
+  challenges: state.challenge.items.filter(
+    (challenge: any) => !challenge.freezed
+  ),
+  categories: state.category.items.filter((category: any) => !category.freezed),
+  pinned: state.challenge.pinned.filter((pinned: any) => !pinned.freezed),
   debugSensitive: state.sensitive && state.sensitive.show,
   isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
   loading:

@@ -5,7 +5,6 @@ import { Text } from 'native-base';
 import Header from '../molecules/categories/CategoryHeader';
 import Body from '../molecules/categories/CategoryBody';
 
-import Progress from '../atoms/CircularProgress';
 import Error from '../atoms/Error';
 
 const Category = (props: any) => {
@@ -30,12 +29,18 @@ const Category = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {category && (
-        <React.Fragment>
-          <Header category={category} />
-          <Body category={category} topics={topics} topicPath={topicPath} />
-        </React.Fragment>
-      )}
+      {!loading &&
+        category &&
+        (category.freezed ? (
+          <Text>
+            このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
+          </Text>
+        ) : (
+          <React.Fragment>
+            <Header category={category} />
+            <Body category={category} topics={topics} topicPath={topicPath} />
+          </React.Fragment>
+        ))}
     </React.Fragment>
   );
 };
