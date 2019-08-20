@@ -23,7 +23,7 @@
     "ss": "./bin/rg_fzf.sh"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "@firebase/app-types": "^0.4.0",
@@ -39,8 +39,8 @@
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "firebase": "^6.0.2",
-    "firebase-admin": "~7.0.0",
-    "firebase-functions": "^2.3.0",
+    "firebase-admin": "^8.3.0",
+    "firebase-functions": "^3.2.0",
     "firebase-tools": "^7.0.1",
     "firestore-seed": "^0.0.6",
     "form-data": "^2.4.0",
@@ -48,7 +48,6 @@
     "node-fetch": "^2.6.0",
     "oauth-1.0a": "^2.2.6",
     "qs": "^6.7.0",
-    "react-native-simple-twitter": "^2.3.0",
     "shortid": "^2.2.14",
     "stripe": "^7.2.0",
     "twit": "^2.2.11",
