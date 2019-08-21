@@ -13,7 +13,7 @@ import {
 
 import moment, { now, isToday } from '~/lib/moment';
 import { getParticipantsUserId } from '~/lib/resource';
-import { getUserDashboardPath } from '~/lib/url';
+import { getChallengeDashboardPath } from '~/lib/url';
 import { mergeCategory } from '~/lib/profile';
 
 import { postMessage } from '~/lib/discord.client.api';
@@ -31,7 +31,7 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeId = id;
   const resourceId = getParticipantsUserId(challengeId, userShortId);
 
-  const dashBoardPath = getUserDashboardPath(challengeId, userShortId);
+  const dashBoardPath = getChallengeDashboardPath(challengeId, userShortId);
   const dashBoardURL = `https://titan-fire.com${dashBoardPath}`;
 
   const recordHandler = (alert: any, redirect: any, gifty: any) => (

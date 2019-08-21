@@ -11,11 +11,6 @@ import Link from './NoStyledExternalLink';
 // import axios from '~/lib/axios';
 // import SimpleModal from '../molecules/SimpleModal';
 
-const ButtonWrapper = styled.div`
-  text-align: center;
-  margin: 30px;
-`;
-
 const TwitterButton = (props: any) => {
   const { challenge, userShortId } = props;
 
@@ -60,17 +55,15 @@ const TwitterButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <ButtonWrapper>
-        <Link href={`${textBuilder}`}>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ fontWeight: 'bold' }}
-          >
-            Twitterでシェア
-          </Button>
-        </Link>
-      </ButtonWrapper>
+      <Link href={`${textBuilder}`}>
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{ fontWeight: 'bold' }}
+        >
+          Twitterでシェア
+        </Button>
+      </Link>
       {/* {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
         <ButtonWrapper>
           <SimpleModal

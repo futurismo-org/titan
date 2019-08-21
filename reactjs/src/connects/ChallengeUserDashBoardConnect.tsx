@@ -5,6 +5,8 @@ import { fetchUser } from '~/actions/userAction';
 import { formatDate } from '~/lib/moment';
 
 import firebase from '~/lib/firebase';
+import { getCategoryId } from '~/lib/challenge';
+import { getCategoryDashboardPath } from '~/lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -34,6 +36,9 @@ const mapStateToProps = (state: any, props: any) => {
       });
   };
 
+  const categoryId = getCategoryId(challenge.categoryRef);
+  const categoryPath = getCategoryDashboardPath(categoryId, userShortId);
+
   return {
     user,
     loading: state.user.loading,
@@ -41,6 +46,7 @@ const mapStateToProps = (state: any, props: any) => {
     deleteHistoryHandler,
     resourceId,
     joinDate,
+    categoryPath,
     ...props
   };
 };

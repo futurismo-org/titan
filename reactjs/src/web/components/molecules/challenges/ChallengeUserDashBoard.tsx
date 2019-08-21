@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 
 import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
@@ -13,6 +13,8 @@ import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
 
 import { formatDays } from '~/lib/challenge';
+import PrimaryFab from '../../atoms/PrimaryFab';
+import PrimaryButton from '../../atoms/PrimaryButton';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -37,7 +39,8 @@ const ChallengeUserDashBoard = (props: any) => {
     resourceId,
     setOgpInfo,
     resetOgpInfo,
-    deleteHistoryHandler
+    deleteHistoryHandler,
+    categoryPath
   } = props;
 
   const title = user ? `${user.displayName} さんの記録` : '';
@@ -115,8 +118,21 @@ const ChallengeUserDashBoard = (props: any) => {
                 />
               </Grid>
             </Grid>
+            <Grid
+              container
+              style={{ marginTop: 30 }}
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <TwitterButton challenge={challenge} userShortId={user.id} />
+              </Grid>
+              <Grid item style={{ marginLeft: 20 }}>
+                <PrimaryButton text="カテゴリ記録へ" path={categoryPath} />
+              </Grid>
+            </Grid>
           </StyledCenterContainer>
-          <TwitterButton challenge={challenge} userShortId={user.id} />
         </DashBoardWrapper>
       )}
     </React.Fragment>

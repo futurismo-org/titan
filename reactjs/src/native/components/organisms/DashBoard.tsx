@@ -13,16 +13,12 @@ const DashBoard = (props: any) => {
   const {
     challenges,
     categories,
-    pinned,
     loading,
     error,
     fetchChallenges,
-    fetchCategories,
-    fetchPinnedChallenges
+    fetchCategories
   } = props;
 
-  const [pinnedActiveSlide, setPinnedActiveSlide] = useState(0);
-  const [pinnedSliderRef, setPinnedSliderRef] = useState(undefined);
   const [categoryActiveSlide, setCategoryActiveSlide] = useState(0);
   const [categorySliderRef, setCategorySliderRef] = useState(undefined);
   const [challengeActiveSlide, setChallengeActiveSlide] = useState(0);
@@ -31,8 +27,7 @@ const DashBoard = (props: any) => {
   React.useEffect(() => {
     fetchChallenges(6);
     fetchCategories(6);
-    fetchPinnedChallenges();
-  }, [fetchCategories, fetchChallenges, fetchPinnedChallenges]);
+  }, [fetchCategories, fetchChallenges]);
 
   const _renderChallengeItem = (props: any) => {
     const { item, index } = props;
@@ -52,16 +47,16 @@ const DashBoard = (props: any) => {
         <View>
           <Title text="オススメのチャレンジ" />
           <Carousel
-            ref={(c: any) => setPinnedSliderRef(c)}
-            data={pinned}
+            ref={(c: any) => setChallengeSliderRef(c)}
+            data={challenges}
             renderItem={_renderChallengeItem}
-            itemWidth={deviceWidth}
             sliderWidth={deviceWidth}
-            onSnapToItem={index => setPinnedActiveSlide(index)}
+            itemWidth={deviceWidth}
+            onSnapToItem={index => setChallengeActiveSlide(index)}
           />
           <Pagination
-            dotsLength={pinned.length}
-            activeDotIndex={pinnedActiveSlide}
+            dotsLength={challenges.length}
+            activeDotIndex={challengeActiveSlide}
             containerStyle={{ paddingVertical: 0 }}
             dotColor="gray"
             dotStyle={{
@@ -74,8 +69,8 @@ const DashBoard = (props: any) => {
             inactiveDotColor={brandGray}
             inactiveDotOpacity={0.4}
             inactiveDotScale={0.6}
-            carouselRef={pinnedSliderRef}
-            tappableDots={!!pinnedSliderRef}
+            carouselRef={challengeSliderRef}
+            tappableDots={!!challengeSliderRef}
           />
           <MoreLink to="/challenges" />
           <Title text="人気のカテゴリ" />
@@ -106,34 +101,6 @@ const DashBoard = (props: any) => {
             tappableDots={!!categorySliderRef}
           />
           <MoreLink to="/categories" />
-          <Title text="人気のチャレンジ" />
-          <Carousel
-            ref={(c: any) => setChallengeSliderRef(c)}
-            data={challenges}
-            renderItem={_renderChallengeItem}
-            sliderWidth={deviceWidth}
-            itemWidth={deviceWidth}
-            onSnapToItem={index => setChallengeActiveSlide(index)}
-          />
-          <Pagination
-            dotsLength={challenges.length}
-            activeDotIndex={challengeActiveSlide}
-            containerStyle={{ paddingVertical: 0 }}
-            dotColor="gray"
-            dotStyle={{
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              marginHorizontal: 8,
-              marginVertical: 8
-            }}
-            inactiveDotColor={brandGray}
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-            carouselRef={challengeSliderRef}
-            tappableDots={!!challengeSliderRef}
-          />
-          <MoreLink to="/challenges" />
         </View>
       )}
     </React.Fragment>
