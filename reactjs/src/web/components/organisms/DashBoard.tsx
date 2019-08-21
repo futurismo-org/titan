@@ -6,6 +6,8 @@ import { Typography, Switch } from '@material-ui/core';
 import Paper from '../templates/PaperWrapper';
 import DiscordHistories from '../atoms/DiscordHistories';
 import { primaryColor } from '~/lib/theme';
+import Title from '../atoms/Title';
+import MoreLink from '~/web/components/atoms/MoreLink';
 
 const DashBoard = (props: any) => {
   const {
@@ -74,7 +76,9 @@ const DashBoard = (props: any) => {
         </Paper>
       )}
       <Paper>
-        <DiscordHistories channelId="591410583463526430" limit={4} />
+        <Title text="運営からのお知らせ" />
+        <DiscordHistories channelId="591410583463526430" limit={6} />
+        <MoreLink to="/info/announce" />
       </Paper>
     </React.Fragment>
   );
