@@ -14,10 +14,15 @@ const collectionMap = new Map([
   ['general', '']
 ]);
 
-export const getUserDashboardPath = (
+export const getChallengeDashboardPath = (
   challengeId: string,
   userShortId: string
 ) => `/c/${challengeId}/u/${userShortId}`;
+
+export const getCategoryDashboardPath = (
+  categoryId: string,
+  userShortId: string
+) => `/u/${userShortId}/cat/${categoryId}`;
 
 export const collectionShort = (collection: string) =>
   collectionMap.get(collection);

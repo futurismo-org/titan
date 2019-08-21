@@ -74,6 +74,9 @@ export const isChallengeClosed = (closedAt: Date) =>
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
   nowMoment.diff(moment(openedAt)) >= 0 && nowMoment.diff(moment(closedAt)) < 0;
 
+export const isChallengeWillOpen = (openedAt: Date, days: number) =>
+  nowMoment.diff(moment(openedAt)) <= days;
+
 export const rankChallengeParticipants = (participants: any) => {
   const users = participants.sort(
     (x: any, y: any) =>

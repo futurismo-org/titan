@@ -11,12 +11,10 @@ const DashBoard = (props: any) => {
   const {
     challenges,
     categories,
-    pinned,
     loading,
     error,
     fetchChallenges,
     fetchCategories,
-    fetchPinnedChallenges,
     debugSensitive,
     showSensitive,
     hideSensitive,
@@ -26,8 +24,7 @@ const DashBoard = (props: any) => {
   React.useEffect(() => {
     fetchChallenges(4);
     fetchCategories(4);
-    fetchPinnedChallenges();
-  }, [fetchCategories, fetchChallenges, fetchPinnedChallenges]);
+  }, [fetchCategories, fetchChallenges]);
 
   const onSensitiveChange = (e: any) => {
     const checked = e.target.checked;
@@ -62,10 +59,10 @@ const DashBoard = (props: any) => {
           />
         </Paper>
       )}
-      {pinned && (
+      {challenges && (
         <DashBoardPaper
           title="オススメのチャレンジ"
-          items={pinned}
+          items={challenges}
           type="challenge"
         />
       )}
@@ -76,14 +73,9 @@ const DashBoard = (props: any) => {
           type="category"
         />
       )}
-      {challenges && (
-        <DashBoardPaper
-          title="人気のチャレンジ"
-          items={challenges}
-          type="challenge"
-        />
-      )}
-      <DiscordHistories channelId="591410583463526430" limit={4} />
+      <Paper>
+        <DiscordHistories channelId="591410583463526430" limit={4} />
+      </Paper>
     </React.Fragment>
   );
 };

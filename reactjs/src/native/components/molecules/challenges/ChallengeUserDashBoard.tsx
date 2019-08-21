@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
-import { H1, Text, H2 } from 'native-base';
+import { H1, Text, H2, Button } from 'native-base';
 
+import { withRouter } from 'react-router-native';
 import TwitterButton from '../../atoms/TwitterButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeHistories from '~/native/components/molecules/challenges/ChallengeHistories';
@@ -23,7 +24,9 @@ const ChallengeUserDashBoard = (props: any) => {
     loading,
     fetchUser,
     resourceId,
-    deleteHistoryHandler
+    deleteHistoryHandler,
+    categoryPath,
+    history
   } = props;
 
   useEffect(() => {
@@ -67,10 +70,14 @@ const ChallengeUserDashBoard = (props: any) => {
           />
           <Space />
           <TwitterButton challenge={challenge} userShortId={user.id} />
+          <Space />
+          <Button full rounded onPress={() => history.push(categoryPath)}>
+            <Text>カテゴリ記録へ</Text>
+          </Button>
         </React.Fragment>
       )}
     </React.Fragment>
   );
 };
 
-export default ChallengeUserDashBoard;
+export default withRouter(ChallengeUserDashBoard);

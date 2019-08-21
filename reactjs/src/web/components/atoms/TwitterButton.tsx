@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
 import Link from './NoStyledExternalLink';
@@ -10,11 +9,6 @@ import Link from './NoStyledExternalLink';
 // import domtoimage from 'dom-to-image';
 // import axios from '~/lib/axios';
 // import SimpleModal from '../molecules/SimpleModal';
-
-const ButtonWrapper = styled.div`
-  text-align: center;
-  margin: 30px;
-`;
 
 const TwitterButton = (props: any) => {
   const { challenge, userShortId } = props;
@@ -60,17 +54,15 @@ const TwitterButton = (props: any) => {
 
   return (
     <React.Fragment>
-      <ButtonWrapper>
-        <Link href={`${textBuilder}`}>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ fontWeight: 'bold' }}
-          >
-            Twitterでシェア
-          </Button>
-        </Link>
-      </ButtonWrapper>
+      <Link href={`${textBuilder}`}>
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{ fontWeight: 'bold' }}
+        >
+          Twitterでシェア
+        </Button>
+      </Link>
       {/* {user.id === userId && user.accessTokenKey && user.accessTokenSecret ? (
         <ButtonWrapper>
           <SimpleModal
