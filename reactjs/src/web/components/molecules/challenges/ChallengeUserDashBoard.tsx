@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Typography, Grid, Button } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
 
 import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
@@ -13,7 +13,6 @@ import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
 
 import { formatDays } from '~/lib/challenge';
-import PrimaryFab from '../../atoms/PrimaryFab';
 import PrimaryButton from '../../atoms/PrimaryButton';
 
 const StyledCenterContainer = styled.div`
