@@ -58,7 +58,7 @@ const ChallengeBody = (props: any) => {
           <Route
             path="/c/:id/u/:userShortId/journal"
             render={props => (
-              <ChallengeJournal challengeId={challenge.id} {...props} />
+              <ChallengeJournal challenge={challenge} {...props} />
             )}
           />
           <Route
