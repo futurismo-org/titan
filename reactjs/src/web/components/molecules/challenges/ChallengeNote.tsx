@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import ChallengeObjective from './ChallengeObjective';
 import ChallengeLog from './ChallengeLog';
-import Title from '../../atoms/Title';
 
 const Wrapper = styled.div`
   margin-top: 20px;
