@@ -60,12 +60,12 @@ const ChallengeNavbar = (props: any) => {
         <NavItem to={`/c/${props.id}/goals`} text="ゴールボード" />
         <NavItem to={`/c/${props.id}/topics`} text="トピック" />
         <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
-        {/* {props.userId && (
+        {props.userId && (
           <NavItem
             to={`/c/${props.id}/u/${props.userId}/journal`}
             text="努力記録"
           />
-        )} */}
+        )}
         {props.userId && (
           <NavItem
             to={`/c/${props.id}/u/${props.userId}/settings`}
