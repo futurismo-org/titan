@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-import ChallengeObjective from './ChallengeObjective';
+import ChallengeObjective from '~/web/containers/ChallengeObjectiveContainer';
 import ChallengeLog from './ChallengeLog';
 
 import Error from '../../atoms/Error';
@@ -17,8 +17,7 @@ const ChallengeNote = (props: any) => {
     userShortId,
     fetchUserWithShortId,
     loading,
-    error,
-    isMyProfile
+    error
   } = props;
 
   useEffect(() => {
@@ -34,11 +33,7 @@ const ChallengeNote = (props: any) => {
           <div style={{ textAlign: 'center' }}>
             <h1>{user.displayName}さんの努力ノート</h1>
           </div>
-          <ChallengeObjective
-            challenge={challenge}
-            user={user}
-            isMyProfile={isMyProfile}
-          />
+          <ChallengeObjective challenge={challenge} user={user} />
           <ChallengeLog challenge={challenge} />
         </Wrapper>
       )}

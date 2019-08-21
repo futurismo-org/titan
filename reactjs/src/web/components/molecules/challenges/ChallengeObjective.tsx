@@ -30,7 +30,7 @@ const ChallengeObjectiveDescription = (props: any) => {
 };
 
 const ChallengeObjective = (props: any) => {
-  const { challenge, user, isMyProfile } = props;
+  const { challenge, user, isMyProfile, handleSave } = props;
 
   const [what, setTitle] = useState(`${challenge.title}に毎日取り組みます！`);
   const [why, setWhy] = useState('');
@@ -53,11 +53,15 @@ const ChallengeObjective = (props: any) => {
       return null;
     }
 
+    const handler = edit
+      ? () => handleSave({ what, why }).then(() => setEdit(!edit))
+      : () => setEdit(!edit);
+
     return (
       <Button
         variant="contained"
         style={{ fontWeight: 'bold' }}
-        onClick={() => setEdit(!edit)}
+        onClick={handler}
       >
         {text}
       </Button>
