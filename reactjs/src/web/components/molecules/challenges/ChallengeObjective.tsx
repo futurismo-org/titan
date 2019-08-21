@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, Grid } from '@material-ui/core';
-import Title from '../../atoms/Title';
 
 import Error from '../../atoms/Error';
 
@@ -98,7 +97,6 @@ const ChallengeObjective = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      <Title text="チャレンジ目標" />
       {!loading && (
         <React.Fragment>
           <div style={{ textAlign: 'right' }}>
