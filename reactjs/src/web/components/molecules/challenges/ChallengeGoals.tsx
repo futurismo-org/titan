@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import StackGrid from 'react-stack-grid';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 import Error from '../../atoms/Error';
@@ -12,12 +12,30 @@ const ChallengeGoals = (props: any) => {
     users,
     loading,
     error,
-    challengeId
+    challengeId,
+    goals,
+    fetchChallengeObjectives
   } = props;
 
+  const [userReady, setUserReady] = useState(false);
+  const [objectiveReady, setObjectiveReady] = useState(false);
+
   useEffect(() => {
-    users === [] && fetchParticipants(resourceId);
-  }, [fetchParticipants, resourceId, users]);
+    // !userReady && fetchParticipants(resourceId) && setUserReady(true);
+    // userReady &&
+    //   !objectiveReady &&
+    //   users !== [] &&
+    //   fetchChallengeObjectives(users, challengeId) &&
+    //   setObjectiveReady(true);
+  }, [
+    challengeId,
+    fetchChallengeObjectives,
+    fetchParticipants,
+    objectiveReady,
+    resourceId,
+    userReady,
+    users
+  ]);
 
   return (
     <React.Fragment>
@@ -26,12 +44,12 @@ const ChallengeGoals = (props: any) => {
       </div>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && users && (
+      {!loading && users && goals && (
         <StackGrid columnWidth={300}>
-          {users.map((user: any) => (
+          {goals.map((goal: any) => (
             <ChallengeGoalCard
-              user={user}
-              key={user.id}
+              goal={goal}
+              key={goal.id}
               challengeId={challengeId}
             />
           ))}
