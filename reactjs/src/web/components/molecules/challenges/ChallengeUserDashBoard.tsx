@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 
 import ChallengeRecord from './ChallengePostRecord';
 import ChallengeGrass from './ChallengeGrass';
@@ -13,6 +13,7 @@ import ChallengeChart from './ChallengeChart';
 import TwitterButton from '../../atoms/TwitterButton';
 
 import { formatDays } from '~/lib/challenge';
+import PrimaryButton from '../../atoms/challenges/PrimaryButton';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -37,7 +38,8 @@ const ChallengeUserDashBoard = (props: any) => {
     resourceId,
     setOgpInfo,
     resetOgpInfo,
-    deleteHistoryHandler
+    deleteHistoryHandler,
+    categoryPath
   } = props;
 
   const title = user ? `${user.displayName} さんの記録` : '';
@@ -76,6 +78,15 @@ const ChallengeUserDashBoard = (props: any) => {
               alignItems="center"
               justify="space-between"
             >
+              <div
+                style={{
+                  display: 'block',
+                  margin: '0 0 0 auto',
+                  marginTop: 20
+                }}
+              >
+                <PrimaryButton text="カテゴリ記録" path={categoryPath} />
+              </div>
               <Grid item>
                 <h2 style={{ textAlign: 'center' }}>{title}</h2>
                 <div id="challenge-card">

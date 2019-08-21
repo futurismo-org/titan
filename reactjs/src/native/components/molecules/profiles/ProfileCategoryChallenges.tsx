@@ -4,13 +4,13 @@ import { List, ListItem, Left, Badge, Right, Text, Body } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { formatYearDate } from '~/lib/moment';
 import { brandWhite } from '~/lib/theme';
-import { getUserDashboardPath } from '~/lib/url';
+import { getChallengeDashboardPath } from '~/lib/url';
 
 const ChallengeItem = withRouter((props: any) => {
   const { challenge, history, userShortId } = props;
   const { title, totalDuration, resetCount, percentage, closedAt } = challenge;
 
-  const path = getUserDashboardPath(challenge.id, userShortId);
+  const path = getChallengeDashboardPath(challenge.id, userShortId);
 
   return (
     <ListItem avatar button onPress={() => history.push(path)}>
