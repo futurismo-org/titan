@@ -5,6 +5,8 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
+  // const { challengeId, userShortId } = props;
+
   return {
     ...props
   };
