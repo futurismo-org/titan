@@ -63,7 +63,7 @@ const ChallengeNavbar = (props: any) => {
         {props.userId && (
           <NavItem
             to={`/c/${props.id}/u/${props.userId}/journal`}
-            text="努力記録"
+            text="努力ノート"
           />
         )}
         {props.userId && (
