@@ -30,7 +30,7 @@ const ChallengeObjectiveDescription = (props: any) => {
 };
 
 const ChallengeObjective = (props: any) => {
-  const { challenge } = props;
+  const { challenge, user, isMyProfile } = props;
 
   const [what, setTitle] = useState(`${challenge.title}に毎日取り組みます！`);
   const [why, setWhy] = useState('');
@@ -48,6 +48,10 @@ const ChallengeObjective = (props: any) => {
 
   const ChallengeObjectiveFormButton = (props: any) => {
     const text = edit ? '保存' : '編集';
+
+    if (!isMyProfile) {
+      return null;
+    }
 
     return (
       <Button
@@ -96,7 +100,7 @@ const ChallengeObjective = (props: any) => {
             <div>
               <div style={{ marginTop: 20, marginBottom: 20 }}>
                 <ChallengeObjectiveWhatCard text={what} />
-                {!!why && <ChallengeObjectiveWhyCard text={why} />}
+                {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
               </div>
             </div>
           )}

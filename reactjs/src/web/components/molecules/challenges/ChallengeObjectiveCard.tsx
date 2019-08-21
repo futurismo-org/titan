@@ -46,13 +46,13 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
 };
 
 export const ChallengeObjectiveWhyCard = (props: any) => {
-  const { text } = props;
+  const { text, user } = props;
 
   return (
     <List>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <UserAvatar />
+          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
         </ListItemAvatar>
         <ListItemText
           primary="なぜやるのか?"
