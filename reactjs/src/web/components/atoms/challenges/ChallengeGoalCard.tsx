@@ -13,7 +13,7 @@ import NoStyledLink from '../NoStyledLink';
 
 const ChallengeGoalCard = (props: any) => {
   const { user, challengeId } = props;
-  const path = `/c/${challengeId}/u/${user.id}`; // TODO journalへのリンクに変更する
+  const path = `/c/${challengeId}/u/${user.id}`; // TODO noteへのリンクに変更する
 
   return (
     <Card>

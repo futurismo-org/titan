@@ -11,7 +11,7 @@ import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
 import ChallengeGoals from '~/web/containers/ChallengeGoalsContainer';
-import ChallengeJournal from '~/web/containers/ChallengeJournalContainer';
+import ChallengeNote from '~/web/containers/ChallengeNoteContainer';
 
 import Flag from '~/web/containers/FlagContainer';
 
@@ -77,8 +77,8 @@ const ChallengeBody = (props: any) => {
         )}
       />
       <Route
-        path="/c/:id/u/:userShortId/journal"
-        render={props => <ChallengeJournal challenge={challenge} {...props} />}
+        path="/c/:id/u/:userShortId/note"
+        render={props => <ChallengeNote challenge={challenge} {...props} />}
       />
       <Route
         path="/c/:id/u/:userShortId/settings"

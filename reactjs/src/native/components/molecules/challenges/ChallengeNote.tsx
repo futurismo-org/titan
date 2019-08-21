@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'native-base';
 
-const ChallengeJournal = (props: any) => {
+const ChallengeNote = (props: any) => {
   return (
     <React.Fragment>
-      <Text>Journalのページです</Text>
+      <Text>Noteのページです</Text>
     </React.Fragment>
   );
 };
 
-export default ChallengeJournal;
+export default ChallengeNote;

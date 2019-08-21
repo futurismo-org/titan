@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ChallengeJournal = (props: any) => {
+const ChallengeNote = (props: any) => {
   const { challenge } = props;
 
   return (
@@ -21,4 +21,4 @@ const ChallengeJournal = (props: any) => {
   );
 };
 
-export default ChallengeJournal;
+export default ChallengeNote;
