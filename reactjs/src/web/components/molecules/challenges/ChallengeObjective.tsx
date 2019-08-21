@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import { TextField, Button, Grid } from '@material-ui/core';
 import Title from '../../atoms/Title';
 
-import ChallengeObjectiveCard from './ChallengeObjectiveCard';
+import {
+  ChallengeObjectiveWhatCard,
+  ChallengeObjectiveWhyCard
+} from './ChallengeObjectiveCard';
 
 const ChallengeObjectiveDescription = (props: any) => {
   const { challenge } = props;
@@ -30,7 +33,7 @@ const ChallengeObjective = (props: any) => {
   const { challenge } = props;
 
   const [what, setTitle] = useState(`${challenge.title}に毎日取り組みます！`);
-  const [why, setEmail] = useState('');
+  const [why, setWhy] = useState('');
   const [edit, setEdit] = useState(false);
 
   const onWhatChange = (e: any) => {
@@ -40,36 +43,7 @@ const ChallengeObjective = (props: any) => {
 
   const onWhyChange = (e: any) => {
     e.preventDefault();
-    setEmail(e.target.value);
-  };
-
-  const ChallengeObjectiveForm = (props: any) => {
-    return (
-      <React.Fragment>
-        <TextField
-          value={what}
-          variant="outlined"
-          margin="normal"
-          required
-          id="what"
-          label="なにをやるのか(What)"
-          fullWidth
-          onChange={onWhatChange}
-        />
-        <TextField
-          value={why}
-          variant="outlined"
-          margin="normal"
-          required
-          id="why"
-          label="なぜやるのか(Why)"
-          fullWidth
-          multiline
-          rows={8}
-          onChange={onWhyChange}
-        />
-      </React.Fragment>
-    );
+    setWhy(e.target.value);
   };
 
   const ChallengeObjectiveFormButton = (props: any) => {
@@ -88,27 +62,47 @@ const ChallengeObjective = (props: any) => {
 
   return (
     <React.Fragment>
-      <Grid container direction="row" justify="flex-start" alignItems="center">
-        <Grid item>
-          <Title text="チャレンジ目標" />
-        </Grid>
-        <Grid item style={{ marginLeft: 20 }}>
-          <ChallengeObjectiveFormButton />
-        </Grid>
-      </Grid>
-      <br />
+      <Title text="チャレンジ目標" />
+      <div style={{ textAlign: 'right' }}>
+        <ChallengeObjectiveFormButton />
+      </div>
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item>
           {edit ? (
-            <ChallengeObjectiveForm />
+            <React.Fragment>
+              <TextField
+                value={what}
+                variant="outlined"
+                margin="normal"
+                required
+                id="what"
+                label="なにをやるのか(What)"
+                fullWidth
+                onChange={onWhatChange}
+              />
+              <TextField
+                value={why}
+                variant="outlined"
+                margin="normal"
+                id="why"
+                label="なぜやるのか(Why)"
+                fullWidth
+                multiline
+                rows={8}
+                onChange={onWhyChange}
+              />
+            </React.Fragment>
           ) : (
-            <div style={{ marginTop: 20, marginBottom: 20 }}>
-              <ChallengeObjectiveCard text={what} />
+            <div>
+              <div style={{ marginTop: 20, marginBottom: 20 }}>
+                <ChallengeObjectiveWhatCard text={what} />
+                {!!why && <ChallengeObjectiveWhyCard text={why} />}
+              </div>
             </div>
           )}
         </Grid>
       </Grid>
-      <ChallengeObjectiveDescription challenge={challenge} />
+      {edit ? <ChallengeObjectiveDescription challenge={challenge} /> : null}
     </React.Fragment>
   );
 };

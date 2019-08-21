@@ -1,7 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Card, { CardProps } from '@material-ui/core/Card';
-import { CardContent } from '@material-ui/core';
+import {
+  CardContent,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText
+} from '@material-ui/core';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -24,7 +32,7 @@ const Wrapper = styled.div`
   width: 320px;
 `;
 
-const RecordBoard = (props: any) => {
+export const ChallengeObjectiveWhatCard = (props: any) => {
   const { text } = props;
   return (
     <Wrapper>
@@ -37,4 +45,26 @@ const RecordBoard = (props: any) => {
   );
 };
 
-export default RecordBoard;
+export const ChallengeObjectiveWhyCard = (props: any) => {
+  const { text } = props;
+
+  return (
+    <List>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <UserAvatar />
+        </ListItemAvatar>
+        <ListItemText
+          primary="なぜやるのか?"
+          secondary={
+            <React.Fragment>
+              <Typography component="span" variant="body2" color="textPrimary">
+                {text}
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+    </List>
+  );
+};
