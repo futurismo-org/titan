@@ -73,7 +73,9 @@ const DashBoard = (props: any) => {
           type="category"
         />
       )}
-      <DiscordHistories channelId="591410583463526430" limit={4} />
+      <Paper>
+        <DiscordHistories channelId="591410583463526430" limit={4} />
+      </Paper>
     </React.Fragment>
   );
 };
