@@ -47,18 +47,6 @@ const DashBoard = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {!isLogin && (
-        <Paper>
-          <Typography component="h3" variant="subtitle1">
-            センシティブなコンテンツをログインせずに表示する
-          </Typography>
-          <Switch
-            checked={debugSensitive}
-            onChange={onSensitiveChange}
-            style={{ color: primaryColor }}
-          />
-        </Paper>
-      )}
       {challenges && (
         <DashBoardPaper
           title="オススメのチャレンジ"
@@ -72,6 +60,18 @@ const DashBoard = (props: any) => {
           items={categories}
           type="category"
         />
+      )}
+      {!isLogin && (
+        <Paper>
+          <Typography component="h3" variant="subtitle1">
+            センシティブなコンテンツをログインせずに表示する。
+          </Typography>
+          <Switch
+            checked={debugSensitive}
+            onChange={onSensitiveChange}
+            style={{ color: primaryColor }}
+          />
+        </Paper>
       )}
       <Paper>
         <DiscordHistories channelId="591410583463526430" limit={4} />
