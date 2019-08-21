@@ -51,13 +51,13 @@ const ChallengeObjective = (props: any) => {
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    if (!objective) {
+    if (!objective || user.shortId !== objective.userShortId) {
       fetchObjective(resourceId);
     } else {
       setWhat(objective.what ? objective.what : initialWhat);
       setWhy(objective.why ? objective.why : '');
     }
-  }, [fetchObjective, initialWhat, objective, resourceId]);
+  }, [fetchObjective, initialWhat, objective, resourceId, user.shortId]);
 
   const onWhatChange = (e: any) => {
     e.preventDefault();
@@ -77,7 +77,10 @@ const ChallengeObjective = (props: any) => {
     }
 
     const handler = edit
-      ? () => handleSave({ what, why }).then(() => setEdit(!edit))
+      ? () =>
+          handleSave({ what, why })
+            .then(() => fetchObjective(resourceId))
+            .then(() => setEdit(!edit))
       : () => setEdit(!edit);
 
     return (
