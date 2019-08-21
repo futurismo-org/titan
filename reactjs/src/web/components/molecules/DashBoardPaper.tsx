@@ -1,14 +1,13 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
 
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import theme from '~/lib/theme';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
+import MoreLink from '../atoms/MoreLink';
 
 interface Props {
   container?: any;
@@ -18,14 +17,6 @@ interface Props {
 const StyledCardGrid = styled(Grid as React.SFC<Props>)`
   && {
     margin-top: ${theme.spacing(3)}px;
-  }
-`;
-
-const MoreLink = styled(Link)`
-  && {
-    text-decoration: none;
-    color: inherit;
-    text-align: right;
   }
 `;
 
@@ -49,20 +40,8 @@ const DashBoardCardLink = (props: any) => {
 
   return (
     <React.Fragment>
-      {type === 'challenge' && (
-        <MoreLink to="/challenges">
-          <Typography variant="subtitle1" color="primary">
-            もっと見る
-          </Typography>
-        </MoreLink>
-      )}
-      {type === 'category' && (
-        <MoreLink to="/categories">
-          <Typography variant="subtitle1" color="primary">
-            もっと見る
-          </Typography>
-        </MoreLink>
-      )}
+      {type === 'challenge' && <MoreLink to="/challenges" />}
+      {type === 'category' && <MoreLink to="/categories" />}
     </React.Fragment>
   );
 };
