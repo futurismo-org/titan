@@ -95,9 +95,9 @@ const ChallengeObjective = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && user && objective && (
+      <Title text="チャレンジ目標" />
+      {!loading && (
         <React.Fragment>
-          <Title text="チャレンジ目標" />
           <div style={{ textAlign: 'right' }}>
             <ChallengeObjectiveFormButton />
           </div>

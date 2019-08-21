@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import StackGrid from 'react-stack-grid';
+import { Grid } from '@material-ui/core';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const ChallengeGoals = (props: any) => {
   const {
@@ -14,26 +16,19 @@ const ChallengeGoals = (props: any) => {
     error,
     challengeId,
     goals,
+    notSetGoals,
     fetchChallengeObjectives
   } = props;
 
-  const [userReady, setUserReady] = useState(false);
-  const [objectiveReady, setObjectiveReady] = useState(false);
-
   useEffect(() => {
-    // !userReady && fetchParticipants(resourceId) && setUserReady(true);
-    // userReady &&
-    //   !objectiveReady &&
-    //   users !== [] &&
-    //   fetchChallengeObjectives(users, challengeId) &&
-    //   setObjectiveReady(true);
+    !users && fetchParticipants(resourceId);
+    !!users && !goals && fetchChallengeObjectives(users, challengeId);
   }, [
     challengeId,
     fetchChallengeObjectives,
     fetchParticipants,
-    objectiveReady,
+    goals,
     resourceId,
-    userReady,
     users
   ]);
 
@@ -44,7 +39,7 @@ const ChallengeGoals = (props: any) => {
       </div>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && users && goals && (
+      {!loading && !!goals && (
         <StackGrid columnWidth={300}>
           {goals.map((goal: any) => (
             <ChallengeGoalCard
@@ -55,6 +50,23 @@ const ChallengeGoals = (props: any) => {
           ))}
         </StackGrid>
       )}
+      <br />
+      <h3>目標をまだ設定していないユーザ</h3>
+      <Grid container>
+        {!loading &&
+          !!notSetGoals &&
+          notSetGoals.map((user: any) => {
+            return (
+              <Grid item key={user.id}>
+                <UserAvatar
+                  photoURL={user.photoURL}
+                  userId={user.id}
+                  to={`/c/${challengeId}/u/${user.id}/note`}
+                />
+              </Grid>
+            );
+          })}
+      </Grid>
     </React.Fragment>
   );
 };
