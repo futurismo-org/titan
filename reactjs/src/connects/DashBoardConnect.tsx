@@ -1,10 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import {
-  fetchChallenges,
-  fetchPinnedChallenges,
-  resetChallengeInfo
-} from '~/actions/challengeAction';
+import { fetchChallenges, resetChallengeInfo } from '~/actions/challengeAction';
 import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
 import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
 import { isChallengeOpening, isChallengeWillOpen } from '~/lib/challenge';
@@ -14,7 +10,6 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       fetchChallenges,
       fetchCategories,
-      fetchPinnedChallenges,
       resetChallengeInfo,
       resetCategoryInfo,
       showSensitive,
@@ -39,7 +34,6 @@ const mapStateToProps = (state: any, props: any) => {
     categories: state.category.items.filter(
       (category: any) => !category.freezed
     ),
-    // pinned: state.challenge.pinned.filter((pinned: any) => !pinned.freezed),
     debugSensitive: state.sensitive && state.sensitive.show,
     isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
     loading:

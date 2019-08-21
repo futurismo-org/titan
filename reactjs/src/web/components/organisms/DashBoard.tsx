@@ -11,12 +11,10 @@ const DashBoard = (props: any) => {
   const {
     challenges,
     categories,
-    pinned,
     loading,
     error,
     fetchChallenges,
     fetchCategories,
-    fetchPinnedChallenges,
     debugSensitive,
     showSensitive,
     hideSensitive,
@@ -26,8 +24,7 @@ const DashBoard = (props: any) => {
   React.useEffect(() => {
     fetchChallenges(4);
     fetchCategories(4);
-    fetchPinnedChallenges();
-  }, [fetchCategories, fetchChallenges, fetchPinnedChallenges]);
+  }, [fetchCategories, fetchChallenges]);
 
   const onSensitiveChange = (e: any) => {
     const checked = e.target.checked;
@@ -64,7 +61,7 @@ const DashBoard = (props: any) => {
       )}
       {challenges && (
         <DashBoardPaper
-          title="人気のチャレンジ"
+          title="オススメのチャレンジ"
           items={challenges}
           type="challenge"
         />
