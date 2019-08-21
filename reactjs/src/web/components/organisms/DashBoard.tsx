@@ -62,10 +62,10 @@ const DashBoard = (props: any) => {
           />
         </Paper>
       )}
-      {pinned && (
+      {challenges && (
         <DashBoardPaper
-          title="オススメのチャレンジ"
-          items={pinned}
+          title="人気のチャレンジ"
+          items={challenges}
           type="challenge"
         />
       )}
@@ -74,13 +74,6 @@ const DashBoard = (props: any) => {
           title="人気のカテゴリ"
           items={categories}
           type="category"
-        />
-      )}
-      {challenges && (
-        <DashBoardPaper
-          title="人気のチャレンジ"
-          items={challenges}
-          type="challenge"
         />
       )}
       <DiscordHistories channelId="591410583463526430" limit={4} />
