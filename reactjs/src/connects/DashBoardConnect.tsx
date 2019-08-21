@@ -22,6 +22,7 @@ const mapStateToProps = (state: any, props: any) => {
   const challenges = state.challenge.items.filter(
     (challenge: any) =>
       !challenge.freezed &&
+      !challenge.sensitive &&
       (isChallengeOpening(
         challenge.openedAt.toDate(),
         challenge.closedAt.toDate()
@@ -32,7 +33,7 @@ const mapStateToProps = (state: any, props: any) => {
   return {
     challenges,
     categories: state.category.items.filter(
-      (category: any) => !category.freezed
+      (category: any) => !category.freezed && !category.sensitive
     ),
     debugSensitive: state.sensitive && state.sensitive.show,
     isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,

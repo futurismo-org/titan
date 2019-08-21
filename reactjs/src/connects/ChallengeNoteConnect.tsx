@@ -5,9 +5,12 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  // const { challengeId, userShortId } = props;
+  const challengeId = props.match.params.id;
+  const userShortId = props.match.params.userShortId;
 
   return {
+    challengeId,
+    userShortId,
     ...props
   };
 };
