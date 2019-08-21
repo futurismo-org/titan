@@ -10,7 +10,7 @@ import {
 import { withRouter } from 'react-router-dom';
 import { formatYearDate } from '~/lib/moment';
 import { primaryColor, brandWhite } from '~/lib/theme';
-import { getUserDashboardPath } from '~/lib/url';
+import { getChallengeDashboardPath } from '~/lib/url';
 
 const ChallengeCellHead = (props: any) => (
   <TableCell
@@ -40,7 +40,7 @@ const ChallengeRow = withRouter((props: any) => {
   const { challenge, userShortId, history } = props;
   const { title, totalDuration, resetCount, percentage, closedAt } = challenge;
 
-  const path = getUserDashboardPath(challenge.id, userShortId);
+  const path = getChallengeDashboardPath(challenge.id, userShortId);
 
   return (
     <TableRow hover onClick={() => history.push(path)}>

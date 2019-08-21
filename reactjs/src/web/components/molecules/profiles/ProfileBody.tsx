@@ -7,7 +7,7 @@ import CollectionCard from '~/web/containers/CollectionCardContainer';
 import theme from '~/lib/theme';
 import ProfileCategories from './ProfileCategories';
 import ProfileChallenges from '~/web/containers/ProfileChallengesContainer';
-import { getUserDashboardPath } from '~/lib/url';
+import { getChallengeDashboardPath } from '~/lib/url';
 
 const ProfileBody = (props: any) => {
   const {
@@ -35,7 +35,7 @@ const ProfileBody = (props: any) => {
       >
         {!loading && currentChallenges && currentChallenges.length !== 0 ? (
           currentChallenges.map((item: any) => {
-            const challengeDashboardPath = getUserDashboardPath(
+            const challengeDashboardPath = getChallengeDashboardPath(
               item.id,
               userShortId
             );
