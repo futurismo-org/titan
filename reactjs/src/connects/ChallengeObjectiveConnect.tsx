@@ -1,10 +1,16 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import { fetchObjective } from '~/actions/objectiveAction';
 
 import firebase from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({}, dispatch);
+  bindActionCreators(
+    {
+      fetchObjective
+    },
+    dispatch
+  );
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
@@ -15,9 +21,11 @@ const mapStateToProps = (state: any, props: any) => {
   const challenge = props.challenge;
   const challengeId = challenge.id;
 
-  const handleSave = (data: any) => {
-    const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
+  const objective = state.objective.target;
 
+  const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
+
+  const handleSave = (data: any) => {
     const updateData = {
       id: challengeId,
       userShortId: userShortId,
@@ -36,11 +44,13 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   return {
+    resourceId,
     userShortId,
     isMyProfile,
     handleSave,
-    loading: state.user.loading,
-    error: state.user.error,
+    objective,
+    loading: state.objective.loading,
+    error: state.objective.error,
     ...props
   };
 };

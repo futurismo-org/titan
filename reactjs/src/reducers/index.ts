@@ -12,6 +12,7 @@ import muteReducer from './muteReducer';
 import blockReducer from './blockReducer';
 import profileReducer from './profileReducer';
 import historyReducer from './historyReducer';
+import objectiveReducer from './objectiveReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -26,7 +27,8 @@ export const createRootReducer = (history: any) =>
     mute: muteReducer,
     block: blockReducer,
     profile: profileReducer,
-    history: historyReducer
+    history: historyReducer,
+    objective: objectiveReducer
   });
 
 export const createRootReducerForRN = () =>
@@ -41,5 +43,6 @@ export const createRootReducerForRN = () =>
     mute: muteReducer,
     block: blockReducer,
     profile: profileReducer,
-    history: historyReducer
+    history: historyReducer,
+    objective: objectiveReducer
   });

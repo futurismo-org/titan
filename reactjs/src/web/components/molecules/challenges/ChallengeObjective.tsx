@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, Grid } from '@material-ui/core';
 import Title from '../../atoms/Title';
+
+import Error from '../../atoms/Error';
 
 import {
   ChallengeObjectiveWhatCard,
@@ -30,15 +32,36 @@ const ChallengeObjectiveDescription = (props: any) => {
 };
 
 const ChallengeObjective = (props: any) => {
-  const { challenge, user, isMyProfile, handleSave } = props;
+  const {
+    challenge,
+    user,
+    isMyProfile,
+    handleSave,
+    error,
+    loading,
+    objective,
+    resourceId,
+    fetchObjective
+  } = props;
 
-  const [what, setTitle] = useState(`${challenge.title}に毎日取り組みます！`);
+  const initialWhat = `${challenge.title}に毎日取り組みます！`;
+
+  const [what, setWhat] = useState(initialWhat);
   const [why, setWhy] = useState('');
   const [edit, setEdit] = useState(false);
 
+  useEffect(() => {
+    if (!objective) {
+      fetchObjective(resourceId);
+    } else {
+      setWhat(objective.what ? objective.what : initialWhat);
+      setWhy(objective.why ? objective.why : '');
+    }
+  }, [fetchObjective, initialWhat, objective, resourceId]);
+
   const onWhatChange = (e: any) => {
     e.preventDefault();
-    setTitle(e.target.value);
+    setWhat(e.target.value);
   };
 
   const onWhyChange = (e: any) => {
@@ -70,47 +93,57 @@ const ChallengeObjective = (props: any) => {
 
   return (
     <React.Fragment>
-      <Title text="チャレンジ目標" />
-      <div style={{ textAlign: 'right' }}>
-        <ChallengeObjectiveFormButton />
-      </div>
-      <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item>
+      {error && <Error error={error} />}
+      {loading && null}
+      {!loading && user && objective && (
+        <React.Fragment>
+          <Title text="チャレンジ目標" />
+          <div style={{ textAlign: 'right' }}>
+            <ChallengeObjectiveFormButton />
+          </div>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item>
+              {edit ? (
+                <React.Fragment>
+                  <TextField
+                    value={what}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    id="what"
+                    label="なにをやるのか(What)"
+                    fullWidth
+                    onChange={onWhatChange}
+                  />
+                  <TextField
+                    value={why}
+                    variant="outlined"
+                    margin="normal"
+                    id="why"
+                    label="なぜやるのか(Why)"
+                    fullWidth
+                    multiline
+                    rows={8}
+                    onChange={onWhyChange}
+                  />
+                </React.Fragment>
+              ) : (
+                <div>
+                  <div style={{ marginTop: 20, marginBottom: 20 }}>
+                    <ChallengeObjectiveWhatCard text={what} />
+                    {!!why && (
+                      <ChallengeObjectiveWhyCard text={why} user={user} />
+                    )}
+                  </div>
+                </div>
+              )}
+            </Grid>
+          </Grid>
           {edit ? (
-            <React.Fragment>
-              <TextField
-                value={what}
-                variant="outlined"
-                margin="normal"
-                required
-                id="what"
-                label="なにをやるのか(What)"
-                fullWidth
-                onChange={onWhatChange}
-              />
-              <TextField
-                value={why}
-                variant="outlined"
-                margin="normal"
-                id="why"
-                label="なぜやるのか(Why)"
-                fullWidth
-                multiline
-                rows={8}
-                onChange={onWhyChange}
-              />
-            </React.Fragment>
-          ) : (
-            <div>
-              <div style={{ marginTop: 20, marginBottom: 20 }}>
-                <ChallengeObjectiveWhatCard text={what} />
-                {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
-              </div>
-            </div>
-          )}
-        </Grid>
-      </Grid>
-      {edit ? <ChallengeObjectiveDescription challenge={challenge} /> : null}
+            <ChallengeObjectiveDescription challenge={challenge} />
+          ) : null}
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

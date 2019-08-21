@@ -28,7 +28,7 @@ const ChallengeNote = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && user && (
+      {!loading && user && challenge && (
         <Wrapper>
           <div style={{ textAlign: 'center' }}>
             <h1>{user.displayName}さんの努力ノート</h1>
