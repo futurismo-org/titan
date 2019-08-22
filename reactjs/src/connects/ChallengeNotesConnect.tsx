@@ -104,7 +104,8 @@ const generateNotes = (
         challengeId: challenge.id,
         noteId: post.id,
         timestamp: post.createdAt.toDate(),
-        text: post.text
+        text: post.text,
+        type: post.type || NOTE_TYPE_DEFAULT
       }
     });
 

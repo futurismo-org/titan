@@ -84,17 +84,17 @@ const ChallengeNoteForm = (props: any) => {
           >
             <FormControlLabel
               value={NOTE_TYPE_DEFAULT}
-              control={<Radio />}
+              control={<Radio color="primary" />}
               label="メモ"
             />
             <FormControlLabel
               value={NOTE_TYPE_SUCCESS}
-              control={<Radio />}
+              control={<Radio color="primary" />}
               label="達成記録"
             />
             <FormControlLabel
               value={NOTE_TYPE_ANALYSIS}
-              control={<Radio />}
+              control={<Radio color="primary" />}
               label="分析記録"
             />
           </RadioGroup>

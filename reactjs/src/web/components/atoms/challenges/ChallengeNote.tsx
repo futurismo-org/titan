@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
 import { Link } from 'react-router-dom';
-import { TextField } from '@material-ui/core';
+import {
+  TextField,
+  RadioGroup,
+  FormControlLabel,
+  Radio
+} from '@material-ui/core';
 
 import {
   secondaryColor,
@@ -120,14 +125,22 @@ const ChallengeNoteTopic = (props: any) => {
 
 const ChallengeNoteMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, noteId, challengeId } = data;
+  const { timestamp, text, noteId, challengeId, type } = data;
 
   const [edit, setEdit] = useState(false);
   const [buffer, setBuffer] = useState(text);
+  const [label, setLabel] = useState(type);
+  const [background, setBackground] = useState(backgroundColor);
+  const [textColor, setTextColor] = useState(color);
 
   const onBufferChange = (e: any) => {
     e.preventDefault();
     setBuffer(e.target.value);
+  };
+
+  const onLabelChange = (e: any) => {
+    e.preventDefault();
+    setLabel(e.target.value);
   };
 
   const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
@@ -135,10 +148,24 @@ const ChallengeNoteMemo = (props: any) => {
   const onSave = () => {
     const data = {
       text: buffer,
+      type: label,
       updatedAt: new Date()
     };
 
-    update(resourceId, data).then(() => setEdit(false));
+    update(resourceId, data)
+      .then(() => {
+        if (label === NOTE_TYPE_DEFAULT) {
+          setBackground(brandPink);
+          setTextColor(brandWhite);
+        } else if (label === NOTE_TYPE_SUCCESS) {
+          setBackground(brandYellow);
+          setTextColor(brandDark);
+        } else if (label === NOTE_TYPE_ANALYSIS) {
+          setBackground(brandDarkBlue);
+          setTextColor(brandWhite);
+        }
+      })
+      .then(() => setEdit(false));
   };
 
   const onDelete = () => {
@@ -184,6 +211,29 @@ const ChallengeNoteMemo = (props: any) => {
         multiline
         onChange={onBufferChange}
       />
+      <RadioGroup
+        aria-label="label"
+        name="ラベル"
+        value={label}
+        onChange={onLabelChange}
+        row
+      >
+        <FormControlLabel
+          value={NOTE_TYPE_DEFAULT}
+          control={<Radio color="primary" />}
+          label="メモ"
+        />
+        <FormControlLabel
+          value={NOTE_TYPE_SUCCESS}
+          control={<Radio color="primary" />}
+          label="達成記録"
+        />
+        <FormControlLabel
+          value={NOTE_TYPE_ANALYSIS}
+          control={<Radio color="primary" />}
+          label="分析記録"
+        />
+      </RadioGroup>
       <p>
         <span
           style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
@@ -200,7 +250,7 @@ const ChallengeNoteMemo = (props: any) => {
     <TimelineItem
       key={NOTE_TYPE_DEFAULT}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ background: backgroundColor, color }}
+      dateInnerStyle={{ background, color: textColor }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>
