@@ -18,7 +18,7 @@ const ChallengeNotes = (props: any) => {
 
   useEffect(() => {
     fetchParticipant(resourceId);
-    fetchUserTopics(topicsResourceId, userShortId);
+    userShortId && fetchUserTopics(topicsResourceId, userShortId);
   }, [
     fetchParticipant,
     fetchUserTopics,

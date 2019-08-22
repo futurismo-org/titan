@@ -22,7 +22,7 @@ const ChallengeGoal = (props: any) => {
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
-  }, [fetchUserWithShortId, user, userShortId]);
+  }, [fetchUserWithShortId, userShortId]);
 
   return (
     <React.Fragment>

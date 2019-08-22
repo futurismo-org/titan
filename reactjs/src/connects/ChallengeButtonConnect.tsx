@@ -130,8 +130,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     join,
-    loading: state.participant.loading,
-    error: state.participant.error,
+    loading: state.participant.loadingExist,
+    error: state.participant.errorExist,
     user,
     resourceId,
     profileCategoryResourceId,

@@ -7,7 +7,9 @@ import {
   FETCH_PARTICIPANT_REQUEST,
   FETCH_PARTICIPANT_SUCCESS,
   FETCH_PARTICIPANT_ERROR,
-  FETCH_PARTICIPANT_EXIST
+  FETCH_PARTICIPANT_EXIST_REQUEST,
+  FETCH_PARTICIPANT_EXIST_SUCCESS,
+  FETCH_PARTICIPANT_EXIST_ERROR
 } from '../constants/actionTypes';
 
 import {
@@ -15,8 +17,7 @@ import {
   fetchItems,
   fetchRequest,
   fetchSuccess,
-  fetchError,
-  fetchExist
+  fetchError
 } from './actionUtil';
 
 export const fetchParticipantsRequest = fetchRequest(
@@ -29,7 +30,15 @@ export const fetchParticipantsError = fetchError(FETCH_PARTICIPANTS_ERROR);
 export const fetchParticipantRequest = fetchRequest(FETCH_PARTICIPANT_REQUEST);
 export const fetchParticipantSuccess = fetchSuccess(FETCH_PARTICIPANT_SUCCESS);
 export const fetchParticipantError = fetchError(FETCH_PARTICIPANT_ERROR);
-export const fetchParticipantExist = fetchExist(FETCH_PARTICIPANT_EXIST);
+export const fetchParticipantExistRequest = fetchRequest(
+  FETCH_PARTICIPANT_EXIST_REQUEST
+);
+export const fetchParticipantExistSuccess = fetchSuccess(
+  FETCH_PARTICIPANT_EXIST_SUCCESS
+);
+export const fetchParticipantExistError = fetchError(
+  FETCH_PARTICIPANT_EXIST_ERROR
+);
 
 export const fetchParticipants = (resourceId: string) => {
   return fetchItems(
@@ -42,10 +51,10 @@ export const fetchParticipants = (resourceId: string) => {
 
 export const fetchParticipantJoined = (resourceId: string) => {
   return (dispatch: Dispatch) => {
-    dispatch(fetchParticipantRequest());
+    dispatch(fetchParticipantExistRequest());
     isExist(resourceId)
-      .then((data: any) => dispatch(fetchParticipantExist(data)))
-      .catch((error: any) => dispatch(fetchParticipantError(error)));
+      .then((data: any) => dispatch(fetchParticipantExistSuccess(data)))
+      .catch((error: any) => dispatch(fetchParticipantExistError(error)));
   };
 };
 
