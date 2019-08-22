@@ -164,7 +164,7 @@ const createChallengeHistorySeed = (n: number) => {
   return {
     id: shortId.generate(),
     timestamp: moment()
-      .subtract(n, 'days')
+      .add(n, 'days')
       .toDate(),
     days: faker.random.number({ min: 0, max: 30 }),
     score: faker.random.number({ min: 0, max: 30 }),
@@ -200,7 +200,9 @@ const createUserSecuritiesSeed = (args: any) => {
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanShortId,
-    histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
+    histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
+      createChallengeHistorySeed(n)
+    ),
     days: 5,
     score: 5,
     maxDays: 5,
@@ -215,7 +217,9 @@ const challengeParticipantsSeeds = seed.subcollection([
   }),
   createParticipationSeed({
     id: tsuneraShortId,
-    histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
+    histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
+      createChallengeHistorySeed(n)
+    ),
     days: 5,
     score: 31,
     maxDays: 5,

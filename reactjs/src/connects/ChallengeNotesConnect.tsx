@@ -59,9 +59,9 @@ const generateNotes = (
     notes.push({
       id: shortId.generate(),
       type,
-      timestamp: history.timestamp,
+      timestamp: history.timestamp.toDate(),
       data: {
-        timpstamp: history.timestamp,
+        timestamp: history.timestamp.toDate(),
         days: history.days
       }
     });
@@ -75,7 +75,7 @@ const generateNotes = (
       type: NOTE_TYPE_TOPIC,
       timestamp: topic.createdAt.toDate(),
       data: {
-        timpstamp: topic.createdAt.toDate(),
+        timestamp: topic.createdAt.toDate(),
         path: `/c/${challenge.id}/t/${topic.id}`,
         title: topic.title
       }
