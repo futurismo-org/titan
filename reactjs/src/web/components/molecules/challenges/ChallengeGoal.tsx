@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
+import { Grid } from '@material-ui/core';
 import ChallengeObjective from '~/web/containers/ChallengeObjectiveContainer';
 import ChallengeNotes from '~/web/containers/ChallengeNotesContainer';
 
 import Error from '../../atoms/Error';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -30,9 +32,17 @@ const ChallengeGoal = (props: any) => {
       {loading && null}
       {!loading && user && challenge && (
         <Wrapper>
-          <div style={{ textAlign: 'center' }}>
+          <Grid
+            container
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
             <h1>{user.displayName}さんの努力ノート</h1>
-          </div>
+            <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
+          </Grid>
           <ChallengeObjective challenge={challenge} user={user} />
           <ChallengeNotes challenge={challenge} user={user} />
         </Wrapper>
