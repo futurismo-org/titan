@@ -12,7 +12,7 @@ import { formatDatetimeShort } from '~/lib/moment';
 // Text - テキスト投稿
 // Media -メディア投稿
 
-export const ChallengeLogJoin = (props: any) => {
+export const ChallengeNoteJoin = (props: any) => {
   return (
     <TimelineItem
       key="1"
@@ -24,7 +24,7 @@ export const ChallengeLogJoin = (props: any) => {
   );
 };
 
-export const ChallengeLogOpen = (props: any) => {
+export const ChallengeNoteOpen = (props: any) => {
   const openedAt: Date = props.openedAt;
   return (
     <TimelineItem
@@ -37,7 +37,7 @@ export const ChallengeLogOpen = (props: any) => {
   );
 };
 
-export const ChallengeLogClose = (props: any) => {
+export const ChallengeNoteClose = (props: any) => {
   const closedAt: Date = props.closedAt;
 
   return (
@@ -51,8 +51,8 @@ export const ChallengeLogClose = (props: any) => {
   );
 };
 
-const ChallengeLog = (props: any) => {
+const ChallengeNote = (props: any) => {
   return null;
 };
 
-export default ChallengeLog;
+export default ChallengeNote;
