@@ -1,10 +1,13 @@
+import { Dispatch } from 'redux';
+import { isExist } from '../lib/firebase';
 import {
   FETCH_PARTICIPANTS_REQUEST,
   FETCH_PARTICIPANTS_SUCCESS,
   FETCH_PARTICIPANTS_ERROR,
   FETCH_PARTICIPANT_REQUEST,
   FETCH_PARTICIPANT_SUCCESS,
-  FETCH_PARTICIPANT_ERROR
+  FETCH_PARTICIPANT_ERROR,
+  FETCH_PARTICIPANT_EXIST
 } from '../constants/actionTypes';
 
 import {
@@ -12,7 +15,8 @@ import {
   fetchItems,
   fetchRequest,
   fetchSuccess,
-  fetchError
+  fetchError,
+  fetchExist
 } from './actionUtil';
 
 export const fetchParticipantsRequest = fetchRequest(
@@ -25,6 +29,7 @@ export const fetchParticipantsError = fetchError(FETCH_PARTICIPANTS_ERROR);
 export const fetchParticipantRequest = fetchRequest(FETCH_PARTICIPANT_REQUEST);
 export const fetchParticipantSuccess = fetchSuccess(FETCH_PARTICIPANT_SUCCESS);
 export const fetchParticipantError = fetchError(FETCH_PARTICIPANT_ERROR);
+export const fetchParticipantExist = fetchExist(FETCH_PARTICIPANT_EXIST);
 
 export const fetchParticipants = (resourceId: string) => {
   return fetchItems(
@@ -33,6 +38,15 @@ export const fetchParticipants = (resourceId: string) => {
     fetchParticipantsSuccess,
     fetchParticipantsError
   );
+};
+
+export const fetchParticipantJoined = (resourceId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchParticipantRequest());
+    isExist(resourceId)
+      .then((data: any) => dispatch(fetchParticipantExist(data)))
+      .catch((error: any) => dispatch(fetchParticipantError(error)));
+  };
 };
 
 export const fetchParticipant = (resourceId: string) => {

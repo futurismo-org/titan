@@ -4,7 +4,8 @@ import {
   FETCH_PARTICIPANTS_ERROR,
   FETCH_PARTICIPANT_REQUEST,
   FETCH_PARTICIPANT_SUCCESS,
-  FETCH_PARTICIPANT_ERROR
+  FETCH_PARTICIPANT_ERROR,
+  FETCH_PARTICIPANT_EXIST
 } from '../constants/actionTypes';
 
 import {
@@ -13,6 +14,7 @@ import {
   fetchItemsSuccess,
   fetchTargetSuccess,
   fetchError,
+  fetchExist,
   initialState
 } from './reducuerUtil';
 
@@ -22,5 +24,6 @@ export default createReducer(initialState, {
   [FETCH_PARTICIPANTS_ERROR]: fetchError,
   [FETCH_PARTICIPANT_REQUEST]: fetchRequest,
   [FETCH_PARTICIPANT_SUCCESS]: fetchTargetSuccess,
+  [FETCH_PARTICIPANT_EXIST]: fetchExist,
   [FETCH_PARTICIPANT_ERROR]: fetchError
 });

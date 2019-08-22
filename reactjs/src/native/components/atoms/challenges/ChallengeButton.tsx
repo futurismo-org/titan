@@ -17,7 +17,7 @@ const ChallengeButton = (props: any) => {
     error,
     resourceId,
     profileCategoryResourceId,
-    fetchParticipants,
+    fetchParticipantJoined,
     fetchProfileCategory,
     history,
     joinHandler,
@@ -27,14 +27,14 @@ const ChallengeButton = (props: any) => {
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    fetchParticipants(resourceId);
+    fetchParticipantJoined(resourceId);
     fetchProfileCategory(profileCategoryResourceId);
   }, [
-    fetchParticipants,
     resourceId,
     refresh,
     fetchProfileCategory,
-    profileCategoryResourceId
+    profileCategoryResourceId,
+    fetchParticipantJoined
   ]);
 
   const handleJoin = () => {

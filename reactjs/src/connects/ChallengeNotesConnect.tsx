@@ -111,7 +111,7 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     topicsResourceId,
     notes,
-    userShortId: user.shortId,
+    userShortId,
     loading: state.participant.loading || state.topic.loading,
     error: state.participant.error || state.topic.error,
     ...props

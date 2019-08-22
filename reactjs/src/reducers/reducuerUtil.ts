@@ -9,7 +9,8 @@ export const initialState = {
   loading: false,
   items: [],
   target: null,
-  error: null
+  error: null,
+  exist: false
 };
 
 export const reset = (state: any) => {
@@ -78,5 +79,13 @@ export const fetchErrorSub = (state: any, error: any) => {
     ...state,
     loadingSub: false,
     errorSub: error
+  });
+};
+
+export const fetchExist = (state: any, payload: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loading: false,
+    exist: payload
   });
 };

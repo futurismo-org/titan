@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { firestore } from 'firebase';
-import { fetchParticipants } from '~/actions/participantAction';
+import { fetchParticipantJoined } from '~/actions/participantAction';
 import { fetchProfileCategory } from '~/actions/profileAction';
 
-import { getParticipantsId } from '~/lib/resource';
+import { getParticipantId } from '~/lib/resource';
 
 import firebase from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
@@ -12,22 +12,21 @@ import { postMessage } from '~/lib/discord.client.api';
 import { getCategoryId } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipants, fetchProfileCategory }, dispatch);
+  bindActionCreators(
+    { fetchParticipantJoined, fetchProfileCategory },
+    dispatch
+  );
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
   const challengeId = challenge.id;
-  const resourceId = getParticipantsId(challengeId);
-
   const user = state.firebase.profile;
   const userShortId = user.shortId;
-  const participants = state.participant.items;
   const categoryId = getCategoryId(challenge.categoryRef);
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
+  const resourceId = getParticipantId(challengeId, userShortId);
 
-  const join =
-    participants.filter((paritcipant: any) => paritcipant.id === userShortId)
-      .length === 1;
+  const join = state.participant.exist;
 
   const redirectPath = `/c/${challengeId}/overview`;
 
