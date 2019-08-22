@@ -21,7 +21,10 @@ const mapStateToProps = (state: any, props: any) => {
 
   const users = rankChallengeParticipants(state.user.items).map((user: any) => {
     user.photoURL = user.photoURL || 'https://titan-fire.com/anonymous.png';
-    user.latest = fromNow(user.updatedAt.toDate());
+    user.latest =
+      user.histories.length !== 0
+        ? fromNow(user.histories[user.histories.length - 1].timestamp.toDate())
+        : '-';
     user.profilePath = `/c/${challengeId}/u/${user.id}`;
     user.displayName = user.displayName || 'Anonymous';
     return user;
