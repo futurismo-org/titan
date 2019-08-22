@@ -14,6 +14,7 @@ import { formatYearDate } from '~/lib/moment';
 import { getRandomImageURL, getTwitterProfileURL } from '~/lib/url';
 import TotalScoreBoard from '~/web/containers/TotalScoreBoardContainer';
 import Flag from '~/web/containers/FlagContainer';
+import TextFieldView from '../../atoms/TextFieldView';
 
 const ProfileContent = styled.div`
   text-align: center;
@@ -59,11 +60,9 @@ const ProfileHeader = (props: any) => {
               <h2>{user.displayName}</h2>
             </div>
             <TotalScoreBoard userShortId={user.shortId} />
-            <div>
+            <div style={{ marginTop: 20, marginBottom: 20 }}>
               {!!user.introduction && (
-                <div>
-                  <p>{user.introduction}</p>
-                </div>
+                <TextFieldView text={user.introduction} />
               )}
             </div>
             <div>
