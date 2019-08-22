@@ -22,7 +22,7 @@ import {
   NOTE_TYPE_DEFAULT
 } from '~/constants/note';
 
-import { update } from '~/lib/firebase';
+import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 
 const ChallengeNoteJoin = (props: any) => {
@@ -125,13 +125,23 @@ const ChallengeNoteDefault = (props: any) => {
     setBuffer(e.target.value);
   };
 
+  const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
+
   const onSave = () => {
-    const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
     const data = {
       text: buffer,
       updatedAt: new Date()
     };
+
     update(resourceId, data).then(() => setEdit(false));
+  };
+
+  const onDelete = () => {
+    /* eslint-disable */
+    if (window.confirm('本当に削除しますか？')) {
+      remove(resourceId).then(() => window.location.reload());
+    }
+    /* eslint-enable */
   };
 
   const renderText = () => (
@@ -139,13 +149,19 @@ const ChallengeNoteDefault = (props: any) => {
       <TextFieldView text={buffer} />
       <p>
         <span
-          style={{ textDecorationLine: 'underline' }}
+          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
           role="button"
           onClick={() => setEdit(true)}
         >
           編集
         </span>{' '}
-        <span style={{ textDecorationLine: 'underline' }}>削除</span>
+        <span
+          role="button"
+          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+          onClick={onDelete}
+        >
+          削除
+        </span>
       </p>
     </React.Fragment>
   );
@@ -165,7 +181,7 @@ const ChallengeNoteDefault = (props: any) => {
       />
       <p>
         <span
-          style={{ textDecorationLine: 'underline' }}
+          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
           role="button"
           onClick={onSave}
         >

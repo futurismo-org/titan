@@ -14,6 +14,11 @@ const ChallengeNoteForm = (props: any) => {
   };
 
   const onSave = () => {
+    if (text.length === 0) {
+      window.alert('投稿内容がありません。'); // eslint-disable-line
+      return;
+    }
+
     const noteId = shortId.generate();
     const resourceId = `/challenges/${challenge.id}/notes/${noteId}`;
 
@@ -29,7 +34,9 @@ const ChallengeNoteForm = (props: any) => {
       updatedAt: new Date()
     };
 
-    create(resourceId, data);
+    create(resourceId, data)
+      .then(() => window.alert('投稿しました')) // eslint-disable-line
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
