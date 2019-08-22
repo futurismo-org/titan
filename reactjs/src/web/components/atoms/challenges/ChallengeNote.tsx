@@ -1,10 +1,12 @@
 import React from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
+import { Link } from 'react-router-dom';
 import {
   secondaryColor,
   brandWhite,
   brandSuccess,
-  brandWarning
+  brandWarning,
+  primaryColor
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
@@ -12,18 +14,10 @@ import {
   NOTE_TYPE_OPEN,
   NOTE_TYPE_CLOSE,
   NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET
+  NOTE_TYPE_RESET,
+  NOTE_TYPE_TOPIC
 } from '~/constants/note';
 
-// Record - 記録
-// Reset - リセット
-// Topic - トピック投稿
-// Text success - テキスト投稿(達成)
-// Text analysis - テキスト投稿(分析)
-// Text - テキスト投稿
-// Media -メディア投稿
-
-// Announce - 参加・大会開始・大会終了
 const ChallengeNoteJoin = (props: any) => {
   const { startedAt } = props.data;
   return (
@@ -96,12 +90,29 @@ const ChallengeNoteReset = (props: any) => {
   );
 };
 
+const ChallengeNoteTopic = (props: any) => {
+  const { data } = props;
+  const { timestamp, path, title } = data;
+
+  return (
+    <TimelineItem
+      key="4"
+      dateText={formatDatetimeShort(timestamp) + '- Topic'}
+      dateInnerStyle={{ background: primaryColor, color: brandWhite }}
+    >
+      <p>トピックを投稿しました。</p>
+      <Link to={path}>{title}</Link>
+    </TimelineItem>
+  );
+};
+
 const componentMap = new Map([
   [NOTE_TYPE_JOIN, (data: any) => <ChallengeNoteJoin data={data} />],
   [NOTE_TYPE_OPEN, (data: any) => <ChallengeNoteOpen data={data} />],
   [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />],
   [NOTE_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
-  [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />]
+  [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
+  [NOTE_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {

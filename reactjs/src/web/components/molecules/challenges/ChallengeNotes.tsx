@@ -5,11 +5,20 @@ import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 import Error from '../../atoms/Error';
 
 const ChallengeNotes = (props: any) => {
-  const { fetchParticipant, resourceId, notes, loading, error } = props;
+  const {
+    fetchParticipant,
+    resourceId,
+    notes,
+    loading,
+    error,
+    topicsResourceId,
+    fetchTopics
+  } = props;
 
   useEffect(() => {
     fetchParticipant(resourceId);
-  }, [fetchParticipant, resourceId]);
+    fetchTopics(topicsResourceId);
+  }, [fetchParticipant, fetchTopics, resourceId, topicsResourceId]);
 
   return (
     <React.Fragment>

@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
 import { fetchParticipant } from '~/actions/participantAction';
-import { getParticipantId } from '~/lib/resource';
+import { fetchTopics } from '~/actions/topicAction';
+import { getParticipantId, getTopicsId } from '~/lib/resource';
 
 import moment from '~/lib/moment';
 import {
@@ -10,11 +11,20 @@ import {
   NOTE_TYPE_OPEN,
   NOTE_TYPE_CLOSE,
   NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET
+  NOTE_TYPE_RESET,
+  NOTE_TYPE_TOPIC
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
 
-const generateNotes = (challenge: any, user: any, participant: any) => {
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({ fetchParticipant, fetchTopics }, dispatch);
+
+const generateNotes = (
+  challenge: any,
+  user: any,
+  participant: any,
+  topics: any
+) => {
   const notes = [];
   const startedAt = participant.startedAt.toDate();
 
@@ -59,13 +69,27 @@ const generateNotes = (challenge: any, user: any, participant: any) => {
     return false;
   });
 
+  topics
+    .filter((topic: any) => topic.userId === user.shortId)
+    .map((topic: any) => {
+      notes.push({
+        id: shortId.generate(),
+        type: NOTE_TYPE_TOPIC,
+        timestamp: topic.createdAt.toDate(),
+        data: {
+          timpstamp: topic.createdAt.toDate(),
+          path: `/c/${challenge.id}/t/${topic.id}`,
+          title: topic.title
+        }
+      });
+
+      return false;
+    });
+
   return notes.sort((x: any, y: any) =>
     moment(x.timestamp).diff(moment(y.timestamp))
   );
 };
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipant }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge, user } = props;
@@ -73,20 +97,24 @@ const mapStateToProps = (state: any, props: any) => {
   const userShortId = user.shortId;
 
   const resourceId = getParticipantId(challengeId, userShortId);
+  const topicsResourceId = getTopicsId('challenges', challenge.id);
 
   const participant = state.participant.target;
+  const topics = state.topic.items;
 
   const notes =
     challenge &&
     user &&
     participant &&
-    generateNotes(challenge, user, participant);
+    topics &&
+    generateNotes(challenge, user, participant, topics);
 
   return {
     resourceId,
+    topicsResourceId,
     notes,
-    loading: state.participant.loading,
-    error: state.participant.error,
+    loading: state.participant.loading || state.topic.loading,
+    error: state.participant.error || state.topic.error,
     ...props
   };
 };
