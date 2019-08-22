@@ -14,7 +14,9 @@ import {
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
   NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT
+  NOTE_TYPE_DEFAULT,
+  NOTE_TYPE_SUCCESS,
+  NOTE_TYPE_ANALYSIS
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
 
@@ -135,10 +137,17 @@ const mapStateToProps = (state: any, props: any) => {
     posts &&
     generateNotes(challenge, user, participant, topics, posts);
 
+  const successList =
+    notes && notes.filter(note => note.type === NOTE_TYPE_SUCCESS);
+  const analysisList =
+    notes && notes.filter(note => note.type === NOTE_TYPE_ANALYSIS);
+
   return {
     resourceId,
     topicsResourceId,
     notes,
+    successList,
+    analysisList,
     userShortId,
     notesResourceId,
     loading:
