@@ -5,7 +5,8 @@ import {
   TextField,
   RadioGroup,
   FormControlLabel,
-  Radio
+  Radio,
+  Grid
 } from '@material-ui/core';
 
 import {
@@ -32,6 +33,7 @@ import {
   NOTE_TYPE_SUCCESS
 } from '~/constants/note';
 import TextFieldView from '../../atoms/TextFieldView';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const ChallengeTimelineItemJoin = (props: any) => {
   const { startedAt } = props.data;
@@ -107,7 +109,7 @@ const ChallengeTimelineItemReset = (props: any) => {
 
 const ChallengeTimelineItemTopic = (props: any) => {
   const { data } = props;
-  const { timestamp, path, title } = data;
+  const { timestamp, path, title, userName, userPhotoURL, userId } = data;
 
   return (
     <TimelineItem
@@ -115,8 +117,19 @@ const ChallengeTimelineItemTopic = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
-      <p>トピックを投稿しました。</p>
-      <Link to={path}>{title}</Link>
+      <Grid container direction="row" justify="flex-start">
+        <Grid item>
+          <UserAvatar photoURL={userPhotoURL} userId={userId} />
+        </Grid>
+        <Grid item>
+          <p style={{ lineHeight: 3, marginLeft: 10 }}>
+            トピックが投稿されました。
+          </p>
+        </Grid>
+      </Grid>
+      <div>
+        <Link to={path}>{title}</Link> Posted by {userName}
+      </div>
     </TimelineItem>
   );
 };

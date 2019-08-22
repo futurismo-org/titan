@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
-import { fetchParticipant } from '~/actions/participantAction';
-import { fetchUserTopics } from '~/actions/topicAction';
-import { getParticipantId, getTopicsId, getNotesId } from '~/lib/resource';
-import { fetchUserNotes } from '~/actions/noteAction';
+import { fetchTopics } from '~/actions/topicAction';
+import { getTopicsId } from '~/lib/resource';
 
 import moment from '~/lib/moment';
 import {
@@ -21,20 +19,17 @@ import {
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    { fetchParticipant, fetchUserTopics, fetchUserNotes },
-    dispatch
-  );
+  bindActionCreators({ fetchTopics }, dispatch);
 
 const generateItems = (
-  challenge: any
+  challenge: any,
   // user: any,
   // participant: any,
-  // topics: any,
+  topics: any
   // posts: any
 ) => {
-  const notes = [];
-  notes.push({
+  const items = [] as any[];
+  items.push({
     id: shortId.generate(),
     type: NOTE_TYPE_OPEN,
     timestamp: challenge.openedAt.toDate(),
@@ -43,7 +38,7 @@ const generateItems = (
     }
   });
 
-  notes.push({
+  items.push({
     id: shortId.generate(),
     type: NOTE_TYPE_CLOSE,
     timestamp: challenge.closedAt.toDate(),
@@ -54,7 +49,7 @@ const generateItems = (
 
   // const startedAt = participant.startedAt.toDate();
 
-  // notes.push({
+  // items.push({
   //   id: shortId.generate(),
   //   type: NOTE_TYPE_JOIN,
   //   timestamp: startedAt,
@@ -66,7 +61,7 @@ const generateItems = (
   // participant.histories.map((history: any) => {
   //   const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
 
-  //   notes.push({
+  //   items.push({
   //     id: shortId.generate(),
   //     type,
   //     timestamp: history.timestamp.toDate(),
@@ -79,23 +74,26 @@ const generateItems = (
   //   return false;
   // });
 
-  // topics.map((topic: any) => {
-  //   notes.push({
-  //     id: shortId.generate(),
-  //     type: NOTE_TYPE_TOPIC,
-  //     timestamp: topic.createdAt.toDate(),
-  //     data: {
-  //       timestamp: topic.createdAt.toDate(),
-  //       path: `/c/${challenge.id}/t/${topic.id}`,
-  //       title: topic.title
-  //     }
-  //   });
+  topics.map((topic: any) => {
+    items.push({
+      id: shortId.generate(),
+      type: NOTE_TYPE_TOPIC,
+      timestamp: topic.createdAt.toDate(),
+      data: {
+        timestamp: topic.createdAt.toDate(),
+        path: `/c/${challenge.id}/t/${topic.id}`,
+        title: topic.title,
+        userName: topic.userName,
+        userPhotoURL: topic.userPhotoURL,
+        userId: topic.userId
+      }
+    });
 
-  //   return false;
-  // });
+    return false;
+  });
 
   // posts.map((post: any) => {
-  //   notes.push({
+  //   items.push({
   //     id: shortId.generate(),
   //     type: post.type || NOTE_TYPE_DEFAULT,
   //     timestamp: post.createdAt.toDate(),
@@ -112,7 +110,7 @@ const generateItems = (
   //   return false;
   // });
 
-  return notes.sort((x: any, y: any) =>
+  return items.sort((x: any, y: any) =>
     moment(y.timestamp).diff(moment(x.timestamp))
   );
 };
@@ -121,23 +119,24 @@ const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
 
   // const resourceId = getParticipantId(challengeId, userShortId);
-  // const topicsResourceId = getTopicsId('challenges', challenge.id);
-  // const notesResourceId = getNotesId(challenge.id);
+  const topicsResourceId = getTopicsId('challenges', challenge.id);
+  // const itemsResourceId = getitemsId(challenge.id);
 
   // const participant = state.participant.target;
-  // const topics = state.topic.items;
+  const topics = state.topic.items;
   // const posts = state.note.items;
 
   const items =
     challenge &&
     // user &&
     // participant &&
-    // topics &&
+    topics &&
     // posts &&
-    generateItems(challenge);
+    generateItems(challenge, topics);
 
   return {
     items,
+    topicsResourceId,
     ...props
   };
 };
