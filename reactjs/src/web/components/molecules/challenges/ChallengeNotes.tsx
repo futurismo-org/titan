@@ -9,16 +9,23 @@ const ChallengeNotes = (props: any) => {
     fetchParticipant,
     resourceId,
     notes,
+    userShortId,
     loading,
     error,
     topicsResourceId,
-    fetchTopics
+    fetchUserTopics
   } = props;
 
   useEffect(() => {
     fetchParticipant(resourceId);
-    fetchTopics(topicsResourceId);
-  }, [fetchParticipant, fetchTopics, resourceId, topicsResourceId]);
+    fetchUserTopics(topicsResourceId, userShortId);
+  }, [
+    fetchParticipant,
+    fetchUserTopics,
+    resourceId,
+    topicsResourceId,
+    userShortId
+  ]);
 
   return (
     <React.Fragment>

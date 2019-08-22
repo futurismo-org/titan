@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
 import { fetchParticipant } from '~/actions/participantAction';
-import { fetchTopics } from '~/actions/topicAction';
+import { fetchUserTopics } from '~/actions/topicAction';
 import { getParticipantId, getTopicsId } from '~/lib/resource';
 
 import moment from '~/lib/moment';
@@ -17,7 +17,7 @@ import {
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipant, fetchTopics }, dispatch);
+  bindActionCreators({ fetchParticipant, fetchUserTopics }, dispatch);
 
 const generateNotes = (
   challenge: any,
@@ -69,22 +69,20 @@ const generateNotes = (
     return false;
   });
 
-  topics
-    .filter((topic: any) => topic.userId === user.shortId)
-    .map((topic: any) => {
-      notes.push({
-        id: shortId.generate(),
-        type: NOTE_TYPE_TOPIC,
-        timestamp: topic.createdAt.toDate(),
-        data: {
-          timpstamp: topic.createdAt.toDate(),
-          path: `/c/${challenge.id}/t/${topic.id}`,
-          title: topic.title
-        }
-      });
-
-      return false;
+  topics.map((topic: any) => {
+    notes.push({
+      id: shortId.generate(),
+      type: NOTE_TYPE_TOPIC,
+      timestamp: topic.createdAt.toDate(),
+      data: {
+        timpstamp: topic.createdAt.toDate(),
+        path: `/c/${challenge.id}/t/${topic.id}`,
+        title: topic.title
+      }
     });
+
+    return false;
+  });
 
   return notes.sort((x: any, y: any) =>
     moment(x.timestamp).diff(moment(y.timestamp))
@@ -113,6 +111,7 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     topicsResourceId,
     notes,
+    userShortId: user.shortId,
     loading: state.participant.loading || state.topic.loading,
     error: state.participant.error || state.topic.error,
     ...props
