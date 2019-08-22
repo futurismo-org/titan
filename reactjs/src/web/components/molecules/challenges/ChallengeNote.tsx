@@ -34,7 +34,7 @@ const ChallengeNote = (props: any) => {
             <h1>{user.displayName}さんの努力ノート</h1>
           </div>
           <ChallengeObjective challenge={challenge} user={user} />
-          <ChallengeLogs challenge={challenge} />
+          <ChallengeLogs challenge={challenge} user={user} />
         </Wrapper>
       )}
     </React.Fragment>

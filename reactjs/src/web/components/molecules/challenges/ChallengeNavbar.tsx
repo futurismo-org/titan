@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 
 import NoStyledLink from '../../atoms/NoStyledLink';
+import { getChallengeUserNotesPath } from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,7 +63,7 @@ const ChallengeNavbar = (props: any) => {
         <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
         {props.userId && (
           <NavItem
-            to={`/c/${props.id}/u/${props.userId}/note`}
+            to={getChallengeUserNotesPath(props.id, props.userId)}
             text="努力ノート"
           />
         )}

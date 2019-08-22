@@ -8,12 +8,12 @@ import {
 } from '@material-ui/core';
 import UserAvatar from '../UserAvatar';
 import { formatDateShort } from '~/lib/moment';
-import { getRandomImageURL } from '~/lib/url';
+import { getRandomImageURL, getChallengeUserNotesPath } from '~/lib/url';
 import NoStyledLink from '../NoStyledLink';
 
 const ChallengeGoalCard = (props: any) => {
   const { goal, challengeId } = props;
-  const path = `/c/${challengeId}/u/${goal.id}/note`;
+  const path = getChallengeUserNotesPath(challengeId, goal.id);
 
   return (
     <Card>

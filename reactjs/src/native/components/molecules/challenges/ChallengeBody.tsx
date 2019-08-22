@@ -56,7 +56,7 @@ const ChallengeBody = (props: any) => {
             )}
           />
           <Route
-            path="/c/:id/u/:userShortId/note"
+            path="/c/:id/u/:userShortId/notes"
             render={props => <ChallengeNote challenge={challenge} {...props} />}
           />
           <Route
