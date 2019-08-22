@@ -13,10 +13,11 @@ import { formatDatetimeShort } from '~/lib/moment';
 // Media -メディア投稿
 
 export const ChallengeNoteJoin = (props: any) => {
+  const { startedAt } = props;
   return (
     <TimelineItem
       key="1"
-      dateText="11/2010 - Joined"
+      dateText={`${formatDatetimeShort(startedAt)} - Joined`}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジ大会に参加しました。</p>

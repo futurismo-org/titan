@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Timeline } from 'vertical-timeline-component-for-react';
 import {
   ChallengeNoteJoin,
@@ -7,12 +7,16 @@ import {
 } from '../../atoms/challenges/ChallengeNote';
 
 const ChallengeNote = (props: any) => {
-  const { challenge } = props;
+  const { challenge, startedAt, fetchParticipant, resourceId } = props;
+
+  useEffect(() => {
+    fetchParticipant(resourceId);
+  }, [fetchParticipant, resourceId]);
 
   return (
     <React.Fragment>
       <Timeline lineColor="#ddd">
-        <ChallengeNoteJoin />
+        <ChallengeNoteJoin startedAt={startedAt} />
         <ChallengeNoteOpen openedAt={challenge.openedAt.toDate()} />
         <ChallengeNoteClose closedAt={challenge.closedAt.toDate()} />
       </Timeline>
