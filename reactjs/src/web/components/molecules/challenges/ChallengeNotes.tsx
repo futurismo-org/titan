@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react';
 import { Timeline } from 'vertical-timeline-component-for-react';
-import {
-  ChallengeNoteJoin,
-  ChallengeNoteOpen,
-  ChallengeNoteClose
-} from '../../atoms/challenges/ChallengeNote';
+import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 
-const ChallengeNote = (props: any) => {
-  const { challenge, startedAt, fetchParticipant, resourceId } = props;
+import Error from '../../atoms/Error';
+
+const ChallengeNotes = (props: any) => {
+  const { fetchParticipant, resourceId, notes, loading, error } = props;
 
   useEffect(() => {
     fetchParticipant(resourceId);
@@ -15,13 +13,19 @@ const ChallengeNote = (props: any) => {
 
   return (
     <React.Fragment>
-      <Timeline lineColor="#ddd">
-        <ChallengeNoteJoin startedAt={startedAt} />
-        <ChallengeNoteOpen openedAt={challenge.openedAt.toDate()} />
-        <ChallengeNoteClose closedAt={challenge.closedAt.toDate()} />
-      </Timeline>
+      {error && <Error error={error} />}
+      {loading && null}
+      {!loading && notes && (
+        <React.Fragment>
+          <Timeline lineColor="#ddd">
+            {notes.map((note: any) => (
+              <ChallengeNote key={note.id} type={note.type} data={note.data} />
+            ))}
+          </Timeline>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
 
-export default ChallengeNote;
+export default ChallengeNotes;

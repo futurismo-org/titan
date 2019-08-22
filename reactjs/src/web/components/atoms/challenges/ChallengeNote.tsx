@@ -2,18 +2,23 @@ import React from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
 import { secondaryColor, brandWhite } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
+import {
+  NOTE_TYPE_JOIN,
+  NOTE_TYPE_OPEN,
+  NOTE_TYPE_CLOSE
+} from '~/constants/note';
 
 // Record - 記録
 // Reset - リセット
-// Announce - 参加・大会開始・大会終了
 // Topic - トピック投稿
 // Text success - テキスト投稿(達成)
 // Text analysis - テキスト投稿(分析)
 // Text - テキスト投稿
 // Media -メディア投稿
 
+// Announce - 参加・大会開始・大会終了
 export const ChallengeNoteJoin = (props: any) => {
-  const { startedAt } = props;
+  const { startedAt } = props.data;
   return (
     <TimelineItem
       key="1"
@@ -26,7 +31,7 @@ export const ChallengeNoteJoin = (props: any) => {
 };
 
 export const ChallengeNoteOpen = (props: any) => {
-  const openedAt: Date = props.openedAt;
+  const openedAt: Date = props.data.openedAt;
   return (
     <TimelineItem
       key="2"
@@ -39,7 +44,7 @@ export const ChallengeNoteOpen = (props: any) => {
 };
 
 export const ChallengeNoteClose = (props: any) => {
-  const closedAt: Date = props.closedAt;
+  const closedAt: Date = props.data.closedAt;
 
   return (
     <TimelineItem
@@ -52,8 +57,18 @@ export const ChallengeNoteClose = (props: any) => {
   );
 };
 
+const componentMap = new Map([
+  [NOTE_TYPE_JOIN, (data: any) => <ChallengeNoteJoin data={data} />],
+  [NOTE_TYPE_OPEN, (data: any) => <ChallengeNoteOpen data={data} />],
+  [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />]
+]);
+
 const ChallengeNote = (props: any) => {
-  return null;
+  const { type, data } = props;
+
+  const noteFactory = componentMap.get(type);
+
+  return noteFactory!(data);
 };
 
 export default ChallengeNote;
