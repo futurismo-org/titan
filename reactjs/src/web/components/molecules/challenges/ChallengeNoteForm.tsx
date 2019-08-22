@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Grid, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import shortId from 'shortid';
 import { create } from '~/lib/firebase';
 

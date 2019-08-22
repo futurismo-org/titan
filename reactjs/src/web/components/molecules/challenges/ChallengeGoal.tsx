@@ -7,6 +7,7 @@ import ChallengeNotes from '~/web/containers/ChallengeNotesContainer';
 
 import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';
+import ChallengeNoteForm from './ChallengeNoteForm';
 
 const Wrapper = styled.div`
   margin-top: 20px;
@@ -44,6 +45,14 @@ const ChallengeGoal = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
           </Grid>
           <ChallengeObjective challenge={challenge} user={user} />
+          <div
+            style={{
+              maxWidth: 600,
+              margin: '0 auto'
+            }}
+          >
+            <ChallengeNoteForm challenge={challenge} user={user} />
+          </div>
           <ChallengeNotes challenge={challenge} user={user} />
         </Wrapper>
       )}

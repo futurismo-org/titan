@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
 import { Link } from 'react-router-dom';
 import { TextField } from '@material-ui/core';
-import shortId from 'shortid';
+
 import {
   secondaryColor,
   brandWhite,
@@ -30,7 +30,7 @@ const ChallengeNoteJoin = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_JOIN}
-      dateText={`${formatDatetimeShort(startedAt)} - Joined`}
+      dateText={formatDatetimeShort(startedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジ大会に参加しました。</p>
@@ -43,7 +43,7 @@ const ChallengeNoteOpen = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_OPEN}
-      dateText={formatDatetimeShort(openedAt) + ' - Opened'}
+      dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジ大会がスタートしました。</p>
@@ -57,7 +57,7 @@ const ChallengeNoteClose = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_CLOSE}
-      dateText={formatDatetimeShort(closedAt) + '- Closed'}
+      dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジ大会が終了しました。</p>
@@ -74,7 +74,7 @@ const ChallengeNoteRecord = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_RECORD}
-      dateText={formatDatetimeShort(timestamp) + '- Record'}
+      dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
       <p>記録を投稿しました。({daysString})</p>
@@ -89,7 +89,7 @@ const ChallengeNoteReset = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_RESET}
-      dateText={formatDatetimeShort(timestamp) + '- Reset'}
+      dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
       <p>リセットしました。</p>
@@ -104,7 +104,7 @@ const ChallengeNoteTopic = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_TOPIC}
-      dateText={formatDatetimeShort(timestamp) + '- Topic'}
+      dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: primaryColor, color: brandWhite }}
     >
       <p>トピックを投稿しました。</p>
@@ -178,7 +178,7 @@ const ChallengeNoteDefault = (props: any) => {
   return (
     <TimelineItem
       key={NOTE_TYPE_DEFAULT}
-      dateText={formatDatetimeShort(timestamp) + '- Note'}
+      dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPink, color: brandWhite }}
     >
       {edit ? renderEdit() : renderText()}

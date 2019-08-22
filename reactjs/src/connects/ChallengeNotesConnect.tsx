@@ -18,7 +18,7 @@ import {
   NOTE_TYPE_SUCCESS,
   NOTE_TYPE_ANALYSNS
 } from '~/constants/note';
-import { RECORD, challengePeriod } from '~/lib/challenge';
+import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
