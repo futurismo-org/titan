@@ -8,8 +8,11 @@ import moment from '~/lib/moment';
 import {
   NOTE_TYPE_JOIN,
   NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE
+  NOTE_TYPE_CLOSE,
+  NOTE_TYPE_RECORD,
+  NOTE_TYPE_RESET
 } from '~/constants/note';
+import { RECORD } from '~/lib/challenge';
 
 const generateNotes = (challenge: any, user: any, participant: any) => {
   const notes = [];
@@ -38,6 +41,22 @@ const generateNotes = (challenge: any, user: any, participant: any) => {
     data: {
       closedAt: challenge.closedAt.toDate()
     }
+  });
+
+  participant.histories.map((history: any) => {
+    const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
+
+    notes.push({
+      id: shortId.generate(),
+      type,
+      timestamp: history.timestamp,
+      data: {
+        timpstamp: history.timestamp,
+        days: history.days
+      }
+    });
+
+    return false;
   });
 
   return notes.sort((x: any, y: any) =>

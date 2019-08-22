@@ -1,11 +1,18 @@
 import React from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
-import { secondaryColor, brandWhite } from '~/lib/theme';
+import {
+  secondaryColor,
+  brandWhite,
+  brandSuccess,
+  brandWarning
+} from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
   NOTE_TYPE_JOIN,
   NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE
+  NOTE_TYPE_CLOSE,
+  NOTE_TYPE_RECORD,
+  NOTE_TYPE_RESET
 } from '~/constants/note';
 
 // Record - 記録
@@ -17,7 +24,7 @@ import {
 // Media -メディア投稿
 
 // Announce - 参加・大会開始・大会終了
-export const ChallengeNoteJoin = (props: any) => {
+const ChallengeNoteJoin = (props: any) => {
   const { startedAt } = props.data;
   return (
     <TimelineItem
@@ -30,7 +37,7 @@ export const ChallengeNoteJoin = (props: any) => {
   );
 };
 
-export const ChallengeNoteOpen = (props: any) => {
+const ChallengeNoteOpen = (props: any) => {
   const openedAt: Date = props.data.openedAt;
   return (
     <TimelineItem
@@ -43,7 +50,7 @@ export const ChallengeNoteOpen = (props: any) => {
   );
 };
 
-export const ChallengeNoteClose = (props: any) => {
+const ChallengeNoteClose = (props: any) => {
   const closedAt: Date = props.data.closedAt;
 
   return (
@@ -57,10 +64,44 @@ export const ChallengeNoteClose = (props: any) => {
   );
 };
 
+const ChallengeNoteRecord = (props: any) => {
+  const { data } = props;
+  const { timestamp, days } = data;
+
+  const daysString = days === 0 || days === 1 ? `${days}day` : `${days}days`;
+
+  return (
+    <TimelineItem
+      key="4"
+      dateText={formatDatetimeShort(timestamp) + '- Record'}
+      dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
+    >
+      <p>記録を投稿しました。({daysString})</p>
+    </TimelineItem>
+  );
+};
+
+const ChallengeNoteReset = (props: any) => {
+  const { data } = props;
+  const { timestamp } = data;
+
+  return (
+    <TimelineItem
+      key="4"
+      dateText={formatDatetimeShort(timestamp) + '- Reset'}
+      dateInnerStyle={{ background: brandWarning, color: brandWhite }}
+    >
+      <p>リセットしました。</p>
+    </TimelineItem>
+  );
+};
+
 const componentMap = new Map([
   [NOTE_TYPE_JOIN, (data: any) => <ChallengeNoteJoin data={data} />],
   [NOTE_TYPE_OPEN, (data: any) => <ChallengeNoteOpen data={data} />],
-  [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />]
+  [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />],
+  [NOTE_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
+  [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {
