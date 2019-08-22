@@ -35,15 +35,35 @@ import {
 import TextFieldView from '../../atoms/TextFieldView';
 import UserAvatar from '../../atoms/UserAvatar';
 
+const TimelineItemHeadline = (props: any) => {
+  const { headline, photoURL, userId } = props;
+  return (
+    <Grid container direction="row" justify="flex-start">
+      <Grid item>
+        <UserAvatar photoURL={photoURL} userId={userId} />
+      </Grid>
+      <Grid item>
+        <p style={{ lineHeight: 3, marginLeft: 10 }}>{headline}</p>
+      </Grid>
+    </Grid>
+  );
+};
+
+const TimelineItemFooter = ({ name }: any) => <p>Posted by {name}</p>;
+
 const ChallengeTimelineItemJoin = (props: any) => {
-  const { startedAt } = props.data;
+  const { startedAt, userId, userName, userPhotoURL } = props.data;
   return (
     <TimelineItem
       key={NOTE_TYPE_JOIN}
       dateText={formatDatetimeShort(startedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会に参加しました。</p>
+      <TimelineItemHeadline
+        headline={`${userName}さんが参加しました。`}
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
     </TimelineItem>
   );
 };
@@ -56,7 +76,7 @@ const ChallengeTimelineItemOpen = (props: any) => {
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会がスタートしました。</p>
+      <p>チャレンジがスタートしました。</p>
     </TimelineItem>
   );
 };
@@ -70,14 +90,14 @@ const ChallengeTimelineItemClose = (props: any) => {
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会が終了しました。</p>
+      <p>チャレンジが終了しました。</p>
     </TimelineItem>
   );
 };
 
 const ChallengeTimelineItemRecord = (props: any) => {
   const { data } = props;
-  const { timestamp, days } = data;
+  const { timestamp, days, userId, userName, userPhotoURL } = data;
 
   const daysString = days === 0 || days === 1 ? `${days}day` : `${days}days`;
 
@@ -87,14 +107,19 @@ const ChallengeTimelineItemRecord = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
-      <p>記録を投稿しました。({daysString})</p>
+      <TimelineItemHeadline
+        headline={`記録を投稿しました。(${daysString})`}
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
+      <TimelineItemFooter name={userName} />
     </TimelineItem>
   );
 };
 
 const ChallengeTimelineItemReset = (props: any) => {
   const { data } = props;
-  const { timestamp } = data;
+  const { timestamp, userName, userPhotoURL, userId } = data;
 
   return (
     <TimelineItem
@@ -102,22 +127,13 @@ const ChallengeTimelineItemReset = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
-      <p>リセットしました。</p>
+      <TimelineItemHeadline
+        headline="リセットしました。"
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
+      <TimelineItemFooter name={userName} />
     </TimelineItem>
-  );
-};
-
-const TimelineItemHeadline = (props: any) => {
-  const { headline, photoURL, userId } = props;
-  return (
-    <Grid container direction="row" justify="flex-start">
-      <Grid item>
-        <UserAvatar photoURL={photoURL} userId={userId} />
-      </Grid>
-      <Grid item>
-        <p style={{ lineHeight: 3, marginLeft: 10 }}>{headline}</p>
-      </Grid>
-    </Grid>
   );
 };
 

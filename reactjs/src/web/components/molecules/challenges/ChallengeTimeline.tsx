@@ -9,13 +9,23 @@ const ChallengeTimeline = (props: any) => {
     fetchTopics,
     topicsResourceId,
     fetchNotes,
-    notesResourceId
+    notesResourceId,
+    participantsResourceId,
+    fetchParticipants
   } = props;
 
   useEffect(() => {
     topicsResourceId && fetchTopics(topicsResourceId);
     notesResourceId && fetchNotes(notesResourceId);
-  }, [fetchNotes, fetchTopics, notesResourceId, topicsResourceId]);
+    participantsResourceId && fetchParticipants(participantsResourceId);
+  }, [
+    fetchNotes,
+    fetchParticipants,
+    fetchTopics,
+    notesResourceId,
+    participantsResourceId,
+    topicsResourceId
+  ]);
 
   return (
     <Timeline lineColor="#ddd">

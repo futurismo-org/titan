@@ -43,7 +43,7 @@ const ChallengeNoteJoin = (props: any) => {
       dateText={formatDatetimeShort(startedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会に参加しました。</p>
+      <p>チャレンジに参加しました。</p>
     </TimelineItem>
   );
 };
@@ -56,7 +56,7 @@ const ChallengeNoteOpen = (props: any) => {
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会がスタートしました。</p>
+      <p>チャレンジがスタートしました。</p>
     </TimelineItem>
   );
 };
@@ -70,7 +70,7 @@ const ChallengeNoteClose = (props: any) => {
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジ大会が終了しました。</p>
+      <p>チャレンジが終了しました。</p>
     </TimelineItem>
   );
 };

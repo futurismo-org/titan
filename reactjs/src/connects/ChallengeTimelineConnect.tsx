@@ -3,7 +3,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
 import { fetchTopics } from '~/actions/topicAction';
 import { fetchNotes } from '~/actions/noteAction';
-import { getTopicsId, getNotesId } from '~/lib/resource';
+import { fetchParticipants } from '~/actions/participantAction';
+import { getTopicsId, getNotesId, getParticipantsId } from '~/lib/resource';
 
 import moment from '~/lib/moment';
 import {
@@ -20,12 +21,11 @@ import {
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchTopics, fetchNotes }, dispatch);
+  bindActionCreators({ fetchParticipants, fetchTopics, fetchNotes }, dispatch);
 
 const generateItems = (
   challenge: any,
-  // user: any,
-  // participant: any,
+  participants: any,
   topics: any,
   posts: any
 ) => {
@@ -48,32 +48,42 @@ const generateItems = (
     }
   });
 
-  // const startedAt = participant.startedAt.toDate();
+  participants.map((participant: any) => {
+    const startedAt = participant.startedAt.toDate();
 
-  // items.push({
-  //   id: shortId.generate(),
-  //   type: NOTE_TYPE_JOIN,
-  //   timestamp: startedAt,
-  //   data: {
-  //     startedAt
-  //   }
-  // });
+    items.push({
+      id: shortId.generate(),
+      type: NOTE_TYPE_JOIN,
+      timestamp: startedAt,
+      data: {
+        startedAt,
+        userName: participant.displayName,
+        userPhotoURL: participant.photoURL,
+        userId: participant.id
+      }
+    });
 
-  // participant.histories.map((history: any) => {
-  //   const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
+    participant.histories.map((history: any) => {
+      const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
 
-  //   items.push({
-  //     id: shortId.generate(),
-  //     type,
-  //     timestamp: history.timestamp.toDate(),
-  //     data: {
-  //       timestamp: history.timestamp.toDate(),
-  //       days: history.days
-  //     }
-  //   });
+      items.push({
+        id: shortId.generate(),
+        type,
+        timestamp: history.timestamp.toDate(),
+        data: {
+          timestamp: history.timestamp.toDate(),
+          days: history.days,
+          userName: participant.displayName,
+          userPhotoURL: participant.photoURL,
+          userId: participant.id
+        }
+      });
 
-  //   return false;
-  // });
+      return false;
+    });
+
+    return false;
+  });
 
   topics.map((topic: any) => {
     items.push({
@@ -121,25 +131,26 @@ const generateItems = (
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
+  const challengeId = challenge.id;
 
-  // const resourceId = getParticipantId(challengeId, userShortId);
-  const topicsResourceId = getTopicsId('challenges', challenge.id);
-  const notesResourceId = getNotesId(challenge.id);
+  const participantsResourceId = getParticipantsId(challengeId);
+  const topicsResourceId = getTopicsId('challenges', challengeId);
+  const notesResourceId = getNotesId(challengeId);
 
-  // const participant = state.participant.target;
+  const participants = state.participant.items;
   const topics = state.topic.items;
   const posts = state.note.items;
 
   const items =
     challenge &&
-    // user &&
-    // participant &&
+    participants &&
     topics &&
     posts &&
-    generateItems(challenge, topics, posts);
+    generateItems(challenge, participants, topics, posts);
 
   return {
     items,
+    participantsResourceId,
     topicsResourceId,
     notesResourceId,
     ...props
