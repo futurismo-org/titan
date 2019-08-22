@@ -8,6 +8,7 @@ export const secondaryColor = '#2196f3';
 export const brandSuccess = '#5cb85c';
 export const brandDanger = '#d9534f';
 export const brandWarning = '#f0ad4e';
+export const brandPink = '#ff80ab';
 export const brandDark = '#1a1917';
 export const brandGray = '#888888';
 export const brandLightGray = '#d3d3d3';

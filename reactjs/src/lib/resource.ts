@@ -12,6 +12,9 @@ export const getTopicsId = (
     ? `/topics`
     : `/${collection}/${collectionId}/topics`;
 
+export const getNotesId = (challengeId: string) =>
+  `/challenges/${challengeId}/notes`;
+
 export const getTopicId = (
   topicId: string,
   collection: 'general' | 'challenges' | 'categories',

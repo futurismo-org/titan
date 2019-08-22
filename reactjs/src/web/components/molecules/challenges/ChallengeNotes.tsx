@@ -13,15 +13,20 @@ const ChallengeNotes = (props: any) => {
     loading,
     error,
     topicsResourceId,
-    fetchUserTopics
+    fetchUserTopics,
+    fetchUserNotes,
+    notesResourceId
   } = props;
 
   useEffect(() => {
     fetchParticipant(resourceId);
     userShortId && fetchUserTopics(topicsResourceId, userShortId);
+    userShortId && fetchUserNotes(notesResourceId, userShortId);
   }, [
     fetchParticipant,
+    fetchUserNotes,
     fetchUserTopics,
+    notesResourceId,
     resourceId,
     topicsResourceId,
     userShortId

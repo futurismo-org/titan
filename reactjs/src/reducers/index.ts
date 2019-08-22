@@ -14,6 +14,7 @@ import profileReducer from './profileReducer';
 import historyReducer from './historyReducer';
 import objectiveReducer from './objectiveReducer';
 import participantReducer from './participantReducer';
+import noteReducer from './noteReducer';
 
 export const createRootReducer = (history: any) =>
   combineReducers({
@@ -30,7 +31,8 @@ export const createRootReducer = (history: any) =>
     profile: profileReducer,
     history: historyReducer,
     objective: objectiveReducer,
-    participant: participantReducer
+    participant: participantReducer,
+    note: noteReducer
   });
 
 export const createRootReducerForRN = () =>
@@ -47,5 +49,6 @@ export const createRootReducerForRN = () =>
     profile: profileReducer,
     history: historyReducer,
     objective: objectiveReducer,
-    participant: participantReducer
+    participant: participantReducer,
+    note: noteReducer
   });

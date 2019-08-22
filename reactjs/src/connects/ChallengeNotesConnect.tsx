@@ -3,7 +3,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
 import { fetchParticipant } from '~/actions/participantAction';
 import { fetchUserTopics } from '~/actions/topicAction';
-import { getParticipantId, getTopicsId } from '~/lib/resource';
+import { getParticipantId, getTopicsId, getNotesId } from '~/lib/resource';
+import { fetchUserNotes } from '~/actions/noteAction';
 
 import moment from '~/lib/moment';
 import {
@@ -12,18 +13,25 @@ import {
   NOTE_TYPE_CLOSE,
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC
+  NOTE_TYPE_TOPIC,
+  NOTE_TYPE_DEFAULT,
+  NOTE_TYPE_SUCCESS,
+  NOTE_TYPE_ANALYSNS
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipant, fetchUserTopics }, dispatch);
+  bindActionCreators(
+    { fetchParticipant, fetchUserTopics, fetchUserNotes },
+    dispatch
+  );
 
 const generateNotes = (
   challenge: any,
   user: any,
   participant: any,
-  topics: any
+  topics: any,
+  posts: any
 ) => {
   const notes = [];
   const startedAt = participant.startedAt.toDate();
@@ -84,6 +92,20 @@ const generateNotes = (
     return false;
   });
 
+  posts.map((post: any) => {
+    notes.push({
+      id: shortId.generate(),
+      type: NOTE_TYPE_DEFAULT,
+      timestamp: post.createdAt.toDate(),
+      data: {
+        timestamp: post.createdAt.toDate(),
+        text: post.text
+      }
+    });
+
+    return false;
+  });
+
   return notes.sort((x: any, y: any) =>
     moment(x.timestamp).diff(moment(y.timestamp))
   );
@@ -96,24 +118,29 @@ const mapStateToProps = (state: any, props: any) => {
 
   const resourceId = getParticipantId(challengeId, userShortId);
   const topicsResourceId = getTopicsId('challenges', challenge.id);
+  const notesResourceId = getNotesId(challenge.id);
 
   const participant = state.participant.target;
   const topics = state.topic.items;
+  const posts = state.note.items;
 
   const notes =
     challenge &&
     user &&
     participant &&
     topics &&
-    generateNotes(challenge, user, participant, topics);
+    posts &&
+    generateNotes(challenge, user, participant, topics, posts);
 
   return {
     resourceId,
     topicsResourceId,
     notes,
     userShortId,
-    loading: state.participant.loading || state.topic.loading,
-    error: state.participant.error || state.topic.error,
+    notesResourceId,
+    loading:
+      state.participant.loading || state.topic.loading || state.note.loading,
+    error: state.participant.error || state.topic.error || state.note.error,
     ...props
   };
 };

@@ -6,7 +6,8 @@ import {
   brandWhite,
   brandSuccess,
   brandWarning,
-  primaryColor
+  primaryColor,
+  brandPink
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
@@ -15,14 +16,15 @@ import {
   NOTE_TYPE_CLOSE,
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC
+  NOTE_TYPE_TOPIC,
+  NOTE_TYPE_DEFAULT
 } from '~/constants/note';
 
 const ChallengeNoteJoin = (props: any) => {
   const { startedAt } = props.data;
   return (
     <TimelineItem
-      key="1"
+      key={NOTE_TYPE_JOIN}
       dateText={`${formatDatetimeShort(startedAt)} - Joined`}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -35,7 +37,7 @@ const ChallengeNoteOpen = (props: any) => {
   const openedAt: Date = props.data.openedAt;
   return (
     <TimelineItem
-      key="2"
+      key={NOTE_TYPE_OPEN}
       dateText={formatDatetimeShort(openedAt) + ' - Opened'}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -49,7 +51,7 @@ const ChallengeNoteClose = (props: any) => {
 
   return (
     <TimelineItem
-      key="3"
+      key={NOTE_TYPE_CLOSE}
       dateText={formatDatetimeShort(closedAt) + '- Closed'}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -66,7 +68,7 @@ const ChallengeNoteRecord = (props: any) => {
 
   return (
     <TimelineItem
-      key="4"
+      key={NOTE_TYPE_RECORD}
       dateText={formatDatetimeShort(timestamp) + '- Record'}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
@@ -81,7 +83,7 @@ const ChallengeNoteReset = (props: any) => {
 
   return (
     <TimelineItem
-      key="4"
+      key={NOTE_TYPE_RESET}
       dateText={formatDatetimeShort(timestamp) + '- Reset'}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
@@ -96,12 +98,27 @@ const ChallengeNoteTopic = (props: any) => {
 
   return (
     <TimelineItem
-      key="4"
+      key={NOTE_TYPE_TOPIC}
       dateText={formatDatetimeShort(timestamp) + '- Topic'}
       dateInnerStyle={{ background: primaryColor, color: brandWhite }}
     >
       <p>トピックを投稿しました。</p>
       <Link to={path}>{title}</Link>
+    </TimelineItem>
+  );
+};
+
+const ChallengeNoteDefault = (props: any) => {
+  const { data } = props;
+  const { timestamp, text } = data;
+
+  return (
+    <TimelineItem
+      key={NOTE_TYPE_DEFAULT}
+      dateText={formatDatetimeShort(timestamp) + '- Note'}
+      dateInnerStyle={{ background: brandPink, color: brandWhite }}
+    >
+      <p>{text}</p>
     </TimelineItem>
   );
 };
@@ -112,7 +129,8 @@ const componentMap = new Map([
   [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />],
   [NOTE_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
   [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
-  [NOTE_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />]
+  [NOTE_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
+  [NOTE_TYPE_DEFAULT, (data: any) => <ChallengeNoteDefault data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {
