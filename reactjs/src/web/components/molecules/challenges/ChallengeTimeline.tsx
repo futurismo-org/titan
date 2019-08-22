@@ -1,13 +1,23 @@
 import * as React from 'react';
-import DiscordHistories from '../../atoms/DiscordHistories';
+import { Timeline } from 'vertical-timeline-component-for-react';
+
+import ChallengeTimelineItem from './ChallengeTimelineItem';
 
 const ChallengeTimeline = (props: any) => {
-  const { channelId } = props;
+  const { items } = props;
 
-  if (channelId) {
-    return <DiscordHistories channelId={props.channelId} limit={30} />;
-  }
-  return <p>準備中...</p>;
+  return (
+    <Timeline lineColor="#ddd">
+      {items &&
+        items.map((item: any) => (
+          <ChallengeTimelineItem
+            key={item.id}
+            type={item.type}
+            data={item.data}
+          />
+        ))}
+    </Timeline>
+  );
 };
 
 export default ChallengeTimeline;

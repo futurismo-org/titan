@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ChallengeUserDashBoard from '~/web/containers/ChallengeUserDashBoardContainer';
 import ChallengeTopics from './ChallengeTopics';
-import ChallengeTimeline from './ChallengeTimeline';
+import ChallengeTimeline from '~/web/containers/ChallengeTimelineContainer';
 import Topic from '~/web/containers/TopicContainer';
 
 import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer';
@@ -34,7 +34,7 @@ const ChallengeBody = (props: any) => {
       />
       <Route
         path="/c/:id/timeline"
-        render={() => <ChallengeTimeline channelId={challenge.channelId} />}
+        render={props => <ChallengeTimeline challenge={challenge} {...props} />}
       />
       <Route
         path="/c/:collectionId/t/:topicId/edit"
