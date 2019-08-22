@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import ChallengeObjective from '~/web/containers/ChallengeObjectiveContainer';
-import ChallengeLog from './ChallengeLog';
+import ChallengeLogs from './ChallengeLogs';
 
 import Error from '../../atoms/Error';
 
@@ -34,7 +34,7 @@ const ChallengeNote = (props: any) => {
             <h1>{user.displayName}さんの努力ノート</h1>
           </div>
           <ChallengeObjective challenge={challenge} user={user} />
-          <ChallengeLog challenge={challenge} />
+          <ChallengeLogs challenge={challenge} />
         </Wrapper>
       )}
     </React.Fragment>

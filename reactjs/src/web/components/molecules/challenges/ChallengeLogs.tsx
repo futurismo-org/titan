@@ -1,7 +1,7 @@
 import React from 'react';
 import { Timeline, TimelineItem } from 'vertical-timeline-component-for-react';
 
-const ChallengeLog = (props: any) => {
+const ChallengeLogs = (props: any) => {
   // const { challenge } = props;
 
   return (
@@ -131,4 +131,4 @@ const ChallengeLog = (props: any) => {
   );
 };
 
-export default ChallengeLog;
+export default ChallengeLogs;
