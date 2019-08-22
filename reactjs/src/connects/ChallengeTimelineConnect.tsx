@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
 import { fetchTopics } from '~/actions/topicAction';
-import { getTopicsId } from '~/lib/resource';
+import { fetchNotes } from '~/actions/noteAction';
+import { getTopicsId, getNotesId } from '~/lib/resource';
 
 import moment from '~/lib/moment';
 import {
@@ -19,14 +20,14 @@ import {
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchTopics }, dispatch);
+  bindActionCreators({ fetchTopics, fetchNotes }, dispatch);
 
 const generateItems = (
   challenge: any,
   // user: any,
   // participant: any,
-  topics: any
-  // posts: any
+  topics: any,
+  posts: any
 ) => {
   const items = [] as any[];
   items.push({
@@ -92,23 +93,26 @@ const generateItems = (
     return false;
   });
 
-  // posts.map((post: any) => {
-  //   items.push({
-  //     id: shortId.generate(),
-  //     type: post.type || NOTE_TYPE_DEFAULT,
-  //     timestamp: post.createdAt.toDate(),
-  //     data: {
-  //       id: post.id,
-  //       challengeId: challenge.id,
-  //       noteId: post.id,
-  //       timestamp: post.createdAt.toDate(),
-  //       text: post.text,
-  //       type: post.type || NOTE_TYPE_DEFAULT
-  //     }
-  //   });
+  posts.map((post: any) => {
+    items.push({
+      id: shortId.generate(),
+      type: post.type || NOTE_TYPE_DEFAULT,
+      timestamp: post.createdAt.toDate(),
+      data: {
+        id: post.id,
+        challengeId: challenge.id,
+        noteId: post.id,
+        timestamp: post.createdAt.toDate(),
+        text: post.text,
+        type: post.type || NOTE_TYPE_DEFAULT,
+        userName: post.userName,
+        userPhotoURL: post.userPhotoURL,
+        userId: post.userId
+      }
+    });
 
-  //   return false;
-  // });
+    return false;
+  });
 
   return items.sort((x: any, y: any) =>
     moment(y.timestamp).diff(moment(x.timestamp))
@@ -120,23 +124,24 @@ const mapStateToProps = (state: any, props: any) => {
 
   // const resourceId = getParticipantId(challengeId, userShortId);
   const topicsResourceId = getTopicsId('challenges', challenge.id);
-  // const itemsResourceId = getitemsId(challenge.id);
+  const notesResourceId = getNotesId(challenge.id);
 
   // const participant = state.participant.target;
   const topics = state.topic.items;
-  // const posts = state.note.items;
+  const posts = state.note.items;
 
   const items =
     challenge &&
     // user &&
     // participant &&
     topics &&
-    // posts &&
-    generateItems(challenge, topics);
+    posts &&
+    generateItems(challenge, topics, posts);
 
   return {
     items,
     topicsResourceId,
+    notesResourceId,
     ...props
   };
 };

@@ -107,6 +107,20 @@ const ChallengeTimelineItemReset = (props: any) => {
   );
 };
 
+const TimelineItemHeadline = (props: any) => {
+  const { headline, photoURL, userId } = props;
+  return (
+    <Grid container direction="row" justify="flex-start">
+      <Grid item>
+        <UserAvatar photoURL={photoURL} userId={userId} />
+      </Grid>
+      <Grid item>
+        <p style={{ lineHeight: 3, marginLeft: 10 }}>{headline}</p>
+      </Grid>
+    </Grid>
+  );
+};
+
 const ChallengeTimelineItemTopic = (props: any) => {
   const { data } = props;
   const { timestamp, path, title, userName, userPhotoURL, userId } = data;
@@ -117,26 +131,20 @@ const ChallengeTimelineItemTopic = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
-      <Grid container direction="row" justify="flex-start">
-        <Grid item>
-          <UserAvatar photoURL={userPhotoURL} userId={userId} />
-        </Grid>
-        <Grid item>
-          <p style={{ lineHeight: 3, marginLeft: 10 }}>
-            トピックが投稿されました。
-          </p>
-        </Grid>
-      </Grid>
-      <div>
-        <Link to={path}>{title}</Link> Posted by {userName}
-      </div>
+      <TimelineItemHeadline
+        headline="トピックが投稿されました。"
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
+      <Link to={path}>{title}</Link>
+      <p>Posted by {userName}</p>
     </TimelineItem>
   );
 };
 
 const ChallengeTimelineItemMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, noteId, challengeId, type } = data;
+  const { timestamp, text, type, userPhotoURL, userId, userName } = data;
 
   return (
     <TimelineItem
@@ -144,7 +152,13 @@ const ChallengeTimelineItemMemo = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: backgroundColor, color }}
     >
+      <TimelineItemHeadline
+        headline="ノートが投稿されました。"
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
       <TextFieldView text={text} />
+      <p>Posted by {userName}</p>
     </TimelineItem>
   );
 };

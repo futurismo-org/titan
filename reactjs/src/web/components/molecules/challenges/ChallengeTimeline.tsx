@@ -4,11 +4,18 @@ import { Timeline } from 'vertical-timeline-component-for-react';
 import ChallengeTimelineItem from './ChallengeTimelineItem';
 
 const ChallengeTimeline = (props: any) => {
-  const { items, fetchTopics, topicsResourceId } = props;
+  const {
+    items,
+    fetchTopics,
+    topicsResourceId,
+    fetchNotes,
+    notesResourceId
+  } = props;
 
   useEffect(() => {
-    fetchTopics(topicsResourceId);
-  }, [fetchTopics, topicsResourceId]);
+    topicsResourceId && fetchTopics(topicsResourceId);
+    notesResourceId && fetchNotes(notesResourceId);
+  }, [fetchNotes, fetchTopics, notesResourceId, topicsResourceId]);
 
   return (
     <Timeline lineColor="#ddd">
