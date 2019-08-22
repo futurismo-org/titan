@@ -10,6 +10,11 @@ export const fetchError = (type: string) => (error: any) => ({ type, error });
 
 export const reset = (type: string) => () => ({ type });
 
+export const fetchExist = (type: string) => (payload: any) => ({
+  type,
+  payload
+});
+
 export const fetchTarget = (
   resourceId: string,
   requestAction: any,

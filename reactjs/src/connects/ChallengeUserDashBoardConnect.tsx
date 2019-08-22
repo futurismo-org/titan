@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
-import { fetchUser } from '~/actions/userAction';
+import { fetchParticipant } from '~/actions/participantAction';
 import { formatDate } from '~/lib/moment';
 
 import firebase from '~/lib/firebase';
@@ -11,7 +11,7 @@ import { getCategoryDashboardPath } from '~/lib/url';
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchUser,
+      fetchParticipant,
       setOgpInfo,
       resetOgpInfo
     },
@@ -24,7 +24,7 @@ const mapStateToProps = (state: any, props: any) => {
   const { userShortId } = props.match.params;
   const resourceId = `/challenges/${challenge.id}/participants/${userShortId}`;
 
-  const user = state.user.target;
+  const user = state.participant.target;
   const joinDate = user && formatDate(user.createdAt.toDate());
 
   const deleteHistoryHandler = (history: any) => () => {
@@ -41,8 +41,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     user,
-    loading: state.user.loading,
-    error: state.user.error,
+    loading: state.participant.loading,
+    error: state.participant.error,
     deleteHistoryHandler,
     resourceId,
     joinDate,

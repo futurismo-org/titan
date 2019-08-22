@@ -1,23 +1,39 @@
 import React, { useEffect } from 'react';
 import StackGrid from 'react-stack-grid';
+import { Grid } from '@material-ui/core';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
+import UserAvatar from '../../atoms/UserAvatar';
+import { getChallengeUserGoalPath } from '~/lib/url';
 
 const ChallengeGoals = (props: any) => {
   const {
     fetchParticipants,
     resourceId,
-    users,
+    participants,
     loading,
     error,
-    challengeId
+    challengeId,
+    goals,
+    notSetGoals,
+    fetchChallengeObjectives
   } = props;
 
   useEffect(() => {
-    users === [] && fetchParticipants(resourceId);
-  }, [fetchParticipants, resourceId, users]);
+    participants.length === 0 && fetchParticipants(resourceId);
+    participants.length !== 0 &&
+      !goals &&
+      fetchChallengeObjectives(participants, challengeId);
+  }, [
+    challengeId,
+    fetchChallengeObjectives,
+    fetchParticipants,
+    goals,
+    participants,
+    resourceId
+  ]);
 
   return (
     <React.Fragment>
@@ -25,18 +41,35 @@ const ChallengeGoals = (props: any) => {
         <Title text="仲間たちのチャレンジ目標" />
       </div>
       {error && <Error error={error} />}
-      {loading && <Progress />}
-      {!loading && users && (
+      {loading ? <Progress /> : null}
+      {!loading && !!goals && (
         <StackGrid columnWidth={300}>
-          {users.map((user: any) => (
+          {goals.map((goal: any) => (
             <ChallengeGoalCard
-              user={user}
-              key={user.id}
+              goal={goal}
+              key={goal.id}
               challengeId={challengeId}
             />
           ))}
         </StackGrid>
       )}
+      <br />
+      <h3>目標をまだ設定していないユーザ</h3>
+      <Grid container>
+        {!loading &&
+          !!notSetGoals &&
+          notSetGoals.map((user: any) => {
+            return (
+              <Grid item key={user.id}>
+                <UserAvatar
+                  photoURL={user.photoURL}
+                  userId={user.id}
+                  to={getChallengeUserGoalPath(challengeId, user.id)}
+                />
+              </Grid>
+            );
+          })}
+      </Grid>
     </React.Fragment>
   );
 };

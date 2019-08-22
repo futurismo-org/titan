@@ -182,7 +182,13 @@ const CategoryForm = (props: any) => {
           multiline
           onChange={onOverviewChange}
         />
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          style={{ fontWeight: 'bold' }}
+        >
           投稿
         </Button>
         <h2>概要プレビュー</h2>

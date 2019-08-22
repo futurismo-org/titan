@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { getParticipantsUserId } from '~/lib/resource';
+import { getParticipantId } from '~/lib/resource';
 import { fetchUser } from '~/actions/userAction';
 import { getChallengeDashboardPath } from '~/lib/url';
 
@@ -13,7 +13,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const challengeId = props.challengeId || props.match.params.id;
   const userShortId = profileShortId;
-  const resourceId = getParticipantsUserId(challengeId, userShortId);
+  const resourceId = getParticipantId(challengeId, userShortId);
   const redirectPath = getChallengeDashboardPath(challengeId, userShortId);
 
   const isLogin = !profile.isEmpty && profile.isLoaded;

@@ -12,7 +12,7 @@ import {
 } from '~/lib/challenge';
 
 import moment, { now, isToday } from '~/lib/moment';
-import { getParticipantsUserId } from '~/lib/resource';
+import { getParticipantId } from '~/lib/resource';
 import { getChallengeDashboardPath } from '~/lib/url';
 import { mergeCategory } from '~/lib/profile';
 
@@ -29,7 +29,7 @@ const mapStateToProps = (state: any, props: any) => {
   const { webhookURL, openedAt, closedAt, id } = challenge;
 
   const challengeId = id;
-  const resourceId = getParticipantsUserId(challengeId, userShortId);
+  const resourceId = getParticipantId(challengeId, userShortId);
 
   const dashBoardPath = getChallengeDashboardPath(challengeId, userShortId);
   const dashBoardURL = `https://titan-fire.com${dashBoardPath}`;

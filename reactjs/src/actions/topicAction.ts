@@ -41,6 +41,20 @@ export const fetchTopics = (resourceId: string, num = 1000) => {
   };
 };
 
+export const fetchUserTopics = (resourceId: string, userShortId: string) => {
+  return (dispatch: Dispatch) => {
+    dispatch(fetchTopicsRequest());
+    firebase
+      .firestore()
+      .collection(resourceId)
+      .where('userId', '==', userShortId)
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
+      .then((data: any) => dispatch(fetchTopicsSuccess(data)))
+      .catch((error: any) => dispatch(fetchTopicsError(error)));
+  };
+};
+
 export const fetchTopic = (resourceId: string) => {
   return fetchTarget(
     resourceId,

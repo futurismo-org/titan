@@ -54,7 +54,7 @@ const ProfileBody = (props: any) => {
       {loading && null}
       {!loading && (
         <View style={{ padding: 10 }}>
-          <Title text="参加中のチャレンジ" />
+          <Title text="参加中のチャレンジ記録" />
           {currentChallenges && currentChallenges.length !== 0 ? (
             <React.Fragment>
               <Carousel

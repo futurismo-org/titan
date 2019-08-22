@@ -1,6 +1,6 @@
 import faker from 'faker';
 import moment from 'moment';
-import shortid from 'shortid';
+import shortId from 'shortid';
 
 import admin from 'firebase-admin';
 import { configDev } from '../utils/config';
@@ -14,19 +14,19 @@ const seed = require('firestore-seed');
 
 faker.locale = 'ja';
 
-const muscleCategoryId = shortid.generate();
-const meditationCategoryId = shortid.generate();
-const getUpCategoryId = shortid.generate();
+const muscleCategoryId = shortId.generate();
+const meditationCategoryId = shortId.generate();
+const getUpCategoryId = shortId.generate();
 
-const muscleChallngeId = shortid.generate();
-const muscleChallngeIds = [muscleChallngeId, shortid.generate()];
-const meditationChallngeIds = [shortid.generate()];
-const getUpChallngeIds = [shortid.generate()];
+const muscleChallngeId = shortId.generate();
+const muscleChallngeIds = [muscleChallngeId, shortId.generate()];
+const meditationChallngeIds = [shortId.generate()];
+const getUpChallngeIds = [shortId.generate()];
 
-const titanShortId = shortid.generate();
+const titanShortId = shortId.generate();
 const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 
-const tsuneraShortId = shortid.generate();
+const tsuneraShortId = shortId.generate();
 const tsuneraUserId = 'oZEKc9c7k5XUIVxklYMVwvAiXbW2';
 
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
@@ -34,23 +34,42 @@ const sampleGeneralChannelId = '588697657279512587'; // テスト用フリート
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
 
-const dummyUserIds = [...Array(30).keys()].map((n: number) =>
-  shortid.generate()
+const dummyUserIds = [...Array(50).keys()].map((n: number) =>
+  shortId.generate()
 );
-const dummyTopicIds = [...Array(10).keys()].map((n: number) =>
-  shortid.generate()
+const dummyTopicIds = [...Array(100).keys()].map(
+  (n: number) => dummyUserIds[faker.random.number({ min: 0, max: 49 })]
 );
+
+const dummyNoteIds = [...Array(100).keys()].map(
+  (n: number) => dummyUserIds[faker.random.number({ min: 0, max: 29 })]
+);
+
+const getRandomCreatedAt = () => {
+  const now = new Date();
+  const n = faker.random.number({ min: 15, max: 30 });
+  return moment(now)
+    .subtract(n, 'day')
+    .toDate();
+};
+
+const getRandomUpdatedAt = () => {
+  const now = new Date();
+  const n = faker.random.number({ min: 0, max: 14 });
+  return moment(now)
+    .subtract(n, 'day')
+    .toDate();
+};
 
 const createTopicSeed = (args: any) => {
   const { id } = args;
-  const now = new Date();
   return seed.doc(id, {
     title: faker.lorem.sentence(),
     url: 'https://example.com',
     text: faker.lorem.paragraphs(),
-    createdAt: now,
-    updatedAt: now,
-    userId: shortid.generate(),
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
+    userId: id,
     userName: faker.name.firstName(),
     usrPhotoURL: faker.image.avatar(),
     ...args
@@ -59,7 +78,7 @@ const createTopicSeed = (args: any) => {
 
 const topicsSeeds = seed.subcollection([
   createTopicSeed({
-    id: shortid.generate(),
+    id: shortId.generate(),
     userId: titanShortId,
     userName: 'Titan@公式',
     userPhotoURL:
@@ -72,16 +91,46 @@ const topicsSeeds = seed.subcollection([
   })
 ]);
 
+const createNoteSeed = (args: any) => {
+  const { id } = args;
+
+  return seed.doc(id, {
+    text: faker.lorem.paragraphs(),
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
+    userId: id,
+    userName: faker.name.firstName(),
+    usrPhotoURL: faker.image.avatar(),
+    ...args
+  });
+};
+
+const notesSeeds = seed.subcollection([
+  createNoteSeed({
+    id: shortId.generate(),
+    userId: titanShortId,
+    userName: 'Titan@公式',
+    userPhotoURL:
+      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
+  }),
+  ...dummyNoteIds.map((id: string) => {
+    return createNoteSeed({
+      id: id
+    });
+  })
+]);
+
 const createChallengeSeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: new Date(),
-    updatedAt: faker.date.recent(),
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
     overview: faker.lorem.paragraphs(),
     rules: faker.lorem.paragraphs(),
     webhookURL: sampleChallengeWebhookURL,
     channelId: sampleChallengeChannelId,
     topics: topicsSeeds,
+    notes: notesSeeds,
     hashtag: '#サンプルチャレンジ',
     draft: false,
     ...args
@@ -91,8 +140,8 @@ const createChallengeSeed = (args: any) => {
 const createCategorySeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: new Date(),
-    updatedAt: faker.date.recent(),
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
     overview: faker.lorem.paragraphs(),
     channelId: sampleGeneralChannelId,
     topics: topicsSeeds,
@@ -103,8 +152,8 @@ const createCategorySeed = (args: any) => {
 const createUserSeed = (args: any) => {
   const { id } = args;
   return seed.doc(id, {
-    createdAt: new Date(),
-    updatedAt: faker.date.recent(),
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
     ...args
   });
 };
@@ -113,9 +162,9 @@ const createChallengeHistorySeed = (n: number) => {
   const array = ['RECORD', 'RESET'];
 
   return {
-    id: shortid.generate(),
+    id: shortId.generate(),
     timestamp: moment()
-      .subtract(n, 'days')
+      .add(n, 'days')
       .toDate(),
     days: faker.random.number({ min: 0, max: 30 }),
     score: faker.random.number({ min: 0, max: 30 }),
@@ -130,9 +179,9 @@ const createParticipationSeed = (args: any) => {
   const { id } = args;
   const now = new Date();
   return seed.doc(id, {
-    createdAt: now,
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
     startedAt: now,
-    updatedAt: now,
     challengeName: 'サンプルチャレンジ',
     ...args
   });
@@ -151,7 +200,9 @@ const createUserSecuritiesSeed = (args: any) => {
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
     id: titanShortId,
-    histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
+    histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
+      createChallengeHistorySeed(n)
+    ),
     days: 5,
     score: 5,
     maxDays: 5,
@@ -160,13 +211,15 @@ const challengeParticipantsSeeds = seed.subcollection([
     displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
-    createdAt: new Date(),
-    startedAt: new Date(),
-    updatedAt: new Date()
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
+    startedAt: new Date()
   }),
   createParticipationSeed({
     id: tsuneraShortId,
-    histories: [1, 2, 3, 4, 5].map(n => createChallengeHistorySeed(n)),
+    histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
+      createChallengeHistorySeed(n)
+    ),
     days: 5,
     score: 31,
     maxDays: 5,
@@ -174,9 +227,9 @@ const challengeParticipantsSeeds = seed.subcollection([
     pastDays: 9,
     displayName: 'tsu-nera',
     photoURL: '',
-    createdAt: new Date(),
-    startedAt: new Date(),
-    updatedAt: new Date()
+    createdAt: getRandomCreatedAt(),
+    updatedAt: getRandomUpdatedAt(),
+    startedAt: new Date()
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({
@@ -309,7 +362,7 @@ const categorySeeds = seed.collection('categories', [
 
 const userSecuritiesSeeds = seed.subcollection([
   createUserSecuritiesSeed({
-    id: shortid.generate()
+    id: shortId.generate()
   })
 ]);
 

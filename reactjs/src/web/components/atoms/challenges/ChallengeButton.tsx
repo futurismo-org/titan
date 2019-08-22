@@ -44,13 +44,13 @@ const ChallengeButton = (props: any) => {
     join,
     resourceId,
     profileCategoryResourceId,
-    fetchParticipants,
     fetchProfileCategory,
     loading,
     error,
     joinHandler,
     redirectPath,
-    history
+    history,
+    fetchParticipantJoined
   } = props;
 
   const challengeId = challenge.id;
@@ -60,10 +60,10 @@ const ChallengeButton = (props: any) => {
   // const [modalStyle] = React.useState(getModalStyle);
 
   useEffect(() => {
-    fetchParticipants(resourceId);
+    fetchParticipantJoined(resourceId);
     fetchProfileCategory(profileCategoryResourceId);
   }, [
-    fetchParticipants,
+    fetchParticipantJoined,
     fetchProfileCategory,
     profileCategoryResourceId,
     resourceId

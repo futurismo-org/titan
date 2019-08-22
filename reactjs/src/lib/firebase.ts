@@ -24,6 +24,9 @@ export const remove = (resourceId: string) =>
 export const create = (resourceId: string, data: any) =>
   firestore.doc(resourceId).set(data);
 
+export const update = (resourceId: string, data: any) =>
+  firestore.doc(resourceId).set(data, { merge: true });
+
 export const isExist = (resourceId: string) =>
   firestore
     .doc(resourceId)
