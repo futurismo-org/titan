@@ -22,7 +22,7 @@ import {
   NOTE_TYPE_DEFAULT
 } from '~/constants/note';
 
-import firebase, { update } from '~/lib/firebase';
+import { update } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 
 const ChallengeNoteJoin = (props: any) => {
