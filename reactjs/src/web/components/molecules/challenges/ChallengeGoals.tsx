@@ -6,7 +6,7 @@ import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import UserAvatar from '../../atoms/UserAvatar';
-import { getChallengeUserNotesPath } from '~/lib/url';
+import { getChallengeUserGoalPath } from '~/lib/url';
 
 const ChallengeGoals = (props: any) => {
   const {
@@ -62,7 +62,7 @@ const ChallengeGoals = (props: any) => {
                 <UserAvatar
                   photoURL={user.photoURL}
                   userId={user.id}
-                  to={getChallengeUserNotesPath(challengeId, user.id)}
+                  to={getChallengeUserGoalPath(challengeId, user.id)}
                 />
               </Grid>
             );

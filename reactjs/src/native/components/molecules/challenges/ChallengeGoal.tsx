@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'native-base';
 
-const ChallengeNote = (props: any) => {
+const ChallengeGoal = (props: any) => {
   return (
     <React.Fragment>
       <Text>Noteのページです</Text>
@@ -9,4 +9,4 @@ const ChallengeNote = (props: any) => {
   );
 };
 
-export default ChallengeNote;
+export default ChallengeGoal;

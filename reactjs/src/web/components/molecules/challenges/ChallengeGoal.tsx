@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ChallengeNote = (props: any) => {
+const ChallengeGoal = (props: any) => {
   const {
     challenge,
     user,
@@ -41,4 +41,4 @@ const ChallengeNote = (props: any) => {
   );
 };
 
-export default ChallengeNote;
+export default ChallengeGoal;
