@@ -80,26 +80,3 @@ export const fetchErrorSub = (state: any, error: any) => {
     errorSub: error
   });
 };
-
-export const fetchExistRequest = (state: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loadingExist: true
-  });
-};
-
-export const fetchExistSuccess = (state: any, payload: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loadingExist: false,
-    exist: payload
-  });
-};
-
-export const fetchExistError = (state: any, error: any) => {
-  return Object.assign({}, state, {
-    ...state,
-    loadingExist: false,
-    errorExist: error
-  });
-};

@@ -12,7 +12,7 @@ const ChallengeGoals = (props: any) => {
   const {
     fetchParticipants,
     resourceId,
-    users,
+    participants,
     loading,
     error,
     challengeId,
@@ -22,15 +22,17 @@ const ChallengeGoals = (props: any) => {
   } = props;
 
   useEffect(() => {
-    !users && fetchParticipants(resourceId);
-    !!users && !goals && fetchChallengeObjectives(users, challengeId);
+    participants.length === 0 && fetchParticipants(resourceId);
+    participants.length !== 0 &&
+      !goals &&
+      fetchChallengeObjectives(participants, challengeId);
   }, [
     challengeId,
     fetchChallengeObjectives,
     fetchParticipants,
     goals,
-    resourceId,
-    users
+    participants,
+    resourceId
   ]);
 
   return (

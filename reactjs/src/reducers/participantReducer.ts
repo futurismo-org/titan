@@ -15,19 +15,39 @@ import {
   fetchRequest,
   fetchItemsSuccess,
   fetchTargetSuccess,
-  fetchError,
-  fetchExistRequest,
-  fetchExistSuccess,
-  fetchExistError
+  fetchError
 } from './reducuerUtil';
+
+export const fetchExistRequest = (state: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingExist: true
+  });
+};
+
+export const fetchExistSuccess = (state: any, payload: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingExist: false,
+    exist: payload
+  });
+};
+
+export const fetchExistError = (state: any, error: any) => {
+  return Object.assign({}, state, {
+    ...state,
+    loadingExist: false,
+    errorExist: error
+  });
+};
 
 export const initialState = {
   loading: false,
   items: [],
   target: null,
   error: null,
-  loadingExist: false,
   exist: false,
+  loadingExist: false,
   errorExist: null
 };
 

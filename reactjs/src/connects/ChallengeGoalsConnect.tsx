@@ -10,21 +10,21 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ fetchParticipants, fetchChallengeObjectives }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const { challegeId } = props;
-  const resourceId = getParticipantsId(challegeId);
+  const { challengeId } = props;
+  const resourceId = getParticipantsId(challengeId);
 
-  const users = state.participant.items;
+  const participants = state.participant.items;
   const objectives = state.objective.items.filter(
     (objective: any) => objective
   );
 
   const goals =
-    !!users &&
+    !!participants &&
     objectives.length !== 0 &&
     objectives
       .map((objective: any) => {
-        const user = users.find(
-          (user: any) => objective.userShortId === user.id
+        const user = participants.find(
+          (participant: any) => objective.userShortId === participant.id
         );
 
         return {
@@ -44,17 +44,17 @@ const mapStateToProps = (state: any, props: any) => {
 
   const goalIds = goals && goals.map((goal: any) => goal.id);
   const notSetGoals =
-    !!users &&
+    !!participants &&
     goalIds &&
-    users.filter((user: any) => !goalIds.includes(user.id));
+    participants.filter((user: any) => !goalIds.includes(user.id));
 
   return {
-    users,
+    participants,
     resourceId,
     goals,
     notSetGoals,
     loading: state.objective.loading | state.participant.loading,
-    erorr: state.objective.error || state.participant.loading,
+    erorr: state.objective.error || state.participant.error,
     ...props
   };
 };
