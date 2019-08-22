@@ -18,7 +18,7 @@ import {
   NOTE_TYPE_SUCCESS,
   NOTE_TYPE_ANALYSNS
 } from '~/constants/note';
-import { RECORD } from '~/lib/challenge';
+import { RECORD, challengePeriod } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -98,6 +98,9 @@ const generateNotes = (
       type: NOTE_TYPE_DEFAULT,
       timestamp: post.createdAt.toDate(),
       data: {
+        id: post.id,
+        challengeId: challenge.id,
+        noteId: post.id,
         timestamp: post.createdAt.toDate(),
         text: post.text
       }

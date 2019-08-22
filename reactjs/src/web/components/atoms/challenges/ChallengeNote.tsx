@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
 import { Link } from 'react-router-dom';
+import { TextField } from '@material-ui/core';
+import shortId from 'shortid';
 import {
   secondaryColor,
   brandWhite,
@@ -19,6 +21,9 @@ import {
   NOTE_TYPE_TOPIC,
   NOTE_TYPE_DEFAULT
 } from '~/constants/note';
+
+import firebase, { update } from '~/lib/firebase';
+import TextFieldView from '../TextFieldView';
 
 const ChallengeNoteJoin = (props: any) => {
   const { startedAt } = props.data;
@@ -110,7 +115,65 @@ const ChallengeNoteTopic = (props: any) => {
 
 const ChallengeNoteDefault = (props: any) => {
   const { data } = props;
-  const { timestamp, text } = data;
+  const { timestamp, text, noteId, challengeId } = data;
+
+  const [edit, setEdit] = useState(false);
+  const [buffer, setBuffer] = useState(text);
+
+  const onBufferChange = (e: any) => {
+    e.preventDefault();
+    setBuffer(e.target.value);
+  };
+
+  const onSave = () => {
+    const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
+    const data = {
+      text: buffer,
+      updatedAt: new Date()
+    };
+    update(resourceId, data).then(() => setEdit(false));
+  };
+
+  const renderText = () => (
+    <React.Fragment>
+      <TextFieldView text={buffer} />
+      <p>
+        <span
+          style={{ textDecorationLine: 'underline' }}
+          role="button"
+          onClick={() => setEdit(true)}
+        >
+          編集
+        </span>{' '}
+        <span style={{ textDecorationLine: 'underline' }}>削除</span>
+      </p>
+    </React.Fragment>
+  );
+
+  const renderEdit = () => (
+    <React.Fragment>
+      <TextField
+        value={buffer}
+        variant="outlined"
+        margin="normal"
+        required
+        id="note"
+        label="ノート"
+        fullWidth
+        multiline
+        onChange={onBufferChange}
+      />
+      <p>
+        <span
+          style={{ textDecorationLine: 'underline' }}
+          role="button"
+          onClick={onSave}
+        >
+          保存
+        </span>{' '}
+      </p>
+    </React.Fragment>
+  );
 
   return (
     <TimelineItem
@@ -118,7 +181,7 @@ const ChallengeNoteDefault = (props: any) => {
       dateText={formatDatetimeShort(timestamp) + '- Note'}
       dateInnerStyle={{ background: brandPink, color: brandWhite }}
     >
-      <p>{text}</p>
+      {edit ? renderEdit() : renderText()}
     </TimelineItem>
   );
 };
