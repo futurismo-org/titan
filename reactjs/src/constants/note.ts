@@ -6,4 +6,4 @@ export const NOTE_TYPE_RESET = 'RESET';
 export const NOTE_TYPE_TOPIC = 'TOPIC';
 export const NOTE_TYPE_DEFAULT = 'DEFAULT';
 export const NOTE_TYPE_SUCCESS = 'SUCCESS';
-export const NOTE_TYPE_ANALYSNS = 'ANALYSYS';
+export const NOTE_TYPE_ANALYSIS = 'ANALYSIS';

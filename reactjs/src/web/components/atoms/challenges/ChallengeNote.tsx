@@ -8,8 +8,11 @@ import {
   brandWhite,
   brandSuccess,
   brandWarning,
-  primaryColor,
-  brandPink
+  brandPink,
+  brandDarkBlue,
+  brandYellow,
+  brandDark,
+  brandPurple
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
@@ -19,7 +22,9 @@ import {
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
   NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT
+  NOTE_TYPE_DEFAULT,
+  NOTE_TYPE_ANALYSIS,
+  NOTE_TYPE_SUCCESS
 } from '~/constants/note';
 
 import { update, remove } from '~/lib/firebase';
@@ -105,7 +110,7 @@ const ChallengeNoteTopic = (props: any) => {
     <TimelineItem
       key={NOTE_TYPE_TOPIC}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ background: primaryColor, color: brandWhite }}
+      dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
       <p>トピックを投稿しました。</p>
       <Link to={path}>{title}</Link>
@@ -113,8 +118,8 @@ const ChallengeNoteTopic = (props: any) => {
   );
 };
 
-const ChallengeNoteDefault = (props: any) => {
-  const { data } = props;
+const ChallengeNoteMemo = (props: any) => {
+  const { data, backgroundColor, color } = props;
   const { timestamp, text, noteId, challengeId } = data;
 
   const [edit, setEdit] = useState(false);
@@ -195,10 +200,40 @@ const ChallengeNoteDefault = (props: any) => {
     <TimelineItem
       key={NOTE_TYPE_DEFAULT}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ background: brandPink, color: brandWhite }}
+      dateInnerStyle={{ background: backgroundColor, color }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>
+  );
+};
+
+const ChallengeNoteDefault = (props: any) => {
+  return (
+    <ChallengeNoteMemo
+      backgoundColor={brandPink}
+      color={brandWhite}
+      {...props}
+    />
+  );
+};
+
+const ChallengeNoteSuccess = (props: any) => {
+  return (
+    <ChallengeNoteMemo
+      backgroundColor={brandYellow}
+      color={brandDark}
+      {...props}
+    />
+  );
+};
+
+const ChallengeNoteAnalysis = (props: any) => {
+  return (
+    <ChallengeNoteMemo
+      backgroundColor={brandDarkBlue}
+      color={brandWhite}
+      {...props}
+    />
   );
 };
 
@@ -209,7 +244,9 @@ const componentMap = new Map([
   [NOTE_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
   [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
   [NOTE_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
-  [NOTE_TYPE_DEFAULT, (data: any) => <ChallengeNoteDefault data={data} />]
+  [NOTE_TYPE_DEFAULT, (data: any) => <ChallengeNoteDefault data={data} />],
+  [NOTE_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
+  [NOTE_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {

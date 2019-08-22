@@ -14,9 +14,7 @@ import {
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
   NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSNS
+  NOTE_TYPE_DEFAULT
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
 
@@ -44,6 +42,7 @@ const generateNotes = (
       startedAt
     }
   });
+
   notes.push({
     id: shortId.generate(),
     type: NOTE_TYPE_OPEN,
@@ -52,6 +51,7 @@ const generateNotes = (
       openedAt: challenge.openedAt.toDate()
     }
   });
+
   notes.push({
     id: shortId.generate(),
     type: NOTE_TYPE_CLOSE,
@@ -95,7 +95,7 @@ const generateNotes = (
   posts.map((post: any) => {
     notes.push({
       id: shortId.generate(),
-      type: NOTE_TYPE_DEFAULT,
+      type: post.type || NOTE_TYPE_DEFAULT,
       timestamp: post.createdAt.toDate(),
       data: {
         id: post.id,
