@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import ChallengeObjective from '~/web/containers/ChallengeObjectiveContainer';
-import ChallengeNotes from './ChallengeNotes';
+import ChallengeNotes from '~/web/containers/ChallengeNotesContainer';
 
 import Error from '../../atoms/Error';
 

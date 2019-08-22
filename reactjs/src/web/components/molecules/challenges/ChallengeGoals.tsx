@@ -39,7 +39,7 @@ const ChallengeGoals = (props: any) => {
         <Title text="仲間たちのチャレンジ目標" />
       </div>
       {error && <Error error={error} />}
-      {loading && <Progress />}
+      {loading ? <Progress /> : null}
       {!loading && !!goals && (
         <StackGrid columnWidth={300}>
           {goals.map((goal: any) => (

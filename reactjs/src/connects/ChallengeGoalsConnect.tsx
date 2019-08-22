@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { getParticipantsId } from '~/lib/resource';
-import { fetchParticipants } from '~/actions/userAction';
+import { fetchParticipants } from '~/actions/participantAction';
 import { fetchChallengeObjectives } from '~/actions/objectiveAction';
 
 import moment from '~/lib/moment';
@@ -13,7 +13,7 @@ const mapStateToProps = (state: any, props: any) => {
   const { challegeId } = props;
   const resourceId = getParticipantsId(challegeId);
 
-  const users = state.user.items;
+  const users = state.participant.items;
   const objectives = state.objective.items.filter(
     (objective: any) => objective
   );
@@ -53,8 +53,8 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     goals,
     notSetGoals,
-    loading: state.objective.loading || state.user.loading,
-    erorr: state.objective.error || state.user.loading,
+    loading: state.objective.loading | state.participant.loading,
+    erorr: state.objective.error || state.participant.loading,
     ...props
   };
 };

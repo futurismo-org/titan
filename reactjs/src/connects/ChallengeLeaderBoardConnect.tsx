@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchParticipants } from '~/actions/userAction';
+import { fetchParticipants } from '~/actions/participantAction';
 
 import { fromNow } from '~/lib/moment';
 
@@ -19,18 +19,20 @@ const mapStateToProps = (state: any, props: any) => {
   const resourceId = `/challenges/${challengeId}/participants`;
   const myId = state.firebase.profile.shortId;
 
-  const users = rankChallengeParticipants(state.user.items).map((user: any) => {
-    user.photoURL = user.photoURL || 'https://titan-fire.com/anonymous.png';
-    user.latest = fromNow(user.updatedAt.toDate());
-    user.profilePath = `/c/${challengeId}/u/${user.id}`;
-    user.displayName = user.displayName || 'Anonymous';
-    return user;
-  });
+  const users = rankChallengeParticipants(state.participant.items).map(
+    (user: any) => {
+      user.photoURL = user.photoURL || 'https://titan-fire.com/anonymous.png';
+      user.latest = fromNow(user.updatedAt.toDate());
+      user.profilePath = `/c/${challengeId}/u/${user.id}`;
+      user.displayName = user.displayName || 'Anonymous';
+      return user;
+    }
+  );
 
   return {
     users,
-    loading: state.user.loading,
-    error: state.user.error,
+    loading: state.participant.loading,
+    error: state.participant.error,
     myId,
     resourceId,
     ...props

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { firestore } from 'firebase';
-import { fetchParticipants } from '~/actions/userAction';
+import { fetchParticipants } from '~/actions/participantAction';
 import { fetchProfileCategory } from '~/actions/profileAction';
 
 import { getParticipantsId } from '~/lib/resource';
@@ -21,7 +21,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const user = state.firebase.profile;
   const userShortId = user.shortId;
-  const participants = state.user.items;
+  const participants = state.participant.items;
   const categoryId = getCategoryId(challenge.categoryRef);
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
 
@@ -131,8 +131,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     join,
-    loading: state.user.loading,
-    error: state.user.error,
+    loading: state.participant.loading,
+    error: state.participant.error,
     user,
     resourceId,
     profileCategoryResourceId,
