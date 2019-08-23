@@ -9,7 +9,7 @@ import TouchableText from '../../atoms/TouchableText';
 import { getChallengeUserGoalPath } from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
-  const { challenge, isLogin, userShortId, history } = props;
+  const { challenge, userShortId, history, join } = props;
   const [menuRef, setMenuRef] = useState();
 
   const challengeId = challenge.id;
@@ -55,7 +55,7 @@ const ChallengeNavbar = (props: any) => {
         <MenuItem onPress={() => hideMenu(`/c/${challengeId}/leaderboard`)}>
           リーダーボード
         </MenuItem>
-        {isLogin && (
+        {join && (
           <MenuItem
             onPress={() => hideMenu(`/c/${challengeId}/u/${userShortId}`)}
           >
@@ -71,7 +71,7 @@ const ChallengeNavbar = (props: any) => {
         <MenuItem onPress={() => hideMenu(`/c/${challengeId}/timeline`)}>
           タイムライン
         </MenuItem>
-        {isLogin && (
+        {join && (
           <MenuItem
             onPress={() =>
               hideMenu(getChallengeUserGoalPath(challengeId, userShortId))
@@ -80,7 +80,7 @@ const ChallengeNavbar = (props: any) => {
             努力ノート
           </MenuItem>
         )}
-        {isLogin && (
+        {join && (
           <MenuItem
             onPress={() =>
               hideMenu(`/c/${challengeId}/u/${userShortId}/settings`)

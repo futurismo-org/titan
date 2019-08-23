@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Content, View } from 'native-base';
 import Title from '../../atoms/Title';
 
@@ -6,7 +6,6 @@ import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import UserAvatar from '../../atoms/UserAvatar';
 import { getChallengeUserGoalPath } from '~/lib/url';
-import ViewRow from '../../atoms/ViewRow';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 
 const ChallengeGoals = (props: any) => {
@@ -22,16 +21,20 @@ const ChallengeGoals = (props: any) => {
     fetchChallengeObjectives
   } = props;
 
+  const [isParticipantsFeached, setIsParticipantsFetched] = useState(false);
+
   useEffect(() => {
-    participants.length === 0 && fetchParticipants(resourceId);
+    if (!isParticipantsFeached) {
+      setIsParticipantsFetched(true);
+      fetchParticipants(resourceId);
+    }
     participants.length !== 0 &&
-      !goals &&
       fetchChallengeObjectives(participants, challengeId);
   }, [
     challengeId,
     fetchChallengeObjectives,
     fetchParticipants,
-    goals,
+    isParticipantsFeached,
     participants,
     resourceId
   ]);

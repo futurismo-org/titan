@@ -52,7 +52,7 @@ const HeaderInfoText = styled(Typography)`
 ` as React.ComponentType<TypographyProps>;
 
 const ChallengeHeader = (props: any) => {
-  const { challenge } = props;
+  const { challenge, join } = props;
 
   return (
     <MainFeaturedPost>
@@ -118,7 +118,7 @@ const ChallengeHeader = (props: any) => {
                 <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
               )}
               {!isChallengeClosed(challenge.closedAt.toDate()) ? (
-                <ChallengeButton challenge={challenge} />
+                <ChallengeButton challenge={challenge} join={join} />
               ) : null}
             </HeaderInfo>
           </MainFeaturedPostContent>

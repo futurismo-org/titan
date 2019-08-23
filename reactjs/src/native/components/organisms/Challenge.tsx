@@ -15,12 +15,21 @@ const Challenge = (props: any) => {
     resourceId,
     challenge,
     isLogin,
-    userShortId
+    userShortId,
+    join,
+    fetchParticipantJoined,
+    participantResourceId
   } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
-  }, [fetchChallenge, resourceId]);
+    fetchParticipantJoined(participantResourceId);
+  }, [
+    fetchChallenge,
+    fetchParticipantJoined,
+    participantResourceId,
+    resourceId
+  ]);
 
   return (
     <React.Fragment>
@@ -34,13 +43,14 @@ const Challenge = (props: any) => {
           </Text>
         ) : (
           <React.Fragment>
-            <Header challenge={challenge} isLogin={isLogin} />
+            <Header challenge={challenge} isLogin={isLogin} join={join} />
             <Navbar
               challenge={challenge}
               isLogin={isLogin}
               userShortId={userShortId}
+              join={join}
             />
-            <Body challenge={challenge} isLogin={isLogin} />
+            <Body challenge={challenge} isLogin={isLogin} join={join} />
           </React.Fragment>
         ))}
     </React.Fragment>

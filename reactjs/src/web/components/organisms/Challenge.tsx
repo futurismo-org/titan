@@ -8,11 +8,26 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
 const Challenge = (props: any) => {
-  const { loading, error, resourceId, fetchChallenge, challenge } = props;
+  const {
+    loading,
+    error,
+    resourceId,
+    fetchChallenge,
+    challenge,
+    join,
+    participantResourceId,
+    fetchParticipantJoined
+  } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
-  }, [fetchChallenge, resourceId]);
+    fetchParticipantJoined(participantResourceId);
+  }, [
+    fetchChallenge,
+    fetchParticipantJoined,
+    participantResourceId,
+    resourceId
+  ]);
 
   return (
     <React.Fragment>
@@ -29,10 +44,10 @@ const Challenge = (props: any) => {
           </Paper>
         ) : (
           <React.Fragment>
-            <Header challenge={challenge} />
+            <Header challenge={challenge} join={join} />
             <Paper>
-              <Navbar id={challenge.id} />
-              <Body challenge={challenge} />
+              <Navbar id={challenge.id} join={join} />
+              <Body challenge={challenge} join={join} />
             </Paper>
           </React.Fragment>
         ))}

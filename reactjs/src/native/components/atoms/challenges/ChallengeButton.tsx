@@ -15,27 +15,19 @@ const ChallengeButton = (props: any) => {
     join,
     loading,
     error,
-    resourceId,
     profileCategoryResourceId,
-    fetchParticipantJoined,
     fetchProfileCategory,
     history,
     joinHandler,
-    redirectPath
+    redirectPath,
+    isLogin
   } = props;
 
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    fetchParticipantJoined(resourceId);
     fetchProfileCategory(profileCategoryResourceId);
-  }, [
-    resourceId,
-    refresh,
-    fetchProfileCategory,
-    profileCategoryResourceId,
-    fetchParticipantJoined
-  ]);
+  }, [refresh, fetchProfileCategory, profileCategoryResourceId]);
 
   const handleJoin = () => {
     joinHandler()
@@ -60,7 +52,12 @@ const ChallengeButton = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading ? null : join ? <PostButtonController /> : <JoinButton />}
+      {loading && null}
+      {!loading && join ? (
+        <PostButtonController />
+      ) : isLogin ? (
+        <JoinButton />
+      ) : null}
     </React.Fragment>
   );
 };
