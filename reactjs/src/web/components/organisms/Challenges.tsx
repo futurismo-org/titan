@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid, { GridProps } from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
@@ -7,36 +7,25 @@ import CollectionCard from '~/web/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
+import { isReady } from '~/lib/firebase';
 
-interface Props {
-  container?: any;
-  spacing?: number;
-}
-
-const StyledCardGrid = styled(Grid as React.SFC<Props>)`
+const StyledCardGrid = styled(Grid)`
   && {
     margin-top: ${theme.spacing(3)}px;
   }
-`;
+` as React.ComponentType<GridProps>;
 
 const Challenges = (props: any) => {
   const {
     preOpenChallenges,
     openingChallenges,
     closedChallenges,
-    error,
-    loading,
-    fetchChallenges
+    challenges
   } = props;
-
-  React.useEffect(() => {
-    fetchChallenges();
-  }, [fetchChallenges]);
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <Progress />}
+      {!isReady(challenges) && <Progress />}
       <Paper>
         <Title text="開催中のチャレンジ" />
         {openingChallenges && (
