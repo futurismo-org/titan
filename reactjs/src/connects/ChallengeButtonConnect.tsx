@@ -57,7 +57,8 @@ const mapStateToProps = (state: any, props: any) => {
       openedAt: challenge.openedAt,
       closedAt: challenge.closedAt,
       categoryId,
-      userDisplayName: profile.displayName
+      userDisplayName: profile.displayName,
+      restartedAt: null
     };
 
     const newCategory = {

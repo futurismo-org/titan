@@ -31,7 +31,7 @@ const mapStateToProps = (state: any, props: any) => {
           id: user.id,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          startedAt: user.startedAt,
+          createdAt: user.createdAt,
           days: user.days || 0,
           what: objective && objective.what ? objective.what : '',
           why: objective && objective.why ? objective.why : '',

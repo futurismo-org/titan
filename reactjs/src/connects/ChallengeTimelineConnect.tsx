@@ -47,14 +47,14 @@ const generateItems = (
   });
 
   participants.map((participant: any) => {
-    const startedAt = participant.startedAt.toDate();
+    const createdAt = participant.createdAt.toDate();
 
     items.push({
       id: shortId.generate(),
       type: NOTE_TYPE_JOIN,
-      timestamp: startedAt,
+      timestamp: createdAt,
       data: {
-        startedAt,
+        createdAt,
         userName: participant.displayName,
         userPhotoURL: participant.photoURL,
         userId: participant.id

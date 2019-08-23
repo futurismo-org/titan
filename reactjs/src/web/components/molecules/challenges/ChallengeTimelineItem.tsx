@@ -48,11 +48,11 @@ const TimelineItemHeadline = (props: any) => {
 const TimelineItemFooter = ({ name }: any) => <p>Posted by {name}</p>;
 
 const ChallengeTimelineItemJoin = (props: any) => {
-  const { startedAt, userId, userName, userPhotoURL } = props.data;
+  const { createdAt, userId, userName, userPhotoURL } = props.data;
   return (
     <TimelineItem
       key={NOTE_TYPE_JOIN}
-      dateText={formatDatetimeShort(startedAt)}
+      dateText={formatDatetimeShort(createdAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <TimelineItemHeadline

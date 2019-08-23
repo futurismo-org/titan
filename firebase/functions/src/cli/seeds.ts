@@ -181,7 +181,6 @@ const createParticipationSeed = (args: any) => {
   return seed.doc(id, {
     createdAt: getRandomCreatedAt(),
     updatedAt: getRandomUpdatedAt(),
-    startedAt: now,
     challengeName: 'サンプルチャレンジ',
     ...args
   });
@@ -212,8 +211,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
     createdAt: getRandomCreatedAt(),
-    updatedAt: getRandomUpdatedAt(),
-    startedAt: new Date()
+    updatedAt: getRandomUpdatedAt()
   }),
   createParticipationSeed({
     id: tsuneraShortId,
@@ -228,8 +226,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     displayName: 'tsu-nera',
     photoURL: '',
     createdAt: getRandomCreatedAt(),
-    updatedAt: getRandomUpdatedAt(),
-    startedAt: new Date()
+    updatedAt: getRandomUpdatedAt()
   }),
   ...dummyUserIds.map((id: string) => {
     return createParticipationSeed({

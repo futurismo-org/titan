@@ -37,11 +37,11 @@ import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
 
 const ChallengeNoteJoin = (props: any) => {
-  const { startedAt } = props.data;
+  const { createdAt } = props.data;
   return (
     <TimelineItem
       key={NOTE_TYPE_JOIN}
-      dateText={formatDatetimeShort(startedAt)}
+      dateText={formatDatetimeShort(createdAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジに参加しました。</p>

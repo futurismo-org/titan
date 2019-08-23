@@ -81,7 +81,7 @@ const mapStateToProps = (state: any, props: any) => {
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
-    if (!isDaysValid(days)) updateData.startedAt = now;
+    if (!isDaysValid(days)) updateData.restartedAt = now;
 
     firebase
       .firestore()
@@ -161,7 +161,7 @@ ${dashBoardURL}`;
     };
 
     const resetData = {
-      startedAt: null,
+      restartedAt: null,
       updatedAt: now,
       days: 0,
       pastDays: 0,
