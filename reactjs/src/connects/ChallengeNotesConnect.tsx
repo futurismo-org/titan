@@ -143,6 +143,9 @@ const mapStateToProps = (state: any, props: any) => {
   const analysisList =
     notes && notes.filter(note => note.type === NOTE_TYPE_ANALYSIS);
 
+  const profile = state.firebase.profile;
+  const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
+
   return {
     resourceId,
     topicsResourceId,
@@ -151,6 +154,7 @@ const mapStateToProps = (state: any, props: any) => {
     analysisList,
     userShortId,
     notesResourceId,
+    isMyProfile,
     loading:
       state.participant.loading || state.topic.loading || state.note.loading,
     error: state.participant.error || state.topic.error || state.note.error,

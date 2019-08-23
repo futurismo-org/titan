@@ -305,13 +305,13 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data, currentUserId } = props;
+  const { type, data, isMyProfile } = props;
 
   const noteFactory = componentMap.get(type);
 
   const params = {
     ...data,
-    currentUserId
+    isMyProfile
   };
 
   return noteFactory!(params);

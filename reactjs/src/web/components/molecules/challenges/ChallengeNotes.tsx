@@ -24,7 +24,8 @@ const ChallengeNotes = (props: any) => {
     fetchUserNotes,
     notesResourceId,
     successList,
-    analysisList
+    analysisList,
+    isMyProfile
   } = props;
 
   const [type, setType] = useState(NOTE_TYPE_DEFAULT);
@@ -76,7 +77,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    currentUserId={userShortId}
+                    isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
               {type === NOTE_TYPE_SUCCESS &&
@@ -85,7 +86,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    currentUserId={userShortId}
+                    isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
               {type === NOTE_TYPE_ANALYSIS &&
@@ -94,7 +95,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    currentUserId={userShortId}
+                    isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
             </Timeline>
