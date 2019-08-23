@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TimelineItem } from 'vertical-timeline-component-for-react';
 import { Link } from 'react-router-dom';
-import {
-  TextField,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Grid
-} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+
+import Flag from '~/web/containers/FlagContainer';
 
 import {
   secondaryColor,
@@ -160,7 +156,16 @@ const ChallengeTimelineItemTopic = (props: any) => {
 
 const ChallengeTimelineItemMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, type, userPhotoURL, userId, userName } = data;
+  const {
+    timestamp,
+    text,
+    type,
+    userPhotoURL,
+    userId,
+    userName,
+    noteId,
+    challengeId
+  } = data;
 
   return (
     <TimelineItem
@@ -174,6 +179,7 @@ const ChallengeTimelineItemMemo = (props: any) => {
         userId={userId}
       />
       <TextFieldView text={text} />
+      <Flag note={{ challengeId, noteId }} />
       <p>Posted by {userName}</p>
     </TimelineItem>
   );
