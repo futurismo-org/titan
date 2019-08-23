@@ -1,14 +1,10 @@
 import * as React from 'react';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-  Image as NativeImage
-} from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { Text } from 'native-base';
 import { withRouter } from 'react-router-native';
+import { Image } from 'react-native-expo-image-cache';
 import { getRandomImageURL, getChallengeUserGoalPath } from '~/lib/url';
+import { previewImage } from '~/lib/theme';
 
 import { isiOS } from '~/native/lib/native';
 
@@ -118,6 +114,15 @@ const ChallengeGoalCard = (props: any) => {
       style={[styles.slideInnerContainer, { height: slideHeight }]}
       onPress={() => history.push(path)}
     >
+      <View style={styles.shadow} />
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          preview={{ uri: previewImage }}
+          uri={getRandomImageURL()}
+        />
+        <View style={styles.radiusMask} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.title} numberOfLines={2}>
           {text}

@@ -47,17 +47,15 @@ const ChallengeGoals = (props: any) => {
         {!loading && goals && notSetGoals && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />
-            <React.Fragment>
+            <Content padder>
               {!loading &&
                 !!goals &&
                 goals.map((goal: any) => (
-                  <ChallengeGoalCard
-                    key={goal.id}
-                    goal={goal}
-                    challengeId={challengeId}
-                  />
+                  <View style={{ marginTop: 5, marginBottom: 5 }} key={goal.id}>
+                    <ChallengeGoalCard goal={goal} challengeId={challengeId} />
+                  </View>
                 ))}
-            </React.Fragment>
+            </Content>
             <Text />
             <Text>目標をまだ設定していないユーザ</Text>
             <View
