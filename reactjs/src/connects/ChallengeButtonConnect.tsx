@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { firestore } from 'firebase';
-import { fetchParticipantJoined } from '~/actions/participantAction';
 import { fetchProfileCategory } from '~/actions/profileAction';
-
-import { getParticipantId } from '~/lib/resource';
 
 import firebase from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
@@ -12,21 +9,15 @@ import { postMessage } from '~/lib/discord.client.api';
 import { getCategoryId } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    { fetchParticipantJoined, fetchProfileCategory },
-    dispatch
-  );
+  bindActionCreators({ fetchProfileCategory }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
   const challengeId = challenge.id;
-  const user = state.firebase.profile;
-  const userShortId = user.shortId;
+  const profile = state.firebase.profile;
+  const userShortId = profile.shortId;
   const categoryId = getCategoryId(challenge.categoryRef);
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
-  const resourceId = getParticipantId(challengeId, userShortId);
-
-  const join = state.participant.exist;
 
   const redirectPath = `/c/${challengeId}/overview`;
 
@@ -38,14 +29,14 @@ const mapStateToProps = (state: any, props: any) => {
   const joinHandler = () => {
     const newData = {
       id: userShortId,
-      userId: user.id,
+      userId: profile.id,
       userShortId,
       histories: [],
       createdAt: new Date(),
       updatedAt: new Date(),
-      displayName: user.displayName,
-      twitterUsername: user.twitterUsername,
-      photoURL: user.photoURL,
+      displayName: profile.displayName,
+      twitterUsername: profile.twitterUsername,
+      photoURL: profile.photoURL,
       score: 0,
       days: 0,
       maxDays: 0,
@@ -66,7 +57,8 @@ const mapStateToProps = (state: any, props: any) => {
       openedAt: challenge.openedAt,
       closedAt: challenge.closedAt,
       categoryId,
-      userDisplayName: user.displayName
+      userDisplayName: profile.displayName,
+      restartedAt: null
     };
 
     const newCategory = {
@@ -77,7 +69,7 @@ const mapStateToProps = (state: any, props: any) => {
       ref: challenge.categoryRef,
       categoryId,
       userShortId,
-      userDisplayName: user.displayName
+      userDisplayName: profile.displayName
     };
 
     return firebase
@@ -94,11 +86,9 @@ const mapStateToProps = (state: any, props: any) => {
             return doc;
           })
           .then((doc: firestore.DocumentSnapshot) => {
-            const message = `${user.displayName}さんが${
+            const message = `${profile.displayName}さんが${
               doc.data()!.title
-            }に参加しました。 https://titan-fire.com/c/${challengeId}/u/${
-              user.shortId
-            }`;
+            }に参加しました。 https://titan-fire.com/c/${challengeId}/u/${userShortId}`;
             postMessage(doc.data()!.webhookURL, message);
           });
 
@@ -107,7 +97,7 @@ const mapStateToProps = (state: any, props: any) => {
           .collection('challenges')
           .doc(challengeId)
           .collection('participants')
-          .doc(user.shortId)
+          .doc(userShortId)
           .set(newData);
 
         await firebase
@@ -128,15 +118,16 @@ const mapStateToProps = (state: any, props: any) => {
       });
   };
 
+  const isLogin = !profile.isEmpty && profile.isLoaded;
+
   return {
-    join,
     loading: state.participant.loadingExist,
     error: state.participant.errorExist,
-    user,
-    resourceId,
+    user: profile,
     profileCategoryResourceId,
     joinHandler,
     redirectPath,
+    isLogin,
     ...props
   };
 };

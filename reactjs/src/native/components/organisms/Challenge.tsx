@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Text } from 'native-base';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
-import Navbar from '../molecules/challenges/ChallengeNavbar';
+import ChallengeNavbar from '../molecules/challenges/ChallengeNavbar';
 
 import Error from '../atoms/Error';
 
@@ -15,12 +15,21 @@ const Challenge = (props: any) => {
     resourceId,
     challenge,
     isLogin,
-    userShortId
+    userShortId,
+    join,
+    fetchParticipantJoined,
+    participantResourceId
   } = props;
 
   React.useEffect(() => {
     fetchChallenge(resourceId);
-  }, [fetchChallenge, resourceId]);
+    fetchParticipantJoined(participantResourceId);
+  }, [
+    fetchChallenge,
+    fetchParticipantJoined,
+    participantResourceId,
+    resourceId
+  ]);
 
   return (
     <React.Fragment>
@@ -34,13 +43,13 @@ const Challenge = (props: any) => {
           </Text>
         ) : (
           <React.Fragment>
-            <Header challenge={challenge} isLogin={isLogin} />
-            <Navbar
+            <Header challenge={challenge} isLogin={isLogin} join={join} />
+            <ChallengeNavbar
               challenge={challenge}
-              isLogin={isLogin}
               userShortId={userShortId}
+              join={join}
             />
-            <Body challenge={challenge} isLogin={isLogin} />
+            <Body challenge={challenge} isLogin={isLogin} join={join} />
           </React.Fragment>
         ))}
     </React.Fragment>

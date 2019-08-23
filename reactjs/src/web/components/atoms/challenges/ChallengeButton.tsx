@@ -42,7 +42,6 @@ const ChallengeButton = (props: any) => {
     challenge,
     user,
     join,
-    resourceId,
     profileCategoryResourceId,
     fetchProfileCategory,
     loading,
@@ -50,7 +49,7 @@ const ChallengeButton = (props: any) => {
     joinHandler,
     redirectPath,
     history,
-    fetchParticipantJoined
+    isLogin
   } = props;
 
   const challengeId = challenge.id;
@@ -60,14 +59,8 @@ const ChallengeButton = (props: any) => {
   // const [modalStyle] = React.useState(getModalStyle);
 
   useEffect(() => {
-    fetchParticipantJoined(resourceId);
     fetchProfileCategory(profileCategoryResourceId);
-  }, [
-    fetchParticipantJoined,
-    fetchProfileCategory,
-    profileCategoryResourceId,
-    resourceId
-  ]);
+  }, [fetchProfileCategory, profileCategoryResourceId]);
 
   // const handleOpen = () => {
   //   setOpen(true);
@@ -128,21 +121,18 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
-  if (challengeId === undefined || user.id === undefined) {
-    return null;
-  }
-
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading ? null : join ? (
+      {loading && null}
+      {!loading && join ? (
         <ChallengePostController
           userShortId={user.shortId}
           challenge={challenge}
         />
-      ) : (
+      ) : isLogin ? (
         renderCheckoutButton({ user, challengeId, price })
-      )}
+      ) : null}
     </React.Fragment>
   );
 };

@@ -11,6 +11,7 @@ import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
 import ChallengeGoals from '~/native/containers/ChallengeGoalsContainer';
 import ChallengeGoal from '~/native/containers/ChallengeGoalContainer';
+import ChallengeTimeline from '~/native/containers/ChallengeTimelineContainer';
 
 import Flag from '~/native/containers/FlagContainer';
 
@@ -56,6 +57,12 @@ const ChallengeBody = (props: any) => {
             )}
           />
           <Route
+            path="/c/:id/timeline"
+            render={props => (
+              <ChallengeTimeline challenge={challenge} {...props} />
+            )}
+          />
+          <Route
             path="/c/:id/u/:userShortId/goal"
             render={props => <ChallengeGoal challenge={challenge} {...props} />}
           />
@@ -71,12 +78,6 @@ const ChallengeBody = (props: any) => {
               <ChallengeUserDashBoard challenge={challenge} {...props} />
             )}
           />
-          {/* タイムラインは一旦保留 */}
-          {/* <Route
-            path="/c/:id/timeline"
-            render={() => <ChallengeTimeline channelId={challenge.channelId} />}
-          />
-          */}
           <Route
             path="/c/:collectionId/t/:topicId/edit"
             render={props => <TopicForm collection="challenges" {...props} />}

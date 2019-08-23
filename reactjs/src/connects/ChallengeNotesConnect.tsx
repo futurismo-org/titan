@@ -34,14 +34,14 @@ const generateNotes = (
   posts: any
 ) => {
   const notes = [];
-  const startedAt = participant.startedAt.toDate();
+  const createdAt = participant.createdAt.toDate();
 
   notes.push({
     id: shortId.generate(),
     type: NOTE_TYPE_JOIN,
-    timestamp: startedAt,
+    timestamp: createdAt,
     data: {
-      startedAt
+      createdAt
     }
   });
 

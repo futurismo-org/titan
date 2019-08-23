@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ChallengeUserDashBoard from '~/web/containers/ChallengeUserDashBoardContainer';
-import ChallengeTopics from './ChallengeTopics';
+
+import Topics from '~/web/containers/TopicsContainer';
 import ChallengeTimeline from '~/web/containers/ChallengeTimelineContainer';
 import Topic from '~/web/containers/TopicContainer';
 
@@ -48,7 +49,16 @@ const ChallengeBody = (props: any) => {
         path="/c/:collectionId/t/:topicId"
         render={props => <Topic collection="challenges" {...props} />}
       />
-      <Route path="/c/:id/topics" component={ChallengeTopics} />
+      <Route
+        path="/c/:id/topics"
+        render={props => (
+          <Topics
+            collection="challenges"
+            collectionId={challenge.id}
+            {...props}
+          />
+        )}
+      />
       <Route
         path="/c/:id/rules"
         render={() => (
@@ -62,12 +72,6 @@ const ChallengeBody = (props: any) => {
         path="/c/:id/leaderboard"
         render={props => (
           <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
-        )}
-      />
-      <Route
-        path="/c/:id/u/:userShortId/settings"
-        render={props => (
-          <ChallengeUserSettings challengeId={challenge.id} {...props} />
         )}
       />
       <Route

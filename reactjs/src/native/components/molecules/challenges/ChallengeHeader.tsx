@@ -17,7 +17,7 @@ import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
 
 const ChallengeHeader = (props: any) => {
-  const { challenge, isLogin, history } = props;
+  const { challenge, isLogin, history, join } = props;
 
   return (
     <React.Fragment>
@@ -36,7 +36,7 @@ const ChallengeHeader = (props: any) => {
                 <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
               )}
               {isLogin && !isChallengeClosed(challenge.closedAt.toDate()) ? (
-                <ChallengeButton challenge={challenge} />
+                <ChallengeButton challenge={challenge} join={join} />
               ) : null}
             </View>
             <Info>

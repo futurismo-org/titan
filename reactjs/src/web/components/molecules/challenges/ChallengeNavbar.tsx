@@ -7,12 +7,13 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 import Grid from '@material-ui/core/Grid';
 
-import { connect } from 'react-redux';
-
 import NoStyledLink from '../../atoms/NoStyledLink';
-import { getChallengeUserGoalPath } from '~/lib/url';
+import { getChallengeUserGoalPath, getChallengeDashboardPath } from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
+  const { challenge, userShortId, join } = props;
+  const challengeId = challenge.id;
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,10 +35,10 @@ const ChallengeNavbar = (props: any) => {
       <Grid item xs={12}>
         <ButtonGroup fullWidth>
           <Button>
-            <NoStyledLink to={`/c/${props.id}/overview`}>概要</NoStyledLink>
+            <NoStyledLink to={`/c/${challengeId}/overview`}>概要</NoStyledLink>
           </Button>
           <Button>
-            <NoStyledLink to={`/c/${props.id}/rules`}>ルール</NoStyledLink>
+            <NoStyledLink to={`/c/${challengeId}/rules`}>ルール</NoStyledLink>
           </Button>
           <Button onClick={handleClick}>その他</Button>
         </ButtonGroup>
@@ -51,25 +52,25 @@ const ChallengeNavbar = (props: any) => {
         onClose={handleClose}
         getContentAnchorEl={null}
       >
-        <NavItem to={`/c/${props.id}/leaderboard`} text="リーダーボード" />
-        {props.userId && (
+        <NavItem to={`/c/${challengeId}/leaderboard`} text="リーダーボード" />
+        {join && (
           <NavItem
-            to={`/c/${props.id}/u/${props.userId}`}
+            to={getChallengeDashboardPath(challengeId, userShortId)}
             text="ダッシュボード"
           />
         )}
-        <NavItem to={`/c/${props.id}/goals`} text="ゴールボード" />
-        <NavItem to={`/c/${props.id}/topics`} text="トピック" />
-        <NavItem to={`/c/${props.id}/timeline`} text="タイムライン" />
-        {props.userId && (
+        <NavItem to={`/c/${challengeId}/goals`} text="ゴールボード" />
+        <NavItem to={`/c/${challengeId}/topics`} text="トピック" />
+        <NavItem to={`/c/${challengeId}/timeline`} text="タイムライン" />
+        {join && (
           <NavItem
-            to={getChallengeUserGoalPath(props.id, props.userId)}
+            to={getChallengeUserGoalPath(challengeId, userShortId)}
             text="努力ノート"
           />
         )}
-        {props.userId && (
+        {join && (
           <NavItem
-            to={`/c/${props.id}/u/${props.userId}/settings`}
+            to={`/c/${challengeId}/u/${userShortId}/settings`}
             text="ユーザ設定"
           />
         )}
@@ -78,9 +79,4 @@ const ChallengeNavbar = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: any) => ({
-  userId: state.firebase.profile.shortId || undefined,
-  ...props
-});
-
-export default connect(mapStateToProps)(ChallengeNavbar);
+export default ChallengeNavbar;

@@ -31,7 +31,7 @@ const mapStateToProps = (state: any, props: any) => {
           id: user.id,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          startedAt: user.startedAt,
+          createdAt: user.createdAt,
           days: user.days || 0,
           what: objective && objective.what ? objective.what : '',
           why: objective && objective.why ? objective.why : '',
@@ -53,8 +53,8 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     goals,
     notSetGoals,
-    loading: state.objective.loading | state.participant.loading,
-    erorr: state.objective.error || state.participant.error,
+    loading: state.participant.loading || state.objective.loading,
+    erorr: state.participant.error || state.objective.error,
     ...props
   };
 };
