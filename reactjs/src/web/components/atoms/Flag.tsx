@@ -27,6 +27,7 @@ const Flag = (props: any) => {
     challenge,
     category,
     profile,
+    note,
     collectionType,
     collectionId
   } = props;
@@ -65,6 +66,7 @@ const Flag = (props: any) => {
                   challenge={challenge}
                   category={category}
                   profile={profile}
+                  note={note}
                   collectionType={collectionType}
                   collectionId={collectionId}
                   handleClose={handleClose}

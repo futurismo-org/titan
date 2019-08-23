@@ -15,8 +15,6 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
   const userShortId = user.shortId;
-  const profile = state.firebase.profile;
-  const isMyProfile = profile.shortId === userShortId;
 
   const challenge = props.challenge;
   const challengeId = challenge.id;
@@ -46,7 +44,6 @@ const mapStateToProps = (state: any, props: any) => {
   return {
     resourceId,
     userShortId,
-    isMyProfile,
     handleSave,
     objective,
     loading: state.objective.loading,

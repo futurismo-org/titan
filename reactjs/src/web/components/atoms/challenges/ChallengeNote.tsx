@@ -34,6 +34,7 @@ import {
 
 import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
+import Flag from '~/web/containers/FlagContainer';
 
 const ChallengeNoteJoin = (props: any) => {
   const { startedAt } = props.data;
@@ -125,7 +126,7 @@ const ChallengeNoteTopic = (props: any) => {
 
 const ChallengeNoteMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, noteId, challengeId, type } = data;
+  const { timestamp, text, noteId, challengeId, type, isMyProfile } = data;
 
   const [edit, setEdit] = useState(false);
   const [buffer, setBuffer] = useState(text);
@@ -179,22 +180,26 @@ const ChallengeNoteMemo = (props: any) => {
   const renderText = () => (
     <React.Fragment>
       <TextFieldView text={buffer} />
-      <p>
-        <span
-          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-          role="button"
-          onClick={() => setEdit(true)}
-        >
-          編集
-        </span>{' '}
-        <span
-          role="button"
-          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-          onClick={onDelete}
-        >
-          削除
-        </span>
-      </p>
+      {isMyProfile ? (
+        <p>
+          <span
+            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+            role="button"
+            onClick={() => setEdit(true)}
+          >
+            編集
+          </span>{' '}
+          <span
+            role="button"
+            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+            onClick={onDelete}
+          >
+            削除
+          </span>
+        </p>
+      ) : (
+        <Flag note={{ challengeId, noteId }} />
+      )}
     </React.Fragment>
   );
 
@@ -300,11 +305,16 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data } = props;
+  const { type, data, currentUserId } = props;
 
   const noteFactory = componentMap.get(type);
 
-  return noteFactory!(data);
+  const params = {
+    ...data,
+    currentUserId
+  };
+
+  return noteFactory!(params);
 };
 
 export default ChallengeNote;

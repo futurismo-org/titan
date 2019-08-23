@@ -16,10 +16,14 @@ const mapStateToProps = (state: any, props: any) => {
 
   const user = state.user.target;
 
+  const profile = state.firebase.profile;
+  const isMyProfile = profile.shortId === userShortId;
+
   return {
     user,
     challengeId,
     userShortId,
+    isMyProfile,
     loading: state.user.loading,
     error: state.user.error,
     ...props

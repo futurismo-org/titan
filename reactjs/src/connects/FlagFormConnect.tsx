@@ -16,6 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
     challenge: any,
     category: any,
     profile: any,
+    note: any,
     collectionType: any,
     collectionId: string,
     data: any
@@ -57,11 +58,19 @@ const mapStateToProps = (state: any, props: any) => {
         }
       : {};
 
+    const noteInfo = note
+      ? {
+          noteId: note.noteId,
+          noteChallengeId: note.challengeId
+        }
+      : {};
+
     const params = {
       ...topicInfo,
       ...challengeInfo,
       ...categoryInfo,
       ...profileInfo,
+      ...noteInfo,
       collectionType: collectionType,
       collectionId: collectionId,
       reportUserName: reportUser.displayName,

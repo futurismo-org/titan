@@ -9,7 +9,6 @@ import {
   NOTE_TYPE_SUCCESS,
   NOTE_TYPE_ANALYSIS
 } from '~/constants/note';
-import Progress from '../../atoms/CircularProgress';
 import { timelineBorderColor } from '~/lib/theme';
 
 const ChallengeNotes = (props: any) => {
@@ -77,6 +76,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
+                    currentUserId={userShortId}
                   />
                 ))}
               {type === NOTE_TYPE_SUCCESS &&
@@ -85,6 +85,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
+                    currentUserId={userShortId}
                   />
                 ))}
               {type === NOTE_TYPE_ANALYSIS &&
@@ -93,6 +94,7 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
+                    currentUserId={userShortId}
                   />
                 ))}
             </Timeline>
