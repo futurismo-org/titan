@@ -11,9 +11,8 @@ import NoStyledLink from '../../atoms/NoStyledLink';
 import { getChallengeUserGoalPath, getChallengeDashboardPath } from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
-  const { join } = props;
-  const challengeId = props.id;
-  const userShortId = props.userId;
+  const { challenge, userShortId, join } = props;
+  const challengeId = challenge.id;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

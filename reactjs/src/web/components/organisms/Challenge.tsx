@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Navbar from '../molecules/challenges/ChallengeNavbar';
+import ChallengeNavbar from '../molecules/challenges/ChallengeNavbar';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
 
@@ -16,7 +16,8 @@ const Challenge = (props: any) => {
     challenge,
     join,
     participantResourceId,
-    fetchParticipantJoined
+    fetchParticipantJoined,
+    userShortId
   } = props;
 
   React.useEffect(() => {
@@ -46,7 +47,11 @@ const Challenge = (props: any) => {
           <React.Fragment>
             <Header challenge={challenge} join={join} />
             <Paper>
-              <Navbar id={challenge.id} join={join} />
+              <ChallengeNavbar
+                challenge={challenge}
+                userShortId={userShortId}
+                join={join}
+              />
               <Body challenge={challenge} join={join} />
             </Paper>
           </React.Fragment>

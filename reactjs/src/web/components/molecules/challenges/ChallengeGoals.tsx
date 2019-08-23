@@ -43,6 +43,7 @@ const ChallengeGoals = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading ? <Progress /> : null}
+      {!loading && !goals && <p>目標をまだだれも設定していません。</p>}
       {!loading && !!goals && (
         <React.Fragment>
           <div style={{ marginLeft: 10, marginTop: 20, marginBottom: 20 }}>

@@ -44,6 +44,7 @@ const ChallengeGoals = (props: any) => {
       <Content padder>
         {error && <Error error={error} />}
         {loading ? <Progress /> : null}
+        {!loading && !goals && <Text>t目標をまだだれも設定していません。</Text>}
         {!loading && goals && notSetGoals && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />

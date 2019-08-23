@@ -10,9 +10,9 @@ import { getChallengeUserGoalPath } from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
   const { challenge, userShortId, history, join } = props;
-  const [menuRef, setMenuRef] = useState();
-
   const challengeId = challenge.id;
+
+  const [menuRef, setMenuRef] = useState();
 
   const hideMenu = (path: string) => {
     history.push(path);

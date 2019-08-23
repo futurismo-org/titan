@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Text } from 'native-base';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
-import Navbar from '../molecules/challenges/ChallengeNavbar';
+import ChallengeNavbar from '../molecules/challenges/ChallengeNavbar';
 
 import Error from '../atoms/Error';
 
@@ -44,9 +44,8 @@ const Challenge = (props: any) => {
         ) : (
           <React.Fragment>
             <Header challenge={challenge} isLogin={isLogin} join={join} />
-            <Navbar
+            <ChallengeNavbar
               challenge={challenge}
-              isLogin={isLogin}
               userShortId={userShortId}
               join={join}
             />
