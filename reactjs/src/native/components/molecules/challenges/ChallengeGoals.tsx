@@ -38,32 +38,36 @@ const ChallengeGoals = (props: any) => {
   return (
     <React.Fragment>
       <Content padder>
-        <Title text="仲間たちのチャレンジ目標" />
         {error && <Error error={error} />}
         {loading ? <Progress /> : null}
-        <Text />
-        <Text>目標をまだ設定していないユーザ</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginTop: 5,
-            padding: 5
-          }}
-        >
-          {!loading &&
-            !!notSetGoals &&
-            notSetGoals.map((user: any) => {
-              return (
-                <UserAvatar
-                  key={user.id}
-                  photoURL={user.photoURL}
-                  userId={user.id}
-                  to={getChallengeUserGoalPath(challengeId, user.id)}
-                />
-              );
-            })}
-        </View>
+        {!loading && goals && notSetGoals && (
+          <React.Fragment>
+            <Title text="仲間たちのチャレンジ目標" />
+            <Text />
+            <Text>目標をまだ設定していないユーザ</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginTop: 5,
+                padding: 5
+              }}
+            >
+              {!loading &&
+                !!notSetGoals &&
+                notSetGoals.map((user: any) => {
+                  return (
+                    <UserAvatar
+                      key={user.id}
+                      photoURL={user.photoURL}
+                      userId={user.id}
+                      to={getChallengeUserGoalPath(challengeId, user.id)}
+                    />
+                  );
+                })}
+            </View>
+          </React.Fragment>
+        )}
       </Content>
     </React.Fragment>
   );
