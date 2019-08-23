@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 const mapStateToProps = (state: any, props: any) => {
   const items = state.firestore.data.categories;
   const categories =
-    !!items &&
+    isLoaded(items) &&
     Object.values(items).filter((category: any) => !category.freezed);
 
   return {

@@ -1,4 +1,6 @@
 import * as firebase from 'firebase/app';
+import { isLoaded } from 'react-redux-firebase';
+
 import { configDev, configProd } from './config';
 
 import 'firebase/auth';
@@ -102,5 +104,7 @@ export const uploadPhotoURLAsync = async (
       .update({ photoURL: url })
   );
 };
+
+export const isReady = (target: any) => isLoaded(target) && !!target;
 
 export default firebase;
