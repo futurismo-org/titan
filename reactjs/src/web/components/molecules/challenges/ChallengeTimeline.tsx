@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { Timeline } from 'vertical-timeline-component-for-react';
 
 import ChallengeTimelineItem from './ChallengeTimelineItem';
+import Error from '../../atoms/Error';
+import { timelineBorderColor } from '~/lib/theme';
+import Progress from '../../atoms/CircularProgress';
 
 const ChallengeTimeline = (props: any) => {
   const {
@@ -11,7 +14,9 @@ const ChallengeTimeline = (props: any) => {
     fetchNotes,
     notesResourceId,
     participantsResourceId,
-    fetchParticipants
+    fetchParticipants,
+    loading,
+    error
   } = props;
 
   useEffect(() => {
@@ -28,16 +33,22 @@ const ChallengeTimeline = (props: any) => {
   ]);
 
   return (
-    <Timeline lineColor="#ddd">
-      {items &&
-        items.map((item: any) => (
-          <ChallengeTimelineItem
-            key={item.id}
-            type={item.type}
-            data={item.data}
-          />
-        ))}
-    </Timeline>
+    <React.Fragment>
+      {error && <Error error={error} />}
+      {loading && <Progress />}
+      {!loading && items && (
+        <Timeline lineColor={timelineBorderColor}>
+          {items &&
+            items.map((item: any) => (
+              <ChallengeTimelineItem
+                key={item.id}
+                type={item.type}
+                data={item.data}
+              />
+            ))}
+        </Timeline>
+      )}
+    </React.Fragment>
   );
 };
 

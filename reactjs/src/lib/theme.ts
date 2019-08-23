@@ -20,6 +20,7 @@ export const brandWhite = '#ffffff';
 
 export const leaderboardMyColor = '#FFE4E1';
 export const twitterColor = '#4099FF';
+export const timelineBorderColor = '#ddd';
 
 const theme = createMuiTheme({
   palette: {

@@ -14,9 +14,7 @@ import {
   NOTE_TYPE_RECORD,
   NOTE_TYPE_RESET,
   NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS
+  NOTE_TYPE_DEFAULT
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
 
@@ -153,6 +151,9 @@ const mapStateToProps = (state: any, props: any) => {
     participantsResourceId,
     topicsResourceId,
     notesResourceId,
+    loading:
+      state.participant.loading || state.topic.loading || state.note.loading,
+    error: state.participant.error || state.topic.error || state.note.error,
     ...props
   };
 };

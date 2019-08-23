@@ -9,6 +9,8 @@ import {
   NOTE_TYPE_SUCCESS,
   NOTE_TYPE_ANALYSIS
 } from '~/constants/note';
+import Progress from '../../atoms/CircularProgress';
+import { timelineBorderColor } from '~/lib/theme';
 
 const ChallengeNotes = (props: any) => {
   const {
@@ -68,7 +70,7 @@ const ChallengeNotes = (props: any) => {
             style={{ marginTop: 40 }}
           >
             <ChallengeNotesNavbar />
-            <Timeline lineColor="#ddd">
+            <Timeline lineColor={timelineBorderColor}>
               {type === NOTE_TYPE_DEFAULT &&
                 notes.map((note: any) => (
                   <ChallengeNote
