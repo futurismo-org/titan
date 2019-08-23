@@ -68,7 +68,7 @@ const ChallengeNavbar = (props: any) => {
             text="努力ノート"
           />
         )}
-        {props.userId && (
+        {join && (
           <NavItem
             to={`/c/${challengeId}/u/${userShortId}/settings`}
             text="ユーザ設定"

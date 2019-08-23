@@ -24,7 +24,7 @@ const slideWidth = wp(90);
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = viewportWidth;
-export const itemWidth = slideWidth + itemHorizontalMargin * 2 - 20; // なぞのpadding
+export const itemWidth = slideWidth + itemHorizontalMargin * 2 - 20; //なぞの隙間
 
 const entryBorderRadius = 8;
 
