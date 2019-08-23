@@ -62,8 +62,8 @@ const ChallengeGoals = (props: any) => {
       <br />
       {!loading && !!notSetGoals && (
         <React.Fragment>
+          <h3>目標をまだ設定していないユーザ</h3>
           <Grid container>
-            <h3>目標をまだ設定していないユーザ</h3>
             {notSetGoals.map((user: any) => {
               return (
                 <Grid item key={user.id}>
