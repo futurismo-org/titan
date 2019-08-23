@@ -11,7 +11,7 @@ import {
 } from '~/native/components/atoms/Hero';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
-import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryButton';
+import ChallengeCategoryButton from '~/native/containers/ChallengeCategoryButtonContainer';
 
 import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
@@ -33,7 +33,7 @@ const ChallengeHeader = (props: any) => {
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               {challenge.categoryRef && (
-                <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
+                <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
               )}
               {isLogin && !isChallengeClosed(challenge.closedAt.toDate()) ? (
                 <ChallengeButton challenge={challenge} join={join} />
