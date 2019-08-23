@@ -8,23 +8,15 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
 const Challenge = (props: any) => {
-  const {
-    loading,
-    challenge,
-    join,
-    participantResourceId,
-    fetchParticipantJoined,
-    userShortId
-  } = props;
+  const { loading, challenge, join, userShortId } = props;
 
-  React.useEffect(() => {
-    fetchParticipantJoined(participantResourceId);
-  }, [fetchParticipantJoined, participantResourceId]);
+  console.log(challenge, join);
 
   return (
     <React.Fragment>
       {loading && <Progress />}
       {!loading &&
+        !!challenge &&
         (challenge.freezed ? (
           <Paper>
             <Title text="凍結しました" />

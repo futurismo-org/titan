@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { isLoaded } from 'react-redux-firebase';
+import { isLoaded, isEmpty } from 'react-redux-firebase';
 
 import { configDev, configProd } from './config';
 
@@ -108,11 +108,10 @@ export const uploadPhotoURLAsync = async (
 export const isReady = (target: any) => isLoaded(target) && target;
 
 export const isLogin = (state: any) =>
-  !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded;
+  isLoaded(state.firebase.profile) && !isEmpty(state.firebase.profile);
 
-export const lazyEvalValue = (data: any, id: string) =>
-  isLoaded(data) ? data[id] : null;
-export const lazyEvalValues = (data: any[], id: string) =>
-  isLoaded(data) ? data : [];
+export const lazyEvalValue = (target: any) =>
+  isLoaded(target) ? target : null;
+export const lazyEvalValues = (items: any[]) => (isLoaded(items) ? items : []);
 
 export default firebase;

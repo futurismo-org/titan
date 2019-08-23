@@ -1,49 +1,51 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, compose } from 'redux';
-import { firestoreConnect, isLoaded } from 'react-redux-firebase';
-import { fetchParticipantJoined } from '~/actions/participantAction';
-import { getParticipantId } from '~/lib/resource';
-import { isLogin, isReady, lazyEvalValue } from '~/lib/firebase';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchParticipantJoined
-    },
-    dispatch
-  );
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { isLogin } from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
-  const challengeId = props.match.params.id;
-
   const { profile } = state.firebase;
   const userShortId = profile.shortId;
-  const participantResourceId = getParticipantId(challengeId, userShortId);
 
-  const challenge = lazyEvalValue(state.firestore.data.challenges, challengeId);
+  const challenge = state.firestore.data.challenge;
+  const participant = state.firestore.data.participant;
 
   return {
     challenge,
-    participantResourceId,
     isLogin: isLogin(state),
     userShortId,
-    join: state.participant.exist,
-    loading: !isReady(challenge),
+    join: !isEmpty(participant),
+    profile,
+    loading: !(isLoaded(challenge) && isLoaded(participant)),
     ...props
   };
 };
 
-const mapFirestoreToState = (props: any) => {
+const query = (props: any) => {
   const challengeId = props.match.params.id;
-  const resourceId = `challenges/${challengeId}`;
+  const userShortId = props.profile.shortId;
 
-  return [resourceId];
+  return [
+    {
+      collection: 'challenges',
+      doc: challengeId,
+      storeAs: 'challenge'
+    },
+    {
+      collection: 'challenges',
+      doc: challengeId,
+      storeAs: 'participant',
+      subcollections: [
+        {
+          collection: 'participants',
+          doc: userShortId
+        }
+      ]
+    }
+  ];
 };
 
 export default compose(
-  firestoreConnect(mapFirestoreToState),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect(mapStateToProps),
+  firestoreConnect(query)
 ) as any;
