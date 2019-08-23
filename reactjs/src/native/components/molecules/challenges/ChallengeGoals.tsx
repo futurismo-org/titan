@@ -7,6 +7,7 @@ import Progress from '../../atoms/CircularProgress';
 import UserAvatar from '../../atoms/UserAvatar';
 import { getChallengeUserGoalPath } from '~/lib/url';
 import ViewRow from '../../atoms/ViewRow';
+import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 
 const ChallengeGoals = (props: any) => {
   const {
@@ -43,6 +44,17 @@ const ChallengeGoals = (props: any) => {
         {!loading && goals && notSetGoals && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />
+            <React.Fragment>
+              {!loading &&
+                !!goals &&
+                goals.map((goal: any) => (
+                  <ChallengeGoalCard
+                    key={goal.id}
+                    goal={goal}
+                    challengeId={challengeId}
+                  />
+                ))}
+            </React.Fragment>
             <Text />
             <Text>目標をまだ設定していないユーザ</Text>
             <View
