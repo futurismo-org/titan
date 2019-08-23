@@ -1,28 +1,27 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchCategories,
-      resetCategoryInfo
-    },
-    dispatch
-  );
+import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 const mapStateToProps = (state: any, props: any) => {
+  const items = state.firestore.data.categories;
+  const categories =
+    !!items &&
+    Object.values(items).filter((category: any) => !category.freezed);
+
   return {
-    categories: state.category.items.filter(
-      (category: any) => !category.freezed
-    ),
-    loading: state.category.loading,
-    error: state.category.error,
+    categories,
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const mapFirestoreToState = (props: any) => [
+  {
+    collection: 'categories',
+    orderBy: ['updatedAt', 'desc']
+  }
+];
+
+export default compose(
+  firestoreConnect(mapFirestoreToState),
+  connect(mapStateToProps)
+) as any;
