@@ -1,13 +1,13 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchChallenge } from '~/actions/challengeAction';
+import { bindActionCreators, Dispatch, compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import { fetchParticipantJoined } from '~/actions/participantAction';
 import { getParticipantId } from '~/lib/resource';
+import { isLogin, isReady, lazyEvalValue } from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchChallenge,
       fetchParticipantJoined
     },
     dispatch
@@ -15,31 +15,35 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.match.params.id;
-  const resourceId = `/challenges/${challengeId}`;
 
   const { profile } = state.firebase;
   const userShortId = profile.shortId;
-
   const participantResourceId = getParticipantId(challengeId, userShortId);
 
-  const challenge = state.challenge.target;
-
-  const isLogin = !profile.isEmpty && profile.isLoaded;
+  const challenge = lazyEvalValue(state.firestore.data.challenges, challengeId);
 
   return {
     challenge,
     participantResourceId,
-    isLogin,
-    resourceId,
+    isLogin: isLogin(state),
     userShortId,
     join: state.participant.exist,
-    loading: state.category.loading || state.challenge.loading,
-    error: state.category.error || state.challenge.error,
+    loading: !isReady(challenge),
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const mapFirestoreToState = (props: any) => {
+  const challengeId = props.match.params.id;
+  const resourceId = `challenges/${challengeId}`;
+
+  return [resourceId];
+};
+
+export default compose(
+  firestoreConnect(mapFirestoreToState),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+) as any;

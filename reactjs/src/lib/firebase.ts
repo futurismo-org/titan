@@ -105,8 +105,14 @@ export const uploadPhotoURLAsync = async (
   );
 };
 
-export const isReady = (target: any) => isLoaded(target) && !!target;
+export const isReady = (target: any) => isLoaded(target) && target;
+
 export const isLogin = (state: any) =>
   !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded;
+
+export const lazyEvalValue = (data: any, id: string) =>
+  isLoaded(data) ? data[id] : null;
+export const lazyEvalValues = (data: any[], id: string) =>
+  isLoaded(data) ? data : [];
 
 export default firebase;
