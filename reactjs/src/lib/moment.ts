@@ -15,6 +15,11 @@ export const isBeforeInDaysFromNow = (date: Date, days: number) => {
   return isBefore && diff <= days;
 };
 
+export const getBeforeDateFromNow = (days: number) =>
+  moment(now)
+    .subtract(days, 'days')
+    .toDate();
+
 export const formatDatetime = (date: Date) =>
   moment(date).format('MM月DD日 HH:mm');
 export const formatDate = (date: Date) => moment(date).format('MM月DD日');

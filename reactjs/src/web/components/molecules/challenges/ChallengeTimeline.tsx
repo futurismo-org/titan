@@ -5,6 +5,7 @@ import ChallengeTimelineItem from './ChallengeTimelineItem';
 import Error from '../../atoms/Error';
 import { timelineBorderColor } from '~/lib/theme';
 import Progress from '../../atoms/CircularProgress';
+import { getBeforeDateFromNow } from '~/lib/moment';
 
 const ChallengeTimeline = (props: any) => {
   const {
@@ -20,8 +21,8 @@ const ChallengeTimeline = (props: any) => {
   } = props;
 
   useEffect(() => {
-    topicsResourceId && fetchTopics(topicsResourceId);
-    notesResourceId && fetchNotes(notesResourceId);
+    topicsResourceId && fetchTopics(topicsResourceId, getBeforeDateFromNow(7));
+    notesResourceId && fetchNotes(notesResourceId, getBeforeDateFromNow(7));
     participantsResourceId && fetchParticipants(participantsResourceId);
   }, [
     fetchNotes,
