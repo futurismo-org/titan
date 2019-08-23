@@ -48,13 +48,15 @@ const mapStateToProps = (state: any, props: any) => {
     goalIds &&
     participants.filter((user: any) => !goalIds.includes(user.id));
 
+  console.log(state.participant.loading || state.objective.loading);
+
   return {
     participants,
     resourceId,
     goals,
     notSetGoals,
-    loading: state.objective.loading | state.participant.loading,
-    erorr: state.objective.error || state.participant.error,
+    loading: state.participant.loading || state.objective.loading,
+    erorr: state.participant.error || state.objective.error,
     ...props
   };
 };

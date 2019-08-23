@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import StackGrid from 'react-stack-grid';
 import { Grid } from '@material-ui/core';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
@@ -21,55 +21,63 @@ const ChallengeGoals = (props: any) => {
     fetchChallengeObjectives
   } = props;
 
+  const [isParticipantsFeached, setIsParticipantsFetched] = useState(false);
+
   useEffect(() => {
-    participants.length === 0 && fetchParticipants(resourceId);
+    if (!isParticipantsFeached) {
+      setIsParticipantsFetched(true);
+      fetchParticipants(resourceId);
+    }
     participants.length !== 0 &&
-      !goals &&
       fetchChallengeObjectives(participants, challengeId);
   }, [
     challengeId,
     fetchChallengeObjectives,
     fetchParticipants,
-    goals,
+    isParticipantsFeached,
     participants,
     resourceId
   ]);
 
   return (
     <React.Fragment>
-      <div style={{ marginLeft: 10, marginTop: 20, marginBottom: 20 }}>
-        <Title text="仲間たちのチャレンジ目標" />
-      </div>
       {error && <Error error={error} />}
       {loading ? <Progress /> : null}
       {!loading && !!goals && (
-        <StackGrid columnWidth={300}>
-          {goals.map((goal: any) => (
-            <ChallengeGoalCard
-              goal={goal}
-              key={goal.id}
-              challengeId={challengeId}
-            />
-          ))}
-        </StackGrid>
+        <React.Fragment>
+          <div style={{ marginLeft: 10, marginTop: 20, marginBottom: 20 }}>
+            <Title text="仲間たちのチャレンジ目標" />
+          </div>
+          <StackGrid columnWidth={300}>
+            {goals.map((goal: any) => (
+              <ChallengeGoalCard
+                goal={goal}
+                key={goal.id}
+                challengeId={challengeId}
+              />
+            ))}
+          </StackGrid>
+        </React.Fragment>
       )}
       <br />
-      <h3>目標をまだ設定していないユーザ</h3>
-      <Grid container>
-        {!loading &&
-          !!notSetGoals &&
-          notSetGoals.map((user: any) => {
-            return (
-              <Grid item key={user.id}>
-                <UserAvatar
-                  photoURL={user.photoURL}
-                  userId={user.id}
-                  to={getChallengeUserGoalPath(challengeId, user.id)}
-                />
-              </Grid>
-            );
-          })}
-      </Grid>
+      {!loading && !!notSetGoals && (
+        <React.Fragment>
+          <Grid container>
+            <h3>目標をまだ設定していないユーザ</h3>
+            {notSetGoals.map((user: any) => {
+              return (
+                <Grid item key={user.id}>
+                  <UserAvatar
+                    photoURL={user.photoURL}
+                    userId={user.id}
+                    to={getChallengeUserGoalPath(challengeId, user.id)}
+                  />
+                </Grid>
+              );
+            })}
+          </Grid>
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };
