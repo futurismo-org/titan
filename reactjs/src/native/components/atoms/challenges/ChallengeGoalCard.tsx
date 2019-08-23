@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { Text } from 'native-base';
+import { Text, Grid, Col, Row } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { Image } from 'react-native-expo-image-cache';
 import { getRandomImageURL, getChallengeUserGoalPath } from '~/lib/url';
 import { previewImage } from '~/lib/theme';
 
 import { isiOS } from '~/native/lib/native';
+import UserAvatar from '~/native/components/atoms/UserAvatar';
+import { formatDateShort } from '~/lib/moment';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   'window'
@@ -22,7 +24,7 @@ const slideWidth = wp(90);
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = viewportWidth;
-export const itemWidth = slideWidth + itemHorizontalMargin * 2;
+export const itemWidth = slideWidth + itemHorizontalMargin * 2 - 20; // なぞのpadding
 
 const entryBorderRadius = 8;
 
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     lineHeight: 30
   },
   subtitle: {
-    marginTop: 3,
+    // marginTop: 3,
     color: colors.gray,
     fontSize: 16,
     fontStyle: 'italic'
@@ -114,7 +116,25 @@ const ChallengeGoalCard = (props: any) => {
       style={[styles.slideInnerContainer, { height: slideHeight }]}
       onPress={() => history.push(path)}
     >
-      <View style={styles.shadow} />
+      <View style={{ height: 60 }}>
+        <Grid>
+          <Col style={{ width: 60 }}>
+            <UserAvatar photoURL={goal.photoURL} userId={goal.id} />
+          </Col>
+          <Col>
+            <Row style={{ height: 35 }}>
+              <Text style={styles.title}>{goal.displayName}</Text>
+            </Row>
+            <Row style={{ height: 25 }}>
+              <Text style={styles.subtitle}>
+                {`${goal.days}days, Joined at ${formatDateShort(
+                  goal.createdAt && goal.createdAt.toDate()
+                )}`}
+              </Text>
+            </Row>
+          </Col>
+        </Grid>
+      </View>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}

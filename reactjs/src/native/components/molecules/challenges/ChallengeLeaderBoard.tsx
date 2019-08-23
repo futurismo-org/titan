@@ -11,6 +11,7 @@ import {
   primaryColor,
   brandLightGray
 } from '~/lib/theme';
+import Progress from '~/native/components/atoms/CircularProgress';
 
 const { Table, Row } = require('react-native-table-component');
 
@@ -24,7 +25,7 @@ const ChallengeLeaderBoard = (props: any) => {
   }, [fetchUsers, resourceId]);
 
   const StyledHeadRow = (props: any) => {
-    const { data, userId } = props;
+    const { data } = props;
 
     return (
       <Row
@@ -69,7 +70,7 @@ const ChallengeLeaderBoard = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {loading && null}
+      {loading && <Progress />}
       {!loading && users && (
         <Table style={{ margin: 5 }}>
           <LeaderBoardHead />
