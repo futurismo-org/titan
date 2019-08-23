@@ -6,29 +6,17 @@ import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { brandGray } from '~/lib/theme';
-import Error from '~/native/components/atoms/Error';
 import { deviceWidth } from '~/native/lib/native';
 import Progress from '~/native/components/atoms/CircularProgress';
+import { isReady } from '~/lib/firebase';
 
 const DashBoard = (props: any) => {
-  const {
-    challenges,
-    categories,
-    loading,
-    error,
-    fetchChallenges,
-    fetchCategories
-  } = props;
+  const { challenges, categories } = props;
 
   const [categoryActiveSlide, setCategoryActiveSlide] = useState(0);
   const [categorySliderRef, setCategorySliderRef] = useState(undefined);
   const [challengeActiveSlide, setChallengeActiveSlide] = useState(0);
   const [challengeSliderRef, setChallengeSliderRef] = useState(undefined);
-
-  React.useEffect(() => {
-    fetchChallenges(6);
-    fetchCategories(6);
-  }, [fetchCategories, fetchChallenges]);
 
   const _renderChallengeItem = (props: any) => {
     const { item, index } = props;
@@ -42,9 +30,8 @@ const DashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && <Progress />}
-      {!loading && (
+      {!isReady(challenges) || (!isReady(categories) && <Progress />)}
+      {isReady(challenges) && isReady(categories) && (
         <View>
           <Title text="オススメのチャレンジ" />
           {challenges.length !== 0 ? (

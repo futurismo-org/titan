@@ -1,32 +1,24 @@
 import * as React from 'react';
-import DashBoardPaper from 'web/components/molecules/DashBoardPaper';
-import Progress from 'web/components/atoms/CircularProgress';
-
 import { Typography, Switch } from '@material-ui/core';
+import DashBoardPaper from '~/web/components/molecules/DashBoardPaper';
+import Progress from '~/web/components/atoms/CircularProgress';
+
 import Paper from '../templates/PaperWrapper';
 import DiscordHistories from '../atoms/DiscordHistories';
 import { primaryColor } from '~/lib/theme';
 import Title from '../atoms/Title';
 import MoreLink from '~/web/components/atoms/MoreLink';
+import { isReady } from '~/lib/firebase';
 
 const DashBoard = (props: any) => {
   const {
     challenges,
     categories,
-    loading,
-    error,
-    fetchChallenges,
-    fetchCategories,
     debugSensitive,
     showSensitive,
     hideSensitive,
     isLogin
   } = props;
-
-  React.useEffect(() => {
-    fetchChallenges(4);
-    fetchCategories(4);
-  }, [fetchCategories, fetchChallenges]);
 
   const onSensitiveChange = (e: any) => {
     const checked = e.target.checked;
@@ -47,9 +39,8 @@ const DashBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <Progress />}
-      {challenges && (
+      {!isReady(challenges) || (!isReady(categories) && <Progress />)}
+      {isReady(challenges) && isReady(categories) && (
         <DashBoardPaper
           title="オススメのチャレンジ"
           items={challenges}
