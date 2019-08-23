@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import Title from '../atoms/Title';
-import Error from '../atoms/Error';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import { isReady } from '~/lib/firebase';
 
