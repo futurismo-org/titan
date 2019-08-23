@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-native';
 import Category from '~/native/containers/CategoryContainer';
-import Challenge from '~/native/containers/ChallengeContainer';
+import Challenge from '~/native/containers/challenges/ChallengeContainer';
 import Profile from '~/native/containers/ProfileContainer';
 import Layout from '../templates/HeroLayout';
 

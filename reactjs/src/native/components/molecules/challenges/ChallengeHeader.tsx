@@ -11,9 +11,8 @@ import {
 } from '~/native/components/atoms/Hero';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
-import ChallengeCategoryButton from '~/native/containers/ChallengeCategoryButtonContainer';
-
-import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
+import ChallengeCategoryButton from '~/native/containers/challenges/ChallengeCategoryButtonContainer';
+import ChallengeButton from '~/native/containers/challenges/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
 
 const ChallengeHeader = (props: any) => {

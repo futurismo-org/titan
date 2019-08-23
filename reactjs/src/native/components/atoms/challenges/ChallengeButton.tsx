@@ -4,7 +4,7 @@ import { Button, Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 
 import { successToast } from '~/native/components/atoms/Toast';
-import ChallengePostController from '~/native/containers/ChallengePostControllerContainer';
+import ChallengePostController from '~/native/containers/challenges/ChallengePostControllerContainer';
 
 import Error from '../Error';
 

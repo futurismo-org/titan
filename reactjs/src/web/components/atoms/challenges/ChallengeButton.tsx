@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 
 import { withRouter } from 'react-router-dom';
 // import CheckoutForm from '~/web/components/atoms/CheckoutForm';
-import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
+import ChallengePostController from '~/web/containers/challenges/ChallengePostControllerContainer';
 import { secondaryColor, brandWhite } from '~/lib/theme';
 
 import Error from '../Error';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
-import Challenges from '~/native/containers/ChallengesContainer';
+import Challenges from '~/native/containers/challenges/ChallengesContainer';
 import Categories from '~/native/containers/CategoriesContainer';
 import Users from '~/native/containers/UsersContainer';
 import Settings from '~/native/containers/SettingsContainer';

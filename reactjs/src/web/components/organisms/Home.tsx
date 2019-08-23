@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import DashBoard from '~/web/containers/DashBoardContainer';
-import Challenges from '~/web/containers/ChallengesContainer';
+import Challenges from '~/web/containers/challenges/ChallengesContainer';
 import GeneralTopics from '../molecules/GeneralTopics';
-import Challenge from '~/web/containers/ChallengeContainer';
+import Challenge from '~/web/containers/challenges/ChallengeContainer';
 import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
 import Category from '~/web/containers/CategoryContainer';
