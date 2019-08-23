@@ -4,7 +4,7 @@ import { Text } from 'native-base';
 const ChallengeTimeline = (props: any) => {
   return (
     <React.Fragment>
-      <Text>タイムラインのページです</Text>
+      <Text>タイムラインのページです。</Text>
     </React.Fragment>
   );
 };

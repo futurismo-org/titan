@@ -68,7 +68,7 @@ const ChallengeNavbar = (props: any) => {
         <MenuItem onPress={() => hideMenu(`/c/${challengeId}/topics`)}>
           トピック
         </MenuItem>
-        <MenuItem onPress={() => hideMenu(`/c/${challengeId}/timelines`)}>
+        <MenuItem onPress={() => hideMenu(`/c/${challengeId}/timeline`)}>
           タイムライン
         </MenuItem>
         {isLogin && (
