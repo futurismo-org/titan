@@ -106,5 +106,7 @@ export const uploadPhotoURLAsync = async (
 };
 
 export const isReady = (target: any) => isLoaded(target) && !!target;
+export const isLogin = (state: any) =>
+  !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded;
 
 export default firebase;

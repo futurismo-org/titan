@@ -3,6 +3,7 @@ import { bindActionCreators, Dispatch, compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
 import { isChallengeOpening, isChallengeWillOpen } from '~/lib/challenge';
+import { isLogin } from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -37,7 +38,7 @@ const mapStateToProps = (state: any, props: any) => {
     challenges,
     categories,
     debugSensitive: state.sensitive && state.sensitive.show,
-    isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
+    isLogin: isLogin(state),
     ...props
   };
 };
