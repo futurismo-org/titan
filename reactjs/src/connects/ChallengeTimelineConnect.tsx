@@ -6,7 +6,7 @@ import { fetchNotes } from '~/actions/noteAction';
 import { fetchParticipants } from '~/actions/participantAction';
 import { getTopicsId, getNotesId, getParticipantsId } from '~/lib/resource';
 
-import moment from '~/lib/moment';
+import moment, { isBeforeInDaysFromNow } from '~/lib/moment';
 import {
   NOTE_TYPE_JOIN,
   NOTE_TYPE_OPEN,
@@ -122,9 +122,9 @@ const generateItems = (
     return false;
   });
 
-  return items.sort((x: any, y: any) =>
-    moment(y.timestamp).diff(moment(x.timestamp))
-  );
+  return items
+    .filter((item: any) => isBeforeInDaysFromNow(item.timestamp, 7))
+    .sort((x: any, y: any) => moment(y.timestamp).diff(moment(x.timestamp)));
 };
 
 const mapStateToProps = (state: any, props: any) => {

@@ -37,16 +37,19 @@ const ChallengeTimeline = (props: any) => {
       {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && items && (
-        <Timeline lineColor={timelineBorderColor}>
-          {items &&
-            items.map((item: any) => (
-              <ChallengeTimelineItem
-                key={item.id}
-                type={item.type}
-                data={item.data}
-              />
-            ))}
-        </Timeline>
+        <React.Fragment>
+          <p>過去１週間のデータを表示します。</p>
+          <Timeline lineColor={timelineBorderColor}>
+            {items &&
+              items.map((item: any) => (
+                <ChallengeTimelineItem
+                  key={item.id}
+                  type={item.type}
+                  data={item.data}
+                />
+              ))}
+          </Timeline>
+        </React.Fragment>
       )}
     </React.Fragment>
   );

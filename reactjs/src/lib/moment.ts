@@ -9,6 +9,11 @@ export const nowMoment = moment();
 export const fromNow = (date: Date) => moment(date).fromNow() || '';
 export const isClosed = (date: Date) => moment(date).diff(now, 'days') <= 0;
 export const isToday = (date: Date) => moment(date).isSame(moment(now), 'days');
+export const isBeforeInDaysFromNow = (date: Date, days: number) => {
+  const isBefore = moment(date).isBefore(now);
+  const diff = moment(now).diff(date, 'days');
+  return isBefore && diff <= days;
+};
 
 export const formatDatetime = (date: Date) =>
   moment(date).format('MM月DD日 HH:mm');
