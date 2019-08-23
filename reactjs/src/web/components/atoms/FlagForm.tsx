@@ -28,6 +28,7 @@ const FlagForm = (props: any) => {
     challenge,
     category,
     profile,
+    note,
     collectionType,
     collectionId,
     handler,
@@ -53,6 +54,7 @@ const FlagForm = (props: any) => {
       challenge,
       category,
       profile,
+      note,
       collectionType,
       collectionId,
       data

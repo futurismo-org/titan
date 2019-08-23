@@ -38,12 +38,14 @@ export const fetchUserNotes = (resourceId: string, userShortId: string) => {
   };
 };
 
-export const fetchNotes = (resourceId: string) => {
+export const fetchNotes = (resourceId: string, date?: Date) => {
   return fetchItems(
     resourceId,
     fetchNotesRequest,
     fetchNotesSuccess,
-    fetchNotesError
+    fetchNotesError,
+    date,
+    'createdAt'
   );
 };
 

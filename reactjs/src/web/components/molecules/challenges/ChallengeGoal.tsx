@@ -19,6 +19,7 @@ const ChallengeGoal = (props: any) => {
     user,
     userShortId,
     fetchUserWithShortId,
+    isMyProfile,
     loading,
     error
   } = props;
@@ -44,15 +45,21 @@ const ChallengeGoal = (props: any) => {
             <h1>{user.displayName}さんの努力ノート</h1>
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} large />
           </Grid>
-          <ChallengeObjective challenge={challenge} user={user} />
-          <div
-            style={{
-              maxWidth: 600,
-              margin: '0 auto'
-            }}
-          >
-            <ChallengeNoteForm challenge={challenge} user={user} />
-          </div>
+          <ChallengeObjective
+            challenge={challenge}
+            user={user}
+            isMyProfile={isMyProfile}
+          />
+          {isMyProfile && (
+            <div
+              style={{
+                maxWidth: 600,
+                margin: '0 auto'
+              }}
+            >
+              <ChallengeNoteForm challenge={challenge} user={user} />
+            </div>
+          )}
           <ChallengeNotes challenge={challenge} user={user} />
         </Wrapper>
       )}

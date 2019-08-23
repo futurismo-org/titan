@@ -71,7 +71,7 @@ const createTopicSeed = (args: any) => {
     updatedAt: getRandomUpdatedAt(),
     userId: id,
     userName: faker.name.firstName(),
-    usrPhotoURL: faker.image.avatar(),
+    userPhotoURL: faker.image.avatar(),
     ...args
   });
 };
@@ -100,7 +100,7 @@ const createNoteSeed = (args: any) => {
     updatedAt: getRandomUpdatedAt(),
     userId: id,
     userName: faker.name.firstName(),
-    usrPhotoURL: faker.image.avatar(),
+    userPhotoURL: faker.image.avatar(),
     ...args
   });
 };

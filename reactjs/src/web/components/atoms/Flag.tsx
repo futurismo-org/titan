@@ -27,6 +27,7 @@ const Flag = (props: any) => {
     challenge,
     category,
     profile,
+    note,
     collectionType,
     collectionId
   } = props;
@@ -44,7 +45,7 @@ const Flag = (props: any) => {
     <React.Fragment>
       <div style={{ textAlign: 'right' }}>
         <div onClick={handleOpen} role="button" className="flag-button">
-          <FlagIcon color="action" />
+          <FlagIcon fontSize="small" color="action" />
           <span>報告</span>
         </div>
         <Modal
@@ -65,6 +66,7 @@ const Flag = (props: any) => {
                   challenge={challenge}
                   category={category}
                   profile={profile}
+                  note={note}
                   collectionType={collectionType}
                   collectionId={collectionId}
                   handleClose={handleClose}
