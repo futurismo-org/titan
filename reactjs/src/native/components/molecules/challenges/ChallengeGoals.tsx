@@ -45,17 +45,19 @@ const ChallengeGoals = (props: any) => {
         {error && <Error error={error} />}
         {loading ? <Progress /> : null}
         {!loading && !goals && <Text>t目標をまだだれも設定していません。</Text>}
-        {!loading && goals && notSetGoals && (
+        {!loading && !!goals && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />
-            {!loading &&
-              !!goals &&
-              goals.map((goal: any) => (
-                <View style={{ marginTop: 5, marginBottom: 5 }} key={goal.id}>
-                  <ChallengeGoalCard goal={goal} challengeId={challengeId} />
-                </View>
-              ))}
-            <Text />
+            {goals.map((goal: any) => (
+              <View style={{ marginTop: 5, marginBottom: 5 }} key={goal.id}>
+                <ChallengeGoalCard goal={goal} challengeId={challengeId} />
+              </View>
+            ))}
+          </React.Fragment>
+        )}
+        <Text />
+        {!loading && !!notSetGoals && (
+          <React.Fragment>
             <Text>目標をまだ設定していないユーザ</Text>
             <View
               style={{
@@ -65,18 +67,16 @@ const ChallengeGoals = (props: any) => {
                 padding: 5
               }}
             >
-              {!loading &&
-                !!notSetGoals &&
-                notSetGoals.map((user: any) => {
-                  return (
-                    <UserAvatar
-                      key={user.id}
-                      photoURL={user.photoURL}
-                      userId={user.id}
-                      to={getChallengeUserGoalPath(challengeId, user.id)}
-                    />
-                  );
-                })}
+              {notSetGoals.map((user: any) => {
+                return (
+                  <UserAvatar
+                    key={user.id}
+                    photoURL={user.photoURL}
+                    userId={user.id}
+                    to={getChallengeUserGoalPath(challengeId, user.id)}
+                  />
+                );
+              })}
             </View>
           </React.Fragment>
         )}
