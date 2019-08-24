@@ -17,7 +17,7 @@ const mapStateToProps = (state: any, props: any) => {
 const queries = (props: any) => [
   {
     collection: 'categories',
-    orderBy: ['updatedAt', 'desc']
+    orderByKey: ['updatedAt', 'desc']
   }
 ];
 

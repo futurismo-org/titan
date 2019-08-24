@@ -34,7 +34,7 @@ const mapStateToProps = (state: any, props: any) => {
 const queries = (props: any) => [
   {
     collection: 'challenges',
-    orderBy: ['updatedAt', 'desc']
+    orderByKey: ['updatedAt', 'desc']
   }
 ];
 

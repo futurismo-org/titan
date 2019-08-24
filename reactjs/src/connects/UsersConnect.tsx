@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { isLoaded, firestoreConnect } from 'react-redux-firebase';
+import { isLoaded, firestoreConnect, isEmpty } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 const mapStateToProps = (state: any, props: any) => {
-  const users = state.firestore.ordered.players;
-  const profiles = state.firestore.ordered.profiles;
+  const users = state.firestore.ordered.myUsers;
+  const profiles = state.firestore.ordered.myProfiles;
   const myId = state.firebase.profile.shortId;
 
   const marged =
@@ -32,6 +32,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     users: marged,
+    isLoaded: isLoaded([users, profiles]) && !isEmpty([users, profiles]),
     myId
   };
 };
@@ -40,10 +41,11 @@ const queries = (props: any) => {
   return [
     {
       collection: 'users',
-      storeAs: 'players'
+      storeAs: 'myUsers'
     },
     {
-      collection: 'profiles'
+      collection: 'profiles',
+      storeAs: 'myProfiles'
     }
   ];
 };

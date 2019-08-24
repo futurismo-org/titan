@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -34,8 +34,16 @@ const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
 
 const Users = (props: any) => {
-  const { users, loading, myId } = props;
+  const { users, myId, isLoaded } = props;
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
+
+  useEffect(() => {
+    console.log('users mounted');
+
+    return () => {
+      console.log('users unmounted');
+    };
+  }, []);
 
   const onSortKeyChange = (e: any) => {
     e.preventDefault();
@@ -88,8 +96,8 @@ const Users = (props: any) => {
   return (
     <Paper>
       <Title text="ユーザーランキング" />
-      {loading && <Progress />}
-      {!loading && !!users && (
+      {!isLoaded && <Progress />}
+      {isLoaded && !!users && (
         <React.Fragment>
           <FormControl
             component="fieldset"
