@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const { challengeId } = props;
   const resourceId = `/challenges/${challengeId}/participants`;
-  const myId = state.user.profile.shortId;
+  const myId = state.firebase.profile.shortId;
 
   const users = rankChallengeParticipants(state.participant.items).map(
     (user: any) => {

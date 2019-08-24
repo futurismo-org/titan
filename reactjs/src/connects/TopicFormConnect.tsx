@@ -22,7 +22,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const resourceId = getTopicId(topicId, collection, collectionId);
   const redirectPath = getTopicsPath(collection, collectionId);
-  const currentUser = state.user.profile;
+  const currentUser = state.firebase.profile;
 
   const updateData = {
     id: topicId,

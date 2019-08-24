@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -15,10 +15,6 @@ const AdminContainer = styled.div`
 `;
 
 const Admin = (props: any) => {
-  useEffect(() => {
-    props.fetchFirebaseUser(props.resourceId);
-  }, [props]);
-
   return (
     <Layout>
       <AdminContainer>

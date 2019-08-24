@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const reportUser = state.user.profile;
+  const reportUser = state.firebase.profile;
 
   const handler = (
     topic: any,

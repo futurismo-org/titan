@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import DashBoard from '~/web/containers/DashBoardContainer';
@@ -19,10 +19,6 @@ import Contact from './Contact';
 import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
 
 const Home = (props: any) => {
-  useEffect(() => {
-    props.fetchFirebaseUser(props.resourceId);
-  }, [props]);
-
   return (
     <Layout>
       <Switch>

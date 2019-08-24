@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
-  const myUserId = state.user.profile.shortId;
+  const myUserId = state.firebase.profile.shortId;
 
   return {
     blocks: state.block.items,

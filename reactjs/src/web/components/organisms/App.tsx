@@ -19,7 +19,7 @@ history.listen(location => {
 });
 
 const rrfConfig = {
-  // userProfile: 'users',
+  userProfile: 'users',
   useFirestoreForProfile: true
 };
 

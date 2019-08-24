@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const userShortId = props.match.params.id;
   const user = state.user.target;
-  const profile = state.user.profile;
+  const profile = state.firebase.profile;
 
   const isLogin = !profile.isEmpty && profile.isLoaded;
   const isMyProfile = profile.shortId === userShortId;

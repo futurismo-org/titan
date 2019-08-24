@@ -5,7 +5,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import clsx from 'clsx';
@@ -59,7 +58,7 @@ const DrawerButtonALink = (text: string, to: string) => (
 );
 
 const Drawer = (props: any) => {
-  const { isLogin, isAdmin, displayName, photoURL, userId } = props;
+  const { isLogin, isAdmin, userId } = props;
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
@@ -128,7 +127,7 @@ const Drawer = (props: any) => {
             <Divider />
             {isLogin && <DrawerButton text="設定" to="/settings" />}
             {isLogin && <Divider />}
-            {isAdmin && <DrawerButton text="管理設定" to="/admins" />}
+            {isAdmin && <DrawerButton text="管理設定" to="/admin" />}
             {isAdmin && <Divider />}
             <div style={{ textAlign: 'center' }}>
               <NoStyledExternalLink href={TITAN_TWITTER_URL}>

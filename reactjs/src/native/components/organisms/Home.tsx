@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
 import Challenges from '~/native/containers/challenges/ChallengesContainer';
@@ -15,10 +15,6 @@ import Document from './Document';
 import Contact from './Contact';
 
 const Home = (props: any) => {
-  useEffect(() => {
-    props.fetchFirebaseUser(props.resourceId);
-  }, [props]);
-
   return (
     <Layout>
       <Switch>

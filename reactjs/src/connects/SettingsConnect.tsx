@@ -7,7 +7,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const user = state.user.profile;
+  const user = state.firebase.profile;
   const userId = user.id;
 
   const resourceId = `/users/${userId}`;

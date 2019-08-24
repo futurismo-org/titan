@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isLoaded } from 'react-redux-firebase';
 
 import { configDev, configProd } from './config';
 
@@ -110,7 +110,7 @@ export const isReady = (target: any) => isLoaded(target) && target;
 export const isLogin = (state: any) =>
   state.firebase.auth.isLoaded &&
   !state.firebase.auth.isEmpty &&
-  state.user.profile !== null;
+  state.firebase.profile !== null;
 
 export const lazyEvalValue = (target: any) =>
   isLoaded(target) ? target : null;

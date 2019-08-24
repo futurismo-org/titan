@@ -6,7 +6,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const { profile } = state.user;
+  const { profile } = state.firebase;
   const displayName = profile && profile.displayName;
 
   const photoURL =

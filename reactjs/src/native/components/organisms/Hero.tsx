@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-native';
 import Category from '~/native/containers/CategoryContainer';
 import Challenge from '~/native/containers/challenges/ChallengeContainer';
@@ -6,10 +6,6 @@ import Profile from '~/native/containers/ProfileContainer';
 import Layout from '../templates/HeroLayout';
 
 const Hero = (props: any) => {
-  useEffect(() => {
-    props.fetchFirebaseUser(props.resourceId);
-  }, [props]);
-
   return (
     <Layout>
       <Switch>

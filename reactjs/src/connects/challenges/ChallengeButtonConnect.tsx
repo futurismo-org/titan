@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
   const challengeId = challenge.id;
-  const profile = state.user.profile;
+  const profile = state.firebase.profile;
   const userShortId = profile.shortId;
   const categoryId = getCategoryId(challenge.categoryRef);
   const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
