@@ -1,54 +1,65 @@
 import { connect } from 'react-redux';
 import { isLoaded, firestoreConnect, isEmpty } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { compose, bindActionCreators, Dispatch } from 'redux';
+
+import { fetchUsers } from '~/actions/userAction';
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      fetchUsers
+    },
+    dispatch
+  );
 
 const mapStateToProps = (state: any, props: any) => {
-  const users = state.firestore.ordered.myUsers;
-  const profiles = state.firestore.ordered.myProfiles;
+  const users = state.user.items;
+  const profiles = state.firestore.ordered.profiles;
   const myId = state.firebase.profile.shortId;
 
-  const marged = isLoaded(users, profiles)
-    ? users
-        .filter((user: any) => !user.freezed)
-        .map((user: any) => {
-          const profile = profiles.filter(
-            (profile: any) => profile.id === user.shortId
-          );
+  const marged =
+    !!users && isLoaded(profiles)
+      ? users
+          .filter((user: any) => !user.freezed)
+          .map((user: any) => {
+            const profile = profiles.filter(
+              (profile: any) => profile.id === user.shortId
+            );
 
-          const totalScore =
-            profile && profile.length === 1
-              ? (profile as any[])[0].totalScore
-              : 0;
+            const totalScore =
+              profile && profile.length === 1
+                ? (profile as any[])[0].totalScore
+                : 0;
 
-          return {
-            ...user,
-            totalScore
-          };
-        })
-        .slice(0, 20)
-    : [];
+            return {
+              ...user,
+              totalScore
+            };
+          })
+          .slice(0, 20)
+      : [];
 
   return {
     users: marged,
-    isLoaded: isLoaded(users, profiles) && !isEmpty(users, profiles),
-    myId
+    isLoaded:
+      isLoaded(profiles) && !isEmpty(profiles) && !state.profile.loading,
+    myId,
+    ...props
   };
 };
 
 const queries = (props: any) => {
   return [
     {
-      collection: 'users',
-      storeAs: 'myUsers'
-    },
-    {
-      collection: 'profiles',
-      storeAs: 'myProfiles'
+      collection: 'profiles'
     }
   ];
 };
 
 export default compose(
   firestoreConnect(queries),
-  connect(mapStateToProps)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
 ) as any;

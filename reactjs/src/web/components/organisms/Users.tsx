@@ -34,16 +34,12 @@ const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
 
 const Users = (props: any) => {
-  const { users, myId, isLoaded } = props;
+  const { users, myId, isLoaded, fetchUsers } = props;
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
   useEffect(() => {
-    console.log('users mounted');
-
-    return () => {
-      console.log('users unmounted');
-    };
-  }, []);
+    fetchUsers();
+  }, [fetchUsers]);
 
   const onSortKeyChange = (e: any) => {
     e.preventDefault();
