@@ -27,7 +27,7 @@ const App = () => {
           <GlobalStyle />
           <Switch>
             <AdminRoute path="/admin" component={Admin} />
-            <Route path="/" component={Home} />
+            <Route path="/" render={props => <Home {...props} />} />
           </Switch>
         </Router>
       </Provider>

@@ -28,6 +28,8 @@ const mapStateToProps = (state: any, props: any) => {
           })
       : [];
 
+  console.log(marged, isLoaded(users));
+
   return {
     users: marged,
     myId
