@@ -25,9 +25,8 @@ const mapStateToProps = (state: any, props: any) => {
             totalScore
           };
         })
+        .slice(0, 20)
     : [];
-
-  console.log(marged, isLoaded(users));
 
   return {
     users: marged,
