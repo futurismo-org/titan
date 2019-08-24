@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,7 +22,6 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import UserAvatar from '../atoms/UserAvatar';
 
-import Error from '../atoms/Error';
 import { primaryColor, brandWhite, leaderboardMyColor } from '~/lib/theme';
 
 const ConditionalTableCell = (props: any) => (
@@ -35,13 +34,7 @@ const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
 
 const Users = (props: any) => {
-  const { users, error, loading, fetchUsers, fetchProfiles, myId } = props;
-
-  useEffect(() => {
-    fetchUsers();
-    fetchProfiles();
-  }, [fetchProfiles, fetchUsers]);
-
+  const { users, loading, myId } = props;
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
   const onSortKeyChange = (e: any) => {
@@ -95,9 +88,8 @@ const Users = (props: any) => {
   return (
     <Paper>
       <Title text="ユーザーランキング" />
-      {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && users && (
+      {!loading && !!users && (
         <React.Fragment>
           <FormControl
             component="fieldset"

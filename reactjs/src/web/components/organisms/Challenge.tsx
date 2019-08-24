@@ -10,8 +10,6 @@ import Title from '../atoms/Title';
 const Challenge = (props: any) => {
   const { loading, challenge, join, userShortId } = props;
 
-  console.log(challenge, join);
-
   return (
     <React.Fragment>
       {loading && <Progress />}

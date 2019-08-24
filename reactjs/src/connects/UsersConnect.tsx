@@ -1,34 +1,25 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchUsers } from '~/actions/userAction';
-import { fetchProfiles } from '~/actions/profileAction';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchUsers,
-      fetchProfiles
-    },
-    dispatch
-  );
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import { compose } from 'redux';
 
 const mapStateToProps = (state: any, props: any) => {
-  const users = state.user.items;
-  const profiles = state.profile.items;
-
+  const users = state.firestore.data.users;
+  const profiles = state.firestore.data.profiles;
   const myId = state.firebase.profile.shortId;
 
   const marged =
     users && profiles
-      ? users
+      ? Object.values(users)
           .filter((user: any) => !user.freezed)
           .map((user: any) => {
-            const profile = profiles.filter(
+            const profile = Object.values(profiles).filter(
               (profile: any) => profile.id === user.shortId
             );
 
             const totalScore =
-              profile && profile.length === 1 ? profile[0].totalScore : 0;
+              profile && profile.length === 1
+                ? (profile as any[])[0].totalScore
+                : 0;
 
             return {
               ...user,
@@ -39,14 +30,24 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     users: marged,
-    loading: state.user.loading || state.profile.loading,
-    error: state.user.error || state.profile.error,
+    loading: !isLoaded(users) || !isLoaded(profiles),
     myId,
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const query = (props: any) => {
+  return [
+    {
+      collection: 'users'
+    },
+    {
+      collection: 'profiles'
+    }
+  ];
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(query)
+) as any;

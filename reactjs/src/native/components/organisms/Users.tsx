@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-// import RadioForm from 'react-native-simple-radio-button';
 import { Table, Row } from 'react-native-table-component';
 import Progress from '../atoms/CircularProgress';
-import Error from '../atoms/Error';
 import Title from '../atoms/Title';
 
 import moment, { fromNow } from '~/lib/moment';
@@ -24,15 +22,9 @@ const RADIO_LATEST = 1;
 const RADIO_REGISTERD = 2;
 
 const Users = (props: any) => {
-  const { users, error, loading, fetchUsers, fetchProfiles, myId } = props;
+  const { users, loading, myId } = props;
 
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
-
-  useEffect(() => {
-    fetchUsers();
-    fetchProfiles();
-    sortkey;
-  }, [fetchProfiles, fetchUsers, sortkey]);
 
   const tableHead = ['#', '', '名前', RADIO_SCORE_LABEL, RADIO_LATEST_LABEL];
   const flexArr = [1, 2, 6, 2, 2];
@@ -87,9 +79,8 @@ const Users = (props: any) => {
         onPress={onSortKeyPress}
         formHorizontal
       /> */}
-      {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && users && (
+      {!loading && !!users && (
         <Table style={{ margin: 10 }}>
           <LeaderBoardHead />
           {users.sort(compare).map((user: any, index: number) => {
