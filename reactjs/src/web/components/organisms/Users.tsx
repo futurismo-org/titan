@@ -34,7 +34,7 @@ const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
 
 const Users = (props: any) => {
-  const { users, myId, isLoaded, fetchUsers } = props;
+  const { users, myId, loading, fetchUsers, isLoaded } = props;
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const Users = (props: any) => {
     <Paper>
       <Title text="ユーザーランキング" />
       {!isLoaded && <Progress />}
-      {isLoaded && !!users && (
+      {!loading && isLoaded && !!users && (
         <React.Fragment>
           <FormControl
             component="fieldset"

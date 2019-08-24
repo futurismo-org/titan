@@ -22,7 +22,11 @@ const RADIO_LATEST = 1;
 const RADIO_REGISTERD = 2;
 
 const Users = (props: any) => {
-  const { users, loading, myId } = props;
+  const { users, loading, myId, fetchUsers, isLoaded } = props;
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
@@ -80,7 +84,7 @@ const Users = (props: any) => {
         formHorizontal
       /> */}
       {loading && <Progress />}
-      {!loading && !!users && (
+      {isLoaded && !loading && !!users && (
         <Table style={{ margin: 10 }}>
           <LeaderBoardHead />
           {users.sort(compare).map((user: any, index: number) => {
