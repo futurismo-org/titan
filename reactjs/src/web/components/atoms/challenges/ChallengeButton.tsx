@@ -9,8 +9,6 @@ import { withRouter } from 'react-router-dom';
 import ChallengePostController from '~/web/containers/challenges/ChallengePostControllerContainer';
 import { secondaryColor, brandWhite } from '~/lib/theme';
 
-import Error from '../Error';
-
 // function rand() {
 //   return Math.round(Math.random() * 20) - 10;
 // }

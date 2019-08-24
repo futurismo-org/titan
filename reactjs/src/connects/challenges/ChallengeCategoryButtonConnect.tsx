@@ -13,7 +13,7 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-const query = (props: any) => {
+const queries = (props: any) => {
   const categoryId = getCategoryId(props.categoryRef);
 
   return [
@@ -27,5 +27,5 @@ const query = (props: any) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(query)
+  firestoreConnect(queries)
 ) as any;

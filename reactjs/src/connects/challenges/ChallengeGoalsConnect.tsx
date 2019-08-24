@@ -1,26 +1,19 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { getParticipantsId } from '~/lib/resource';
-import { fetchParticipants } from '~/actions/participantAction';
-import { fetchChallengeObjectives } from '~/actions/objectiveAction';
 
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { compose } from 'redux';
 import moment from '~/lib/moment';
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchParticipants, fetchChallengeObjectives }, dispatch);
-
 const mapStateToProps = (state: any, props: any) => {
-  const { challengeId } = props;
-  const resourceId = getParticipantsId(challengeId);
-
-  const participants = state.participant.items;
-  const objectives = state.objective.items.filter(
-    (objective: any) => objective
-  );
+  const userShortId = state.firebase.profile.shortId;
+  const participants = state.firestore.ordered.participants;
+  const objectives = state.firestore.ordered.objectiveChallenges;
 
   const goals =
-    !!participants &&
-    objectives.length !== 0 &&
+    isLoaded(participants) &&
+    !isEmpty(participants) &&
+    isLoaded(objectives) &&
+    !isEmpty(objectives) &&
     objectives
       .map((objective: any) => {
         const user = participants.find(
@@ -49,17 +42,45 @@ const mapStateToProps = (state: any, props: any) => {
     participants.filter((user: any) => !goalIds.includes(user.id));
 
   return {
-    participants,
-    resourceId,
     goals,
     notSetGoals,
-    loading: state.participant.loading || state.objective.loading,
-    erorr: state.participant.error || state.objective.error,
+    userShortId,
+    isLoaded: isLoaded(participants, objectives),
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const queries = (props: any) => {
+  const { challengeId, userShortId } = props;
+
+  if (!(challengeId && userShortId)) return [];
+
+  return [
+    {
+      collection: 'challenges',
+      doc: challengeId,
+      storeAs: 'participants',
+      subcollections: [
+        {
+          collection: 'participants'
+        }
+      ]
+    },
+    {
+      collection: 'objectives',
+      doc: userShortId,
+      storeAs: 'objectiveChallenges',
+      subcollections: [
+        {
+          collection: 'challenges',
+          doc: challengeId
+        }
+      ]
+    }
+  ];
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(queries)
+) as any;

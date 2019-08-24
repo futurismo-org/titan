@@ -21,7 +21,7 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-const query = (props: any) => {
+const queries = (props: any) => {
   const challengeId = props.match.params.id;
   const userShortId = props.profile.shortId;
 
@@ -47,5 +47,5 @@ const query = (props: any) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(query)
+  firestoreConnect(queries)
 ) as any;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
 import { isChallengeOpening, isChallengeWillOpen } from '~/lib/challenge';
 import { isLogin } from '~/lib/firebase';
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const challenges =
-    state.firestore.data.challenges &&
+    isLoaded(state.firestore.data.challenges) &&
     Object.values(state.firestore.data.challenges).filter(
       (challenge: any) =>
         !challenge.freezed &&
@@ -29,7 +29,7 @@ const mapStateToProps = (state: any, props: any) => {
     );
 
   const categories =
-    state.firestore.data.categories &&
+    isLoaded(state.firestore.data.categories) &&
     Object.values(state.firestore.data.categories).filter(
       (category: any) => !category.freezed && !category.sensitive
     );
