@@ -1,15 +1,12 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
 import { firestore } from 'firebase';
-import { fetchProfileCategory } from '~/actions/profileAction';
 
-import firebase from '~/lib/firebase';
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
+import { compose } from 'redux';
+import firebase, { isLogin } from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
 
 import { getCategoryId } from '~/lib/challenge';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators({ fetchProfileCategory }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
@@ -17,13 +14,16 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
   const categoryId = getCategoryId(challenge.categoryRef);
-  const profileCategoryResourceId = `/profiles/${userShortId}/categories/${categoryId}`;
 
   const redirectPath = `/c/${challengeId}/overview`;
 
+  const profileCategory = state.firestore.data.profileCategory;
+
   const categoryDays =
-    state.profile.target && state.profile.target.days
-      ? state.profile.target.days
+    isLoaded(profileCategory) &&
+    !isEmpty(profileCategory) &&
+    profileCategory.days
+      ? profileCategory.days
       : 0;
 
   const joinHandler = () => {
@@ -133,21 +133,39 @@ const mapStateToProps = (state: any, props: any) => {
       });
   };
 
-  const isLogin = !profile.isEmpty && profile.isLoaded;
-
   return {
-    loading: state.participant.loadingExist,
-    error: state.participant.errorExist,
+    loading: !isLoaded(profileCategory),
     user: profile,
-    profileCategoryResourceId,
     joinHandler,
     redirectPath,
-    isLogin,
+    isLogin: isLogin(state),
+    userShortId,
+    categoryId,
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const queries = (props: any) => {
+  const { userShortId, categoryId } = props;
+
+  if (!(userShortId && categoryId)) return [];
+
+  return [
+    {
+      collection: 'profiles',
+      doc: userShortId,
+      storeAs: 'profileCategory',
+      subcollections: [
+        {
+          collection: 'categories',
+          doc: categoryId
+        }
+      ]
+    }
+  ];
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(queries)
+) as any;

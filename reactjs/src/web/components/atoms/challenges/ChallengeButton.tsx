@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 // import styled from 'styled-components';
 // import Modal from '@material-ui/core/Modal';
@@ -42,10 +42,7 @@ const ChallengeButton = (props: any) => {
     challenge,
     user,
     join,
-    profileCategoryResourceId,
-    fetchProfileCategory,
     loading,
-    error,
     joinHandler,
     redirectPath,
     history,
@@ -57,10 +54,6 @@ const ChallengeButton = (props: any) => {
 
   // const [open, setOpen] = useState(false);
   // const [modalStyle] = React.useState(getModalStyle);
-
-  useEffect(() => {
-    fetchProfileCategory(profileCategoryResourceId);
-  }, [fetchProfileCategory, profileCategoryResourceId]);
 
   // const handleOpen = () => {
   //   setOpen(true);
@@ -123,7 +116,6 @@ const ChallengeButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
       {loading && null}
       {!loading && join ? (
         <ChallengePostController

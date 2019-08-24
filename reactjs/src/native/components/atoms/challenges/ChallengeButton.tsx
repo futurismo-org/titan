@@ -6,35 +6,22 @@ import { withRouter } from 'react-router-native';
 import { successToast } from '~/native/components/atoms/Toast';
 import ChallengePostController from '~/native/containers/challenges/ChallengePostControllerContainer';
 
-import Error from '../Error';
-
 const ChallengeButton = (props: any) => {
   const {
     challenge,
     user,
     join,
     loading,
-    error,
-    profileCategoryResourceId,
-    fetchProfileCategory,
     history,
     joinHandler,
     redirectPath,
     isLogin
   } = props;
 
-  const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    fetchProfileCategory(profileCategoryResourceId);
-  }, [refresh, fetchProfileCategory, profileCategoryResourceId]);
-
   const handleJoin = () => {
-    joinHandler()
-      .then(() => {
-        successToast(redirectPath, history.replace, 'チャレンジに参加しました');
-      })
-      .then(() => setRefresh(!refresh));
+    joinHandler().then(() => {
+      successToast(redirectPath, history.replace, 'チャレンジに参加しました');
+    });
   };
 
   const PostButtonController = (props: any) => (
@@ -51,7 +38,6 @@ const ChallengeButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
       {loading && null}
       {!loading && join ? (
         <PostButtonController />
