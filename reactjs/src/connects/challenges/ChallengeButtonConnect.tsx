@@ -47,7 +47,7 @@ const mapStateToProps = (state: any, props: any) => {
 
     const newProfile = {
       id: userShortId,
-      displayName: user.displayName,
+      displayName: profile.displayName,
       updatedAt: new Date()
     };
 
