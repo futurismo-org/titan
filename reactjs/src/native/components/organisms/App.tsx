@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Route, Switch, NativeRouter, BackButton } from 'react-router-native';
+import { Route, NativeRouter, BackButton } from 'react-router-native';
 import * as Expo from 'expo';
 import * as Font from 'expo-font';
-import { Alert } from 'react-native';
+import { Alert, Switch } from 'react-native';
+
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { createFirestoreInstance } from 'redux-firestore';
 
 import { store } from '~/native/store';
 import Home from './Home';
@@ -14,6 +17,20 @@ import SplashHome from './Splash';
 
 import { isAndroid } from '~/native/lib/native';
 import { sleep } from '~/lib/general';
+
+import firebase from '~/lib/firebase';
+
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
 
 const App = (props: any) => {
   const [isSplashReady, setIsSplashReady] = useState(false);
@@ -60,20 +77,22 @@ const App = (props: any) => {
   return (
     <React.Fragment>
       <Provider store={store}>
-        <NativeRouter>
-          <BackButton>
-            <Switch>
-              <Route path="/cat" render={props => <Hero {...props} />} />
-              <Route path="/c" render={props => <Hero {...props} />} />
-              <Route
-                path="/u/:userShortId/cat/:categoryId"
-                render={props => <Home {...props} />}
-              />
-              <Route path="/u" render={props => <Hero {...props} />} />
-              <Route path="/" render={props => <Home {...props} />} />
-            </Switch>
-          </BackButton>
-        </NativeRouter>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <NativeRouter>
+            <BackButton>
+              <Switch>
+                <Route path="/cat" render={props => <Hero {...props} />} />
+                <Route path="/c" render={props => <Hero {...props} />} />
+                <Route
+                  path="/u/:userShortId/cat/:categoryId"
+                  render={props => <Home {...props} />}
+                />
+                <Route path="/u" render={props => <Hero {...props} />} />
+                <Route path="/" render={props => <Home {...props} />} />
+              </Switch>
+            </BackButton>
+          </NativeRouter>
+        </ReactReduxFirebaseProvider>
       </Provider>
     </React.Fragment>
   );

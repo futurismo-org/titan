@@ -1,8 +1,11 @@
-import { createStore } from 'redux';
-import { createBrowserHistory } from 'history';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { createRootReducerForRN } from '~/reducers';
 
-export const history = createBrowserHistory();
-
 const initialState = {};
-export const store = createStore(createRootReducerForRN(), initialState);
+
+export const store = createStore(
+  createRootReducerForRN(),
+  initialState,
+  compose(applyMiddleware(thunk))
+);
