@@ -5,12 +5,12 @@ import Challenge from '~/native/containers/challenges/ChallengeContainer';
 import Profile from '~/native/containers/ProfileContainer';
 import Layout from '../templates/HeroLayout';
 
-const Hero = () => (
+const Hero = (props: any) => (
   <Layout>
     <Switch>
-      <Route path="/cat/:id" component={Category} />
-      <Route path="/c/:id" component={Challenge} />
-      <Route path="/u/:id" component={Profile} />
+      <Route path="/cat/:id" render={props => <Category {...props} />} />
+      <Route path="/c/:id" render={props => <Challenge {...props} />} />
+      <Route path="/u/:id" render={props => <Profile {...props} />} />
     </Switch>
   </Layout>
 );

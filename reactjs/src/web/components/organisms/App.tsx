@@ -43,7 +43,7 @@ const App = () => {
             <Head />
             <GlobalStyle />
             <Switch>
-              <AdminRoute path="/admin" component={Admin} />
+              <AdminRoute path="/admin" render={Admin} />
               <Route path="/" render={props => <Home {...props} />} />
             </Switch>
           </Router>

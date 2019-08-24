@@ -23,13 +23,14 @@ const ChallengeBody = (props: any) => {
     <Switch>
       <Route
         path="/c/:id/overview"
-        render={() => (
+        render={props => (
           <ChallengeOverview
             challenge={challenge}
             text={challenge.overview}
             youtubeId={challenge.youtubeId}
             openedAt={challenge.openedAt.toDate()}
             closedAt={challenge.closedAt.toDate()}
+            {...props}
           />
         )}
       />

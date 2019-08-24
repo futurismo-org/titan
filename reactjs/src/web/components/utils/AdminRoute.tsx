@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 const AdminRoute = (props: any) => {
-  const { user, component: Component, ...rest } = props;
+  const { user, render: Component, ...rest } = props;
 
   if (!user.isLoaded || user.isEmpty) return <React.Fragment />;
 

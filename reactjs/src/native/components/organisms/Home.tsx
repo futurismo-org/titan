@@ -14,18 +14,18 @@ import Meigen from './Meigen';
 import Document from './Document';
 import Contact from './Contact';
 
-const Home = () => (
+const Home = (props: any) => (
   <Layout>
     <Switch>
-      <Route path="/settings" component={Settings} />
-      <Route path="/users" component={Users} />
-      <Route path="/topics" component={GeneralTopics} />
-      <Route path="/categories" component={Categories} />
-      <Route path="/challenges" component={Challenges} />
-      <Route path="/login" component={AuthScreen} />
-      <Route path="/info" component={Info} />
-      <Route path="/meigen" component={Meigen} />
-      <Route path="/contact" component={Contact} />
+      <Route path="/settings" render={props => <Settings {...props} />} />
+      <Route path="/users" render={props => <Users {...props} />} />
+      <Route path="/topics" render={props => <GeneralTopics {...props} />} />
+      <Route path="/categories" render={props => <Categories {...props} />} />
+      <Route path="/challenges" render={props => <Challenges {...props} />} />
+      <Route path="/login" render={props => <AuthScreen {...props} />} />
+      <Route path="/info" render={props => <Info {...props} />} />
+      <Route path="/meigen" render={props => <Meigen {...props} />} />
+      <Route path="/contact" render={props => <Contact {...props} />} />
       <Route
         path="/terms_of_use"
         render={props => <Document id="terms_of_use" {...props} />}
@@ -44,9 +44,9 @@ const Home = () => (
       />
       <Route
         path="/u/:userShortId/cat/:categoryId"
-        component={ProfileCategory}
+        render={props => <ProfileCategory {...props} />}
       />
-      <Route path="/" component={DashBoard} />
+      <Route path="/" render={props => <DashBoard {...props} />} />
     </Switch>
   </Layout>
 );

@@ -63,11 +63,14 @@ const App = (props: any) => {
         <NativeRouter>
           <BackButton>
             <Switch>
-              <Route path="/cat" component={Hero} />
-              <Route path="/c" component={Hero} />
-              <Route path="/u/:userShortId/cat/:categoryId" component={Home} />
-              <Route path="/u" component={Hero} />
-              <Route path="/" component={Home} />
+              <Route path="/cat" render={props => <Hero {...props} />} />
+              <Route path="/c" render={props => <Hero {...props} />} />
+              <Route
+                path="/u/:userShortId/cat/:categoryId"
+                render={props => <Home {...props} />}
+              />
+              <Route path="/u" render={props => <Hero {...props} />} />
+              <Route path="/" render={props => <Home {...props} />} />
             </Switch>
           </BackButton>
         </NativeRouter>
