@@ -61,7 +61,7 @@ const DefaultLayout = (props: any) => {
   const _refresh = () => {
     return new Promise(resolve => {
       const currentPath = history.location.path;
-      history.push(currentPath);
+      history.replace(currentPath);
       resolve();
     });
   };

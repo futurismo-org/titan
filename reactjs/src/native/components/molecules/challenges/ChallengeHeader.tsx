@@ -25,7 +25,7 @@ const ChallengeHeader = (props: any) => {
         renderOverlay={() => (
           <Content padder>
             <TouchableOpacity
-              onPress={() => history.push(`/c/${challenge.id}/overview`)}
+              onPress={() => history.replace(`/c/${challenge.id}/overview`)}
             >
               <Title>{challenge.title}</Title>
             </TouchableOpacity>

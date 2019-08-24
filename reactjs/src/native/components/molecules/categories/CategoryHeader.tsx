@@ -19,7 +19,7 @@ const CategoryHeader = (props: any) => {
       renderOverlay={() => (
         <Content padder>
           <TouchableOpacity
-            onPress={() => history.push(`/cat/${category.id}/dashboard`)}
+            onPress={() => history.replace(`/cat/${category.id}/dashboard`)}
           >
             <Title>{category.title}</Title>
           </TouchableOpacity>

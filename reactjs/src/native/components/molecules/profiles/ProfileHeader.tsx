@@ -61,7 +61,7 @@ const ProfileHeader = (props: any) => {
         {isLogin && isMyProfile && (
           <Button
             rounded
-            onPress={() => history.push('/settings')}
+            onPress={() => history.replace('/settings')}
             style={{ backgroundColor: primaryColor, alignSelf: 'center' }}
           >
             <Text>プロフィールを編集</Text>

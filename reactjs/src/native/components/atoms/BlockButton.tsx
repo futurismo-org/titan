@@ -51,8 +51,8 @@ const MuteButton = (props: any) => {
       .then(() => alert.close())
       .then(() => {
         const path = location.pathname;
-        history.push('/');
-        history.push(path);
+        history.replace('/');
+        history.replace(path);
       });
   };
 
@@ -61,8 +61,8 @@ const MuteButton = (props: any) => {
       .then(() => successToastWithNoRedirect('ブロックを解除しました。'))
       .then(() => {
         const path = location.pathname;
-        history.push('/');
-        history.push(path);
+        history.replace('/');
+        history.replace(path);
       });
   };
 

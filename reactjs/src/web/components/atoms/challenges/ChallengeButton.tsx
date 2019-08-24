@@ -74,8 +74,8 @@ const ChallengeButton = (props: any) => {
     joinHandler()
       .then(() => window.alert('チャレンジに参加しました')) // eslint-disable-line
       .then(() => {
-        history.push('/');
-        history.push(redirectPath);
+        history.replace('/');
+        history.replace(redirectPath);
       });
   };
 

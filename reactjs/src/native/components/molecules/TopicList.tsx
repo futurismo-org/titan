@@ -16,14 +16,16 @@ const TopicListItem = (props: any) => {
       </Left>
       <Body>
         {topic.sensitive && !allowSensitive ? (
-          <TouchableOpacity onPress={() => history.push('/settings')}>
+          <TouchableOpacity onPress={() => history.replace('/settings')}>
             <Text>
               センシティブな内容が含まれている可能性のあるコンテンツです
             </Text>
             <Text note>設定を変更</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity onPress={() => history.push(topicPath(topic.id))}>
+          <TouchableOpacity
+            onPress={() => history.replace(topicPath(topic.id))}
+          >
             <Text>{topic.title}</Text>
             <Text note>
               Posted by {topic.userName} {fromNow(topic.createdAt.toDate())}

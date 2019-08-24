@@ -118,7 +118,7 @@ const ProfileCategoryCard = (props: any) => {
         <TouchableOpacity
           activeOpacity={1}
           style={[styles.slideInnerContainer, { height: slideHeight }]}
-          onPress={() => history.push('/settings')}
+          onPress={() => history.replace('/settings')}
         >
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>
@@ -148,7 +148,7 @@ const ProfileCategoryCard = (props: any) => {
         <TouchableOpacity
           activeOpacity={1}
           style={[styles.slideInnerContainer, { height: slideHeight }]}
-          onPress={() => history.push(path)}
+          onPress={() => history.replace(path)}
         >
           <View style={styles.shadow} />
           <View style={styles.imageContainer}>

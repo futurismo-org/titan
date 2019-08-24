@@ -10,7 +10,7 @@ const MoreLink = (props: any) => {
 
   return (
     <View style={{ flex: 1, alignItems: 'flex-end' }}>
-      <TouchableOpacity onPress={() => history.push(to)}>
+      <TouchableOpacity onPress={() => history.replace(to)}>
         <Text
           style={{
             color: primaryColor,

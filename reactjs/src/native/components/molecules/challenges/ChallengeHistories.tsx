@@ -37,8 +37,8 @@ const DeleteWithAlert = (props: any) => {
         onConfirm={() => {
           handler().then(() => {
             alert.close();
-            history.push('/');
-            history.push(props.location.pathname);
+            history.replace('/');
+            history.replace(props.location.pathname);
           });
         }}
         onCancel={() => alert.close()}

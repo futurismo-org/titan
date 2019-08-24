@@ -43,7 +43,7 @@ const ChallengeRow = withRouter((props: any) => {
   const path = getChallengeDashboardPath(challenge.id, userShortId);
 
   return (
-    <TableRow hover onClick={() => history.push(path)}>
+    <TableRow hover onClick={() => history.replace(path)}>
       <TableCell>{title}</TableCell>
       <TableCell>{totalDuration}日</TableCell>
       <TableCell>{resetCount}回</TableCell>

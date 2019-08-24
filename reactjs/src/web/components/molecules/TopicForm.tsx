@@ -61,14 +61,14 @@ const TopicForm = (props: any) => {
       db.doc(resourceId)
         .set(newData)
         .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
-        .then(() => history.push(redirectPath))
+        .then(() => history.replace(redirectPath))
         .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
     } else {
       const updateData = { title, url, text, ip, ...props.updateData };
       db.doc(resourceId)
         .update(updateData)
         .then(() => window.alert('更新が完了しました。')) // eslint-disable-line
-        .then(() => history.push(redirectPath))
+        .then(() => history.replace(redirectPath))
         .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
     }
   };
