@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Route, NativeRouter, BackButton } from 'react-router-native';
+import { Route, NativeRouter, BackButton, Switch } from 'react-router-native';
 import * as Expo from 'expo';
 import * as Font from 'expo-font';
-import { Alert, Switch } from 'react-native';
+import { Alert } from 'react-native';
 
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
