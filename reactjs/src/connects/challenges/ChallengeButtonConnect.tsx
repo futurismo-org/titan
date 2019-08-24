@@ -45,6 +45,12 @@ const mapStateToProps = (state: any, props: any) => {
       challengeName: challenge.title
     };
 
+    const newProfile = {
+      id: userShortId,
+      displayName: user.displayName,
+      updatedAt: new Date()
+    };
+
     const newChallenge = {
       id: challengeId,
       createdAt: new Date(),
@@ -82,7 +88,10 @@ const mapStateToProps = (state: any, props: any) => {
           .get()
           .then((doc: firestore.DocumentSnapshot) => {
             const current: number = doc.data()!.participantsCount;
-            doc.ref.update({ participantsCount: current + 1 });
+            doc.ref.update({
+              participantsCount: current + 1,
+              updatedAt: new Date()
+            });
             return doc;
           })
           .then((doc: firestore.DocumentSnapshot) => {
@@ -99,6 +108,12 @@ const mapStateToProps = (state: any, props: any) => {
           .collection('participants')
           .doc(userShortId)
           .set(newData);
+
+        await firebase
+          .firestore()
+          .collection('profiles')
+          .doc(userShortId)
+          .set(newProfile, { merge: true });
 
         await firebase
           .firestore()
