@@ -32,13 +32,13 @@ const mapStateToProps = (state: any, props: any) => {
     getTopicPath(topicId, collection, collectionId);
 
   const allowSensitive =
-    !state.firebase.profile.isEmpty && state.firebase.profile.allowSensitive;
+    !state.user.profile.isEmpty && state.user.profile.allowSensitive;
 
   const mutes = state.mute.items;
   const muteUserIds = mutes.map((mute: any) => mute.id);
   const blockingUsers = state.block.items;
   const blockingUserIds = blockingUsers.map((item: any) => item.blockingUserId);
-  const myUserId = state.firebase.profile.shortId;
+  const myUserId = state.user.profile.shortId;
 
   const topics = state.topic.items
     .filter((topic: any) => !topic.freezed)

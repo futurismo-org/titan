@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({}, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const reportUser = state.firebase.profile;
+  const reportUser = state.user.profile;
 
   const isLogin = !reportUser.isEmpty && reportUser.isLoaded;
 

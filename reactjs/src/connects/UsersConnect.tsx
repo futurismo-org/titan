@@ -5,7 +5,7 @@ import { compose } from 'redux';
 const mapStateToProps = (state: any, props: any) => {
   const users = state.firestore.ordered.myUsers;
   const profiles = state.firestore.ordered.myProfiles;
-  const myId = state.firebase.profile.shortId;
+  const myId = state.user.profile.shortId;
 
   const marged = isLoaded(users, profiles)
     ? users

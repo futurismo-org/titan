@@ -108,7 +108,9 @@ export const uploadPhotoURLAsync = async (
 export const isReady = (target: any) => isLoaded(target) && target;
 
 export const isLogin = (state: any) =>
-  isLoaded(state.firebase.profile) && !isEmpty(state.firebase.profile);
+  state.firebase.auth.isLoaded &&
+  !state.firebase.auth.isEmpty &&
+  state.user.profile !== null;
 
 export const lazyEvalValue = (target: any) =>
   isLoaded(target) ? target : null;

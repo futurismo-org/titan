@@ -4,7 +4,7 @@ import * as firebase from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = state.user.target;
-  const myUserId = state.firebase.profile.shortId;
+  const myUserId = state.user.profile.shortId;
   const targetUserId = user.shortId;
 
   const resourceId = `/mutes/${myUserId}/users/${targetUserId}`;

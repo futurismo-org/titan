@@ -3,7 +3,7 @@ import * as firebase from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
   const blockedUser = state.user.target;
-  const blockingUser = state.firebase.profile;
+  const blockingUser = state.user.profile;
   const blockingUserId = blockingUser.shortId;
   const blockedUserId = blockedUser.shortId;
 

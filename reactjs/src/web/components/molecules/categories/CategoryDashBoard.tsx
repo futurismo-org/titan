@@ -6,12 +6,12 @@ import { Typography } from '@material-ui/core';
 import shortId from 'shortid';
 import { Link } from 'react-router-dom';
 
-import Paper from 'web/components/templates/PaperWrapper';
-import Title from 'web/components/atoms/Title';
-
-import DiscordHistories from 'web/components/atoms/DiscordHistories';
-import MarkdownView from 'web/components/atoms/MarkdownView';
 import styled from 'styled-components';
+import Paper from '~/web/components/templates/PaperWrapper';
+import Title from '~/web/components/atoms/Title';
+
+import DiscordHistories from '~/web/components/atoms/DiscordHistories';
+import MarkdownView from '~/web/components/atoms/MarkdownView';
 import TopicList from '~/web/components/molecules/TopicList';
 import theme from '~/lib/theme';
 

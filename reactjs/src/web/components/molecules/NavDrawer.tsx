@@ -59,12 +59,10 @@ const DrawerButtonALink = (text: string, to: string) => (
 );
 
 const Drawer = (props: any) => {
-  const { user } = props;
+  const { isLogin, isAdmin, displayName, photoURL, userId } = props;
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
-
-  const isLogin = !user.isEmpty && user.isLoaded;
 
   React.useEffect(() => {
     loadCSS(
@@ -114,9 +112,7 @@ const Drawer = (props: any) => {
           <StyledDrawer>
             <DrawerButton text="ホーム" to="/" />
             <Divider />
-            {isLogin && (
-              <DrawerButton text="マイページ" to={`/u/${user.shortId}`} />
-            )}
+            {isLogin && <DrawerButton text="マイページ" to={`/u/${userId}`} />}
             {isLogin && <Divider />}
             <DrawerButton text="チャレンジ" to="/challenges" />
             <Divider />
@@ -132,8 +128,8 @@ const Drawer = (props: any) => {
             <Divider />
             {isLogin && <DrawerButton text="設定" to="/settings" />}
             {isLogin && <Divider />}
-            {user.isAdmin && <DrawerButton text="管理設定" to="/admins" />}
-            {user.isAdmin && <Divider />}
+            {isAdmin && <DrawerButton text="管理設定" to="/admins" />}
+            {isAdmin && <Divider />}
             <div style={{ textAlign: 'center' }}>
               <NoStyledExternalLink href={TITAN_TWITTER_URL}>
                 <Icon className={clsx(classes.twitter, 'fab fa-twitter')} />
@@ -149,9 +145,4 @@ const Drawer = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(Drawer);
+export default Drawer;

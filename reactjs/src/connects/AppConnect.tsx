@@ -1,23 +1,16 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { fetchMutes } from '~/actions/muteAction';
+import { fetchFirebaseUser } from '~/actions/userAction';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchMutes
-    },
-    dispatch
-  );
+  bindActionCreators({ fetchFirebaseUser }, dispatch);
 
 const mapStateToProps = (state: any, props: any) => {
-  const myUserId = state.user.profile.shortId;
+  const userId = state.firebase.auth.uid;
+  const resourceId = `/users/${userId}`;
 
   return {
-    mutes: state.mute.items,
-    loading: state.mute.loading,
-    error: state.mute.error,
-    myUserId,
+    resourceId,
     ...props
   };
 };

@@ -44,7 +44,7 @@ const mapStateToProps = (state: any, props: any) => {
         )}/${collectionId}/t/${topicId}`;
 
   const topic = state.topic.target;
-  const currentUser = state.firebase.profile;
+  const currentUser = state.user.profile;
 
   const isCurrentUser =
     topic && currentUser && topic.userId === currentUser.shortId;

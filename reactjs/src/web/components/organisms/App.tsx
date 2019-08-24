@@ -6,8 +6,8 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import { store, history } from '~/web/store';
 import GlobalStyle from '~/lib/global-styles';
-import Admin from './admin/Admin';
-import Home from './Home';
+import Admin from '~/web/containers/AdminContainer';
+import Home from '~/web/containers/HomeContainer';
 import AdminRoute from '../utils/AdminRoute';
 import Head from '../templates/Head';
 
@@ -19,7 +19,7 @@ history.listen(location => {
 });
 
 const rrfConfig = {
-  userProfile: 'users',
+  // userProfile: 'users',
   useFirestoreForProfile: true
 };
 
@@ -30,7 +30,7 @@ const rrfProps = {
   createFirestoreInstance
 };
 
-const App = () => {
+const App = (props: any) => {
   React.useEffect(() => {
     ReactGA.pageview(window.location.pathname); // eslint-disable-line no-undef
   });

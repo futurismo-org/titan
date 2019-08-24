@@ -143,7 +143,7 @@ const mapStateToProps = (state: any, props: any) => {
   const analysisList =
     notes && notes.filter(note => note.type === NOTE_TYPE_ANALYSIS);
 
-  const profile = state.firebase.profile;
+  const profile = state.user.profile;
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
   return {

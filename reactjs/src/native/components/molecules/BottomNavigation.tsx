@@ -99,10 +99,9 @@ const Navigation = (props: any) => {
 };
 
 const mapStateToProps = (state: any, props: any) => {
-  const isLogin =
-    !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded;
+  const isLogin = !state.user.profile.isEmpty && state.user.profile.isLoaded;
 
-  const userShortId = state.firebase.profile.shortId;
+  const userShortId = state.user.profile.shortId;
   return {
     isLogin,
     userShortId,

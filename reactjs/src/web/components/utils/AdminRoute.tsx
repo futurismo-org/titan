@@ -24,7 +24,7 @@ const AdminRoute = (props: any) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  user: state.firebase.profile
+  user: state.user.profile
 });
 
 export default connect(mapStateToProps)(AdminRoute);

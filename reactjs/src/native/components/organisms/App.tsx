@@ -9,8 +9,8 @@ import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 
 import { store } from '~/native/store';
-import Home from './Home';
-import Hero from './Hero';
+import Home from '~/native/containers/HomeContainer';
+import Hero from '~/native/containers/HeroContainer';
 
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';

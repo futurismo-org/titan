@@ -16,7 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   const user = state.user.target;
 
-  const profile = state.firebase.profile;
+  const profile = state.user.profile;
   const isMyProfile = profile.shortId === userShortId;
 
   return {
