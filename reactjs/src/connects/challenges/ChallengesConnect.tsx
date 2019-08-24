@@ -31,7 +31,7 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-const mapFirestoreToState = (props: any) => [
+const queries = (props: any) => [
   {
     collection: 'challenges',
     orderBy: ['updatedAt', 'desc']
@@ -39,6 +39,6 @@ const mapFirestoreToState = (props: any) => [
 ];
 
 export default compose(
-  firestoreConnect(mapFirestoreToState),
+  firestoreConnect(queries),
   connect(mapStateToProps)
 ) as any;

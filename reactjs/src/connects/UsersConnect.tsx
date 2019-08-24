@@ -1,18 +1,18 @@
 import { connect } from 'react-redux';
-import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import { isLoaded, firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 
 const mapStateToProps = (state: any, props: any) => {
-  const users = state.firestore.data.users;
-  const profiles = state.firestore.data.profiles;
+  const users = state.firestore.ordered.players;
+  const profiles = state.firestore.ordered.profiles;
   const myId = state.firebase.profile.shortId;
 
   const marged =
-    users && profiles
-      ? Object.values(users)
+    isLoaded(users) && isLoaded(profiles)
+      ? users
           .filter((user: any) => !user.freezed)
           .map((user: any) => {
-            const profile = Object.values(profiles).filter(
+            const profile = profiles.filter(
               (profile: any) => profile.id === user.shortId
             );
 
@@ -30,16 +30,15 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     users: marged,
-    loading: !isLoaded(users) || !isLoaded(profiles),
-    myId,
-    ...props
+    myId
   };
 };
 
-const query = (props: any) => {
+const queries = (props: any) => {
   return [
     {
-      collection: 'users'
+      collection: 'users',
+      storeAs: 'players'
     },
     {
       collection: 'profiles'
@@ -48,6 +47,6 @@ const query = (props: any) => {
 };
 
 export default compose(
-  connect(mapStateToProps),
-  firestoreConnect(query)
+  firestoreConnect(queries),
+  connect(mapStateToProps)
 ) as any;
