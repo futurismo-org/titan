@@ -1,27 +1,23 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchParticipants } from '~/actions/participantAction';
 
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 import { fromNow } from '~/lib/moment';
 
 import { rankChallengeParticipants } from '~/lib/challenge';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchUsers: fetchParticipants
-    },
-    dispatch
-  );
+import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 const mapStateToProps = (state: any, props: any) => {
   const { challengeId } = props;
-  const resourceId = `/challenges/${challengeId}/participants`;
   const myId = state.firebase.profile.shortId;
 
-  const users = rankChallengeParticipants(state.participant.items).map(
-    (user: any) => {
-      user.photoURL = user.photoURL || 'https://titan-fire.com/anonymous.png';
+  const participants = state.firestore.ordered.participants;
+
+  const users =
+    isLoaded(participants) &&
+    !isEmpty(participants) &&
+    rankChallengeParticipants(participants).map((user: any) => {
+      user.photoURL = user.photoURL || ANONYMOUS_AVATAR_URL;
       user.latest =
         user.histories.length !== 0
           ? fromNow(
@@ -31,20 +27,34 @@ const mapStateToProps = (state: any, props: any) => {
       user.profilePath = `/c/${challengeId}/u/${user.id}`;
       user.displayName = user.displayName || 'Anonymous';
       return user;
-    }
-  );
+    });
 
   return {
     users,
-    loading: state.participant.loading,
-    error: state.participant.error,
+    isLoaded: isLoaded(participants),
     myId,
-    resourceId,
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const queries = (props: any) => {
+  const { challengeId } = props;
+
+  return [
+    {
+      collection: 'challenges',
+      doc: challengeId,
+      storeAs: 'participants',
+      subcollections: [
+        {
+          collection: 'participants'
+        }
+      ]
+    }
+  ];
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(queries)
+) as any;

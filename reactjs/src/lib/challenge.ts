@@ -77,14 +77,16 @@ export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
 export const isChallengeWillOpen = (openedAt: Date, days: number) =>
   nowMoment.diff(moment(openedAt)) <= days;
 
-export const rankChallengeParticipants = (participants: any) => {
-  const users = participants.sort(
-    (x: any, y: any) =>
-      y.score - x.score ||
-      y.days - x.days ||
-      y.maxDays - x.maxDays ||
-      y.updatedAt.toDate() - x.updatedAt.toDate()
-  );
+export const rankChallengeParticipants = (participants: any): any[] => {
+  const users = participants
+    .slice()
+    .sort(
+      (x: any, y: any) =>
+        y.score - x.score ||
+        y.days - x.days ||
+        y.maxDays - x.maxDays ||
+        y.updatedAt.toDate() - x.updatedAt.toDate()
+    );
 
   const size = users.length;
 

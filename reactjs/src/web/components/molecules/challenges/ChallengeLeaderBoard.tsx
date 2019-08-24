@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Paper } from '@material-ui/core';
 import Progress from '../../atoms/CircularProgress';
-import Error from '../../atoms/Error';
 
 import UserAvatar from '../../atoms/UserAvatar';
 
@@ -23,11 +22,7 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers, myId } = props;
-
-  useEffect(() => {
-    fetchUsers(resourceId);
-  }, [fetchUsers, resourceId]);
+  const { users, isLoaded, myId } = props;
 
   const StyledTableCell = (props: any) => (
     <TableCell
@@ -65,9 +60,8 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && <Progress />}
-      {users && (
+      {!isLoaded && <Progress />}
+      {isLoaded && users && (
         <Paper style={{ marginTop: 20 }}>
           <Table size="small">
             <LeaderBoardHead />
