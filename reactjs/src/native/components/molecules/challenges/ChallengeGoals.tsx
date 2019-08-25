@@ -25,11 +25,11 @@ const ChallengeGoals = (props: any) => {
         const { goals, users } = props;
         setGoals(goals);
 
-        const goalIds = goals.map((goal: any) => goal.id);
-        const notSetGoals = users.filter(
-          (user: any) => !goalIds.includes(user.id)
-        );
-        setNotSetGoals(notSetGoals);
+        // const goalIds = goals.map((goal: any) => goal.id);
+        // const notSetGoals = users.filter(
+        //   (user: any) => !goalIds.includes(user.id)
+        // );
+        // setNotSetGoals(notSetGoals);
       })
       .then(() => setLoading(false));
   }, [fetchGoals]);
@@ -86,7 +86,7 @@ const ChallengeGoals = (props: any) => {
             ) : null}
           </React.Fragment>
         )}
-        <Text />
+        {/* <Text />
         {notSetGoals.length !== 0 && (
           <React.Fragment>
             <Text>目標をまだ設定していないユーザ</Text>
@@ -110,7 +110,7 @@ const ChallengeGoals = (props: any) => {
               })}
             </View>
           </React.Fragment>
-        )}
+        )} */}
       </Content>
     </React.Fragment>
   );
