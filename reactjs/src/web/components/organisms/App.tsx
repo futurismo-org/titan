@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
@@ -31,8 +31,12 @@ const rrfProps = {
 };
 
 const App = (props: any) => {
-  React.useEffect(() => {
+  useEffect(() => {
     ReactGA.pageview(window.location.pathname); // eslint-disable-line no-undef
+
+    if (process.env.REACT_APP_ENV === 'development') {
+      require('~/web/lib/reactotron');
+    }
   });
 
   return (

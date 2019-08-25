@@ -4,4 +4,4 @@ import Reactotron from 'reactotron-react-native';
 export default Reactotron.configure({ name: 'Native' })
   .useReactNative({})
   // .use(reactotronRedux()); out of memoryで落ちる。
-  .connect();
+  .connect() as any;
