@@ -10,6 +10,7 @@ import {
   ListItemText
 } from '@material-ui/core';
 import UserAvatar from '../../atoms/UserAvatar';
+import MarkdownView from '~/web/components/atoms/MarkdownView';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -64,7 +65,7 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
                   variant="body2"
                   color="textPrimary"
                 >
-                  {text}
+                  <MarkdownView text={text} />
                 </Typography>
               </React.Fragment>
             }
