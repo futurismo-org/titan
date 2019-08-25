@@ -1,6 +1,6 @@
 import Reactotron from 'reactotron-react-js';
 
-const isLogEnable = true;
+const isLogEnable = false;
 const reactotron = Reactotron.configure({ name: 'Web' });
 
 function log(message: string, ...args: any[]) {
@@ -50,5 +50,5 @@ function connectConsoleToReactotron() {
 
 export const initializeReactotron = () => {
   reactotron.connect();
-  connectConsoleToReactotron();
+  isLogEnable && connectConsoleToReactotron();
 };

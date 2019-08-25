@@ -1,87 +1,65 @@
 import { connect } from 'react-redux';
-
-import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
-import { compose, bindActionCreators, Dispatch } from 'redux';
 import moment from '~/lib/moment';
 
-import { fetchChallengeObjectives } from '~/actions/objectiveAction';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchChallengeObjectives
-    },
-    dispatch
-  );
+import firebase from '~/lib/firebase';
 
 const mapStateToProps = (state: any, props: any) => {
-  const userShortId = state.firebase.profile.shortId;
-  const participants = state.firestore.ordered.participants;
-  const objectives = state.objective.items;
+  const challengeId = props.challengeId;
 
-  const goals =
-    isLoaded(participants) &&
-    !isEmpty(participants) &&
-    !!objectives &&
-    objectives
-      .map((objective: any) => {
-        const user = participants.find(
-          (participant: any) => objective.userShortId === participant.id
-        );
+  const fetchGoals = async () => {
+    const firestore = firebase.firestore();
+    const resourceId = `/challenges/${challengeId}/participants`;
 
-        return {
-          id: user.id,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          createdAt: user.createdAt,
-          days: user.days || 0,
-          what: objective && objective.what ? objective.what : '',
-          why: objective && objective.why ? objective.why : '',
-          updatedAt: user.updatedAt
-        };
-      })
-      .sort((x: any, y: any) =>
-        moment(y.updatedAt.toDate()).diff(moment(x.updatedAt.toDate()))
-      );
+    const users = await firestore
+      .collection(resourceId)
+      .get()
+      .then(snap => snap.docs.map(doc => doc.data()));
 
-  const goalIds = goals && goals.map((goal: any) => goal.id);
-  const notSetGoals =
-    !!participants &&
-    goalIds &&
-    participants.filter((user: any) => !goalIds.includes(user.id));
+    const promises = await users.map((user: any) => {
+      const userShortId = user.id;
+      return firebase
+        .firestore()
+        .collection('objectives')
+        .doc(userShortId)
+        .collection('challenges')
+        .doc(challengeId)
+        .get()
+        .then((doc: any) => doc.data());
+    });
+
+    const goals = await Promise.all(promises).then((objectives: any) =>
+      objectives
+        .filter((objectives: any) => objectives)
+        .map((objective: any) => {
+          const user = users.find(
+            (participant: any) => objective.userShortId === participant.id
+          );
+
+          return (
+            user && {
+              id: user.id,
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+              createdAt: user.createdAt,
+              days: user.days || 0,
+              what: objective && objective.what ? objective.what : '',
+              why: objective && objective.why ? objective.why : '',
+              updatedAt: user.updatedAt
+            }
+          );
+        })
+        .sort((x: any, y: any) =>
+          moment(y.updatedAt.toDate()).diff(moment(x.updatedAt.toDate()))
+        )
+    );
+
+    return { goals, users };
+  };
 
   return {
-    goals,
-    notSetGoals,
-    userShortId,
-    isLoaded: isLoaded(participants) && !state.objective.loading,
+    fetchGoals,
     ...props
   };
 };
 
-const queries = (props: any) => {
-  const { challengeId, userShortId } = props;
-
-  if (!(challengeId && userShortId)) return [];
-
-  return [
-    {
-      collection: 'challenges',
-      doc: challengeId,
-      storeAs: 'participants',
-      subcollections: [
-        {
-          collection: 'participants'
-        }
-      ]
-    }
-  ];
-};
-
-export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
-  firestoreConnect(queries)
-) as any;
+export default connect(mapStateToProps);

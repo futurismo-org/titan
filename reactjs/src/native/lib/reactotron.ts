@@ -50,5 +50,5 @@ function connectConsoleToReactotron() {
 
 export const initializeReactotron = () => {
   reactotron.connect();
-  connectConsoleToReactotron();
+  isLogEnable && connectConsoleToReactotron();
 };

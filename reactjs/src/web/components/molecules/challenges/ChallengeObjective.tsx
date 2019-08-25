@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, Grid } from '@material-ui/core';
 
-import Error from '../../atoms/Error';
-
 import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard

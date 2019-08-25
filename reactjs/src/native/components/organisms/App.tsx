@@ -69,7 +69,7 @@ const App = (props: any) => {
             )
           )
       );
-  });
+  }, []);
 
   const Splash = (prpos: any) => {
     sleep(6, () => setIsSplashReady(true));
