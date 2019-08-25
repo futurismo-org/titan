@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
@@ -12,6 +12,8 @@ import AdminRoute from '../utils/AdminRoute';
 import Head from '../templates/Head';
 
 import firebase from '~/lib/firebase';
+
+import { initializeReactotron } from '~/web/lib/reactotron';
 
 history.listen(location => {
   ReactGA.set({ page: location.pathname });
@@ -31,8 +33,12 @@ const rrfProps = {
 };
 
 const App = (props: any) => {
-  React.useEffect(() => {
+  useEffect(() => {
     ReactGA.pageview(window.location.pathname); // eslint-disable-line no-undef
+
+    if (process.env.REACT_APP_ENV === 'development') {
+      initializeReactotron();
+    }
   });
 
   return (

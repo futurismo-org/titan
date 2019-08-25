@@ -12,6 +12,8 @@ import { store } from '~/native/store';
 import Home from '~/native/containers/HomeContainer';
 import Hero from '~/native/containers/HeroContainer';
 
+import { initializeReactotron } from '~/native/lib/reactotron';
+
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
@@ -40,6 +42,10 @@ const App = (props: any) => {
     Font.loadAsync({
       MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf') // eslint-disable-line
     }).then(() => setIsFontReady(true));
+
+    /* eslint-disable */
+    __DEV__ && initializeReactotron();
+    /* eslint-enable */
 
     !__DEV__ && // eslint-disable-line
     isAndroid && // Appleストアはガイドラインによってストア経由でのアプリの更新しか許可していない
