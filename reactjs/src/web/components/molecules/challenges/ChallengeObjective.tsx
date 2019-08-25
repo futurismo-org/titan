@@ -119,6 +119,7 @@ const ChallengeObjective = (props: any) => {
                     rows={8}
                     onChange={onWhyChange}
                   />
+                  <ChallengeObjectiveDescription challenge={challenge} />
                 </React.Fragment>
               ) : (
                 <div>
@@ -132,9 +133,6 @@ const ChallengeObjective = (props: any) => {
               )}
             </Grid>
           </Grid>
-          {edit ? (
-            <ChallengeObjectiveDescription challenge={challenge} />
-          ) : null}
         </React.Fragment>
       )}
     </React.Fragment>
