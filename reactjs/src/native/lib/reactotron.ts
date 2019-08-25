@@ -1,9 +1,13 @@
 import Reactotron from 'reactotron-react-native';
+import { reactotronRedux } from 'reactotron-redux';
 
-Reactotron.configure({
-  name: 'mobile'
+const reactotron = Reactotron.configure({
+  name: 'Native',
+  host: '192.168.1.30',
+  port: 9090
 })
   .useReactNative({})
-  .connect();
+  .use(reactotronRedux())
+  .connect() as any;
 
-export default Reactotron;
+export default reactotron;

@@ -5,6 +5,10 @@ import * as Expo from 'expo';
 import * as Font from 'expo-font';
 import { Alert } from 'react-native';
 
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { createFirestoreInstance } from 'redux-firestore';
+import Reactotron from 'reactotron-react-native';
+
 import { store } from '~/native/store';
 import Home from './Home';
 import Hero from './Hero';
