@@ -11,10 +11,8 @@ const ChallengeObjective = (props: any) => {
     user,
     isMyProfile,
     handleSave,
-    loading,
     objective,
-    resourceId,
-    fetchObjective
+    isLoaded
   } = props;
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
@@ -24,13 +22,14 @@ const ChallengeObjective = (props: any) => {
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    if (!objective || user.shortId !== objective.userShortId) {
-      fetchObjective(resourceId);
+    if (isLoaded) {
+      setWhat(objective.what);
+      setWhy(objective.why);
     } else {
-      setWhat(objective.what ? objective.what : initialWhat);
-      setWhy(objective.why ? objective.why : '');
+      setWhat(initialWhat);
+      setWhy('');
     }
-  }, [fetchObjective, initialWhat, objective, resourceId, user.shortId]);
+  }, [initialWhat, isLoaded, objective]);
 
   const onWhatChange = (e: any) => {
     e.preventDefault();
@@ -43,10 +42,15 @@ const ChallengeObjective = (props: any) => {
   };
 
   return (
-    <View style={{ marginTop: 20, marginBottom: 20 }}>
-      <ChallengeObjectiveWhatCard text={what} />
-      {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
-    </View>
+    <React.Fragment>
+      {!isLoaded && null}
+      {isLoaded && !!objective && (
+        <View style={{ marginTop: 20, marginBottom: 20 }}>
+          <ChallengeObjectiveWhatCard text={what} />
+          {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
+        </View>
+      )}
+    </React.Fragment>
   );
 };
 

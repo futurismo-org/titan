@@ -1,19 +1,28 @@
 import { connect } from 'react-redux';
 
 import { firestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase';
-import { compose } from 'redux';
+import { compose, bindActionCreators, Dispatch } from 'redux';
 import moment from '~/lib/moment';
+
+import { fetchChallengeObjectives } from '~/actions/objectiveAction';
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      fetchChallengeObjectives
+    },
+    dispatch
+  );
 
 const mapStateToProps = (state: any, props: any) => {
   const userShortId = state.firebase.profile.shortId;
   const participants = state.firestore.ordered.participants;
-  const objectives = state.firestore.ordered.objectiveChallenges;
+  const objectives = state.objective.items;
 
   const goals =
     isLoaded(participants) &&
     !isEmpty(participants) &&
-    isLoaded(objectives) &&
-    !isEmpty(objectives) &&
+    !!objectives &&
     objectives
       .map((objective: any) => {
         const user = participants.find(
@@ -45,7 +54,7 @@ const mapStateToProps = (state: any, props: any) => {
     goals,
     notSetGoals,
     userShortId,
-    isLoaded: isLoaded(participants, objectives),
+    isLoaded: isLoaded(participants) && !state.objective.loading,
     ...props
   };
 };
@@ -65,22 +74,14 @@ const queries = (props: any) => {
           collection: 'participants'
         }
       ]
-    },
-    {
-      collection: 'objectives',
-      doc: userShortId,
-      storeAs: 'objectiveChallenges',
-      subcollections: [
-        {
-          collection: 'challenges',
-          doc: challengeId
-        }
-      ]
     }
   ];
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect(queries)
 ) as any;

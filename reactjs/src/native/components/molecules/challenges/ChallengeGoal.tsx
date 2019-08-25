@@ -28,10 +28,18 @@ const ChallengeGoal = (props: any) => {
             alignItems: 'center'
           }}
         >
-          <Text
-            style={{ fontWeight: 'bold', fontSize: 20 }}
-          >{`${user.displayName}さんの努力ノート`}</Text>
-          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Text
+              style={{ fontWeight: 'bold', fontSize: 20 }}
+            >{`${user.displayName}さんの努力ノート`}</Text>
+            <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
+          </View>
           <ChallengeObjective
             challenge={challenge}
             user={user}

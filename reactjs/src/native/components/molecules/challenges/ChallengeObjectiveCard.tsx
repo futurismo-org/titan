@@ -1,7 +1,18 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Card, CardItem, Text, View, Body } from 'native-base';
+import {
+  Card,
+  CardItem,
+  Text,
+  View,
+  Body,
+  List,
+  ListItem,
+  Left,
+  Right
+} from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
+import UserAvatar from '../../atoms/UserAvatar';
 
 const StyledCard = styled(Card)`
   border: 0;
@@ -45,5 +56,17 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
 export const ChallengeObjectiveWhyCard = (props: any) => {
   const { text, user } = props;
 
-  return null;
+  return (
+    <List>
+      <ListItem avatar>
+        <Left>
+          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
+        </Left>
+        <Body>
+          <Text note>なぜやるのか？</Text>
+          <Text>{text}</Text>
+        </Body>
+      </ListItem>
+    </List>
+  );
 };

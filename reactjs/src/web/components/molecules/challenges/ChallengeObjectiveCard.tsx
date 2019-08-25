@@ -49,22 +49,28 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
   const { text, user } = props;
 
   return (
-    <List>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
-        </ListItemAvatar>
-        <ListItemText
-          primary="なぜやるのか?"
-          secondary={
-            <React.Fragment>
-              <Typography component="span" variant="body2" color="textPrimary">
-                {text}
-              </Typography>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-    </List>
+    <Wrapper>
+      <List>
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
+          </ListItemAvatar>
+          <ListItemText
+            primary="なぜやるのか?"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="textPrimary"
+                >
+                  {text}
+                </Typography>
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      </List>
+    </Wrapper>
   );
 };

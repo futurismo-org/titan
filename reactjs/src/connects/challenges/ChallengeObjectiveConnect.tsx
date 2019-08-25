@@ -1,16 +1,8 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchObjective } from '~/actions/objectiveAction';
+import { compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import firebase from '~/lib/firebase';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    {
-      fetchObjective
-    },
-    dispatch
-  );
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
@@ -19,7 +11,7 @@ const mapStateToProps = (state: any, props: any) => {
   const challenge = props.challenge;
   const challengeId = challenge.id;
 
-  const objective = state.objective.target;
+  const objective = state.firestore.data.objectiveChallenge;
 
   const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
 
@@ -44,15 +36,35 @@ const mapStateToProps = (state: any, props: any) => {
   return {
     resourceId,
     userShortId,
+    challengeId,
     handleSave,
     objective,
-    loading: state.objective.loading,
-    error: state.objective.error,
+    isLoaded: isLoaded(objective),
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const queries = (props: any) => {
+  const { challengeId, userShortId } = props;
+
+  if (!(challengeId && userShortId)) return [];
+
+  return [
+    {
+      collection: 'objectives',
+      doc: userShortId,
+      storeAs: 'objectiveChallenge',
+      subcollections: [
+        {
+          collection: 'challenges',
+          doc: challengeId
+        }
+      ]
+    }
+  ];
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(queries)
+) as any;
