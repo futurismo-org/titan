@@ -12,6 +12,8 @@ import { store } from '~/native/store';
 import Home from '~/native/containers/HomeContainer';
 import Hero from '~/native/containers/HeroContainer';
 
+import { initializeReactotron } from '~/native/lib/reactotron';
+
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
@@ -42,9 +44,7 @@ const App = (props: any) => {
     }).then(() => setIsFontReady(true));
 
     /* eslint-disable */
-    if (__DEV__) {
-      require('~/native/lib/reactotron');
-    }
+    __DEV__ && initializeReactotron();
     /* eslint-enable */
 
     !__DEV__ && // eslint-disable-line
