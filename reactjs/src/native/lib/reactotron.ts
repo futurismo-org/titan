@@ -1,9 +1,7 @@
 import Reactotron from 'reactotron-react-native';
-import { reactotronRedux } from 'reactotron-redux';
+// import { reactotronRedux } from 'reactotron-redux';
 
-const reactotron = Reactotron.configure({ name: 'Native' })
+export default Reactotron.configure({ name: 'Native' })
   .useReactNative({})
-  .use(reactotronRedux())
+  // .use(reactotronRedux()); out of memoryで落ちる。
   .connect();
-
-export default reactotron;

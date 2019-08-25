@@ -7,7 +7,6 @@ import { Alert } from 'react-native';
 
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
-import Reactotron from 'reactotron-react-native';
 
 import { store } from '~/native/store';
 import Home from '~/native/containers/HomeContainer';
@@ -41,6 +40,12 @@ const App = (props: any) => {
     Font.loadAsync({
       MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf') // eslint-disable-line
     }).then(() => setIsFontReady(true));
+
+    /* eslint-disable */
+    if (__DEV__) {
+      require('~/native/lib/reactotron');
+    }
+    /* eslint-enable */
 
     !__DEV__ && // eslint-disable-line
     isAndroid && // Appleストアはガイドラインによってストア経由でのアプリの更新しか許可していない

@@ -26,10 +26,4 @@ if (__DEV__) {
 }
 /* eslint-enable */
 
-/* eslint-disable */
-if (__DEV__) {
-  // require('~/native/lib/reactotron');
-}
-/* eslint-enable */
-
 registerRootComponent(App as any);
