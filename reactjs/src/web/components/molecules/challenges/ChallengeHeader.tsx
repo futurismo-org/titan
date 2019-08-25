@@ -5,8 +5,8 @@ import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
-import ChallengeButton from '~/web/containers/ChallengeButtonContainer';
-import ChallengeCategoryButton from '../../atoms/challenges/ChallengeCategoryButton';
+import ChallengeButton from '~/web/containers/challenges/ChallengeButtonContainer';
+import ChallengeCategoryButton from '~/web/containers/challenges/ChallengeCategoryButtonContainer';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
 import { getRandomImageURL } from '~/lib/url';

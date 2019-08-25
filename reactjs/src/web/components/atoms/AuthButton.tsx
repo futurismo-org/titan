@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import styled from 'styled-components';
-import AuthModal from 'web/components/atoms/AuthModal';
+import AuthModal from '~/web/components/atoms/AuthModal';
 import theme from '~/lib/theme';
 
 const StyledButton = styled(Button)`

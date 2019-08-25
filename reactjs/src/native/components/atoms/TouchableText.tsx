@@ -20,7 +20,7 @@ const TouchableText = (props: any) => {
     ? handler
     : external
     ? () => Linking.openURL(url)
-    : () => history.push(path);
+    : () => history.replace(path);
 
   const style = Object.assign(
     { fontWeight: 'bold' },

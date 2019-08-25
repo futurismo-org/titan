@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '@material-ui/core';
-import ChallengeObjective from '~/web/containers/ChallengeObjectiveContainer';
-import ChallengeNotes from '~/web/containers/ChallengeNotesContainer';
+import ChallengeObjective from '~/web/containers/challenges/ChallengeObjectiveContainer';
+import ChallengeNotes from '~/web/containers/challenges/ChallengeNotesContainer';
 
 import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';

@@ -3,15 +3,15 @@ import { Content } from 'native-base';
 import { Switch, Route } from 'react-router-native';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
-import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
-import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
-import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
+import ChallengeLeaderBoard from '~/native/containers/challenges/ChallengeLeaderBoardContainer';
+import ChallengeUserSettings from '~/native/containers/challenges/ChallengeUserSettingsContainer';
+import ChallengeUserDashBoard from '~/native/containers/challenges/ChallengeUserDashBoardContainer';
 import TopicForm from '~/native/containers/TopicFormContainer';
 import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
-import ChallengeGoals from '~/native/containers/ChallengeGoalsContainer';
-import ChallengeGoal from '~/native/containers/ChallengeGoalContainer';
-import ChallengeTimeline from '~/native/containers/ChallengeTimelineContainer';
+import ChallengeGoals from '~/native/containers/challenges/ChallengeGoalsContainer';
+import ChallengeGoal from '~/native/containers/challenges/ChallengeGoalContainer';
+import ChallengeTimeline from '~/native/containers/challenges/ChallengeTimelineContainer';
 
 import Flag from '~/native/containers/FlagContainer';
 

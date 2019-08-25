@@ -79,7 +79,7 @@ const Topic = (props: any) => {
     if (
       window.confirm('削除したデータは元に戻せません。本当に削除しますか？') // eslint-disable-line
     ) {
-      firebase.remove(resourceId).then(() => history.push(redirectPath));
+      firebase.remove(resourceId).then(() => history.replace(redirectPath));
     }
   };
 

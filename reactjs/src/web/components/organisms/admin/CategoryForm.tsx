@@ -86,7 +86,7 @@ const CategoryForm = (props: any) => {
       .doc(id)
       .set(newData)
       .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
-      .then(() => history.push('/admin'));
+      .then(() => history.replace('/admin'));
   };
 
   useEffect(() => {

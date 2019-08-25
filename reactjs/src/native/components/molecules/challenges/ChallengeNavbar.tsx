@@ -15,7 +15,7 @@ const ChallengeNavbar = (props: any) => {
   const [menuRef, setMenuRef] = useState();
 
   const hideMenu = (path: string) => {
-    history.push(path);
+    history.replace(path);
     menuRef.hide();
   };
 

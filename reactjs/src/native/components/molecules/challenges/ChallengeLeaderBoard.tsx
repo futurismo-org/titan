@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 
 import { Text } from 'native-base';
 import { Link } from 'react-router-native';
-import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';
 
 import {
@@ -18,11 +17,11 @@ const { Table, Row } = require('react-native-table-component');
 const flexArr = [1, 1, 3, 1, 1, 1, 2];
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers, myId } = props;
+  const { users, myId, loading, resourceId, fetchParticipants } = props;
 
   useEffect(() => {
-    fetchUsers(resourceId);
-  }, [fetchUsers, resourceId]);
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const StyledHeadRow = (props: any) => {
     const { data } = props;
@@ -69,7 +68,6 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
       {loading && <Progress />}
       {!loading && users && (
         <Table style={{ margin: 5 }}>

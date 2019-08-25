@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import ChallengeNavbar from '../molecules/challenges/ChallengeNavbar';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
@@ -8,34 +8,13 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 
 const Challenge = (props: any) => {
-  const {
-    loading,
-    error,
-    resourceId,
-    fetchChallenge,
-    challenge,
-    join,
-    participantResourceId,
-    fetchParticipantJoined,
-    userShortId
-  } = props;
-
-  React.useEffect(() => {
-    fetchChallenge(resourceId);
-    fetchParticipantJoined(participantResourceId);
-  }, [
-    fetchChallenge,
-    fetchParticipantJoined,
-    participantResourceId,
-    resourceId
-  ]);
+  const { loading, challenge, join, userShortId } = props;
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
       {!loading &&
-        challenge &&
+        !!challenge &&
         (challenge.freezed ? (
           <Paper>
             <Title text="凍結しました" />

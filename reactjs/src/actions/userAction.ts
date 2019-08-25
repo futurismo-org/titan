@@ -7,7 +7,10 @@ import {
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
   FETCH_USER_ERROR,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  FETCH_FIREBASE_USER_REQUEST,
+  FETCH_FIREBASE_USER_SUCCESS,
+  FETCH_FIREBASE_USER_ERROR
 } from '../constants/actionTypes';
 
 import {
@@ -26,6 +29,13 @@ export const fetchUserRequest = fetchRequest(FETCH_USER_REQUEST);
 export const fetchUserSuccess = fetchSuccess(FETCH_USER_SUCCESS);
 export const fetchUserError = fetchError(FETCH_USER_ERROR);
 export const resetUserInfo = reset(RESET_USER_INFO);
+export const fetchFirebaseUserRequest = fetchRequest(
+  FETCH_FIREBASE_USER_REQUEST
+);
+export const fetchFirebaseUserSuccess = fetchSuccess(
+  FETCH_FIREBASE_USER_SUCCESS
+);
+export const fetchFirebaseUserError = fetchError(FETCH_FIREBASE_USER_ERROR);
 
 export const setUserInfo = (userInfo: any) => (dispatch: Dispatch) => {
   dispatch({ type: SET_USER_INFO, payload: { userInfo } });
@@ -67,5 +77,14 @@ export const fetchUser = (resourceId: string) => {
     fetchUserRequest,
     fetchUserSuccess,
     fetchUserError
+  );
+};
+
+export const fetchFirebaseUser = (resourceId: string) => {
+  return fetchTarget(
+    resourceId,
+    fetchFirebaseUserRequest,
+    fetchFirebaseUserSuccess,
+    fetchFirebaseUserError
   );
 };

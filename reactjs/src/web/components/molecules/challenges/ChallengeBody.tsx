@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import ChallengeUserDashBoard from '~/web/containers/ChallengeUserDashBoardContainer';
+import ChallengeUserDashBoard from '~/web/containers/challenges/ChallengeUserDashBoardContainer';
 
 import Topics from '~/web/containers/TopicsContainer';
-import ChallengeTimeline from '~/web/containers/ChallengeTimelineContainer';
+import ChallengeTimeline from '~/web/containers/challenges/ChallengeTimelineContainer';
 import Topic from '~/web/containers/TopicContainer';
 
-import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer';
+import ChallengeLeaderBoard from '~/web/containers/challenges/ChallengeLeaderBoardContainer';
 import TopicForm from '~/web/containers/TopicFormContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
-import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
-import ChallengeGoals from '~/web/containers/ChallengeGoalsContainer';
-import ChallengeGoal from '~/web/containers/ChallengeGoalContainer';
+import ChallengeUserSettings from '~/web/containers/challenges/ChallengeUserSettingsContainer';
+import ChallengeGoals from '~/web/containers/challenges/ChallengeGoalsContainer';
+import ChallengeGoal from '~/web/containers/challenges/ChallengeGoalContainer';
 
 import Flag from '~/web/containers/FlagContainer';
 
@@ -23,13 +23,14 @@ const ChallengeBody = (props: any) => {
     <Switch>
       <Route
         path="/c/:id/overview"
-        render={() => (
+        render={props => (
           <ChallengeOverview
             challenge={challenge}
             text={challenge.overview}
             youtubeId={challenge.youtubeId}
             openedAt={challenge.openedAt.toDate()}
             closedAt={challenge.closedAt.toDate()}
+            {...props}
           />
         )}
       />

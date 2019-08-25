@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Paper } from '@material-ui/core';
 import Progress from '../../atoms/CircularProgress';
-import Error from '../../atoms/Error';
 
 import UserAvatar from '../../atoms/UserAvatar';
 
@@ -23,11 +22,11 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers, myId } = props;
+  const { users, loading, fetchParticipants, resourceId, myId } = props;
 
   useEffect(() => {
-    fetchUsers(resourceId);
-  }, [fetchUsers, resourceId]);
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const StyledTableCell = (props: any) => (
     <TableCell
@@ -65,9 +64,8 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
       {loading && <Progress />}
-      {users && (
+      {!loading && users && (
         <Paper style={{ marginTop: 20 }}>
           <Table size="small">
             <LeaderBoardHead />

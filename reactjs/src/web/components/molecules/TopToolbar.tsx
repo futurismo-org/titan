@@ -3,9 +3,9 @@ import Toolbar, { ToolbarProps } from '@material-ui/core/Toolbar';
 import Typography, { TypographyProps } from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import AuthContainer from 'containers/authContainer';
+import NavigationItem from '~/web/containers/NavigationItemContainer';
 import theme from '~/lib/theme';
-import NavDrawer from './NavDrawer';
+import NavDrawer from '~/web/containers/NavDrawerContainer';
 
 const StyledToolbar = styled(Toolbar)`
   && {
@@ -33,7 +33,7 @@ const TopToolbar = () => (
     <StyledTypography component="h2" variant="h5" noWrap>
       <NoStyledLink to="/">Titan</NoStyledLink>
     </StyledTypography>
-    <AuthContainer />
+    <NavigationItem />
   </StyledToolbar>
 );
 

@@ -111,14 +111,14 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+      .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
       .catch(() =>
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
           .then(credential => signInSuccessWithAuthCallback(credential))
           .then(() =>
-            successToast('/settings', history.push, LOGIN_MESSAGE_SUCCESS)
+            successToast('/settings', history.replace, LOGIN_MESSAGE_SUCCESS)
           )
           .catch(error => errorToast(error.message))
       );
@@ -170,7 +170,7 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithCredential(credential)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+      .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
       .catch(error => errorToast(error.message));
   };
 
@@ -196,7 +196,7 @@ const AuthScreen = (props: any) => {
       .auth()
       .signInWithCredential(credential)
       .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+      .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
       .catch(error => errorToast(error.message));
   };
 

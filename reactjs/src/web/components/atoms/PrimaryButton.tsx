@@ -10,7 +10,7 @@ const PrimaryButton = (props: any) => {
       variant="contained"
       color="primary"
       style={{ fontWeight: 'bold' }}
-      onClick={() => path && history.push(path)}
+      onClick={() => path && history.replace(path)}
     >
       {text}
     </Button>

@@ -40,7 +40,7 @@ const ProfileChallenges = (props: any) => {
       <TableRow
         hover
         onClick={() =>
-          history.push(`/c/${challenge.id}/u/${userShortId}/dashbaord`)
+          history.replace(`/c/${challenge.id}/u/${userShortId}/dashbaord`)
         }
       >
         <TableCell>{challenge.title}</TableCell>

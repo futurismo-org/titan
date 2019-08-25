@@ -19,7 +19,7 @@ const Avatar = (props: any) => {
   const src = photoURL || ANONYMOUS_AVATAR_URL;
 
   const handler = () => {
-    history.push(path);
+    history.replace(path);
     additionalHandler && additionalHandler();
   };
 

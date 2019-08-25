@@ -47,7 +47,7 @@ const TopicForm = (props: any) => {
       db.doc(resourceId)
         .set(newData)
         .then(() =>
-          successToast(redirectPath, history.push, '投稿に成功しました')
+          successToast(redirectPath, history.replace, '投稿に成功しました')
         )
         .catch(error => errorToast(error.message));
     } else {
@@ -55,7 +55,7 @@ const TopicForm = (props: any) => {
       db.doc(resourceId)
         .update(updateData)
         .then(() =>
-          successToast(redirectPath, history.push, '投稿に成功しました')
+          successToast(redirectPath, history.replace, '投稿に成功しました')
         )
         .catch(error => errorToast(error.message));
     }

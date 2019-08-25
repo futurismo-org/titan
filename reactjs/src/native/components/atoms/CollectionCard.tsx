@@ -129,7 +129,7 @@ const CollectionCard = (props: any) => {
             styles.slideInnerContainer,
             { height: !small ? slideHeight : 100 }
           ]}
-          onPress={() => history.push('/settings')}
+          onPress={() => history.replace('/settings')}
         >
           <View style={styles.shadow} />
           {!small && (
@@ -164,7 +164,7 @@ const CollectionCard = (props: any) => {
             styles.slideInnerContainer,
             { height: !small ? slideHeight : 100 }
           ]}
-          onPress={() => history.push(path)}
+          onPress={() => history.replace(path)}
         >
           <View style={styles.shadow} />
           {!small && (

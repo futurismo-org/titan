@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Text, Content, View } from 'native-base';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { isEmpty } from 'react-redux-firebase';
 import Title from '../../atoms/Title';
 
-import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import UserAvatar from '../../atoms/UserAvatar';
 import { getChallengeUserGoalPath } from '~/lib/url';
@@ -13,19 +13,7 @@ import { deviceWidth } from '~/native/lib/native';
 import { brandGray } from '~/lib/theme';
 
 const ChallengeGoals = (props: any) => {
-  const {
-    fetchParticipants,
-    resourceId,
-    participants,
-    loading,
-    error,
-    challengeId,
-    goals,
-    notSetGoals,
-    fetchChallengeObjectives
-  } = props;
-
-  const [isParticipantsFeached, setIsParticipantsFetched] = useState(false);
+  const { isLoaded, challengeId, goals, notSetGoals } = props;
 
   const [goalActiveSlide, setGoalActiveSlide] = useState(0);
   const [goalSliderRef, setGoalSliderRef] = useState(undefined);
@@ -37,28 +25,14 @@ const ChallengeGoals = (props: any) => {
     );
   };
 
-  useEffect(() => {
-    if (!isParticipantsFeached) {
-      setIsParticipantsFetched(true);
-      fetchParticipants(resourceId);
-    }
-    participants.length !== 0 &&
-      fetchChallengeObjectives(participants, challengeId);
-  }, [
-    challengeId,
-    fetchChallengeObjectives,
-    fetchParticipants,
-    isParticipantsFeached,
-    participants,
-    resourceId
-  ]);
-
   return (
     <React.Fragment>
       <Content padder>
-        {error && <Error error={error} />}
-        {loading ? <Progress /> : null}
-        {!loading && !!goals && (
+        {!isLoaded ? <Progress /> : null}
+        {isLoaded && isEmpty(goals) && (
+          <Text>目標をまだだれも設定していません。</Text>
+        )}
+        {isLoaded && !isEmpty(goals) && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />
             {goals.length !== 0 ? (
@@ -90,13 +64,11 @@ const ChallengeGoals = (props: any) => {
                   tappableDots={!!goalSliderRef}
                 />
               </React.Fragment>
-            ) : (
-              <Text>目標をまだ誰も設定していせん。</Text>
-            )}
+            ) : null}
           </React.Fragment>
         )}
         <Text />
-        {!loading && !!notSetGoals && (
+        {isLoaded && !isEmpty(notSetGoals) && (
           <React.Fragment>
             <Text>目標をまだ設定していないユーザ</Text>
             <View

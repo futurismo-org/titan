@@ -117,7 +117,7 @@ const ProfileCategory = (props: any) => {
             full
             rounded
             onPress={() =>
-              history.push(`/cat/${metadata.categoryId}/dashboard`)
+              history.replace(`/cat/${metadata.categoryId}/dashboard`)
             }
           >
             <Text>{metadata.categoryTitle}カテゴリへ</Text>
