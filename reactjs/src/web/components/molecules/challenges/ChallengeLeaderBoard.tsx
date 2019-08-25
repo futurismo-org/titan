@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -22,7 +22,11 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, isLoaded, myId } = props;
+  const { users, loading, fetchParticipants, resourceId, myId } = props;
+
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const StyledTableCell = (props: any) => (
     <TableCell
@@ -60,8 +64,8 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {!isLoaded && <Progress />}
-      {isLoaded && users && (
+      {loading && <Progress />}
+      {!loading && users && (
         <Paper style={{ marginTop: 20 }}>
           <Table size="small">
             <LeaderBoardHead />

@@ -36,8 +36,8 @@ const mapStateToProps = (state: any, props: any) => {
               totalScore
             };
           })
-          .slice(0, 20)
-      : [];
+      : // .slice(0, 20)
+        [];
 
   return {
     users: marged,

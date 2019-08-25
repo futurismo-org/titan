@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Text } from 'native-base';
 import { Link } from 'react-router-native';
-import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';
 
 import {
@@ -18,7 +17,11 @@ const { Table, Row } = require('react-native-table-component');
 const flexArr = [1, 1, 3, 1, 1, 1, 2];
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, myId, isLoaded } = props;
+  const { users, myId, loading, resourceId, fetchParticipants } = props;
+
+  useEffect(() => {
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const StyledHeadRow = (props: any) => {
     const { data } = props;
@@ -65,8 +68,8 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {isLoaded && <Progress />}
-      {isLoaded && users && (
+      {loading && <Progress />}
+      {!loading && users && (
         <Table style={{ margin: 5 }}>
           <LeaderBoardHead />
           {users.map((user: any) => {
