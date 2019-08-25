@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { View } from 'native-base';
+import {
+  ChallengeObjectiveWhatCard,
+  ChallengeObjectiveWhyCard
+} from './ChallengeObjectiveCard';
 
 const ChallengeObjective = (props: any) => {
   const {
@@ -37,7 +42,12 @@ const ChallengeObjective = (props: any) => {
     setWhy(e.target.value);
   };
 
-  return null;
+  return (
+    <View style={{ marginTop: 20, marginBottom: 20 }}>
+      <ChallengeObjectiveWhatCard text={what} />
+      {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
+    </View>
+  );
 };
 
 export default ChallengeObjective;

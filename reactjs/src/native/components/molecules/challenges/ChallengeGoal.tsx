@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Text, View } from 'native-base';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
-import Title from '../../atoms/Title';
+import ChallengeObjective from '~/native/containers/challenges/ChallengeObjectiveContainer';
 
 const ChallengeGoal = (props: any) => {
   const {
@@ -32,6 +32,11 @@ const ChallengeGoal = (props: any) => {
             style={{ fontWeight: 'bold', fontSize: 20 }}
           >{`${user.displayName}さんの努力ノート`}</Text>
           <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
+          <ChallengeObjective
+            challenge={challenge}
+            user={user}
+            isMyProfile={isMyProfile}
+          />
         </View>
       )}
     </React.Fragment>
