@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Button, Text, Label, Input, Textarea } from 'native-base';
 import Modalize from 'react-native-modalize';
+import { TouchableOpacity } from 'react-native';
 import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
@@ -16,21 +17,6 @@ const ChallengeObjective = (props: any) => {
     objective,
     isLoaded
   } = props;
-
-  const initialWhat = `${challenge.title}に毎日取り組みます！`;
-
-  const [what, setWhat] = useState(initialWhat);
-  const [why, setWhy] = useState('');
-
-  useEffect(() => {
-    if (isLoaded) {
-      setWhat(objective.what);
-      setWhy(objective.why);
-    } else {
-      setWhat(initialWhat);
-      setWhy('');
-    }
-  }, [initialWhat, isLoaded, objective]);
 
   const modalRef = useRef<Modalize>(null);
 
@@ -62,30 +48,41 @@ const ChallengeObjective = (props: any) => {
     );
   };
 
-  //       ? () => handleSave({ what, why }).then(() => onClose())
+  const handleClose = (what: any, why: any) => () =>
+    handleSave({ what, why }).then(() => onClose());
+
+  const initialWhat = `${challenge.title}に毎日取り組みます！`;
+  const what = isLoaded ? objective.what : initialWhat;
+  const why = isLoaded ? objective.why : '';
 
   return (
     <React.Fragment>
       {!isLoaded && null}
       {isLoaded && !!objective && (
-        <React.Fragment>
-          <Modalize ref={modalRef}>
-            <ChallengeObjectiveForm
-              what={what}
-              why={why}
-              closeHandler={onClose}
-            />
-          </Modalize>
+        <TouchableOpacity>
           <View>
-            <View>
-              <ChallengeObjectiveWhatCard text={what} />
-              {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <ChallengeObjectiveFormButton />
-            </View>
+            <ChallengeObjectiveWhatCard text={what} />
+            <Text />
+            {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
           </View>
-        </React.Fragment>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <ChallengeObjectiveFormButton />
+          </View>
+        </TouchableOpacity>
+      )}
+      {isLoaded && !!objective && (
+        <Modalize
+          ref={modalRef}
+          adjustToContentHeight
+          keyboardAvoidingBehavior="padding"
+        >
+          <ChallengeObjectiveForm
+            inputWhat={what}
+            inputWhy={why}
+            closeHandler={handleClose}
+            isLoaded={isLoaded}
+          />
+        </Modalize>
       )}
     </React.Fragment>
   );

@@ -23,9 +23,8 @@ const ChallengeGoal = (props: any) => {
       {!loading && user && challenge && (
         <View
           style={{
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
+            paddingLeft: 25,
+            paddingRight: 25
           }}
         >
           <View
@@ -40,6 +39,7 @@ const ChallengeGoal = (props: any) => {
             >{`${user.displayName}さんの努力ノート`}</Text>
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
+          <Text />
           <ChallengeObjective
             challenge={challenge}
             user={user}

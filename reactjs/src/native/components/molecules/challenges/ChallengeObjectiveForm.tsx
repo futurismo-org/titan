@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Text } from 'native-base';
-
-// <React.Fragment>
-//   <Label>なにをやるのか?(What)</Label>
-//   <Input value={what} onChangeText={text => setWhat(text)} />
-//   <Text />
-//   <Textarea
-//     bordered
-//     rowSpan={6}
-//     placeholder="自己紹介(300字まで)"
-//     value={why}
-//     onChangeText={(text: string) => setWhy(text)}
-//   />
-// </React.Fragment>
+import { Text, View, Textarea, Button } from 'native-base';
 
 const ChallengeObjectiveForm = (props: any) => {
-  const { what, why, closeHandler } = props;
+  const { inputWhat, inputWhy, closeHandler, isLoaded } = props;
+
+  const [what, setWhat] = useState('');
+  const [why, setWhy] = useState('');
+
+  useEffect(() => {
+    if (isLoaded) {
+      setWhat(inputWhat);
+      setWhy(inputWhy);
+    } else {
+      setWhat('');
+      setWhy('');
+    }
+  }, [inputWhat, inputWhy, isLoaded]);
 
   return (
-    <React.Fragment>
-      <Text>{what}</Text>
-    </React.Fragment>
+    <View style={{ paddingTop: 25, paddingLeft: 10, paddingRight: 10 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button onPress={closeHandler(what, why)}>
+          <Text>保存</Text>
+        </Button>
+      </View>
+      <Text>なにをやるのか?(What)</Text>
+      <Textarea
+        bordered
+        rowSpan={2}
+        value={what}
+        onChangeText={(text: string) => setWhat(text)}
+      />
+      <Text />
+      <Text>なにをやるのか?(What)</Text>
+      <Textarea
+        bordered
+        rowSpan={4}
+        value={why}
+        onChangeText={(text: string) => setWhy(text)}
+      />
+      <Text />
+    </View>
   );
 };
 
