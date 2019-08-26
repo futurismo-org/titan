@@ -7,7 +7,7 @@ import Users from '~/native/containers/UsersContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
 import ProfileCategory from '~/native/containers/ProfileCategoryContainer';
-import AuthScreen from '../atoms/AuthScreen';
+import AuthScreen from '../atoms/Auth';
 import Layout from '../templates/PaddingLayout';
 import Info from './Info';
 import Meigen from './Meigen';
