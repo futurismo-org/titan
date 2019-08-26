@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View } from 'native-base';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Button, Text, Label, Input, Textarea } from 'native-base';
+import Modalize from 'react-native-modalize';
 import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
 } from './ChallengeObjectiveCard';
+import ChallengeObjectiveForm from './ChallengeObjectiveForm';
 
 const ChallengeObjective = (props: any) => {
   const {
@@ -19,7 +21,6 @@ const ChallengeObjective = (props: any) => {
 
   const [what, setWhat] = useState(initialWhat);
   const [why, setWhy] = useState('');
-  const [edit, setEdit] = useState(false);
 
   useEffect(() => {
     if (isLoaded) {
@@ -31,24 +32,60 @@ const ChallengeObjective = (props: any) => {
     }
   }, [initialWhat, isLoaded, objective]);
 
-  const onWhatChange = (e: any) => {
-    e.preventDefault();
-    setWhat(e.target.value);
+  const modalRef = useRef<Modalize>(null);
+
+  const onOpen = () => {
+    const modal = modalRef.current;
+
+    if (modal) {
+      modal.open();
+    }
   };
 
-  const onWhyChange = (e: any) => {
-    e.preventDefault();
-    setWhy(e.target.value);
+  const onClose = () => {
+    const modal = modalRef.current;
+
+    if (modal) {
+      modal.close();
+    }
   };
+
+  const ChallengeObjectiveFormButton = (props: any) => {
+    if (!isMyProfile) {
+      return null;
+    }
+
+    return (
+      <Button onPress={onOpen}>
+        <Text>編集</Text>
+      </Button>
+    );
+  };
+
+  //       ? () => handleSave({ what, why }).then(() => onClose())
 
   return (
     <React.Fragment>
       {!isLoaded && null}
       {isLoaded && !!objective && (
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <ChallengeObjectiveWhatCard text={what} />
-          {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
-        </View>
+        <React.Fragment>
+          <Modalize ref={modalRef}>
+            <ChallengeObjectiveForm
+              what={what}
+              why={why}
+              closeHandler={onClose}
+            />
+          </Modalize>
+          <View>
+            <View>
+              <ChallengeObjectiveWhatCard text={what} />
+              {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <ChallengeObjectiveFormButton />
+            </View>
+          </View>
+        </React.Fragment>
       )}
     </React.Fragment>
   );

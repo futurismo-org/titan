@@ -58,10 +58,7 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
 
   return (
     <List>
-      <ListItem avatar>
-        <Left>
-          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
-        </Left>
+      <ListItem>
         <Body>
           <Text note>なぜやるのか？</Text>
           <Text>{text}</Text>
