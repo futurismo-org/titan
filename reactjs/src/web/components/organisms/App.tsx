@@ -39,7 +39,7 @@ const App = (props: any) => {
     if (process.env.REACT_APP_ENV === 'development') {
       initializeReactotron();
     }
-  });
+  }, []);
 
   return (
     <React.Fragment>

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, Content, View } from 'native-base';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { isEmpty } from 'react-redux-firebase';
 import Title from '../../atoms/Title';
 
 import Progress from '../../atoms/CircularProgress';
@@ -13,7 +12,27 @@ import { deviceWidth } from '~/native/lib/native';
 import { brandGray } from '~/lib/theme';
 
 const ChallengeGoals = (props: any) => {
-  const { isLoaded, challengeId, goals, notSetGoals } = props;
+  const { fetchGoals, challengeId } = props;
+
+  const [goals, setGoals] = useState([]);
+  const [notSetGoals, setNotSetGoals] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchGoals()
+      .then(async (props: any) => {
+        const { goals, users } = props;
+        setGoals(goals);
+
+        // const goalIds = goals.map((goal: any) => goal.id);
+        // const notSetGoals = users.filter(
+        //   (user: any) => !goalIds.includes(user.id)
+        // );
+        // setNotSetGoals(notSetGoals);
+      })
+      .then(() => setLoading(false));
+  }, [fetchGoals]);
 
   const [goalActiveSlide, setGoalActiveSlide] = useState(0);
   const [goalSliderRef, setGoalSliderRef] = useState(undefined);
@@ -28,11 +47,11 @@ const ChallengeGoals = (props: any) => {
   return (
     <React.Fragment>
       <Content padder>
-        {!isLoaded ? <Progress /> : null}
-        {isLoaded && isEmpty(goals) && (
+        {loading && <Progress />}
+        {!loading && goals.length === 0 && (
           <Text>目標をまだだれも設定していません。</Text>
         )}
-        {isLoaded && !isEmpty(goals) && (
+        {!loading && goals.length !== 0 && (
           <React.Fragment>
             <Title text="仲間たちのチャレンジ目標" />
             {goals.length !== 0 ? (
@@ -67,8 +86,8 @@ const ChallengeGoals = (props: any) => {
             ) : null}
           </React.Fragment>
         )}
-        <Text />
-        {isLoaded && !isEmpty(notSetGoals) && (
+        {/* <Text />
+        {notSetGoals.length !== 0 && (
           <React.Fragment>
             <Text>目標をまだ設定していないユーザ</Text>
             <View
@@ -91,7 +110,7 @@ const ChallengeGoals = (props: any) => {
               })}
             </View>
           </React.Fragment>
-        )}
+        )} */}
       </Content>
     </React.Fragment>
   );

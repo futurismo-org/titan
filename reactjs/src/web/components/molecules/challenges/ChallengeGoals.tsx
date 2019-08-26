@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import StackGrid from 'react-stack-grid';
 import { Grid } from '@material-ui/core';
-import { isEmpty } from 'react-redux-firebase';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
-import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import UserAvatar from '../../atoms/UserAvatar';
 import { getChallengeUserGoalPath } from '~/lib/url';
+import Progress from '../../atoms/CircularProgress';
 
 const ChallengeGoals = (props: any) => {
-  const { isLoaded, challengeId, goals, notSetGoals } = props;
+  const { fetchGoals, challengeId } = props;
+
+  const [goals, setGoals] = useState([]);
+  const [notSetGoals, setNotSetGoals] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+
+    fetchGoals()
+      .then(async (props: any) => {
+        const { goals, users } = props;
+        setGoals(goals);
+
+        const goalIds = goals.map((goal: any) => goal.id);
+        const notSetGoals = users.filter(
+          (user: any) => !goalIds.includes(user.id)
+        );
+        setNotSetGoals(notSetGoals);
+      })
+      .then(() => setLoading(false));
+  }, [fetchGoals]);
 
   return (
     <React.Fragment>
-      {!isLoaded ? <Progress /> : null}
-      {isLoaded && isEmpty(goals) && <p>目標をまだだれも設定していません。</p>}
-      {isLoaded && !isEmpty(goals) && (
+      {loading && <Progress />}
+      {!loading && goals.length === 0 && (
+        <p>目標をまだだれも設定していません。</p>
+      )}
+      {!loading && goals.length !== 0 && (
         <React.Fragment>
           <div style={{ marginLeft: 10, marginTop: 20, marginBottom: 20 }}>
             <Title text="仲間たちのチャレンジ目標" />
@@ -32,7 +54,7 @@ const ChallengeGoals = (props: any) => {
         </React.Fragment>
       )}
       <br />
-      {isLoaded && !isEmpty(notSetGoals) && (
+      {notSetGoals !== [] && (
         <React.Fragment>
           <h3>目標をまだ設定していないユーザ</h3>
           <Grid container>

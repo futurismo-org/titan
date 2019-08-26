@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, Grid } from '@material-ui/core';
 
-import Error from '../../atoms/Error';
-
 import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
@@ -36,11 +34,8 @@ const ChallengeObjective = (props: any) => {
     user,
     isMyProfile,
     handleSave,
-    error,
-    loading,
     objective,
-    resourceId,
-    fetchObjective
+    isLoaded
   } = props;
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
@@ -50,13 +45,14 @@ const ChallengeObjective = (props: any) => {
   const [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    if (!objective || user.shortId !== objective.userShortId) {
-      fetchObjective(resourceId);
+    if (isLoaded) {
+      setWhat(objective.what);
+      setWhy(objective.why);
     } else {
-      setWhat(objective.what ? objective.what : initialWhat);
-      setWhy(objective.why ? objective.why : '');
+      setWhat(initialWhat);
+      setWhy('');
     }
-  }, [fetchObjective, initialWhat, objective, resourceId, user.shortId]);
+  }, [initialWhat, isLoaded, objective]);
 
   const onWhatChange = (e: any) => {
     e.preventDefault();
@@ -76,10 +72,7 @@ const ChallengeObjective = (props: any) => {
     }
 
     const handler = edit
-      ? () =>
-          handleSave({ what, why })
-            .then(() => fetchObjective(resourceId))
-            .then(() => setEdit(!edit))
+      ? () => handleSave({ what, why }).then(() => setEdit(!edit))
       : () => setEdit(!edit);
 
     return (
@@ -95,9 +88,8 @@ const ChallengeObjective = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && null}
-      {!loading && (
+      {!isLoaded && null}
+      {isLoaded && !!objective && (
         <React.Fragment>
           <div style={{ textAlign: 'right' }}>
             <ChallengeObjectiveFormButton />
@@ -127,6 +119,7 @@ const ChallengeObjective = (props: any) => {
                     rows={8}
                     onChange={onWhyChange}
                   />
+                  <ChallengeObjectiveDescription challenge={challenge} />
                 </React.Fragment>
               ) : (
                 <div>
@@ -140,9 +133,6 @@ const ChallengeObjective = (props: any) => {
               )}
             </Grid>
           </Grid>
-          {edit ? (
-            <ChallengeObjectiveDescription challenge={challenge} />
-          ) : null}
         </React.Fragment>
       )}
     </React.Fragment>

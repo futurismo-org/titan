@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
-import { Text, View } from 'native-base';
+import { View, Text } from 'native-base';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
-import ChallengeObjective from '~/native/containers/challenges/ChallengeObjectiveContainer';
 import Progress from '~/native/components/atoms/CircularProgress';
 
-const ChallengeGoal = (props: any) => {
-  const {
-    challenge,
-    user,
-    userShortId,
-    fetchUserWithShortId,
-    isMyProfile,
-    loading
-  } = props;
+const ChallengeNote = (props: any) => {
+  const { challenge, user, fetchUserWithShortId, userShortId, loading } = props;
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
@@ -37,19 +29,14 @@ const ChallengeGoal = (props: any) => {
           >
             <Text
               style={{ fontWeight: 'bold', fontSize: 20 }}
-            >{`${user.displayName}さんの目標`}</Text>
+            >{`${user.displayName}さんの努力ノート`}</Text>
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
           <Text />
-          <ChallengeObjective
-            challenge={challenge}
-            user={user}
-            isMyProfile={isMyProfile}
-          />
         </View>
       )}
     </React.Fragment>
   );
 };
 
-export default ChallengeGoal;
+export default ChallengeNote;

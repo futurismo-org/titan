@@ -10,6 +10,7 @@ import {
   ListItemText
 } from '@material-ui/core';
 import UserAvatar from '../../atoms/UserAvatar';
+import MarkdownView from '~/web/components/atoms/MarkdownView';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -49,22 +50,28 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
   const { text, user } = props;
 
   return (
-    <List>
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
-          <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
-        </ListItemAvatar>
-        <ListItemText
-          primary="なぜやるのか?"
-          secondary={
-            <React.Fragment>
-              <Typography component="span" variant="body2" color="textPrimary">
-                {text}
-              </Typography>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-    </List>
+    <Wrapper>
+      <List>
+        <ListItem alignItems="flex-start">
+          <ListItemAvatar>
+            <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
+          </ListItemAvatar>
+          <ListItemText
+            primary="なぜやるのか?"
+            secondary={
+              <React.Fragment>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="textPrimary"
+                >
+                  <MarkdownView text={text} />
+                </Typography>
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      </List>
+    </Wrapper>
   );
 };
