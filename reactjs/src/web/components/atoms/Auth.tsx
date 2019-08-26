@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dialog, DialogContent } from '@material-ui/core';
-import DialogTitle, { DialogTitleProps } from '@material-ui/core/DialogTitle';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import styled from 'styled-components';
 import * as firebaseui from 'firebaseui';
@@ -15,14 +15,8 @@ const StyledContainer = styled.div`
   }
 `;
 
-const StyledDialogTitle = styled(DialogTitle)`
-  && {
-    text-align: center;
-  }
-` as React.ComponentType<DialogTitleProps>;
-
-const AuthModal = (props: any) => {
-  const { onClose, title, signInSuccessWithAuthResult, ...other } = props;
+const Auth = (props: any) => {
+  const { onClose, title, signInSuccessWithAuthResult, open } = props;
 
   const uiConfig = {
     signInFlow: 'popup',
@@ -43,8 +37,10 @@ const AuthModal = (props: any) => {
 
   return (
     <StyledContainer>
-      <Dialog onClose={onClose} aria-labelledby="login-dialog-title" {...other}>
-        <StyledDialogTitle>{title}</StyledDialogTitle>
+      <Dialog onClose={onClose} open={open}>
+        <DialogTitle>
+          <p style={{ textAlign: 'center' }}>{title}</p>
+        </DialogTitle>
         <DialogContent>
           <StyledFirebaseAuth
             uiConfig={uiConfig}
@@ -56,4 +52,4 @@ const AuthModal = (props: any) => {
   );
 };
 
-export default AuthModal;
+export default Auth;

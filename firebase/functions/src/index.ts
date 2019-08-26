@@ -29,7 +29,7 @@ app.get('/topics/:tid', topic);
 app.get('/c/:cid/overview', challenge);
 
 // getstream
-app.get('/getstream/register', getToken);
+app.post('/getstream/register', getToken);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);

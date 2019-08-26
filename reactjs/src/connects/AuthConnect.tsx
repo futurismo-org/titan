@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import shortId from 'shortid';
 import firebase, { uploadPhotoURLAsync } from '~/lib/firebase';
+import { getStreamToken } from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const signInSuccessWithAuthResult = (
@@ -12,9 +13,11 @@ const mapStateToProps = (state: any, props: any) => {
       credentials.additionalUserInfo &&
       credentials.additionalUserInfo.providerId === 'twitter.com';
 
+    const userShortId = shortId.generate();
+
     const data = {
       id: user!.uid,
-      shortId: shortId.generate(),
+      shortId: userShortId,
       displayName: user!.displayName,
       photoURL: user!.photoURL,
       createdAt: new Date(),
@@ -24,9 +27,12 @@ const mapStateToProps = (state: any, props: any) => {
         : ''
     };
 
+    const streamToken = getStreamToken(userShortId);
+
     const secureId = shortId.generate();
     const dataSecure = {
       id: secureId,
+      streamToken,
       email: user!.email,
       accessTokenKey: isTwitter
         ? (credentials.credential! as any).accessToken
@@ -42,7 +48,7 @@ const mapStateToProps = (state: any, props: any) => {
       // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
       .doc(user!.uid);
 
-    return userRef.get().then(doc => {
+    userRef.get().then(doc => {
       if (!doc.exists) {
         userRef.set(data);
         userRef
@@ -60,6 +66,11 @@ const mapStateToProps = (state: any, props: any) => {
           });
       }
     });
+
+    return userRef
+      .collection('securities')
+      .doc(secureId)
+      .update({ getStreamToken });
   };
 
   return {
