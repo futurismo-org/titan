@@ -207,8 +207,8 @@ exports.challenge = (req: any, res: any) => {
       //   : 0;
 
       const title = `${challengeName} | Titan`;
-      const description = `きみも参加しよう！ ${challengeDescription}`;
-      const url = `https://titan-fire.com/#/c/${challengeId}`;
+      const description = `${challengeDescription}`;
+      const url = `https://titan-fire.com/#/c/${challengeId}/overview`;
 
       res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
 
