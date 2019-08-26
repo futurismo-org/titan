@@ -27,12 +27,10 @@ const mapStateToProps = (state: any, props: any) => {
         : ''
     };
 
-    const streamToken = getStreamToken(userShortId);
+    const streamTokenPromise = getStreamToken(userShortId);
 
-    const secureId = shortId.generate();
     const dataSecure = {
-      id: secureId,
-      streamToken,
+      id: userShortId,
       email: user!.email,
       accessTokenKey: isTwitter
         ? (credentials.credential! as any).accessToken
@@ -53,7 +51,7 @@ const mapStateToProps = (state: any, props: any) => {
         userRef.set(data);
         userRef
           .collection('securities')
-          .doc(secureId)
+          .doc(userShortId)
           .set(dataSecure)
           .then(() => {
             if (data.photoURL && data.photoURL !== '') {
@@ -67,10 +65,14 @@ const mapStateToProps = (state: any, props: any) => {
       }
     });
 
-    return userRef
-      .collection('securities')
-      .doc(secureId)
-      .update({ getStreamToken });
+    // TODO ばぐってる。 shortIdを二重に生成
+
+    return streamTokenPromise.then((token: any) =>
+      userRef
+        .collection('securities')
+        .doc(userShortId)
+        .set({ getStreamToken: token as string }, { merge: true })
+    );
   };
 
   return {

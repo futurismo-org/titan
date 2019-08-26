@@ -20,7 +20,7 @@ const Auth = (props: any) => {
 
   const uiConfig = {
     signInFlow: 'popup',
-    signInSuccessUrl: '/',
+    // signInSuccessUrl: '/',
     signInOptions: [
       firebase.auth.TwitterAuthProvider.PROVIDER_ID,
       // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
