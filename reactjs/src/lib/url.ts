@@ -24,6 +24,11 @@ export const getChallengeUserGoalPath = (
   userShortId: string
 ) => `/c/${challengeId}/u/${userShortId}/goal`;
 
+export const getChallengeUserNotePath = (
+  challengeId: string,
+  userShortId: string
+) => `/c/${challengeId}/u/${userShortId}/note`;
+
 export const getCategoryDashboardPath = (
   categoryId: string,
   userShortId: string
