@@ -11,6 +11,7 @@ app.use(cors({ origin: true }));
 const { chargeProduct, validCoupon } = require('./handlers/stripe');
 // const { postTweet, requestToken, accessToken } = require('./handlers/twitter');
 const { dashboard, topic, challenge } = require('./handlers/ogp');
+const { getToken } = require('./handlers/getstream');
 
 // stripe
 app.post('/charges', chargeProduct);
@@ -26,6 +27,9 @@ app.get('/cat/:cid/t/:tid', topic);
 app.get('/topics/:tid', topic);
 
 app.get('/c/:cid/overview', challenge);
+
+// getstream
+app.get('/getstream/register', getToken);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);
