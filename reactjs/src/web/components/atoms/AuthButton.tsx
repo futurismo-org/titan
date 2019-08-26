@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button, { ButtonProps } from '@material-ui/core/Button';
 import styled from 'styled-components';
-import AuthModal from '~/web/components/atoms/Auth';
+import Auth from '~/web/containers/AuthContainer';
 import theme from '~/lib/theme';
 
 const StyledButton = styled(Button)`
@@ -35,7 +35,7 @@ const AuthButton = (props: any) => {
       >
         ログイン
       </StyledButton>
-      <AuthModal open={visibleModal} onClose={closeModal} title={title} />
+      <Auth open={visibleModal} onClose={closeModal} title={title} />
     </React.Fragment>
   );
 };
