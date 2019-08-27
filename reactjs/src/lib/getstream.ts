@@ -3,6 +3,8 @@ import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
 
+const streamUserId = (userId: string) => `SU:${userId}`;
+
 export const getStreamToken = async (userShortId: string) => {
   return await axios
     .post(
@@ -35,13 +37,25 @@ export const postChallengeJoin = (userId: string, props: any) => {
   const { challengeId } = props;
 
   return getClient(userId).then((client: any) => {
-    const challenge = client.feed('user', userId);
-    challenge.addActivity({
-      actor: `SU:${userId}`,
+    const user = client.feed('user', userId);
+    user.addActivity({
+      actor: streamUserId(userId),
       verb: 'add',
       object: `user:${userId}`,
       foreign_id: `challenge:${challengeId}`, // eslint-disable-line
       time: new Date()
     });
+  });
+};
+
+export const getUserChallengeNotes = (userId: string, props: any) => {
+  const { challengeId } = props;
+
+  return getClient(userId).then(async (client: any) => {
+    const user = client.feed('user', userId);
+
+    const data = await user.get({ limit: 1 });
+
+    console.log(data);
   });
 };

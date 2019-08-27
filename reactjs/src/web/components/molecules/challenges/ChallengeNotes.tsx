@@ -11,6 +11,8 @@ import {
 } from '~/constants/note';
 import { timelineBorderColor } from '~/lib/theme';
 
+const NOTE_TYPE_STREAM = 'STREAM';
+
 const ChallengeNotes = (props: any) => {
   const {
     fetchParticipant,
@@ -25,24 +27,20 @@ const ChallengeNotes = (props: any) => {
     notesResourceId,
     successList,
     analysisList,
-    isMyProfile
+    isMyProfile,
+    feedNotes
   } = props;
 
-  const [type, setType] = useState(NOTE_TYPE_DEFAULT);
+  const [type, setType] = useState(NOTE_TYPE_STREAM);
+  const [feed, setFeed] = useState([]);
 
   useEffect(() => {
-    fetchParticipant(resourceId);
-    userShortId && fetchUserTopics(topicsResourceId, userShortId);
-    userShortId && fetchUserNotes(notesResourceId, userShortId);
-  }, [
-    fetchParticipant,
-    fetchUserNotes,
-    fetchUserTopics,
-    notesResourceId,
-    resourceId,
-    topicsResourceId,
-    userShortId
-  ]);
+    // fetchParticipant(resourceId);
+    // userShortId && fetchUserTopics(topicsResourceId, userShortId);
+    // userShortId && fetchUserNotes(notesResourceId, userShortId);
+
+    feedNotes();
+  }, [feedNotes]);
 
   const ChallengeNotesNavbar = (props: any) => {
     return (
@@ -51,6 +49,7 @@ const ChallengeNotes = (props: any) => {
           <Button onClick={() => setType(NOTE_TYPE_DEFAULT)}>努力記録</Button>
           <Button onClick={() => setType(NOTE_TYPE_SUCCESS)}>達成日記</Button>
           <Button onClick={() => setType(NOTE_TYPE_ANALYSIS)}>分析日記</Button>
+          <Button onClick={() => setType(NOTE_TYPE_STREAM)}>Stream</Button>
         </ButtonGroup>
       </div>
     );
@@ -60,7 +59,7 @@ const ChallengeNotes = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && notes && (
+      {!loading && feed && (
         <React.Fragment>
           <Grid
             container
@@ -91,6 +90,16 @@ const ChallengeNotes = (props: any) => {
                 ))}
               {type === NOTE_TYPE_ANALYSIS &&
                 analysisList.map((note: any) => (
+                  <ChallengeNote
+                    key={note.id}
+                    type={note.type}
+                    data={note.data}
+                    isMyProfile={isMyProfile(userShortId)}
+                  />
+                ))}
+              {type === NOTE_TYPE_STREAM &&
+                feed &&
+                feed.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
                     type={note.type}

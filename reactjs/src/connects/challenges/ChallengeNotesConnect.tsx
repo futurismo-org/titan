@@ -19,6 +19,7 @@ import {
   NOTE_TYPE_ANALYSIS
 } from '~/constants/note';
 import { RECORD } from '~/lib/challenge';
+import { getUserChallengeNotes } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -146,6 +147,8 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
+  const feedNotes = () => getUserChallengeNotes(profile.id, { challengeId });
+
   return {
     resourceId,
     topicsResourceId,
@@ -158,6 +161,7 @@ const mapStateToProps = (state: any, props: any) => {
     loading:
       state.participant.loading || state.topic.loading || state.note.loading,
     error: state.participant.error || state.topic.error || state.note.error,
+    feedNotes,
     ...props
   };
 };
