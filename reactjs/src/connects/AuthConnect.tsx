@@ -46,9 +46,10 @@ const mapStateToProps = (state: any, props: any) => {
         });
       }
 
-      getStreamToken(userShortId).then((token: any) => {
+      getStreamToken(user!.uid).then((token: any) => {
+        const userId = user!.uid;
         const secureData = {
-          id: userShortId,
+          id: userId,
           email: user!.email,
           getStreamToken: token,
           accessTokenKey: isTwitter
@@ -56,11 +57,14 @@ const mapStateToProps = (state: any, props: any) => {
             : '',
           accessTokenSecret: isTwitter
             ? (credentials.credential! as any).secret
-            : ''
+            : '',
+          updatedAt: new Date()
         };
-        return userRef
+
+        return firebase
+          .firestore()
           .collection('securities')
-          .doc(userShortId)
+          .doc(userId)
           .set(secureData, { merge: true });
       });
     });

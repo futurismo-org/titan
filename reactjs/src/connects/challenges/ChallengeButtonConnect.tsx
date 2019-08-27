@@ -7,12 +7,14 @@ import firebase, { isLogin } from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
 
 import { getCategoryId } from '~/lib/challenge';
+import { postChallengeJoin } from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
   const challengeId = challenge.id;
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
+  const userId = profile.id;
   const categoryId = getCategoryId(challenge.categoryRef);
 
   const redirectPath = `/c/${challengeId}/overview`;
@@ -130,7 +132,8 @@ const mapStateToProps = (state: any, props: any) => {
           .collection('categories')
           .doc(categoryId)
           .set(newCategory, { merge: true });
-      });
+      })
+      .then(() => postChallengeJoin(userId, { challengeId }));
   };
 
   return {

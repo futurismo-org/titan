@@ -1,4 +1,7 @@
+import stream from 'getstream';
 import axios from '~/lib/axios';
+
+import firebase from '~/lib/firebase';
 
 export const getStreamToken = async (userShortId: string) => {
   return await axios
@@ -10,4 +13,35 @@ export const getStreamToken = async (userShortId: string) => {
       { headers: { Accept: 'application/json' } }
     )
     .then(res => res.data);
+};
+
+const GETSTREAM_KEY = process.env.REACT_APP_GETSTREAM_KEY as string;
+const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
+
+const getClient = (userId: string) => {
+  return firebase
+    .firestore()
+    .collection('securities')
+    .doc(userId)
+    .get()
+    .then((doc: any) => doc.data().getStreamToken)
+    .then((token: string) =>
+      stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID)
+    );
+};
+
+// チャレンジ参加
+export const postChallengeJoin = (userId: string, props: any) => {
+  const { challengeId } = props;
+
+  return getClient(userId).then((client: any) => {
+    const challenge = client.feed('user', userId);
+    challenge.addActivity({
+      actor: `SU:${userId}`,
+      verb: 'add',
+      object: `user:${userId}`,
+      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      time: new Date()
+    });
+  });
 };
