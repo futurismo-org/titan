@@ -52,8 +52,8 @@ const ChallengeObjective = (props: any) => {
     handleSave({ what, why }).then(() => onClose());
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
-  const what = isLoaded ? objective.what : initialWhat;
-  const why = isLoaded ? objective.why : '';
+  const what = isLoaded && objective ? objective.what : initialWhat;
+  const why = isLoaded && objective ? objective.why : '';
 
   return (
     <React.Fragment>

@@ -46,8 +46,8 @@ const ChallengeObjective = (props: any) => {
 
   useEffect(() => {
     if (isLoaded) {
-      setWhat(objective.what);
-      setWhy(objective.why);
+      setWhat(objective ? objective.what : initialWhat);
+      setWhy(objective ? objective.why : '');
     } else {
       setWhat(initialWhat);
       setWhy('');
