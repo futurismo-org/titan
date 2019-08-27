@@ -13,66 +13,57 @@ const mapStateToProps = (state: any, props: any) => {
       credentials.additionalUserInfo &&
       credentials.additionalUserInfo.providerId === 'twitter.com';
 
-    const userShortId = shortId.generate();
-
-    const data = {
-      id: user!.uid,
-      shortId: userShortId,
-      displayName: user!.displayName,
-      photoURL: user!.photoURL,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      twitterUsername: isTwitter
-        ? (credentials.additionalUserInfo! as any).username
-        : ''
-    };
-
-    const streamTokenPromise = getStreamToken(userShortId);
-
-    const dataSecure = {
-      id: userShortId,
-      email: user!.email,
-      accessTokenKey: isTwitter
-        ? (credentials.credential! as any).accessToken
-        : '',
-      accessTokenSecret: isTwitter
-        ? (credentials.credential! as any).secret
-        : ''
-    };
-
     const userRef = firebase
       .firestore()
       .collection('users')
       // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
       .doc(user!.uid);
 
-    userRef.get().then(doc => {
+    return userRef.get().then((doc: any) => {
+      const userShortId = !doc.exists ? shortId.generate() : doc.data().shortId;
+
+      const data = {
+        id: user!.uid,
+        shortId: userShortId,
+        displayName: user!.displayName,
+        photoURL: user!.photoURL,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        twitterUsername: isTwitter
+          ? (credentials.additionalUserInfo! as any).username
+          : ''
+      };
+
       if (!doc.exists) {
-        userRef.set(data);
-        userRef
+        userRef.set(data).then(() => {
+          if (data.photoURL && data.photoURL !== '') {
+            uploadPhotoURLAsync(
+              data.photoURL,
+              data.shortId,
+              `/users/${data.id}`
+            );
+          }
+        });
+      }
+
+      getStreamToken(userShortId).then((token: any) => {
+        const secureData = {
+          id: userShortId,
+          email: user!.email,
+          getStreamToken: token,
+          accessTokenKey: isTwitter
+            ? (credentials.credential! as any).accessToken
+            : '',
+          accessTokenSecret: isTwitter
+            ? (credentials.credential! as any).secret
+            : ''
+        };
+        return userRef
           .collection('securities')
           .doc(userShortId)
-          .set(dataSecure)
-          .then(() => {
-            if (data.photoURL && data.photoURL !== '') {
-              uploadPhotoURLAsync(
-                data.photoURL,
-                data.shortId,
-                `/users/${data.id}`
-              );
-            }
-          });
-      }
+          .set(secureData, { merge: true });
+      });
     });
-
-    // TODO ばぐってる。 shortIdを二重に生成
-
-    return streamTokenPromise.then((token: any) =>
-      userRef
-        .collection('securities')
-        .doc(userShortId)
-        .set({ getStreamToken: token as string }, { merge: true })
-    );
   };
 
   return {
