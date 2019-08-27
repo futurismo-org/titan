@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Card, { CardProps } from '@material-ui/core/Card';
 import {
   CardContent,
-  Typography,
   List,
   ListItem,
   ListItemAvatar,
@@ -60,15 +59,10 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
             primary="なぜやるのか?"
             secondary={
               <React.Fragment>
-                <Typography
-                  component="span"
-                  variant="body2"
-                  color="textPrimary"
-                >
-                  <MarkdownView text={text} />
-                </Typography>
+                <MarkdownView text={text} />
               </React.Fragment>
             }
+            disableTypography
           />
         </ListItem>
       </List>
