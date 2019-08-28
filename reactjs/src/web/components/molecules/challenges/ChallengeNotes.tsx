@@ -23,7 +23,6 @@ const ChallengeNotes = (props: any) => {
       feedNotes().then((notes: any) => {
         setPosts(notes);
         setLoading(false);
-        console.log('passed');
       });
     }
   }, [feedNotes, loading, posts, posts.length]);

@@ -3,6 +3,13 @@ import moment from 'moment';
 import shortId from 'shortid';
 
 import admin from 'firebase-admin';
+import {
+  TITAN_USER_ID,
+  TSUNE_USER_ID,
+  DUMMY_TOPIC_ID_LIST,
+  DUMMY_NOTE_ID_LIST,
+  DUMMY_USER_ID_LIST
+} from './common';
 import { configDev } from '../utils/config';
 
 const config = configDev;
@@ -24,26 +31,15 @@ const meditationChallngeIds = [shortId.generate()];
 const getUpChallngeIds = [shortId.generate()];
 
 const titanShortId = shortId.generate();
-const titanUserId = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
+const titanUserId = TITAN_USER_ID;
 
 const tsuneraShortId = shortId.generate();
-const tsuneraUserId = 'oZEKc9c7k5XUIVxklYMVwvAiXbW2';
+const tsuneraUserId = TSUNE_USER_ID;
 
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
-
-const dummyUserIds = [...Array(50).keys()].map((n: number) =>
-  shortId.generate()
-);
-const dummyTopicIds = [...Array(100).keys()].map(
-  (n: number) => dummyUserIds[faker.random.number({ min: 0, max: 49 })]
-);
-
-const dummyNoteIds = [...Array(100).keys()].map(
-  (n: number) => dummyUserIds[faker.random.number({ min: 0, max: 29 })]
-);
 
 const getRandomCreatedAt = () => {
   const now = new Date();
@@ -84,7 +80,7 @@ const topicsSeeds = seed.subcollection([
     userPhotoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
-  ...dummyTopicIds.map((id: string) => {
+  ...DUMMY_TOPIC_ID_LIST.map((id: string) => {
     return createTopicSeed({
       id: id
     });
@@ -113,7 +109,7 @@ const notesSeeds = seed.subcollection([
     userPhotoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
   }),
-  ...dummyNoteIds.map((id: string) => {
+  ...DUMMY_NOTE_ID_LIST.map((id: string) => {
     return createNoteSeed({
       id: id
     });
@@ -228,7 +224,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     createdAt: getRandomCreatedAt(),
     updatedAt: getRandomUpdatedAt()
   }),
-  ...dummyUserIds.map((id: string) => {
+  ...DUMMY_USER_ID_LIST.map((id: string) => {
     return createParticipationSeed({
       id: id,
       histories: [
@@ -385,7 +381,7 @@ const userSeeds = seed.collection('users', [
     twitterUsername: 'tsu_nera',
     securities: userSecuritiesSeeds
   }),
-  ...dummyUserIds.map((id: string) => {
+  ...DUMMY_USER_ID_LIST.map((id: string) => {
     return createUserSeed({
       id: id,
       shortId: id,
