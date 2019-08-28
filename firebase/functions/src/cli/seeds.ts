@@ -8,7 +8,17 @@ import {
   TSUNE_USER_ID,
   DUMMY_TOPIC_ID_LIST,
   DUMMY_NOTE_ID_LIST,
-  DUMMY_USER_ID_LIST
+  DUMMY_USER_ID_LIST,
+  TITAN_USER_SHORT_ID,
+  TSUNE_USER_SHORT_ID,
+  MUSCLE_CHALLENGE_ID_LIST,
+  MUSCLE_CATEGORY_ID,
+  MEDITATION_CHALLENGE_ID_LIST,
+  MEDITATION_CATEGORY_ID,
+  GETUP_CATEGORY_ID,
+  GETUP_CHALLENGE_ID_LIST,
+  getRandomCreatedAt,
+  getRandomUpdatedAt
 } from './common';
 import { configDev } from '../utils/config';
 
@@ -21,41 +31,10 @@ const seed = require('firestore-seed');
 
 faker.locale = 'ja';
 
-const muscleCategoryId = shortId.generate();
-const meditationCategoryId = shortId.generate();
-const getUpCategoryId = shortId.generate();
-
-const muscleChallngeId = shortId.generate();
-const muscleChallngeIds = [muscleChallngeId, shortId.generate()];
-const meditationChallngeIds = [shortId.generate()];
-const getUpChallngeIds = [shortId.generate()];
-
-const titanShortId = shortId.generate();
-const titanUserId = TITAN_USER_ID;
-
-const tsuneraShortId = shortId.generate();
-const tsuneraUserId = TSUNE_USER_ID;
-
 const sampleChallengeChannelId = '589589350224756740'; // テスト用チャレンジチャンネル
 const sampleGeneralChannelId = '588697657279512587'; // テスト用フリートークチャンネル
 
 const sampleChallengeWebhookURL = ''; //公開していたらへんなbotに攻撃されたwww
-
-const getRandomCreatedAt = () => {
-  const now = new Date();
-  const n = faker.random.number({ min: 15, max: 30 });
-  return moment(now)
-    .subtract(n, 'day')
-    .toDate();
-};
-
-const getRandomUpdatedAt = () => {
-  const now = new Date();
-  const n = faker.random.number({ min: 0, max: 14 });
-  return moment(now)
-    .subtract(n, 'day')
-    .toDate();
-};
 
 const createTopicSeed = (args: any) => {
   const { id } = args;
@@ -72,20 +51,28 @@ const createTopicSeed = (args: any) => {
   });
 };
 
-const topicsSeeds = seed.subcollection([
-  createTopicSeed({
-    id: shortId.generate(),
-    userId: titanShortId,
-    userName: 'Titan@公式',
-    userPhotoURL:
-      'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
-  }),
-  ...DUMMY_TOPIC_ID_LIST.map((id: string) => {
-    return createTopicSeed({
-      id: id
-    });
-  })
-]);
+const topicsSeeds = (
+  collectionType: 'challenges' | 'categories' | 'general',
+  collectionId: string
+) =>
+  seed.subcollection([
+    createTopicSeed({
+      id: shortId.generate(),
+      userId: TITAN_USER_SHORT_ID,
+      userName: 'Titan@公式',
+      userPhotoURL:
+        'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
+      collectionType,
+      collectionId
+    }),
+    ...DUMMY_TOPIC_ID_LIST.map((id: string) => {
+      return createTopicSeed({
+        id: id,
+        collectionType,
+        collectionId
+      });
+    })
+  ]);
 
 const createNoteSeed = (args: any) => {
   const { id } = args;
@@ -104,7 +91,7 @@ const createNoteSeed = (args: any) => {
 const notesSeeds = seed.subcollection([
   createNoteSeed({
     id: shortId.generate(),
-    userId: titanShortId,
+    userId: TITAN_USER_SHORT_ID,
     userName: 'Titan@公式',
     userPhotoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png'
@@ -125,7 +112,7 @@ const createChallengeSeed = (args: any) => {
     rules: faker.lorem.paragraphs(),
     webhookURL: sampleChallengeWebhookURL,
     channelId: sampleChallengeChannelId,
-    topics: topicsSeeds,
+    topics: topicsSeeds('challenges', id),
     notes: notesSeeds,
     hashtag: '#サンプルチャレンジ',
     draft: false,
@@ -140,7 +127,7 @@ const createCategorySeed = (args: any) => {
     updatedAt: getRandomUpdatedAt(),
     overview: faker.lorem.paragraphs(),
     channelId: sampleGeneralChannelId,
-    topics: topicsSeeds,
+    topics: topicsSeeds('categories', id),
     ...args
   });
 };
@@ -194,7 +181,7 @@ const createUserSecuritiesSeed = (args: any) => {
 
 const challengeParticipantsSeeds = seed.subcollection([
   createParticipationSeed({
-    id: titanShortId,
+    id: TITAN_USER_SHORT_ID,
     histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
       createChallengeHistorySeed(n)
     ),
@@ -210,7 +197,7 @@ const challengeParticipantsSeeds = seed.subcollection([
     updatedAt: getRandomUpdatedAt()
   }),
   createParticipationSeed({
-    id: tsuneraShortId,
+    id: TSUNE_USER_SHORT_ID,
     histories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n =>
       createChallengeHistorySeed(n)
     ),
@@ -243,8 +230,8 @@ const challengeParticipantsSeeds = seed.subcollection([
 
 const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
-    id: muscleChallngeIds[0],
-    categoryRef: seed.docRef('categories', muscleCategoryId),
+    id: MUSCLE_CHALLENGE_ID_LIST[0],
+    categoryRef: seed.docRef('categories', MUSCLE_CATEGORY_ID),
     title: '筋トレ３０日チャレンジ',
     description: '筋肉は裏切らない',
     participants: challengeParticipantsSeeds,
@@ -265,8 +252,8 @@ const challengeSeeds = seed.collection('challenges', [
     youtubeId: 'lTil2ukokrM'
   }),
   createChallengeSeed({
-    id: muscleChallngeIds[1],
-    categoryRef: seed.docRef('categories', muscleCategoryId),
+    id: MUSCLE_CHALLENGE_ID_LIST[1],
+    categoryRef: seed.docRef('categories', MUSCLE_CATEGORY_ID),
     title: '体重計測３０日チャレンジ',
     description: '毎日元気に体重計',
     participants: challengeParticipantsSeeds,
@@ -285,8 +272,8 @@ const challengeSeeds = seed.collection('challenges', [
     price: 300
   }),
   createChallengeSeed({
-    id: meditationChallngeIds[0],
-    categoryRef: seed.docRef('categories', meditationCategoryId),
+    id: MEDITATION_CHALLENGE_ID_LIST[0],
+    categoryRef: seed.docRef('categories', MEDITATION_CATEGORY_ID),
     title: '瞑想7日間チャレンジ',
     description: '瞑想は怪しくないよ',
     participantsCount: 0,
@@ -304,8 +291,8 @@ const challengeSeeds = seed.collection('challenges', [
     )
   }),
   createChallengeSeed({
-    id: getUpChallngeIds[0],
-    categoryRef: seed.docRef('categories', getUpCategoryId),
+    id: GETUP_CHALLENGE_ID_LIST[0],
+    categoryRef: seed.docRef('categories', GETUP_CATEGORY_ID),
     title: '早起きチャレンジ',
     description: '朝だ夜明けだ潮の息吹',
     participants: challengeParticipantsSeeds,
@@ -330,24 +317,24 @@ const categorySeeds = seed.collection('categories', [
   createCategorySeed({
     title: '肉体改善',
     description: '筋肉があれば何でもできる',
-    id: muscleCategoryId,
-    challengeRefs: muscleChallngeIds.map((id: string) =>
+    id: MUSCLE_CATEGORY_ID,
+    challengeRefs: MUSCLE_CHALLENGE_ID_LIST.map((id: string) =>
       seed.docRef('challenges', id)
     )
   }),
   createCategorySeed({
     title: '瞑想',
     description: '安らかな心を',
-    id: meditationCategoryId,
-    challengeRefs: meditationChallngeIds.map((id: string) =>
+    id: MEDITATION_CATEGORY_ID,
+    challengeRefs: MEDITATION_CHALLENGE_ID_LIST.map((id: string) =>
       seed.docRef('challenges', id)
     )
   }),
   createCategorySeed({
     title: '睡眠',
     description: '良質な人生は良質な睡眠から',
-    id: getUpCategoryId,
-    challengeRefs: getUpChallngeIds.map((id: string) =>
+    id: GETUP_CATEGORY_ID,
+    challengeRefs: GETUP_CHALLENGE_ID_LIST.map((id: string) =>
       seed.docRef('challenges', id)
     )
   })
@@ -361,8 +348,8 @@ const userSecuritiesSeeds = seed.subcollection([
 
 const userSeeds = seed.collection('users', [
   createUserSeed({
-    id: titanUserId,
-    shortId: titanShortId,
+    id: TITAN_USER_ID,
+    shortId: TITAN_USER_SHORT_ID,
     displayName: 'Titan@公式',
     photoURL:
       'https://pbs.twimg.com/profile_images/1138185527843123200/4eE4LPiu_normal.png',
@@ -373,8 +360,8 @@ const userSeeds = seed.collection('users', [
     securities: userSecuritiesSeeds
   }),
   createUserSeed({
-    id: tsuneraUserId,
-    shortId: tsuneraShortId,
+    id: TSUNE_USER_ID,
+    shortId: TSUNE_USER_SHORT_ID,
     displayName: 'tsu-nera',
     photoURL: '',
     isAdmin: true,

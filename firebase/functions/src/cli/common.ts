@@ -11,6 +11,21 @@ export const GETSTREAM_KEY = process.env.GETSTREAM_KEY;
 export const GETSTREAM_SECRET = process.env.GETSTREAM_SECRET;
 export const GETSTREAM_APP_ID = process.env.GETSTREAM_APP_ID;
 
+export const MUSCLE_CATEGORY_ID = shortId.generate();
+export const MEDITATION_CATEGORY_ID = shortId.generate();
+export const GETUP_CATEGORY_ID = shortId.generate();
+
+export const MUSCLE_CHALLENGE_ID = shortId.generate();
+export const MUSCLE_CHALLENGE_ID_LIST = [
+  MUSCLE_CHALLENGE_ID,
+  shortId.generate()
+];
+export const MEDITATION_CHALLENGE_ID_LIST = [shortId.generate()];
+export const GETUP_CHALLENGE_ID_LIST = [shortId.generate()];
+
+export const TITAN_USER_SHORT_ID = shortId.generate();
+export const TSUNE_USER_SHORT_ID = shortId.generate();
+
 export const DUMMY_USER_ID_LIST = [...Array(50).keys()].map((n: number) =>
   shortId.generate()
 );
@@ -22,3 +37,19 @@ export const DUMMY_TOPIC_ID_LIST = [...Array(100).keys()].map(
 export const DUMMY_NOTE_ID_LIST = [...Array(100).keys()].map(
   (n: number) => DUMMY_USER_ID_LIST[faker.random.number({ min: 0, max: 29 })]
 );
+
+export const getRandomCreatedAt = () => {
+  const now = new Date();
+  const n = faker.random.number({ min: 15, max: 30 });
+  return moment(now)
+    .subtract(n, 'day')
+    .toDate();
+};
+
+export const getRandomUpdatedAt = () => {
+  const now = new Date();
+  const n = faker.random.number({ min: 0, max: 14 });
+  return moment(now)
+    .subtract(n, 'day')
+    .toDate();
+};

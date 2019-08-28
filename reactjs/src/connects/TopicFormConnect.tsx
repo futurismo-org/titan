@@ -29,7 +29,9 @@ const mapStateToProps = (state: any, props: any) => {
     updatedAt: new Date(),
     userName: currentUser.displayName,
     userId: currentUser.shortId,
-    userPhotoURL: currentUser.photoURL
+    userPhotoURL: currentUser.photoURL,
+    collectioType: collection,
+    collectionId
   };
 
   const newData = {
