@@ -8,16 +8,16 @@ import { fetchUserNotes } from '~/actions/noteAction';
 
 import moment from '~/lib/moment';
 import {
-  NOTE_TYPE_JOIN,
-  NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE,
-  NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS
-} from '~/constants/note';
+  POST_TYPE_JOIN,
+  POST_TYPE_OPEN,
+  POST_TYPE_CLOSE,
+  POST_TYPE_RECORD,
+  POST_TYPE_RESET,
+  POST_TYPE_TOPIC,
+  POST_TYPE_DEFAULT,
+  POST_TYPE_SUCCESS,
+  POST_TYPE_ANALYSIS
+} from '~/constants/post';
 import { RECORD } from '~/lib/challenge';
 import { getUserChallengeNotes } from '~/lib/getstream';
 
@@ -39,7 +39,7 @@ const generateNotes = (
 
   notes.push({
     id: shortId.generate(),
-    type: NOTE_TYPE_JOIN,
+    type: POST_TYPE_JOIN,
     timestamp: createdAt,
     data: {
       createdAt
@@ -48,7 +48,7 @@ const generateNotes = (
 
   notes.push({
     id: shortId.generate(),
-    type: NOTE_TYPE_OPEN,
+    type: POST_TYPE_OPEN,
     timestamp: challenge.openedAt.toDate(),
     data: {
       openedAt: challenge.openedAt.toDate()
@@ -57,7 +57,7 @@ const generateNotes = (
 
   notes.push({
     id: shortId.generate(),
-    type: NOTE_TYPE_CLOSE,
+    type: POST_TYPE_CLOSE,
     timestamp: challenge.closedAt.toDate(),
     data: {
       closedAt: challenge.closedAt.toDate()
@@ -65,7 +65,7 @@ const generateNotes = (
   });
 
   participant.histories.map((history: any) => {
-    const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
+    const type = history.type === RECORD ? POST_TYPE_RECORD : POST_TYPE_RESET;
 
     notes.push({
       id: shortId.generate(),
@@ -83,7 +83,7 @@ const generateNotes = (
   topics.map((topic: any) => {
     notes.push({
       id: shortId.generate(),
-      type: NOTE_TYPE_TOPIC,
+      type: POST_TYPE_TOPIC,
       timestamp: topic.createdAt.toDate(),
       data: {
         timestamp: topic.createdAt.toDate(),
@@ -98,7 +98,7 @@ const generateNotes = (
   posts.map((post: any) => {
     notes.push({
       id: shortId.generate(),
-      type: post.type || NOTE_TYPE_DEFAULT,
+      type: post.type || POST_TYPE_DEFAULT,
       timestamp: post.createdAt.toDate(),
       data: {
         id: post.id,
@@ -106,7 +106,7 @@ const generateNotes = (
         noteId: post.id,
         timestamp: post.createdAt.toDate(),
         text: post.text,
-        type: post.type || NOTE_TYPE_DEFAULT
+        type: post.type || POST_TYPE_DEFAULT
       }
     });
 
@@ -118,50 +118,51 @@ const generateNotes = (
   );
 };
 
+const createPost = (data: any) => {
+  return data;
+};
+
 const mapStateToProps = (state: any, props: any) => {
   const { challenge, user } = props;
   const challengeId = challenge.id;
   const userShortId = user.shortId;
 
-  const resourceId = getParticipantId(challengeId, userShortId);
-  const topicsResourceId = getTopicsId('challenges', challenge.id);
-  const notesResourceId = getNotesId(challenge.id);
+  // const resourceId = getParticipantId(challengeId, userShortId);
+  // const topicsResourceId = getTopicsId('challenges', challenge.id);
+  // const notesResourceId = getNotesId(challenge.id);
 
-  const participant = state.participant.target;
-  const topics = state.topic.items;
-  const posts = state.note.items;
+  // const participant = state.participant.target;
+  // const topics = state.topic.items;
+  // const posts = state.note.items;
 
-  const notes =
-    challenge &&
-    user &&
-    participant &&
-    topics &&
-    posts &&
-    generateNotes(challenge, user, participant, topics, posts);
+  // const notes =
+  //   challenge &&
+  //   user &&
+  //   participant &&
+  //   topics &&
+  //   posts &&
+  //   generateNotes(challenge, user, participant, topics, posts);
 
-  const successList =
-    notes && notes.filter(note => note.type === NOTE_TYPE_SUCCESS);
-  const analysisList =
-    notes && notes.filter(note => note.type === NOTE_TYPE_ANALYSIS);
+  // const successList =
+  //   notes && notes.filter(note => note.type === POST_TYPE_SUCCESS);
+  // const analysisList =
+  //   notes && notes.filter(note => note.type === POST_TYPE_ANALYSIS);
 
   const profile = state.firebase.profile;
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
   const feedNotes = () =>
-    getUserChallengeNotes(profile.id, profile.shortId, { challengeId });
+    getUserChallengeNotes(profile.shortId, { challengeId })
+      .then((data: any) => data.map((post: any) => createPost(post)))
+      .then((posts: any) =>
+        posts.sort((x: any, y: any) =>
+          moment(x.timestamp).diff(moment(y.timestamp))
+        )
+      );
 
   return {
-    resourceId,
-    topicsResourceId,
-    notes,
-    successList,
-    analysisList,
     userShortId,
-    notesResourceId,
     isMyProfile,
-    loading:
-      state.participant.loading || state.topic.loading || state.note.loading,
-    error: state.participant.error || state.topic.error || state.note.error,
     feedNotes,
     ...props
   };

@@ -8,14 +8,14 @@ import { getTopicsId, getNotesId, getParticipantsId } from '~/lib/resource';
 
 import moment, { isBeforeInDaysFromNow } from '~/lib/moment';
 import {
-  NOTE_TYPE_JOIN,
-  NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE,
-  NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT
-} from '~/constants/note';
+  POST_TYPE_JOIN,
+  POST_TYPE_OPEN,
+  POST_TYPE_CLOSE,
+  POST_TYPE_RECORD,
+  POST_TYPE_RESET,
+  POST_TYPE_TOPIC,
+  POST_TYPE_DEFAULT
+} from '~/constants/post';
 import { RECORD } from '~/lib/challenge';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -30,7 +30,7 @@ const generateItems = (
   const items = [] as any[];
   items.push({
     id: shortId.generate(),
-    type: NOTE_TYPE_OPEN,
+    type: POST_TYPE_OPEN,
     timestamp: challenge.openedAt.toDate(),
     data: {
       openedAt: challenge.openedAt.toDate()
@@ -39,7 +39,7 @@ const generateItems = (
 
   items.push({
     id: shortId.generate(),
-    type: NOTE_TYPE_CLOSE,
+    type: POST_TYPE_CLOSE,
     timestamp: challenge.closedAt.toDate(),
     data: {
       closedAt: challenge.closedAt.toDate()
@@ -51,7 +51,7 @@ const generateItems = (
 
     items.push({
       id: shortId.generate(),
-      type: NOTE_TYPE_JOIN,
+      type: POST_TYPE_JOIN,
       timestamp: createdAt,
       data: {
         createdAt,
@@ -62,7 +62,7 @@ const generateItems = (
     });
 
     participant.histories.map((history: any) => {
-      const type = history.type === RECORD ? NOTE_TYPE_RECORD : NOTE_TYPE_RESET;
+      const type = history.type === RECORD ? POST_TYPE_RECORD : POST_TYPE_RESET;
 
       items.push({
         id: shortId.generate(),
@@ -86,7 +86,7 @@ const generateItems = (
   topics.map((topic: any) => {
     items.push({
       id: shortId.generate(),
-      type: NOTE_TYPE_TOPIC,
+      type: POST_TYPE_TOPIC,
       timestamp: topic.createdAt.toDate(),
       data: {
         timestamp: topic.createdAt.toDate(),
@@ -104,7 +104,7 @@ const generateItems = (
   posts.map((post: any) => {
     items.push({
       id: shortId.generate(),
-      type: post.type || NOTE_TYPE_DEFAULT,
+      type: post.type || POST_TYPE_DEFAULT,
       timestamp: post.createdAt.toDate(),
       data: {
         id: post.id,
@@ -112,7 +112,7 @@ const generateItems = (
         noteId: post.id,
         timestamp: post.createdAt.toDate(),
         text: post.text,
-        type: post.type || NOTE_TYPE_DEFAULT,
+        type: post.type || POST_TYPE_DEFAULT,
         userName: post.userName,
         userPhotoURL: post.userPhotoURL,
         userId: post.userId

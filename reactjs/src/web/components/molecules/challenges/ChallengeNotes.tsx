@@ -5,13 +5,13 @@ import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 
 import Error from '../../atoms/Error';
 import {
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS
-} from '~/constants/note';
+  POST_TYPE_DEFAULT,
+  POST_TYPE_SUCCESS,
+  POST_TYPE_ANALYSIS
+} from '~/constants/post';
 import { timelineBorderColor } from '~/lib/theme';
 
-const NOTE_TYPE_STREAM = 'STREAM';
+const POST_TYPE_STREAM = 'STREAM';
 
 const ChallengeNotes = (props: any) => {
   const {
@@ -31,14 +31,13 @@ const ChallengeNotes = (props: any) => {
     feedNotes
   } = props;
 
-  const [type, setType] = useState(NOTE_TYPE_STREAM);
+  const [type, setType] = useState(POST_TYPE_STREAM);
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
     // fetchParticipant(resourceId);
     // userShortId && fetchUserTopics(topicsResourceId, userShortId);
     // userShortId && fetchUserNotes(notesResourceId, userShortId);
-
     feedNotes();
   }, [feedNotes]);
 
@@ -46,10 +45,10 @@ const ChallengeNotes = (props: any) => {
     return (
       <div style={{ width: 320 }}>
         <ButtonGroup fullWidth>
-          <Button onClick={() => setType(NOTE_TYPE_DEFAULT)}>努力記録</Button>
-          <Button onClick={() => setType(NOTE_TYPE_SUCCESS)}>達成日記</Button>
-          <Button onClick={() => setType(NOTE_TYPE_ANALYSIS)}>分析日記</Button>
-          <Button onClick={() => setType(NOTE_TYPE_STREAM)}>Stream</Button>
+          <Button onClick={() => setType(POST_TYPE_DEFAULT)}>努力記録</Button>
+          <Button onClick={() => setType(POST_TYPE_SUCCESS)}>達成日記</Button>
+          <Button onClick={() => setType(POST_TYPE_ANALYSIS)}>分析日記</Button>
+          <Button onClick={() => setType(POST_TYPE_STREAM)}>Stream</Button>
         </ButtonGroup>
       </div>
     );
@@ -70,7 +69,7 @@ const ChallengeNotes = (props: any) => {
           >
             <ChallengeNotesNavbar />
             <Timeline lineColor={timelineBorderColor}>
-              {type === NOTE_TYPE_DEFAULT &&
+              {type === POST_TYPE_DEFAULT &&
                 notes.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
@@ -79,7 +78,7 @@ const ChallengeNotes = (props: any) => {
                     isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
-              {type === NOTE_TYPE_SUCCESS &&
+              {type === POST_TYPE_SUCCESS &&
                 successList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
@@ -88,7 +87,7 @@ const ChallengeNotes = (props: any) => {
                     isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
-              {type === NOTE_TYPE_ANALYSIS &&
+              {type === POST_TYPE_ANALYSIS &&
                 analysisList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
@@ -97,7 +96,7 @@ const ChallengeNotes = (props: any) => {
                     isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
-              {type === NOTE_TYPE_STREAM &&
+              {type === POST_TYPE_STREAM &&
                 feed &&
                 feed.map((note: any) => (
                   <ChallengeNote

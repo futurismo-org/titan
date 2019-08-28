@@ -63,11 +63,7 @@ export const postChallengeJoin = (
   });
 };
 
-export const getUserChallengeNotes = (
-  userId: string,
-  userShortId: string,
-  props: any
-) => {
+export const getUserChallengeNotes = (userShortId: string, props: any) => {
   const { challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 

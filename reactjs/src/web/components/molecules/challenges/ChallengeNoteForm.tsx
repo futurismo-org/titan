@@ -10,16 +10,16 @@ import {
 import shortId from 'shortid';
 import { create } from '~/lib/firebase';
 import {
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS,
-  NOTE_TYPE_DEFAULT
-} from '~/constants/note';
+  POST_TYPE_SUCCESS,
+  POST_TYPE_ANALYSIS,
+  POST_TYPE_DEFAULT
+} from '~/constants/post';
 
 const ChallengeNoteForm = (props: any) => {
   const { challenge, user } = props;
 
   const [text, setText] = useState('');
-  const [label, setLabel] = useState(NOTE_TYPE_DEFAULT);
+  const [label, setLabel] = useState(POST_TYPE_DEFAULT);
 
   const onTextChange = (e: any) => {
     e.preventDefault();
@@ -83,17 +83,17 @@ const ChallengeNoteForm = (props: any) => {
             row
           >
             <FormControlLabel
-              value={NOTE_TYPE_DEFAULT}
+              value={POST_TYPE_DEFAULT}
               control={<Radio color="primary" />}
               label="メモ"
             />
             <FormControlLabel
-              value={NOTE_TYPE_SUCCESS}
+              value={POST_TYPE_SUCCESS}
               control={<Radio color="primary" />}
               label="達成記録"
             />
             <FormControlLabel
-              value={NOTE_TYPE_ANALYSIS}
+              value={POST_TYPE_ANALYSIS}
               control={<Radio color="primary" />}
               label="分析記録"
             />
