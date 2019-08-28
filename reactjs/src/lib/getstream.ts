@@ -1,8 +1,9 @@
 import stream from 'getstream';
+import { POST_TYPE_TOPIC, POST_TYPE_JOIN } from '../constants/post';
 import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
-import { POST_TYPE_JOIN } from '~/constants/post';
+import { getTopicPath } from './url';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
@@ -33,24 +34,53 @@ const getClient = (userId: string) => {
     );
 };
 
-const getUserToken = (userId: string) => {
+const getToken = (userShortId: string) => {
   return axios
     .post(
-      '/getstream/token/user',
+      '/getstream/token',
       {
-        userId: userId
+        userId: userShortId
       },
       { headers: { Accept: 'application/json' } }
     )
     .then(res => res.data);
 };
 
-const getTimelineToken = () => {
+const getUserToken = (userShortId: string) => {
   return axios
-    .post('/getstream/token/timeline', {
-      headers: { Accept: 'application/json' }
-    })
+    .post(
+      '/getstream/token/user',
+      {
+        userId: userShortId
+      },
+      { headers: { Accept: 'application/json' } }
+    )
     .then(res => res.data);
+};
+
+const getTimelineToken = (userShortId: string) => {
+  return axios
+    .post(
+      '/getstream/token/timeline',
+      {
+        userId: userShortId
+      },
+
+      {
+        headers: { Accept: 'application/json' }
+      }
+    )
+    .then(res => res.data);
+};
+
+const collectionName = (collectionType: string) => {
+  if (collectionType === 'challenges') {
+    return 'challenge';
+  } else if (collectionType === 'categories') {
+    return 'category';
+  } else {
+    return 'general';
+  }
 };
 
 // チャレンジ参加
@@ -64,11 +94,11 @@ export const postChallengeJoin = (
   return getClient(userId).then((client: any) => {
     if (!client) return;
 
-    const feed = client.feed('user', userShortId);
+    const feed = client.feed('challenge', userShortId);
     feed.addActivity({
       actor: streamUserId(userShortId),
       verb: POST_TYPE_JOIN,
-      object: `user:${userShortId}`,
+      object: `challenge:${challengeId}`,
       foreign_id: `challenge:${challengeId}`, // eslint-disable-line
       time: new Date(),
       createdAt: new Date(),
@@ -80,14 +110,44 @@ export const postChallengeJoin = (
   });
 };
 
+// トピック投稿
+export const postTopic = (userId: string, userShortId: string, props: any) => {
+  const { collectionType, collectionId, topicId, title, user } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  return getToken(userShortId).then((token: any) => {
+    const feed = client.feed('topic', userShortId, token);
+    feed.addActivity({
+      actor: streamUserId(userShortId),
+      verb: POST_TYPE_TOPIC,
+      object: `topic:${topicId}`,
+      foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
+      time: new Date().toISOString(),
+      createdAt: new Date(),
+      userId: userShortId,
+      userDisplayName: user.displayName,
+      userPhoroURL: user.photoURL,
+      collectionId,
+      collectionType,
+      title,
+      path: getTopicPath(topicId, collectionType, collectionId),
+      topicId
+    });
+  });
+};
+
 export const getUserChallengeNotes = (userShortId: string, props: any) => {
   const { challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  return getToken(userShortId).then((token: any) => {
+    const timeline = client.feed('timeline', userShortId, token);
+    timeline.follow('challenge', userShortId);
+    timeline.follow('topic', userShortId);
+    timeline.follow('note', userShortId);
 
-  console.log(userShortId);
-
-  return getUserToken(userShortId).then((token: any) => {
-    const postFeed = client.feed('user', userShortId, token);
-    return postFeed.get({}).then((data: any) => data['results']);
+    return timeline.get({}).then((data: any) => {
+      console.log(data);
+      return data['results'];
+    });
   });
 };

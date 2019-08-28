@@ -31,7 +31,7 @@ const createTopicPost = (data: any) => {
     data: {
       timestamp: data.createdAt,
       title: data.title,
-      path: `/c/${data.challengeId}/t/${data.topicId}`,
+      path: data.path,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId

@@ -26,12 +26,13 @@ const createTopics = () => {
       DUMMY_USER_ID_LIST[
         faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
       ];
-    const feed = client.feed('user', userId);
+    const feed = client.feed('topic', userId);
 
     const activity = {
       actor: StreamUserId(userId),
       verb: 'TOPIC',
       object: `topic:${topicId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
@@ -47,16 +48,16 @@ const createTopics = () => {
 
 const createNotes = () => {
   DUMMY_NOTE_ID_LIST.map((noteId: string) => {
-    const feed = client.feed('user', noteId);
     const userId =
       DUMMY_USER_ID_LIST[
         faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
       ];
-
+    const feed = client.feed('note', userId);
     const activity = {
       actor: StreamUserId(userId),
       verb: 'NOTE',
       object: `note:${noteId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',

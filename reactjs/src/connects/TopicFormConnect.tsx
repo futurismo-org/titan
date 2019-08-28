@@ -5,6 +5,7 @@ import { fetchTopic } from '~/actions/topicAction';
 
 import { getTopicsPath } from '../lib/url';
 import { getTopicId } from '~/lib/resource';
+import { postTopic } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -39,10 +40,20 @@ const mapStateToProps = (state: any, props: any) => {
     createdAt: new Date()
   };
 
+  const postTopicStream = (title: string) =>
+    postTopic(currentUser.id, currentUser.shortId, {
+      collectionType: collection,
+      collectionId,
+      topicId,
+      user: currentUser,
+      title
+    });
+
   return {
     topic: state.topic.target,
     loading: state.topic.loading,
     error: state.topic.error,
+    postTopicStream,
     resourceId,
     redirectPath,
     newData,

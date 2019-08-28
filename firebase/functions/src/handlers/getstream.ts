@@ -32,6 +32,7 @@ exports.getUserReadOnlyToken = (req: any, res: any) => {
 };
 
 exports.getTimelineReadOnlyToken = (req: any, res: any) => {
-  const token = client.getReadOnlyToken('timeline', '1');
+  const userId = req.body.userId;
+  const token = client.getReadOnlyToken('timeline', userId);
   return res.status(200).json(token);
 };

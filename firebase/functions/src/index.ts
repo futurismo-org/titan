@@ -34,6 +34,7 @@ app.get('/c/:cid/overview', challenge);
 
 // getstream
 app.post('/getstream/register', getToken);
+app.post('/getstream/token', getToken);
 app.post('/getstream/token/user', getUserReadOnlyToken);
 app.post('/getstream/token/timeline', getTimelineReadOnlyToken);
 

@@ -18,7 +18,8 @@ const TopicForm = (props: any) => {
     isCreate,
     history,
     loading,
-    error
+    error,
+    postTopicStream
   } = props;
 
   const [title, setTitle] = useState('');
@@ -37,7 +38,8 @@ const TopicForm = (props: any) => {
       }
     }
 
-    getPublicIP().then((ip: string) => setIP(ip));
+    process.env.REACT_APP_ENV !== 'development' &&
+      getPublicIP().then((ip: string) => setIP(ip));
   }, [fetchTopic, isCreate, resourceId, topic]);
 
   const onTitleChange = (e: any) => {
@@ -60,16 +62,23 @@ const TopicForm = (props: any) => {
       const newData = { title, url, text, ip, ...props.newData };
       db.doc(resourceId)
         .set(newData)
+        .then(() => postTopicStream(title))
         .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
         .then(() => history.replace(redirectPath))
-        .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
+        .catch((err: any) => {
+          console.log(err);
+          window.alert('エラーが発生しました。'); // eslint-disable-line
+        });
     } else {
       const updateData = { title, url, text, ip, ...props.updateData };
       db.doc(resourceId)
         .update(updateData)
         .then(() => window.alert('更新が完了しました。')) // eslint-disable-line
         .then(() => history.replace(redirectPath))
-        .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
+        .catch((err: any) => {
+          console.log(err);
+          window.alert('エラーが発生しました。'); // eslint-disable-line
+        });
     }
   };
 
