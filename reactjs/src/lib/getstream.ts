@@ -2,6 +2,7 @@ import stream from 'getstream';
 import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
+import { POST_TYPE_JOIN } from '~/constants/post';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
@@ -50,15 +51,19 @@ export const postChallengeJoin = (
   userShortId: string,
   props: any
 ) => {
-  const { challengeId } = props;
+  const { challengeId, user } = props;
 
   return getClient(userId).then((client: any) => {
-    const user = client.feed('user', userShortId);
-    user.addActivity({
+    const feed = client.feed('user', userShortId);
+    feed.addActivity({
       actor: streamUserId(userShortId),
-      verb: 'join',
+      verb: POST_TYPE_JOIN,
       object: `challenge:${challengeId}`,
-      time: new Date()
+      time: new Date(),
+      createdAt: new Date(),
+      userId: userShortId,
+      userDisplayName: user.displayName,
+      userPhoroURL: user.photoURL
     });
   });
 };

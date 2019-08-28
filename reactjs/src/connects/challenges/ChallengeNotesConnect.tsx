@@ -20,6 +20,7 @@ import {
 } from '~/constants/post';
 import { RECORD } from '~/lib/challenge';
 import { getUserChallengeNotes } from '~/lib/getstream';
+import { createPost } from '~/lib/post';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -116,10 +117,6 @@ const generateNotes = (
   return notes.sort((x: any, y: any) =>
     moment(x.timestamp).diff(moment(y.timestamp))
   );
-};
-
-const createPost = (data: any) => {
-  return data;
 };
 
 const mapStateToProps = (state: any, props: any) => {

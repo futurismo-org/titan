@@ -15,16 +15,10 @@ const POST_TYPE_STREAM = 'STREAM';
 
 const ChallengeNotes = (props: any) => {
   const {
-    fetchParticipant,
-    resourceId,
     notes,
     userShortId,
     loading,
     error,
-    topicsResourceId,
-    fetchUserTopics,
-    fetchUserNotes,
-    notesResourceId,
     successList,
     analysisList,
     isMyProfile,
@@ -32,13 +26,13 @@ const ChallengeNotes = (props: any) => {
   } = props;
 
   const [type, setType] = useState(POST_TYPE_STREAM);
-  const [feed, setFeed] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     // fetchParticipant(resourceId);
     // userShortId && fetchUserTopics(topicsResourceId, userShortId);
     // userShortId && fetchUserNotes(notesResourceId, userShortId);
-    feedNotes();
+    feedNotes().then((posts: any) => setPosts(posts));
   }, [feedNotes]);
 
   const ChallengeNotesNavbar = (props: any) => {
@@ -58,7 +52,7 @@ const ChallengeNotes = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading && feed && (
+      {!loading && posts && (
         <React.Fragment>
           <Grid
             container
@@ -97,12 +91,11 @@ const ChallengeNotes = (props: any) => {
                   />
                 ))}
               {type === POST_TYPE_STREAM &&
-                feed &&
-                feed.map((note: any) => (
+                posts.map((post: any) => (
                   <ChallengeNote
-                    key={note.id}
-                    type={note.type}
-                    data={note.data}
+                    key={post.id}
+                    type={post.type}
+                    data={post.data}
                     isMyProfile={isMyProfile(userShortId)}
                   />
                 ))}
