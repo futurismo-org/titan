@@ -2,6 +2,8 @@ import faker from 'faker';
 import moment from 'moment';
 import shortId from 'shortid';
 
+require('dotenv').config();
+
 // userId
 export const TITAN_USER_ID = 'z2aTFBqRrzMi70tC9nnwRsj0zZC3';
 export const TSUNE_USER_ID = 'oZEKc9c7k5XUIVxklYMVwvAiXbW2';

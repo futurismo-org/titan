@@ -1,6 +1,4 @@
 import faker from 'faker';
-import moment from 'moment';
-import shortId from 'shortid';
 
 import stream from 'getstream';
 import {
@@ -22,50 +20,59 @@ const client = stream.connect(
 
 const StreamUserId = (userId: string) => `SU:${userId}`;
 
-DUMMY_TOPIC_ID_LIST.map((topicId: string) => {
-  const feed = client.feed('topic', topicId);
-  const userId =
-    DUMMY_USER_ID_LIST[
-      faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
-    ];
+const createTopics = () => {
+  DUMMY_TOPIC_ID_LIST.map((topicId: string) => {
+    const feed = client.feed('topic', topicId);
+    const userId =
+      DUMMY_USER_ID_LIST[
+        faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
+      ];
 
-  const activity = {
-    actor: StreamUserId(userId),
-    verb: 'TOPIC',
-    object: `topic:${topicId}`,
-    foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
-    time: getRandomCreatedAt().toISOString(),
-    userId,
-    collectionType: 'challenges',
-    collectionId: MUSCLE_CHALLENGE_ID,
-    topicId: topicId,
-    title: faker.lorem.sentence(),
-    path: `/c/${MUSCLE_CHALLENGE_ID}/t/${topicId}}`
-  };
+    const activity = {
+      actor: StreamUserId(userId),
+      verb: 'TOPIC',
+      object: `topic:${topicId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      time: getRandomCreatedAt().toISOString(),
+      userId,
+      collectionType: 'challenges',
+      collectionId: MUSCLE_CHALLENGE_ID,
+      topicId: topicId,
+      title: faker.lorem.sentence(),
+      path: `/c/${MUSCLE_CHALLENGE_ID}/t/${topicId}}`
+    };
 
-  feed.addActivity(activity);
-});
+    feed.addActivity(activity);
+  });
+};
 
-DUMMY_NOTE_ID_LIST.map((noteId: string) => {
-  const feed = client.feed('note', noteId);
-  const userId =
-    DUMMY_USER_ID_LIST[
-      faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
-    ];
+const createNotes = () => {
+  DUMMY_NOTE_ID_LIST.map((noteId: string) => {
+    const feed = client.feed('note', noteId);
+    const userId =
+      DUMMY_USER_ID_LIST[
+        faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
+      ];
 
-  const activity = {
-    actor: StreamUserId(userId),
-    verb: 'NOTE',
-    object: `note:${noteId}`,
-    foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
-    time: getRandomCreatedAt().toISOString(),
-    userId,
-    userDisplayName: faker.name.firstName(),
-    userPhotoURL: faker.image.avatar(),
-    collectionId: MUSCLE_CHALLENGE_ID,
-    noteId: noteId,
-    text: faker.lorem.paragraphs()
-  };
+    const activity = {
+      actor: StreamUserId(userId),
+      verb: 'NOTE',
+      object: `note:${noteId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      time: getRandomCreatedAt().toISOString(),
+      userId,
+      userDisplayName: faker.name.firstName(),
+      userPhotoURL: faker.image.avatar(),
+      collectionId: MUSCLE_CHALLENGE_ID,
+      noteId: noteId,
+      text: faker.lorem.paragraphs()
+    };
 
-  feed.addActivity(activity);
-});
+    feed.addActivity(activity);
+  });
+};
+
+export const createStream = () => {
+  createTopics();
+  createNotes();
+};
