@@ -164,7 +164,7 @@ const mapStateToProps = (state: any, props: any) => {
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
   const feedNotes = () =>
-    getUserChallengeNotes(profile.shortId, { challengeId })
+    getUserChallengeNotes(userShortId, { challengeId })
       .then((data: any) => generatePosts(data, challenge))
       .then((posts: any) =>
         posts.sort((x: any, y: any) =>

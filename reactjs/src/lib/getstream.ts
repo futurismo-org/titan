@@ -27,21 +27,29 @@ const getClient = (userId: string) => {
     .collection('securities')
     .doc(userId)
     .get()
-    .then((doc: any) => doc.data().getStreamToken)
+    .then((doc: any) => (doc.data() ? doc.data().getStreamToken : null))
     .then((token: string) =>
-      stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID)
+      token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
     );
 };
 
 const getUserToken = (userId: string) => {
   return axios
     .post(
-      '/getstream/user/token',
+      '/getstream/token/user',
       {
         userId: userId
       },
       { headers: { Accept: 'application/json' } }
     )
+    .then(res => res.data);
+};
+
+const getTimelineToken = () => {
+  return axios
+    .post('/getstream/token/timeline', {
+      headers: { Accept: 'application/json' }
+    })
     .then(res => res.data);
 };
 
@@ -54,16 +62,20 @@ export const postChallengeJoin = (
   const { challengeId, user } = props;
 
   return getClient(userId).then((client: any) => {
+    if (!client) return;
+
     const feed = client.feed('user', userShortId);
     feed.addActivity({
       actor: streamUserId(userShortId),
       verb: POST_TYPE_JOIN,
-      object: `challenge:${challengeId}`,
+      object: `user:${userShortId}`,
+      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
       time: new Date(),
       createdAt: new Date(),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL
+      userPhoroURL: user.photoURL,
+      challengeId
     });
   });
 };
@@ -72,8 +84,10 @@ export const getUserChallengeNotes = (userShortId: string, props: any) => {
   const { challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
+  console.log(userShortId);
+
   return getUserToken(userShortId).then((token: any) => {
-    const user = client.feed('user', userShortId, token);
-    return user.get({ enrich: false }).then((data: any) => data['results']);
+    const postFeed = client.feed('user', userShortId, token);
+    return postFeed.get({}).then((data: any) => data['results']);
   });
 };
