@@ -1,6 +1,7 @@
 import faker from 'faker';
-
+import shortId from 'shortid';
 import stream from 'getstream';
+
 import {
   GETSTREAM_SECRET,
   GETSTREAM_APP_ID,
@@ -74,7 +75,48 @@ const createNotes = () => {
   });
 };
 
+const createHistories = () => {
+  DUMMY_USER_ID_LIST.map(userId => {
+    const historyId = shortId.generate();
+    const feed = client.feed('history', userId);
+
+    const activity1 = {
+      actor: StreamUserId(userId),
+      verb: 'RESET',
+      object: `history:${historyId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      time: getRandomCreatedAt().toISOString(),
+      userId,
+      collectionType: 'challenges',
+      collectionId: MUSCLE_CHALLENGE_ID,
+      userDisplayName: faker.name.firstName(),
+      userPhotoURL: faker.image.avatar(),
+      historyId: historyId,
+      challengeId: MUSCLE_CHALLENGE_ID
+    };
+
+    const historyId2 = shortId.generate();
+    const activity2 = {
+      actor: StreamUserId(userId),
+      verb: 'RECORD',
+      object: `history:${historyId2}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      time: getRandomCreatedAt().toISOString(),
+      userId,
+      collectionType: 'challenges',
+      collectionId: MUSCLE_CHALLENGE_ID,
+      userDisplayName: faker.name.firstName(),
+      userPhotoURL: faker.image.avatar(),
+      historyId: historyId2,
+      challengeId: MUSCLE_CHALLENGE_ID
+    };
+
+    feed.addActivities([activity1, activity2]);
+  });
+};
+
 export const createStream = () => {
   createTopics();
   createNotes();
+  createHistories();
 };

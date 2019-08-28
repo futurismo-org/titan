@@ -143,6 +143,37 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
   });
 };
 
+// 記録投稿
+export const postHistory = (userShortId: string, props: any) => {
+  const {
+    collectionType,
+    collectionId,
+    historyId,
+    user,
+    challengeId,
+    type
+  } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  return getToken(userShortId).then((token: any) => {
+    const feed = client.feed('history', userShortId, token);
+    feed.addActivity({
+      actor: streamUserId(userShortId),
+      verb: type,
+      object: `history:${historyId}`,
+      foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
+      time: new Date().toISOString(),
+      userId: userShortId,
+      userDisplayName: user.displayName,
+      userPhoroURL: user.photoURL,
+      collectionId,
+      collectionType,
+      historyId,
+      challengeId
+    });
+  });
+};
+
 export const getUserChallengeNotes = (userShortId: string, props: any) => {
   const { challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
