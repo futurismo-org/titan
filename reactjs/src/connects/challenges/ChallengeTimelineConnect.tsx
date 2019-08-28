@@ -14,7 +14,7 @@ import {
   POST_TYPE_RECORD,
   POST_TYPE_RESET,
   POST_TYPE_TOPIC,
-  POST_TYPE_DEFAULT
+  POST_TYPE_NOTE
 } from '~/constants/post';
 import { RECORD } from '~/lib/challenge';
 
@@ -104,7 +104,7 @@ const generateItems = (
   posts.map((post: any) => {
     items.push({
       id: shortId.generate(),
-      type: post.type || POST_TYPE_DEFAULT,
+      type: post.type || POST_TYPE_NOTE,
       timestamp: post.createdAt.toDate(),
       data: {
         id: post.id,
@@ -112,7 +112,7 @@ const generateItems = (
         noteId: post.id,
         timestamp: post.createdAt.toDate(),
         text: post.text,
-        type: post.type || POST_TYPE_DEFAULT,
+        type: post.type || POST_TYPE_NOTE,
         userName: post.userName,
         userPhotoURL: post.userPhotoURL,
         userId: post.userId

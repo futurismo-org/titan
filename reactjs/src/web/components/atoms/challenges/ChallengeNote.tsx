@@ -27,7 +27,7 @@ import {
   POST_TYPE_RECORD,
   POST_TYPE_RESET,
   POST_TYPE_TOPIC,
-  POST_TYPE_DEFAULT,
+  POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS
 } from '~/constants/post';
@@ -155,7 +155,7 @@ const ChallengeNoteMemo = (props: any) => {
 
     update(resourceId, data)
       .then(() => {
-        if (label === POST_TYPE_DEFAULT) {
+        if (label === POST_TYPE_NOTE) {
           setBackground(brandPink);
           setTextColor(brandWhite);
         } else if (label === POST_TYPE_SUCCESS) {
@@ -224,7 +224,7 @@ const ChallengeNoteMemo = (props: any) => {
         row
       >
         <FormControlLabel
-          value={POST_TYPE_DEFAULT}
+          value={POST_TYPE_NOTE}
           control={<Radio color="primary" />}
           label="メモ"
         />
@@ -299,7 +299,7 @@ const componentMap = new Map([
   [POST_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
   [POST_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
   [POST_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
-  [POST_TYPE_DEFAULT, (data: any) => <ChallengeNoteDefault data={data} />],
+  [POST_TYPE_NOTE, (data: any) => <ChallengeNoteDefault data={data} />],
   [POST_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
   [POST_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />]
 ]);

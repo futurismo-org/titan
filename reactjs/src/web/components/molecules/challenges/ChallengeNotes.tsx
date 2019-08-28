@@ -5,7 +5,7 @@ import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 
 import Error from '../../atoms/Error';
 import {
-  POST_TYPE_DEFAULT,
+  POST_TYPE_NOTE,
   POST_TYPE_SUCCESS,
   POST_TYPE_ANALYSIS
 } from '~/constants/post';
@@ -39,10 +39,9 @@ const ChallengeNotes = (props: any) => {
     return (
       <div style={{ width: 320 }}>
         <ButtonGroup fullWidth>
-          <Button onClick={() => setType(POST_TYPE_DEFAULT)}>努力記録</Button>
+          <Button onClick={() => setType(POST_TYPE_NOTE)}>努力記録</Button>
           <Button onClick={() => setType(POST_TYPE_SUCCESS)}>達成日記</Button>
           <Button onClick={() => setType(POST_TYPE_ANALYSIS)}>分析日記</Button>
-          <Button onClick={() => setType(POST_TYPE_STREAM)}>Stream</Button>
         </ButtonGroup>
       </div>
     );
@@ -63,7 +62,7 @@ const ChallengeNotes = (props: any) => {
           >
             <ChallengeNotesNavbar />
             <Timeline lineColor={timelineBorderColor}>
-              {type === POST_TYPE_DEFAULT &&
+              {type === POST_TYPE_NOTE &&
                 notes.map((note: any) => (
                   <ChallengeNote
                     key={note.id}

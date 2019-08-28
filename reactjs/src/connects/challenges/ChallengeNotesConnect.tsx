@@ -14,7 +14,7 @@ import {
   POST_TYPE_RECORD,
   POST_TYPE_RESET,
   POST_TYPE_TOPIC,
-  POST_TYPE_DEFAULT,
+  POST_TYPE_NOTE,
   POST_TYPE_SUCCESS,
   POST_TYPE_ANALYSIS
 } from '~/constants/post';
@@ -125,7 +125,7 @@ const generateNotes = (
   posts.map((post: any) => {
     notes.push({
       id: shortId.generate(),
-      type: post.type || POST_TYPE_DEFAULT,
+      type: post.type || POST_TYPE_NOTE,
       timestamp: post.createdAt.toDate(),
       data: {
         id: post.id,
@@ -133,7 +133,7 @@ const generateNotes = (
         noteId: post.id,
         timestamp: post.createdAt.toDate(),
         text: post.text,
-        type: post.type || POST_TYPE_DEFAULT
+        type: post.type || POST_TYPE_NOTE
       }
     });
 

@@ -12,14 +12,14 @@ import { create } from '~/lib/firebase';
 import {
   POST_TYPE_SUCCESS,
   POST_TYPE_ANALYSIS,
-  POST_TYPE_DEFAULT
+  POST_TYPE_NOTE
 } from '~/constants/post';
 
 const ChallengeNoteForm = (props: any) => {
   const { challenge, user } = props;
 
   const [text, setText] = useState('');
-  const [label, setLabel] = useState(POST_TYPE_DEFAULT);
+  const [label, setLabel] = useState(POST_TYPE_NOTE);
 
   const onTextChange = (e: any) => {
     e.preventDefault();
@@ -83,7 +83,7 @@ const ChallengeNoteForm = (props: any) => {
             row
           >
             <FormControlLabel
-              value={POST_TYPE_DEFAULT}
+              value={POST_TYPE_NOTE}
               control={<Radio color="primary" />}
               label="メモ"
             />

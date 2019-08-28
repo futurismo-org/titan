@@ -24,7 +24,7 @@ import {
   POST_TYPE_RECORD,
   POST_TYPE_RESET,
   POST_TYPE_TOPIC,
-  POST_TYPE_DEFAULT,
+  POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS
 } from '~/constants/post';
@@ -225,10 +225,7 @@ const componentMap = new Map([
   ],
   [POST_TYPE_RESET, (data: any) => <ChallengeTimelineItemReset data={data} />],
   [POST_TYPE_TOPIC, (data: any) => <ChallengeTimelineItemTopic data={data} />],
-  [
-    POST_TYPE_DEFAULT,
-    (data: any) => <ChallengeTimelineItemDefault data={data} />
-  ],
+  [POST_TYPE_NOTE, (data: any) => <ChallengeTimelineItemDefault data={data} />],
   [
     POST_TYPE_SUCCESS,
     (data: any) => <ChallengeTimelineItemSuccess data={data} />
