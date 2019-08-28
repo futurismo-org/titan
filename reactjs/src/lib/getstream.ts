@@ -112,7 +112,14 @@ export const postChallengeJoin = (
 
 // トピック投稿
 export const postTopic = (userId: string, userShortId: string, props: any) => {
-  const { collectionType, collectionId, topicId, title, user } = props;
+  const {
+    collectionType,
+    collectionId,
+    topicId,
+    title,
+    user,
+    challengeId
+  } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
   return getToken(userShortId).then((token: any) => {
@@ -131,7 +138,8 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
       collectionType,
       title,
       path: getTopicPath(topicId, collectionType, collectionId),
-      topicId
+      topicId,
+      challengeId
     });
   });
 };
@@ -145,9 +153,11 @@ export const getUserChallengeNotes = (userShortId: string, props: any) => {
     timeline.follow('topic', userShortId);
     timeline.follow('note', userShortId);
 
-    return timeline.get({}).then((data: any) => {
-      console.log(data);
-      return data['results'];
-    });
+    return timeline
+      .get({})
+      .then((data: any) => data['results'])
+      .then((posts: any) =>
+        posts.filter((post: any) => post.challengeId === challengeId)
+      );
   });
 };

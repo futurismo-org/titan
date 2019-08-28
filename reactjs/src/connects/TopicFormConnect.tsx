@@ -25,6 +25,8 @@ const mapStateToProps = (state: any, props: any) => {
   const redirectPath = getTopicsPath(collection, collectionId);
   const currentUser = state.firebase.profile;
 
+  const challengeId = collection === 'challenges' ? collectionId : null;
+
   const updateData = {
     id: topicId,
     updatedAt: new Date(),
@@ -46,7 +48,8 @@ const mapStateToProps = (state: any, props: any) => {
       collectionId,
       topicId,
       user: currentUser,
-      title
+      title,
+      challengeId
     });
 
   return {
