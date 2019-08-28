@@ -1,10 +1,5 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
 import shortId from 'shortid';
-import { fetchParticipant } from '~/actions/participantAction';
-import { fetchUserTopics } from '~/actions/topicAction';
-import { getParticipantId, getTopicsId, getNotesId } from '~/lib/resource';
-import { fetchUserNotes } from '~/actions/noteAction';
 
 import moment from '~/lib/moment';
 import {
@@ -21,12 +16,6 @@ import {
 import { RECORD } from '~/lib/challenge';
 import { getUserChallengeNotes } from '~/lib/getstream';
 import { createPost } from '~/lib/post';
-
-const mapDispatchToProps = (dispatch: Dispatch) =>
-  bindActionCreators(
-    { fetchParticipant, fetchUserTopics, fetchUserNotes },
-    dispatch
-  );
 
 const generatePosts = (data: any, challenge: any) => {
   const notes = [];
@@ -191,7 +180,4 @@ const mapStateToProps = (state: any, props: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+export default connect(mapStateToProps);

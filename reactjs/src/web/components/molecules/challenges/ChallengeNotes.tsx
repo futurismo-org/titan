@@ -3,7 +3,6 @@ import { Timeline } from 'vertical-timeline-component-for-react';
 import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 
-import Error from '../../atoms/Error';
 import {
   POST_TYPE_NOTE,
   POST_TYPE_SUCCESS,
@@ -11,29 +10,23 @@ import {
 } from '~/constants/post';
 import { timelineBorderColor } from '~/lib/theme';
 
-const POST_TYPE_STREAM = 'STREAM';
-
 const ChallengeNotes = (props: any) => {
-  const {
-    notes,
-    userShortId,
-    loading,
-    error,
-    successList,
-    analysisList,
-    isMyProfile,
-    feedNotes
-  } = props;
+  const { isMyProfile, feedNotes } = props;
 
-  const [type, setType] = useState(POST_TYPE_STREAM);
+  const [type, setType] = useState(POST_TYPE_NOTE);
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // fetchParticipant(resourceId);
-    // userShortId && fetchUserTopics(topicsResourceId, userShortId);
-    // userShortId && fetchUserNotes(notesResourceId, userShortId);
-    feedNotes().then((posts: any) => setPosts(posts));
-  }, [feedNotes]);
+    if (posts.length === 0 && !loading) {
+      setLoading(true);
+      feedNotes().then((notes: any) => {
+        setPosts(notes);
+        setLoading(false);
+        console.log('passed');
+      });
+    }
+  }, [feedNotes, loading, posts, posts.length]);
 
   const ChallengeNotesNavbar = (props: any) => {
     return (
@@ -49,9 +42,7 @@ const ChallengeNotes = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && null}
-      {!loading && posts && (
+      {posts.length !== 0 && (
         <React.Fragment>
           <Grid
             container
@@ -63,15 +54,15 @@ const ChallengeNotes = (props: any) => {
             <ChallengeNotesNavbar />
             <Timeline lineColor={timelineBorderColor}>
               {type === POST_TYPE_NOTE &&
-                notes.map((note: any) => (
+                posts.map((post: any) => (
                   <ChallengeNote
-                    key={note.id}
-                    type={note.type}
-                    data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    key={post.id}
+                    type={post.type}
+                    data={post.data}
+                    isMyProfile={isMyProfile}
                   />
                 ))}
-              {type === POST_TYPE_SUCCESS &&
+              {/* {type === POST_TYPE_SUCCESS &&
                 successList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
@@ -88,16 +79,7 @@ const ChallengeNotes = (props: any) => {
                     data={note.data}
                     isMyProfile={isMyProfile(userShortId)}
                   />
-                ))}
-              {type === POST_TYPE_STREAM &&
-                posts.map((post: any) => (
-                  <ChallengeNote
-                    key={post.id}
-                    type={post.type}
-                    data={post.data}
-                    isMyProfile={isMyProfile(userShortId)}
-                  />
-                ))}
+                ))} */}
             </Timeline>
           </Grid>
         </React.Fragment>
