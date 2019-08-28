@@ -147,7 +147,8 @@ const mapStateToProps = (state: any, props: any) => {
   const profile = state.firebase.profile;
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
-  const feedNotes = () => getUserChallengeNotes(profile.id, { challengeId });
+  const feedNotes = () =>
+    getUserChallengeNotes(profile.id, profile.shortId, { challengeId });
 
   return {
     resourceId,

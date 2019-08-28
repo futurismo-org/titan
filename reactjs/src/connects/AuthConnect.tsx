@@ -46,10 +46,11 @@ const mapStateToProps = (state: any, props: any) => {
         });
       }
 
-      getStreamToken(user!.uid).then((token: any) => {
+      getStreamToken(userShortId).then((token: any) => {
         const userId = user!.uid;
         const secureData = {
           id: userId,
+          userShortId,
           email: user!.email,
           getStreamToken: token,
           accessTokenKey: isTwitter

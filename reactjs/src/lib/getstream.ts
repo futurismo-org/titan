@@ -5,12 +5,12 @@ import firebase from '~/lib/firebase';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
-export const getStreamToken = async (userShortId: string) => {
+export const getStreamToken = async (userId: string) => {
   return await axios
     .post(
       '/getstream/register',
       {
-        userId: userShortId
+        userId: userId
       },
       { headers: { Accept: 'application/json' } }
     )
@@ -32,30 +32,47 @@ const getClient = (userId: string) => {
     );
 };
 
+const getUserToken = (userId: string) => {
+  return axios
+    .post(
+      '/getstream/user/token',
+      {
+        userId: userId
+      },
+      { headers: { Accept: 'application/json' } }
+    )
+    .then(res => res.data);
+};
+
 // チャレンジ参加
-export const postChallengeJoin = (userId: string, props: any) => {
+export const postChallengeJoin = (
+  userId: string,
+  userShortId: string,
+  props: any
+) => {
   const { challengeId } = props;
 
   return getClient(userId).then((client: any) => {
-    const user = client.feed('user', userId);
+    const user = client.feed('user', userShortId);
     user.addActivity({
-      actor: streamUserId(userId),
-      verb: 'add',
-      object: `user:${userId}`,
-      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      actor: streamUserId(userShortId),
+      verb: 'join',
+      object: `challenge:${challengeId}`,
       time: new Date()
     });
   });
 };
 
-export const getUserChallengeNotes = (userId: string, props: any) => {
+export const getUserChallengeNotes = (
+  userId: string,
+  userShortId: string,
+  props: any
+) => {
   const { challengeId } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
-  return getClient(userId).then(async (client: any) => {
-    const user = client.feed('user', userId);
-
-    const data = await user.get({ limit: 1 });
-
-    console.log(data);
+  return getUserToken(userShortId).then((token: any) => {
+    const user = client.feed('user', userShortId, token);
+    return user.get({ enrich: false }).then((data: any) => data['results']);
   });
 };
