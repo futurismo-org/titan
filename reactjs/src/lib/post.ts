@@ -17,7 +17,7 @@ const createJoinPost = (data: any) => {
   return {
     ...baseData(data),
     data: {
-      timestamp: data.createdAt,
+      timestamp: data.time,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId
@@ -29,7 +29,7 @@ const createTopicPost = (data: any) => {
   return {
     ...baseData(data),
     data: {
-      timestamp: data.createdAt,
+      timestamp: data.time,
       title: data.title,
       path: data.path,
       userName: data.userDisplayName,
@@ -47,7 +47,7 @@ const createNotePost = (data: any) => {
       noteId: data.noteId,
       text: data.text,
       type: data.verb,
-      timestamp: data.createdAt,
+      timestamp: data.time,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId

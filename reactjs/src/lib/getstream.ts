@@ -130,7 +130,6 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
       object: `topic:${topicId}`,
       foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
       time: new Date().toISOString(),
-      createdAt: new Date(),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhoroURL: user.photoURL,

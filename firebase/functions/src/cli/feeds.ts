@@ -39,7 +39,8 @@ const createTopics = () => {
       collectionId: MUSCLE_CHALLENGE_ID,
       topicId: topicId,
       title: faker.lorem.sentence(),
-      path: `/c/${MUSCLE_CHALLENGE_ID}/t/${topicId}}`
+      path: `/c/${MUSCLE_CHALLENGE_ID}/t/${topicId}}`,
+      challengeId: MUSCLE_CHALLENGE_ID
     };
 
     feed.addActivity(activity);
@@ -65,7 +66,8 @@ const createNotes = () => {
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
       noteId: noteId,
-      text: faker.lorem.paragraphs()
+      text: faker.lorem.paragraphs(),
+      challengeId: MUSCLE_CHALLENGE_ID
     };
 
     feed.addActivity(activity);
