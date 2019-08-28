@@ -4,7 +4,8 @@ import {
   POST_TYPE_NOTE,
   POST_TYPE_TOPIC,
   POST_TYPE_RECORD,
-  POST_TYPE_RESET
+  POST_TYPE_RESET,
+  POST_TYPE_OBJECTIVE
 } from '~/constants/post';
 
 const baseData = (data: any) => {
@@ -73,12 +74,28 @@ const createHistoryPost = (data: any) => {
   };
 };
 
+const createObjectivePost = (data: any) => {
+  return {
+    ...baseData(data),
+    data: {
+      challengeId: data.challengeId,
+      historyId: data.historyId,
+      type: data.verb,
+      timestamp: data.time,
+      userName: data.userDisplayName,
+      userPhotoURL: data.userPhotoURL,
+      userId: data.userId
+    }
+  };
+};
+
 const functionMap = new Map([
   [POST_TYPE_JOIN, (data: any) => createJoinPost(data)],
   [POST_TYPE_TOPIC, (data: any) => createTopicPost(data)],
   [POST_TYPE_NOTE, (data: any) => createNotePost(data)],
   [POST_TYPE_RECORD, (data: any) => createHistoryPost(data)],
-  [POST_TYPE_RESET, (data: any) => createHistoryPost(data)]
+  [POST_TYPE_RESET, (data: any) => createHistoryPost(data)],
+  [POST_TYPE_OBJECTIVE, (data: any) => createObjectivePost(data)]
 ]);
 
 export const createPost = (data: any) => {
