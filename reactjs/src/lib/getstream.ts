@@ -77,18 +77,27 @@ const collectionName = (collectionType: string) => {
   }
 };
 
-// チャレンジ参加
-export const postChallengeJoin = (userShortId: string, props: any) => {
-  const { challengeId, user } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+const getUserChallengeId = (userShortId: string, challengeId: string) =>
+  `${userShortId}_${challengeId}`;
 
-  return getToken(userShortId).then((token: any) => {
-    const feed = client.feed('challenge', userShortId, token);
+// チャレンジ参加
+export const postUserChallengeJoin = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
+  const { user } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const id = getUserChallengeId(userShortId, challengeId);
+
+  return getToken(id).then((token: any) => {
+    const feed = client.feed('challenge', id, token);
+
     feed.addActivity({
-      actor: streamUserId(userShortId),
+      actor: id,
       verb: POST_TYPE_JOIN,
-      object: `challenge:${challengeId}`,
-      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      object: `challenge:${id}`,
+      foreign_id: `challenge:${id}`, // eslint-disable-line
       time: new Date().toISOString(),
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
@@ -100,33 +109,31 @@ export const postChallengeJoin = (userShortId: string, props: any) => {
 };
 
 // トピック投稿
-export const postTopic = (userId: string, userShortId: string, props: any) => {
-  const {
-    collectionType,
-    collectionId,
-    topicId,
-    title,
-    user,
-    challengeId
-  } = props;
+export const postUserChallengeTopic = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
+  const { topicId, title, user } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const id = getUserChallengeId(userShortId, challengeId);
 
-  return getToken(userShortId).then((token: any) => {
-    const feed = client.feed('topic', userShortId, token);
+  return getToken(id).then((token: any) => {
+    const feed = client.feed('topic', id, token);
     feed.addActivity({
-      actor: streamUserId(userShortId),
+      actor: id,
       verb: POST_TYPE_TOPIC,
       object: `topic:${topicId}`,
-      foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
+      foreign_id: `topic:${topicId}`, //eslint-disable-line
       time: new Date().toISOString(),
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhotoURL: user.photoURL,
-      collectionId,
-      collectionType,
+      collectionId: challengeId,
+      collectionType: 'challenges',
       title,
-      path: getTopicPath(topicId, collectionType, collectionId),
+      path: getTopicPath(topicId, 'challenges', challengeId),
       topicId,
       challengeId
     });
@@ -134,32 +141,27 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
 };
 
 // 記録投稿
-export const postHistory = (userShortId: string, props: any) => {
-  const {
-    collectionType,
-    collectionId,
-    historyId,
-    user,
-    challengeId,
-    type,
-    days
-  } = props;
+export const postUserChallengeHistory = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
+  const { historyId, user, type, days } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const id = getUserChallengeId(userShortId, challengeId);
 
-  return getToken(userShortId).then((token: any) => {
-    const feed = client.feed('history', userShortId, token);
+  return getToken(id).then((token: any) => {
+    const feed = client.feed('history', id, token);
     feed.addActivity({
-      actor: streamUserId(userShortId),
+      actor: id,
       verb: type,
       object: `history:${historyId}`,
-      foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
+      foreign_id: `history:${historyId}`, // eslint-disable-line
       time: new Date().toISOString(),
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhotoURL: user.photoURL,
-      collectionId,
-      collectionType,
       historyId,
       challengeId,
       days
@@ -168,17 +170,22 @@ export const postHistory = (userShortId: string, props: any) => {
 };
 
 // ノート投稿
-export const postNote = (userShortId: string, props: any) => {
-  const { noteId, user, challengeId, type, text } = props;
+export const postUserChallengeNote = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
+  const { noteId, user, type, text } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const id = getUserChallengeId(userShortId, challengeId);
 
-  return getToken(userShortId).then((token: any) => {
-    const feed = client.feed('note', userShortId, token);
+  return getToken(id).then((token: any) => {
+    const feed = client.feed('note', id, token);
     feed.addActivity({
-      actor: streamUserId(userShortId),
+      actor: id,
       verb: type,
       object: `note:${noteId}`,
-      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      foreign_id: `note:${noteId}`, // eslint-disable-line
       time: new Date().toISOString(),
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
@@ -192,46 +199,62 @@ export const postNote = (userShortId: string, props: any) => {
 };
 
 // ノート編集
-export const updateNote = (userShortId: string, props: any) => {
+export const updateNote = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
   const { rawData, type, text } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const id = getUserChallengeId(userShortId, challengeId);
 
   const activity = {
     ...rawData,
     text,
-    actor: streamUserId(userShortId),
+    actor: id,
     verb: type,
     time: new Date().toISOString()
   };
-  return getToken(userShortId).then((token: string) => {
-    const feed = client.feed('note', userShortId, token);
+  return getToken(id).then((token: string) => {
+    const feed = client.feed('note', id, token);
     feed.addActivity(activity);
   });
 };
 
 // ノート削除
-export const deleteNote = (userShortId: string, props: any) => {
+export const deleteUserChallengeNote = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
   const { serverId } = props;
+  const id = getUserChallengeId(userShortId, challengeId);
+
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
-  return getToken(userShortId).then((token: string) => {
-    const feed = client.feed('note', userShortId, token);
+  return getToken(id).then((token: string) => {
+    const feed = client.feed('note', id, token);
     feed.removeActivity(serverId);
   });
 };
 
 // 目標投稿
-export const postObjective = (userShortId: string, props: any) => {
-  const { user, challengeId } = props;
+export const postUserChallengeObjective = (
+  userShortId: string,
+  challengeId: string,
+  props: any
+) => {
+  const { user } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
   const objectiveId = challengeId;
+  const id = getUserChallengeId(userShortId, challengeId);
 
-  return getToken(userShortId).then((token: any) => {
-    const feed = client.feed('objective', userShortId, token);
+  return getToken(id).then((token: any) => {
+    const feed = client.feed('objective', id, token);
     feed.addActivity({
-      actor: streamUserId(userShortId),
+      actor: id,
       verb: POST_TYPE_OBJECTIVE,
       object: `objective:${objectiveId}`,
-      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      foreign_id: `objective:${objectiveId}`, // eslint-disable-line
       time: new Date().toISOString(),
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
@@ -243,50 +266,56 @@ export const postObjective = (userShortId: string, props: any) => {
   });
 };
 
-export const getUserChallengeNotes = (userShortId: string, props: any) => {
-  const { challengeId } = props;
+export const followUserChallengeTimeline = (
+  userShortId: string,
+  challengeId: string
+) => {
+  const id = getUserChallengeId(userShortId, challengeId);
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
-  return getToken(userShortId).then((token: any) => {
-    const timeline = client.feed('timeline', userShortId, token);
-    timeline.follow('challenge', userShortId);
-    timeline.follow('topic', userShortId);
-    timeline.follow('note', userShortId);
-    timeline.follow('history', userShortId);
-    timeline.follow('objective', userShortId);
 
-    return timeline
-      .get({})
-      .then((data: any) => data['results'])
-      .then((posts: any) =>
-        posts.filter((post: any) => post.challengeId === challengeId)
-      );
+  getToken(id).then((token: any) => {
+    const timeline = client.feed('timeline', id, token);
+    timeline.follow('challenge', id);
+    timeline.follow('topic', id);
+    timeline.follow('note', id);
+    timeline.follow('history', id);
+    timeline.follow('objective', id);
+  });
+
+  getToken(userShortId).then((token: any) => {
+    const timeline = client.feed('timeline', userShortId, token);
+    timeline.follow('timeline', id);
+  });
+
+  getToken(challengeId).then((token: any) => {
+    const timeline = client.feed('timeline', challengeId, token);
+    timeline.follow('timeline', id);
+  });
+
+  getToken(challengeId).then((token: any) => {
+    const objective = client.feed('objective', challengeId, token);
+    objective.follow('objective', id);
   });
 };
 
-export const getChallengeGoals = async (challengeId: string) => {
+export const getUserChallengeTimeline = (
+  userShortId: string,
+  challengeId: string
+) => {
+  const id = getUserChallengeId(userShortId, challengeId);
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
-  const defaultUserId = 'default';
-
-  const goalFeed = await getToken(defaultUserId).then((token: any) => {
-    const goalFeed = client.feed('objective', defaultUserId, token);
-    return firebase
-      .firestore()
-      .collection('challenges')
-      .doc(challengeId)
-      .collection('participants')
-      .get()
-      .then((snap: any) => snap.docs.map((doc: any) => doc.id))
-      .then((ids: string[]) =>
-        ids.map((id: string) => goalFeed.follow('objective', id))
-      )
-      .then(() => goalFeed);
+  return getToken(id).then((token: any) => {
+    const timeline = client.feed('timeline', id, token);
+    return timeline.get({}).then((data: any) => data['results']);
   });
+};
 
-  return goalFeed
-    .get({})
-    .then((data: any) => data['results'])
-    .then((posts: any) =>
-      posts.filter((post: any) => post.challengeId === challengeId)
-    );
+export const getChallengeObjectives = (challengeId: string) => {
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  return getToken(challengeId).then((token: any) => {
+    const timeline = client.feed('objective', challengeId, token);
+    return timeline.get({}).then((data: any) => data['results']);
+  });
 };
