@@ -38,7 +38,7 @@ import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
 
-import { updateNote } from '~/lib/getstream';
+import { updateNote, deleteNote } from '~/lib/getstream';
 
 const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
@@ -184,33 +184,24 @@ const ChallengeNoteMemo = (props: any) => {
     };
 
     update(resourceId, data)
+      .then(() => deleteNote(userId, { serverId }))
       .then(() =>
         updateNote(userId, {
-          serverId,
           rawData,
           text: buffer,
           type: label
         })
       )
-      .then(() => {
-        if (label === POST_TYPE_NOTE) {
-          setBackground(brandPink);
-          setTextColor(brandWhite);
-        } else if (label === POST_TYPE_SUCCESS) {
-          setBackground(brandYellow);
-          setTextColor(brandDark);
-        } else if (label === POST_TYPE_ANALYSIS) {
-          setBackground(brandDarkBlue);
-          setTextColor(brandWhite);
-        }
-      })
-      .then(() => setEdit(false));
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   const onDelete = () => {
     /* eslint-disable */
     if (window.confirm('本当に削除しますか？')) {
-      remove(resourceId).then(() => window.location.reload());
+      remove(resourceId)
+        .then(() => deleteNote(userId, { serverId }))
+        .then(() => window.alert('削除しました。'))
+        .then(() => window.location.reload());
     }
     /* eslint-enable */
   };
@@ -344,14 +335,13 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data, isMyProfile, userId } = props;
+  const { type, data, isMyProfile } = props;
 
   const noteFactory = componentMap.get(type);
 
   const params = {
     ...data,
-    isMyProfile,
-    userId
+    isMyProfile
   };
 
   return noteFactory!(params);

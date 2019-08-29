@@ -28,32 +28,32 @@ export const getStreamToken = async (userId: string) => {
 const GETSTREAM_KEY = process.env.REACT_APP_GETSTREAM_KEY as string;
 const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
 
-const getClient = (userId: string) => {
-  return firebase
-    .firestore()
-    .collection('securities')
-    .doc(userId)
-    .get()
-    .then((doc: any) => (doc.data() ? doc.data().getStreamToken : null))
-    .then((token: string) =>
-      token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
-    );
-};
+// const getClient = (userId: string) => {
+//   return firebase
+//     .firestore()
+//     .collection('securities')
+//     .doc(userId)
+//     .get()
+//     .then((doc: any) => (doc.data() ? doc.data().getStreamToken : null))
+//     .then((token: string) =>
+//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
+//     );
+// };
 
-const getHistoryClient = (userShortId: string) => {
-  return axios
-    .post(
-      '/getstream/token',
-      {
-        userId: userShortId
-      },
-      { headers: { Accept: 'application/json' } }
-    )
-    .then(res => res.data)
-    .then((token: string) =>
-      token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
-    );
-};
+// const getHistoryClient = (userShortId: string) => {
+//   return axios
+//     .post(
+//       '/getstream/token',
+//       {
+//         userId: userShortId
+//       },
+//       { headers: { Accept: 'application/json' } }
+//     )
+//     .then(res => res.data)
+//     .then((token: string) =>
+//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
+//     );
+// };
 
 const getToken = (userShortId: string) => {
   return axios
@@ -63,48 +63,6 @@ const getToken = (userShortId: string) => {
         userId: userShortId
       },
       { headers: { Accept: 'application/json' } }
-    )
-    .then(res => res.data);
-};
-
-const getUserToken = (userShortId: string) => {
-  return axios
-    .post(
-      '/getstream/token/user',
-      {
-        userId: userShortId
-      },
-      { headers: { Accept: 'application/json' } }
-    )
-    .then(res => res.data);
-};
-
-const getTimelineToken = (userShortId: string) => {
-  return axios
-    .post(
-      '/getstream/token/timeline',
-      {
-        userId: userShortId
-      },
-
-      {
-        headers: { Accept: 'application/json' }
-      }
-    )
-    .then(res => res.data);
-};
-
-const getHistoryToken = (userShortId: string) => {
-  return axios
-    .post(
-      '/getstream/token/history',
-      {
-        userId: userShortId
-      },
-
-      {
-        headers: { Accept: 'application/json' }
-      }
     )
     .then(res => res.data);
 };
@@ -235,22 +193,33 @@ export const postNote = (userShortId: string, props: any) => {
 
 // ノート編集
 export const updateNote = (userShortId: string, props: any) => {
-  const { serverId, rawData, type, text } = props;
+  const { rawData, type, text } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
-  let activity = rawData;
-  activity.text = text;
-  activity.verb = type;
-  activity.time = new Date().toISOString();
-
+  const activity = {
+    ...rawData,
+    text,
+    actor: streamUserId(userShortId),
+    verb: type,
+    time: new Date().toISOString()
+  };
   return getToken(userShortId).then((token: string) => {
     const feed = client.feed('note', userShortId, token);
-    feed.removeActivity(serverId);
     feed.addActivity(activity);
   });
 };
 
-// ノート投稿
+// ノート削除
+export const deleteNote = (userShortId: string, props: any) => {
+  const { serverId } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  return getToken(userShortId).then((token: string) => {
+    const feed = client.feed('note', userShortId, token);
+    feed.removeActivity(serverId);
+  });
+};
+
+// 目標投稿
 export const postObjective = (userShortId: string, props: any) => {
   const { user, challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
