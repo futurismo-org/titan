@@ -7,7 +7,6 @@ import {
 
 import axios from '~/lib/axios';
 
-import firebase from '~/lib/firebase';
 import { getTopicPath } from './url';
 import { toISOLocalString } from '~/lib/moment';
 

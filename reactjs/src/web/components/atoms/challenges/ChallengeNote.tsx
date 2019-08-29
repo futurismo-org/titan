@@ -161,8 +161,6 @@ const ChallengeNoteMemo = (props: any) => {
   const [edit, setEdit] = useState(false);
   const [buffer, setBuffer] = useState(text);
   const [label, setLabel] = useState(type);
-  const [background, setBackground] = useState(backgroundColor);
-  const [textColor, setTextColor] = useState(color);
 
   const onBufferChange = (e: any) => {
     e.preventDefault();
@@ -284,7 +282,7 @@ const ChallengeNoteMemo = (props: any) => {
     <TimelineItem
       key={type}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ background, color: textColor }}
+      dateInnerStyle={{ backgroud: backgroundColor, color }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>

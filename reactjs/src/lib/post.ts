@@ -1,4 +1,3 @@
-import { domainToASCII } from 'url';
 import {
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS,
