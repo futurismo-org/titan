@@ -5,7 +5,7 @@ import Title from '../../atoms/Title';
 import Progress from '../../atoms/CircularProgress';
 
 const ChallengeGoals = (props: any) => {
-  const { fetchGoals, challengeId } = props;
+  const { feedGoals, challengeId } = props;
 
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,13 +13,10 @@ const ChallengeGoals = (props: any) => {
   useEffect(() => {
     setLoading(true);
 
-    fetchGoals()
-      .then(async (props: any) => {
-        const { goals } = props;
-        setGoals(goals);
-      })
+    feedGoals()
+      .then((goals: any) => setGoals(goals))
       .then(() => setLoading(false));
-  }, [fetchGoals]);
+  }, [feedGoals]);
 
   return (
     <React.Fragment>

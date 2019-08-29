@@ -9,6 +9,7 @@ import axios from '~/lib/axios';
 
 import { getTopicPath } from './url';
 import { toISOLocalString } from '~/lib/moment';
+import firebase from '~/lib/firebase';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
@@ -92,7 +93,7 @@ export const postChallengeJoin = (userShortId: string, props: any) => {
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL,
+      userPhotoURL: user.photoURL,
       challengeId
     });
   });
@@ -121,7 +122,7 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL,
+      userPhotoURL: user.photoURL,
       collectionId,
       collectionType,
       title,
@@ -156,7 +157,7 @@ export const postHistory = (userShortId: string, props: any) => {
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL,
+      userPhotoURL: user.photoURL,
       collectionId,
       collectionType,
       historyId,
@@ -182,7 +183,7 @@ export const postNote = (userShortId: string, props: any) => {
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL,
+      userPhotoURL: user.photoURL,
       noteId,
       challengeId,
       text
@@ -235,7 +236,7 @@ export const postObjective = (userShortId: string, props: any) => {
       createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
-      userPhoroURL: user.photoURL,
+      userPhotoURL: user.photoURL,
       objectiveId,
       challengeId
     });
@@ -260,4 +261,32 @@ export const getUserChallengeNotes = (userShortId: string, props: any) => {
         posts.filter((post: any) => post.challengeId === challengeId)
       );
   });
+};
+
+export const getChallengeGoals = async (challengeId: string) => {
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  const defaultUserId = 'default';
+
+  const goalFeed = await getToken(defaultUserId).then((token: any) => {
+    const goalFeed = client.feed('objective', defaultUserId, token);
+    return firebase
+      .firestore()
+      .collection('challenges')
+      .doc(challengeId)
+      .collection('participants')
+      .get()
+      .then((snap: any) => snap.docs.map((doc: any) => doc.id))
+      .then((ids: string[]) =>
+        ids.map((id: string) => goalFeed.follow('objective', id))
+      )
+      .then(() => goalFeed);
+  });
+
+  return goalFeed
+    .get({})
+    .then((data: any) => data['results'])
+    .then((posts: any) =>
+      posts.filter((post: any) => post.challengeId === challengeId)
+    );
 };

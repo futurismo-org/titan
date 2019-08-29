@@ -18,10 +18,10 @@ const ChallengeGoalCard = (props: any) => {
   return (
     <Card>
       <CardHeader
-        avatar={<UserAvatar photoURL={goal.photoURL} goalId={goal.id} />}
+        avatar={<UserAvatar photoURL={goal.photoURL} userId={goal.id} />}
         title={goal.displayName}
         subheader={`${goal.days}days, Joined at ${formatDateShort(
-          goal.createdAt && goal.createdAt.toDate()
+          goal.createdAt
         )}`}
       />
       <NoStyledLink to={path}>
