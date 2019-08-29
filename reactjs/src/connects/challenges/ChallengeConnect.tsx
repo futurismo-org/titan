@@ -16,8 +16,9 @@ const mapStateToProps = (state: any, props: any) => {
     userShortId,
     join: !isEmpty(participant),
     profile,
-    loading: !(isLoaded(challenge) && isLoaded(participant)),
-    ...props
+    loading: !(isLoaded(challenge) && participant
+      ? isLoaded(participant)
+      : true)
   };
 };
 
@@ -25,24 +26,31 @@ const queries = (props: any) => {
   const challengeId = props.match.params.id;
   const userShortId = props.profile.shortId;
 
-  return [
+  const array = [
     {
       collection: 'challenges',
       doc: challengeId,
       storeAs: 'challenge'
-    },
-    {
-      collection: 'challenges',
-      doc: challengeId,
-      storeAs: 'participant',
-      subcollections: [
-        {
-          collection: 'participants',
-          doc: userShortId
-        }
-      ]
     }
   ];
+
+  const sub = {
+    collection: 'challenges',
+    doc: challengeId,
+    storeAs: 'participant',
+    subcollections: [
+      {
+        collection: 'participants',
+        doc: userShortId
+      }
+    ]
+  };
+
+  if (userShortId) {
+    array.push(sub);
+  }
+
+  return array;
 };
 
 export default compose(
