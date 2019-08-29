@@ -1,5 +1,10 @@
 import stream from 'getstream';
-import { POST_TYPE_TOPIC, POST_TYPE_JOIN } from '../constants/post';
+import {
+  POST_TYPE_OBJECTIVE,
+  POST_TYPE_TOPIC,
+  POST_TYPE_JOIN
+} from '../constants/post';
+
 import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
@@ -194,6 +199,30 @@ export const postNote = (userShortId: string, props: any) => {
       noteId,
       challengeId,
       text
+    });
+  });
+};
+
+// ノート投稿
+export const postObjective = (userShortId: string, props: any) => {
+  const { user, challengeId } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const objectiveId = challengeId;
+
+  return getToken(userShortId).then((token: any) => {
+    const feed = client.feed('objective', userShortId, token);
+    feed.addActivity({
+      actor: streamUserId(userShortId),
+      verb: POST_TYPE_OBJECTIVE,
+      object: `objective:${objectiveId}`,
+      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      time: new Date().toISOString(),
+      createdAt: toISOLocalString(new Date()),
+      userId: userShortId,
+      userDisplayName: user.displayName,
+      userPhoroURL: user.photoURL,
+      objectiveId,
+      challengeId
     });
   });
 };
