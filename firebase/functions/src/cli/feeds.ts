@@ -19,7 +19,21 @@ const client = stream.connect(
   GETSTREAM_APP_ID as string
 );
 
-const StreamUserId = (userId: string) => `SU:${userId}`;
+// const StreamUserId = (userId: string) => `SU:${userId}`;
+
+export const POST_TYPE_JOIN = 'JOIN';
+export const POST_TYPE_OPEN = 'OPEN';
+export const POST_TYPE_CLOSE = 'CLOSE';
+export const POST_TYPE_RECORD = 'RECORD';
+export const POST_TYPE_RESET = 'RESET';
+export const POST_TYPE_TOPIC = 'TOPIC';
+export const POST_TYPE_NOTE = 'NOTE';
+export const POST_TYPE_SUCCESS = 'SUCCESS';
+export const POST_TYPE_ANALYSIS = 'ANALYSIS';
+export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
+
+const getUserChallengeId = (userShortId: string, challengeId: string) =>
+  `${userShortId}_${challengeId}`;
 
 const createTopics = () => {
   DUMMY_TOPIC_ID_LIST.map((topicId: string) => {
@@ -27,22 +41,26 @@ const createTopics = () => {
       DUMMY_USER_ID_LIST[
         faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
       ];
-    const feed = client.feed('topic', userId);
+    const challengeId = MUSCLE_CHALLENGE_ID;
+    const id = getUserChallengeId(userId, challengeId);
+    const feed = client.feed('topic', id);
 
     const activity = {
-      actor: StreamUserId(userId),
-      verb: 'TOPIC',
+      actor: id,
+      verb: POST_TYPE_TOPIC,
       object: `topic:${topicId}`,
-      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      foreign_id: `topic:${topicId}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
-      collectionId: MUSCLE_CHALLENGE_ID,
+      collectionId: challengeId,
       topicId: topicId,
       title: faker.lorem.sentence(),
-      path: `/c/${MUSCLE_CHALLENGE_ID}/t/${topicId}}`,
-      challengeId: MUSCLE_CHALLENGE_ID
+      path: `/c/${challengeId}/t/${topicId}}`,
+      challengeId,
+      userDisplayName: faker.name.firstName(),
+      userPhotoURL: faker.image.avatar()
     };
 
     feed.addActivity(activity);
@@ -55,22 +73,24 @@ const createNotes = () => {
       DUMMY_USER_ID_LIST[
         faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
       ];
-    const feed = client.feed('note', userId);
+
+    const challengeId = MUSCLE_CHALLENGE_ID;
+    const id = getUserChallengeId(userId, challengeId);
+    const feed = client.feed('note', id);
+
     const activity = {
-      actor: StreamUserId(userId),
-      verb: 'NOTE',
+      actor: id,
+      verb: POST_TYPE_NOTE,
       object: `note:${noteId}`,
-      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      foreign_id: `note:${noteId}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       createdAt: getRandomCreatedAt().toISOString(),
       userId,
-      collectionType: 'challenges',
-      collectionId: MUSCLE_CHALLENGE_ID,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
-      noteId: noteId,
+      noteId,
       text: faker.lorem.paragraphs(),
-      challengeId: MUSCLE_CHALLENGE_ID
+      challengeId
     };
 
     feed.addActivity(activity);
@@ -80,40 +100,39 @@ const createNotes = () => {
 const createHistories = () => {
   DUMMY_USER_ID_LIST.map(userId => {
     const historyId = shortId.generate();
-    const feed = client.feed('history', userId);
+
+    const challengeId = MUSCLE_CHALLENGE_ID;
+    const id = getUserChallengeId(userId, challengeId);
+    const feed = client.feed('history', id);
 
     const activity1 = {
-      actor: StreamUserId(userId),
-      verb: 'RESET',
+      actor: id,
+      verb: POST_TYPE_RESET,
       object: `history:${historyId}`,
-      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      foreign_id: `history:${historyId}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       createdAt: getRandomCreatedAt().toISOString(),
       userId,
-      collectionType: 'challenges',
-      collectionId: MUSCLE_CHALLENGE_ID,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
       historyId: historyId,
-      challengeId: MUSCLE_CHALLENGE_ID,
-      days: 3
+      challengeId,
+      days: 0
     };
 
     const historyId2 = shortId.generate();
     const activity2 = {
-      actor: StreamUserId(userId),
-      verb: 'RECORD',
+      actor: id,
+      verb: POST_TYPE_RECORD,
       object: `history:${historyId2}`,
-      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      foreign_id: `history:${historyId2}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       createdAt: getRandomCreatedAt().toISOString(),
       userId,
-      collectionType: 'challenges',
-      collectionId: MUSCLE_CHALLENGE_ID,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
       historyId: historyId2,
-      challengeId: MUSCLE_CHALLENGE_ID,
+      challengeId,
       days: 3
     };
 
@@ -124,26 +143,49 @@ const createHistories = () => {
 const createObjectives = () => {
   DUMMY_USER_ID_LIST.map(userId => {
     const objectiveId = MUSCLE_CHALLENGE_ID;
-    const feed = client.feed('objective', userId);
+    const challengeId = MUSCLE_CHALLENGE_ID;
+    const id = getUserChallengeId(userId, challengeId);
+    const feed = client.feed('objective', id);
 
     const activity = {
-      actor: StreamUserId(userId),
-      verb: 'OBJECTIVE',
+      actor: id,
+      verb: POST_TYPE_OBJECTIVE,
       object: `objective:${objectiveId}`,
-      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      foreign_id: `objective:${objectiveId}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
       createdAt: getRandomCreatedAt().toISOString(),
       userId,
-      collectionType: 'challenges',
-      collectionId: MUSCLE_CHALLENGE_ID,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
-      objectiveId: objectiveId,
-      challengeId: MUSCLE_CHALLENGE_ID,
+      objectiveId,
+      challengeId,
       days: 3,
       what: '頑張りマンモス'
     };
     feed.addActivity(activity);
+  });
+};
+
+export const createRelationShips = () => {
+  DUMMY_USER_ID_LIST.map(userShortId => {
+    const challengeId = MUSCLE_CHALLENGE_ID;
+    const id = getUserChallengeId(userShortId, challengeId);
+
+    const timeline = client.feed('timeline', id);
+    timeline.follow('challenge', id);
+    timeline.follow('topic', id);
+    timeline.follow('note', id);
+    timeline.follow('history', id);
+    timeline.follow('objective', id);
+
+    const timeline2 = client.feed('timeline', userShortId);
+    timeline2.follow('timeline', id);
+
+    const timeline3 = client.feed('timeline', challengeId);
+    timeline3.follow('timeline', id);
+
+    const objective = client.feed('objective', challengeId);
+    objective.follow('objective', id);
   });
 };
 
@@ -152,4 +194,5 @@ export const createStream = () => {
   createNotes();
   createHistories();
   createObjectives();
+  createRelationShips();
 };

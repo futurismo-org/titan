@@ -7,7 +7,10 @@ import firebase, { isLogin } from '~/lib/firebase';
 import { postMessage } from '~/lib/discord.client.api';
 
 import { getCategoryId } from '~/lib/challenge';
-import { postUserChallengeJoin } from '~/lib/getstream';
+import {
+  postUserChallengeJoin,
+  followUserChallengeTimeline
+} from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const { challenge } = props;
@@ -132,6 +135,7 @@ const mapStateToProps = (state: any, props: any) => {
           .doc(categoryId)
           .set(newCategory, { merge: true });
       })
+      .then(() => followUserChallengeTimeline(userShortId, challengeId))
       .then(() =>
         postUserChallengeJoin(userShortId, challengeId, { user: profile })
       );

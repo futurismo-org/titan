@@ -9,9 +9,8 @@ import axios from '~/lib/axios';
 
 import { getTopicPath } from './url';
 import { toISOLocalString } from '~/lib/moment';
-import firebase from '~/lib/firebase';
 
-const streamUserId = (userId: string) => `SU:${userId}`;
+// const streamUserId = (userId: string) => `SU:${userId}`;
 
 export const getStreamToken = async (userId: string) => {
   return await axios
@@ -243,7 +242,7 @@ export const postUserChallengeObjective = (
   challengeId: string,
   props: any
 ) => {
-  const { user } = props;
+  const { user, days, what } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
   const objectiveId = challengeId;
   const id = getUserChallengeId(userShortId, challengeId);
@@ -261,7 +260,9 @@ export const postUserChallengeObjective = (
       userDisplayName: user.displayName,
       userPhotoURL: user.photoURL,
       objectiveId,
-      challengeId
+      challengeId,
+      days,
+      what
     });
   });
 };
