@@ -20,8 +20,8 @@ import { postMessage } from '~/lib/discord.client.api';
 import { showGiphy } from '~/actions/giphyAction';
 
 import firebase from '~/lib/firebase';
-import { postHistory } from '~/lib/getstream';
 import { POST_TYPE_RECORD, POST_TYPE_RESET } from '~/constants/post';
+import { postUserChallengeHistory } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ showGiphy }, dispatch);
@@ -100,12 +100,9 @@ ${dashBoardURL}`;
         webhookURL && postMessage(webhookURL, message);
       })
       .then(() =>
-        postHistory(userShortId, {
-          collectionType: 'challenges',
-          collectionId: challengeId,
+        postUserChallengeHistory(userShortId, challengeId, {
           historyId,
           user: profile,
-          challengeId,
           type: POST_TYPE_RECORD,
           days: tomorrow
         })
@@ -201,12 +198,9 @@ ${dashBoardURL}`;
         webhookURL && postMessage(webhookURL, message);
       })
       .then(() =>
-        postHistory(userShortId, {
-          collectionType: 'challenges',
-          collectionId: challengeId,
+        postUserChallengeHistory(userShortId, challengeId, {
           historyId,
           user: profile,
-          challengeId,
           type: POST_TYPE_RESET,
           days: 0
         })

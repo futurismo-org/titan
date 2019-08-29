@@ -38,7 +38,10 @@ import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
 
-import { updateNote, deleteNote } from '~/lib/getstream';
+import {
+  deleteUserChallengeNote,
+  updateUserChallengeNote
+} from '~/lib/getstream';
 
 const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
@@ -182,9 +185,9 @@ const ChallengeNoteMemo = (props: any) => {
     };
 
     update(resourceId, data)
-      .then(() => deleteNote(userId, { serverId }))
+      .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
       .then(() =>
-        updateNote(userId, {
+        updateUserChallengeNote(userId, challengeId, {
           rawData,
           text: buffer,
           type: label
@@ -197,7 +200,7 @@ const ChallengeNoteMemo = (props: any) => {
     /* eslint-disable */
     if (window.confirm('本当に削除しますか？')) {
       remove(resourceId)
-        .then(() => deleteNote(userId, { serverId }))
+        .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
         .then(() => window.alert('削除しました。'))
         .then(() => window.location.reload());
     }

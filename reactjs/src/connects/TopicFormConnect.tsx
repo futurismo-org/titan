@@ -5,7 +5,7 @@ import { fetchTopic } from '~/actions/topicAction';
 
 import { getTopicsPath } from '../lib/url';
 import { getTopicId } from '~/lib/resource';
-import { postTopic } from '~/lib/getstream';
+import { postUserChallengeTopic } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -43,13 +43,10 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   const postTopicStream = (title: string) =>
-    postTopic(currentUser.id, currentUser.shortId, {
-      collectionType: collection,
-      collectionId,
+    postUserChallengeTopic(currentUser.shortId, challengeId, {
       topicId,
       user: currentUser,
-      title,
-      challengeId
+      title
     });
 
   return {

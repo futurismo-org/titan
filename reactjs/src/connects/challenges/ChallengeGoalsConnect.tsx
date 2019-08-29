@@ -1,8 +1,5 @@
 import { connect } from 'react-redux';
-import moment from '~/lib/moment';
-
-import firebase from '~/lib/firebase';
-import { getChallengeGoals } from '~/lib/getstream';
+import { getChallengeObjectives } from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.challengeId;
@@ -69,7 +66,9 @@ const mapStateToProps = (state: any, props: any) => {
   };
 
   const feedGoals = () =>
-    getChallengeGoals(challengeId).then((data: any) => generateGoals(data));
+    getChallengeObjectives(challengeId).then((data: any) =>
+      generateGoals(data)
+    );
 
   return {
     feedGoals,

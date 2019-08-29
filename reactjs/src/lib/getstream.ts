@@ -199,7 +199,7 @@ export const postUserChallengeNote = (
 };
 
 // ノート編集
-export const updateNote = (
+export const updateUserChallengeNote = (
   userShortId: string,
   challengeId: string,
   props: any

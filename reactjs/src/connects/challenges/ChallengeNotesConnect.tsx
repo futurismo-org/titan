@@ -3,8 +3,8 @@ import shortId from 'shortid';
 
 import moment from '~/lib/moment';
 import { POST_TYPE_OPEN, POST_TYPE_CLOSE } from '~/constants/post';
-import { getUserChallengeNotes } from '~/lib/getstream';
 import { createPost } from '~/lib/post';
+import { getUserChallengeTimeline } from '~/lib/getstream';
 
 const generatePosts = (data: any, challenge: any) => {
   const notes = [];
@@ -41,7 +41,7 @@ const mapStateToProps = (state: any, props: any) => {
   const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
 
   const feedNotes = () =>
-    getUserChallengeNotes(userShortId, { challengeId })
+    getUserChallengeTimeline(userShortId, challengeId)
       .then((data: any) => generatePosts(data, challenge))
       .then((posts: any) =>
         posts.sort((x: any, y: any) =>
