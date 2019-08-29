@@ -176,6 +176,7 @@ const mapStateToProps = (state: any, props: any) => {
     userShortId,
     isMyProfile,
     feedNotes,
+    userId: profile.id,
     ...props
   };
 };

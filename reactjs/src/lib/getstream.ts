@@ -9,7 +9,7 @@ import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
 import { getTopicPath } from './url';
-import moment, { toISOLocalString } from '~/lib/moment';
+import { toISOLocalString } from '~/lib/moment';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
@@ -35,6 +35,21 @@ const getClient = (userId: string) => {
     .doc(userId)
     .get()
     .then((doc: any) => (doc.data() ? doc.data().getStreamToken : null))
+    .then((token: string) =>
+      token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
+    );
+};
+
+const getHistoryClient = (userShortId: string) => {
+  return axios
+    .post(
+      '/getstream/token',
+      {
+        userId: userShortId
+      },
+      { headers: { Accept: 'application/json' } }
+    )
+    .then(res => res.data)
     .then((token: string) =>
       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
     );
@@ -68,6 +83,21 @@ const getTimelineToken = (userShortId: string) => {
   return axios
     .post(
       '/getstream/token/timeline',
+      {
+        userId: userShortId
+      },
+
+      {
+        headers: { Accept: 'application/json' }
+      }
+    )
+    .then(res => res.data);
+};
+
+const getHistoryToken = (userShortId: string) => {
+  return axios
+    .post(
+      '/getstream/token/history',
       {
         userId: userShortId
       },
@@ -200,6 +230,23 @@ export const postNote = (userShortId: string, props: any) => {
       challengeId,
       text
     });
+  });
+};
+
+// ノート編集
+export const updateNote = (userShortId: string, props: any) => {
+  const { serverId, rawData, type, text } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  let activity = rawData;
+  activity.text = text;
+  activity.verb = type;
+  activity.time = new Date().toISOString();
+
+  return getToken(userShortId).then((token: string) => {
+    const feed = client.feed('note', userShortId, token);
+    feed.removeActivity(serverId);
+    feed.addActivity(activity);
   });
 };
 

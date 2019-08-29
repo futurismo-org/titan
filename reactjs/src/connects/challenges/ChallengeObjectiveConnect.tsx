@@ -32,7 +32,9 @@ const mapStateToProps = (state: any, props: any) => {
       .firestore()
       .doc(resourceId)
       .set(updateData, { merge: true })
-      .then(() => postObjective(userShortId, { user, challengeId }));
+      .then(
+        () => data.isCreate && postObjective(userShortId, { user, challengeId })
+      );
   };
 
   return {

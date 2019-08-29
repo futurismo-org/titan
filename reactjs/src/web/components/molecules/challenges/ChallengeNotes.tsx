@@ -11,7 +11,7 @@ import {
 import { timelineBorderColor } from '~/lib/theme';
 
 const ChallengeNotes = (props: any) => {
-  const { isMyProfile, feedNotes } = props;
+  const { isMyProfile, feedNotes, userId } = props;
 
   const [type, setType] = useState(POST_TYPE_NOTE);
   const [posts, setPosts] = useState([]);
@@ -59,6 +59,7 @@ const ChallengeNotes = (props: any) => {
                     type={post.type}
                     data={post.data}
                     isMyProfile={isMyProfile}
+                    userId={userId}
                   />
                 ))}
               {/* {type === POST_TYPE_SUCCESS &&

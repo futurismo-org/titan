@@ -36,3 +36,9 @@ exports.getTimelineReadOnlyToken = (req: any, res: any) => {
   const token = client.getReadOnlyToken('timeline', userId);
   return res.status(200).json(token);
 };
+
+exports.getHistoryReadWriteToken = (req: any, res: any) => {
+  const userId = req.body.userId;
+  const token = client.getReadWriteToken('history', userId);
+  return res.status(200).json(token);
+};

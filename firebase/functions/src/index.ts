@@ -14,7 +14,8 @@ const { dashboard, topic, challenge } = require('./handlers/ogp');
 const {
   getToken,
   getUserReadOnlyToken,
-  getTimelineReadOnlyToken
+  getTimelineReadOnlyToken,
+  getHistoryReadWriteToken
 } = require('./handlers/getstream');
 
 // stripe
@@ -37,6 +38,7 @@ app.post('/getstream/register', getToken);
 app.post('/getstream/token', getToken);
 app.post('/getstream/token/user', getUserReadOnlyToken);
 app.post('/getstream/token/timeline', getTimelineReadOnlyToken);
+app.post('/getstream/token/history', getHistoryReadWriteToken);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);

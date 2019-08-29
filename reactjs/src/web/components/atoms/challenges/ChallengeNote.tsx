@@ -38,6 +38,8 @@ import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
 
+import { updateNote } from '~/lib/getstream';
+
 const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
   return (
@@ -144,7 +146,17 @@ const ChallengeNoteObjective = (props: any) => {
 
 const ChallengeNoteMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, noteId, challengeId, type, isMyProfile } = data;
+  const {
+    timestamp,
+    text,
+    noteId,
+    challengeId,
+    type,
+    isMyProfile,
+    serverId,
+    userId,
+    rawData
+  } = data;
 
   const [edit, setEdit] = useState(false);
   const [buffer, setBuffer] = useState(text);
@@ -172,6 +184,14 @@ const ChallengeNoteMemo = (props: any) => {
     };
 
     update(resourceId, data)
+      .then(() =>
+        updateNote(userId, {
+          serverId,
+          rawData,
+          text: buffer,
+          type: label
+        })
+      )
       .then(() => {
         if (label === POST_TYPE_NOTE) {
           setBackground(brandPink);
@@ -324,13 +344,14 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data, isMyProfile } = props;
+  const { type, data, isMyProfile, userId } = props;
 
   const noteFactory = componentMap.get(type);
 
   const params = {
     ...data,
-    isMyProfile
+    isMyProfile,
+    userId
   };
 
   return noteFactory!(params);

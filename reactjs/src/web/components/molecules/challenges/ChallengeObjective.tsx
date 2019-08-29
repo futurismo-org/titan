@@ -73,7 +73,10 @@ const ChallengeObjective = (props: any) => {
     }
 
     const handler = edit
-      ? () => handleSave({ what, why }).then(() => setEdit(!edit))
+      ? () =>
+          handleSave({ what, why, isCreate: !objective }).then(() =>
+            setEdit(!edit)
+          )
       : () => setEdit(!edit);
 
     return (

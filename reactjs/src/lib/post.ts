@@ -48,12 +48,14 @@ const createNotePost = (data: any) => {
     data: {
       challengeId: data.challengeId,
       noteId: data.noteId,
+      serverId: data.id,
       text: data.text,
       type: data.verb,
       timestamp: data.createdAt,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
-      userId: data.userId
+      userId: data.userId,
+      rawData: data
     }
   };
 };
