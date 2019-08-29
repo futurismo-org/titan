@@ -312,6 +312,15 @@ export const getUserChallengeTimeline = (
   });
 };
 
+export const getChallengeTimeline = (challengeId: string) => {
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  return getToken(challengeId).then((token: any) => {
+    const timeline = client.feed('timeline', challengeId, token);
+    return timeline.get({}).then((data: any) => data['results']);
+  });
+};
+
 export const getChallengeObjectives = (challengeId: string) => {
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
