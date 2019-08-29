@@ -38,7 +38,7 @@ const mapStateToProps = (state: any, props: any) => {
   const userShortId = user.shortId;
 
   const profile = state.firebase.profile;
-  const isMyProfile = (userShortId: string) => profile.shortId === userShortId;
+  const isMyProfile = profile.shortId === userShortId;
 
   const feedNotes = () =>
     getUserChallengeTimeline(userShortId, challengeId)
