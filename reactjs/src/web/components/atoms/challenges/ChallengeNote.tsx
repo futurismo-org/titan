@@ -31,8 +31,7 @@ import {
   POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS,
-  POST_TYPE_OBJECTIVE,
-  POST_TYPE_INIT
+  POST_TYPE_OBJECTIVE
 } from '~/constants/post';
 
 import { update, remove } from '~/lib/firebase';
@@ -333,8 +332,7 @@ const componentMap = new Map([
   [POST_TYPE_NOTE, (data: any) => <ChallengeNoteDefault data={data} />],
   [POST_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
   [POST_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />],
-  [POST_TYPE_OBJECTIVE, (data: any) => <ChallengeNoteObjective data={data} />],
-  [POST_TYPE_INIT, (data: any) => <React.Fragment />]
+  [POST_TYPE_OBJECTIVE, (data: any) => <ChallengeNoteObjective data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {

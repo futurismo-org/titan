@@ -93,7 +93,7 @@ export const postUserChallengeJoin = (
     const feed = client.feed('challenge', id, token);
 
     feed.addActivity({
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_JOIN,
       object: `challenge:${id}`,
       foreign_id: `challenge:${id}`, // eslint-disable-line
@@ -152,7 +152,7 @@ export const postUserChallengeHistory = (
   return getToken(id).then((token: any) => {
     const feed = client.feed('history', id, token);
     feed.addActivity({
-      actor: id,
+      actor: streamUserId(id),
       verb: type,
       object: `history:${historyId}`,
       foreign_id: `history:${historyId}`, // eslint-disable-line
@@ -210,7 +210,7 @@ export const updateUserChallengeNote = (
   const activity = {
     ...rawData,
     text,
-    actor: id,
+    actor: streamUserId(id),
     verb: type,
     time: new Date().toISOString()
   };
@@ -250,7 +250,7 @@ export const postUserChallengeObjective = (
   return getToken(id).then((token: any) => {
     const feed = client.feed('objective', id, token);
     feed.addActivity({
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_OBJECTIVE,
       object: `objective:${objectiveId}`,
       foreign_id: `objective:${objectiveId}`, // eslint-disable-line

@@ -21,7 +21,7 @@ const client = stream.connect(
   GETSTREAM_APP_ID as string
 );
 
-// const StreamUserId = (userId: string) => `SU:${userId}`;
+const streamUserId = (id: string) => `SU:${id}`;
 
 export const POST_TYPE_JOIN = 'JOIN';
 export const POST_TYPE_OPEN = 'OPEN';
@@ -33,7 +33,6 @@ export const POST_TYPE_NOTE = 'NOTE';
 export const POST_TYPE_SUCCESS = 'SUCCESS';
 export const POST_TYPE_ANALYSIS = 'ANALYSIS';
 export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
-export const POST_TYPE_INIT = 'INIT';
 
 const getUserChallengeId = (userShortId: string, challengeId: string) =>
   `${userShortId}_${challengeId}`;
@@ -49,7 +48,7 @@ const createTopics = () => {
     const feed = client.feed('topic', id);
 
     const activity = {
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_TOPIC,
       object: `topic:${topicId}`,
       foreign_id: `topic:${topicId}`, // eslint-disable-line
@@ -82,7 +81,7 @@ const createNotes = () => {
     const feed = client.feed('note', id);
 
     const activity = {
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_NOTE,
       object: `note:${noteId}`,
       foreign_id: `note:${noteId}`, // eslint-disable-line
@@ -109,7 +108,7 @@ const createHistories = () => {
     const feed = client.feed('history', id);
 
     const activity1 = {
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_RESET,
       object: `history:${historyId}`,
       foreign_id: `history:${historyId}`, // eslint-disable-line
@@ -125,7 +124,7 @@ const createHistories = () => {
 
     const historyId2 = shortId.generate();
     const activity2 = {
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_RECORD,
       object: `history:${historyId2}`,
       foreign_id: `history:${historyId2}`, // eslint-disable-line
@@ -151,7 +150,7 @@ const createObjectives = () => {
     const feed = client.feed('objective', id);
 
     const activity = {
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_OBJECTIVE,
       object: `objective:${objectiveId}`,
       foreign_id: `objective:${objectiveId}`, // eslint-disable-line
@@ -168,21 +167,6 @@ const createObjectives = () => {
     feed.addActivity(activity);
   });
 };
-
-// const followFeed = async (timeline: any, feedName: string, id: string) => {
-//   const feed = client.feed(feedName, id);
-//   const objectId = shortId.generate();
-//   const foreignId = `${feedName}:${objectId}`;
-//   const activity = {
-//     actor: id,
-//     verb: POST_TYPE_INIT,
-//     object: `${feedName}:${objectId}`,
-//     foreign_id: foreignId, //eslint-disable-line
-//     time: new Date().toISOString()
-//   };
-//   feed.addActivity(activity);
-//   timeline.follow(feedName, id);
-// };
 
 const createRelationShip = (userShortId: string, challengeId: string) => {
   const id = getUserChallengeId(userShortId, challengeId);
