@@ -12,7 +12,7 @@ const baseData = (data: any) => {
   return {
     id: data.id,
     type: data.verb,
-    timestamp: data.time
+    timestamp: data.createdAt
   };
 };
 
@@ -20,7 +20,7 @@ const createJoinPost = (data: any) => {
   return {
     ...baseData(data),
     data: {
-      timestamp: data.time,
+      timestamp: data.createdAt,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId
@@ -32,7 +32,7 @@ const createTopicPost = (data: any) => {
   return {
     ...baseData(data),
     data: {
-      timestamp: data.time,
+      timestamp: data.createdAt,
       title: data.title,
       path: data.path,
       userName: data.userDisplayName,
@@ -50,7 +50,7 @@ const createNotePost = (data: any) => {
       noteId: data.noteId,
       text: data.text,
       type: data.verb,
-      timestamp: data.time,
+      timestamp: data.createdAt,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId
@@ -65,7 +65,7 @@ const createHistoryPost = (data: any) => {
       challengeId: data.challengeId,
       historyId: data.historyId,
       type: data.verb,
-      timestamp: data.time,
+      timestamp: data.createdAt,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId,
@@ -80,7 +80,7 @@ const createObjectivePost = (data: any) => {
     data: {
       challengeId: data.challengeId,
       type: data.verb,
-      timestamp: data.time,
+      timestamp: data.createdAt,
       objectiveId: data.objectiveId,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,

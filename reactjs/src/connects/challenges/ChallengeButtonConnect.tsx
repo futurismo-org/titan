@@ -134,7 +134,7 @@ const mapStateToProps = (state: any, props: any) => {
           .set(newCategory, { merge: true });
       })
       .then(() =>
-        postChallengeJoin(userId, userShortId, { challengeId, user: profile })
+        postChallengeJoin(userShortId, { challengeId, user: profile })
       );
   };
 

@@ -35,6 +35,7 @@ const createTopics = () => {
       object: `topic:${topicId}`,
       foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
+      createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
       collectionId: MUSCLE_CHALLENGE_ID,
@@ -61,6 +62,7 @@ const createNotes = () => {
       object: `note:${noteId}`,
       foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
+      createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
       collectionId: MUSCLE_CHALLENGE_ID,
@@ -86,6 +88,7 @@ const createHistories = () => {
       object: `history:${historyId}`,
       foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
+      createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
       collectionId: MUSCLE_CHALLENGE_ID,
@@ -102,6 +105,7 @@ const createHistories = () => {
       object: `history:${historyId2}`,
       foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
+      createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
       collectionId: MUSCLE_CHALLENGE_ID,
@@ -126,6 +130,7 @@ const createObjectives = () => {
       object: `objective:${objectiveId}`,
       foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
       time: getRandomCreatedAt().toISOString(),
+      createdAt: getRandomCreatedAt().toISOString(),
       userId,
       collectionType: 'challenges',
       collectionId: MUSCLE_CHALLENGE_ID,
@@ -134,7 +139,6 @@ const createObjectives = () => {
       objectiveId: objectiveId,
       challengeId: MUSCLE_CHALLENGE_ID,
       days: 3,
-      createdAt: new Date().toISOString(),
       what: '頑張りマンモス'
     };
     feed.addActivity(activity);

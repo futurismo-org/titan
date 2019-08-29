@@ -4,6 +4,7 @@ import axios from '~/lib/axios';
 
 import firebase from '~/lib/firebase';
 import { getTopicPath } from './url';
+import moment, { toISOLocalString } from '~/lib/moment';
 
 const streamUserId = (userId: string) => `SU:${userId}`;
 
@@ -84,24 +85,19 @@ const collectionName = (collectionType: string) => {
 };
 
 // チャレンジ参加
-export const postChallengeJoin = (
-  userId: string,
-  userShortId: string,
-  props: any
-) => {
+export const postChallengeJoin = (userShortId: string, props: any) => {
   const { challengeId, user } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
-  return getClient(userId).then((client: any) => {
-    if (!client) return;
-
-    const feed = client.feed('challenge', userShortId);
+  return getToken(userShortId).then((token: any) => {
+    const feed = client.feed('challenge', userShortId, token);
     feed.addActivity({
       actor: streamUserId(userShortId),
       verb: POST_TYPE_JOIN,
       object: `challenge:${challengeId}`,
       foreign_id: `challenge:${challengeId}`, // eslint-disable-line
-      time: new Date(),
-      createdAt: new Date(),
+      time: new Date().toISOString(),
+      createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhoroURL: user.photoURL,
@@ -130,6 +126,7 @@ export const postTopic = (userId: string, userShortId: string, props: any) => {
       object: `topic:${topicId}`,
       foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
       time: new Date().toISOString(),
+      createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhoroURL: user.photoURL,
@@ -163,6 +160,7 @@ export const postHistory = (userShortId: string, props: any) => {
       object: `history:${historyId}`,
       foreign_id: `${collectionName(collectionType)}:${collectionId}`, // eslint-disable-line
       time: new Date().toISOString(),
+      createdAt: toISOLocalString(new Date()),
       userId: userShortId,
       userDisplayName: user.displayName,
       userPhoroURL: user.photoURL,
