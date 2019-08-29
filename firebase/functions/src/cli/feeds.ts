@@ -115,8 +115,35 @@ const createHistories = () => {
   });
 };
 
+const createObjectives = () => {
+  DUMMY_USER_ID_LIST.map(userId => {
+    const objectiveId = MUSCLE_CHALLENGE_ID;
+    const feed = client.feed('objective', userId);
+
+    const activity = {
+      actor: StreamUserId(userId),
+      verb: 'OBJECTIVE',
+      object: `objective:${objectiveId}`,
+      foreign_id: `challenge:${MUSCLE_CHALLENGE_ID}`, // eslint-disable-line
+      time: getRandomCreatedAt().toISOString(),
+      userId,
+      collectionType: 'challenges',
+      collectionId: MUSCLE_CHALLENGE_ID,
+      userDisplayName: faker.name.firstName(),
+      userPhotoURL: faker.image.avatar(),
+      objectiveId: objectiveId,
+      challengeId: MUSCLE_CHALLENGE_ID,
+      days: 3,
+      createdAt: new Date().toISOString(),
+      what: '頑張りマンモス'
+    };
+    feed.addActivity(activity);
+  });
+};
+
 export const createStream = () => {
   createTopics();
   createNotes();
   createHistories();
+  createObjectives();
 };

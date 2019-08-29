@@ -79,9 +79,9 @@ const createObjectivePost = (data: any) => {
     ...baseData(data),
     data: {
       challengeId: data.challengeId,
-      historyId: data.historyId,
       type: data.verb,
       timestamp: data.time,
+      objectiveId: data.objectiveId,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
       userId: data.userId

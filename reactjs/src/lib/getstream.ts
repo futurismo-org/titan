@@ -182,6 +182,7 @@ export const getUserChallengeNotes = (userShortId: string, props: any) => {
     timeline.follow('challenge', userShortId);
     timeline.follow('topic', userShortId);
     timeline.follow('note', userShortId);
+    timeline.follow('objective', userShortId);
 
     return timeline
       .get({})

@@ -6,6 +6,7 @@ import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
 } from './ChallengeObjectiveCard';
+import Progress from '../../atoms/CircularProgress';
 
 const ChallengeObjectiveDescription = (props: any) => {
   const { challenge } = props;
@@ -88,8 +89,8 @@ const ChallengeObjective = (props: any) => {
 
   return (
     <React.Fragment>
-      {!isLoaded && null}
-      {isLoaded && !!objective && (
+      {!isLoaded && <Progress />}
+      {isLoaded && (
         <React.Fragment>
           <div style={{ textAlign: 'right' }}>
             <ChallengeObjectiveFormButton />

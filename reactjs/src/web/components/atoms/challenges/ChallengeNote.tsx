@@ -17,7 +17,8 @@ import {
   brandDarkBlue,
   brandYellow,
   brandDark,
-  brandPurple
+  brandPurple,
+  brandAqua
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
@@ -29,7 +30,8 @@ import {
   POST_TYPE_TOPIC,
   POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
-  POST_TYPE_SUCCESS
+  POST_TYPE_SUCCESS,
+  POST_TYPE_OBJECTIVE
 } from '~/constants/post';
 
 import { update, remove } from '~/lib/firebase';
@@ -120,6 +122,22 @@ const ChallengeNoteTopic = (props: any) => {
     >
       <p>トピックを投稿しました。</p>
       <Link to={path}>{title}</Link>
+    </TimelineItem>
+  );
+};
+
+const ChallengeNoteObjective = (props: any) => {
+  const { data } = props;
+  const { timestamp, what } = data;
+
+  return (
+    <TimelineItem
+      key={POST_TYPE_OBJECTIVE}
+      dateText={formatDatetimeShort(timestamp)}
+      dateInnerStyle={{ background: brandAqua, color: brandDark }}
+    >
+      <p>チャレンジ目標を設定しました。</p>
+      <p>{what}</p>
     </TimelineItem>
   );
 };
@@ -301,7 +319,8 @@ const componentMap = new Map([
   [POST_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
   [POST_TYPE_NOTE, (data: any) => <ChallengeNoteDefault data={data} />],
   [POST_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
-  [POST_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />]
+  [POST_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />],
+  [POST_TYPE_OBJECTIVE, (data: any) => <ChallengeNoteObjective data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {

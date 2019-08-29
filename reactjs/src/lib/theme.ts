@@ -13,6 +13,7 @@ export const brandPink = '#f4869c';
 export const brandPurple = '#7e4eb2';
 export const brandDark = '#1a1917';
 export const brandDarkBlue = '#375f99';
+export const brandAqua = '#75ffe8';
 export const brandGray = '#888888';
 export const brandLightGray = '#d3d3d3';
 export const brandLight = '#f4f4f4';
