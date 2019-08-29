@@ -4,9 +4,9 @@ export const mergeCategory = (currentData: any, newData: any) => {
   let maxDays;
   if (currentData && currentData.maxDays && newData.maxDays) {
     maxDays = Math.max(currentData.maxDays, newData.maxDays);
-  } else if (newData.maxDays) {
+  } else if (newData && newData.maxDays) {
     maxDays = newData.maxDays;
-  } else if (currentData.maxDays) {
+  } else if (currentData && currentData.maxDays) {
     maxDays = currentData.maxDays;
   } else {
     maxDays = 0;
