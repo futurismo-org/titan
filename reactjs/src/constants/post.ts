@@ -8,3 +8,4 @@ export const POST_TYPE_NOTE = 'NOTE';
 export const POST_TYPE_SUCCESS = 'SUCCESS';
 export const POST_TYPE_ANALYSIS = 'ANALYSIS';
 export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
+export const POST_TYPE_INIT = 'INIT';

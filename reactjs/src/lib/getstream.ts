@@ -10,7 +10,7 @@ import axios from '~/lib/axios';
 import { getTopicPath } from './url';
 import { toISOLocalString } from '~/lib/moment';
 
-// const streamUserId = (userId: string) => `SU:${userId}`;
+const streamUserId = (userId: string) => `SU:${userId}`;
 
 export const getStreamToken = async (userId: string) => {
   return await axios
@@ -120,7 +120,7 @@ export const postUserChallengeTopic = (
   return getToken(id).then((token: any) => {
     const feed = client.feed('topic', id, token);
     feed.addActivity({
-      actor: id,
+      actor: streamUserId(id),
       verb: POST_TYPE_TOPIC,
       object: `topic:${topicId}`,
       foreign_id: `topic:${topicId}`, //eslint-disable-line
@@ -181,7 +181,7 @@ export const postUserChallengeNote = (
   return getToken(id).then((token: any) => {
     const feed = client.feed('note', id, token);
     feed.addActivity({
-      actor: id,
+      actor: streamUserId(id),
       verb: type,
       object: `note:${noteId}`,
       foreign_id: `note:${noteId}`, // eslint-disable-line

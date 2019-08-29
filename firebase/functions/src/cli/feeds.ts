@@ -10,7 +10,9 @@ import {
   DUMMY_USER_ID_LIST,
   MUSCLE_CHALLENGE_ID,
   getRandomCreatedAt,
-  DUMMY_NOTE_ID_LIST
+  DUMMY_NOTE_ID_LIST,
+  TITAN_USER_SHORT_ID,
+  TSUNE_USER_SHORT_ID
 } from './common';
 
 const client = stream.connect(
@@ -31,6 +33,7 @@ export const POST_TYPE_NOTE = 'NOTE';
 export const POST_TYPE_SUCCESS = 'SUCCESS';
 export const POST_TYPE_ANALYSIS = 'ANALYSIS';
 export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
+export const POST_TYPE_INIT = 'INIT';
 
 const getUserChallengeId = (userShortId: string, challengeId: string) =>
   `${userShortId}_${challengeId}`;
@@ -166,27 +169,46 @@ const createObjectives = () => {
   });
 };
 
+// const followFeed = async (timeline: any, feedName: string, id: string) => {
+//   const feed = client.feed(feedName, id);
+//   const objectId = shortId.generate();
+//   const foreignId = `${feedName}:${objectId}`;
+//   const activity = {
+//     actor: id,
+//     verb: POST_TYPE_INIT,
+//     object: `${feedName}:${objectId}`,
+//     foreign_id: foreignId, //eslint-disable-line
+//     time: new Date().toISOString()
+//   };
+//   feed.addActivity(activity);
+//   timeline.follow(feedName, id);
+// };
+
+const createRelationShip = (userShortId: string, challengeId: string) => {
+  const id = getUserChallengeId(userShortId, challengeId);
+
+  const follows = [
+    { source: `timeline:${id}`, target: `challenge:${id}` },
+    { source: `timeline:${id}`, target: `topic:${id}` },
+    { source: `timeline:${id}`, target: `note:${id}` },
+    { source: `timeline:${id}`, target: `history:${id}` },
+    { source: `timeline:${id}`, target: `objective:${id}` },
+    { source: `timeline:${userShortId}`, target: `timeline:${id}` },
+    { source: `timeline:${challengeId}`, target: `timeline:${id}` },
+    { source: `objective:${challengeId}`, target: `objective:${id}` }
+  ];
+
+  client.followMany(follows);
+};
+
 export const createRelationShips = () => {
+  const challengeId = MUSCLE_CHALLENGE_ID;
+
   DUMMY_USER_ID_LIST.map(userShortId => {
-    const challengeId = MUSCLE_CHALLENGE_ID;
-    const id = getUserChallengeId(userShortId, challengeId);
-
-    const timeline = client.feed('timeline', id);
-    timeline.follow('challenge', id);
-    timeline.follow('topic', id);
-    timeline.follow('note', id);
-    timeline.follow('history', id);
-    timeline.follow('objective', id);
-
-    const timeline2 = client.feed('timeline', userShortId);
-    timeline2.follow('timeline', id);
-
-    const timeline3 = client.feed('timeline', challengeId);
-    timeline3.follow('timeline', id);
-
-    const objective = client.feed('objective', challengeId);
-    objective.follow('objective', id);
+    createRelationShip(userShortId, challengeId);
   });
+  createRelationShip(TITAN_USER_SHORT_ID, challengeId);
+  createRelationShip(TSUNE_USER_SHORT_ID, challengeId);
 };
 
 export const createStream = () => {
