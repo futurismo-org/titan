@@ -15,6 +15,8 @@ const ChallengeNotes = (props: any) => {
 
   const [type, setType] = useState(POST_TYPE_NOTE);
   const [posts, setPosts] = useState([]);
+  const [successList, setSuccessList] = useState([]);
+  const [analysisList, setAnalysisList] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,6 +24,12 @@ const ChallengeNotes = (props: any) => {
       setLoading(true);
       feedNotes().then((notes: any) => {
         setPosts(notes);
+        setSuccessList(
+          notes.filter((note: any) => note.type === POST_TYPE_SUCCESS)
+        );
+        setAnalysisList(
+          notes.filter((note: any) => note.type === POST_TYPE_ANALYSIS)
+        );
         setLoading(false);
       });
     }
@@ -61,13 +69,13 @@ const ChallengeNotes = (props: any) => {
                     isMyProfile={isMyProfile}
                   />
                 ))}
-              {/* {type === POST_TYPE_SUCCESS &&
+              {type === POST_TYPE_SUCCESS &&
                 successList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    isMyProfile={isMyProfile}
                   />
                 ))}
               {type === POST_TYPE_ANALYSIS &&
@@ -76,9 +84,9 @@ const ChallengeNotes = (props: any) => {
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    isMyProfile={isMyProfile}
                   />
-                ))} */}
+                ))}
             </Timeline>
           </Grid>
         </React.Fragment>
