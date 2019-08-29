@@ -14,7 +14,6 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeId = challenge.id;
   const profile = state.firebase.profile;
   const userShortId = profile.shortId;
-  const userId = profile.id;
   const categoryId = getCategoryId(challenge.categoryRef);
 
   const redirectPath = `/c/${challengeId}/overview`;

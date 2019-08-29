@@ -95,7 +95,8 @@ const createHistories = () => {
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
       historyId: historyId,
-      challengeId: MUSCLE_CHALLENGE_ID
+      challengeId: MUSCLE_CHALLENGE_ID,
+      days: 3
     };
 
     const historyId2 = shortId.generate();
@@ -112,7 +113,8 @@ const createHistories = () => {
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar(),
       historyId: historyId2,
-      challengeId: MUSCLE_CHALLENGE_ID
+      challengeId: MUSCLE_CHALLENGE_ID,
+      days: 3
     };
 
     feed.addActivities([activity1, activity2]);

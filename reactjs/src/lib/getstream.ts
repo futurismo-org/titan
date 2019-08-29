@@ -148,7 +148,8 @@ export const postHistory = (userShortId: string, props: any) => {
     historyId,
     user,
     challengeId,
-    type
+    type,
+    days
   } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
@@ -167,7 +168,8 @@ export const postHistory = (userShortId: string, props: any) => {
       collectionId,
       collectionType,
       historyId,
-      challengeId
+      challengeId,
+      days
     });
   });
 };
@@ -180,6 +182,7 @@ export const getUserChallengeNotes = (userShortId: string, props: any) => {
     timeline.follow('challenge', userShortId);
     timeline.follow('topic', userShortId);
     timeline.follow('note', userShortId);
+    timeline.follow('history', userShortId);
     timeline.follow('objective', userShortId);
 
     return timeline
