@@ -14,6 +14,7 @@ import {
   POST_TYPE_ANALYSIS,
   POST_TYPE_NOTE
 } from '~/constants/post';
+import { postNote } from '~/lib/getstream';
 
 const ChallengeNoteForm = (props: any) => {
   const { challenge, user } = props;
@@ -39,15 +40,17 @@ const ChallengeNoteForm = (props: any) => {
 
     const noteId = shortId.generate();
     const resourceId = `/challenges/${challenge.id}/notes/${noteId}`;
+    const userShortId = user.shortId;
+    const challengeId = challenge.id;
 
     const data = {
       id: noteId,
       text,
       type: label,
-      userId: user.shortId,
+      userId: userShortId,
       userName: user.displayName,
       userPhotoURL: user.photoURL,
-      challengeId: challenge.id,
+      challengeId,
       challengeTitle: challenge.title,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -55,6 +58,9 @@ const ChallengeNoteForm = (props: any) => {
 
     create(resourceId, data)
       .then(() => window.alert('投稿しました')) // eslint-disable-line
+      .then(() =>
+        postNote(userShortId, { noteId, user, challengeId, type: label, text })
+      )
       .then(() => window.location.reload()); // eslint-disable-line
   };
 

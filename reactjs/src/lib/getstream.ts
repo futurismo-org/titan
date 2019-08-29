@@ -174,6 +174,30 @@ export const postHistory = (userShortId: string, props: any) => {
   });
 };
 
+// ノート投稿
+export const postNote = (userShortId: string, props: any) => {
+  const { noteId, user, challengeId, type, text } = props;
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+
+  return getToken(userShortId).then((token: any) => {
+    const feed = client.feed('note', userShortId, token);
+    feed.addActivity({
+      actor: streamUserId(userShortId),
+      verb: type,
+      object: `note:${noteId}`,
+      foreign_id: `challenge:${challengeId}`, // eslint-disable-line
+      time: new Date().toISOString(),
+      createdAt: toISOLocalString(new Date()),
+      userId: userShortId,
+      userDisplayName: user.displayName,
+      userPhoroURL: user.photoURL,
+      noteId,
+      challengeId,
+      text
+    });
+  });
+};
+
 export const getUserChallengeNotes = (userShortId: string, props: any) => {
   const { challengeId } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);

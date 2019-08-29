@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import firebase from '~/lib/firebase';
+import { postNote } from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
