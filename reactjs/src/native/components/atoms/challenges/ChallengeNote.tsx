@@ -15,9 +15,9 @@ import Progress from '~/native/components/atoms/CircularProgress';
 import moment from '~/lib/moment';
 import { createPost } from '~/lib/post';
 
-const style = updateStyle('card', {
-  title: {
-    fontSize: 10
+const style = updateStyle('userBar', {
+  username: {
+    fontSize: 14
   }
 });
 
