@@ -295,7 +295,7 @@ export const followUserChallengeTimeline = (
   });
 
   getToken(challengeId).then((token: any) => {
-    const timeline = client.feed('timeline', id, token);
+    const timeline = client.feed('timeline', challengeId, token);
     timeline.follow('challenge', id);
     timeline.follow('topic', id);
     timeline.follow('note', id);
@@ -304,7 +304,7 @@ export const followUserChallengeTimeline = (
   });
 
   getToken(userShortId).then((token: any) => {
-    const timeline = client.feed('timeline', id, token);
+    const timeline = client.feed('timeline', userShortId, token);
     timeline.follow('challenge', id);
     timeline.follow('topic', id);
     timeline.follow('note', id);

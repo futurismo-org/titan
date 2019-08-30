@@ -4,7 +4,8 @@ import {
   StreamApp,
   FlatFeed,
   StatusUpdateForm,
-  Activity
+  Activity,
+  updateStyle
 } from 'expo-activity-feed';
 import { withRouter } from 'react-router-native';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
@@ -13,6 +14,12 @@ import Progress from '~/native/components/atoms/CircularProgress';
 
 import moment from '~/lib/moment';
 import { createPost } from '~/lib/post';
+
+const style = updateStyle('card', {
+  title: {
+    fontSize: 10
+  }
+});
 
 const CustomActivity = withRouter((props: any) => {
   const { history } = props;
@@ -33,6 +40,7 @@ const CustomActivity = withRouter((props: any) => {
   return (
     <Activity
       activity={activity}
+      styles={style}
       // onPressAvatar={() => history.push(`/u/${data.userId}`)}
       onPress={() => history.push(data.path)}
     />
