@@ -35,7 +35,11 @@ const mapStateToProps = (state: any, props: any) => {
       .then(
         () =>
           data.isCreate &&
-          postUserChallengeObjective(userShortId, challengeId, { user })
+          postUserChallengeObjective(userShortId, challengeId, {
+            user,
+            days: user.days,
+            what: data.what
+          })
       );
   };
 

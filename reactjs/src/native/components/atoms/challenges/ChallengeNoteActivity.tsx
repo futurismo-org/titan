@@ -71,7 +71,7 @@ export const ChallengeNoteOpenActivity = (props: any) => {
 export const ChallengeNoteCloseActivity = (props: any) => {
   const { challenge } = props;
 
-  if (!isChallengeClosed(challenge.openedAt.toDate())) {
+  if (!isChallengeClosed(challenge.closedAt.toDate())) {
     return null;
   }
 
