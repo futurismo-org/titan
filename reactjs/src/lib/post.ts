@@ -27,7 +27,11 @@ import {
 } from '~/lib/theme';
 import { getChallengeDashboardPath } from './url';
 
-const dummyImage = (backgroundColor: string, color: string, text: string) => {
+export const dummyImage = (
+  backgroundColor: string,
+  color: string,
+  text: string
+) => {
   const back = backgroundColor.replace('#', '');
   const front = color.replace('#', '');
   const size = '50x50';

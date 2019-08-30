@@ -1,51 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'native-base';
-import {
-  StreamApp,
-  FlatFeed,
-  StatusUpdateForm,
-  Activity,
-  updateStyle
-} from 'expo-activity-feed';
-import { withRouter } from 'react-router-native';
+import { StreamApp, FlatFeed, StatusUpdateForm } from 'expo-activity-feed';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
-
-import moment from '~/lib/moment';
-import { createPost } from '~/lib/post';
-
-const style = updateStyle('userBar', {
-  username: {
-    fontSize: 14
-  }
-});
-
-const CustomActivity = withRouter((props: any) => {
-  const { history } = props;
-  const post = createPost(props.activity);
-  const data = post.data;
-
-  const activity = {
-    actor: {
-      data: {
-        name: data.message,
-        profileImage: data.dummyImage
-      }
-    },
-    object: data.text,
-    verb: data.type,
-    time: moment(data.createdAt).toDate()
-  };
-  return (
-    <Activity
-      activity={activity}
-      styles={style}
-      // onPressAvatar={() => history.push(`/u/${data.userId}`)}
-      onPress={() => history.push(data.path)}
-    />
-  );
-});
+import {
+  ChallengeNoteActivity,
+  ChallengeNoteOpenActivity,
+  ChallengeNoteCloseActivity
+} from './ChallengeNoteActivity';
+import { POST_TYPE_OPEN, POST_TYPE_CLOSE } from '~/constants/post';
 
 const ChallengeNote = (props: any) => {
   const {
@@ -53,7 +17,8 @@ const ChallengeNote = (props: any) => {
     user,
     timelineId,
     userShortId,
-    loading
+    loading,
+    challenge
   } = props;
 
   const [token, setToken] = useState('');
@@ -93,7 +58,9 @@ const ChallengeNote = (props: any) => {
             userId={timelineId}
             options={{ browser: true }} /* hack */
           >
-            <FlatFeed Activity={CustomActivity} />
+            <ChallengeNoteCloseActivity challenge={challenge} />
+            <FlatFeed Activity={ChallengeNoteActivity} />
+            <ChallengeNoteOpenActivity challenge={challenge} />
             <StatusUpdateForm feedGroup="timeline" />
           </StreamApp>
         </View>

@@ -10,7 +10,7 @@ export const POST_TYPE_ANALYSIS = 'ANALYSIS';
 export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
 
 export const POST_MESSAGE_JOIN = 'チャレンジに参加しました。';
-export const POST_MESSAGE_OPEN = 'チャレンジがスタートしました。';
+export const POST_MESSAGE_OPEN = 'チャレンジが開始しました。';
 export const POST_MESSAGE_CLOSE = 'チャレンジが終了しました。';
 export const POST_MESSAGE_RECORD = '記録を投稿しました。';
 export const POST_MESSAGE_RESET = 'リセットしました。';
