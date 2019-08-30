@@ -1,9 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text } from 'native-base';
-import { StreamApp, FlatFeed, StatusUpdateForm } from 'expo-activity-feed';
+import {
+  StreamApp,
+  FlatFeed,
+  StatusUpdateForm,
+  Activity
+} from 'expo-activity-feed';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
+
+import moment from '~/lib/moment';
+
+const CustomActivity = (props: any) => {
+  const {
+    text,
+    createdAt,
+    userDisplayName,
+    userPhotoURL,
+    verb
+  } = props.activity;
+
+  const activity = {
+    actor: {
+      data: {
+        name: userDisplayName,
+        profileImage: userPhotoURL
+      }
+    },
+    object: text,
+    verb,
+    time: moment(createdAt).toDate()
+  };
+  return <Activity activity={activity} />;
+};
 
 const ChallengeNote = (props: any) => {
   const {
@@ -51,7 +81,7 @@ const ChallengeNote = (props: any) => {
             userId={timelineId}
             options={{ browser: true }} /* hack */
           >
-            <FlatFeed />
+            <FlatFeed Activity={CustomActivity} />
             {/* <StatusUpdateForm feedGroup="timeline" /> */}
           </StreamApp>
         </View>

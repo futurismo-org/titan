@@ -1,6 +1,6 @@
 import Reactotron from 'reactotron-react-native';
 
-const isLogEnable = true;
+const isLogEnable = false;
 const reactotron = Reactotron.configure({ name: 'Native' }).useReactNative({});
 
 function log(message: string, ...args: any[]) {
