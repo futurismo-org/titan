@@ -72,7 +72,8 @@ const createTopicPost = (data: any) => {
       userPhotoURL: data.userPhotoURL,
       userId: data.userId,
       dummyImage: dummyImage(brandPurple, brandWhite, 'topic'),
-      message: POST_MESSAGE_TOPIC
+      message: POST_MESSAGE_TOPIC,
+      text: data.title
     }
   };
 };
