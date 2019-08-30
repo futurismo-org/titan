@@ -5,32 +5,37 @@ import moment from '~/lib/moment';
 import { POST_TYPE_OPEN, POST_TYPE_CLOSE } from '~/constants/post';
 import { createPost } from '~/lib/post';
 import { getUserChallengeTimeline } from '~/lib/getstream';
+import { isChallengeOpened, isChallengeClosed } from '~/lib/challenge';
 
 const generatePosts = (data: any, challenge: any) => {
   const notes = [];
 
-  notes.push({
-    id: shortId.generate(),
-    type: POST_TYPE_OPEN,
-    timestamp: challenge.openedAt.toDate(),
-    data: {
-      openedAt: challenge.openedAt.toDate()
-    }
-  });
+  if (isChallengeOpened(challenge.openedAt.toDate())) {
+    notes.push({
+      id: shortId.generate(),
+      type: POST_TYPE_OPEN,
+      timestamp: challenge.openedAt.toDate(),
+      data: {
+        openedAt: challenge.openedAt.toDate()
+      }
+    });
+  }
 
-  notes.push({
-    id: shortId.generate(),
-    type: POST_TYPE_CLOSE,
-    timestamp: challenge.closedAt.toDate(),
-    data: {
-      closedAt: challenge.closedAt.toDate()
-    }
-  });
+  if (challenge.closedAt && isChallengeClosed(challenge.closedAt.toDate())) {
+    notes.push({
+      id: shortId.generate(),
+      type: POST_TYPE_CLOSE,
+      timestamp: challenge.closedAt.toDate(),
+      data: {
+        closedAt: challenge.closedAt.toDate()
+      }
+    });
+  }
 
   data.map((post: any) => notes.push(createPost(post)));
 
   return notes.sort((x: any, y: any) =>
-    moment(x.timestamp).diff(moment(y.timestamp))
+    moment(y.timestamp).diff(moment(x.timestamp))
   );
 };
 

@@ -6,19 +6,22 @@ import {
   StatusUpdateForm,
   Activity
 } from 'expo-activity-feed';
+import { withRouter } from 'react-router-native';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 
 import moment from '~/lib/moment';
 
-const CustomActivity = (props: any) => {
+const CustomActivity = withRouter((props: any) => {
+  const { history } = props;
   const {
     text,
     createdAt,
     userDisplayName,
     userPhotoURL,
-    verb
+    verb,
+    userId
   } = props.activity;
 
   const activity = {
@@ -32,8 +35,13 @@ const CustomActivity = (props: any) => {
     verb,
     time: moment(createdAt).toDate()
   };
-  return <Activity activity={activity} />;
-};
+  return (
+    <Activity
+      activity={activity}
+      onPressAvatar={() => history.replace(`/u/${userId}`)}
+    />
+  );
+});
 
 const ChallengeNote = (props: any) => {
   const {
@@ -82,7 +90,7 @@ const ChallengeNote = (props: any) => {
             options={{ browser: true }} /* hack */
           >
             <FlatFeed Activity={CustomActivity} />
-            {/* <StatusUpdateForm feedGroup="timeline" /> */}
+            <StatusUpdateForm feedGroup="timeline" />
           </StreamApp>
         </View>
       )}
