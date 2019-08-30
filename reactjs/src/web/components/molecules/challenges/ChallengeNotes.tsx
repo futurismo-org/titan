@@ -3,54 +3,45 @@ import { Timeline } from 'vertical-timeline-component-for-react';
 import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import ChallengeNote from '../../atoms/challenges/ChallengeNote';
 
-import Error from '../../atoms/Error';
 import {
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS
-} from '~/constants/note';
+  POST_TYPE_NOTE,
+  POST_TYPE_SUCCESS,
+  POST_TYPE_ANALYSIS
+} from '~/constants/post';
 import { timelineBorderColor } from '~/lib/theme';
 
 const ChallengeNotes = (props: any) => {
-  const {
-    fetchParticipant,
-    resourceId,
-    notes,
-    userShortId,
-    loading,
-    error,
-    topicsResourceId,
-    fetchUserTopics,
-    fetchUserNotes,
-    notesResourceId,
-    successList,
-    analysisList,
-    isMyProfile
-  } = props;
+  const { isMyProfile, feedNotes } = props;
 
-  const [type, setType] = useState(NOTE_TYPE_DEFAULT);
+  const [type, setType] = useState(POST_TYPE_NOTE);
+  const [posts, setPosts] = useState([]);
+  const [successList, setSuccessList] = useState([]);
+  const [analysisList, setAnalysisList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchParticipant(resourceId);
-    userShortId && fetchUserTopics(topicsResourceId, userShortId);
-    userShortId && fetchUserNotes(notesResourceId, userShortId);
-  }, [
-    fetchParticipant,
-    fetchUserNotes,
-    fetchUserTopics,
-    notesResourceId,
-    resourceId,
-    topicsResourceId,
-    userShortId
-  ]);
+    if (posts.length === 0 && !loading) {
+      setLoading(true);
+      feedNotes().then((notes: any) => {
+        setPosts(notes);
+        setSuccessList(
+          notes.filter((note: any) => note.type === POST_TYPE_SUCCESS)
+        );
+        setAnalysisList(
+          notes.filter((note: any) => note.type === POST_TYPE_ANALYSIS)
+        );
+        setLoading(false);
+      });
+    }
+  }, [feedNotes, loading, posts, posts.length]);
 
   const ChallengeNotesNavbar = (props: any) => {
     return (
       <div style={{ width: 320 }}>
         <ButtonGroup fullWidth>
-          <Button onClick={() => setType(NOTE_TYPE_DEFAULT)}>努力記録</Button>
-          <Button onClick={() => setType(NOTE_TYPE_SUCCESS)}>達成日記</Button>
-          <Button onClick={() => setType(NOTE_TYPE_ANALYSIS)}>分析日記</Button>
+          <Button onClick={() => setType(POST_TYPE_NOTE)}>努力記録</Button>
+          <Button onClick={() => setType(POST_TYPE_SUCCESS)}>達成日記</Button>
+          <Button onClick={() => setType(POST_TYPE_ANALYSIS)}>分析日記</Button>
         </ButtonGroup>
       </div>
     );
@@ -58,9 +49,7 @@ const ChallengeNotes = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && null}
-      {!loading && notes && (
+      {posts.length !== 0 && (
         <React.Fragment>
           <Grid
             container
@@ -71,31 +60,31 @@ const ChallengeNotes = (props: any) => {
           >
             <ChallengeNotesNavbar />
             <Timeline lineColor={timelineBorderColor}>
-              {type === NOTE_TYPE_DEFAULT &&
-                notes.map((note: any) => (
+              {type === POST_TYPE_NOTE &&
+                posts.map((post: any) => (
                   <ChallengeNote
-                    key={note.id}
-                    type={note.type}
-                    data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    key={post.id}
+                    type={post.type}
+                    data={post.data}
+                    isMyProfile={isMyProfile}
                   />
                 ))}
-              {type === NOTE_TYPE_SUCCESS &&
+              {type === POST_TYPE_SUCCESS &&
                 successList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    isMyProfile={isMyProfile}
                   />
                 ))}
-              {type === NOTE_TYPE_ANALYSIS &&
+              {type === POST_TYPE_ANALYSIS &&
                 analysisList.map((note: any) => (
                   <ChallengeNote
                     key={note.id}
                     type={note.type}
                     data={note.data}
-                    isMyProfile={isMyProfile(userShortId)}
+                    isMyProfile={isMyProfile}
                   />
                 ))}
             </Timeline>

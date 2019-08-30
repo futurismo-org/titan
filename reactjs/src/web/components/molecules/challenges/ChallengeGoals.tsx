@@ -1,35 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import StackGrid from 'react-stack-grid';
-import { Grid } from '@material-ui/core';
 import ChallengeGoalCard from '../../atoms/challenges/ChallengeGoalCard';
 import Title from '../../atoms/Title';
-import UserAvatar from '../../atoms/UserAvatar';
-import { getChallengeUserGoalPath } from '~/lib/url';
 import Progress from '../../atoms/CircularProgress';
 
 const ChallengeGoals = (props: any) => {
-  const { fetchGoals, challengeId } = props;
+  const { feedGoals, challengeId } = props;
 
   const [goals, setGoals] = useState([]);
-  const [notSetGoals, setNotSetGoals] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
 
-    fetchGoals()
-      .then(async (props: any) => {
-        const { goals, users } = props;
-        setGoals(goals);
-
-        const goalIds = goals.map((goal: any) => goal.id);
-        const notSetGoals = users.filter(
-          (user: any) => !goalIds.includes(user.id)
-        );
-        setNotSetGoals(notSetGoals);
-      })
+    feedGoals()
+      .then((goals: any) => setGoals(goals))
       .then(() => setLoading(false));
-  }, [fetchGoals]);
+  }, [feedGoals]);
 
   return (
     <React.Fragment>
@@ -51,25 +38,6 @@ const ChallengeGoals = (props: any) => {
               />
             ))}
           </StackGrid>
-        </React.Fragment>
-      )}
-      <br />
-      {notSetGoals !== [] && (
-        <React.Fragment>
-          <h3>目標をまだ設定していないユーザ</h3>
-          <Grid container>
-            {notSetGoals.map((user: any) => {
-              return (
-                <Grid item key={user.id}>
-                  <UserAvatar
-                    photoURL={user.photoURL}
-                    userId={user.id}
-                    to={getChallengeUserGoalPath(challengeId, user.id)}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
         </React.Fragment>
       )}
     </React.Fragment>

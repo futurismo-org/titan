@@ -20,6 +20,8 @@ import { postMessage } from '~/lib/discord.client.api';
 import { showGiphy } from '~/actions/giphyAction';
 
 import firebase from '~/lib/firebase';
+import { POST_TYPE_RECORD, POST_TYPE_RESET } from '~/constants/post';
+import { postUserChallengeHistory } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ showGiphy }, dispatch);
@@ -33,6 +35,8 @@ const mapStateToProps = (state: any, props: any) => {
 
   const dashBoardPath = getChallengeDashboardPath(challengeId, userShortId);
   const dashBoardURL = `https://titan-fire.com${dashBoardPath}`;
+
+  const profile = state.firebase.profile;
 
   const recordHandler = (alert: any, redirect: any, gifty: any) => (
     props: any
@@ -58,8 +62,10 @@ const mapStateToProps = (state: any, props: any) => {
     const newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
     const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
 
+    const historyId = shortId.generate();
+
     const newHistory = {
-      id: shortId.generate(),
+      id: historyId,
       timestamp: now,
       score: newScore,
       days: tomorrow,
@@ -93,6 +99,14 @@ const mapStateToProps = (state: any, props: any) => {
 ${dashBoardURL}`;
         webhookURL && postMessage(webhookURL, message);
       })
+      .then(() =>
+        postUserChallengeHistory(userShortId, challengeId, {
+          historyId,
+          user: profile,
+          type: POST_TYPE_RECORD,
+          days: tomorrow
+        })
+      )
       .then(() => alert && alert('投稿が完了しました。'))
       .then(() => {
         redirect && redirect('/');
@@ -147,8 +161,10 @@ ${dashBoardURL}`;
         ? accDays - 1
         : accDays;
 
+    const historyId = shortId.generate();
+
     const newHistory = {
-      id: shortId.generate(),
+      id: historyId,
       timestamp: now,
       score: newScore,
       days: 0,
@@ -181,6 +197,14 @@ ${dashBoardURL}`;
 ${dashBoardURL}`;
         webhookURL && postMessage(webhookURL, message);
       })
+      .then(() =>
+        postUserChallengeHistory(userShortId, challengeId, {
+          historyId,
+          user: profile,
+          type: POST_TYPE_RESET,
+          days: 0
+        })
+      )
       .then(() => {
         redirect && redirect('/');
         redirect && redirect(dashBoardPath);

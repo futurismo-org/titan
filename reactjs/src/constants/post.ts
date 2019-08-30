@@ -1,0 +1,10 @@
+export const POST_TYPE_JOIN = 'JOIN';
+export const POST_TYPE_OPEN = 'OPEN';
+export const POST_TYPE_CLOSE = 'CLOSE';
+export const POST_TYPE_RECORD = 'RECORD';
+export const POST_TYPE_RESET = 'RESET';
+export const POST_TYPE_TOPIC = 'TOPIC';
+export const POST_TYPE_NOTE = 'NOTE';
+export const POST_TYPE_SUCCESS = 'SUCCESS';
+export const POST_TYPE_ANALYSIS = 'ANALYSIS';
+export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';

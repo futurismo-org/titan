@@ -9,15 +9,14 @@ import {
   Text,
   View
 } from 'native-base';
-import shortid from 'shortid';
 import { withRouter } from 'react-router-native';
-import { AuthSession } from 'expo';
+// import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
 import twitter, { TWLoginButton } from 'react-native-simple-twitter';
-import firebase, { uploadPhotoURLAsync } from '~/lib/firebase';
+import firebase from '~/lib/firebase';
 import {
-  getTwitterAccessToken,
-  getTwitterRequestToken,
+  // getTwitterAccessToken,
+  // getTwitterRequestToken,
   TWITTER_CONSUMER_KEY,
   TWITTER_CONSUMER_SECRET
 } from '~/lib/twitter';
@@ -32,7 +31,7 @@ import { successToast, errorToast } from './Toast';
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
 const AuthScreen = (props: any) => {
-  const { history } = props;
+  const { history, signInSuccessWithAuthResult } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [oauthToken, setOauthToken] = useState('');
@@ -42,67 +41,6 @@ const AuthScreen = (props: any) => {
     twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
   }, []);
 
-  const signInSuccessWithAuthCallback = (
-    credentials: firebase.auth.UserCredential
-  ) => {
-    const { user } = credentials;
-
-    const isTwitter =
-      credentials.additionalUserInfo &&
-      credentials.additionalUserInfo.providerId === 'twitter.com';
-
-    const data = {
-      id: user!.uid,
-      shortId: shortid.generate(),
-      displayName: user!.displayName,
-      photoURL: user!.photoURL,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      twitterUsername: isTwitter
-        ? (credentials.additionalUserInfo! as any).username
-        : ''
-    };
-
-    const secureId = shortid.generate();
-    const dataSecure = {
-      id: secureId,
-      email: user!.email,
-      accessTokenKey: isTwitter
-        ? (credentials.credential! as any).accessToken
-        : '',
-      accessTokenSecret: isTwitter
-        ? (credentials.credential! as any).secret
-        : ''
-    };
-
-    const userRef = firebase
-      .firestore()
-      .collection('users')
-      // uidにしないと、reduxのprofileとfirestoreのusersが同期しない。
-      .doc(user!.uid);
-
-    userRef.get().then(doc => {
-      if (!doc.exists) {
-        userRef.set(data);
-        userRef
-          .collection('securities')
-          .doc(secureId)
-          .set(dataSecure)
-          .then(() => {
-            if (data.photoURL && data.photoURL !== '') {
-              uploadPhotoURLAsync(
-                data.photoURL,
-                data.shortId,
-                `/users/${data.id}`
-              );
-            }
-          });
-      }
-    });
-
-    return false;
-  };
-
   const signInWithEmail = (email: string, password: string) => {
     // キーボードは閉じる
     Keyboard.dismiss();
@@ -110,13 +48,13 @@ const AuthScreen = (props: any) => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(credential => signInSuccessWithAuthResult(credential))
       .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
       .catch(() =>
         firebase
           .auth()
           .createUserWithEmailAndPassword(email, password)
-          .then(credential => signInSuccessWithAuthCallback(credential))
+          .then(credential => signInSuccessWithAuthResult(credential))
           .then(() =>
             successToast('/settings', history.replace, LOGIN_MESSAGE_SUCCESS)
           )
@@ -125,54 +63,54 @@ const AuthScreen = (props: any) => {
   };
 
   // 一旦お蔵入り...
-  const signUpWithTwitter = async () => {
-    const res: any = await getTwitterRequestToken();
-    const { oauth_token, oauth_token_secret } = res; //eslint-disable-line
+  // const signUpWithTwitter = async () => {
+  //   const res: any = await getTwitterRequestToken();
+  //   const { oauth_token, oauth_token_secret } = res; //eslint-disable-line
 
-    /* eslint-disable */
-    if (!oauth_token || !oauth_token_secret) {
-      errorToast(oauth_token);
-      return;
-    }
-    /* eslint-enable */
+  //   /* eslint-disable */
+  //   if (!oauth_token || !oauth_token_secret) {
+  //     errorToast(oauth_token);
+  //     return;
+  //   }
+  //   /* eslint-enable */
 
-    const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
+  //   const authUrl = `https://api.twitter.com/oauth/authenticate?oauth_token=${oauth_token}`; //eslint-disable-line
 
-    /* eslint-disable */
-    const oauth_verifier = await AuthSession.startAsync({
-      authUrl,
-      returnUrl: 'scheme://'
-    }).then((res: any) => res.params.oauth_verifier);
-    /* eslint-enable */
+  //   /* eslint-disable */
+  //   const oauth_verifier = await AuthSession.startAsync({
+  //     authUrl,
+  //     returnUrl: 'scheme://'
+  //   }).then((res: any) => res.params.oauth_verifier);
+  //   /* eslint-enable */
 
-    const result: any = await getTwitterAccessToken({
-      oauth_token, //eslint-disable-line
-      oauth_token_secret, //eslint-disable-line
-      oauth_verifier //eslint-disable-line
-    });
+  //   const result: any = await getTwitterAccessToken({
+  //     oauth_token, //eslint-disable-line
+  //     oauth_token_secret, //eslint-disable-line
+  //     oauth_verifier //eslint-disable-line
+  //   });
 
-    /* eslint-disable */
-    if (
-      result.status !== 200 ||
-      !(result.data.oauth_token && result.data.oauth_token_secret)
-    ) {
-      errorToast(result.data.message);
-      return;
-    }
-    /* eslint-enable */
+  //   /* eslint-disable */
+  //   if (
+  //     result.status !== 200 ||
+  //     !(result.data.oauth_token && result.data.oauth_token_secret)
+  //   ) {
+  //     errorToast(result.data.message);
+  //     return;
+  //   }
+  //   /* eslint-enable */
 
-    const credential = firebase.auth.TwitterAuthProvider.credential(
-      result.data.oauth_token, //eslint-disable-line
-      result.data.oauth_token_secret //eslint-disable-line
-    );
+  //   const credential = firebase.auth.TwitterAuthProvider.credential(
+  //     result.data.oauth_token, //eslint-disable-line
+  //     result.data.oauth_token_secret //eslint-disable-line
+  //   );
 
-    firebase
-      .auth()
-      .signInWithCredential(credential)
-      .then(credential => signInSuccessWithAuthCallback(credential))
-      .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
-      .catch(error => errorToast(error.message));
-  };
+  //   firebase
+  //     .auth()
+  //     .signInWithCredential(credential)
+  //     .then(credential => signInSuccessWithAuthCallback(credential))
+  //     .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
+  //     .catch(error => errorToast(error.message));
+  // };
 
   const onGetAccessToken = ({
     oauth_token: token,
@@ -195,7 +133,7 @@ const AuthScreen = (props: any) => {
     firebase
       .auth()
       .signInWithCredential(credential)
-      .then(credential => signInSuccessWithAuthCallback(credential))
+      .then(credential => signInSuccessWithAuthResult(credential))
       .then(() => successToast('/', history.replace, LOGIN_MESSAGE_SUCCESS))
       .catch(error => errorToast(error.message));
   };

@@ -14,7 +14,7 @@ const CategoryChallenge = (props: any) => {
       {loading && null}
       {value && !value.data()!.freezed && !value.data()!.draft && (
         <React.Fragment>
-          <CollectionCard collection={value.data()} type="challenges" small />
+          <CollectionCard collection={value.data()} type="challenges" />
         </React.Fragment>
       )}
     </React.Fragment>

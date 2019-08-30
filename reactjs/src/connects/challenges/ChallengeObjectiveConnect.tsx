@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import firebase from '~/lib/firebase';
+import { postUserChallengeObjective } from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
@@ -30,7 +31,12 @@ const mapStateToProps = (state: any, props: any) => {
     return firebase
       .firestore()
       .doc(resourceId)
-      .set(updateData, { merge: true });
+      .set(updateData, { merge: true })
+      .then(
+        () =>
+          data.isCreate &&
+          postUserChallengeObjective(userShortId, challengeId, { user })
+      );
   };
 
   return {

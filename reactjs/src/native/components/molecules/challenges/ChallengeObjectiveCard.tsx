@@ -47,7 +47,7 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
 };
 
 export const ChallengeObjectiveWhyCard = (props: any) => {
-  const { text, user } = props;
+  const { text } = props;
 
   return (
     <View>

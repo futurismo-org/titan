@@ -6,6 +6,7 @@ import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
 } from './ChallengeObjectiveCard';
+import Progress from '../../atoms/CircularProgress';
 
 const ChallengeObjectiveDescription = (props: any) => {
   const { challenge } = props;
@@ -46,8 +47,8 @@ const ChallengeObjective = (props: any) => {
 
   useEffect(() => {
     if (isLoaded) {
-      setWhat(objective.what);
-      setWhy(objective.why);
+      setWhat(objective ? objective.what : initialWhat);
+      setWhy(objective ? objective.why : '');
     } else {
       setWhat(initialWhat);
       setWhy('');
@@ -72,7 +73,10 @@ const ChallengeObjective = (props: any) => {
     }
 
     const handler = edit
-      ? () => handleSave({ what, why }).then(() => setEdit(!edit))
+      ? () =>
+          handleSave({ what, why, isCreate: !objective }).then(() =>
+            setEdit(!edit)
+          )
       : () => setEdit(!edit);
 
     return (
@@ -88,8 +92,8 @@ const ChallengeObjective = (props: any) => {
 
   return (
     <React.Fragment>
-      {!isLoaded && null}
-      {isLoaded && !!objective && (
+      {!isLoaded && <Progress />}
+      {isLoaded && (
         <React.Fragment>
           <div style={{ textAlign: 'right' }}>
             <ChallengeObjectiveFormButton />

@@ -17,31 +17,38 @@ import {
   brandDarkBlue,
   brandYellow,
   brandDark,
-  brandPurple
+  brandPurple,
+  brandAqua
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
-  NOTE_TYPE_JOIN,
-  NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE,
-  NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_ANALYSIS,
-  NOTE_TYPE_SUCCESS
-} from '~/constants/note';
+  POST_TYPE_JOIN,
+  POST_TYPE_OPEN,
+  POST_TYPE_CLOSE,
+  POST_TYPE_RECORD,
+  POST_TYPE_RESET,
+  POST_TYPE_TOPIC,
+  POST_TYPE_NOTE,
+  POST_TYPE_ANALYSIS,
+  POST_TYPE_SUCCESS,
+  POST_TYPE_OBJECTIVE
+} from '~/constants/post';
 
 import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
 
+import {
+  deleteUserChallengeNote,
+  updateUserChallengeNote
+} from '~/lib/getstream';
+
 const ChallengeNoteJoin = (props: any) => {
-  const { createdAt } = props.data;
+  const { timestamp } = props.data;
   return (
     <TimelineItem
-      key={NOTE_TYPE_JOIN}
-      dateText={formatDatetimeShort(createdAt)}
+      key={POST_TYPE_JOIN}
+      dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
       <p>チャレンジに参加しました。</p>
@@ -53,7 +60,7 @@ const ChallengeNoteOpen = (props: any) => {
   const openedAt: Date = props.data.openedAt;
   return (
     <TimelineItem
-      key={NOTE_TYPE_OPEN}
+      key={POST_TYPE_OPEN}
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -67,7 +74,7 @@ const ChallengeNoteClose = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_CLOSE}
+      key={POST_TYPE_CLOSE}
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -84,7 +91,7 @@ const ChallengeNoteRecord = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_RECORD}
+      key={POST_TYPE_RECORD}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
@@ -99,7 +106,7 @@ const ChallengeNoteReset = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_RESET}
+      key={POST_TYPE_RESET}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
@@ -114,7 +121,7 @@ const ChallengeNoteTopic = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_TOPIC}
+      key={POST_TYPE_TOPIC}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
@@ -124,15 +131,39 @@ const ChallengeNoteTopic = (props: any) => {
   );
 };
 
+const ChallengeNoteObjective = (props: any) => {
+  const { data } = props;
+  const { timestamp, what } = data;
+
+  return (
+    <TimelineItem
+      key={POST_TYPE_OBJECTIVE}
+      dateText={formatDatetimeShort(timestamp)}
+      dateInnerStyle={{ background: brandAqua, color: brandDark }}
+    >
+      <p>チャレンジ目標を設定しました。</p>
+      <p>{what}</p>
+    </TimelineItem>
+  );
+};
+
 const ChallengeNoteMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
-  const { timestamp, text, noteId, challengeId, type, isMyProfile } = data;
+  const {
+    timestamp,
+    text,
+    noteId,
+    challengeId,
+    type,
+    isMyProfile,
+    serverId,
+    userId,
+    rawData
+  } = data;
 
   const [edit, setEdit] = useState(false);
   const [buffer, setBuffer] = useState(text);
   const [label, setLabel] = useState(type);
-  const [background, setBackground] = useState(backgroundColor);
-  const [textColor, setTextColor] = useState(color);
 
   const onBufferChange = (e: any) => {
     e.preventDefault();
@@ -154,25 +185,24 @@ const ChallengeNoteMemo = (props: any) => {
     };
 
     update(resourceId, data)
-      .then(() => {
-        if (label === NOTE_TYPE_DEFAULT) {
-          setBackground(brandPink);
-          setTextColor(brandWhite);
-        } else if (label === NOTE_TYPE_SUCCESS) {
-          setBackground(brandYellow);
-          setTextColor(brandDark);
-        } else if (label === NOTE_TYPE_ANALYSIS) {
-          setBackground(brandDarkBlue);
-          setTextColor(brandWhite);
-        }
-      })
-      .then(() => setEdit(false));
+      .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
+      .then(() =>
+        updateUserChallengeNote(userId, challengeId, {
+          rawData,
+          text: buffer,
+          type: label
+        })
+      )
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   const onDelete = () => {
     /* eslint-disable */
     if (window.confirm('本当に削除しますか？')) {
-      remove(resourceId).then(() => window.location.reload());
+      remove(resourceId)
+        .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
+        .then(() => window.alert('削除しました。'))
+        .then(() => window.location.reload());
     }
     /* eslint-enable */
   };
@@ -224,17 +254,17 @@ const ChallengeNoteMemo = (props: any) => {
         row
       >
         <FormControlLabel
-          value={NOTE_TYPE_DEFAULT}
+          value={POST_TYPE_NOTE}
           control={<Radio color="primary" />}
           label="メモ"
         />
         <FormControlLabel
-          value={NOTE_TYPE_SUCCESS}
+          value={POST_TYPE_SUCCESS}
           control={<Radio color="primary" />}
           label="達成記録"
         />
         <FormControlLabel
-          value={NOTE_TYPE_ANALYSIS}
+          value={POST_TYPE_ANALYSIS}
           control={<Radio color="primary" />}
           label="分析記録"
         />
@@ -255,7 +285,7 @@ const ChallengeNoteMemo = (props: any) => {
     <TimelineItem
       key={type}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ background, color: textColor }}
+      dateInnerStyle={{ backgroud: backgroundColor, color }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>
@@ -293,15 +323,16 @@ const ChallengeNoteAnalysis = (props: any) => {
 };
 
 const componentMap = new Map([
-  [NOTE_TYPE_JOIN, (data: any) => <ChallengeNoteJoin data={data} />],
-  [NOTE_TYPE_OPEN, (data: any) => <ChallengeNoteOpen data={data} />],
-  [NOTE_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />],
-  [NOTE_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
-  [NOTE_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
-  [NOTE_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
-  [NOTE_TYPE_DEFAULT, (data: any) => <ChallengeNoteDefault data={data} />],
-  [NOTE_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
-  [NOTE_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />]
+  [POST_TYPE_JOIN, (data: any) => <ChallengeNoteJoin data={data} />],
+  [POST_TYPE_OPEN, (data: any) => <ChallengeNoteOpen data={data} />],
+  [POST_TYPE_CLOSE, (data: any) => <ChallengeNoteClose data={data} />],
+  [POST_TYPE_RECORD, (data: any) => <ChallengeNoteRecord data={data} />],
+  [POST_TYPE_RESET, (data: any) => <ChallengeNoteReset data={data} />],
+  [POST_TYPE_TOPIC, (data: any) => <ChallengeNoteTopic data={data} />],
+  [POST_TYPE_NOTE, (data: any) => <ChallengeNoteDefault data={data} />],
+  [POST_TYPE_SUCCESS, (data: any) => <ChallengeNoteSuccess data={data} />],
+  [POST_TYPE_ANALYSIS, (data: any) => <ChallengeNoteAnalysis data={data} />],
+  [POST_TYPE_OBJECTIVE, (data: any) => <ChallengeNoteObjective data={data} />]
 ]);
 
 const ChallengeNote = (props: any) => {

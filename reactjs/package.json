@@ -63,6 +63,7 @@
     "firebaseui": "^4.0.0",
     "form-data": "^2.4.0",
     "fs": "^0.0.1-security",
+    "getstream": "^4.2.5",
     "giphy-js-sdk-core": "^1.0.6",
     "history": "^4.9.0",
     "lodash": "^4.17.14",
@@ -131,7 +132,7 @@
     "shortid": "^2.2.14",
     "styled-components": "^4.3.2",
     "styled-components-native": "^1.0.2",
-    "typescript": "^3.5.3",
+    "typescript": "^3.6.2",
     "vertical-timeline-component-for-react": "^1.0.6",
     "yarn": "^1.17.3"
   },

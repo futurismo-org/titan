@@ -14,20 +14,22 @@ import {
   brandDarkBlue,
   brandYellow,
   brandDark,
-  brandPurple
+  brandPurple,
+  brandAqua
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
-  NOTE_TYPE_JOIN,
-  NOTE_TYPE_OPEN,
-  NOTE_TYPE_CLOSE,
-  NOTE_TYPE_RECORD,
-  NOTE_TYPE_RESET,
-  NOTE_TYPE_TOPIC,
-  NOTE_TYPE_DEFAULT,
-  NOTE_TYPE_ANALYSIS,
-  NOTE_TYPE_SUCCESS
-} from '~/constants/note';
+  POST_TYPE_JOIN,
+  POST_TYPE_OPEN,
+  POST_TYPE_CLOSE,
+  POST_TYPE_RECORD,
+  POST_TYPE_RESET,
+  POST_TYPE_TOPIC,
+  POST_TYPE_NOTE,
+  POST_TYPE_ANALYSIS,
+  POST_TYPE_SUCCESS,
+  POST_TYPE_OBJECTIVE
+} from '~/constants/post';
 import TextFieldView from '../../atoms/TextFieldView';
 import UserAvatar from '../../atoms/UserAvatar';
 
@@ -51,7 +53,7 @@ const ChallengeTimelineItemJoin = (props: any) => {
   const { createdAt, userId, userName, userPhotoURL } = props.data;
   return (
     <TimelineItem
-      key={NOTE_TYPE_JOIN}
+      key={POST_TYPE_JOIN}
       dateText={formatDatetimeShort(createdAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -68,7 +70,7 @@ const ChallengeTimelineItemOpen = (props: any) => {
   const openedAt: Date = props.data.openedAt;
   return (
     <TimelineItem
-      key={NOTE_TYPE_OPEN}
+      key={POST_TYPE_OPEN}
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -82,7 +84,7 @@ const ChallengeTimelineItemClose = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_CLOSE}
+      key={POST_TYPE_CLOSE}
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
@@ -99,7 +101,7 @@ const ChallengeTimelineItemRecord = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_RECORD}
+      key={POST_TYPE_RECORD}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
@@ -119,7 +121,7 @@ const ChallengeTimelineItemReset = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_RESET}
+      key={POST_TYPE_RESET}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
@@ -139,7 +141,7 @@ const ChallengeTimelineItemTopic = (props: any) => {
 
   return (
     <TimelineItem
-      key={NOTE_TYPE_TOPIC}
+      key={POST_TYPE_TOPIC}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
@@ -149,6 +151,27 @@ const ChallengeTimelineItemTopic = (props: any) => {
         userId={userId}
       />
       <Link to={path}>{title}</Link>
+      <p>Posted by {userName}</p>
+    </TimelineItem>
+  );
+};
+
+const ChallengeTimelineItemObjective = (props: any) => {
+  const { data } = props;
+  const { timestamp, path, what, userName, userPhotoURL, userId } = data;
+
+  return (
+    <TimelineItem
+      key={POST_TYPE_TOPIC}
+      dateText={formatDatetimeShort(timestamp)}
+      dateInnerStyle={{ background: brandAqua, color: brandDark }}
+    >
+      <TimelineItemHeadline
+        headline="目標が投稿されました。"
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
+      <Link to={path}>{what}</Link>
       <p>Posted by {userName}</p>
     </TimelineItem>
   );
@@ -216,26 +239,27 @@ const ChallengeTimelineItemAnalysis = (props: any) => {
 };
 
 const componentMap = new Map([
-  [NOTE_TYPE_JOIN, (data: any) => <ChallengeTimelineItemJoin data={data} />],
-  [NOTE_TYPE_OPEN, (data: any) => <ChallengeTimelineItemOpen data={data} />],
-  [NOTE_TYPE_CLOSE, (data: any) => <ChallengeTimelineItemClose data={data} />],
+  [POST_TYPE_JOIN, (data: any) => <ChallengeTimelineItemJoin data={data} />],
+  [POST_TYPE_OPEN, (data: any) => <ChallengeTimelineItemOpen data={data} />],
+  [POST_TYPE_CLOSE, (data: any) => <ChallengeTimelineItemClose data={data} />],
   [
-    NOTE_TYPE_RECORD,
+    POST_TYPE_RECORD,
     (data: any) => <ChallengeTimelineItemRecord data={data} />
   ],
-  [NOTE_TYPE_RESET, (data: any) => <ChallengeTimelineItemReset data={data} />],
-  [NOTE_TYPE_TOPIC, (data: any) => <ChallengeTimelineItemTopic data={data} />],
+  [POST_TYPE_RESET, (data: any) => <ChallengeTimelineItemReset data={data} />],
+  [POST_TYPE_TOPIC, (data: any) => <ChallengeTimelineItemTopic data={data} />],
+  [POST_TYPE_NOTE, (data: any) => <ChallengeTimelineItemDefault data={data} />],
   [
-    NOTE_TYPE_DEFAULT,
-    (data: any) => <ChallengeTimelineItemDefault data={data} />
-  ],
-  [
-    NOTE_TYPE_SUCCESS,
+    POST_TYPE_SUCCESS,
     (data: any) => <ChallengeTimelineItemSuccess data={data} />
   ],
   [
-    NOTE_TYPE_ANALYSIS,
+    POST_TYPE_ANALYSIS,
     (data: any) => <ChallengeTimelineItemAnalysis data={data} />
+  ],
+  [
+    POST_TYPE_OBJECTIVE,
+    (data: any) => <ChallengeTimelineItemObjective data={data} />
   ]
 ]);
 

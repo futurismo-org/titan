@@ -24,12 +24,14 @@ const CategoryDashBoard = (props: any) => {
       <Space />
       <Title text="チャレンジ一覧" left />
       {category.challengeRefs &&
-        category.challengeRefs.map((challengeRef: any) => (
-          <CategoryChallenge
-            key={shortId.generate()}
-            challengeRef={challengeRef}
-          />
-        ))}
+        category.challengeRefs
+          .slice(0, 4)
+          .map((challengeRef: any) => (
+            <CategoryChallenge
+              key={shortId.generate()}
+              challengeRef={challengeRef}
+            />
+          ))}
       <Space />
       <Title text="トピック" left />
       <TopicList topics={topics} topicPath={topicPath} limit={6} />

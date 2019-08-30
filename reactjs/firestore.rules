@@ -58,5 +58,10 @@ service cloud.firestore {
                                     && isUserAuthenticated(userID);
       }
     }
+
+    match /securities/{userID} {
+      allow read, create, update: if isAuthenticated() 
+                                  && isUserAuthenticated(userID);
+    }
   }
 }

@@ -10,16 +10,17 @@ import {
 import shortId from 'shortid';
 import { create } from '~/lib/firebase';
 import {
-  NOTE_TYPE_SUCCESS,
-  NOTE_TYPE_ANALYSIS,
-  NOTE_TYPE_DEFAULT
-} from '~/constants/note';
+  POST_TYPE_SUCCESS,
+  POST_TYPE_ANALYSIS,
+  POST_TYPE_NOTE
+} from '~/constants/post';
+import { postUserChallengeNote } from '~/lib/getstream';
 
 const ChallengeNoteForm = (props: any) => {
   const { challenge, user } = props;
 
   const [text, setText] = useState('');
-  const [label, setLabel] = useState(NOTE_TYPE_DEFAULT);
+  const [label, setLabel] = useState(POST_TYPE_NOTE);
 
   const onTextChange = (e: any) => {
     e.preventDefault();
@@ -39,15 +40,17 @@ const ChallengeNoteForm = (props: any) => {
 
     const noteId = shortId.generate();
     const resourceId = `/challenges/${challenge.id}/notes/${noteId}`;
+    const userShortId = user.shortId;
+    const challengeId = challenge.id;
 
     const data = {
       id: noteId,
       text,
       type: label,
-      userId: user.shortId,
+      userId: userShortId,
       userName: user.displayName,
       userPhotoURL: user.photoURL,
-      challengeId: challenge.id,
+      challengeId,
       challengeTitle: challenge.title,
       createdAt: new Date(),
       updatedAt: new Date()
@@ -55,7 +58,15 @@ const ChallengeNoteForm = (props: any) => {
 
     create(resourceId, data)
       .then(() => window.alert('投稿しました')) // eslint-disable-line
-      .then(() => window.location.reload()); // eslint-disable-line
+      .then(() =>
+        postUserChallengeNote(userShortId, challengeId, {
+          noteId,
+          user,
+          type: label,
+          text
+        })
+      );
+    // .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
@@ -83,17 +94,17 @@ const ChallengeNoteForm = (props: any) => {
             row
           >
             <FormControlLabel
-              value={NOTE_TYPE_DEFAULT}
+              value={POST_TYPE_NOTE}
               control={<Radio color="primary" />}
               label="メモ"
             />
             <FormControlLabel
-              value={NOTE_TYPE_SUCCESS}
+              value={POST_TYPE_SUCCESS}
               control={<Radio color="primary" />}
               label="達成記録"
             />
             <FormControlLabel
-              value={NOTE_TYPE_ANALYSIS}
+              value={POST_TYPE_ANALYSIS}
               control={<Radio color="primary" />}
               label="分析記録"
             />
