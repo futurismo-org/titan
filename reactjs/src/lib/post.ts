@@ -17,7 +17,6 @@ import {
 
 import {
   brandAqua,
-  brandDark,
   secondaryColor,
   brandWhite,
   brandPurple,

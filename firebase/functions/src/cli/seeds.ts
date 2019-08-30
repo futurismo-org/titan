@@ -160,7 +160,6 @@ const createChallengeHistorySeed = (n: number) => {
 
 const createParticipationSeed = (args: any) => {
   const { id } = args;
-  const now = new Date();
   return seed.doc(id, {
     createdAt: getRandomCreatedAt(),
     updatedAt: getRandomUpdatedAt(),
