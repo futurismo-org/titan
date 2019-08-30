@@ -31,7 +31,14 @@ import {
   POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS,
-  POST_TYPE_OBJECTIVE
+  POST_TYPE_OBJECTIVE,
+  POST_MESSAGE_JOIN,
+  POST_MESSAGE_OPEN,
+  POST_MESSAGE_CLOSE,
+  POST_MESSAGE_RECORD,
+  POST_MESSAGE_RESET,
+  POST_MESSAGE_TOPIC,
+  POST_MESSAGE_OBJECTIVE
 } from '~/constants/post';
 
 import { update, remove } from '~/lib/firebase';
@@ -47,11 +54,11 @@ const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
   return (
     <TimelineItem
-      key={POST_TYPE_JOIN}
+      key={POST_MESSAGE_JOIN}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジに参加しました。</p>
+      <p>{POST_MESSAGE_JOIN}</p>
     </TimelineItem>
   );
 };
@@ -64,7 +71,7 @@ const ChallengeNoteOpen = (props: any) => {
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジがスタートしました。</p>
+      <p>{POST_MESSAGE_OPEN}</p>
     </TimelineItem>
   );
 };
@@ -78,7 +85,7 @@ const ChallengeNoteClose = (props: any) => {
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジが終了しました。</p>
+      <p>{POST_MESSAGE_CLOSE}</p>
     </TimelineItem>
   );
 };
@@ -95,7 +102,9 @@ const ChallengeNoteRecord = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
-      <p>記録を投稿しました。({daysString})</p>
+      <p>
+        {POST_MESSAGE_RECORD} ({daysString})
+      </p>
     </TimelineItem>
   );
 };
@@ -110,7 +119,7 @@ const ChallengeNoteReset = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
-      <p>リセットしました。</p>
+      <p>{POST_MESSAGE_RESET}</p>
     </TimelineItem>
   );
 };
@@ -125,7 +134,7 @@ const ChallengeNoteTopic = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
-      <p>トピックを投稿しました。</p>
+      <p>{POST_MESSAGE_TOPIC}</p>
       <Link to={path}>{title}</Link>
     </TimelineItem>
   );
@@ -141,7 +150,7 @@ const ChallengeNoteObjective = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandAqua, color: brandDark }}
     >
-      <p>チャレンジ目標を設定しました。</p>
+      <p>{POST_MESSAGE_OBJECTIVE}</p>
       <p>{what}</p>
     </TimelineItem>
   );

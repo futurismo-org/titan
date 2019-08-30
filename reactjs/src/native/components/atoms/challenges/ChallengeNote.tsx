@@ -12,33 +12,29 @@ import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 
 import moment from '~/lib/moment';
+import { brandSuccess, brandWhite } from '~/lib/theme';
+import { createPost } from '~/lib/post';
 
 const CustomActivity = withRouter((props: any) => {
   const { history } = props;
-  const {
-    text,
-    createdAt,
-    userDisplayName,
-    userPhotoURL,
-    verb,
-    userId
-  } = props.activity;
+  const post = createPost(props.activity);
+  const data = post.data;
 
   const activity = {
     actor: {
       data: {
-        name: userDisplayName,
-        profileImage: userPhotoURL
+        name: data.message,
+        profileImage: data.dummyImage
       }
     },
-    object: text,
-    verb,
-    time: moment(createdAt).toDate()
+    object: data.text,
+    verb: data.type,
+    time: moment(data.createdAt).toDate()
   };
   return (
     <Activity
       activity={activity}
-      onPressAvatar={() => history.replace(`/u/${userId}`)}
+      onPressAvatar={() => history.replace(`/u/${data.userId}`)}
     />
   );
 });
