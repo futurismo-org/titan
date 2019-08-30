@@ -65,8 +65,8 @@ const ChallengeNoteForm = (props: any) => {
           type: label,
           text
         })
-      );
-    // .then(() => window.location.reload()); // eslint-disable-line
+      )
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (

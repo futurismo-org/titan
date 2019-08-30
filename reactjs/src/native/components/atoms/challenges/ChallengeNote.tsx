@@ -1,19 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text } from 'native-base';
+import { StreamApp, FlatFeed, StatusUpdateForm } from 'expo-activity-feed';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
+import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 
 const ChallengeNote = (props: any) => {
-  const { challenge, user, fetchUserWithShortId, userShortId, loading } = props;
+  const {
+    fetchUserWithShortId,
+    user,
+    timelineId,
+    userShortId,
+    loading
+  } = props;
+
+  const [token, setToken] = useState('');
 
   useEffect(() => {
+    getToken(timelineId).then((res: any) => setToken(res));
     fetchUserWithShortId(userShortId);
-  }, [fetchUserWithShortId, userShortId]);
+  }, [fetchUserWithShortId, timelineId, userShortId]);
 
   return (
     <React.Fragment>
       {loading && <Progress />}
-      {!loading && user && challenge && (
+      {!loading && user && token !== '' && (
         <View
           style={{
             paddingLeft: 25,
@@ -33,6 +44,16 @@ const ChallengeNote = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
           <Text />
+          <StreamApp
+            apiKey={GETSTREAM_KEY}
+            appId={GETSTREAM_APP_ID}
+            token={token}
+            userId={timelineId}
+            options={{ browser: true }} /* hack */
+          >
+            <FlatFeed />
+            {/* <StatusUpdateForm feedGroup="timeline" /> */}
+          </StreamApp>
         </View>
       )}
     </React.Fragment>

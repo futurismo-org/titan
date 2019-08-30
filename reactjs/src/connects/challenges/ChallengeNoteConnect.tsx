@@ -13,6 +13,7 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 const mapStateToProps = (state: any, props: any) => {
   const challengeId = props.match.params.id;
   const userShortId = props.match.params.userShortId;
+  const timelineId = `${userShortId}_${challengeId}`;
 
   const user = state.user.target;
 
@@ -21,11 +22,10 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     user,
-    challengeId,
     userShortId,
+    timelineId,
     isMyProfile,
     loading: state.user.loading,
-    error: state.user.error,
     ...props
   };
 };

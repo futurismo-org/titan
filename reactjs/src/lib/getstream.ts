@@ -24,8 +24,19 @@ export const getStreamToken = async (userId: string) => {
     .then(res => res.data);
 };
 
-const GETSTREAM_KEY = process.env.REACT_APP_GETSTREAM_KEY as string;
-const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
+export const GETSTREAM_KEY =
+  process.env.REACT_APP_ENV === 'development' ||
+  process.env.NODE_ENV === 'development' ||
+  process.env.APP_ENV === 'development'
+    ? (process.env.REACT_APP_GETSTREAM_KEY_DEVELOPMENT as string)
+    : (process.env.REACT_APP_GETSTREAM_KEY_PRODUCTION as string);
+
+export const GETSTREAM_APP_ID =
+  process.env.REACT_APP_ENV === 'development' ||
+  process.env.NODE_ENV === 'development' ||
+  process.env.APP_ENV === 'development'
+    ? (process.env.REACT_APP_GETSTREAM_APP_ID_DEVELOPMENT as string)
+    : (process.env.REACT_APP_GETSTREAM_APP_ID_PRODUCTION as string);
 
 // const getClient = (userId: string) => {
 //   return firebase
@@ -54,7 +65,7 @@ const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
 //     );
 // };
 
-const getToken = (userShortId: string) => {
+export const getToken = (userShortId: string) => {
   return axios
     .post(
       '/getstream/token',
