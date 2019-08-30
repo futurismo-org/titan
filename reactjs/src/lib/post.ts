@@ -25,6 +25,7 @@ import {
   brandWarning,
   brandPink
 } from '~/lib/theme';
+import { getChallengeDashboardPath } from './url';
 
 const dummyImage = (backgroundColor: string, color: string, text: string) => {
   const back = backgroundColor.replace('#', '');
@@ -105,7 +106,8 @@ const createRecordPost = (data: any) => {
       userId: data.userId,
       days: data.days || 0,
       dummyImage: dummyImage(brandSuccess, brandWhite, 'record'),
-      message: POST_MESSAGE_RECORD
+      message: POST_MESSAGE_RECORD,
+      path: getChallengeDashboardPath(data.challengeId, data.userId)
     }
   };
 };
@@ -123,7 +125,8 @@ const createResetPost = (data: any) => {
       userId: data.userId,
       days: data.days || 0,
       dummyImage: dummyImage(brandWarning, brandWhite, 'reset'),
-      message: POST_MESSAGE_RESET
+      message: POST_MESSAGE_RESET,
+      path: getChallengeDashboardPath(data.challengeId, data.userId)
     }
   };
 };

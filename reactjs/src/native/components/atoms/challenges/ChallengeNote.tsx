@@ -12,7 +12,6 @@ import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 
 import moment from '~/lib/moment';
-import { brandSuccess, brandWhite } from '~/lib/theme';
 import { createPost } from '~/lib/post';
 
 const CustomActivity = withRouter((props: any) => {
@@ -34,7 +33,8 @@ const CustomActivity = withRouter((props: any) => {
   return (
     <Activity
       activity={activity}
-      onPressAvatar={() => history.replace(`/u/${data.userId}`)}
+      // onPressAvatar={() => history.replace(`/u/${data.userId}`)}
+      onPress={() => history.replace(data.path)}
     />
   );
 });
