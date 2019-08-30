@@ -87,14 +87,9 @@ const createObjectivePost = (data: any) => {
       objectiveId: data.objectiveId,
       userName: data.userDisplayName,
       userPhotoURL: data.userPhotoURL,
-      userId: data.userId
+      userId: data.userId,
+      path: `/c/${data.challengeId}/u/${data.userId}/goal`
     }
-  };
-};
-
-const createInitPost = (data: any) => {
-  return {
-    ...baseData(data)
   };
 };
 

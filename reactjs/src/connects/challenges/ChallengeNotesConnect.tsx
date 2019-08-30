@@ -29,7 +29,9 @@ const generatePosts = (data: any, challenge: any) => {
 
   data.map((post: any) => notes.push(createPost(post)));
 
-  return notes;
+  return notes.sort((x: any, y: any) =>
+    moment(x.timestamp).diff(moment(y.timestamp))
+  );
 };
 
 const mapStateToProps = (state: any, props: any) => {
@@ -41,13 +43,9 @@ const mapStateToProps = (state: any, props: any) => {
   const isMyProfile = profile.shortId === userShortId;
 
   const feedNotes = () =>
-    getUserChallengeTimeline(userShortId, challengeId)
-      .then((data: any) => generatePosts(data, challenge))
-      .then((posts: any) =>
-        posts.sort((x: any, y: any) =>
-          moment(x.timestamp).diff(moment(y.timestamp))
-        )
-      );
+    getUserChallengeTimeline(userShortId, challengeId).then((data: any) =>
+      generatePosts(data, challenge)
+    );
 
   return {
     userShortId,

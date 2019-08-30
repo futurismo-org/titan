@@ -14,7 +14,8 @@ import {
   brandDarkBlue,
   brandYellow,
   brandDark,
-  brandPurple
+  brandPurple,
+  brandAqua
 } from '~/lib/theme';
 import { formatDatetimeShort } from '~/lib/moment';
 import {
@@ -26,7 +27,8 @@ import {
   POST_TYPE_TOPIC,
   POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
-  POST_TYPE_SUCCESS
+  POST_TYPE_SUCCESS,
+  POST_TYPE_OBJECTIVE
 } from '~/constants/post';
 import TextFieldView from '../../atoms/TextFieldView';
 import UserAvatar from '../../atoms/UserAvatar';
@@ -154,6 +156,27 @@ const ChallengeTimelineItemTopic = (props: any) => {
   );
 };
 
+const ChallengeTimelineItemObjective = (props: any) => {
+  const { data } = props;
+  const { timestamp, path, what, userName, userPhotoURL, userId } = data;
+
+  return (
+    <TimelineItem
+      key={POST_TYPE_TOPIC}
+      dateText={formatDatetimeShort(timestamp)}
+      dateInnerStyle={{ background: brandAqua, color: brandDark }}
+    >
+      <TimelineItemHeadline
+        headline="目標が投稿されました。"
+        photoURL={userPhotoURL}
+        userId={userId}
+      />
+      <Link to={path}>{what}</Link>
+      <p>Posted by {userName}</p>
+    </TimelineItem>
+  );
+};
+
 const ChallengeTimelineItemMemo = (props: any) => {
   const { data, backgroundColor, color } = props;
   const {
@@ -233,6 +256,10 @@ const componentMap = new Map([
   [
     POST_TYPE_ANALYSIS,
     (data: any) => <ChallengeTimelineItemAnalysis data={data} />
+  ],
+  [
+    POST_TYPE_OBJECTIVE,
+    (data: any) => <ChallengeTimelineItemObjective data={data} />
   ]
 ]);
 

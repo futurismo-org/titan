@@ -71,6 +71,9 @@ export const isChallengeClosed = (closedAt: Date) =>
   moment(new Date().setHours(29, 59, 59, 59)).diff(moment(closedAt), 'days') >
   0;
 
+export const isChallengeOpened = (openedAt: Date) =>
+  nowMoment.diff(moment(openedAt)) >= 0;
+
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
   nowMoment.diff(moment(openedAt)) >= 0 && nowMoment.diff(moment(closedAt)) < 0;
 

@@ -66,15 +66,15 @@ const getToken = (userShortId: string) => {
     .then(res => res.data);
 };
 
-const collectionName = (collectionType: string) => {
-  if (collectionType === 'challenges') {
-    return 'challenge';
-  } else if (collectionType === 'categories') {
-    return 'category';
-  } else {
-    return 'general';
-  }
-};
+// const collectionName = (collectionType: string) => {
+//   if (collectionType === 'challenges') {
+//     return 'challenge';
+//   } else if (collectionType === 'categories') {
+//     return 'category';
+//   } else {
+//     return 'general';
+//   }
+// };
 
 const getUserChallengeId = (userShortId: string, challengeId: string) =>
   `${userShortId}_${challengeId}`;
@@ -283,6 +283,24 @@ export const followUserChallengeTimeline = (
     timeline.follow('objective', id);
   });
 
+  getToken(challengeId).then((token: any) => {
+    const timeline = client.feed('timeline', id, token);
+    timeline.follow('challenge', id);
+    timeline.follow('topic', id);
+    timeline.follow('note', id);
+    timeline.follow('history', id);
+    timeline.follow('objective', id);
+  });
+
+  getToken(userShortId).then((token: any) => {
+    const timeline = client.feed('timeline', id, token);
+    timeline.follow('challenge', id);
+    timeline.follow('topic', id);
+    timeline.follow('note', id);
+    timeline.follow('history', id);
+    timeline.follow('objective', id);
+  });
+
   getToken(userShortId).then((token: any) => {
     const timeline = client.feed('timeline', userShortId, token);
     timeline.follow('timeline', id);
@@ -308,7 +326,7 @@ export const getUserChallengeTimeline = (
 
   return getToken(id).then((token: any) => {
     const timeline = client.feed('timeline', id, token);
-    return timeline.get({}).then((data: any) => data['results']);
+    return timeline.get({ limit: 100 }).then((data: any) => data['results']);
   });
 };
 
@@ -317,7 +335,7 @@ export const getChallengeTimeline = (challengeId: string) => {
 
   return getToken(challengeId).then((token: any) => {
     const timeline = client.feed('timeline', challengeId, token);
-    return timeline.get({}).then((data: any) => data['results']);
+    return timeline.get({ limit: 100 }).then((data: any) => data['results']);
   });
 };
 
@@ -326,6 +344,6 @@ export const getChallengeObjectives = (challengeId: string) => {
 
   return getToken(challengeId).then((token: any) => {
     const timeline = client.feed('objective', challengeId, token);
-    return timeline.get({}).then((data: any) => data['results']);
+    return timeline.get({ limit: 100 }).then((data: any) => data['results']);
   });
 };
