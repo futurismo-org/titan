@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Text } from 'native-base';
 
 import { withRouter } from 'react-router-native';
