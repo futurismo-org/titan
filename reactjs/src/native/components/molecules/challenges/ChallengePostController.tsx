@@ -24,11 +24,11 @@ const ChallengePostController = (props: any) => {
 
   const writeRecord = recordHandler(
     successToastWithNoRedirect,
-    history.replace,
+    history.push,
     () => showGiphy('win')
   );
 
-  const resetRecord = resetHandler(history.replace, () => showGiphy('lose'));
+  const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
 
   const data = value && value.data();
   const recordDisabled = !isPostPossible(data && data.histories);

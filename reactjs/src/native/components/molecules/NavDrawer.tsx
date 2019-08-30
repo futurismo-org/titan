@@ -95,7 +95,7 @@ const NavDrawer = (props: any) => {
                 ) : (
                   <TouchableOpacity
                     onPress={() => {
-                      history.replace(item.path);
+                      history.push(item.path);
                       closeHandler();
                     }}
                     style={{ flex: 1, alignSelf: 'center' }}

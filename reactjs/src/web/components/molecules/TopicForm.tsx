@@ -64,7 +64,7 @@ const TopicForm = (props: any) => {
         .set(newData)
         .then(() => postTopicStream(title))
         .then(() => window.alert('投稿が完了しました。')) // eslint-disable-line
-        .then(() => history.replace(redirectPath))
+        .then(() => history.push(redirectPath))
         .catch((err: any) => {
           console.log(err);
           window.alert('エラーが発生しました。'); // eslint-disable-line
@@ -74,7 +74,7 @@ const TopicForm = (props: any) => {
       db.doc(resourceId)
         .update(updateData)
         .then(() => window.alert('更新が完了しました。')) // eslint-disable-line
-        .then(() => history.replace(redirectPath))
+        .then(() => history.push(redirectPath))
         .catch((err: any) => {
           console.log(err);
           window.alert('エラーが発生しました。'); // eslint-disable-line

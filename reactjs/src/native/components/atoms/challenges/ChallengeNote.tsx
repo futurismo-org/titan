@@ -33,8 +33,8 @@ const CustomActivity = withRouter((props: any) => {
   return (
     <Activity
       activity={activity}
-      // onPressAvatar={() => history.replace(`/u/${data.userId}`)}
-      onPress={() => history.replace(data.path)}
+      // onPressAvatar={() => history.push(`/u/${data.userId}`)}
+      onPress={() => history.push(data.path)}
     />
   );
 });

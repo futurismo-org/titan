@@ -16,10 +16,8 @@ const QuickActionChallengeButton = (props: any) => {
 
   const [value, loading, error] = useDocument(participantsRef);
 
-  const writeRecord = recordHandler(null, history.replace, () =>
-    showGiphy('win')
-  );
-  const resetRecord = resetHandler(history.replace, () => showGiphy('lose'));
+  const writeRecord = recordHandler(null, history.push, () => showGiphy('win'));
+  const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
 
   const challenge = value && value.data();
   const recordDisabled = !isPostPossible(challenge && challenge.histories);

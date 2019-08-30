@@ -19,7 +19,7 @@ const HeaderWrapper = (props: any) => {
           </Button>
         </Left>
         <Body>
-          <TouchableOpacity onPress={() => history.replace('/')}>
+          <TouchableOpacity onPress={() => history.push('/')}>
             <Text
               style={{
                 color: brandWhite,
@@ -37,7 +37,7 @@ const HeaderWrapper = (props: any) => {
               bordered
               onPress={() => {
                 firebase.auth().signOut();
-                history.replace('/');
+                history.push('/');
               }}
             >
               <Text style={{ color: brandWhite, fontWeight: 'bold' }}>

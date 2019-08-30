@@ -20,7 +20,7 @@ const ChallengeButton = (props: any) => {
 
   const handleJoin = () => {
     joinHandler().then(() => {
-      successToast(redirectPath, history.replace, 'チャレンジに参加しました');
+      successToast(redirectPath, history.push, 'チャレンジに参加しました');
     });
   };
 

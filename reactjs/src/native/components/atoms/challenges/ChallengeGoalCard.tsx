@@ -114,7 +114,7 @@ const ChallengeGoalCard = (props: any) => {
     <TouchableOpacity
       activeOpacity={1}
       style={[styles.slideInnerContainer, { height: slideHeight }]}
-      onPress={() => history.replace(path)}
+      onPress={() => history.push(path)}
     >
       <View style={{ height: 60 }}>
         <Grid>

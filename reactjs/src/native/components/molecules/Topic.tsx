@@ -46,9 +46,7 @@ const Topic = (props: any) => {
         {
           text: 'はい',
           onPress: () =>
-            firebase
-              .remove(resourceId)
-              .then(() => history.replace(redirectPath))
+            firebase.remove(resourceId).then(() => history.push(redirectPath))
         },
         {
           text: 'いいえ',

@@ -41,7 +41,7 @@ const Topics = (props: any) => {
             <Text>投稿する際は</Text>
             <Text
               style={{ textDecorationLine: 'underline' }}
-              onPress={() => history.replace('/guidelines')}
+              onPress={() => history.push('/guidelines')}
             >
               コミュニティガイドライン
             </Text>

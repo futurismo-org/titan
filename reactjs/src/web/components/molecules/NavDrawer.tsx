@@ -74,7 +74,7 @@ const Drawer = (props: any) => {
     const { text, to, history } = props;
 
     const clickHandler = () => {
-      history.replace(to);
+      history.push(to);
       setOpen(false);
     };
 

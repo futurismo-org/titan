@@ -71,7 +71,7 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space />
           <TwitterButton challenge={challenge} userShortId={user.id} />
           <Space />
-          <Button full rounded onPress={() => history.replace(categoryPath)}>
+          <Button full rounded onPress={() => history.push(categoryPath)}>
             <Text>カテゴリ記録へ</Text>
           </Button>
         </React.Fragment>

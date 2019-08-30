@@ -21,7 +21,7 @@ const ChallengeCategoryBadge = (props: any) => {
         <Button
           rounded
           style={{ margin: 2 }}
-          onPress={() => history.replace(`/cat/${category.id}/dashboard`)}
+          onPress={() => history.push(`/cat/${category.id}/dashboard`)}
         >
           <Text>{category.title}</Text>
         </Button>

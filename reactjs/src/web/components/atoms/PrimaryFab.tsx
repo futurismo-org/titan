@@ -10,7 +10,7 @@ const PrimaryFab = (props: any) => {
       variant="extended"
       color="primary"
       style={{ fontWeight: 'bold' }}
-      onClick={() => path && history.replace(path)}
+      onClick={() => path && history.push(path)}
     >
       {text}
     </Fab>
