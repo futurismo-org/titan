@@ -5,8 +5,7 @@ import Modal from 'react-native-modal';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
-import {
-  ChallengeNoteActivity,
+import ChallengeNoteActivity, {
   ChallengeNoteOpenActivity,
   ChallengeNoteCloseActivity
 } from './ChallengeNoteActivity';

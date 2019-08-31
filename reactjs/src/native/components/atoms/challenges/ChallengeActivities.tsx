@@ -6,13 +6,14 @@ import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 import {
-  ChallengeNoteActivity,
   ChallengeNoteOpenActivity,
   ChallengeNoteCloseActivity
 } from './ChallengeNoteActivity';
+import ChallengeNoteActivity from '~/native/containers/challenges/ChallengeNoteActivityContainer';
+
 import ChallengeNoteForm from '~/native/containers/challenges/ChallengeNoteFormContainer';
 
-const ChallengeNote = (props: any) => {
+const ChallengeActivities = (props: any) => {
   const {
     fetchUserWithShortId,
     user,
@@ -31,7 +32,6 @@ const ChallengeNote = (props: any) => {
   };
 
   const closeModal = () => {
-    console.log('closed', modal);
     setModal(false);
   };
 
@@ -86,7 +86,11 @@ const ChallengeNote = (props: any) => {
             options={{ browser: true }} /* hack */
           >
             <ChallengeNoteCloseActivity challenge={challenge} />
-            <FlatFeed Activity={ChallengeNoteActivity} />
+            <FlatFeed
+              Activity={(props: any) => (
+                <ChallengeNoteActivity isMyProfile={isMyProfile} {...props} />
+              )}
+            />
             <ChallengeNoteOpenActivity challenge={challenge} />
           </StreamApp>
         </View>
@@ -95,4 +99,4 @@ const ChallengeNote = (props: any) => {
   );
 };
 
-export default ChallengeNote;
+export default ChallengeActivities;

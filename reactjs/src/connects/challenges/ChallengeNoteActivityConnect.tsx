@@ -4,10 +4,12 @@ import {
   deleteUserChallengeNote,
   updateUserChallengeNote
 } from '~/lib/getstream';
+import { createPost } from '~/lib/post';
 
 const mapStateToProps = (state: any, props: any) => {
-  const { data } = props;
-  const { noteId, rawData, userId, serverId, challengeId } = data;
+  const { activity } = props;
+  const post = createPost(activity);
+  const { noteId, rawData, userId, serverId, challengeId } = post.data;
 
   const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
 
@@ -30,12 +32,14 @@ const mapStateToProps = (state: any, props: any) => {
       );
   };
 
-  const deleteHandler = () =>
-    remove(resourceId).then(() =>
+  const deleteHandler = () => {
+    return remove(resourceId).then(() =>
       deleteUserChallengeNote(userId, challengeId, { serverId })
     );
+  };
 
   return {
+    data: post.data,
     updateHandler,
     deleteHandler,
     ...props
