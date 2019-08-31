@@ -1,4 +1,16 @@
 import {
+  brandDarkBlue,
+  brandAqua,
+  secondaryColor,
+  brandWhite,
+  brandPurple,
+  brandSuccess,
+  brandWarning,
+  brandPink,
+  brandYellow,
+  brandDark
+} from './theme';
+import {
   POST_MESSAGE_OBJECTIVE,
   POST_MESSAGE_RECORD,
   POST_TYPE_ANALYSIS,
@@ -15,15 +27,6 @@ import {
   POST_MESSAGE_NOTE
 } from '../constants/post';
 
-import {
-  brandAqua,
-  secondaryColor,
-  brandWhite,
-  brandPurple,
-  brandSuccess,
-  brandWarning,
-  brandPink
-} from '~/lib/theme';
 import { getChallengeDashboardPath } from './url';
 
 export const dummyImage = (
@@ -97,6 +100,46 @@ const createNotePost = (data: any) => {
   };
 };
 
+const createSuccessPost = (data: any) => {
+  return {
+    ...baseData(data),
+    data: {
+      challengeId: data.challengeId,
+      noteId: data.noteId,
+      serverId: data.id,
+      text: data.text,
+      type: data.verb,
+      timestamp: data.createdAt,
+      userName: data.userDisplayName,
+      userPhotoURL: data.userPhotoURL,
+      userId: data.userId,
+      rawData: data,
+      dummyImage: dummyImage(brandYellow, brandDark, 'win'),
+      message: POST_MESSAGE_NOTE
+    }
+  };
+};
+
+const createAnalysisPost = (data: any) => {
+  return {
+    ...baseData(data),
+    data: {
+      challengeId: data.challengeId,
+      noteId: data.noteId,
+      serverId: data.id,
+      text: data.text,
+      type: data.verb,
+      timestamp: data.createdAt,
+      userName: data.userDisplayName,
+      userPhotoURL: data.userPhotoURL,
+      userId: data.userId,
+      rawData: data,
+      dummyImage: dummyImage(brandDarkBlue, brandWhite, 'study'),
+      message: POST_MESSAGE_NOTE
+    }
+  };
+};
+
 const createRecordPost = (data: any) => {
   return {
     ...baseData(data),
@@ -158,8 +201,8 @@ const functionMap = new Map([
   [POST_TYPE_JOIN, (data: any) => createJoinPost(data)],
   [POST_TYPE_TOPIC, (data: any) => createTopicPost(data)],
   [POST_TYPE_NOTE, (data: any) => createNotePost(data)],
-  [POST_TYPE_ANALYSIS, (data: any) => createNotePost(data)],
-  [POST_TYPE_SUCCESS, (data: any) => createNotePost(data)],
+  [POST_TYPE_ANALYSIS, (data: any) => createAnalysisPost(data)],
+  [POST_TYPE_SUCCESS, (data: any) => createSuccessPost(data)],
   [POST_TYPE_RECORD, (data: any) => createRecordPost(data)],
   [POST_TYPE_RESET, (data: any) => createResetPost(data)],
   [POST_TYPE_OBJECTIVE, (data: any) => createObjectivePost(data)]

@@ -273,7 +273,7 @@ const ChallengeNoteMemo = (props: any) => {
     <TimelineItem
       key={type}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ backgroud: backgroundColor, color }}
+      dateInnerStyle={{ background: backgroundColor, color }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>
