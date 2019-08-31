@@ -190,7 +190,7 @@ const createObjectivePost = (data: any) => {
       userPhotoURL: data.userPhotoURL,
       userId: data.userId,
       path: `/c/${data.challengeId}/u/${data.userId}/goal`,
-      dummyImage: dummyImage(brandAqua, brandWhite, 'goal'),
+      dummyImage: dummyImage(brandAqua, brandDark, 'goal'),
       message: POST_MESSAGE_OBJECTIVE,
       text: data.what
     }
