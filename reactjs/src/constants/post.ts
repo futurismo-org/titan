@@ -16,4 +16,4 @@ export const POST_MESSAGE_RECORD = '記録を投稿しました。';
 export const POST_MESSAGE_RESET = 'リセットしました。';
 export const POST_MESSAGE_NOTE = 'ノートを投稿しました。';
 export const POST_MESSAGE_TOPIC = 'トピックを投稿しました。';
-export const POST_MESSAGE_OBJECTIVE = '目標を投稿しました。';
+export const POST_MESSAGE_OBJECTIVE = '目標を更新しました。';

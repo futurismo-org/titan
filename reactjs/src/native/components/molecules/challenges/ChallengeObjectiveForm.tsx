@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { Text, View, Textarea, Button } from 'native-base';
+import { brandWhite } from '~/lib/theme';
 
 const ChallengeObjectiveForm = (props: any) => {
-  const { inputWhat, inputWhy, closeHandler, isLoaded } = props;
+  const { inputWhat, inputWhy, saveHandler, cancelHandler, isLoaded } = props;
 
   const [what, setWhat] = useState('');
   const [why, setWhy] = useState('');
@@ -19,12 +20,12 @@ const ChallengeObjectiveForm = (props: any) => {
   }, [inputWhat, inputWhy, isLoaded]);
 
   return (
-    <View style={{ paddingTop: 25, paddingLeft: 10, paddingRight: 10 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        <Button onPress={closeHandler(what, why)}>
-          <Text>保存</Text>
-        </Button>
-      </View>
+    <View
+      style={{
+        padding: 10,
+        backgroundColor: brandWhite
+      }}
+    >
       <Text>なにをやるのか?(What)</Text>
       <Textarea
         bordered
@@ -41,6 +42,14 @@ const ChallengeObjectiveForm = (props: any) => {
         onChangeText={(text: string) => setWhy(text)}
       />
       <Text />
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <Button onPress={cancelHandler} light>
+          <Text>キャンセル</Text>
+        </Button>
+        <Button onPress={saveHandler(what, why)} style={{ marginLeft: 5 }}>
+          <Text>保存</Text>
+        </Button>
+      </View>
     </View>
   );
 };
