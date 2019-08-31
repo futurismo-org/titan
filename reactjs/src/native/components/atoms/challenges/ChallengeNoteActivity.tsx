@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-native';
 import { Activity, updateStyle } from 'expo-activity-feed';
+import { View } from 'native-base';
 import { createPost, dummyImage } from '~/lib/post';
 import moment from '~/lib/moment';
 import {
@@ -9,14 +10,32 @@ import {
   POST_MESSAGE_OPEN,
   POST_MESSAGE_CLOSE
 } from '~/constants/post';
-import { secondaryColor, brandWhite } from '~/lib/theme';
+import { secondaryColor, brandWhite, brandGray } from '~/lib/theme';
 import { isChallengeOpened, isChallengeClosed } from '~/lib/challenge';
+import TouchableText from '../TouchableText';
 
 const style = updateStyle('userBar', {
   username: {
     fontSize: 14
   }
 });
+
+const ActivityFooter = (props: any) => {
+  const isLogin = true;
+  const isMyProfile = true;
+  return (
+    <React.Fragment>
+      {isLogin && isMyProfile && (
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <TouchableText color={brandGray} text="編集" size={14} />
+          <View style={{ marginLeft: 10 }}>
+            <TouchableText text="削除" color={brandGray} size={14} />
+          </View>
+        </View>
+      )}
+    </React.Fragment>
+  );
+};
 
 export const ChallengeNoteActivity = withRouter((props: any) => {
   const { history } = props;
@@ -42,8 +61,8 @@ export const ChallengeNoteActivity = withRouter((props: any) => {
       <Activity
         activity={activity}
         styles={style}
-        // onPressAvatar={() => history.push(`/u/${data.userId}`)}
         onPress={() => path && history.push(path)}
+        Footer={() => <ActivityFooter />}
       />
     </React.Fragment>
   );
