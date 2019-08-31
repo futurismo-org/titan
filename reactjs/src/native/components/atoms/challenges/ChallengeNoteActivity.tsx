@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-native';
 import { Activity, updateStyle } from 'expo-activity-feed';
-import { View } from 'native-base';
+import { View, Text } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
-import { createPost, dummyImage } from '~/lib/post';
+import Modal from 'react-native-modal';
+import { dummyImage } from '~/lib/post';
 import moment from '~/lib/moment';
 import {
   POST_TYPE_OPEN,
@@ -16,8 +17,8 @@ import {
 } from '~/constants/post';
 import { secondaryColor, brandWhite, brandGray } from '~/lib/theme';
 import { isChallengeOpened, isChallengeClosed } from '~/lib/challenge';
-import TouchableText from '../TouchableText';
 import { successToastWithNoRedirect } from '../Toast';
+import ChallengeNoteForm from '../../molecules/challenges/ChallengeNoteForm';
 
 const style = updateStyle('userBar', {
   username: {
@@ -31,7 +32,9 @@ const ActivityFooter = withRouter((props: any) => {
     deleteHandler,
     isMyProfile,
     history,
-    location
+    location,
+    text,
+    type
   } = props;
 
   const [alert, setAlert] = useState();
@@ -42,6 +45,16 @@ const ActivityFooter = withRouter((props: any) => {
 
   const handleClose = () => {
     alert.close();
+  };
+
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
   };
 
   const handleDelete = () =>
@@ -58,14 +71,30 @@ const ActivityFooter = withRouter((props: any) => {
     <React.Fragment>
       {isMyProfile && (
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-          <TouchableText color={brandGray} text="編集" size={14} />
+          <React.Fragment>
+            <Text
+              onPress={openModal}
+              style={{ color: brandGray, fontSize: 14 }}
+            >
+              編集
+            </Text>
+            <Modal isVisible={modal} avoidKeyboard>
+              <ChallengeNoteForm
+                saveHandler={updateHandler}
+                closeHandler={closeModal}
+                isEdit
+                initialText={text}
+                initialType={type}
+              />
+            </Modal>
+          </React.Fragment>
           <View style={{ marginLeft: 10 }}>
-            <TouchableText
-              text="削除"
-              color={brandGray}
-              size={14}
-              handler={handleOpen}
-            />
+            <Text
+              onPress={handleOpen}
+              style={{ color: brandGray, fontSize: 14 }}
+            >
+              削除
+            </Text>
             <AlertPro
               ref={(ref: any) => setAlert(ref)}
               onConfirm={handleDelete}
@@ -114,6 +143,8 @@ const ChallengeNoteActivity = (props: any) => {
               updateHandler={updateHandler}
               deleteHandler={deleteHandler}
               isMyProfile={isMyProfile}
+              text={data.text}
+              type={data.type}
             />
           )
         }

@@ -6,10 +6,22 @@ import { POST_TYPE_NOTE } from '~/constants/post';
 import { successToastWithNoRedirect } from '../../atoms/Toast';
 
 const ChallengeNoteForm = (props: any) => {
-  const { closeHandler, saveHandler, history, location } = props;
+  const {
+    closeHandler,
+    saveHandler,
+    history,
+    location,
+    initialText,
+    initialType,
+    isEdit
+  } = props;
 
-  const [text, setText] = useState('');
-  const [type, setType] = useState(POST_TYPE_NOTE);
+  const [text, setText] = useState(initialText || '');
+  const [type, setType] = useState(initialType || POST_TYPE_NOTE);
+
+  const POST_MESSAGE = isEdit
+    ? 'ノートを更新しました。'
+    : 'ノートを投稿しました。';
 
   const onSave = () => {
     saveHandler({ text, type })
@@ -19,7 +31,7 @@ const ChallengeNoteForm = (props: any) => {
         history.push('/');
         history.push(path);
       })
-      .then(() => successToastWithNoRedirect('ノートを投稿しました。'));
+      .then(() => successToastWithNoRedirect(POST_MESSAGE));
   };
 
   return (
