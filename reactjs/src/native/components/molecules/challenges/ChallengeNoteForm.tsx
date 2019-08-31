@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { View, Button, Text, Textarea } from 'native-base';
+import { withRouter } from 'react-router-native';
 import { brandWhite } from '~/lib/theme';
 import { POST_TYPE_NOTE } from '~/constants/post';
+import { successToastWithNoRedirect } from '../../atoms/Toast';
 
 const ChallengeNoteForm = (props: any) => {
-  const { closeHandler, saveHandler } = props;
+  const { closeHandler, saveHandler, history, location } = props;
 
   const [text, setText] = useState('');
   const [type, setType] = useState(POST_TYPE_NOTE);
 
   const onSave = () => {
-    saveHandler({ text, type }).then(closeHandler);
+    saveHandler({ text, type })
+      .then(closeHandler)
+      .then(() => {
+        const path = location.pathname;
+        history.push('/');
+        history.push(path);
+      })
+      .then(() => successToastWithNoRedirect('ノートを投稿しました。'));
   };
 
   return (
@@ -39,4 +48,4 @@ const ChallengeNoteForm = (props: any) => {
   );
 };
 
-export default ChallengeNoteForm;
+export default withRouter(ChallengeNoteForm);
