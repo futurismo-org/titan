@@ -7,7 +7,7 @@ import ChallengeNotes from '~/web/containers/challenges/ChallengeNotesContainer'
 
 import Error from '../../atoms/Error';
 import UserAvatar from '../../atoms/UserAvatar';
-import ChallengeNoteForm from './ChallengeNoteForm';
+import ChallengeNoteForm from '~/web/containers/challenges/ChallengeNoteFormContainer';
 
 const Wrapper = styled.div`
   margin-top: 20px;

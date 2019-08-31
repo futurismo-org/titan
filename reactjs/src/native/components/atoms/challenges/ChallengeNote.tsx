@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'native-base';
+import { View, Text, Button } from 'native-base';
 import { StreamApp, FlatFeed, StatusUpdateForm } from 'expo-activity-feed';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
@@ -10,6 +10,8 @@ import {
   ChallengeNoteCloseActivity
 } from './ChallengeNoteActivity';
 import { POST_TYPE_OPEN, POST_TYPE_CLOSE } from '~/constants/post';
+import PostButton from '../PostButton';
+import TouchableText from '../TouchableText';
 
 const ChallengeNote = (props: any) => {
   const {
@@ -51,6 +53,10 @@ const ChallengeNote = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
           <Text />
+          <Button full rounded>
+            <TouchableText text="ノートを投稿" />
+          </Button>
+          <Text />
           <StreamApp
             apiKey={GETSTREAM_KEY}
             appId={GETSTREAM_APP_ID}
@@ -61,7 +67,6 @@ const ChallengeNote = (props: any) => {
             <ChallengeNoteCloseActivity challenge={challenge} />
             <FlatFeed Activity={ChallengeNoteActivity} />
             <ChallengeNoteOpenActivity challenge={challenge} />
-            <StatusUpdateForm feedGroup="timeline" />
           </StreamApp>
         </View>
       )}

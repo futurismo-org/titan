@@ -7,17 +7,14 @@ import {
   Radio,
   Grid
 } from '@material-ui/core';
-import shortId from 'shortid';
-import { create } from '~/lib/firebase';
 import {
   POST_TYPE_SUCCESS,
   POST_TYPE_ANALYSIS,
   POST_TYPE_NOTE
 } from '~/constants/post';
-import { postUserChallengeNote } from '~/lib/getstream';
 
 const ChallengeNoteForm = (props: any) => {
-  const { challenge, user } = props;
+  const { saveHandler } = props;
 
   const [text, setText] = useState('');
   const [label, setLabel] = useState(POST_TYPE_NOTE);
@@ -38,39 +35,13 @@ const ChallengeNoteForm = (props: any) => {
       return;
     }
 
-    const noteId = shortId.generate();
-    const resourceId = `/challenges/${challenge.id}/notes/${noteId}`;
-    const userShortId = user.shortId;
-    const challengeId = challenge.id;
-
-    const data = {
-      id: noteId,
-      text,
-      type: label,
-      userId: userShortId,
-      userName: user.displayName,
-      userPhotoURL: user.photoURL,
-      challengeId,
-      challengeTitle: challenge.title,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-
-    create(resourceId, data)
+    saveHandler({ text, type: label })
       .then(() => window.alert('投稿しました')) // eslint-disable-line
-      .then(() =>
-        postUserChallengeNote(userShortId, challengeId, {
-          noteId,
-          user,
-          type: label,
-          text
-        })
-      )
       .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
-    <div>
+    <React.Fragment>
       <p>ノートを投稿する。</p>
       <TextField
         value={text}
@@ -116,7 +87,7 @@ const ChallengeNoteForm = (props: any) => {
           </Button>
         </Grid>
       </Grid>
-    </div>
+    </React.Fragment>
   );
 };
 
