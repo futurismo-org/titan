@@ -41,14 +41,8 @@ import {
   POST_MESSAGE_OBJECTIVE
 } from '~/constants/post';
 
-import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
-
-import {
-  deleteUserChallengeNote,
-  updateUserChallengeNote
-} from '~/lib/getstream';
 
 const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
@@ -165,9 +159,8 @@ const ChallengeNoteMemo = (props: any) => {
     challengeId,
     type,
     isMyProfile,
-    serverId,
-    userId,
-    rawData
+    updateHandler,
+    deleteHandler
   } = data;
 
   const [edit, setEdit] = useState(false);
@@ -184,32 +177,16 @@ const ChallengeNoteMemo = (props: any) => {
     setLabel(e.target.value);
   };
 
-  const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
-
   const onSave = () => {
-    const data = {
-      text: buffer,
-      type: label,
-      updatedAt: new Date()
-    };
-
-    update(resourceId, data)
-      .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
-      .then(() =>
-        updateUserChallengeNote(userId, challengeId, {
-          rawData,
-          text: buffer,
-          type: label
-        })
-      )
-      .then(() => window.location.reload()); // eslint-disable-line
+    updateHandler({ text: buffer, type: label }).then(
+      () => window.location.reload() // eslint-disable-line
+    );
   };
 
   const onDelete = () => {
     /* eslint-disable */
     if (window.confirm('本当に削除しますか？')) {
-      remove(resourceId)
-        .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
+      deleteHandler()
         .then(() => window.alert('削除しました。'))
         .then(() => window.location.reload());
     }
@@ -347,13 +324,15 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data, isMyProfile } = props;
+  const { type, data, isMyProfile, updateHandler, deleteHandler } = props;
 
   const noteFactory = componentMap.get(type);
 
   const params = {
     ...data,
-    isMyProfile
+    isMyProfile,
+    updateHandler,
+    deleteHandler
   };
 
   return noteFactory!(params);

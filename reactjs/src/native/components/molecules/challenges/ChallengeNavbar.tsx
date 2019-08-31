@@ -6,7 +6,10 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import { withRouter } from 'react-router-native';
 import { Button, Text } from 'native-base';
 import TouchableText from '../../atoms/TouchableText';
-import { getChallengeUserGoalPath, getChallengeUserNotePath } from '~/lib/url';
+import {
+  getChallengeUserGoalPath,
+  getChallengeUserActivitiesPath
+} from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
   const { challenge, userShortId, history, join } = props;
@@ -74,7 +77,7 @@ const ChallengeNavbar = (props: any) => {
         {join && (
           <MenuItem
             onPress={() =>
-              hideMenu(getChallengeUserNotePath(challengeId, userShortId))
+              hideMenu(getChallengeUserActivitiesPath(challengeId, userShortId))
             }
           >
             努力ノート

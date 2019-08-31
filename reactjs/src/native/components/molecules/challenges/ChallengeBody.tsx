@@ -11,7 +11,7 @@ import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
 import ChallengeGoals from '~/native/containers/challenges/ChallengeGoalsContainer';
 import ChallengeGoal from '~/native/containers/challenges/ChallengeGoalContainer';
-import ChallengeNote from '~/native/containers/challenges/ChallengeNoteContainer';
+import ChallengeActivities from '~/native/containers/challenges/ChallengeActivitiesContainer';
 import ChallengeTimeline from '~/native/containers/challenges/ChallengeTimelineContainer';
 
 import Flag from '~/native/containers/FlagContainer';
@@ -68,8 +68,10 @@ const ChallengeBody = (props: any) => {
             render={props => <ChallengeGoal challenge={challenge} {...props} />}
           />
           <Route
-            path="/c/:id/u/:userShortId/note"
-            render={props => <ChallengeNote challenge={challenge} {...props} />}
+            path="/c/:id/u/:userShortId/activities"
+            render={props => (
+              <ChallengeActivities challenge={challenge} {...props} />
+            )}
           />
           <Route
             path="/c/:id/u/:userShortId/settings"

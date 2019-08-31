@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Timeline } from 'vertical-timeline-component-for-react';
 import { Grid, ButtonGroup, Button } from '@material-ui/core';
-import ChallengeNote from '../../atoms/challenges/ChallengeNote';
+import ChallengeNote from '~/web/containers/challenges/ChallengeNoteActivityContainer';
 
 import {
   POST_TYPE_NOTE,
