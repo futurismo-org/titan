@@ -64,7 +64,7 @@ const ChallengeObjective = (props: any) => {
         </TouchableOpacity>
       )}
       {isLoaded && (
-        <Modal isVisible={modal}>
+        <Modal isVisible={modal} avoidKeyboard>
           <ChallengeObjectiveForm
             inputWhat={what}
             inputWhy={why}

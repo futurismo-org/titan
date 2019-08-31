@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button } from 'native-base';
-import { StreamApp, FlatFeed, StatusUpdateForm } from 'expo-activity-feed';
+import { StreamApp, FlatFeed } from 'expo-activity-feed';
+import Modal from 'react-native-modal';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
@@ -9,9 +10,7 @@ import {
   ChallengeNoteOpenActivity,
   ChallengeNoteCloseActivity
 } from './ChallengeNoteActivity';
-import { POST_TYPE_OPEN, POST_TYPE_CLOSE } from '~/constants/post';
-import PostButton from '../PostButton';
-import TouchableText from '../TouchableText';
+import ChallengeNoteForm from '~/native/containers/challenges/ChallengeNoteFormContainer';
 
 const ChallengeNote = (props: any) => {
   const {
@@ -24,6 +23,16 @@ const ChallengeNote = (props: any) => {
   } = props;
 
   const [token, setToken] = useState('');
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    console.log('closed', modal);
+    setModal(false);
+  };
 
   useEffect(() => {
     getToken(timelineId).then((res: any) => setToken(res));
@@ -53,9 +62,16 @@ const ChallengeNote = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
           <Text />
-          <Button full rounded>
-            <TouchableText text="ノートを投稿" />
+          <Button full rounded onPress={openModal}>
+            <Text>ノートを投稿</Text>
           </Button>
+          <Modal isVisible={modal} avoidKeyboard>
+            <ChallengeNoteForm
+              closeHandler={closeModal}
+              challenge={challenge}
+              user={user}
+            />
+          </Modal>
           <Text />
           <StreamApp
             apiKey={GETSTREAM_KEY}
