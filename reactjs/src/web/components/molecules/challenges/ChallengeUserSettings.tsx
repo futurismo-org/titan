@@ -39,6 +39,7 @@ const ChallengeUserSettings = (props: any) => {
   }, [fetchUser, resourceId]);
 
   const [displayName, setDisplayName] = useState('');
+  const [pastDays, setPastDays] = useState('0');
   const [showMode, setShowMode] = useState('');
 
   const onDisplayNameChange = (e: any) => {
@@ -51,12 +52,18 @@ const ChallengeUserSettings = (props: any) => {
     setShowMode(e.target.value);
   };
 
+  const onPastDaysChange = (e: any) => {
+    e.preventDefault();
+    setPastDays(e.target.value);
+  };
+
   const updateHandler = (e: any) => {
     e.preventDefault();
 
     const newData = {
       displayName,
       showMode,
+      pastDays: parseInt(pastDays),
       updatedAt: new Date()
     };
 
@@ -68,12 +75,14 @@ const ChallengeUserSettings = (props: any) => {
   };
 
   const initDisplayName = user && user.displayName;
+  const initPastDays = user && user.pastDays;
   const initShowMode = user && user.showMode;
 
   useEffect(() => {
     setDisplayName(initDisplayName || '');
+    setPastDays(initPastDays || '0');
     setShowMode(initShowMode || ACC_DAYS);
-  }, [initDisplayName, initShowMode]);
+  }, [initDisplayName, initPastDays, initShowMode]);
 
   return (
     <React.Fragment>
@@ -83,51 +92,73 @@ const ChallengeUserSettings = (props: any) => {
         <React.Fragment>
           <Title text="ユーザ設定" />
           {isLogin ? (
-            <form noValidate onSubmit={updateHandler}>
-              <Grid container spacing={3}>
-                <Grid item>
-                  <TextField
-                    value={displayName}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    id="displayName"
-                    label="ユーザ名"
-                    onChange={onDisplayNameChange}
-                  />
+            <React.Fragment>
+              <form noValidate onSubmit={updateHandler}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <p>
+                      ユーザ名は参加時に設定されているプロフィールのものが引き継がれますので、チャレンジでの表示を途中でかえたい場合はここから設定をしてください。
+                    </p>
+                    <TextField
+                      value={displayName}
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      id="displayName"
+                      label="ユーザ名"
+                      onChange={onDisplayNameChange}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <p>
+                      チャレンジの継続日数はは参加時に設定されているプロフィールのカテゴリのものが引き継がれますので、チャレンジでの表示を途中でかえたい場合はここから設定をしてください。
+                      過去連続日数を設定すると、自分の任意の日数をダッシュボードに表示できます。
+                      過去連続日数は大会のランキングには影響しません。自己管理の数値の表示のためのみに設定します。
+                    </p>
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      value={pastDays}
+                      variant="outlined"
+                      margin="normal"
+                      id="pastAccDasy"
+                      label={PAST_DAYS}
+                      onChange={onPastDaysChange}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <FormControl component="fieldset">
+                      <FormLabel component="legend">日数表示設定</FormLabel>
+                      <RadioGroup
+                        aria-label="日数表示"
+                        name="showmode"
+                        value={showMode}
+                        onChange={onShowModeChange}
+                      >
+                        <FormControlLabel
+                          value={ACC_DAYS}
+                          control={<Radio />}
+                          label={ACC_DAYS}
+                        />
+                        <FormControlLabel
+                          value={PAST_DAYS}
+                          control={<Radio />}
+                          label={PAST_DAYS}
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                  >
+                    投稿
+                  </Button>
                 </Grid>
-                <Grid item>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">日数表示設定</FormLabel>
-                    <RadioGroup
-                      aria-label="日数表示"
-                      name="showmode"
-                      value={showMode}
-                      onChange={onShowModeChange}
-                    >
-                      <FormControlLabel
-                        value={ACC_DAYS}
-                        control={<Radio />}
-                        label={ACC_DAYS}
-                      />
-                      <FormControlLabel
-                        value={PAST_DAYS}
-                        control={<Radio />}
-                        label={PAST_DAYS}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                >
-                  投稿
-                </Button>
-              </Grid>
-            </form>
+              </form>
+            </React.Fragment>
           ) : (
             <p>ログインが必要です。</p>
           )}

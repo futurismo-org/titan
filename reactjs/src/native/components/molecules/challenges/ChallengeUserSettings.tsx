@@ -34,10 +34,15 @@ const ChallengeUserSettings = (props: any) => {
   }, [fetchUser, resourceId]);
 
   const [displayName, setDisplayName] = useState('');
+  const [pastDays, setPastDays] = useState('0');
   const [showMode, setShowMode] = useState('');
 
   const onDisplayNameChange = (text: string) => {
     setDisplayName(text);
+  };
+
+  const onPastDaysChange = (text: string) => {
+    setPastDays(text);
   };
 
   const updateHandler = (data: any) => {
@@ -68,9 +73,11 @@ const ChallengeUserSettings = (props: any) => {
 
   useEffect(() => {
     const initDisplayName = user && user.displayName;
+    const initPastDays = user && user.pastDays && user.pastDays.toString();
     const initShowMode = user && user.showMode;
 
     setDisplayName(initDisplayName || '');
+    setPastDays(initPastDays || '0');
     setShowMode(initShowMode || ACC_DAYS);
   }, [user]);
 
@@ -84,12 +91,24 @@ const ChallengeUserSettings = (props: any) => {
           {isLogin ? (
             <React.Fragment>
               <Form>
+                <Text style={{ padding: 10 }}>
+                  ユーザ名は参加時に設定されているプロフィールのものが引き継がれますので、チャレンジでの表示を途中でかえたい場合はここから設定をしてください。
+                </Text>
                 <Item>
                   <Label>ユーザ名</Label>
                   <Input
                     value={displayName}
                     onChangeText={onDisplayNameChange}
                   />
+                </Item>
+                <Text style={{ padding: 10, marginTop: 10 }}>
+                  チャレンジの継続日数はは参加時に設定されているプロフィールのカテゴリのものが引き継がれますので、チャレンジでの表示を途中でかえたい場合はここから設定をしてください。
+                  過去連続日数を設定すると、自分の任意の日数をダッシュボードに表示できます。
+                  過去連続日数は大会のランキングには影響しません。自己管理の数値の表示のためのみに設定します。
+                </Text>
+                <Item>
+                  <Label>過去連続日数</Label>
+                  <Input value={pastDays} onChangeText={onPastDaysChange} />
                 </Item>
               </Form>
               <Text />
@@ -110,6 +129,7 @@ const ChallengeUserSettings = (props: any) => {
                 handler={() =>
                   updateHandler({
                     displayName,
+                    pastDays: parseInt(pastDays),
                     showMode
                   })
                 }
