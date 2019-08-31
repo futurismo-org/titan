@@ -220,22 +220,24 @@ const ChallengeNoteMemo = (props: any) => {
     <React.Fragment>
       <TextFieldView text={buffer} />
       {isMyProfile ? (
-        <p>
-          <span
-            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-            role="button"
-            onClick={() => setEdit(true)}
-          >
-            編集
-          </span>{' '}
-          <span
-            role="button"
-            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-            onClick={onDelete}
-          >
-            削除
-          </span>
-        </p>
+        <div style={{ textAlign: 'right' }}>
+          <p>
+            <span
+              style={{ cursor: 'pointer' }}
+              role="button"
+              onClick={() => setEdit(true)}
+            >
+              編集
+            </span>{' '}
+            <span
+              role="button"
+              style={{ cursor: 'pointer' }}
+              onClick={onDelete}
+            >
+              削除
+            </span>
+          </p>
+        </div>
       ) : (
         <Flag note={{ challengeId, noteId }} />
       )}
