@@ -7,8 +7,15 @@ import {
 import { createPost } from '~/lib/post';
 
 const mapStateToProps = (state: any, props: any) => {
-  const { activity } = props;
-  const post = createPost(activity);
+  let post;
+  if (props.activity) {
+    // native
+    const { activity } = props;
+    post = createPost(activity);
+  } else {
+    // web
+    post = props;
+  }
   const { noteId, rawData, userId, serverId, challengeId } = post.data;
 
   const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
