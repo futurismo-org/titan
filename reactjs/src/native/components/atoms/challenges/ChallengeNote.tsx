@@ -19,7 +19,8 @@ const ChallengeNote = (props: any) => {
     timelineId,
     userShortId,
     loading,
-    challenge
+    challenge,
+    isMyProfile
   } = props;
 
   const [token, setToken] = useState('');
@@ -62,17 +63,21 @@ const ChallengeNote = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} small />
           </View>
           <Text />
-          <Button full rounded onPress={openModal}>
-            <Text>ノートを投稿</Text>
-          </Button>
-          <Modal isVisible={modal} avoidKeyboard>
-            <ChallengeNoteForm
-              closeHandler={closeModal}
-              challenge={challenge}
-              user={user}
-            />
-          </Modal>
-          <Text />
+          {isMyProfile && (
+            <React.Fragment>
+              <Button full rounded onPress={openModal}>
+                <Text>ノートを投稿</Text>
+              </Button>
+              <Modal isVisible={modal} avoidKeyboard>
+                <ChallengeNoteForm
+                  closeHandler={closeModal}
+                  challenge={challenge}
+                  user={user}
+                />
+              </Modal>
+              <Text />
+            </React.Fragment>
+          )}
           <StreamApp
             apiKey={GETSTREAM_KEY}
             appId={GETSTREAM_APP_ID}

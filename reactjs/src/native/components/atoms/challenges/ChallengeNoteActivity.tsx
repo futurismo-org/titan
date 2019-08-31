@@ -38,12 +38,14 @@ export const ChallengeNoteActivity = withRouter((props: any) => {
   const path = data.path;
 
   return (
-    <Activity
-      activity={activity}
-      styles={style}
-      // onPressAvatar={() => history.push(`/u/${data.userId}`)}
-      onPress={() => path && history.push(path)}
-    />
+    <React.Fragment>
+      <Activity
+        activity={activity}
+        styles={style}
+        // onPressAvatar={() => history.push(`/u/${data.userId}`)}
+        onPress={() => path && history.push(path)}
+      />
+    </React.Fragment>
   );
 });
 
