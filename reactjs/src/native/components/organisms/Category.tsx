@@ -29,8 +29,8 @@ const Category = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && null}
-      {!loading &&
-        category &&
+      {category &&
+        topics &&
         (category.freezed ? (
           <Text>
             このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
