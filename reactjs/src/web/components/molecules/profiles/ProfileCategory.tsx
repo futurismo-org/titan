@@ -64,64 +64,70 @@ const ProfileCategory = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && metadata && (
-        <Paper>
-          <div style={{ textAlign: 'right' }}>
-            <CategoryButton
-              categoryId={metadata.categoryId}
-              categoryTitle={metadata.categoryTitle}
-            />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h1>{metadata.headline}</h1>
-          </div>
-          <div style={{ maxWidth: 750, margin: 'auto' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
-              <ChallengePostRecord days={data.days} />
-              <p style={{ fontSize: 20, textDecorationLine: 'underline' }}>
-                {data.myBest}
-              </p>
+      {!loading &&
+        metadata &&
+        (Object.keys(data).length === 0 ? (
+          <Paper>
+            <p>表示できるデータがありません。</p>
+          </Paper>
+        ) : (
+          <Paper>
+            <div style={{ textAlign: 'right' }}>
+              <CategoryButton
+                categoryId={metadata.categoryId}
+                categoryTitle={metadata.categoryTitle}
+              />
             </div>
-          </div>
-          {!isMobile ? (
-            <React.Fragment>
-              <Title text="継続記録統計" />
-              <p>過去最高継続日数: {data.maxDays}日</p>
-              <p>最終リセット日時: {data.lastResetDate}</p>
-              <ProfileCategoryHistories histories={data.summerized} />
-              <br />
-              <br />
-              <Title text="リセット統計" />
-              <div>
-                <h3>積算回数</h3>
-                <ProfileCategoryResetChart data={data.resetAccs} />
+            <div style={{ textAlign: 'center' }}>
+              <h1>{metadata.headline}</h1>
+            </div>
+            <div style={{ maxWidth: 750, margin: 'auto' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <ChallengePostRecord days={data.days} />
+                <p style={{ fontSize: 20, textDecorationLine: 'underline' }}>
+                  {data.myBest}
+                </p>
               </div>
-              <h3>時間帯別統計</h3>
-              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
-              <h3>曜日別統計</h3>
-              <ProfileCategoryResetDaysOfTheWeekChart
-                data={data.resetDaysOfTheWeek}
-              />
-              <Title text="チャレンジごとの実績" />
-              <ProfileCategoryChallenges
-                challenges={data.challenges}
-                userShortId={userShortId}
-              />
-            </React.Fragment>
-          ) : (
-            <p>
-              ダッシュボードによる分析は大きな画面からのアクセスで有効になります。
-            </p>
-          )}
-        </Paper>
-      )}
+            </div>
+            {!isMobile ? (
+              <React.Fragment>
+                <Title text="継続記録統計" />
+                <p>過去最高継続日数: {data.maxDays}日</p>
+                <p>最終リセット日時: {data.lastResetDate}</p>
+                <ProfileCategoryHistories histories={data.summerized} />
+                <br />
+                <br />
+                <Title text="リセット統計" />
+                <div>
+                  <h3>積算回数</h3>
+                  <ProfileCategoryResetChart data={data.resetAccs} />
+                </div>
+                <h3>時間帯別統計</h3>
+                <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
+                <h3>曜日別統計</h3>
+                <ProfileCategoryResetDaysOfTheWeekChart
+                  data={data.resetDaysOfTheWeek}
+                />
+                <Title text="チャレンジごとの実績" />
+                <ProfileCategoryChallenges
+                  challenges={data.challenges}
+                  userShortId={userShortId}
+                />
+              </React.Fragment>
+            ) : (
+              <p>
+                ダッシュボードによる分析は大きな画面からのアクセスで有効になります。
+              </p>
+            )}
+          </Paper>
+        ))}
     </React.Fragment>
   );
 };

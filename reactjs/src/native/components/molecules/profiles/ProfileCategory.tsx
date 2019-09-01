@@ -64,66 +64,76 @@ const ProfileCategory = (props: any) => {
     <React.Fragment>
       {error && <Error error={error} />}
       {loading && <Progress />}
-      {!loading && metadata && (
-        <View
-          style={{
-            margin: 10
-          }}
-        >
-          <Title text={metadata.headline} />
-          <ChallengePostRecord days={data.days} />
+      {!loading &&
+        metadata &&
+        (Object.keys(data).length === 0 ? (
           <View
             style={{
-              margin: 20,
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center'
+              margin: 10
             }}
           >
-            <Text
+            <Text>表示できるデータがありません。</Text>
+          </View>
+        ) : (
+          <View
+            style={{
+              margin: 10
+            }}
+          >
+            <Title text={metadata.headline} />
+            <ChallengePostRecord days={data.days} />
+            <View
               style={{
-                fontSize: 20,
-                textDecorationLine: 'underline'
+                margin: 20,
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center'
               }}
             >
-              {data.myBest}
-            </Text>
+              <Text
+                style={{
+                  fontSize: 20,
+                  textDecorationLine: 'underline'
+                }}
+              >
+                {data.myBest}
+              </Text>
+            </View>
+            <Headline text="継続記録統計" />
+            <Text>過去最高継続日数: {data.maxDays}日</Text>
+            <Text>最終リセット日時: {data.lastResetDate}</Text>
+            <ProfileCategoryHistories histories={data.summerized} />
+            <Text />
+            <Headline text="リセット統計" />
+            <Text />
+            {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
+            {/* <Subheading text="積算回数" />
+                <ProfileCategoryResetChart data={data.resetAccs} /> */}
+            <Subheading text="時間帯別統計" />
+            <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
+            <Text />
+            <Subheading text="曜日別統計" />
+            <ProfileCategoryResetDaysOfTheWeekChart
+              data={data.resetDaysOfTheWeek}
+            />
+            <Text />
+            <Headline text="チャレンジごとの実績" />
+            <ProfileCategoryChallenges
+              challenges={data.challenges}
+              userShortId={userShortId}
+            />
+            <Text />
+            <Button
+              full
+              rounded
+              onPress={() =>
+                history.push(`/cat/${metadata.categoryId}/dashboard`)
+              }
+            >
+              <Text>{metadata.categoryTitle}カテゴリへ</Text>
+            </Button>
           </View>
-          <Headline text="継続記録統計" />
-          <Text>過去最高継続日数: {data.maxDays}日</Text>
-          <Text>最終リセット日時: {data.lastResetDate}</Text>
-          <ProfileCategoryHistories histories={data.summerized} />
-          <Text />
-          <Headline text="リセット統計" />
-          <Text />
-          {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
-          {/* <Subheading text="積算回数" />
-          <ProfileCategoryResetChart data={data.resetAccs} /> */}
-          <Subheading text="時間帯別統計" />
-          <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
-          <Text />
-          <Subheading text="曜日別統計" />
-          <ProfileCategoryResetDaysOfTheWeekChart
-            data={data.resetDaysOfTheWeek}
-          />
-          <Text />
-          <Headline text="チャレンジごとの実績" />
-          <ProfileCategoryChallenges
-            challenges={data.challenges}
-            userShortId={userShortId}
-          />
-          <Text />
-          <Button
-            full
-            rounded
-            onPress={() =>
-              history.replace(`/cat/${metadata.categoryId}/dashboard`)
-            }
-          >
-            <Text>{metadata.categoryTitle}カテゴリへ</Text>
-          </Button>
-        </View>
-      )}
+        ))}
     </React.Fragment>
   );
 };
