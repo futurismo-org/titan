@@ -41,14 +41,14 @@ const ChallengeNoteForm = (props: any) => {
 
   return (
     <React.Fragment>
-      <p>ノートを投稿する。</p>
+      <p>メモを投稿する。</p>
       <TextField
         value={text}
         variant="outlined"
         margin="normal"
         required
         id="note"
-        label="ノート"
+        label="メモ"
         fullWidth
         multiline
         rows={8}
@@ -71,12 +71,12 @@ const ChallengeNoteForm = (props: any) => {
             <FormControlLabel
               value={POST_TYPE_SUCCESS}
               control={<Radio color="primary" />}
-              label="達成記録"
+              label="達成メモ"
             />
             <FormControlLabel
               value={POST_TYPE_ANALYSIS}
               control={<Radio color="primary" />}
-              label="分析記録"
+              label="分析メモ"
             />
           </RadioGroup>
         </Grid>
