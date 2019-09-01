@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-native';
 import { Activity, updateStyle } from 'expo-activity-feed';
 import { View, Text, Textarea } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
+import RadioForm from 'react-native-simple-radio-button';
 import { dummyImage } from '~/lib/post';
 import moment from '~/lib/moment';
 import {
@@ -14,11 +15,17 @@ import {
   POST_TYPE_ANALYSIS,
   POST_TYPE_NOTE
 } from '~/constants/post';
-import { secondaryColor, brandWhite, brandGray } from '~/lib/theme';
+import {
+  secondaryColor,
+  brandWhite,
+  brandGray,
+  primaryColor
+} from '~/lib/theme';
 import { isChallengeOpened, isChallengeClosed } from '~/lib/challenge';
 import { successToastWithNoRedirect } from '../Toast';
+import MarkdownView from '../MarkdownView';
 
-const style = updateStyle('userBar', {
+updateStyle('userBar', {
   username: {
     fontSize: 14
   }
@@ -58,7 +65,12 @@ const ActivityFooter = withRouter((props: any) => {
   return (
     <React.Fragment>
       {isMyProfile && (
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'flex-end'
+          }}
+        >
           <React.Fragment>
             {edit ? (
               <Text
@@ -140,7 +152,24 @@ const ChallengeNoteActivity = (props: any) => {
   const handleUpdate = () => {
     updateHandler({ text, type })
       .then(() => setEdit(false))
-      .then(() => successToastWithNoRedirect('ノートを更新'));
+      .then(() => successToastWithNoRedirect('ノートを更新しました。'));
+  };
+
+  const radioProps = [
+    { label: 'メモ', value: 0 },
+    { label: '達成メモ', value: 1 },
+    { label: '分析メモ', value: 2 }
+  ];
+
+  const radioList = [POST_TYPE_NOTE, POST_TYPE_SUCCESS, POST_TYPE_ANALYSIS];
+  const radioMap = new Map([
+    [POST_TYPE_NOTE, 0],
+    [POST_TYPE_SUCCESS, 1],
+    [POST_TYPE_ANALYSIS, 2]
+  ]);
+
+  const onTypeChange = (value: number) => {
+    setType(radioList[value]);
   };
 
   return (
@@ -148,15 +177,14 @@ const ChallengeNoteActivity = (props: any) => {
       <React.Fragment>
         <Activity
           activity={activity}
-          styles={style}
           onPress={() => path && history.push(path)}
+          Content={() => <MarkdownView text={text} />}
           Footer={() =>
             isNote(data.type) && (
               <ActivityFooter
                 updateHandler={handleUpdate}
                 deleteHandler={deleteHandler}
                 isMyProfile={isMyProfile}
-                text={text}
                 type={type}
                 edit={edit}
                 setEdit={setEdit}
@@ -165,12 +193,24 @@ const ChallengeNoteActivity = (props: any) => {
           }
         />
         {edit && (
-          <Textarea
-            value={text}
-            bordered
-            rowSpan={6}
-            onChangeText={text => setText(text)}
-          />
+          <React.Fragment>
+            <Textarea
+              value={text}
+              bordered
+              rowSpan={6}
+              onChangeText={text => setText(text)}
+            />
+            <RadioForm
+              buttonSize={10}
+              radio_props={radioProps}
+              initial={radioMap.get(type)}
+              buttonColor={primaryColor}
+              selectedButtonColor={primaryColor}
+              animation
+              formHorizontal
+              onPress={onTypeChange}
+            />
+          </React.Fragment>
         )}
       </React.Fragment>
     </React.Fragment>
@@ -195,7 +235,7 @@ export const ChallengeNoteOpenActivity = (props: any) => {
     time: challenge.openedAt.toDate().toISOString()
   };
 
-  return <Activity activity={activity} styles={style} />;
+  return <Activity activity={activity} />;
 };
 
 export const ChallengeNoteCloseActivity = (props: any) => {
@@ -216,7 +256,7 @@ export const ChallengeNoteCloseActivity = (props: any) => {
     time: challenge.closedAt.toDate().toISOString()
   };
 
-  return <Activity activity={activity} styles={style} />;
+  return <Activity activity={activity} />;
 };
 
 export default withRouter(ChallengeNoteActivity);
