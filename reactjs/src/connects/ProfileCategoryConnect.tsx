@@ -224,7 +224,7 @@ const mapStateToProps = (state: any, props: any) => {
     (x: any, y: any) => x.timestamp.seconds - y.timestamp.seconds
   );
 
-  const challenges = state.profile.items;
+  const challenges = state.profile.items.filter((challenge: any) => challenge);
   const summerized = summerizeHistories(histories);
   const challengeResults = summerizeChallenges(challenges, categoryId);
 
