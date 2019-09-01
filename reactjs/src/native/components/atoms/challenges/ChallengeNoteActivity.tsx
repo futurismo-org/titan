@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-native';
 import { Activity, updateStyle } from 'expo-activity-feed';
-import { View, Text } from 'native-base';
+import { View, Text, Textarea } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
-import Modal from 'react-native-modal';
 import { dummyImage } from '~/lib/post';
 import moment from '~/lib/moment';
 import {
@@ -18,7 +17,6 @@ import {
 import { secondaryColor, brandWhite, brandGray } from '~/lib/theme';
 import { isChallengeOpened, isChallengeClosed } from '~/lib/challenge';
 import { successToastWithNoRedirect } from '../Toast';
-import ChallengeNoteForm from '../../molecules/challenges/ChallengeNoteForm';
 
 const style = updateStyle('userBar', {
   username: {
@@ -33,8 +31,8 @@ const ActivityFooter = withRouter((props: any) => {
     isMyProfile,
     history,
     location,
-    text,
-    type
+    setEdit,
+    edit
   } = props;
 
   const [alert, setAlert] = useState();
@@ -45,16 +43,6 @@ const ActivityFooter = withRouter((props: any) => {
 
   const handleClose = () => {
     alert.close();
-  };
-
-  const [modal, setModal] = useState(false);
-
-  const openModal = () => {
-    setModal(true);
-  };
-
-  const closeModal = () => {
-    setModal(false);
   };
 
   const handleDelete = () =>
@@ -72,21 +60,21 @@ const ActivityFooter = withRouter((props: any) => {
       {isMyProfile && (
         <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
           <React.Fragment>
-            <Text
-              onPress={openModal}
-              style={{ color: brandGray, fontSize: 14 }}
-            >
-              編集
-            </Text>
-            <Modal isVisible={modal} avoidKeyboard>
-              <ChallengeNoteForm
-                saveHandler={updateHandler}
-                closeHandler={closeModal}
-                isEdit
-                initialText={text}
-                initialType={type}
-              />
-            </Modal>
+            {edit ? (
+              <Text
+                style={{ color: brandGray, fontSize: 14 }}
+                onPress={updateHandler}
+              >
+                保存
+              </Text>
+            ) : (
+              <Text
+                style={{ color: brandGray, fontSize: 14 }}
+                onPress={() => setEdit(true)}
+              >
+                編集
+              </Text>
+            )}
           </React.Fragment>
           <View style={{ marginLeft: 10 }}>
             <Text
@@ -131,6 +119,16 @@ const ChallengeNoteActivity = (props: any) => {
     type === POST_TYPE_ANALYSIS ||
     type === POST_TYPE_NOTE;
 
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(data.text);
+  const [type, setType] = useState(data.type);
+
+  const handleUpdate = () => {
+    updateHandler({ text, type })
+      .then(() => setEdit(false))
+      .then(() => successToastWithNoRedirect('ノートを更新しました。'));
+  };
+
   return (
     <React.Fragment>
       <Activity
@@ -140,15 +138,25 @@ const ChallengeNoteActivity = (props: any) => {
         Footer={() =>
           isNote(data.type) && (
             <ActivityFooter
-              updateHandler={updateHandler}
+              updateHandler={handleUpdate}
               deleteHandler={deleteHandler}
               isMyProfile={isMyProfile}
-              text={data.text}
-              type={data.type}
+              text={text}
+              type={type}
+              edit={edit}
+              setEdit={setEdit}
             />
           )
         }
       />
+      {edit && (
+        <Textarea
+          value={text}
+          bordered
+          rowSpan={6}
+          onChangeText={text => setText(text)}
+        />
+      )}
     </React.Fragment>
   );
 };
