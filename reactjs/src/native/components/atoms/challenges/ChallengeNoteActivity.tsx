@@ -126,7 +126,7 @@ const ChallengeNoteActivity = (props: any) => {
   const handleUpdate = () => {
     updateHandler({ text, type })
       .then(() => setEdit(false))
-      .then(() => successToastWithNoRedirect('ノートを更新しました。'));
+      .then(() => successToastWithNoRedirect('ノートを更新'));
   };
 
   return (

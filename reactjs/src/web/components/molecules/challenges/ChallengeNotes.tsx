@@ -59,6 +59,30 @@ const ChallengeNotes = (props: any) => {
             style={{ marginTop: 40 }}
           >
             <ChallengeNotesNavbar />
+            {type === POST_TYPE_SUCCESS && (
+              <div style={{ maxWidth: 600 }}>
+                <p>
+                  達成日記を書くことで、成功体験を積み重ねている実感が得られます。
+                  <br />
+                  達成できたことを書きます。できなかったことや失敗は書きません。
+                  <br />
+                  感謝すること、目標達成に行ったことも書きます。学びや気付きも書きます。
+                  <br />
+                  読み返すことで自己肯定感が高まります。次の目標や課題もあわせて追記しましまう。
+                </p>
+              </div>
+            )}
+            {type === POST_TYPE_ANALYSIS && (
+              <p>
+                分析日記とは、強い感情や危険な行動をしたときは、いつでも書き留めるようにします。
+                <br />
+                湧き上がった思考や感情を残らず書き留めるようにする。飾りなく、率直に書く。
+                <br />
+                時間をおいて見直し、自分の考えや感情の新たな視点を得ることを期待します。
+                <br />
+                自分を否定してはいけません、自分を責めると意志力が弱まりさらに依存は強まります。
+              </p>
+            )}
             <Timeline lineColor={timelineBorderColor}>
               {type === POST_TYPE_NOTE &&
                 posts.map((post: any) => (
