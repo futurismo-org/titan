@@ -39,7 +39,7 @@ const ChallengeNotes = (props: any) => {
     return (
       <div style={{ width: 320 }}>
         <ButtonGroup fullWidth>
-          <Button onClick={() => setType(POST_TYPE_NOTE)}>努力記録</Button>
+          <Button onClick={() => setType(POST_TYPE_NOTE)}>努力日記</Button>
           <Button onClick={() => setType(POST_TYPE_SUCCESS)}>達成日記</Button>
           <Button onClick={() => setType(POST_TYPE_ANALYSIS)}>分析日記</Button>
         </ButtonGroup>

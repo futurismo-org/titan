@@ -13,6 +13,8 @@ import ChallengeGoals from '~/native/containers/challenges/ChallengeGoalsContain
 import ChallengeGoal from '~/native/containers/challenges/ChallengeGoalContainer';
 import ChallengeActivities from '~/native/containers/challenges/ChallengeActivitiesContainer';
 import ChallengeTimeline from '~/native/containers/challenges/ChallengeTimelineContainer';
+import ChallengeActivitiesSuccess from '~/native/containers/challenges/ChallengeActivitiesSuccessContainer';
+import ChallengeActivitiesAnalysis from '~/native/containers/challenges/ChallengeActivitiesAnalysisContainer';
 
 import Flag from '~/native/containers/FlagContainer';
 
@@ -67,12 +69,26 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/u/:userShortId/goal"
             render={props => <ChallengeGoal challenge={challenge} {...props} />}
           />
-          <Route
-            path="/c/:id/u/:userShortId/activities"
-            render={props => (
-              <ChallengeActivities challenge={challenge} {...props} />
-            )}
-          />
+          <Switch>
+            <Route
+              path="/c/:id/u/:userShortId/activities/success"
+              render={props => (
+                <ChallengeActivitiesSuccess challenge={challenge} {...props} />
+              )}
+            />
+            <Route
+              path="/c/:id/u/:userShortId/activities/analysis"
+              render={props => (
+                <ChallengeActivitiesAnalysis challenge={challenge} {...props} />
+              )}
+            />
+            <Route
+              path="/c/:id/u/:userShortId/activities"
+              render={props => (
+                <ChallengeActivities challenge={challenge} {...props} />
+              )}
+            />
+          </Switch>
           <Route
             path="/c/:id/u/:userShortId/settings"
             render={props => (

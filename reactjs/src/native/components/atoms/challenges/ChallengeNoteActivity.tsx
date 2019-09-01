@@ -99,7 +99,25 @@ const ActivityFooter = withRouter((props: any) => {
 });
 
 const ChallengeNoteActivity = (props: any) => {
-  const { data, history, updateHandler, deleteHandler, isMyProfile } = props;
+  const {
+    data,
+    history,
+    updateHandler,
+    deleteHandler,
+    isMyProfile,
+    selected
+  } = props;
+
+  const [edit, setEdit] = useState(false);
+  const [text, setText] = useState(data.text);
+  const [type, setType] = useState(data.type);
+
+  if (selected === POST_TYPE_SUCCESS && data.type !== POST_TYPE_SUCCESS) {
+    return null;
+  }
+  if (selected === POST_TYPE_ANALYSIS && data.type !== POST_TYPE_ANALYSIS) {
+    return null;
+  }
 
   const activity = {
     actor: {
@@ -119,10 +137,6 @@ const ChallengeNoteActivity = (props: any) => {
     type === POST_TYPE_ANALYSIS ||
     type === POST_TYPE_NOTE;
 
-  const [edit, setEdit] = useState(false);
-  const [text, setText] = useState(data.text);
-  const [type, setType] = useState(data.type);
-
   const handleUpdate = () => {
     updateHandler({ text, type })
       .then(() => setEdit(false))
@@ -131,32 +145,34 @@ const ChallengeNoteActivity = (props: any) => {
 
   return (
     <React.Fragment>
-      <Activity
-        activity={activity}
-        styles={style}
-        onPress={() => path && history.push(path)}
-        Footer={() =>
-          isNote(data.type) && (
-            <ActivityFooter
-              updateHandler={handleUpdate}
-              deleteHandler={deleteHandler}
-              isMyProfile={isMyProfile}
-              text={text}
-              type={type}
-              edit={edit}
-              setEdit={setEdit}
-            />
-          )
-        }
-      />
-      {edit && (
-        <Textarea
-          value={text}
-          bordered
-          rowSpan={6}
-          onChangeText={text => setText(text)}
+      <React.Fragment>
+        <Activity
+          activity={activity}
+          styles={style}
+          onPress={() => path && history.push(path)}
+          Footer={() =>
+            isNote(data.type) && (
+              <ActivityFooter
+                updateHandler={handleUpdate}
+                deleteHandler={deleteHandler}
+                isMyProfile={isMyProfile}
+                text={text}
+                type={type}
+                edit={edit}
+                setEdit={setEdit}
+              />
+            )
+          }
         />
-      )}
+        {edit && (
+          <Textarea
+            value={text}
+            bordered
+            rowSpan={6}
+            onChangeText={text => setText(text)}
+          />
+        )}
+      </React.Fragment>
     </React.Fragment>
   );
 };

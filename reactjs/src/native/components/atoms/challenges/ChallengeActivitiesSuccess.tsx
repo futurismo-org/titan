@@ -5,14 +5,10 @@ import Modal from 'react-native-modal';
 import UserAvatar from '~/native/components/atoms/UserAvatar';
 import { GETSTREAM_KEY, GETSTREAM_APP_ID, getToken } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
-import {
-  ChallengeNoteOpenActivity,
-  ChallengeNoteCloseActivity
-} from './ChallengeNoteActivity';
 import ChallengeNoteActivity from '~/native/containers/challenges/ChallengeNoteActivityContainer';
 
 import ChallengeNoteForm from '~/native/containers/challenges/ChallengeNoteFormContainer';
-import { POST_TYPE_NOTE } from '~/constants/post';
+import { POST_TYPE_SUCCESS } from '~/constants/post';
 import ChallengeActivitiesNavbar from './ChallengeActivitiesNavbar';
 
 const ChallengeActivities = (props: any) => {
@@ -66,7 +62,7 @@ const ChallengeActivities = (props: any) => {
             >
               <Text
                 style={{ fontWeight: 'bold', fontSize: 20 }}
-              >{`${user.displayName}さんの努力ノート`}</Text>
+              >{`${user.displayName}さんの達成日記`}</Text>
               <UserAvatar
                 photoURL={user.photoURL}
                 userId={user.shortId}
@@ -96,17 +92,15 @@ const ChallengeActivities = (props: any) => {
               userId={timelineId}
               options={{ browser: true }} /* hack */
             >
-              <ChallengeNoteCloseActivity challenge={challenge} />
               <FlatFeed
                 Activity={(props: any) => (
                   <ChallengeNoteActivity
                     isMyProfile={isMyProfile}
-                    selected={POST_TYPE_NOTE}
+                    selected={POST_TYPE_SUCCESS}
                     {...props}
                   />
                 )}
               />
-              <ChallengeNoteOpenActivity challenge={challenge} />
             </StreamApp>
           </View>
         </React.Fragment>
