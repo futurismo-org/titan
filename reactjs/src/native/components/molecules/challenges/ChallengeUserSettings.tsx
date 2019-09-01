@@ -54,7 +54,7 @@ const ChallengeUserSettings = (props: any) => {
     db.doc(resourceId)
       .update(updateData)
       .then(() =>
-        successToast(redirectPath, history.replace, '設定を更新しました。')
+        successToast(redirectPath, history.push, '設定を更新しました。')
       )
       .catch(error => errorToast(error.message));
   };

@@ -24,10 +24,10 @@ const ChallengePostController = (props: any) => {
 
   const writeRecord = recordHandler(
     window.alert, // eslint-disable-line
-    history.replace
+    history.push
   );
 
-  const resetRecord = resetHandler(history.replace);
+  const resetRecord = resetHandler(history.push);
 
   const confirm = (props: any) => {
     const { days } = props;

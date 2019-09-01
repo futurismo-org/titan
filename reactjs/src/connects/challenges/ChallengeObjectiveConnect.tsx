@@ -32,10 +32,12 @@ const mapStateToProps = (state: any, props: any) => {
       .firestore()
       .doc(resourceId)
       .set(updateData, { merge: true })
-      .then(
-        () =>
-          data.isCreate &&
-          postUserChallengeObjective(userShortId, challengeId, { user })
+      .then(() =>
+        postUserChallengeObjective(userShortId, challengeId, {
+          user,
+          days: user.days,
+          what: data.what
+        })
       );
   };
 

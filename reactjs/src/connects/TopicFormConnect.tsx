@@ -17,7 +17,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const { collectionId } = props.match.params;
+  const collectionId = props.match.params.collectionId
+    ? props.match.params.collectionId
+    : null;
   const isCreate = props.match.params.topicId === undefined;
   const topicId = isCreate ? shortid.generate() : props.match.params.topicId;
 

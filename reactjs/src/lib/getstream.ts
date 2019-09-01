@@ -24,8 +24,19 @@ export const getStreamToken = async (userId: string) => {
     .then(res => res.data);
 };
 
-const GETSTREAM_KEY = process.env.REACT_APP_GETSTREAM_KEY as string;
-const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
+export const GETSTREAM_KEY =
+  process.env.REACT_APP_ENV === 'development' ||
+  process.env.NODE_ENV === 'development' ||
+  process.env.APP_ENV === 'development'
+    ? (process.env.REACT_APP_GETSTREAM_KEY_DEVELOPMENT as string)
+    : (process.env.REACT_APP_GETSTREAM_KEY_PRODUCTION as string);
+
+export const GETSTREAM_APP_ID =
+  process.env.REACT_APP_ENV === 'development' ||
+  process.env.NODE_ENV === 'development' ||
+  process.env.APP_ENV === 'development'
+    ? (process.env.REACT_APP_GETSTREAM_APP_ID_DEVELOPMENT as string)
+    : (process.env.REACT_APP_GETSTREAM_APP_ID_PRODUCTION as string);
 
 // const getClient = (userId: string) => {
 //   return firebase
@@ -35,7 +46,7 @@ const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
 //     .get()
 //     .then((doc: any) => (doc.data() ? doc.data().getStreamToken : null))
 //     .then((token: string) =>
-//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
+//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID, { browser: true }) : null
 //     );
 // };
 
@@ -50,11 +61,11 @@ const GETSTREAM_APP_ID = process.env.REACT_APP_GETSTREAM_APP_ID as string;
 //     )
 //     .then(res => res.data)
 //     .then((token: string) =>
-//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID) : null
+//       token ? stream.connect(GETSTREAM_KEY, token, GETSTREAM_APP_ID, { browser: true }) : null
 //     );
 // };
 
-const getToken = (userShortId: string) => {
+export const getToken = (userShortId: string) => {
   return axios
     .post(
       '/getstream/token',
@@ -86,7 +97,9 @@ export const postUserChallengeJoin = (
   props: any
 ) => {
   const { user } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const id = getUserChallengeId(userShortId, challengeId);
 
   return getToken(id).then((token: any) => {
@@ -114,7 +127,9 @@ export const postUserChallengeTopic = (
   props: any
 ) => {
   const { topicId, title, user } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const id = getUserChallengeId(userShortId, challengeId);
 
   return getToken(id).then((token: any) => {
@@ -146,7 +161,9 @@ export const postUserChallengeHistory = (
   props: any
 ) => {
   const { historyId, user, type, days } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const id = getUserChallengeId(userShortId, challengeId);
 
   return getToken(id).then((token: any) => {
@@ -175,7 +192,9 @@ export const postUserChallengeNote = (
   props: any
 ) => {
   const { noteId, user, type, text } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const id = getUserChallengeId(userShortId, challengeId);
 
   return getToken(id).then((token: any) => {
@@ -204,7 +223,9 @@ export const updateUserChallengeNote = (
   props: any
 ) => {
   const { rawData, type, text } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const id = getUserChallengeId(userShortId, challengeId);
 
   const activity = {
@@ -229,7 +250,9 @@ export const deleteUserChallengeNote = (
   const { serverId } = props;
   const id = getUserChallengeId(userShortId, challengeId);
 
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   return getToken(id).then((token: string) => {
     const feed = client.feed('note', id, token);
     feed.removeActivity(serverId);
@@ -243,7 +266,9 @@ export const postUserChallengeObjective = (
   props: any
 ) => {
   const { user, days, what } = props;
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
   const objectiveId = challengeId;
   const id = getUserChallengeId(userShortId, challengeId);
 
@@ -267,14 +292,17 @@ export const postUserChallengeObjective = (
   });
 };
 
-export const followUserChallengeTimeline = (
+export const followUserChallengeTimeline = async (
   userShortId: string,
   challengeId: string
 ) => {
   const id = getUserChallengeId(userShortId, challengeId);
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
 
-  getToken(id).then((token: any) => {
+  const client = await stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
+
+  await getToken(id).then((token: any) => {
     const timeline = client.feed('timeline', id, token);
     timeline.follow('challenge', id);
     timeline.follow('topic', id);
@@ -283,8 +311,8 @@ export const followUserChallengeTimeline = (
     timeline.follow('objective', id);
   });
 
-  getToken(challengeId).then((token: any) => {
-    const timeline = client.feed('timeline', id, token);
+  await getToken(challengeId).then((token: any) => {
+    const timeline = client.feed('timeline', challengeId, token);
     timeline.follow('challenge', id);
     timeline.follow('topic', id);
     timeline.follow('note', id);
@@ -292,8 +320,8 @@ export const followUserChallengeTimeline = (
     timeline.follow('objective', id);
   });
 
-  getToken(userShortId).then((token: any) => {
-    const timeline = client.feed('timeline', id, token);
+  await getToken(userShortId).then((token: any) => {
+    const timeline = client.feed('timeline', userShortId, token);
     timeline.follow('challenge', id);
     timeline.follow('topic', id);
     timeline.follow('note', id);
@@ -301,17 +329,17 @@ export const followUserChallengeTimeline = (
     timeline.follow('objective', id);
   });
 
-  getToken(userShortId).then((token: any) => {
+  await getToken(userShortId).then((token: any) => {
     const timeline = client.feed('timeline', userShortId, token);
     timeline.follow('timeline', id);
   });
 
-  getToken(challengeId).then((token: any) => {
+  await getToken(challengeId).then((token: any) => {
     const timeline = client.feed('timeline', challengeId, token);
     timeline.follow('timeline', id);
   });
 
-  getToken(challengeId).then((token: any) => {
+  return await getToken(challengeId).then((token: any) => {
     const objective = client.feed('objective', challengeId, token);
     objective.follow('objective', id);
   });
@@ -322,7 +350,9 @@ export const getUserChallengeTimeline = (
   challengeId: string
 ) => {
   const id = getUserChallengeId(userShortId, challengeId);
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
 
   return getToken(id).then((token: any) => {
     const timeline = client.feed('timeline', id, token);
@@ -331,7 +361,9 @@ export const getUserChallengeTimeline = (
 };
 
 export const getChallengeTimeline = (challengeId: string) => {
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
 
   return getToken(challengeId).then((token: any) => {
     const timeline = client.feed('timeline', challengeId, token);
@@ -340,7 +372,9 @@ export const getChallengeTimeline = (challengeId: string) => {
 };
 
 export const getChallengeObjectives = (challengeId: string) => {
-  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID);
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
 
   return getToken(challengeId).then((token: any) => {
     const timeline = client.feed('objective', challengeId, token);

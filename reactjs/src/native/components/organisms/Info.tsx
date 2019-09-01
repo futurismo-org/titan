@@ -23,26 +23,26 @@ const Info = (props: any) => {
       <Title text="関連情報" />
       <List>
         <ListItem>
-          <Text onPress={() => history.replace('/terms_of_use')}>利用規約</Text>
+          <Text onPress={() => history.push('/terms_of_use')}>利用規約</Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => history.replace('/privacy_policy')}>
+          <Text onPress={() => history.push('/privacy_policy')}>
             プライバシーポリシー
           </Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => history.replace('/guidelines')}>
+          <Text onPress={() => history.push('/guidelines')}>
             コミュニティガイドライン
           </Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => history.replace('/about')}>Titanについて</Text>
+          <Text onPress={() => history.push('/about')}>Titanについて</Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => history.replace('/contact')}>お問い合わせ</Text>
+          <Text onPress={() => history.push('/contact')}>お問い合わせ</Text>
         </ListItem>
         <ListItem>
-          <Text onPress={() => history.replace('/meigen')}>努力の名言集</Text>
+          <Text onPress={() => history.push('/meigen')}>努力の名言集</Text>
         </ListItem>
         <ListItem>
           <Text onPress={() => Linking.openURL(APP_PRODUCTION_URL)}>

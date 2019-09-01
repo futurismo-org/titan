@@ -177,16 +177,19 @@ const createRelationShip = (userShortId: string, challengeId: string) => {
     { source: `timeline:${id}`, target: `note:${id}` },
     { source: `timeline:${id}`, target: `history:${id}` },
     { source: `timeline:${id}`, target: `objective:${id}` },
+
     { source: `timeline:${userShortId}`, target: `challenge:${id}` },
     { source: `timeline:${userShortId}`, target: `topic:${id}` },
     { source: `timeline:${userShortId}`, target: `note:${id}` },
     { source: `timeline:${userShortId}`, target: `history:${id}` },
     { source: `timeline:${userShortId}`, target: `objective:${id}` },
+
     { source: `timeline:${challengeId}`, target: `challenge:${id}` },
     { source: `timeline:${challengeId}`, target: `topic:${id}` },
     { source: `timeline:${challengeId}`, target: `note:${id}` },
     { source: `timeline:${challengeId}`, target: `history:${id}` },
     { source: `timeline:${challengeId}`, target: `objective:${id}` },
+
     { source: `timeline:${userShortId}`, target: `timeline:${id}` },
     { source: `timeline:${challengeId}`, target: `timeline:${id}` },
     { source: `objective:${challengeId}`, target: `objective:${id}` }

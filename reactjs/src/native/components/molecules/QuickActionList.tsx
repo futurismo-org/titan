@@ -20,7 +20,7 @@ const QuickActionCard = withRouter((props: any) => {
   );
 
   const handlePress = (path: string) => {
-    history.replace(path);
+    history.push(path);
     closeHandler();
   };
 

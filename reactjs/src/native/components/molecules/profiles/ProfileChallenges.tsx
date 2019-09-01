@@ -11,7 +11,7 @@ const ChallengeItem = withRouter((props: any) => {
     <ListItem
       avatar
       button
-      onPress={() => history.replace(`/c/${challenge.id}/u/${userShortId}`)}
+      onPress={() => history.push(`/c/${challenge.id}/u/${userShortId}`)}
     >
       <Left style={{ justifyContent: 'center' }}>
         <Badge>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Text } from 'native-base';
 
 import { withRouter } from 'react-router-native';
@@ -20,7 +20,7 @@ const ChallengeButton = (props: any) => {
 
   const handleJoin = () => {
     joinHandler().then(() => {
-      successToast(redirectPath, history.replace, 'チャレンジに参加しました');
+      successToast(redirectPath, history.push, 'チャレンジに参加しました');
     });
   };
 

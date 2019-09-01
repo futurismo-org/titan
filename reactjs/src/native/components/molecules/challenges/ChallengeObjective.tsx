@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Button, Text, Label, Input, Textarea } from 'native-base';
-import Modalize from 'react-native-modalize';
+import React, { useState } from 'react';
+import { View, Button, Text } from 'native-base';
+import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
 import {
   ChallengeObjectiveWhatCard,
   ChallengeObjectiveWhyCard
 } from './ChallengeObjectiveCard';
 import ChallengeObjectiveForm from './ChallengeObjectiveForm';
+import { successToastWithNoRedirect } from '../../atoms/Toast';
 
 const ChallengeObjective = (props: any) => {
   const {
@@ -18,22 +19,10 @@ const ChallengeObjective = (props: any) => {
     isLoaded
   } = props;
 
-  const modalRef = useRef<Modalize>(null);
+  const [modal, setModal] = useState(false);
 
-  const onOpen = () => {
-    const modal = modalRef.current;
-
-    if (modal) {
-      modal.open();
-    }
-  };
-
-  const onClose = () => {
-    const modal = modalRef.current;
-
-    if (modal) {
-      modal.close();
-    }
+  const toggleModal = () => {
+    setModal(!modal);
   };
 
   const ChallengeObjectiveFormButton = (props: any) => {
@@ -42,14 +31,18 @@ const ChallengeObjective = (props: any) => {
     }
 
     return (
-      <Button onPress={onOpen}>
+      <Button onPress={toggleModal}>
         <Text>編集</Text>
       </Button>
     );
   };
 
-  const handleClose = (what: any, why: any) => () =>
-    handleSave({ what, why }).then(() => onClose());
+  const saveHandler = (what: any, why: any) => () =>
+    handleSave({ what, why })
+      .then(() => successToastWithNoRedirect('目標を更新しました。'))
+      .then(() => toggleModal());
+
+  const cancelHandler = () => toggleModal();
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
   const what = isLoaded && objective ? objective.what : initialWhat;
@@ -58,7 +51,7 @@ const ChallengeObjective = (props: any) => {
   return (
     <React.Fragment>
       {!isLoaded && null}
-      {isLoaded && !!objective && (
+      {isLoaded && (
         <TouchableOpacity>
           <View>
             <ChallengeObjectiveWhatCard text={what} />
@@ -70,19 +63,16 @@ const ChallengeObjective = (props: any) => {
           </View>
         </TouchableOpacity>
       )}
-      {isLoaded && !!objective && (
-        <Modalize
-          ref={modalRef}
-          adjustToContentHeight
-          keyboardAvoidingBehavior="padding"
-        >
+      {isLoaded && (
+        <Modal isVisible={modal} avoidKeyboard>
           <ChallengeObjectiveForm
             inputWhat={what}
             inputWhy={why}
-            closeHandler={handleClose}
+            saveHandler={saveHandler}
+            cancelHandler={cancelHandler}
             isLoaded={isLoaded}
           />
-        </Modalize>
+        </Modal>
       )}
     </React.Fragment>
   );

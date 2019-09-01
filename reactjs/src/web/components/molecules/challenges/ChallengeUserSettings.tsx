@@ -70,7 +70,7 @@ const ChallengeUserSettings = (props: any) => {
     db.doc(resourceId)
       .update(newData)
       .then(() => window.alert('設定を更新しました。')) // eslint-disable-line
-      .then(() => history.replace(redirectPath))
+      .then(() => history.push(redirectPath))
       .catch(() => window.alert('エラーが発生しました。')); // eslint-disable-line
   };
 

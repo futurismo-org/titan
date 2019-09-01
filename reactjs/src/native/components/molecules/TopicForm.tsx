@@ -7,6 +7,7 @@ import SubmitButton from '../atoms/SubmitButton';
 import Progress from '~/native/components/atoms/CircularProgress';
 import { getPublicIP } from '~/native/lib/network';
 import { successToast, errorToast } from '../atoms/Toast';
+import { postUserChallengeTopic } from '~/lib/getstream';
 
 const db = firebase.firestore();
 
@@ -19,7 +20,8 @@ const TopicForm = (props: any) => {
     isCreate,
     history,
     loading,
-    error
+    error,
+    postTopicStream
   } = props;
 
   const [title, setTitle] = useState('');
@@ -46,8 +48,9 @@ const TopicForm = (props: any) => {
       const newData = { title, url, text, ip, ...props.newData };
       db.doc(resourceId)
         .set(newData)
+        .then(() => postTopicStream(title))
         .then(() =>
-          successToast(redirectPath, history.replace, '投稿に成功しました')
+          successToast(redirectPath, history.push, '投稿に成功しました')
         )
         .catch(error => errorToast(error.message));
     } else {
@@ -55,7 +58,7 @@ const TopicForm = (props: any) => {
       db.doc(resourceId)
         .update(updateData)
         .then(() =>
-          successToast(redirectPath, history.replace, '投稿に成功しました')
+          successToast(redirectPath, history.push, '投稿に成功しました')
         )
         .catch(error => errorToast(error.message));
     }

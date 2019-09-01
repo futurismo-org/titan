@@ -31,27 +31,28 @@ import {
   POST_TYPE_NOTE,
   POST_TYPE_ANALYSIS,
   POST_TYPE_SUCCESS,
-  POST_TYPE_OBJECTIVE
+  POST_TYPE_OBJECTIVE,
+  POST_MESSAGE_JOIN,
+  POST_MESSAGE_OPEN,
+  POST_MESSAGE_CLOSE,
+  POST_MESSAGE_RECORD,
+  POST_MESSAGE_RESET,
+  POST_MESSAGE_TOPIC,
+  POST_MESSAGE_OBJECTIVE
 } from '~/constants/post';
 
-import { update, remove } from '~/lib/firebase';
 import TextFieldView from '../TextFieldView';
 import Flag from '~/web/containers/FlagContainer';
-
-import {
-  deleteUserChallengeNote,
-  updateUserChallengeNote
-} from '~/lib/getstream';
 
 const ChallengeNoteJoin = (props: any) => {
   const { timestamp } = props.data;
   return (
     <TimelineItem
-      key={POST_TYPE_JOIN}
+      key={POST_MESSAGE_JOIN}
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジに参加しました。</p>
+      <p>{POST_MESSAGE_JOIN}</p>
     </TimelineItem>
   );
 };
@@ -64,7 +65,7 @@ const ChallengeNoteOpen = (props: any) => {
       dateText={formatDatetimeShort(openedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジがスタートしました。</p>
+      <p>{POST_MESSAGE_OPEN}</p>
     </TimelineItem>
   );
 };
@@ -78,7 +79,7 @@ const ChallengeNoteClose = (props: any) => {
       dateText={formatDatetimeShort(closedAt)}
       dateInnerStyle={{ background: secondaryColor, color: brandWhite }}
     >
-      <p>チャレンジが終了しました。</p>
+      <p>{POST_MESSAGE_CLOSE}</p>
     </TimelineItem>
   );
 };
@@ -95,7 +96,9 @@ const ChallengeNoteRecord = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandSuccess, color: brandWhite }}
     >
-      <p>記録を投稿しました。({daysString})</p>
+      <p>
+        {POST_MESSAGE_RECORD} ({daysString})
+      </p>
     </TimelineItem>
   );
 };
@@ -110,7 +113,7 @@ const ChallengeNoteReset = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandWarning, color: brandWhite }}
     >
-      <p>リセットしました。</p>
+      <p>{POST_MESSAGE_RESET}</p>
     </TimelineItem>
   );
 };
@@ -125,7 +128,7 @@ const ChallengeNoteTopic = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandPurple, color: brandWhite }}
     >
-      <p>トピックを投稿しました。</p>
+      <p>{POST_MESSAGE_TOPIC}</p>
       <Link to={path}>{title}</Link>
     </TimelineItem>
   );
@@ -141,7 +144,7 @@ const ChallengeNoteObjective = (props: any) => {
       dateText={formatDatetimeShort(timestamp)}
       dateInnerStyle={{ background: brandAqua, color: brandDark }}
     >
-      <p>チャレンジ目標を設定しました。</p>
+      <p>{POST_MESSAGE_OBJECTIVE}</p>
       <p>{what}</p>
     </TimelineItem>
   );
@@ -156,9 +159,8 @@ const ChallengeNoteMemo = (props: any) => {
     challengeId,
     type,
     isMyProfile,
-    serverId,
-    userId,
-    rawData
+    updateHandler,
+    deleteHandler
   } = data;
 
   const [edit, setEdit] = useState(false);
@@ -175,32 +177,16 @@ const ChallengeNoteMemo = (props: any) => {
     setLabel(e.target.value);
   };
 
-  const resourceId = `/challenges/${challengeId}/notes/${noteId}`;
-
   const onSave = () => {
-    const data = {
-      text: buffer,
-      type: label,
-      updatedAt: new Date()
-    };
-
-    update(resourceId, data)
-      .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
-      .then(() =>
-        updateUserChallengeNote(userId, challengeId, {
-          rawData,
-          text: buffer,
-          type: label
-        })
-      )
-      .then(() => window.location.reload()); // eslint-disable-line
+    updateHandler({ text: buffer, type: label }).then(
+      () => window.location.reload() // eslint-disable-line
+    );
   };
 
   const onDelete = () => {
     /* eslint-disable */
     if (window.confirm('本当に削除しますか？')) {
-      remove(resourceId)
-        .then(() => deleteUserChallengeNote(userId, challengeId, { serverId }))
+      deleteHandler()
         .then(() => window.alert('削除しました。'))
         .then(() => window.location.reload());
     }
@@ -211,22 +197,24 @@ const ChallengeNoteMemo = (props: any) => {
     <React.Fragment>
       <TextFieldView text={buffer} />
       {isMyProfile ? (
-        <p>
-          <span
-            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-            role="button"
-            onClick={() => setEdit(true)}
-          >
-            編集
-          </span>{' '}
-          <span
-            role="button"
-            style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
-            onClick={onDelete}
-          >
-            削除
-          </span>
-        </p>
+        <div style={{ textAlign: 'right' }}>
+          <p>
+            <span
+              style={{ cursor: 'pointer' }}
+              role="button"
+              onClick={() => setEdit(true)}
+            >
+              編集
+            </span>{' '}
+            <span
+              role="button"
+              style={{ cursor: 'pointer' }}
+              onClick={onDelete}
+            >
+              削除
+            </span>
+          </p>
+        </div>
       ) : (
         <Flag note={{ challengeId, noteId }} />
       )}
@@ -285,7 +273,7 @@ const ChallengeNoteMemo = (props: any) => {
     <TimelineItem
       key={type}
       dateText={formatDatetimeShort(timestamp)}
-      dateInnerStyle={{ backgroud: backgroundColor, color }}
+      dateInnerStyle={{ background: backgroundColor, color }}
     >
       {edit ? renderEdit() : renderText()}
     </TimelineItem>
@@ -336,13 +324,15 @@ const componentMap = new Map([
 ]);
 
 const ChallengeNote = (props: any) => {
-  const { type, data, isMyProfile } = props;
+  const { type, data, isMyProfile, updateHandler, deleteHandler } = props;
 
   const noteFactory = componentMap.get(type);
 
   const params = {
     ...data,
-    isMyProfile
+    isMyProfile,
+    updateHandler,
+    deleteHandler
   };
 
   return noteFactory!(params);

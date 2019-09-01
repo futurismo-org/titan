@@ -13,19 +13,21 @@ const TouchableText = (props: any) => {
     history,
     color,
     handler,
-    underline
+    underline,
+    size
   } = props;
 
   const pressHandler = handler
     ? handler
     : external
     ? () => Linking.openURL(url)
-    : () => history.replace(path);
+    : () => history.push(path);
 
   const style = Object.assign(
     { fontWeight: 'bold' },
     color ? { color: color } : {},
-    underline ? { textDecorationLine: 'underline' } : {}
+    underline ? { textDecorationLine: 'underline' } : {},
+    size ? { fontSize: size } : {}
   );
 
   return (

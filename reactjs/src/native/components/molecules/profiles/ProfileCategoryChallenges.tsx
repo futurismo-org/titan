@@ -13,7 +13,7 @@ const ChallengeItem = withRouter((props: any) => {
   const path = getChallengeDashboardPath(challenge.id, userShortId);
 
   return (
-    <ListItem avatar button onPress={() => history.replace(path)}>
+    <ListItem avatar button onPress={() => history.push(path)}>
       <Left>
         <Badge>
           <Text note style={{ color: brandWhite }}>
