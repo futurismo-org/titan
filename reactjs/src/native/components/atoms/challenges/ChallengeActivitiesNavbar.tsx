@@ -5,7 +5,6 @@ import TouchableText from '../TouchableText';
 
 const ChallengeActivitiesNavbar = (props: any) => {
   const { challengeId, userShortId, history } = props;
-  console.log(challengeId, userShortId);
   const basePath = `/c/${challengeId}/u/${userShortId}/activities`;
 
   return (

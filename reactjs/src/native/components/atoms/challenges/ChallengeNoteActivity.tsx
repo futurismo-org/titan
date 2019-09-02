@@ -13,7 +13,9 @@ import {
   POST_MESSAGE_CLOSE,
   POST_TYPE_SUCCESS,
   POST_TYPE_ANALYSIS,
-  POST_TYPE_NOTE
+  POST_TYPE_NOTE,
+  POST_TYPE_OBJECTIVE,
+  POST_TYPE_TOPIC
 } from '~/constants/post';
 import {
   secondaryColor,
@@ -149,6 +151,9 @@ const ChallengeNoteActivity = (props: any) => {
     type === POST_TYPE_ANALYSIS ||
     type === POST_TYPE_NOTE;
 
+  const hasContent = (type: string) =>
+    isNote(type) || type === POST_TYPE_OBJECTIVE || type === POST_TYPE_TOPIC;
+
   const handleUpdate = () => {
     updateHandler({ text, type })
       .then(() => setEdit(false))
@@ -178,7 +183,13 @@ const ChallengeNoteActivity = (props: any) => {
         <Activity
           activity={activity}
           onPress={() => path && history.push(path)}
-          Content={() => <MarkdownView text={text} />}
+          Content={() =>
+            hasContent(data.type) ? (
+              <View style={{ marginLeft: 20 }}>
+                <MarkdownView text={text} />
+              </View>
+            ) : null
+          }
           Footer={() =>
             isNote(data.type) && (
               <ActivityFooter
