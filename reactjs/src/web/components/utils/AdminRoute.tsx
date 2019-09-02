@@ -8,8 +8,6 @@ const AdminRoute = (props: any) => {
 
   if (!isLogin) return <React.Fragment />;
 
-  console.log(user);
-
   return (
     <Route
       {...rest}

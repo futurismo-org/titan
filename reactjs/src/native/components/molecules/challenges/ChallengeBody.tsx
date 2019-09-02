@@ -66,8 +66,36 @@ const ChallengeBody = (props: any) => {
             )}
           />
           <Route
+            path="/c/:collectionId/t/:topicId/edit"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/new"
+            render={props => <TopicForm collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:collectionId/t/:topicId"
+            render={props => <Topic collection="challenges" {...props} />}
+          />
+          <Route
+            path="/c/:id/topics"
+            render={props => (
+              <Topics
+                collection="challenges"
+                collectionId={challenge.id}
+                {...props}
+              />
+            )}
+          />
+          <Route
             path="/c/:id/u/:userShortId/goal"
             render={props => <ChallengeGoal challenge={challenge} {...props} />}
+          />
+          <Route
+            path="/c/:id/u/:userShortId/settings"
+            render={props => (
+              <ChallengeUserSettings challenge={challenge} {...props} />
+            )}
           />
           <Switch>
             <Route
@@ -88,49 +116,13 @@ const ChallengeBody = (props: any) => {
                 <ChallengeActivities challenge={challenge} {...props} />
               )}
             />
+            <Route
+              path="/c/:id/u/:userShortId"
+              render={props => (
+                <ChallengeUserDashBoard challenge={challenge} {...props} />
+              )}
+            />
           </Switch>
-          <Route
-            path="/c/:id/u/:userShortId/settings"
-            render={props => (
-              <ChallengeUserSettings challenge={challenge} {...props} />
-            )}
-          />
-          <Route
-            path="/c/:id/u/:userShortId"
-            render={props => (
-              <ChallengeUserDashBoard challenge={challenge} {...props} />
-            )}
-          />
-          <Route
-            path="/c/:collectionId/t/:topicId/edit"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/t/new"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/t/:topicId"
-            render={props => <Topic collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/t/:topicId/edit"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/t/new"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/topics"
-            render={props => (
-              <Topics
-                collection="challenges"
-                collectionId={challenge.id}
-                {...props}
-              />
-            )}
-          />
         </Switch>
       </Content>
     </React.Fragment>

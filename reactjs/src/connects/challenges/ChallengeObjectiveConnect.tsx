@@ -3,7 +3,10 @@ import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 import firebase from '~/lib/firebase';
-import { postUserChallengeObjective } from '~/lib/getstream';
+import {
+  postUserChallengeObjective,
+  deleteUserChallengeObjective
+} from '~/lib/getstream';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
@@ -13,6 +16,7 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeId = challenge.id;
 
   const objective = state.firestore.data.objectiveChallenge;
+  const isEdit = objective && !!objective.what;
 
   const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
 
@@ -32,13 +36,15 @@ const mapStateToProps = (state: any, props: any) => {
       .firestore()
       .doc(resourceId)
       .set(updateData, { merge: true })
-      .then(() =>
-        postUserChallengeObjective(userShortId, challengeId, {
+      .then(async () => {
+        if (isEdit) {
+          await deleteUserChallengeObjective(userShortId, challengeId);
+        }
+        await postUserChallengeObjective(userShortId, challengeId, {
           user,
-          days: user.days,
           what: data.what
-        })
-      );
+        });
+      });
   };
 
   return {

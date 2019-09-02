@@ -265,7 +265,7 @@ export const postUserChallengeObjective = (
   challengeId: string,
   props: any
 ) => {
-  const { user, days, what } = props;
+  const { user, what } = props;
   const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
     browser: true
   });
@@ -286,9 +286,24 @@ export const postUserChallengeObjective = (
       userPhotoURL: user.photoURL,
       objectiveId,
       challengeId,
-      days,
       what
     });
+  });
+};
+
+// ノート削除
+export const deleteUserChallengeObjective = (
+  userShortId: string,
+  challengeId: string
+) => {
+  const id = getUserChallengeId(userShortId, challengeId);
+
+  const client = stream.connect(GETSTREAM_KEY, null, GETSTREAM_APP_ID, {
+    browser: true
+  });
+  return getToken(id).then((token: string) => {
+    const feed = client.feed('objective', id, token);
+    feed.removeActivity({ foreignId: `objective:${challengeId}` });
   });
 };
 

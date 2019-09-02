@@ -161,7 +161,6 @@ const createObjectives = () => {
       userPhotoURL: faker.image.avatar(),
       objectiveId,
       challengeId,
-      days: 3,
       what: '頑張りマンモス'
     };
     feed.addActivity(activity);
