@@ -31,11 +31,6 @@ const ChallengeNoteForm = (props: any) => {
   const onSave = () => {
     saveHandler({ text, type })
       .then(closeHandler)
-      .then(() => {
-        const path = location.pathname;
-        history.push('/');
-        history.push(path);
-      })
       .then(() => successToastWithNoRedirect(POST_MESSAGE));
   };
 

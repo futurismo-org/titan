@@ -37,11 +37,13 @@ export const POST_TYPE_OBJECTIVE = 'OBJECTIVE';
 const getUserChallengeId = (userShortId: string, challengeId: string) =>
   `${userShortId}_${challengeId}`;
 
+const EXTENDED_USER_ID_LIST = DUMMY_USER_ID_LIST;
+
 const createTopics = () => {
   DUMMY_TOPIC_ID_LIST.map((topicId: string) => {
     const userId =
-      DUMMY_USER_ID_LIST[
-        faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
+      EXTENDED_USER_ID_LIST[
+        faker.random.number({ min: 0, max: EXTENDED_USER_ID_LIST.length - 1 })
       ];
     const challengeId = MUSCLE_CHALLENGE_ID;
     const id = getUserChallengeId(userId, challengeId);
@@ -59,7 +61,7 @@ const createTopics = () => {
       collectionId: challengeId,
       topicId: topicId,
       title: faker.lorem.sentence(),
-      path: `/c/${challengeId}/t/${topicId}}`,
+      path: `/c/${challengeId}/t/${topicId}`,
       challengeId,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar()
@@ -72,8 +74,8 @@ const createTopics = () => {
 const createNotes = () => {
   DUMMY_NOTE_ID_LIST.map((noteId: string) => {
     const userId =
-      DUMMY_USER_ID_LIST[
-        faker.random.number({ min: 0, max: DUMMY_USER_ID_LIST.length - 1 })
+      EXTENDED_USER_ID_LIST[
+        faker.random.number({ min: 0, max: EXTENDED_USER_ID_LIST.length - 1 })
       ];
 
     const challengeId = MUSCLE_CHALLENGE_ID;
@@ -100,7 +102,7 @@ const createNotes = () => {
 };
 
 const createHistories = () => {
-  DUMMY_USER_ID_LIST.map(userId => {
+  EXTENDED_USER_ID_LIST.map(userId => {
     const historyId = shortId.generate();
 
     const challengeId = MUSCLE_CHALLENGE_ID;
@@ -143,7 +145,7 @@ const createHistories = () => {
 };
 
 const createObjectives = () => {
-  DUMMY_USER_ID_LIST.map(userId => {
+  EXTENDED_USER_ID_LIST.map(userId => {
     const objectiveId = MUSCLE_CHALLENGE_ID;
     const challengeId = MUSCLE_CHALLENGE_ID;
     const id = getUserChallengeId(userId, challengeId);
@@ -200,14 +202,15 @@ const createRelationShip = (userShortId: string, challengeId: string) => {
 export const createRelationShips = () => {
   const challengeId = MUSCLE_CHALLENGE_ID;
 
-  DUMMY_USER_ID_LIST.map(userShortId => {
+  EXTENDED_USER_ID_LIST.map(userShortId => {
     createRelationShip(userShortId, challengeId);
   });
-  createRelationShip(TITAN_USER_SHORT_ID, challengeId);
-  createRelationShip(TSUNE_USER_SHORT_ID, challengeId);
 };
 
 export const createStream = () => {
+  EXTENDED_USER_ID_LIST.push(TITAN_USER_SHORT_ID);
+  EXTENDED_USER_ID_LIST.push(TSUNE_USER_SHORT_ID);
+
   createTopics();
   createNotes();
   createHistories();

@@ -179,51 +179,49 @@ const ChallengeNoteActivity = (props: any) => {
 
   return (
     <React.Fragment>
-      <React.Fragment>
-        <Activity
-          activity={activity}
-          onPress={() => path && history.push(path)}
-          Content={() =>
-            hasContent(data.type) ? (
-              <View style={{ marginLeft: 20 }}>
-                <MarkdownView text={text} />
-              </View>
-            ) : null
-          }
-          Footer={() =>
-            isNote(data.type) && (
-              <ActivityFooter
-                updateHandler={handleUpdate}
-                deleteHandler={deleteHandler}
-                isMyProfile={isMyProfile}
-                type={type}
-                edit={edit}
-                setEdit={setEdit}
-              />
-            )
-          }
-        />
-        {edit && (
-          <React.Fragment>
-            <Textarea
-              value={text}
-              bordered
-              rowSpan={6}
-              onChangeText={text => setText(text)}
+      <Activity
+        activity={activity}
+        onPress={() => path && history.push(path)}
+        Content={() =>
+          hasContent(data.type) ? (
+            <View style={{ marginLeft: 20 }}>
+              <MarkdownView text={text} />
+            </View>
+          ) : null
+        }
+        Footer={() =>
+          isNote(data.type) && (
+            <ActivityFooter
+              updateHandler={handleUpdate}
+              deleteHandler={deleteHandler}
+              isMyProfile={isMyProfile}
+              type={type}
+              edit={edit}
+              setEdit={setEdit}
             />
-            <RadioForm
-              buttonSize={10}
-              radio_props={radioProps}
-              initial={radioMap.get(type)}
-              buttonColor={primaryColor}
-              selectedButtonColor={primaryColor}
-              animation
-              formHorizontal
-              onPress={onTypeChange}
-            />
-          </React.Fragment>
-        )}
-      </React.Fragment>
+          )
+        }
+      />
+      {edit && (
+        <React.Fragment>
+          <Textarea
+            value={text}
+            bordered
+            rowSpan={6}
+            onChangeText={text => setText(text)}
+          />
+          <RadioForm
+            buttonSize={10}
+            radio_props={radioProps}
+            initial={radioMap.get(type)}
+            buttonColor={primaryColor}
+            selectedButtonColor={primaryColor}
+            animation
+            formHorizontal
+            onPress={onTypeChange}
+          />
+        </React.Fragment>
+      )}
     </React.Fragment>
   );
 };

@@ -25,8 +25,8 @@ export const MUSCLE_CHALLENGE_ID_LIST = [
 export const MEDITATION_CHALLENGE_ID_LIST = [shortId.generate()];
 export const GETUP_CHALLENGE_ID_LIST = [shortId.generate()];
 
-export const TITAN_USER_SHORT_ID = shortId.generate();
-export const TSUNE_USER_SHORT_ID = shortId.generate();
+export const TITAN_USER_SHORT_ID = '4Lsomlnzla';
+export const TSUNE_USER_SHORT_ID = 'QQzMg4NKUq';
 
 export const DUMMY_USER_ID_LIST = [...Array(50).keys()].map((n: number) =>
   shortId.generate()

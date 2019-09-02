@@ -85,6 +85,12 @@ const ChallengeActivities = (props: any) => {
                 <Text />
               </React.Fragment>
             )}
+            <Text>
+              分析日記とは、強い感情や危険な行動をしたときは、いつでも書き留めるようにします。
+              湧き上がった思考や感情を残らず書き留めるようにする。飾りなく、率直に書く。
+              時間をおいて見直し、自分の考えや感情の新たな視点を得ることを期待します。
+              自分を否定してはいけません、自分を責めると意志力が弱まりさらに依存は強まります。
+            </Text>
             <StreamApp
               apiKey={GETSTREAM_KEY}
               appId={GETSTREAM_APP_ID}
@@ -93,6 +99,7 @@ const ChallengeActivities = (props: any) => {
               options={{ browser: true }} /* hack */
             >
               <FlatFeed
+                notify
                 Activity={(props: any) => (
                   <ChallengeNoteActivity
                     isMyProfile={isMyProfile}

@@ -58,7 +58,8 @@ const createJoinPost = (data: any) => {
       userPhotoURL: data.userPhotoURL,
       userId: data.userId,
       dummyImage: dummyImage(secondaryColor, brandWhite, 'join'),
-      message: POST_MESSAGE_JOIN
+      message: POST_MESSAGE_JOIN,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -75,7 +76,8 @@ const createTopicPost = (data: any) => {
       userId: data.userId,
       dummyImage: dummyImage(brandPurple, brandWhite, 'topic'),
       message: POST_MESSAGE_TOPIC,
-      text: data.title
+      text: data.title,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -95,7 +97,8 @@ const createNotePost = (data: any) => {
       userId: data.userId,
       rawData: data,
       dummyImage: dummyImage(brandPink, brandWhite, 'note'),
-      message: POST_MESSAGE_NOTE
+      message: POST_MESSAGE_NOTE,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -115,7 +118,8 @@ const createSuccessPost = (data: any) => {
       userId: data.userId,
       rawData: data,
       dummyImage: dummyImage(brandYellow, brandDark, 'win'),
-      message: POST_MESSAGE_NOTE
+      message: POST_MESSAGE_NOTE,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -135,7 +139,8 @@ const createAnalysisPost = (data: any) => {
       userId: data.userId,
       rawData: data,
       dummyImage: dummyImage(brandDarkBlue, brandWhite, 'study'),
-      message: POST_MESSAGE_NOTE
+      message: POST_MESSAGE_NOTE,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -154,7 +159,8 @@ const createRecordPost = (data: any) => {
       days: data.days || 0,
       dummyImage: dummyImage(brandSuccess, brandWhite, 'record'),
       message: POST_MESSAGE_RECORD,
-      path: getChallengeDashboardPath(data.challengeId, data.userId)
+      path: getChallengeDashboardPath(data.challengeId, data.userId),
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -173,7 +179,8 @@ const createResetPost = (data: any) => {
       days: data.days || 0,
       dummyImage: dummyImage(brandWarning, brandWhite, 'reset'),
       message: POST_MESSAGE_RESET,
-      path: getChallengeDashboardPath(data.challengeId, data.userId)
+      path: getChallengeDashboardPath(data.challengeId, data.userId),
+      avatarPath: `/u/${data.userId}`
     }
   };
 };
@@ -193,7 +200,8 @@ const createObjectivePost = (data: any) => {
       path: `/c/${data.challengeId}/u/${data.userId}/goal`,
       dummyImage: dummyImage(brandAqua, brandDark, 'goal'),
       message: POST_MESSAGE_OBJECTIVE,
-      text: data.what
+      text: data.what,
+      avatarPath: `/u/${data.userId}`
     }
   };
 };

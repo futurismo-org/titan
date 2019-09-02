@@ -50,6 +50,7 @@ const mapStateToProps = (state: any, props: any) => {
 
   return {
     feedItems,
+    challengeId,
     ...props
   };
 };

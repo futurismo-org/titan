@@ -98,6 +98,7 @@ const ChallengeActivities = (props: any) => {
             >
               <ChallengeNoteCloseActivity challenge={challenge} />
               <FlatFeed
+                notify
                 Activity={(props: any) => (
                   <ChallengeNoteActivity
                     isMyProfile={isMyProfile}

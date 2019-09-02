@@ -35,8 +35,9 @@ const ChallengeNoteForm = (props: any) => {
       return;
     }
 
-    saveHandler({ text, type: label }).then(() => window.alert('投稿しました')); // eslint-disable-line
-    // .then(() => window.location.reload()); // eslint-disable-line
+    saveHandler({ text, type: label })
+      .then(() => window.location.reload()) // eslint-disable-line
+      .then(() => window.alert('投稿しました')); // eslint-disable-line
   };
 
   return (
