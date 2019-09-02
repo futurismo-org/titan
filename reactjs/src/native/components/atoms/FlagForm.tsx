@@ -16,6 +16,7 @@ const FlagForm = (props: any) => {
     challenge,
     category,
     profile,
+    note,
     collectionType,
     collectionId,
     handleClose,
@@ -31,13 +32,6 @@ const FlagForm = (props: any) => {
     OFFENSIVE_CONTENT,
     SPAM_CONTENT
   ];
-
-  // const radioMap = new Map([
-  //   [SEXCIAL_CONTENT, 0],
-  //   [VIOLENT_CONTENT, 1],
-  //   [OFFENSIVE_CONTENT, 2],
-  //   [SPAM_CONTENT, 3]
-  // ]);
 
   const radioProps = [
     { label: SEXCIAL_CONTENT, value: 0 },
@@ -56,6 +50,7 @@ const FlagForm = (props: any) => {
       challenge,
       category,
       profile,
+      note,
       collectionType,
       collectionId,
       data

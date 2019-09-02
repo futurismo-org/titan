@@ -1,6 +1,6 @@
 import React from 'react';
 import { Activity, updateStyle } from 'expo-activity-feed';
-import { View } from 'native-base';
+import { View, Text } from 'native-base';
 import { withRouter } from 'react-router-native';
 import moment from '~/lib/moment';
 import { createPost } from '~/lib/post';
@@ -12,12 +12,28 @@ import {
   POST_TYPE_TOPIC
 } from '~/constants/post';
 import MarkdownView from '../../atoms/MarkdownView';
+import Flag from '~/native/containers/FlagContainer';
 
 updateStyle('userBar', {
   username: {
     lineHeight: 24
   }
 });
+
+const ActivityFooter = (props: any) => {
+  const { challengeId, noteId } = props;
+
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+      }}
+    >
+      <Flag challengeId={challengeId} noteId={noteId} />
+    </View>
+  );
+};
 
 const ChallengeTimelineItem = (props: any) => {
   const { history } = props;
@@ -39,12 +55,13 @@ ${data.message}`,
   const path = data.path;
   const avatarPath = data.avatarPath;
 
-  const hasContent = (type: string) =>
+  const isNote = (type: string) =>
     type === POST_TYPE_SUCCESS ||
     type === POST_TYPE_ANALYSIS ||
-    type === POST_TYPE_NOTE ||
-    type === POST_TYPE_OBJECTIVE ||
-    type === POST_TYPE_TOPIC;
+    type === POST_TYPE_NOTE;
+
+  const hasContent = (type: string) =>
+    isNote(type) || type === POST_TYPE_OBJECTIVE || type === POST_TYPE_TOPIC;
 
   return (
     <View style={{ marginLeft: 10, marginRight: 10 }}>
@@ -60,6 +77,9 @@ ${data.message}`,
           ) : null
         }
       />
+      {isNote(data.type) ? (
+        <Flag note={{ challengeId: data.challengeId, noteId: data.noteId }} />
+      ) : null}
     </View>
   );
 };

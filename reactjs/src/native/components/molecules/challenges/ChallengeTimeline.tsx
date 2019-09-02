@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StreamApp, FlatFeed } from 'expo-activity-feed';
+import { StreamApp, FlatFeed, doFeedRequest } from 'expo-activity-feed';
 import { getToken, GETSTREAM_KEY, GETSTREAM_APP_ID } from '~/lib/getstream';
 import Progress from '~/native/components/atoms/CircularProgress';
 import ChallengeTimelineItem from '~/native/components/molecules/challenges/ChallengeTimelineItem';

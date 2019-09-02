@@ -4,7 +4,7 @@ import { Text, View, Button } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
-import { brandGray as gray, brandDark as black } from '~/lib/theme';
+import { brandGray as gray } from '~/lib/theme';
 
 import FlagForm from '~/native/containers/FlagFormContainer';
 
@@ -14,6 +14,7 @@ const Flag = (props: any) => {
     topic,
     challenge,
     category,
+    note,
     profile,
     collectionType,
     collectionId
@@ -45,6 +46,7 @@ const Flag = (props: any) => {
                 challenge={challenge}
                 category={category}
                 profile={profile}
+                note={note}
                 collectionType={collectionType}
                 collectionId={collectionId}
                 handleClose={toggleModal}
