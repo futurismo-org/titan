@@ -99,6 +99,7 @@ const ChallengeActivities = (props: any) => {
               options={{ browser: true }} /* hack */
             >
               <FlatFeed
+                notify
                 Activity={(props: any) => (
                   <ChallengeNoteActivity
                     isMyProfile={isMyProfile}
