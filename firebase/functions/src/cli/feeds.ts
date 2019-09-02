@@ -59,7 +59,7 @@ const createTopics = () => {
       collectionId: challengeId,
       topicId: topicId,
       title: faker.lorem.sentence(),
-      path: `/c/${challengeId}/t/${topicId}}`,
+      path: `/c/${challengeId}/t/${topicId}`,
       challengeId,
       userDisplayName: faker.name.firstName(),
       userPhotoURL: faker.image.avatar()
