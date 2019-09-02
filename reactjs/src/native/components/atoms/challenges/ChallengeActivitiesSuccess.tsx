@@ -85,6 +85,12 @@ const ChallengeActivities = (props: any) => {
                 <Text />
               </React.Fragment>
             )}
+            <Text>
+              達成日記を書くことで、成功体験を積み重ねている実感が得られます。
+              達成できたことを書きます。できなかったことや失敗は書きません。
+              感謝すること、目標達成に行ったことも書きます。学びや気付きも書きます。
+              読み返すことで自己肯定感が高まります。次の目標や課題もあわせて追記しましょう。
+            </Text>
             <StreamApp
               apiKey={GETSTREAM_KEY}
               appId={GETSTREAM_APP_ID}
