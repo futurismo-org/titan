@@ -10,6 +10,7 @@ const mapStateToProps = (state: any, props: any) => {
       displayName: data.userDisplayName,
       photoURL: data.userPhotoURL,
       createdAt: data.createdAt,
+      updatedAt: data.time,
       what: data.what
     }));
   };

@@ -127,9 +127,9 @@ const ChallengeGoalCard = (props: any) => {
             </Row>
             <Row style={{ height: 25 }}>
               <Text style={styles.subtitle}>
-                {`${goal.days}days, Joined at ${formatDateShort(
-                  goal.createdAt && goal.createdAt.toDate()
-                )}`}
+                {`Joined at ${formatDateShort(
+                  goal.createdAt
+                )} Updated at ${formatDateShort(goal.updatedAt)}`}
               </Text>
             </Row>
           </Col>
