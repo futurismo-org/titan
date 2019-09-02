@@ -54,6 +54,11 @@ const DashBoard = (props: any) => {
           type="category"
         />
       )}
+      <Paper>
+        <Title text="運営からのお知らせ" />
+        <DiscordHistories channelId="591410583463526430" limit={6} />
+        <MoreLink to="/info/announce" />
+      </Paper>
       {!isLogin && (
         <Paper>
           <Typography component="h3" variant="subtitle1">
@@ -66,11 +71,6 @@ const DashBoard = (props: any) => {
           />
         </Paper>
       )}
-      <Paper>
-        <Title text="運営からのお知らせ" />
-        <DiscordHistories channelId="591410583463526430" limit={6} />
-        <MoreLink to="/info/announce" />
-      </Paper>
     </React.Fragment>
   );
 };
