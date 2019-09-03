@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.9",
+    "version": "1.0.10",
     "orientation": "portrait",
     "icon": "./public/icon.png",
     "splash": {
@@ -25,14 +25,13 @@
     "android": {
       "icon": "./public/icon-android.png",
       "package": "com.futurismo.titan",
-      "versionCode": 9
+      "versionCode": 10
     },
     "androidStatusBar": {
       "backgroundColor": "#000000"
     },
     "entryPoint": "./src/index.native.tsx",
     "description": "自己変革の火をつけるアプリ a.k.a. 地獄から天国へ",
-    "githubUrl": "https://github.com/futurismo-org/titan",
     "hooks": {
       "postPublish": [
         {
