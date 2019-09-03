@@ -36,8 +36,8 @@ const ChallengeNoteForm = (props: any) => {
     }
 
     saveHandler({ text, type: label })
-      .then(() => window.location.reload()) // eslint-disable-line
-      .then(() => window.alert('投稿しました')); // eslint-disable-line
+      .then(() => window.alert('投稿しました。')) // eslint-disable-line
+      .then(() => window.location.reload()); // eslint-disable-line
   };
 
   return (
@@ -82,7 +82,12 @@ const ChallengeNoteForm = (props: any) => {
           </RadioGroup>
         </Grid>
         <Grid item>
-          <Button color="primary" onClick={onSave} variant="contained">
+          <Button
+            color="primary"
+            onClick={onSave}
+            variant="contained"
+            style={{ fontWeight: 'bold' }}
+          >
             投稿
           </Button>
         </Grid>
