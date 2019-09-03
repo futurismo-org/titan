@@ -3,12 +3,18 @@ import { Content } from 'native-base';
 import { Switch, Route } from 'react-router-native';
 import ChallengeOverview from './ChallengeOverview';
 import MarkdownView from '../../atoms/MarkdownView';
-import ChallengeLeaderBoard from '~/native/containers/ChallengeLeaderBoardContainer';
-import ChallengeUserSettings from '~/native/containers/ChallengeUserSettingsContainer';
-import ChallengeUserDashBoard from '~/native/containers/ChallengeUserDashBoardContainer';
+import ChallengeLeaderBoard from '~/native/containers/challenges/ChallengeLeaderBoardContainer';
+import ChallengeUserSettings from '~/native/containers/challenges/ChallengeUserSettingsContainer';
+import ChallengeUserDashBoard from '~/native/containers/challenges/ChallengeUserDashBoardContainer';
 import TopicForm from '~/native/containers/TopicFormContainer';
 import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
+import ChallengeGoals from '~/native/containers/challenges/ChallengeGoalsContainer';
+import ChallengeGoal from '~/native/containers/challenges/ChallengeGoalContainer';
+import ChallengeActivities from '~/native/containers/challenges/ChallengeActivitiesContainer';
+import ChallengeTimeline from '~/native/containers/challenges/ChallengeTimelineContainer';
+import ChallengeActivitiesSuccess from '~/native/containers/challenges/ChallengeActivitiesSuccessContainer';
+import ChallengeActivitiesAnalysis from '~/native/containers/challenges/ChallengeActivitiesAnalysisContainer';
 
 import Flag from '~/native/containers/FlagContainer';
 
@@ -48,23 +54,17 @@ const ChallengeBody = (props: any) => {
             )}
           />
           <Route
-            path="/c/:id/u/:userShortId/settings"
+            path="/c/:id/goals"
             render={props => (
-              <ChallengeUserSettings challenge={challenge} {...props} />
+              <ChallengeGoals challengeId={challenge.id} {...props} />
             )}
           />
           <Route
-            path="/c/:id/u/:userShortId"
+            path="/c/:id/timeline"
             render={props => (
-              <ChallengeUserDashBoard challenge={challenge} {...props} />
+              <ChallengeTimeline challenge={challenge} {...props} />
             )}
           />
-          {/* タイムラインは一旦保留 */}
-          {/* <Route
-            path="/c/:id/timeline"
-            render={() => <ChallengeTimeline channelId={challenge.channelId} />}
-          />
-          */}
           <Route
             path="/c/:collectionId/t/:topicId/edit"
             render={props => <TopicForm collection="challenges" {...props} />}
@@ -78,15 +78,7 @@ const ChallengeBody = (props: any) => {
             render={props => <Topic collection="challenges" {...props} />}
           />
           <Route
-            path="/c/:collectionId/t/:topicId/edit"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/t/new"
-            render={props => <TopicForm collection="challenges" {...props} />}
-          />
-          <Route
-            path="/c/:collectionId/topics"
+            path="/c/:id/topics"
             render={props => (
               <Topics
                 collection="challenges"
@@ -95,6 +87,42 @@ const ChallengeBody = (props: any) => {
               />
             )}
           />
+          <Route
+            path="/c/:id/u/:userShortId/goal"
+            render={props => <ChallengeGoal challenge={challenge} {...props} />}
+          />
+          <Route
+            path="/c/:id/u/:userShortId/settings"
+            render={props => (
+              <ChallengeUserSettings challenge={challenge} {...props} />
+            )}
+          />
+          <Switch>
+            <Route
+              path="/c/:id/u/:userShortId/activities/success"
+              render={props => (
+                <ChallengeActivitiesSuccess challenge={challenge} {...props} />
+              )}
+            />
+            <Route
+              path="/c/:id/u/:userShortId/activities/analysis"
+              render={props => (
+                <ChallengeActivitiesAnalysis challenge={challenge} {...props} />
+              )}
+            />
+            <Route
+              path="/c/:id/u/:userShortId/activities"
+              render={props => (
+                <ChallengeActivities challenge={challenge} {...props} />
+              )}
+            />
+            <Route
+              path="/c/:id/u/:userShortId"
+              render={props => (
+                <ChallengeUserDashBoard challenge={challenge} {...props} />
+              )}
+            />
+          </Switch>
         </Switch>
       </Content>
     </React.Fragment>

@@ -5,6 +5,7 @@ import { fetchTopic } from '~/actions/topicAction';
 
 import { getTopicsPath } from '../lib/url';
 import { getTopicId } from '~/lib/resource';
+import { postUserChallengeTopic } from '~/lib/getstream';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -16,7 +17,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const { collection } = props;
-  const { collectionId } = props.match.params;
+  const collectionId = props.match.params.collectionId
+    ? props.match.params.collectionId
+    : null;
   const isCreate = props.match.params.topicId === undefined;
   const topicId = isCreate ? shortid.generate() : props.match.params.topicId;
 
@@ -24,12 +27,16 @@ const mapStateToProps = (state: any, props: any) => {
   const redirectPath = getTopicsPath(collection, collectionId);
   const currentUser = state.firebase.profile;
 
+  const challengeId = collection === 'challenges' ? collectionId : null;
+
   const updateData = {
     id: topicId,
     updatedAt: new Date(),
     userName: currentUser.displayName,
     userId: currentUser.shortId,
-    userPhotoURL: currentUser.photoURL
+    userPhotoURL: currentUser.photoURL,
+    collectioType: collection,
+    collectionId
   };
 
   const newData = {
@@ -37,10 +44,18 @@ const mapStateToProps = (state: any, props: any) => {
     createdAt: new Date()
   };
 
+  const postTopicStream = (title: string) =>
+    postUserChallengeTopic(currentUser.shortId, challengeId, {
+      topicId,
+      user: currentUser,
+      title
+    });
+
   return {
     topic: state.topic.target,
     loading: state.topic.loading,
     error: state.topic.error,
+    postTopicStream,
     resourceId,
     redirectPath,
     newData,

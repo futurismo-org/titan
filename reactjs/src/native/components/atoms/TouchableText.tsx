@@ -13,7 +13,8 @@ const TouchableText = (props: any) => {
     history,
     color,
     handler,
-    underline
+    underline,
+    size
   } = props;
 
   const pressHandler = handler
@@ -25,7 +26,8 @@ const TouchableText = (props: any) => {
   const style = Object.assign(
     { fontWeight: 'bold' },
     color ? { color: color } : {},
-    underline ? { textDecorationLine: 'underline' } : {}
+    underline ? { textDecorationLine: 'underline' } : {},
+    size ? { fontSize: size } : {}
   );
 
   return (

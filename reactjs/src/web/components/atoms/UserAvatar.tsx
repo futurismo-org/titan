@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Avatar } from '@material-ui/core';
 import NoStyledLink from './NoStyledLink';
+import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 const UserAvatar = (props: any) => {
-  const { photoURL, userId, large, xlarge } = props;
+  const { photoURL, userId, large, xlarge, to } = props;
 
-  const path = userId ? `/u/${userId}` : '/users';
-  const src = photoURL || 'https://titan-fire.com/anonymous.png';
+  const path = to ? to : userId ? `/u/${userId}` : '/users';
+  const src = photoURL || ANONYMOUS_AVATAR_URL;
 
   const style = large
     ? {

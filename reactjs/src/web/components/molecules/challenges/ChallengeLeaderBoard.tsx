@@ -22,11 +22,11 @@ const ConditionalTableCell = (props: any) => (
 );
 
 const ChallengeLeaderBoard = (props: any) => {
-  const { users, loading, error, resourceId, fetchUsers, myId } = props;
+  const { users, loading, fetchParticipants, resourceId, myId } = props;
 
   useEffect(() => {
-    fetchUsers(resourceId);
-  }, [fetchUsers, resourceId]);
+    fetchParticipants(resourceId);
+  }, [fetchParticipants, resourceId]);
 
   const StyledTableCell = (props: any) => (
     <TableCell
@@ -64,9 +64,8 @@ const ChallengeLeaderBoard = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {users && (
+      {!loading && users && (
         <Paper style={{ marginTop: 20 }}>
           <Table size="small">
             <LeaderBoardHead />

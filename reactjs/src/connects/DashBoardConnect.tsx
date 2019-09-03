@@ -1,17 +1,13 @@
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { fetchChallenges, resetChallengeInfo } from '~/actions/challengeAction';
-import { fetchCategories, resetCategoryInfo } from '~/actions/categoryAction';
+import { bindActionCreators, Dispatch, compose } from 'redux';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
 import { isChallengeOpening, isChallengeWillOpen } from '~/lib/challenge';
+import { isLogin } from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      fetchChallenges,
-      fetchCategories,
-      resetChallengeInfo,
-      resetCategoryInfo,
       showSensitive,
       hideSensitive
     },
@@ -19,34 +15,51 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
   );
 
 const mapStateToProps = (state: any, props: any) => {
-  const challenges = state.challenge.items.filter(
-    (challenge: any) =>
-      !challenge.freezed &&
-      (isChallengeOpening(
-        challenge.openedAt.toDate(),
-        challenge.closedAt.toDate()
-      ) ||
-        isChallengeWillOpen(challenge.openedAt.toDate(), 7))
-  );
+  const challenges =
+    isLoaded(state.firestore.data.challenges) &&
+    Object.values(state.firestore.data.challenges).filter(
+      (challenge: any) =>
+        !challenge.freezed &&
+        !challenge.sensitive &&
+        (isChallengeOpening(
+          challenge.openedAt.toDate(),
+          challenge.closedAt.toDate()
+        ) ||
+          isChallengeWillOpen(challenge.openedAt.toDate(), 7))
+    );
+
+  const categories =
+    isLoaded(state.firestore.data.categories) &&
+    Object.values(state.firestore.data.categories).filter(
+      (category: any) => !category.freezed && !category.sensitive
+    );
 
   return {
     challenges,
-    categories: state.category.items.filter(
-      (category: any) => !category.freezed
-    ),
+    categories,
     debugSensitive: state.sensitive && state.sensitive.show,
-    isLogin: !state.firebase.profile.isEmpty && state.firebase.profile.isLoaded,
-    loading:
-      state.challenge.loading ||
-      state.category.loading ||
-      state.challenge.loadingSub,
-    error:
-      state.challenge.error || state.category.error || state.challenge.errorSub,
+    isLogin: isLogin(state),
     ...props
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-);
+const queries = (props: any) => [
+  {
+    collection: 'challenges',
+    orderByKey: ['updatedAt', 'desc'],
+    limit: 6
+  },
+  {
+    collection: 'categories',
+    orderByKey: ['updatedAt', 'desc'],
+    limit: 6
+  }
+];
+
+export default compose(
+  firestoreConnect(queries),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+) as any;

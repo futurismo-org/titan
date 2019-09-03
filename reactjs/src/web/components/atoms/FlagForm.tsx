@@ -28,6 +28,7 @@ const FlagForm = (props: any) => {
     challenge,
     category,
     profile,
+    note,
     collectionType,
     collectionId,
     handler,
@@ -53,6 +54,7 @@ const FlagForm = (props: any) => {
       challenge,
       category,
       profile,
+      note,
       collectionType,
       collectionId,
       data
@@ -135,20 +137,24 @@ const FlagForm = (props: any) => {
       </span>
       <br />
       <br />
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        style={{ color: brandGray }}
-        onClick={() =>
-          postHandler({
-            content,
-            reportType
-          })
-        }
-      >
-        報告する
-      </Button>
+      <div style={{ textAlign: 'right' }}>
+        <Button variant="contained" onClick={() => handleClose()}>
+          キャンセル
+        </Button>
+        <Button
+          type="submit"
+          variant="contained"
+          style={{ marginLeft: 10 }}
+          onClick={() =>
+            postHandler({
+              content,
+              reportType
+            })
+          }
+        >
+          報告する
+        </Button>
+      </div>
     </React.Fragment>
   );
 };

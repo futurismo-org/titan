@@ -1,21 +1,22 @@
 import * as React from 'react';
-import styled from 'styled-components';
 
 const remark2react = require('remark-react');
 const remark = require('remark');
 
-const Container = styled.div`
-  /* line-height: 10px; */
-`;
+const MarkdownView = (props: any) => {
+  const { text } = props;
 
-const MarkdownView = (props: any) => (
-  <Container>
-    {
-      remark()
-        .use(remark2react)
-        .processSync(props.text).contents
-    }
-  </Container>
-);
+  return (
+    <React.Fragment>
+      <div>
+        {
+          remark()
+            .use(remark2react)
+            .processSync(text).contents
+        }
+      </div>
+    </React.Fragment>
+  );
+};
 
 export default MarkdownView;

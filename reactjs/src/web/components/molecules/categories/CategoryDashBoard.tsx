@@ -6,12 +6,12 @@ import { Typography } from '@material-ui/core';
 import shortId from 'shortid';
 import { Link } from 'react-router-dom';
 
-import Paper from 'web/components/templates/PaperWrapper';
-import Title from 'web/components/atoms/Title';
-
-import DiscordHistories from 'web/components/atoms/DiscordHistories';
-import MarkdownView from 'web/components/atoms/MarkdownView';
 import styled from 'styled-components';
+import Paper from '~/web/components/templates/PaperWrapper';
+import Title from '~/web/components/atoms/Title';
+
+import DiscordHistories from '~/web/components/atoms/DiscordHistories';
+import MarkdownView from '~/web/components/atoms/MarkdownView';
 import TopicList from '~/web/components/molecules/TopicList';
 import theme from '~/lib/theme';
 
@@ -53,12 +53,14 @@ const CategoryDashBoard = (props: any) => {
         <Title text="チャレンジ一覧" />
         <StyledCardGrid container spacing={4}>
           {category.challengeRefs &&
-            category.challengeRefs.map((challengeRef: any) => (
-              <CategoryChallenge
-                key={shortId.generate()}
-                challengeRef={challengeRef}
-              />
-            ))}
+            category.challengeRefs
+              .slice(0, 4)
+              .map((challengeRef: any) => (
+                <CategoryChallenge
+                  key={shortId.generate()}
+                  challengeRef={challengeRef}
+                />
+              ))}
         </StyledCardGrid>
         <Space />
         <Title text="トピック" />

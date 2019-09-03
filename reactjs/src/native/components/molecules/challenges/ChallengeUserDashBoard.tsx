@@ -22,7 +22,7 @@ const ChallengeUserDashBoard = (props: any) => {
     user,
     error,
     loading,
-    fetchUser,
+    fetchParticipant,
     resourceId,
     deleteHistoryHandler,
     categoryPath,
@@ -30,8 +30,8 @@ const ChallengeUserDashBoard = (props: any) => {
   } = props;
 
   useEffect(() => {
-    fetchUser(resourceId);
-  }, [fetchUser, resourceId]);
+    fetchParticipant(resourceId);
+  }, [fetchParticipant, resourceId]);
 
   return (
     <React.Fragment>

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Text } from 'native-base';
 
 import { withRouter } from 'react-router-native';
 
 import { successToast } from '~/native/components/atoms/Toast';
-import ChallengePostController from '~/native/containers/ChallengePostControllerContainer';
-
-import Error from '../Error';
+import ChallengePostController from '~/native/containers/challenges/ChallengePostControllerContainer';
 
 const ChallengeButton = (props: any) => {
   const {
@@ -14,35 +12,16 @@ const ChallengeButton = (props: any) => {
     user,
     join,
     loading,
-    error,
-    resourceId,
-    profileCategoryResourceId,
-    fetchParticipants,
-    fetchProfileCategory,
     history,
     joinHandler,
-    redirectPath
+    redirectPath,
+    isLogin
   } = props;
 
-  const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    fetchParticipants(resourceId);
-    fetchProfileCategory(profileCategoryResourceId);
-  }, [
-    fetchParticipants,
-    resourceId,
-    refresh,
-    fetchProfileCategory,
-    profileCategoryResourceId
-  ]);
-
   const handleJoin = () => {
-    joinHandler()
-      .then(() => {
-        successToast(redirectPath, history.push, 'チャレンジに参加しました');
-      })
-      .then(() => setRefresh(!refresh));
+    joinHandler().then(() => {
+      successToast(redirectPath, history.push, 'チャレンジに参加しました');
+    });
   };
 
   const PostButtonController = (props: any) => (
@@ -59,8 +38,12 @@ const ChallengeButton = (props: any) => {
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading ? null : join ? <PostButtonController /> : <JoinButton />}
+      {loading && null}
+      {!loading && join ? (
+        <PostButtonController />
+      ) : isLogin ? (
+        <JoinButton />
+      ) : null}
     </React.Fragment>
   );
 };

@@ -3,6 +3,7 @@ import moment, { nowMoment, isToday } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
 import { mergeCategory } from './profile';
+import { followUserChallengeTimeline } from './getstream';
 
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
@@ -71,20 +72,25 @@ export const isChallengeClosed = (closedAt: Date) =>
   moment(new Date().setHours(29, 59, 59, 59)).diff(moment(closedAt), 'days') >
   0;
 
+export const isChallengeOpened = (openedAt: Date) =>
+  nowMoment.diff(moment(openedAt)) >= 0;
+
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
   nowMoment.diff(moment(openedAt)) >= 0 && nowMoment.diff(moment(closedAt)) < 0;
 
 export const isChallengeWillOpen = (openedAt: Date, days: number) =>
   nowMoment.diff(moment(openedAt)) <= days;
 
-export const rankChallengeParticipants = (participants: any) => {
-  const users = participants.sort(
-    (x: any, y: any) =>
-      y.score - x.score ||
-      y.days - x.days ||
-      y.maxDays - x.maxDays ||
-      y.updatedAt.toDate() - x.updatedAt.toDate()
-  );
+export const rankChallengeParticipants = (participants: any): any[] => {
+  const users = participants
+    .slice()
+    .sort(
+      (x: any, y: any) =>
+        y.score - x.score ||
+        y.days - x.days ||
+        y.maxDays - x.maxDays ||
+        y.updatedAt.toDate() - x.updatedAt.toDate()
+    );
 
   const size = users.length;
 
@@ -161,6 +167,9 @@ export const aggregateChallenge = async (challenge: any) => {
           categoryId,
           userShortId
         };
+
+        // getstreamのfollow関係をここで構築する
+        followUserChallengeTimeline(userShortId, challengeId);
 
         firebase
           .firestore()

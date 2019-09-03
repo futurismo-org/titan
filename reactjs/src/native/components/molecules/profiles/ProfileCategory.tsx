@@ -108,7 +108,7 @@ const ProfileCategory = (props: any) => {
             <Text />
             {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
             {/* <Subheading text="積算回数" />
-          <ProfileCategoryResetChart data={data.resetAccs} /> */}
+                <ProfileCategoryResetChart data={data.resetAccs} /> */}
             <Subheading text="時間帯別統計" />
             <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
             <Text />

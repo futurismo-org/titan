@@ -3,7 +3,6 @@ import { Text, Col, Button } from 'native-base';
 import { withRouter } from 'react-router-native';
 import { useDocument } from 'react-firebase-hooks/firestore';
 import { isPostPossible } from '~/lib/challenge';
-import { successToastWithNoRedirect } from '../atoms/Toast';
 import Error from '../atoms/Error';
 
 const QuickActionChallengeButton = (props: any) => {

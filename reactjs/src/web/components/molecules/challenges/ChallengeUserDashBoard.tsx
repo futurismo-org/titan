@@ -34,7 +34,7 @@ const ChallengeUserDashBoard = (props: any) => {
     user,
     error,
     loading,
-    fetchUser,
+    fetchParticipant,
     resourceId,
     setOgpInfo,
     resetOgpInfo,
@@ -49,7 +49,7 @@ const ChallengeUserDashBoard = (props: any) => {
     : 'https://titan-fire.com';
 
   React.useEffect(() => {
-    fetchUser(resourceId);
+    fetchParticipant(resourceId);
     setOgpInfo({ title, description, url });
 
     return () => {
@@ -57,7 +57,7 @@ const ChallengeUserDashBoard = (props: any) => {
     };
   }, [
     description,
-    fetchUser,
+    fetchParticipant,
     resetOgpInfo,
     resourceId,
     setOgpInfo,
@@ -69,7 +69,7 @@ const ChallengeUserDashBoard = (props: any) => {
     <React.Fragment>
       {error && <strong>Error: {error}</strong>}
       {loading && <Progress />}
-      {!loading && user && user.histories && (
+      {!loading && !!user && (
         <DashBoardWrapper>
           <StyledCenterContainer>
             <Grid

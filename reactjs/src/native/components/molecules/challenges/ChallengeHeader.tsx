@@ -11,13 +11,12 @@ import {
 } from '~/native/components/atoms/Hero';
 
 import { challengePeriod, isChallengeClosed } from '~/lib/challenge';
-import ChallengeCategoryBadge from '../../atoms/challenges/ChallengeCategoryButton';
-
-import ChallengeButton from '~/native/containers/ChallengeButtonContainer';
+import ChallengeCategoryButton from '~/native/containers/challenges/ChallengeCategoryButtonContainer';
+import ChallengeButton from '~/native/containers/challenges/ChallengeButtonContainer';
 import { getRandomImageURL } from '~/lib/url';
 
 const ChallengeHeader = (props: any) => {
-  const { challenge, isLogin, history } = props;
+  const { challenge, isLogin, history, join } = props;
 
   return (
     <React.Fragment>
@@ -33,10 +32,10 @@ const ChallengeHeader = (props: any) => {
             <Description>{challenge.description}</Description>
             <View style={{ flex: 1, flexDirection: 'row' }}>
               {challenge.categoryRef && (
-                <ChallengeCategoryBadge categoryRef={challenge.categoryRef} />
+                <ChallengeCategoryButton categoryRef={challenge.categoryRef} />
               )}
               {isLogin && !isChallengeClosed(challenge.closedAt.toDate()) ? (
-                <ChallengeButton challenge={challenge} />
+                <ChallengeButton challenge={challenge} join={join} />
               ) : null}
             </View>
             <Info>

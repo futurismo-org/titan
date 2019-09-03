@@ -44,6 +44,11 @@ service cloud.firestore {
       allow create,update,delete: if request.auth != null;
     }
 
+    match /objectives/{id=**} {
+      allow read;
+      allow create,update,delete: if request.auth != null;
+    }
+
     match /users/{userID} {
       allow read;
       allow create,update,delete: if request.auth != null;
@@ -52,6 +57,11 @@ service cloud.firestore {
         allow read, create, update: if isAuthenticated() 
                                     && isUserAuthenticated(userID);
       }
+    }
+
+    match /securities/{userID} {
+      allow read, create, update: if isAuthenticated() 
+                                  && isUserAuthenticated(userID);
     }
   }
 }

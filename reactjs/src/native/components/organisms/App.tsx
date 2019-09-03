@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { Route, Switch, NativeRouter, BackButton } from 'react-router-native';
+import { Route, NativeRouter, BackButton, Switch } from 'react-router-native';
 import * as Expo from 'expo';
 import * as Font from 'expo-font';
 import { Alert } from 'react-native';
 
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { createFirestoreInstance } from 'redux-firestore';
+
 import { store } from '~/native/store';
-import Home from './Home';
-import Hero from './Hero';
+import Home from '~/native/containers/HomeContainer';
+import Hero from '~/native/containers/HeroContainer';
+
+import { initializeReactotron } from '~/native/lib/reactotron';
 
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
 import { isAndroid } from '~/native/lib/native';
 import { sleep } from '~/lib/general';
+
+import firebase from '~/lib/firebase';
+
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
 
 const App = (props: any) => {
   const [isSplashReady, setIsSplashReady] = useState(false);
@@ -23,6 +42,10 @@ const App = (props: any) => {
     Font.loadAsync({
       MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf') // eslint-disable-line
     }).then(() => setIsFontReady(true));
+
+    /* eslint-disable */
+    __DEV__ && initializeReactotron();
+    /* eslint-enable */
 
     !__DEV__ && // eslint-disable-line
     isAndroid && // Appleストアはガイドラインによってストア経由でのアプリの更新しか許可していない
@@ -46,7 +69,7 @@ const App = (props: any) => {
             )
           )
       );
-  });
+  }, []);
 
   const Splash = (prpos: any) => {
     sleep(6, () => setIsSplashReady(true));
@@ -60,17 +83,22 @@ const App = (props: any) => {
   return (
     <React.Fragment>
       <Provider store={store}>
-        <NativeRouter>
-          <BackButton>
-            <Switch>
-              <Route path="/cat" component={Hero} />
-              <Route path="/c" component={Hero} />
-              <Route path="/u/:userShortId/cat/:categoryId" component={Home} />
-              <Route path="/u" component={Hero} />
-              <Route path="/" component={Home} />
-            </Switch>
-          </BackButton>
-        </NativeRouter>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <NativeRouter>
+            <BackButton>
+              <Switch>
+                <Route path="/cat" render={props => <Hero {...props} />} />
+                <Route path="/c" render={props => <Hero {...props} />} />
+                <Route
+                  path="/u/:userShortId/cat/:categoryId"
+                  render={props => <Home {...props} />}
+                />
+                <Route path="/u" render={props => <Hero {...props} />} />
+                <Route path="/" render={props => <Home {...props} />} />
+              </Switch>
+            </BackButton>
+          </NativeRouter>
+        </ReactReduxFirebaseProvider>
       </Provider>
     </React.Fragment>
   );

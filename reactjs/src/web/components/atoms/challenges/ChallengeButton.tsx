@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '@material-ui/core/Button';
 // import styled from 'styled-components';
 // import Modal from '@material-ui/core/Modal';
@@ -6,10 +6,8 @@ import Button from '@material-ui/core/Button';
 
 import { withRouter } from 'react-router-dom';
 // import CheckoutForm from '~/web/components/atoms/CheckoutForm';
-import ChallengePostController from '~/web/containers/ChallengePostControllerContainer';
+import ChallengePostController from '~/web/containers/challenges/ChallengePostControllerContainer';
 import { secondaryColor, brandWhite } from '~/lib/theme';
-
-import Error from '../Error';
 
 // function rand() {
 //   return Math.round(Math.random() * 20) - 10;
@@ -42,15 +40,11 @@ const ChallengeButton = (props: any) => {
     challenge,
     user,
     join,
-    resourceId,
-    profileCategoryResourceId,
-    fetchParticipants,
-    fetchProfileCategory,
     loading,
-    error,
     joinHandler,
     redirectPath,
-    history
+    history,
+    isLogin
   } = props;
 
   const challengeId = challenge.id;
@@ -58,16 +52,6 @@ const ChallengeButton = (props: any) => {
 
   // const [open, setOpen] = useState(false);
   // const [modalStyle] = React.useState(getModalStyle);
-
-  useEffect(() => {
-    fetchParticipants(resourceId);
-    fetchProfileCategory(profileCategoryResourceId);
-  }, [
-    fetchParticipants,
-    fetchProfileCategory,
-    profileCategoryResourceId,
-    resourceId
-  ]);
 
   // const handleOpen = () => {
   //   setOpen(true);
@@ -128,21 +112,17 @@ const ChallengeButton = (props: any) => {
     </React.Fragment>
   );
 
-  if (challengeId === undefined || user.id === undefined) {
-    return null;
-  }
-
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading ? null : join ? (
+      {loading && null}
+      {!loading && join ? (
         <ChallengePostController
           userShortId={user.shortId}
           challenge={challenge}
         />
-      ) : (
+      ) : isLogin ? (
         renderCheckoutButton({ user, challengeId, price })
-      )}
+      ) : null}
     </React.Fragment>
   );
 };

@@ -330,7 +330,13 @@ const ChallengeForm = (props: any) => {
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
-        <Button type="submit" fullWidth variant="contained" color="primary">
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          style={{ fontWeight: 'bold' }}
+        >
           投稿
         </Button>
       </form>

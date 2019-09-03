@@ -8,7 +8,12 @@ export const secondaryColor = '#2196f3';
 export const brandSuccess = '#5cb85c';
 export const brandDanger = '#d9534f';
 export const brandWarning = '#f0ad4e';
+export const brandYellow = '#fcf9a1';
+export const brandPink = '#f4869c';
+export const brandPurple = '#7e4eb2';
 export const brandDark = '#1a1917';
+export const brandDarkBlue = '#375f99';
+export const brandAqua = '#75ffe8';
 export const brandGray = '#888888';
 export const brandLightGray = '#d3d3d3';
 export const brandLight = '#f4f4f4';
@@ -16,6 +21,7 @@ export const brandWhite = '#ffffff';
 
 export const leaderboardMyColor = '#FFE4E1';
 export const twitterColor = '#4099FF';
+export const timelineBorderColor = '#ddd';
 
 const theme = createMuiTheme({
   palette: {

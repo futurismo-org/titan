@@ -27,7 +27,7 @@ const ProfileBody = (props: any) => {
 
   return (
     <Paper>
-      <Title text="参加中のチャレンジ" />
+      <Title text="参加中のチャレンジ記録" />
       <Grid
         container
         spacing={4}

@@ -10,6 +10,11 @@ export const fetchError = (type: string) => (error: any) => ({ type, error });
 
 export const reset = (type: string) => () => ({ type });
 
+export const fetchExist = (type: string) => (payload: any) => ({
+  type,
+  payload
+});
+
 export const fetchTarget = (
   resourceId: string,
   requestAction: any,
@@ -32,12 +37,20 @@ export const fetchItems = (
   resourceId: string,
   requestAction: any,
   successAction: any,
-  errorAction: any
+  errorAction: any,
+  date?: Date,
+  dateField?: string
 ) => (dispatch: Dispatch) => {
   dispatch(requestAction());
-  firebase
-    .firestore()
-    .collection(resourceId)
+
+  const collectionRef = firebase.firestore().collection(resourceId);
+
+  const ref =
+    date && dateField
+      ? collectionRef.where(dateField, '>=', date)
+      : collectionRef;
+
+  ref
     .get()
     .then((snap: any) => snap.docs.map((doc: any) => doc.data()))
     .then((data: any) => dispatch(successAction(data)))

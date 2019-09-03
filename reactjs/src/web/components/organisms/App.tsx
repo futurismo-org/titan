@@ -1,35 +1,59 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch, HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+import { createFirestoreInstance } from 'redux-firestore';
 import { store, history } from '~/web/store';
 import GlobalStyle from '~/lib/global-styles';
-import Admin from './admin/Admin';
-import Home from './Home';
+import Admin from '~/web/containers/AdminContainer';
+import Home from '~/web/containers/HomeContainer';
 import AdminRoute from '../utils/AdminRoute';
 import Head from '../templates/Head';
+
+import firebase from '~/lib/firebase';
+
+import { initializeReactotron } from '~/web/lib/reactotron';
 
 history.listen(location => {
   ReactGA.set({ page: location.pathname });
   ReactGA.pageview(location.pathname);
 });
 
-const App = () => {
-  React.useEffect(() => {
+const rrfConfig = {
+  userProfile: 'users',
+  useFirestoreForProfile: true
+};
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
+
+const App = (props: any) => {
+  useEffect(() => {
     ReactGA.pageview(window.location.pathname); // eslint-disable-line no-undef
-  });
+
+    if (process.env.REACT_APP_ENV === 'development') {
+      initializeReactotron();
+    }
+  }, []);
 
   return (
     <React.Fragment>
       <Provider store={store}>
-        <Router>
-          <Head />
-          <GlobalStyle />
-          <Switch>
-            <AdminRoute path="/admin" component={Admin} />
-            <Route path="/" component={Home} />
-          </Switch>
-        </Router>
+        <ReactReduxFirebaseProvider {...rrfProps}>
+          <Router>
+            <Head />
+            <GlobalStyle />
+            <Switch>
+              <AdminRoute path="/admin" render={Admin} />
+              <Route path="/" render={props => <Home {...props} />} />
+            </Switch>
+          </Router>
+        </ReactReduxFirebaseProvider>
       </Provider>
     </React.Fragment>
   );

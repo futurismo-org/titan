@@ -22,7 +22,6 @@ import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import UserAvatar from '../atoms/UserAvatar';
 
-import Error from '../atoms/Error';
 import { primaryColor, brandWhite, leaderboardMyColor } from '~/lib/theme';
 
 const ConditionalTableCell = (props: any) => (
@@ -35,14 +34,12 @@ const RADIO_SCORE = 'スコア';
 const RADIO_LATEST = '最新';
 
 const Users = (props: any) => {
-  const { users, error, loading, fetchUsers, fetchProfiles, myId } = props;
+  const { users, myId, loading, fetchUsers, isLoaded } = props;
+  const [sortkey, setSortKey] = useState(RADIO_SCORE);
 
   useEffect(() => {
     fetchUsers();
-    fetchProfiles();
-  }, [fetchProfiles, fetchUsers]);
-
-  const [sortkey, setSortKey] = useState(RADIO_SCORE);
+  }, [fetchUsers]);
 
   const onSortKeyChange = (e: any) => {
     e.preventDefault();
@@ -95,9 +92,8 @@ const Users = (props: any) => {
   return (
     <Paper>
       <Title text="ユーザーランキング" />
-      {error && <Error error={error} />}
-      {loading && <Progress />}
-      {!loading && users && (
+      {!isLoaded && <Progress />}
+      {!loading && isLoaded && !!users && (
         <React.Fragment>
           <FormControl
             component="fieldset"

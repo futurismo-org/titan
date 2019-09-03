@@ -17,6 +17,13 @@ const Navigation = (props: any) => {
 
   const tabs = [
     {
+      key: 'back',
+      icon: 'arrow-circle-left',
+      label: '戻る',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)'
+    },
+    {
       key: 'home',
       icon: 'home',
       label: 'ホーム',
@@ -25,19 +32,19 @@ const Navigation = (props: any) => {
       path: '/'
     },
     {
-      key: 'quick',
-      icon: 'flash',
-      label: 'クイック',
-      barColor: primaryColor,
-      pressColor: 'rgba(255, 255, 255, 0.16)'
-    },
-    {
       key: 'profile',
       icon: 'user-circle',
       label: 'マイページ',
       barColor: primaryColor,
       pressColor: 'rgba(255, 255, 255, 0.16)',
       path: `/u/${userShortId}`
+    },
+    {
+      key: 'quick',
+      icon: 'flash',
+      label: 'クイック',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)'
     }
   ];
 
@@ -75,7 +82,11 @@ const Navigation = (props: any) => {
     if (newTab.path) {
       history.push(newTab.path);
     } else {
-      onOpen();
+      if (newTab.key === 'back') {
+        history.goBack();
+      } else {
+        onOpen();
+      }
     }
   };
 

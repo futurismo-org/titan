@@ -1,24 +1,16 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase';
-import { reduxFirestore, getFirestore } from 'redux-firestore';
 import thunk from 'redux-thunk';
+// import Reactotron from '~/native/lib/reactotron';
 import { createRootReducerForRN } from '~/reducers';
-import firebase from '~/lib/firebase';
 
-const rrfConfig = {
-  userProfile: 'users',
-  useFirestoreForProfile: true
-};
-
-const middlewares = [thunk.withExtraArgument({ getFirebase, getFirestore })];
-const middlewareEnhancer = applyMiddleware(...middlewares);
-const storeEnhancers = [middlewareEnhancer];
+const initialState = {};
 
 export const store = createStore(
   createRootReducerForRN(),
+  initialState,
   compose(
-    ...storeEnhancers,
-    reactReduxFirebase(firebase, rrfConfig),
-    reduxFirestore(firebase)
+    applyMiddleware(thunk)
+    // @ts-ignore
+    // Reactotron.createEnhancer()
   )
 );

@@ -5,6 +5,7 @@ import { fetchMutes } from '~/actions/muteAction';
 import { fetchBlockingUsers } from '~/actions/blockAction';
 
 import { collectionShort, getTopicPath } from '../lib/url';
+import moment from '~/lib/moment';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -43,7 +44,10 @@ const mapStateToProps = (state: any, props: any) => {
   const topics = state.topic.items
     .filter((topic: any) => !topic.freezed)
     .filter((topic: any) => !muteUserIds.includes(topic.userId))
-    .filter((topic: any) => !blockingUserIds.includes(topic.userId));
+    .filter((topic: any) => !blockingUserIds.includes(topic.userId))
+    .sort((x: any, y: any) =>
+      moment(y.updatedAt.toDate()).diff(moment(x.updatedAt.toDate()))
+    );
 
   return {
     topics,

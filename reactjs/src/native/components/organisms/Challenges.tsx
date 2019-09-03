@@ -1,27 +1,20 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import Title from '../atoms/Title';
-import Error from '../atoms/Error';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
+import { isReady } from '~/lib/firebase';
 
 const Challenges = (props: any) => {
   const {
     preOpenChallenges,
     openingChallenges,
     closedChallenges,
-    error,
-    loading,
-    fetchChallenges
+    challenges
   } = props;
-
-  React.useEffect(() => {
-    fetchChallenges();
-  }, [fetchChallenges]);
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
-      {loading && null}
+      {!isReady(challenges) && null}
       {openingChallenges && <Title text="開催中のチャレンジ" />}
       {openingChallenges &&
         openingChallenges.map((challenge: any) => (

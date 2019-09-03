@@ -54,7 +54,11 @@ const DashBoardPaper = (props: any) => {
       <Paper>
         <Title text={title} />
         <StyledCardGrid container spacing={4}>
-          {items.map((item: any) => DashBoardCard({ item, type }))}
+          {items.length !== 0 ? (
+            items.map((item: any) => DashBoardCard({ item, type }))
+          ) : (
+            <p>現在表示できるコンテンツはありません。</p>
+          )}
         </StyledCardGrid>
         {DashBoardCardLink({ type })}
       </Paper>

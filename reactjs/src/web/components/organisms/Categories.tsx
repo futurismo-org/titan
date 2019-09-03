@@ -1,37 +1,28 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid, { GridProps } from '@material-ui/core/Grid';
 import styled from 'styled-components';
+import { isLoaded } from 'react-redux-firebase';
 import theme from '~/lib/theme';
 import CollectionCard from '~/web/containers/CollectionCardContainer';
 import Progress from '../atoms/CircularProgress';
 import Title from '../atoms/Title';
 import Paper from '../templates/PaperWrapper';
 
-interface Props {
-  container?: any;
-  spacing?: number;
-}
-
-const StyledCardGrid = styled(Grid as React.SFC<Props>)`
+const StyledCardGrid = styled(Grid)`
   && {
     margin-top: ${theme.spacing(3)}px;
   }
-`;
+` as React.ComponentType<GridProps>;
 
 const Categories = (props: any) => {
-  const { categories, error, loading, fetchCategories } = props;
-
-  React.useEffect(() => {
-    fetchCategories();
-  }, [fetchCategories]);
+  const { categories } = props;
 
   return (
     <React.Fragment>
-      {error && <strong>Error: {error}</strong>}
-      {loading && <Progress />}
+      {!isLoaded(categories) && <Progress />}
       <Paper>
         <Title text="カテゴリ一覧" />
-        {categories && (
+        {isLoaded(categories) && !!categories && (
           <StyledCardGrid container spacing={4}>
             {categories.map((category: any) => (
               <CollectionCard

@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import ChallengeUserDashBoard from '~/web/containers/ChallengeUserDashBoardContainer';
-import ChallengeTopics from './ChallengeTopics';
-import ChallengeTimeline from './ChallengeTimeline';
+import ChallengeUserDashBoard from '~/web/containers/challenges/ChallengeUserDashBoardContainer';
+
+import Topics from '~/web/containers/TopicsContainer';
+import ChallengeTimeline from '~/web/containers/challenges/ChallengeTimelineContainer';
 import Topic from '~/web/containers/TopicContainer';
 
-import ChallengeLeaderBoard from '~/web/containers/ChallengeLeaderBoardContainer';
+import ChallengeLeaderBoard from '~/web/containers/challenges/ChallengeLeaderBoardContainer';
 import TopicForm from '~/web/containers/TopicFormContainer';
 import MarkdownView from '../../atoms/MarkdownView';
 import ChallengeOverview from './ChallengeOverview';
-import ChallengeUserSettings from '~/web/containers/ChallengeUserSettingsContainer';
+import ChallengeUserSettings from '~/web/containers/challenges/ChallengeUserSettingsContainer';
+import ChallengeGoals from '~/web/containers/challenges/ChallengeGoalsContainer';
+import ChallengeGoal from '~/web/containers/challenges/ChallengeGoalContainer';
 
 import Flag from '~/web/containers/FlagContainer';
 
@@ -20,19 +23,20 @@ const ChallengeBody = (props: any) => {
     <Switch>
       <Route
         path="/c/:id/overview"
-        render={() => (
+        render={props => (
           <ChallengeOverview
             challenge={challenge}
             text={challenge.overview}
             youtubeId={challenge.youtubeId}
             openedAt={challenge.openedAt.toDate()}
             closedAt={challenge.closedAt.toDate()}
+            {...props}
           />
         )}
       />
       <Route
         path="/c/:id/timeline"
-        render={() => <ChallengeTimeline channelId={challenge.channelId} />}
+        render={props => <ChallengeTimeline challenge={challenge} {...props} />}
       />
       <Route
         path="/c/:collectionId/t/:topicId/edit"
@@ -46,7 +50,16 @@ const ChallengeBody = (props: any) => {
         path="/c/:collectionId/t/:topicId"
         render={props => <Topic collection="challenges" {...props} />}
       />
-      <Route path="/c/:id/topics" component={ChallengeTopics} />
+      <Route
+        path="/c/:id/topics"
+        render={props => (
+          <Topics
+            collection="challenges"
+            collectionId={challenge.id}
+            {...props}
+          />
+        )}
+      />
       <Route
         path="/c/:id/rules"
         render={() => (
@@ -61,6 +74,16 @@ const ChallengeBody = (props: any) => {
         render={props => (
           <ChallengeLeaderBoard challengeId={challenge.id} {...props} />
         )}
+      />
+      <Route
+        path="/c/:id/goals"
+        render={props => (
+          <ChallengeGoals challengeId={challenge.id} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/u/:userShortId/goal"
+        render={props => <ChallengeGoal challenge={challenge} {...props} />}
       />
       <Route
         path="/c/:id/u/:userShortId/settings"

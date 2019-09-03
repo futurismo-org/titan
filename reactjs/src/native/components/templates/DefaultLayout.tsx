@@ -13,7 +13,7 @@ import GiphyHome from '../organisms/Giphy';
 import Header from '~/native/containers/HeaderContainer';
 import getTheme from '~/native/native-base-theme/components';
 import material from '~/native/native-base-theme/variables/material';
-import NavDrawer from '~/native/containers/NavDrawer';
+import NavDrawer from '~/native/containers/NavDrawerContainer';
 import BottomNavigation from '~/native/components/molecules/BottomNavigation';
 
 import { sleep } from '~/lib/general';

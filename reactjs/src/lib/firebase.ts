@@ -1,4 +1,6 @@
 import * as firebase from 'firebase/app';
+import { isLoaded } from 'react-redux-firebase';
+
 import { configDev, configProd } from './config';
 
 import 'firebase/auth';
@@ -23,6 +25,9 @@ export const remove = (resourceId: string) =>
 
 export const create = (resourceId: string, data: any) =>
   firestore.doc(resourceId).set(data);
+
+export const update = (resourceId: string, data: any) =>
+  firestore.doc(resourceId).set(data, { merge: true });
 
 export const isExist = (resourceId: string) =>
   firestore
@@ -99,5 +104,16 @@ export const uploadPhotoURLAsync = async (
       .update({ photoURL: url })
   );
 };
+
+export const isReady = (target: any) => isLoaded(target) && target;
+
+export const isLogin = (state: any) =>
+  state.firebase.auth.isLoaded &&
+  !state.firebase.auth.isEmpty &&
+  state.firebase.profile !== null;
+
+export const lazyEvalValue = (target: any) =>
+  isLoaded(target) ? target : null;
+export const lazyEvalValues = (items: any[]) => (isLoaded(items) ? items : []);
 
 export default firebase;

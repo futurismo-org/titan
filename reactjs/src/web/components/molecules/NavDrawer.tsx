@@ -5,13 +5,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '../atoms/NoStyledLink';
+import { withRouter } from 'react-router-dom';
 import {
   TITAN_DISCORD_INVITE_URL,
   TITAN_TWITTER_URL,
@@ -43,21 +42,6 @@ const StyledDrawer = styled.div`
   width: 250px;
 `;
 
-const DrawerButton = (text: string, to: string) => (
-  <Link to={to}>
-    <Typography
-      component="h5"
-      variant="h6"
-      align="center"
-      style={{
-        margin: 10
-      }}
-    >
-      {text}
-    </Typography>
-  </Link>
-);
-
 const DrawerButtonALink = (text: string, to: string) => (
   <a href={to} style={{ textDecoration: 'none', color: 'inherit' }}>
     <Typography
@@ -74,12 +58,10 @@ const DrawerButtonALink = (text: string, to: string) => (
 );
 
 const Drawer = (props: any) => {
-  const { user } = props;
+  const { isLogin, isAdmin, userId } = props;
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
-
-  const isLogin = !user.isEmpty && user.isLoaded;
 
   React.useEffect(() => {
     loadCSS(
@@ -87,6 +69,30 @@ const Drawer = (props: any) => {
       document.querySelector('#font-awesome-css') // eslint-disable-line
     );
   }, []);
+
+  const DrawerButton = withRouter((props: any) => {
+    const { text, to, history } = props;
+
+    const clickHandler = () => {
+      history.push(to);
+      setOpen(false);
+    };
+
+    return (
+      <Typography
+        component="h5"
+        variant="h6"
+        align="center"
+        style={{
+          margin: 10,
+          cursor: 'pointer'
+        }}
+        onClick={clickHandler}
+      >
+        {text}
+      </Typography>
+    );
+  });
 
   return (
     <React.Fragment>
@@ -103,26 +109,26 @@ const Drawer = (props: any) => {
           onOpen={() => setOpen(true)}
         >
           <StyledDrawer>
-            {DrawerButton('ホーム', '/')}
+            <DrawerButton text="ホーム" to="/" />
             <Divider />
-            {isLogin && DrawerButton('マイページ', `/u/${user.shortId}`)}
+            {isLogin && <DrawerButton text="マイページ" to={`/u/${userId}`} />}
             {isLogin && <Divider />}
-            {DrawerButton('チャレンジ', '/challenges')}
+            <DrawerButton text="チャレンジ" to="/challenges" />
             <Divider />
-            {DrawerButton('カテゴリ', '/categories')}
+            <DrawerButton text="カテゴリ" to="/categories" />
             <Divider />
-            {DrawerButton('トピック', '/topics')}
+            <DrawerButton text="トピック" to="/topics" />
             <Divider />
-            {DrawerButton('ランキング', '/users')}
+            <DrawerButton text="ランキング" to="/users" />
             <Divider />
             {DrawerButtonALink('チャット', TITAN_DISCORD_INVITE_URL)}
             <Divider />
-            {DrawerButton('関連情報', '/info')}
+            <DrawerButton text="関連情報" to="/info" />
             <Divider />
-            {isLogin && DrawerButton('設定', '/settings')}
+            {isLogin && <DrawerButton text="設定" to="/settings" />}
             {isLogin && <Divider />}
-            {user.isAdmin && DrawerButton('管理設定', '/admin')}
-            {user.isAdmin && <Divider />}
+            {isAdmin && <DrawerButton text="管理設定" to="/admin" />}
+            {isAdmin && <Divider />}
             <div style={{ textAlign: 'center' }}>
               <NoStyledExternalLink href={TITAN_TWITTER_URL}>
                 <Icon className={clsx(classes.twitter, 'fab fa-twitter')} />
@@ -138,9 +144,4 @@ const Drawer = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any, props: {}) => ({
-  user: state.firebase.profile,
-  ...props
-});
-
-export default connect(mapStateToProps)(Drawer);
+export default Drawer;

@@ -3,8 +3,7 @@ import UserItem from '../atoms/UserItem';
 import AuthButton from '../atoms/AuthButton';
 
 const NavigationItem = (props: any) => {
-  const { profile } = props;
-  const authenticated = profile.isLoaded && !profile.isEmpty;
+  const { profile, isLogin } = props;
 
   const renderAuthButton = () => {
     return <AuthButton />;
@@ -14,7 +13,7 @@ const NavigationItem = (props: any) => {
     return <UserItem user={user} />;
   };
 
-  return authenticated ? renderUserItem(profile) : renderAuthButton();
+  return isLogin ? renderUserItem(profile) : renderAuthButton();
 };
 
 export default NavigationItem;

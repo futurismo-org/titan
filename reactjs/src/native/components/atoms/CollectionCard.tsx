@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     marginTop: 3,
     color: colors.gray,
     fontSize: 16,
-    fontStyle: 'italic'
+    fontStyle: 'italic',
+    lineHeight: 18
   }
 });
 

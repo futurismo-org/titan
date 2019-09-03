@@ -3,44 +3,29 @@ import * as React from 'react';
 import { Text } from 'native-base';
 import Header from '../molecules/challenges/ChallengeHeader';
 import Body from '../molecules/challenges/ChallengeBody';
-import Navbar from '../molecules/challenges/ChallengeNavbar';
-
-import Error from '../atoms/Error';
+import ChallengeNavbar from '../molecules/challenges/ChallengeNavbar';
 
 const Challenge = (props: any) => {
-  const {
-    loading,
-    error,
-    fetchChallenge,
-    resourceId,
-    challenge,
-    isLogin,
-    userShortId
-  } = props;
-
-  React.useEffect(() => {
-    fetchChallenge(resourceId);
-  }, [fetchChallenge, resourceId]);
+  const { loading, challenge, isLogin, userShortId, join } = props;
 
   return (
     <React.Fragment>
-      {error && <Error error={error} />}
       {loading && null}
       {!loading &&
-        challenge &&
+        !!challenge &&
         (challenge.freezed ? (
           <Text>
             このコンテンツは不適切なコンテンツと判断して運営が凍結しました。
           </Text>
         ) : (
           <React.Fragment>
-            <Header challenge={challenge} isLogin={isLogin} />
-            <Navbar
+            <Header challenge={challenge} isLogin={isLogin} join={join} />
+            <ChallengeNavbar
               challenge={challenge}
-              isLogin={isLogin}
               userShortId={userShortId}
+              join={join}
             />
-            <Body challenge={challenge} isLogin={isLogin} />
+            <Body challenge={challenge} isLogin={isLogin} join={join} />
           </React.Fragment>
         ))}
     </React.Fragment>
