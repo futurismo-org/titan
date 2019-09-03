@@ -59,7 +59,7 @@ const DashBoard = (props: any) => {
         <DiscordHistories channelId="591410583463526430" limit={6} />
         <MoreLink to="/info/announce" />
       </Paper>
-      {!isLogin && (
+      {/* {!isLogin && (
         <Paper>
           <Typography component="h3" variant="subtitle1">
             センシティブなコンテンツをログインせずに表示する。
@@ -70,7 +70,7 @@ const DashBoard = (props: any) => {
             style={{ color: primaryColor }}
           />
         </Paper>
-      )}
+      )} */}
     </React.Fragment>
   );
 };
