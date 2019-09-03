@@ -15,38 +15,38 @@ const Navigation = (props: any) => {
 
   const modalRef = useRef<Modalize>(null);
 
-  const tabs = [];
-  tabs.push({
-    key: 'back',
-    // @ts-ignore
-    icon: 'arrow-circle-left',
-    label: '戻る',
-    barColor: primaryColor,
-    pressColor: 'rgba(255, 255, 255, 0.16)'
-  });
-  tabs.push({
-    key: 'home',
-    icon: 'home',
-    label: 'ホーム',
-    barColor: primaryColor,
-    pressColor: 'rgba(255, 255, 255, 0.16)',
-    path: '/'
-  });
-  tabs.push({
-    key: 'profile',
-    icon: 'user-circle',
-    label: 'マイページ',
-    barColor: primaryColor,
-    pressColor: 'rgba(255, 255, 255, 0.16)',
-    path: `/u/${userShortId}`
-  });
-  tabs.push({
-    key: 'quick',
-    icon: 'flash',
-    label: 'クイック',
-    barColor: primaryColor,
-    pressColor: 'rgba(255, 255, 255, 0.16)'
-  });
+  const tabs = [
+    {
+      key: 'back',
+      icon: 'arrow-circle-left',
+      label: '戻る',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)'
+    },
+    {
+      key: 'home',
+      icon: 'home',
+      label: 'ホーム',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)',
+      path: '/'
+    },
+    {
+      key: 'profile',
+      icon: 'user-circle',
+      label: 'マイページ',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)',
+      path: `/u/${userShortId}`
+    },
+    {
+      key: 'quick',
+      icon: 'flash',
+      label: 'クイック',
+      barColor: primaryColor,
+      pressColor: 'rgba(255, 255, 255, 0.16)'
+    }
+  ];
 
   const renderIcon = (icon: any) => ({ isActive }: any) => (
     <Icon size={24} color="white" name={icon} />
