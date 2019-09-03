@@ -16,23 +16,25 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
 
 const mapStateToProps = (state: any, props: any) => {
   const challenges =
-    isLoaded(state.firestore.data.challenges) &&
-    Object.values(state.firestore.data.challenges).filter(
-      (challenge: any) =>
-        !challenge.freezed &&
-        !challenge.sensitive &&
-        (isChallengeOpening(
-          challenge.openedAt.toDate(),
-          challenge.closedAt.toDate()
-        ) ||
-          isChallengeWillOpen(challenge.openedAt.toDate(), 7))
-    );
+    isLoaded(state.firestore.ordered.challenges) &&
+    state.firestore.ordered.challenges
+      .filter(
+        (challenge: any) =>
+          !challenge.freezed &&
+          !challenge.sensitive &&
+          (isChallengeOpening(
+            challenge.openedAt.toDate(),
+            challenge.closedAt.toDate()
+          ) ||
+            isChallengeWillOpen(challenge.openedAt.toDate(), 7))
+      )
+      .slice(0, 4);
 
   const categories =
-    isLoaded(state.firestore.data.categories) &&
-    Object.values(state.firestore.data.categories).filter(
-      (category: any) => !category.freezed && !category.sensitive
-    );
+    isLoaded(state.firestore.ordered.categories) &&
+    state.firestore.ordered.categories
+      .filter((category: any) => !category.freezed && !category.sensitive)
+      .slice(0, 6);
 
   return {
     challenges,
@@ -47,12 +49,12 @@ const queries = (props: any) => [
   {
     collection: 'challenges',
     orderByKey: ['updatedAt', 'desc'],
-    limit: 6
+    limit: 12
   },
   {
     collection: 'categories',
     orderByKey: ['updatedAt', 'desc'],
-    limit: 6
+    limit: 12
   }
 ];
 
