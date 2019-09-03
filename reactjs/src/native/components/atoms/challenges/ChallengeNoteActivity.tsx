@@ -73,39 +73,47 @@ const ActivityFooter = withRouter((props: any) => {
             justifyContent: 'flex-end'
           }}
         >
-          <React.Fragment>
-            {edit ? (
-              <Text
-                style={{ color: brandGray, fontSize: 14 }}
-                onPress={updateHandler}
-              >
-                保存
-              </Text>
-            ) : (
-              <Text
-                style={{ color: brandGray, fontSize: 14 }}
-                onPress={() => setEdit(true)}
-              >
-                編集
-              </Text>
-            )}
-          </React.Fragment>
-          <View style={{ marginLeft: 10 }}>
+          {edit && (
             <Text
-              onPress={handleOpen}
-              style={{ color: brandGray, fontSize: 14 }}
+              style={{ color: brandGray, fontSize: 14, marginRight: 10 }}
+              onPress={() => setEdit(false)}
             >
-              削除
+              キャンセル
             </Text>
-            <AlertPro
-              ref={(ref: any) => setAlert(ref)}
-              onConfirm={handleDelete}
-              onCancel={handleClose}
-              title="ノートを削除しますか？"
-              textCancel="いいえ"
-              textConfirm="はい"
-            />
-          </View>
+          )}
+          {edit ? (
+            <Text
+              style={{ color: brandGray, fontSize: 14 }}
+              onPress={updateHandler}
+            >
+              保存
+            </Text>
+          ) : (
+            <Text
+              style={{ color: brandGray, fontSize: 14 }}
+              onPress={() => setEdit(true)}
+            >
+              編集
+            </Text>
+          )}
+          {!edit && (
+            <View style={{ marginLeft: 10 }}>
+              <Text
+                onPress={handleOpen}
+                style={{ color: brandGray, fontSize: 14 }}
+              >
+                削除
+              </Text>
+              <AlertPro
+                ref={(ref: any) => setAlert(ref)}
+                onConfirm={handleDelete}
+                onCancel={handleClose}
+                title="ノートを削除しますか？"
+                textCancel="いいえ"
+                textConfirm="はい"
+              />
+            </View>
+          )}
         </View>
       )}
     </React.Fragment>
