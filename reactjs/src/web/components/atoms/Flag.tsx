@@ -17,7 +17,7 @@ const ModalContent = styled.div`
   @media screen and (min-width: 768px) {
     width: 500px;
   }
-  width: 400px;
+  width: 350px;
 `;
 
 const Flag = (props: any) => {
