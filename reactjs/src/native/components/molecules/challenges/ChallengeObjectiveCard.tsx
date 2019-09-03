@@ -1,22 +1,17 @@
 import React from 'react';
-// import styled from 'styled-components-native';
 import { Card, CardItem, Text, View } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
-
-// const StyledCard = styled(Card)`
-//   && {
-//     border: 0;
-//     padding: 0 25px;
-//     width: 320px;
-//     background-color: transparent;
-//   }
-// `;
 
 export const ChallengeObjectiveWhatCard = (props: any) => {
   const { text } = props;
 
   return (
-    <React.Fragment>
+    <View
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+    >
       <LinearGradient
         colors={['#fe6b8b', '#ff8e53']}
         start={{ x: 0.0, y: 1 }}
@@ -42,7 +37,7 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
           </CardItem>
         </Card>
       </LinearGradient>
-    </React.Fragment>
+    </View>
   );
 };
 
