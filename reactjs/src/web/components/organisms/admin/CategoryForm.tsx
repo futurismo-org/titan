@@ -16,11 +16,13 @@ const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
+  const [overviewiOS, setOverviewiOS] = useState('');
 
   const [channelId, setChannelId] = useState('');
   const [challengeRefs, setChallengeRefs] = useState('');
   const [sensitive, setSensitive] = useState(false);
   const [freezed, setFreezed] = useState(false);
+  const [ios, setiOS] = useState(false);
 
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -54,6 +56,14 @@ const CategoryForm = (props: any) => {
     e.preventDefault();
     setFreezed(e.target.checked);
   };
+  const oniOSChange = (e: any) => {
+    e.preventDefault();
+    setiOS(e.target.checked);
+  };
+  const onOverviewiOSChange = (e: any) => {
+    e.preventDefault();
+    setOverviewiOS(e.target.value);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -73,6 +83,8 @@ const CategoryForm = (props: any) => {
       channelId,
       sensitive,
       freezed,
+      ios,
+      overviewiOS,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -117,6 +129,8 @@ const CategoryForm = (props: any) => {
           );
           setSensitive(category!.sensitive ? category!.sensitive : false);
           setFreezed(category!.freezed ? category!.freezed : false);
+          setiOS(category!.ios ? category!.ios : false);
+          setOverviewiOS(category!.overviewiOS ? category!.overviewiOS : '');
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -182,6 +196,28 @@ const CategoryForm = (props: any) => {
           multiline
           onChange={onOverviewChange}
         />
+        <h2>概要プレビュー</h2>
+        <MarkdownView text={overview} />
+        <h2>Apple Store用特別対応</h2>
+        {'iOS'}
+        <Switch checked={ios} onChange={oniOSChange} />
+        {ios && (
+          <React.Fragment>
+            <TextField
+              value={overviewiOS}
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="overviewiOS"
+              name="overviewiOS"
+              label="概要(iOS)"
+              rows={8}
+              multiline
+              onChange={onOverviewiOSChange}
+            />
+            <MarkdownView text={overviewiOS} />
+          </React.Fragment>
+        )}
         <Button
           type="submit"
           fullWidth
@@ -191,8 +227,6 @@ const CategoryForm = (props: any) => {
         >
           投稿
         </Button>
-        <h2>概要プレビュー</h2>
-        <MarkdownView text={overview} />
       </form>
     </React.Fragment>
   );
