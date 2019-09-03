@@ -72,7 +72,9 @@ const ChallengeObjective = (props: any) => {
       return null;
     }
 
-    const handler = edit
+    const onCancel = () => setEdit(false);
+
+    const onSave = edit
       ? () =>
           handleSave({ what, why, isCreate: !objective }).then(() =>
             setEdit(!edit)
@@ -80,13 +82,24 @@ const ChallengeObjective = (props: any) => {
       : () => setEdit(!edit);
 
     return (
-      <Button
-        variant="contained"
-        style={{ fontWeight: 'bold' }}
-        onClick={handler}
-      >
-        {text}
-      </Button>
+      <React.Fragment>
+        {edit && (
+          <Button
+            variant="contained"
+            onClick={onCancel}
+            style={{ marginRight: 5 }}
+          >
+            キャンセル
+          </Button>
+        )}
+        <Button
+          variant="contained"
+          style={{ fontWeight: 'bold' }}
+          onClick={onSave}
+        >
+          {text}
+        </Button>
+      </React.Fragment>
     );
   };
 

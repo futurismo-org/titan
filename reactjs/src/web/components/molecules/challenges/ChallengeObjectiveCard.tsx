@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import UserAvatar from '../../atoms/UserAvatar';
 import MarkdownView from '~/web/components/atoms/MarkdownView';
+import { brandGray } from '~/lib/theme';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -56,7 +57,7 @@ export const ChallengeObjectiveWhyCard = (props: any) => {
             <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
           </ListItemAvatar>
           <ListItemText
-            primary="なぜやるのか?"
+            primary={<p style={{ color: brandGray }}>なぜやるのか?(Why)</p>}
             secondary={
               <React.Fragment>
                 <MarkdownView text={text} />
