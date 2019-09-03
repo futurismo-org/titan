@@ -3,6 +3,7 @@ import moment, { nowMoment, isToday } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
 import { mergeCategory } from './profile';
+import { followUserChallengeTimeline } from './getstream';
 
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
@@ -166,6 +167,9 @@ export const aggregateChallenge = async (challenge: any) => {
           categoryId,
           userShortId
         };
+
+        // getstreamのfollow関係をここで構築する
+        followUserChallengeTimeline(userShortId, challengeId);
 
         firebase
           .firestore()
