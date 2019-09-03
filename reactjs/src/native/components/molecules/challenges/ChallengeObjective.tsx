@@ -64,17 +64,21 @@ const ChallengeObjective = (props: any) => {
               <ChallengeObjectiveFormButton />
             </View>
           </TouchableOpacity>
-          <Text />
-          <Text style={{ fontSize: 14, color: brandGray }}>
-            筋トレ３０日チャレンジを通じて達成したいことを書きます。
-            定量的(計測可能、数値)目標、自分でコントロール可能な目標を記入してください。
-            ここに書いたことはゴールボードでみんなと共有されます。
-          </Text>
-          <Text />
-          <Text style={{ fontSize: 14, color: brandGray }}>
-            なにをやるのかの入力欄に一言で目標を書いてください。(60字以内)
-            なぜやるのかの入力欄に目標に取り組む理由を詳しく書いてください。
-          </Text>
+          {isMyProfile && (
+            <React.Fragment>
+              <Text />
+              <Text style={{ fontSize: 14, color: brandGray }}>
+                筋トレ３０日チャレンジを通じて達成したいことを書きます。
+                定量的(計測可能、数値)目標、自分でコントロール可能な目標を記入してください。
+                ここに書いたことはゴールボードでみんなと共有されます。
+              </Text>
+              <Text />
+              <Text style={{ fontSize: 14, color: brandGray }}>
+                なにをやるのかの入力欄に一言で目標を書いてください。(60字以内)
+                なぜやるのかの入力欄に目標に取り組む理由を詳しく書いてください。
+              </Text>
+            </React.Fragment>
+          )}
         </React.Fragment>
       )}
       {isLoaded && (
