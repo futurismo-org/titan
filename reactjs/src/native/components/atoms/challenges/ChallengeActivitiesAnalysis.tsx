@@ -10,6 +10,7 @@ import ChallengeNoteActivity from '~/native/containers/challenges/ChallengeNoteA
 import ChallengeNoteForm from '~/native/containers/challenges/ChallengeNoteFormContainer';
 import { POST_TYPE_ANALYSIS } from '~/constants/post';
 import ChallengeActivitiesNavbar from './ChallengeActivitiesNavbar';
+import { brandGray } from '~/lib/theme';
 
 const ChallengeActivities = (props: any) => {
   const {
@@ -85,7 +86,7 @@ const ChallengeActivities = (props: any) => {
                 <Text />
               </React.Fragment>
             )}
-            <Text>
+            <Text style={{ fontSize: 14, color: brandGray }}>
               分析日記とは、強い感情や危険な行動をしたときは、いつでも書き留めるようにします。
               湧き上がった思考や感情を残らず書き留めるようにする。飾りなく、率直に書く。
               時間をおいて見直し、自分の考えや感情の新たな視点を得ることを期待します。

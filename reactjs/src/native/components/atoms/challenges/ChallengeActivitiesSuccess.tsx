@@ -10,6 +10,7 @@ import ChallengeNoteActivity from '~/native/containers/challenges/ChallengeNoteA
 import ChallengeNoteForm from '~/native/containers/challenges/ChallengeNoteFormContainer';
 import { POST_TYPE_SUCCESS } from '~/constants/post';
 import ChallengeActivitiesNavbar from './ChallengeActivitiesNavbar';
+import { brandGray } from '~/lib/theme';
 
 const ChallengeActivities = (props: any) => {
   const {
@@ -85,7 +86,7 @@ const ChallengeActivities = (props: any) => {
                 <Text />
               </React.Fragment>
             )}
-            <Text>
+            <Text style={{ fontSize: 14, color: brandGray }}>
               達成日記を書くことで、成功体験を積み重ねている実感が得られます。
               達成できたことを書きます。できなかったことや失敗は書きません。
               感謝すること、目標達成に行ったことも書きます。学びや気付きも書きます。
