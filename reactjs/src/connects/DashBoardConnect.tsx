@@ -22,7 +22,6 @@ const mapStateToProps = (state: any, props: any) => {
         (challenge: any) =>
           !challenge.freezed &&
           !challenge.sensitive &&
-          !challenge.ios &&
           (isChallengeOpening(
             challenge.openedAt.toDate(),
             challenge.closedAt.toDate()
@@ -34,10 +33,7 @@ const mapStateToProps = (state: any, props: any) => {
   const categories =
     isLoaded(state.firestore.ordered.categories) &&
     state.firestore.ordered.categories
-      .filter(
-        (category: any) =>
-          !category.freezed && !category.sensitive && !category.ios
-      )
+      .filter((category: any) => !category.freezed && !category.sensitive)
       .slice(0, 6);
 
   return {

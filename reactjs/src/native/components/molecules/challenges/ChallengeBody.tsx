@@ -17,6 +17,7 @@ import ChallengeActivitiesSuccess from '~/native/containers/challenges/Challenge
 import ChallengeActivitiesAnalysis from '~/native/containers/challenges/ChallengeActivitiesAnalysisContainer';
 
 import Flag from '~/native/containers/FlagContainer';
+import { isiOS } from '~/native/lib/native';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
@@ -30,7 +31,11 @@ const ChallengeBody = (props: any) => {
             render={props => (
               <ChallengeOverview
                 challenge={challenge}
-                text={challenge.overview}
+                text={
+                  isiOS && challenge.ios
+                    ? challenge.overviewiOS
+                    : challenge.overview
+                }
                 youtubeId={challenge.youtubeId}
                 openedAt={challenge.openedAt.toDate()}
                 closedAt={challenge.closedAt.toDate()}
@@ -42,7 +47,14 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/rules"
             render={props => (
               <React.Fragment>
-                <MarkdownView text={challenge.rules} {...props} />
+                <MarkdownView
+                  text={
+                    isiOS && challenge.ios
+                      ? challenge.rulesiOS
+                      : challenge.rules
+                  }
+                  {...props}
+                />
                 <Flag challenge={challenge} {...props} />
               </React.Fragment>
             )}

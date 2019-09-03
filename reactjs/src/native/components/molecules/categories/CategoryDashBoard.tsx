@@ -10,6 +10,7 @@ import CategoryChallenge from './CategoryChallenge';
 
 import MoreLink from '../../atoms/MoreLink';
 import Flag from '~/native/containers/FlagContainer';
+import { isiOS } from '~/native/lib/native';
 
 const Space = (props: any) => <Text />;
 
@@ -19,7 +20,9 @@ const CategoryDashBoard = (props: any) => {
   return (
     <React.Fragment>
       <Title text="概要" left />
-      <MarkdownView text={category.overview} />
+      <MarkdownView
+        text={isiOS && category.ios ? category.overviewiOS : category.overview}
+      />
       <Flag category={category} />
       <Space />
       <Title text="チャレンジ一覧" left />
