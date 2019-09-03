@@ -261,10 +261,17 @@ const ChallengeNoteMemo = (props: any) => {
         <span
           style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
           role="button"
+          onClick={() => setEdit(false)}
+        >
+          キャンセル
+        </span>{' '}
+        <span
+          style={{ textDecorationLine: 'underline', cursor: 'pointer' }}
+          role="button"
           onClick={onSave}
         >
           保存
-        </span>{' '}
+        </span>
       </p>
     </React.Fragment>
   );
