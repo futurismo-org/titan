@@ -10,6 +10,7 @@ import CategoryChallenge from './CategoryChallenge';
 
 import MoreLink from '../../atoms/MoreLink';
 import Flag from '~/native/containers/FlagContainer';
+import { isiOS } from '~/native/lib/native';
 
 const Space = (props: any) => <Text />;
 

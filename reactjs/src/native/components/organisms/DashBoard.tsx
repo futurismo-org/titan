@@ -6,12 +6,13 @@ import CollectionCard from '~/native/containers/CollectionCardContainer';
 import Title from '../atoms/Title';
 import MoreLink from '../atoms/MoreLink';
 import { brandGray } from '~/lib/theme';
-import { deviceWidth } from '~/native/lib/native';
+import { deviceWidth, isiOS, removeiOSSensitives } from '~/native/lib/native';
 import Progress from '~/native/components/atoms/CircularProgress';
 import { isReady } from '~/lib/firebase';
 
 const DashBoard = (props: any) => {
-  const { challenges, categories } = props;
+  const challenges = removeiOSSensitives(props.challenges);
+  const categories = removeiOSSensitives(props.categories);
 
   const [categoryActiveSlide, setCategoryActiveSlide] = useState(0);
   const [categorySliderRef, setCategorySliderRef] = useState(undefined);

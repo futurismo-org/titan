@@ -17,6 +17,7 @@ import ChallengeActivitiesSuccess from '~/native/containers/challenges/Challenge
 import ChallengeActivitiesAnalysis from '~/native/containers/challenges/ChallengeActivitiesAnalysisContainer';
 
 import Flag from '~/native/containers/FlagContainer';
+import { isiOS } from '~/native/lib/native';
 
 const ChallengeBody = (props: any) => {
   const { challenge } = props;
@@ -42,7 +43,14 @@ const ChallengeBody = (props: any) => {
             path="/c/:id/rules"
             render={props => (
               <React.Fragment>
-                <MarkdownView text={challenge.rules} {...props} />
+                <MarkdownView
+                  text={
+                    isiOS && challenge.ios
+                      ? challenge.rulesiOS
+                      : challenge.rules
+                  }
+                  {...props}
+                />
                 <Flag challenge={challenge} {...props} />
               </React.Fragment>
             )}

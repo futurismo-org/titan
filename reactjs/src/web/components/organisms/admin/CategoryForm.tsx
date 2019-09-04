@@ -21,6 +21,7 @@ const CategoryForm = (props: any) => {
   const [challengeRefs, setChallengeRefs] = useState('');
   const [sensitive, setSensitive] = useState(false);
   const [freezed, setFreezed] = useState(false);
+  const [ios, setiOS] = useState(false);
 
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -54,6 +55,10 @@ const CategoryForm = (props: any) => {
     e.preventDefault();
     setFreezed(e.target.checked);
   };
+  const oniOSChange = (e: any) => {
+    e.preventDefault();
+    setiOS(e.target.checked);
+  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -73,6 +78,7 @@ const CategoryForm = (props: any) => {
       channelId,
       sensitive,
       freezed,
+      ios,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -117,6 +123,7 @@ const CategoryForm = (props: any) => {
           );
           setSensitive(category!.sensitive ? category!.sensitive : false);
           setFreezed(category!.freezed ? category!.freezed : false);
+          setiOS(category!.ios ? category!.ios : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -170,6 +177,8 @@ const CategoryForm = (props: any) => {
         <Switch checked={sensitive} onChange={onSensitiveChange} />
         {'凍結'}
         <Switch checked={freezed} onChange={onFreezedChange} />
+        {'iOS非表示'}
+        <Switch checked={ios} onChange={oniOSChange} />
         <TextField
           value={overview}
           variant="outlined"
@@ -182,6 +191,8 @@ const CategoryForm = (props: any) => {
           multiline
           onChange={onOverviewChange}
         />
+        <h2>概要プレビュー</h2>
+        <MarkdownView text={overview} />
         <Button
           type="submit"
           fullWidth
@@ -191,8 +202,6 @@ const CategoryForm = (props: any) => {
         >
           投稿
         </Button>
-        <h2>概要プレビュー</h2>
-        <MarkdownView text={overview} />
       </form>
     </React.Fragment>
   );

@@ -33,6 +33,8 @@ const ChallengeForm = (props: any) => {
   const [sensitive, setSensitive] = useState(false);
   const [freezed, setFreezed] = useState(false);
 
+  const [ios, setiOS] = useState(false);
+
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
   );
@@ -122,6 +124,11 @@ const ChallengeForm = (props: any) => {
     setFreezed(e.target.checked);
   };
 
+  const oniOSChange = (e: any) => {
+    e.preventDefault();
+    setiOS(e.target.checked);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
@@ -150,7 +157,8 @@ const ChallengeForm = (props: any) => {
       pinned,
       youtubeId,
       sensitive,
-      freezed
+      freezed,
+      ios
     };
     firebase
       .firestore()
@@ -194,6 +202,7 @@ const ChallengeForm = (props: any) => {
           setYoutubeId(challenge!.youtubeId || '');
           setSensitive(challenge!.sensitive ? challenge!.sensitive : false);
           setFreezed(challenge!.freezed ? challenge!.freezed : false);
+          setiOS(challenge!.ios ? challenge!.ios : false);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -327,6 +336,8 @@ const ChallengeForm = (props: any) => {
         <Switch checked={sensitive} onChange={onSensitiveChange} />
         {'凍結'}
         <Switch checked={freezed} onChange={onFreezedChange} />
+        {'iOS非表示'}
+        <Switch checked={ios} onChange={oniOSChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
