@@ -147,6 +147,8 @@ export const aggregateChallenge = async (challenge: any) => {
           title: challenge.title,
           description: challenge.description,
           sensitive: challenge.sensitive ? challenge.sensitive : false,
+          freezed: challenge.freezed ? challenge.freezed : false,
+          ios: challenge.ios ? challenge.ios : false,
           challengeId,
           userShortId,
           userDisplayName: user.displayName,
