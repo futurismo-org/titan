@@ -338,7 +338,7 @@ export const aggregateChallenge = async (challenge: any) => {
           userRef
             .collection('categories')
             .doc(data.categoryId)
-            .set(data);
+            .set(data, { merge: true });
         });
       });
     });
