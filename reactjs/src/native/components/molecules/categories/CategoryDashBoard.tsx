@@ -20,9 +20,7 @@ const CategoryDashBoard = (props: any) => {
   return (
     <React.Fragment>
       <Title text="概要" left />
-      <MarkdownView
-        text={isiOS && category.ios ? category.overviewiOS : category.overview}
-      />
+      <MarkdownView text={category.overview} />
       <Flag category={category} />
       <Space />
       <Title text="チャレンジ一覧" left />

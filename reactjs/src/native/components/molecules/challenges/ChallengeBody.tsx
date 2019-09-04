@@ -31,11 +31,7 @@ const ChallengeBody = (props: any) => {
             render={props => (
               <ChallengeOverview
                 challenge={challenge}
-                text={
-                  isiOS && challenge.ios
-                    ? challenge.overviewiOS
-                    : challenge.overview
-                }
+                text={challenge.overview}
                 youtubeId={challenge.youtubeId}
                 openedAt={challenge.openedAt.toDate()}
                 closedAt={challenge.closedAt.toDate()}
