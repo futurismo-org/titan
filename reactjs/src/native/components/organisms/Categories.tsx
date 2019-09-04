@@ -4,9 +4,10 @@ import { isLoaded } from 'react-redux-firebase';
 import Title from '../atoms/Title';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
 import { isReady } from '~/lib/firebase';
+import { removeiOSSensitives } from '~/native/lib/native';
 
 const Categories = (props: any) => {
-  const { categories } = props;
+  const categories = removeiOSSensitives(props.categories);
 
   return (
     <React.Fragment>

@@ -16,7 +16,6 @@ const CategoryForm = (props: any) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [overview, setOverview] = useState('');
-  const [overviewiOS, setOverviewiOS] = useState('');
 
   const [channelId, setChannelId] = useState('');
   const [challengeRefs, setChallengeRefs] = useState('');
@@ -60,10 +59,6 @@ const CategoryForm = (props: any) => {
     e.preventDefault();
     setiOS(e.target.checked);
   };
-  const onOverviewiOSChange = (e: any) => {
-    e.preventDefault();
-    setOverviewiOS(e.target.value);
-  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -84,7 +79,6 @@ const CategoryForm = (props: any) => {
       sensitive,
       freezed,
       ios,
-      overviewiOS,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -130,7 +124,6 @@ const CategoryForm = (props: any) => {
           setSensitive(category!.sensitive ? category!.sensitive : false);
           setFreezed(category!.freezed ? category!.freezed : false);
           setiOS(category!.ios ? category!.ios : false);
-          setOverviewiOS(category!.overviewiOS ? category!.overviewiOS : '');
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -184,6 +177,8 @@ const CategoryForm = (props: any) => {
         <Switch checked={sensitive} onChange={onSensitiveChange} />
         {'凍結'}
         <Switch checked={freezed} onChange={onFreezedChange} />
+        {'iOS非表示'}
+        <Switch checked={ios} onChange={oniOSChange} />
         <TextField
           value={overview}
           variant="outlined"
@@ -198,26 +193,6 @@ const CategoryForm = (props: any) => {
         />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
-        <h2>Apple Store用特別対応</h2>
-        {'iOS'}
-        <Switch checked={ios} onChange={oniOSChange} />
-        {ios && (
-          <React.Fragment>
-            <TextField
-              value={overviewiOS}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="overviewiOS"
-              name="overviewiOS"
-              label="概要(iOS)"
-              rows={8}
-              multiline
-              onChange={onOverviewiOSChange}
-            />
-            <MarkdownView text={overviewiOS} />
-          </React.Fragment>
-        )}
         <Button
           type="submit"
           fullWidth

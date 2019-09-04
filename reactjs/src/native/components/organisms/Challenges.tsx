@@ -2,15 +2,14 @@ import * as React from 'react';
 import { View } from 'react-native';
 import Title from '../atoms/Title';
 import CollectionCard from '~/native/containers/CollectionCardContainer';
-import { isReady } from '~/lib/firebase';
+import { isReady, remove } from '~/lib/firebase';
+import { removeiOSSensitives } from '~/native/lib/native';
 
 const Challenges = (props: any) => {
-  const {
-    preOpenChallenges,
-    openingChallenges,
-    closedChallenges,
-    challenges
-  } = props;
+  const preOpenChallenges = removeiOSSensitives(props.preOpenChallenges);
+  const openingChallenges = removeiOSSensitives(props.openingChallenges);
+  const closedChallenges = removeiOSSensitives(props.closedChallenges);
+  const challenges = removeiOSSensitives(props.challenges);
 
   return (
     <React.Fragment>

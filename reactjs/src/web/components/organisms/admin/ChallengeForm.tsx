@@ -34,8 +34,6 @@ const ChallengeForm = (props: any) => {
   const [freezed, setFreezed] = useState(false);
 
   const [ios, setiOS] = useState(false);
-  const [overviewiOS, setOverviewiOS] = useState('');
-  const [rulesiOS, setRulesiOS] = useState('');
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -130,14 +128,6 @@ const ChallengeForm = (props: any) => {
     e.preventDefault();
     setiOS(e.target.checked);
   };
-  const onOverviewiOSChange = (e: any) => {
-    e.preventDefault();
-    setOverviewiOS(e.target.value);
-  };
-  const onRulesiOSChange = (e: any) => {
-    e.preventDefault();
-    setRulesiOS(e.target.value);
-  };
 
   const isCreate = props.match.params.id === undefined;
 
@@ -168,9 +158,7 @@ const ChallengeForm = (props: any) => {
       youtubeId,
       sensitive,
       freezed,
-      ios,
-      overviewiOS,
-      rulesiOS
+      ios
     };
     firebase
       .firestore()
@@ -215,8 +203,6 @@ const ChallengeForm = (props: any) => {
           setSensitive(challenge!.sensitive ? challenge!.sensitive : false);
           setFreezed(challenge!.freezed ? challenge!.freezed : false);
           setiOS(challenge!.ios ? challenge!.ios : false);
-          setOverviewiOS(challenge!.overviewiOS || '');
-          setRulesiOS(challenge!.rulesiOS || '');
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -350,42 +336,11 @@ const ChallengeForm = (props: any) => {
         <Switch checked={sensitive} onChange={onSensitiveChange} />
         {'凍結'}
         <Switch checked={freezed} onChange={onFreezedChange} />
+        {'iOS非表示'}
+        <Switch checked={ios} onChange={oniOSChange} />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
-        <h2>Apple Store用特別対応</h2>
-        {'iOS'}
-        <Switch checked={ios} onChange={oniOSChange} />
-        {ios && (
-          <React.Fragment>
-            <TextField
-              value={overviewiOS}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="overviewiOS"
-              name="overviewiOS"
-              label="概要(iOS)"
-              rows={8}
-              multiline
-              onChange={onOverviewiOSChange}
-            />
-            <TextField
-              value={rulesiOS}
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              id="rulesiOS"
-              name="rulesiOS"
-              label="ルール(iOS)"
-              rows={8}
-              multiline
-              onChange={onRulesiOSChange}
-            />
-            <MarkdownView text={overviewiOS} />
-            <MarkdownView text={rulesiOS} />
-          </React.Fragment>
-        )}
         <Button
           type="submit"
           fullWidth
