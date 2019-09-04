@@ -163,6 +163,7 @@ export const aggregateChallenge = async (challenge: any) => {
           updatedAt: new Date(),
           ref: challenge.categoryRef,
           sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
+          ios: challenge.ios ? challenge.ios : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
           userDisplayName: user.displayName,
           categoryId,
           userShortId

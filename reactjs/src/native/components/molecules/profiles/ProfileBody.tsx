@@ -3,7 +3,7 @@ import { View, Text } from 'native-base';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import Title from '../../atoms/Title';
 
-import { deviceWidth } from '~/native/lib/native';
+import { deviceWidth, removeiOSSensitives } from '~/native/lib/native';
 
 import Error from '../../atoms/Error';
 import { brandGray } from '~/lib/theme';
@@ -14,15 +14,16 @@ import { getChallengeDashboardPath } from '~/lib/url';
 
 const ProfileBody = (props: any) => {
   const {
-    currentChallenges,
-    pastChallenges,
-    categories,
     fetchProfileChallenges,
     fetchProfileCategories,
     userShortId,
     loading,
     error
   } = props;
+
+  const currentChallenges = removeiOSSensitives(props.currentChallenges);
+  const pastChallenges = removeiOSSensitives(props.pastChallenges);
+  const categories = removeiOSSensitives(props.categories);
 
   useEffect(() => {
     fetchProfileChallenges(userShortId);
