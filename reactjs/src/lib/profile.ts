@@ -12,6 +12,9 @@ export const mergeCategory = (currentData: any, newData: any) => {
     maxDays = 0;
   }
 
+  // 大会連続日数よりも過去連続が大きい場合はここで調整。
+  maxDays = days > maxDays ? days : maxDays;
+
   const toMaxDays = maxDays - days > 0 ? maxDays - days : 0;
 
   const data = {
