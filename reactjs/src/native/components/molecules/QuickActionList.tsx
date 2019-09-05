@@ -9,6 +9,7 @@ import Error from '../atoms/Error';
 
 import QuickPostChallengeButton from '~/native/containers/QuickActionChallengeButtonContainer';
 import firebase from '~/lib/firebase';
+import { removeiOSSensitives } from '~/native/lib/native';
 
 const QuickActionCard = withRouter((props: any) => {
   const { challenge, history, userShortId, closeHandler } = props;
@@ -77,7 +78,6 @@ const QuickActionCard = withRouter((props: any) => {
 
 const QuickActionList = (props: any) => {
   const {
-    challenges,
     fetchProfileChallenges,
     resourceId,
     error,
@@ -85,6 +85,8 @@ const QuickActionList = (props: any) => {
     userShortId,
     closeHandler
   } = props;
+
+  const challenges = removeiOSSensitives(props.challenges);
 
   useEffect(() => {
     fetchProfileChallenges(resourceId);
