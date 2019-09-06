@@ -292,8 +292,8 @@ const challengeSeeds = seed.collection('challenges', [
   createChallengeSeed({
     id: GETUP_CHALLENGE_ID_LIST[0],
     categoryRef: seed.docRef('categories', GETUP_CATEGORY_ID),
-    title: '早起きチャレンジ',
-    description: '朝だ夜明けだ潮の息吹',
+    title: 'ベッドメイキング習慣化チャレンジ',
+    description: '世界を変えたければ、ベッドメイキングから始めましょう',
     participants: challengeParticipantsSeeds,
     participantsCount: 30,
     openedAt: new Date(
