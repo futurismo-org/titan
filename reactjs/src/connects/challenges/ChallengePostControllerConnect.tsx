@@ -222,7 +222,8 @@ ${dashBoardURL}`;
       .then(doc => doc.data())
       .then((currentCategory: any) => {
         const updateProfileCategoryData = mergeCategory(
-          currentCategory,
+          
+          currentCategory,0
           resetData
         );
 
