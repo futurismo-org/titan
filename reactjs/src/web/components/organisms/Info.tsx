@@ -67,7 +67,7 @@ const Info = (props: any) => {
             </ListItemText>
           </ListItem>
           <Divider />
-          <ListItem>
+          {/* <ListItem>
             <ListItemText>
               <NoStyledExternalLink
                 href={TITAN_LANDING_PAGE}
@@ -77,7 +77,7 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
-          <Divider />
+          <Divider /> */}
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink

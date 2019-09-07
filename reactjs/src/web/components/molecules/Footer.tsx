@@ -3,22 +3,13 @@ import * as React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
-import Link from '@material-ui/core/Link';
-
 import styled from 'styled-components';
 import moment from 'moment';
 import theme from '~/lib/theme';
-import { TITAN_LANDING_PAGE } from '~/constants/appInfo';
 
 interface LinkProps {
   text?: string;
 }
-
-const StyledLink = (props: LinkProps) => (
-  <Link color="inherit" href={TITAN_LANDING_PAGE}>
-    {props.text}
-  </Link>
-);
 
 const StyledFooter = styled.footer`
   background-color: ${theme.palette.background.paper};
@@ -31,7 +22,7 @@ const MadeWithLove = () => {
     <React.Fragment>
       <Typography align="center" variant="body2" color="textSecondary">
         {'Built with fire by the '}
-        <StyledLink text="Futurismo" />
+        {'Futurismo'}
         {' team.'}
       </Typography>
       <Typography align="center" variant="body2" color="textSecondary">
