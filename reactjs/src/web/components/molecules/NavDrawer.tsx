@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import styled from 'styled-components';
 // import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import {
   TITAN_DISCORD_INVITE_URL
@@ -17,20 +17,20 @@ import {
   // TITAN_BLOG_URL
 } from '~/constants/appInfo';
 // import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
-import { twitterColor } from '~/lib/theme';
+// import { twitterColor } from '~/lib/theme';
 
 const { loadCSS } = require('fg-loadcss');
 
-const useStyles = makeStyles(theme => ({
-  twitter: {
-    margin: theme.spacing(2),
-    color: twitterColor
-  },
-  rss: {
-    margin: theme.spacing(2),
-    color: 'orange'
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   twitter: {
+//     margin: theme.spacing(2),
+//     color: twitterColor
+//   },
+//   rss: {
+//     margin: theme.spacing(2),
+//     color: 'orange'
+//   }
+// }));
 
 const StyledRoot = styled.div`
   position: relative;
