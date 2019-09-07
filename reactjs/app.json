@@ -20,7 +20,8 @@
     "ios": {
       "icon": "./public/icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.futurismo.titan"
+      "bundleIdentifier": "com.futurismo.titan",
+      "buildNumber": "2"
     },
     "android": {
       "icon": "./public/icon-android.png",
