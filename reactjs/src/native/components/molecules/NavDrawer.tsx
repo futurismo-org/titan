@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Linking, TouchableOpacity } from 'react-native';
 import { Container, Content, List, ListItem, Text, View } from 'native-base';
 import { withRouter } from 'react-router-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import ImageOverlay from 'react-native-image-overlay';
 import { getRandomImageURL } from '~/lib/url';
 import {
-  TITAN_BLOG_URL,
-  TITAN_TWITTER_URL,
+  // TITAN_BLOG_URL,
+  // TITAN_TWITTER_URL,
   TITAN_DISCORD_INVITE_URL
 } from '~/constants/appInfo';
 
@@ -107,7 +107,7 @@ const NavDrawer = (props: any) => {
             );
           })}
         </List>
-        <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
+        {/* <View style={{ flex: 1, flexDirection: 'row', alignSelf: 'center' }}>
           <Icon
             size={40}
             name="twitter"
@@ -121,7 +121,7 @@ const NavDrawer = (props: any) => {
             style={{ marginLeft: 30 }}
             onPress={() => Linking.openURL(TITAN_BLOG_URL)}
           />
-        </View>
+        </View> */}
       </Content>
     </Container>
   );

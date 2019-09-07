@@ -5,12 +5,8 @@ import { withRouter } from 'react-router-native';
 import Title from '../atoms/Title';
 
 import {
-  TITAN_PRIVACY_POLICY,
-  TITAN_TERMS_OF_USE,
   APP_PRODUCTION_URL,
-  TITAN_LANDING_PAGE,
-  TITAN_GOOGLE_PLAY_STORE,
-  TITAN_GUIDELINES
+  TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
@@ -49,13 +45,13 @@ const Info = (props: any) => {
             Titan for Web App
           </Text>
         </ListItem>
-        {isAndroid && ( // ガイドラインの関係でiOSはリンクを貼らない
+        {/* {isAndroid && ( // ガイドラインの関係でiOSはリンクを貼らない
           <ListItem>
             <Text onPress={() => Linking.openURL(TITAN_LANDING_PAGE)}>
               Titan宣伝用特設サイト
             </Text>
           </ListItem>
-        )}
+        )} */}
         {isAndroid && (
           <ListItem>
             <Text onPress={() => Linking.openURL(TITAN_GOOGLE_PLAY_STORE)}>

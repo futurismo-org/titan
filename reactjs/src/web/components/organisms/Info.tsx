@@ -10,7 +10,7 @@ import Paper from '../templates/PaperWrapper';
 import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import NoStyledLink from '../atoms/NoStyledLink';
 import {
-  TITAN_LANDING_PAGE,
+  // TITAN_LANDING_PAGE,
   TITAN_GOOGLE_PLAY_STORE
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
@@ -67,7 +67,7 @@ const Info = (props: any) => {
             </ListItemText>
           </ListItem>
           <Divider />
-          <ListItem>
+          {/* <ListItem>
             <ListItemText>
               <NoStyledExternalLink
                 href={TITAN_LANDING_PAGE}
@@ -77,7 +77,7 @@ const Info = (props: any) => {
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>
-          <Divider />
+          <Divider /> */}
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink

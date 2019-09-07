@@ -2,35 +2,35 @@ import React, { useState } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Icon from '@material-ui/core/Icon';
+// import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
 import styled from 'styled-components';
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import {
-  TITAN_DISCORD_INVITE_URL,
-  TITAN_TWITTER_URL,
-  TITAN_BLOG_URL
+  TITAN_DISCORD_INVITE_URL
+  // TITAN_TWITTER_URL,
+  // TITAN_BLOG_URL
 } from '~/constants/appInfo';
-import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
-import { twitterColor } from '~/lib/theme';
+// import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
+// import { twitterColor } from '~/lib/theme';
 
 const { loadCSS } = require('fg-loadcss');
 
-const useStyles = makeStyles(theme => ({
-  twitter: {
-    margin: theme.spacing(2),
-    color: twitterColor
-  },
-  rss: {
-    margin: theme.spacing(2),
-    color: 'orange'
-  }
-}));
+// const useStyles = makeStyles(theme => ({
+//   twitter: {
+//     margin: theme.spacing(2),
+//     color: twitterColor
+//   },
+//   rss: {
+//     margin: theme.spacing(2),
+//     color: 'orange'
+//   }
+// }));
 
 const StyledRoot = styled.div`
   position: relative;
@@ -61,7 +61,7 @@ const Drawer = (props: any) => {
   const { isLogin, isAdmin, userId } = props;
   const [open, setOpen] = useState(false);
 
-  const classes = useStyles();
+  // const classes = useStyles();
 
   React.useEffect(() => {
     loadCSS(
@@ -129,14 +129,14 @@ const Drawer = (props: any) => {
             {isLogin && <Divider />}
             {isAdmin && <DrawerButton text="管理設定" to="/admin" />}
             {isAdmin && <Divider />}
-            <div style={{ textAlign: 'center' }}>
+            {/* <div style={{ textAlign: 'center' }}>
               <NoStyledExternalLink href={TITAN_TWITTER_URL}>
                 <Icon className={clsx(classes.twitter, 'fab fa-twitter')} />
               </NoStyledExternalLink>
               <NoStyledExternalLink href={TITAN_BLOG_URL}>
                 <Icon className={clsx(classes.rss, 'fas fa-rss')} />
               </NoStyledExternalLink>
-            </div>
+            </div> */}
           </StyledDrawer>
         </SwipeableDrawer>
       </StyledRoot>

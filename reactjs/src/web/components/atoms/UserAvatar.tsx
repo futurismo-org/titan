@@ -25,7 +25,16 @@ const UserAvatar = (props: any) => {
 
   return (
     <NoStyledLink to={path}>
-      <Avatar src={src} style={style} />
+      <Avatar
+        src={src}
+        style={style}
+        imgProps={{
+          onError: e => {
+            // @ts-ignore
+            e.target.src = ANONYMOUS_AVATAR_URL;
+          }
+        }}
+      />
     </NoStyledLink>
   );
 };
