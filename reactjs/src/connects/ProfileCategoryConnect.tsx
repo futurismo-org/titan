@@ -279,6 +279,7 @@ const mapStateToProps = (state: any, props: any) => {
     profileChallengesResourceId,
     categoryResourceId,
     userShortId,
+    categoryKind: category && category.kind,
     ...props
   };
 };

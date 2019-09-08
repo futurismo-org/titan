@@ -14,6 +14,7 @@ import { isMobile } from '~/web/lib/web';
 import ProfileCategoryResetChart from './ProfleCategoryResetChart';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+import { CATEGORY_KIND_BAD } from '~/lib/category';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -41,7 +42,8 @@ const ProfileCategory = (props: any) => {
     error,
     metadata,
     data,
-    userShortId
+    userShortId,
+    categoryKind
   } = props;
 
   useEffect(() => {
@@ -107,23 +109,29 @@ const ProfileCategory = (props: any) => {
                     />
                   </React.Fragment>
                 )}
-                <Title text="継続記録統計" />
-                <p>過去最高継続日数: {data.maxDays}日</p>
-                <p>最終リセット日時: {data.lastResetDate}</p>
-                <ProfileCategoryHistories histories={data.summerized} />
-                <br />
-                <br />
-                <Title text="リセット統計" />
-                <div>
-                  <h3>積算回数</h3>
-                  <ProfileCategoryResetChart data={data.resetAccs} />
-                </div>
-                <h3>時間帯別統計</h3>
-                <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
-                <h3>曜日別統計</h3>
-                <ProfileCategoryResetDaysOfTheWeekChart
-                  data={data.resetDaysOfTheWeek}
-                />
+                {categoryKind === CATEGORY_KIND_BAD && (
+                  <React.Fragment>
+                    <Title text="継続記録統計" />
+                    <p>過去最高継続日数: {data.maxDays}日</p>
+                    <p>最終リセット日時: {data.lastResetDate}</p>
+                    <ProfileCategoryHistories histories={data.summerized} />
+                    <br />
+                    <br />
+                    <Title text="リセット統計" />
+                    <div>
+                      <h3>積算回数</h3>
+                      <ProfileCategoryResetChart data={data.resetAccs} />
+                    </div>
+                    <h3>時間帯別統計</h3>
+                    <ProfileCategoryResetTimezoneChart
+                      data={data.resetTimezones}
+                    />
+                    <h3>曜日別統計</h3>
+                    <ProfileCategoryResetDaysOfTheWeekChart
+                      data={data.resetDaysOfTheWeek}
+                    />
+                  </React.Fragment>
+                )}
               </React.Fragment>
             ) : (
               <p>

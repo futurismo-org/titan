@@ -4,11 +4,18 @@ import Button from '@material-ui/core/Button';
 
 import shortid from 'shortid';
 import moment from 'moment';
-import { Switch } from '@material-ui/core';
+import {
+  Switch,
+  FormControl,
+  RadioGroup,
+  FormControlLabel,
+  Radio
+} from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import TextField from '~/web/components/atoms/TextField';
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
+import { CATEGORY_KIND_GOOD, CATEGORY_KIND_BAD } from '~/lib/category';
 
 const CategoryForm = (props: any) => {
   const { history } = props;
@@ -22,6 +29,7 @@ const CategoryForm = (props: any) => {
   const [sensitive, setSensitive] = useState(false);
   const [freezed, setFreezed] = useState(false);
   const [ios, setiOS] = useState(false);
+  const [kind, setKind] = useState(CATEGORY_KIND_GOOD);
 
   const [createdAt, setCreatedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -60,6 +68,11 @@ const CategoryForm = (props: any) => {
     setiOS(e.target.checked);
   };
 
+  const onKindChange = (e: any) => {
+    e.preventDefault();
+    setKind(e.target.value);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'カテゴリ新規投稿' : 'カテゴリ編集';
@@ -79,6 +92,7 @@ const CategoryForm = (props: any) => {
       sensitive,
       freezed,
       ios,
+      kind,
       challengeRefs:
         challengeRefs === ''
           ? null
@@ -124,6 +138,7 @@ const CategoryForm = (props: any) => {
           setSensitive(category!.sensitive ? category!.sensitive : false);
           setFreezed(category!.freezed ? category!.freezed : false);
           setiOS(category!.ios ? category!.ios : false);
+          setKind(category!.kind ? category!.kind : CATEGORY_KIND_GOOD);
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -173,12 +188,34 @@ const CategoryForm = (props: any) => {
           multiline
           onChange={onChallengeRefsChange}
         />
-        {'センシティブな内容'}
-        <Switch checked={sensitive} onChange={onSensitiveChange} />
-        {'凍結'}
-        <Switch checked={freezed} onChange={onFreezedChange} />
-        {'iOS非表示'}
-        <Switch checked={ios} onChange={oniOSChange} />
+        <div>
+          {'センシティブな内容'}
+          <Switch checked={sensitive} onChange={onSensitiveChange} />
+          {'凍結'}
+          <Switch checked={freezed} onChange={onFreezedChange} />
+          {'iOS非表示'}
+          <Switch checked={ios} onChange={oniOSChange} />
+        </div>
+        <FormControl component="fieldset">
+          <RadioGroup
+            aria-label="習慣の種類"
+            name="kind"
+            value={kind}
+            onChange={onKindChange}
+            row
+          >
+            <FormControlLabel
+              value={CATEGORY_KIND_GOOD}
+              control={<Radio color="primary" />}
+              label="よい習慣"
+            />
+            <FormControlLabel
+              value={CATEGORY_KIND_BAD}
+              control={<Radio color="primary" />}
+              label="悪い習慣"
+            />
+          </RadioGroup>
+        </FormControl>
         <TextField
           value={overview}
           variant="outlined"
