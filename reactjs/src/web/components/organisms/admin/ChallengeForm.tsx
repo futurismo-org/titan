@@ -7,10 +7,23 @@ import Switch from '@material-ui/core/Switch';
 import shortid from 'shortid';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
+import {
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio
+} from '@material-ui/core';
 import TextField from '~/web/components/atoms/TextField';
 
 import firebase from '~/lib/firebase';
 import MarkdownView from '../../atoms/MarkdownView';
+import {
+  RECORD_STRATEGY_SIMPLE,
+  RECORD_STRATEGY_MULTI,
+  RECORD_STRATEGY_RESET,
+  RECORD_STRATEGY_MULTI_RESET
+} from '../../../../constants/strategy';
 
 const ChallengeForm = (props: any) => {
   const { history } = props;
@@ -32,8 +45,8 @@ const ChallengeForm = (props: any) => {
   const [youtubeId, setYoutubeId] = useState('');
   const [sensitive, setSensitive] = useState(false);
   const [freezed, setFreezed] = useState(false);
-
   const [ios, setiOS] = useState(false);
+  const [recordStrategy, setRecordStrategy] = useState(RECORD_STRATEGY_SIMPLE);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -129,6 +142,11 @@ const ChallengeForm = (props: any) => {
     setiOS(e.target.checked);
   };
 
+  const onRecordStrategyChange = (e: any) => {
+    e.preventDefault();
+    setRecordStrategy(e.target.value);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
@@ -158,7 +176,8 @@ const ChallengeForm = (props: any) => {
       youtubeId,
       sensitive,
       freezed,
-      ios
+      ios,
+      recordStrategy
     };
     firebase
       .firestore()
@@ -203,6 +222,11 @@ const ChallengeForm = (props: any) => {
           setSensitive(challenge!.sensitive ? challenge!.sensitive : false);
           setFreezed(challenge!.freezed ? challenge!.freezed : false);
           setiOS(challenge!.ios ? challenge!.ios : false);
+          setRecordStrategy(
+            challenge!.recordStrategy
+              ? challenge!.recordStrategy
+              : RECORD_STRATEGY_SIMPLE
+          );
         });
     }
   }, [isCreate, props.match.params.id]);
@@ -338,6 +362,38 @@ const ChallengeForm = (props: any) => {
         <Switch checked={freezed} onChange={onFreezedChange} />
         {'iOS非表示'}
         <Switch checked={ios} onChange={oniOSChange} />
+        <h2>記録の設定</h2>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">記録ボタン制御</FormLabel>
+          <RadioGroup
+            aria-label="記録ボタン"
+            name="recordStrategy"
+            value={recordStrategy}
+            onChange={onRecordStrategyChange}
+            row
+          >
+            <FormControlLabel
+              value={RECORD_STRATEGY_SIMPLE}
+              control={<Radio color="primary" />}
+              label="記録"
+            />
+            <FormControlLabel
+              value={RECORD_STRATEGY_MULTI}
+              control={<Radio color="primary" />}
+              label="複数記録"
+            />
+            <FormControlLabel
+              value={RECORD_STRATEGY_RESET}
+              control={<Radio color="primary" />}
+              label="記録/リセット"
+            />
+            <FormControlLabel
+              value={RECORD_STRATEGY_MULTI_RESET}
+              control={<Radio color="primary" />}
+              label="複数記録/リセット"
+            />
+          </RadioGroup>
+        </FormControl>
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />

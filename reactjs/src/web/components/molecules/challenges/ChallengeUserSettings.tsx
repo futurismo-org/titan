@@ -19,6 +19,7 @@ import firebase from '~/lib/firebase';
 
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
+import { primaryColor } from '~/lib/theme';
 
 const db = firebase.firestore();
 
@@ -137,12 +138,12 @@ const ChallengeUserSettings = (props: any) => {
                       >
                         <FormControlLabel
                           value={ACC_DAYS}
-                          control={<Radio />}
+                          control={<Radio color="primary" />}
                           label={ACC_DAYS}
                         />
                         <FormControlLabel
                           value={PAST_DAYS}
-                          control={<Radio />}
+                          control={<Radio color="primary" />}
                           label={PAST_DAYS}
                         />
                       </RadioGroup>
