@@ -22,6 +22,10 @@ import { showGiphy } from '~/actions/giphyAction';
 import firebase from '~/lib/firebase';
 import { POST_TYPE_RECORD, POST_TYPE_RESET } from '~/constants/post';
 import { postUserChallengeHistory } from '~/lib/getstream';
+import {
+  RECORD_STRATEGY_SIMPLE,
+  RECORD_STRATEGY_MULTI
+} from '~/constants/strategy';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({ showGiphy }, dispatch);
@@ -253,7 +257,11 @@ ${dashBoardURL}`;
 
   return {
     recordHandler,
-    resetHandler,
+    resetHandler:
+      challenge.recordStrategy === RECORD_STRATEGY_SIMPLE ||
+      challenge.recordStrategy === RECORD_STRATEGY_MULTI
+        ? null
+        : resetHandler,
     participantsRef,
     hide,
     ...props

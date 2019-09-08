@@ -27,7 +27,7 @@ const ChallengePostController = (props: any) => {
     history.push
   );
 
-  const resetRecord = resetHandler(history.push);
+  const resetRecord = !!resetHandler && resetHandler(history.push);
 
   const confirm = (props: any) => {
     const { days } = props;
@@ -66,18 +66,20 @@ const ChallengePostController = (props: any) => {
                 >
                   記録する
                 </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => confirm(data)}
-                  style={{
-                    backgroundColor: brandWarning,
-                    color: brandWhite,
-                    marginLeft: 5,
-                    fontWeight: 'bold'
-                  }}
-                >
-                  リセット
-                </Button>
+                {!!resetHandler && (
+                  <Button
+                    variant="contained"
+                    onClick={() => confirm(data)}
+                    style={{
+                      backgroundColor: brandWarning,
+                      color: brandWhite,
+                      marginLeft: 5,
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    リセット
+                  </Button>
+                )}
               </div>
             </React.Fragment>
           )}

@@ -28,7 +28,8 @@ const ChallengePostController = (props: any) => {
     () => showGiphy('win')
   );
 
-  const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
+  const resetRecord =
+    !!resetHandler && resetHandler(history.push, () => showGiphy('lose'));
 
   const data = value && value.data();
   const recordDisabled = !isPostPossible(data && data.histories);
@@ -64,13 +65,15 @@ const ChallengePostController = (props: any) => {
               >
                 <Text>記録する</Text>
               </Button>
-              <Button
-                warning
-                style={{ margin: 2 }}
-                onPress={() => alert.open()}
-              >
-                <Text>リセット</Text>
-              </Button>
+              {!!resetHandler && (
+                <Button
+                  warning
+                  style={{ margin: 2 }}
+                  onPress={() => alert.open()}
+                >
+                  <Text>リセット</Text>
+                </Button>
+              )}
             </React.Fragment>
           )}
     </React.Fragment>

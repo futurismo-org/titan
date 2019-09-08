@@ -98,6 +98,15 @@ const ProfileCategory = (props: any) => {
             </div>
             {!isMobile ? (
               <React.Fragment>
+                {data.challenges.length !== 0 && (
+                  <React.Fragment>
+                    <Title text="チャレンジごとの実績" />
+                    <ProfileCategoryChallenges
+                      challenges={data.challenges}
+                      userShortId={userShortId}
+                    />
+                  </React.Fragment>
+                )}
                 <Title text="継続記録統計" />
                 <p>過去最高継続日数: {data.maxDays}日</p>
                 <p>最終リセット日時: {data.lastResetDate}</p>
@@ -114,11 +123,6 @@ const ProfileCategory = (props: any) => {
                 <h3>曜日別統計</h3>
                 <ProfileCategoryResetDaysOfTheWeekChart
                   data={data.resetDaysOfTheWeek}
-                />
-                <Title text="チャレンジごとの実績" />
-                <ProfileCategoryChallenges
-                  challenges={data.challenges}
-                  userShortId={userShortId}
                 />
               </React.Fragment>
             ) : (
