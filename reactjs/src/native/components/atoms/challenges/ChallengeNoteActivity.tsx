@@ -4,6 +4,7 @@ import { Activity, updateStyle } from 'expo-activity-feed';
 import { View, Text, Textarea } from 'native-base';
 import AlertPro from 'react-native-alert-pro';
 import RadioForm from 'react-native-simple-radio-button';
+import { Linking } from 'react-native';
 import { dummyImage } from '~/lib/post';
 import moment from '~/lib/moment';
 import {
@@ -41,7 +42,8 @@ const ActivityFooter = withRouter((props: any) => {
     history,
     location,
     setEdit,
-    edit
+    edit,
+    text
   } = props;
 
   const [alert, setAlert] = useState();
@@ -63,6 +65,11 @@ const ActivityFooter = withRouter((props: any) => {
       })
       .then(() => successToastWithNoRedirect('ノートを削除しました。'))
       .finally(handleClose);
+
+  const onTweet = () => {
+    const url = `https://twitter.com/intent/tweet?text=${text}`;
+    Linking.openURL(url);
+  };
 
   return (
     <React.Fragment>
@@ -89,12 +96,24 @@ const ActivityFooter = withRouter((props: any) => {
               保存
             </Text>
           ) : (
-            <Text
-              style={{ color: brandGray, fontSize: 14 }}
-              onPress={() => setEdit(true)}
-            >
-              編集
-            </Text>
+            <React.Fragment>
+              <Text
+                style={{
+                  color: brandGray,
+                  fontSize: 14,
+                  marginRight: 10
+                }}
+                onPress={onTweet}
+              >
+                Tweet
+              </Text>
+              <Text
+                style={{ color: brandGray, fontSize: 14 }}
+                onPress={() => setEdit(true)}
+              >
+                編集
+              </Text>
+            </React.Fragment>
           )}
           {!edit && (
             <View style={{ marginLeft: 10 }}>
@@ -206,6 +225,7 @@ const ChallengeNoteActivity = (props: any) => {
               type={type}
               edit={edit}
               setEdit={setEdit}
+              text={text}
             />
           )
         }
