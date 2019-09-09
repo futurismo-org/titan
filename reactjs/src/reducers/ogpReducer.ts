@@ -3,7 +3,7 @@ import { createReducer } from './reducuerUtil';
 
 const title = 'Titan | 自己変革の火をつけるアプリ';
 const description =
-  'オナ禁・エロ禁を中心とした、自己変革を支援するアプリです。継続できない、情報不足、自己嫌悪感という３つの課題に取り組みます。';
+  '自己変革を支援するアプリです。継続できない、情報不足、自己嫌悪感という３つの課題に取り組みます。';
 
 const urlMap = new Map();
 urlMap.set('development', 'https://titan-dev-1234.firebaseapp.com');
