@@ -13,6 +13,7 @@ import {
 } from '~/constants/post';
 import MarkdownView from '../../atoms/MarkdownView';
 import Flag from '~/native/containers/FlagContainer';
+import { ANONYMOUS_AVATAR_URL } from '~/lib/url';
 
 updateStyle('userBar', {
   username: {
@@ -45,7 +46,7 @@ const ChallengeTimelineItem = (props: any) => {
       data: {
         name: `${data.userName}さんが
 ${data.message}`,
-        profileImage: data.userPhotoURL
+        profileImage: data.userPhotoURL || ANONYMOUS_AVATAR_URL
       }
     },
     object: data.text,
