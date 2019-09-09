@@ -193,12 +193,24 @@ const ChallengeNoteMemo = (props: any) => {
     /* eslint-enable */
   };
 
+  const onTweet = () => {
+    const url = `https://twitter.com/intent/tweet?text=${buffer}`;
+    window.open(url, '_blank'); // eslint-disable-line
+  };
+
   const renderText = () => (
     <React.Fragment>
       <TextFieldView text={buffer} />
       {isMyProfile ? (
         <div style={{ textAlign: 'right' }}>
           <p>
+            <span
+              style={{ cursor: 'pointer', textDecorationLine: 'underline' }}
+              role="button"
+              onClick={onTweet}
+            >
+              Tweet
+            </span>{' '}
             <span
               style={{ cursor: 'pointer' }}
               role="button"
