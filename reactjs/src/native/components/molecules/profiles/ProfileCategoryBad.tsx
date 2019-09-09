@@ -27,7 +27,7 @@ const Subheading = (props: any) => {
   );
 };
 
-const ProfileCategory = (props: any) => {
+const ProfileCategoryBad = (props: any) => {
   const {
     categoryResourceId,
     profileCategoryResourceId,
@@ -148,4 +148,4 @@ const ProfileCategory = (props: any) => {
   );
 };
 
-export default withRouter(ProfileCategory);
+export default withRouter(ProfileCategoryBad);

@@ -16,7 +16,7 @@ import Announce from './Announce';
 import Meigen from './Meigen';
 import Document from './Document';
 import Contact from './Contact';
-import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
+import ProfileCategoryBad from '~/web/containers/ProfileCategoryBadContainer';
 
 const Home = (props: any) => {
   return (
@@ -29,7 +29,7 @@ const Home = (props: any) => {
         <Route path="/topics" render={props => <GeneralTopics {...props} />} />
         <Route
           path="/u/:userShortId/cat/:categoryId"
-          render={props => <ProfileCategory {...props} />}
+          render={props => <ProfileCategoryBad {...props} />}
         />
         <Route path="/u/:id" render={props => <Profile {...props} />} />
         <Route path="/users" render={props => <Users {...props} />} />

@@ -21,21 +21,6 @@ updateStyle('userBar', {
   }
 });
 
-const ActivityFooter = (props: any) => {
-  const { challengeId, noteId } = props;
-
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-end'
-      }}
-    >
-      <Flag challengeId={challengeId} noteId={noteId} />
-    </View>
-  );
-};
-
 const ChallengeTimelineItem = (props: any) => {
   const { history } = props;
 
