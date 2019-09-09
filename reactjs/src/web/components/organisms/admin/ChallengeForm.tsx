@@ -21,8 +21,7 @@ import MarkdownView from '../../atoms/MarkdownView';
 import {
   RECORD_STRATEGY_SIMPLE,
   RECORD_STRATEGY_MULTI,
-  RECORD_STRATEGY_RESET,
-  RECORD_STRATEGY_MULTI_RESET
+  RECORD_STRATEGY_RESET
 } from '../../../../constants/strategy';
 
 const ChallengeForm = (props: any) => {
@@ -386,11 +385,6 @@ const ChallengeForm = (props: any) => {
               value={RECORD_STRATEGY_RESET}
               control={<Radio color="primary" />}
               label="記録/リセット"
-            />
-            <FormControlLabel
-              value={RECORD_STRATEGY_MULTI_RESET}
-              control={<Radio color="primary" />}
-              label="複数記録/リセット"
             />
           </RadioGroup>
         </FormControl>

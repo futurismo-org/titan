@@ -247,8 +247,7 @@ const challengeSeeds = seed.collection('challenges', [
         .setHours(23, 59, 59, 59)
     ),
     price: 300,
-    pinned: true,
-    youtubeId: 'lTil2ukokrM'
+    pinned: true
   }),
   createChallengeSeed({
     id: MUSCLE_CHALLENGE_ID_LIST[1],

@@ -55,7 +55,10 @@ const mapStateToProps = (state: any, props: any) => {
       displayName
     } = props;
 
-    if (!isPostPossible(histories)) {
+    if (
+      challenge.kind === RECORD_STRATEGY_SIMPLE &&
+      !isPostPossible(histories)
+    ) {
       alert && alert('記録の投稿は1日1回までです。');
       return;
     }
