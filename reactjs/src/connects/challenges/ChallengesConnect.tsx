@@ -5,9 +5,9 @@ import moment from '~/lib/moment';
 import { isChallengeOpening, isChallengeClosed } from '~/lib/challenge';
 
 const mapStateToProps = (state: any, props: any) => {
-  const items = state.firestore.data.challenges;
+  const items = state.firestore.ordered.challenges;
   const challenges = isLoaded(items)
-    ? Object.values(items).filter((item: any) => !item.freezed)
+    ? items.filter((item: any) => !item.freezed)
     : [];
 
   const preOpenChallenges = challenges.filter((challenge: any) =>

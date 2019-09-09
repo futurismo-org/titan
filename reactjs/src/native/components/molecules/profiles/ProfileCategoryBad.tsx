@@ -29,10 +29,8 @@ const Subheading = (props: any) => {
 
 const ProfileCategoryBad = (props: any) => {
   const {
-    categoryResourceId,
     profileCategoryResourceId,
     fetchProfileCategory,
-    fetchCategory,
     profileCategoryHistoriesResourceId,
     fetchHistories,
     fetchProfileChallenges,
@@ -48,12 +46,9 @@ const ProfileCategoryBad = (props: any) => {
 
   useEffect(() => {
     fetchProfileCategory(profileCategoryResourceId);
-    fetchCategory(categoryResourceId);
     fetchHistories(profileCategoryHistoriesResourceId);
     fetchProfileChallenges(profileChallengesResourceId);
   }, [
-    categoryResourceId,
-    fetchCategory,
     fetchHistories,
     fetchProfileCategory,
     fetchProfileChallenges,

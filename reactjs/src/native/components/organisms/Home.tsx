@@ -6,7 +6,7 @@ import Categories from '~/native/containers/CategoriesContainer';
 import Users from '~/native/containers/UsersContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
-import ProfileCategoryBad from '~/native/containers/ProfileCategoryBadContainer';
+import ProfileCategory from '~/native/containers/ProfileCategoryContainer';
 import Auth from '~/native/containers/AuthContainer';
 import Layout from '../templates/PaddingLayout';
 import Info from './Info';
@@ -45,7 +45,7 @@ const Home = (props: any) => {
         />
         <Route
           path="/u/:userShortId/cat/:categoryId"
-          render={props => <ProfileCategoryBad {...props} />}
+          render={props => <ProfileCategory {...props} />}
         />
         <Route path="/" render={props => <DashBoard {...props} />} />
       </Switch>
