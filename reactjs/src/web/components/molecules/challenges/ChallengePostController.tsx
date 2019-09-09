@@ -18,7 +18,14 @@ const StyledCenterContainer = styled.div`
 `;
 
 const ChallengePostController = (props: any) => {
-  const { history, recordHandler, resetHandler, hide, participantsRef } = props;
+  const {
+    history,
+    recordHandler,
+    resetHandler,
+    hide,
+    participantsRef,
+    recordStrategy
+  } = props;
 
   const [value, loading, error] = useDocument(participantsRef);
 
@@ -42,7 +49,10 @@ const ChallengePostController = (props: any) => {
 
   const data = value && value.data();
 
-  const recordDisabled = !isPostPossible(data && data.histories);
+  const recordDisabled = !isPostPossible(
+    data && data.histories,
+    recordStrategy
+  );
 
   return (
     <StyledCenterContainer>

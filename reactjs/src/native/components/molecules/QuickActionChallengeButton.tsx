@@ -21,7 +21,8 @@ const QuickActionChallengeButton = (props: any) => {
     !!resetHandler && resetHandler(history.push, () => showGiphy('lose'));
 
   const challenge = value && value.data();
-  const recordDisabled = !isPostPossible(challenge && challenge.histories);
+  const recordDisabled =
+    challenge && !isPostPossible(challenge.histories, challenge.recordStrategy);
 
   return (
     <React.Fragment>

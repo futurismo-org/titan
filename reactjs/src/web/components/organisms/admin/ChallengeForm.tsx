@@ -46,6 +46,7 @@ const ChallengeForm = (props: any) => {
   const [freezed, setFreezed] = useState(false);
   const [ios, setiOS] = useState(false);
   const [recordStrategy, setRecordStrategy] = useState(RECORD_STRATEGY_SIMPLE);
+  const [postLimitPerDay, setPostLimitPerDay] = useState(1);
 
   const [openedAt, setOpenedAt] = useState(
     moment(new Date()).format('YYYY-MM-DD')
@@ -146,6 +147,11 @@ const ChallengeForm = (props: any) => {
     setRecordStrategy(e.target.value);
   };
 
+  const onPostLimitPerDayChange = (e: any) => {
+    e.preventDefault();
+    setPostLimitPerDay(e.target.value);
+  };
+
   const isCreate = props.match.params.id === undefined;
 
   const pageTitle = isCreate ? 'チャレンジ新規投稿' : 'チャレンジ編集';
@@ -167,7 +173,7 @@ const ChallengeForm = (props: any) => {
       categoryRef: firebase.firestore().doc(categoryRef),
       openedAt: new Date(new Date(openedAt).setHours(0, 0, 0, 0)),
       closedAt: new Date(new Date(closedAt).setHours(23, 59, 59, 59)),
-      participantsCount,
+      participantsCount: Number(participantsCount),
       price: Number(price),
       hashtag,
       draft,
@@ -176,7 +182,8 @@ const ChallengeForm = (props: any) => {
       sensitive,
       freezed,
       ios,
-      recordStrategy
+      recordStrategy,
+      postLimitPerDay: Number(postLimitPerDay)
     };
     firebase
       .firestore()
@@ -225,6 +232,9 @@ const ChallengeForm = (props: any) => {
             challenge!.recordStrategy
               ? challenge!.recordStrategy
               : RECORD_STRATEGY_SIMPLE
+          );
+          setPostLimitPerDay(
+            challenge!.postLimitPerDay ? challenge!.postLimitPerDay : 1
           );
         });
     }
@@ -388,6 +398,15 @@ const ChallengeForm = (props: any) => {
             />
           </RadioGroup>
         </FormControl>
+        <TextField
+          value={postLimitPerDay}
+          variant="outlined"
+          margin="normal"
+          id="length"
+          disabled={recordStrategy !== RECORD_STRATEGY_MULTI}
+          label="最大投稿スコアカウント数"
+          onChange={onPostLimitPerDayChange}
+        />
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />

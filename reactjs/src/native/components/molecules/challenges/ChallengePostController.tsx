@@ -15,7 +15,8 @@ const ChallengePostController = (props: any) => {
     resetHandler,
     hide,
     participantsRef,
-    showGiphy
+    showGiphy,
+    recordStrategy
   } = props;
 
   const [alert, setAlert] = useState();
@@ -32,7 +33,10 @@ const ChallengePostController = (props: any) => {
     !!resetHandler && resetHandler(history.push, () => showGiphy('lose'));
 
   const data = value && value.data();
-  const recordDisabled = !isPostPossible(data && data.histories);
+  const recordDisabled = !isPostPossible(
+    data && data.histories,
+    recordStrategy
+  );
 
   return (
     <React.Fragment>

@@ -23,8 +23,8 @@ import firebase from '~/lib/firebase';
 import { POST_TYPE_RECORD, POST_TYPE_RESET } from '~/constants/post';
 import { postUserChallengeHistory } from '~/lib/getstream';
 import {
-  RECORD_STRATEGY_SIMPLE,
-  RECORD_STRATEGY_MULTI
+  RECORD_STRATEGY_MULTI,
+  RECORD_STRATEGY_SIMPLE
 } from '~/constants/strategy';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -55,20 +55,36 @@ const mapStateToProps = (state: any, props: any) => {
       displayName
     } = props;
 
-    if (
-      challenge.kind === RECORD_STRATEGY_SIMPLE &&
-      !isPostPossible(histories)
-    ) {
+    if (!isPostPossible(histories, challenge.recordStrategy)) {
       alert && alert('記録の投稿は1日1回までです。');
       return;
     }
 
-    const tomorrow = !isDaysValid(days) ? 1 : days + 1;
-    const newPastDays = !isDaysValid(pastDays) ? 1 : pastDays + 1;
-    const newScore = score + 1;
-    const newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
-    const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
+    let tomorrow: number;
+    let newScore: number;
+    let newPastDays: number;
+    let newAccDays: number;
 
+    if (challenge.recordStrategy === RECORD_STRATEGY_MULTI) {
+      tomorrow = !isDaysValid(days) ? 1 : days;
+      newPastDays = !isDaysValid(pastDays) ? 1 : pastDays;
+      newAccDays = !isDaysValid(accDays) ? 1 : accDays;
+      if (
+        histories.filter((history: any) => isToday(history.timestamp.toDate()))
+          .length < challenge.postLimitPerDay
+      ) {
+        newScore = score + 1;
+      } else {
+        newScore = score;
+      }
+    } else {
+      tomorrow = !isDaysValid(days) ? 1 : days + 1;
+      newPastDays = !isDaysValid(pastDays) ? 1 : pastDays + 1;
+      newScore = score + 1;
+      newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
+    }
+
+    const newMaxDays = tomorrow > maxDays ? tomorrow : maxDays;
     const historyId = shortId.generate();
 
     const newHistory = {
@@ -267,6 +283,7 @@ ${dashBoardURL}`;
         : resetHandler,
     participantsRef,
     hide,
+    recordStrategy: challenge.recordStrategy,
     ...props
   };
 };
