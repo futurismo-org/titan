@@ -7,7 +7,7 @@ import { isChallengeOpening, isChallengeClosed } from '~/lib/challenge';
 const mapStateToProps = (state: any, props: any) => {
   const items = state.firestore.data.challenges;
   const challenges = isLoaded(items)
-    ? Object.values(items).filter((item: any) => !item.freezed)
+    ? Object.values(items).filter((item: any) => !item.freezed && !item.draft)
     : [];
 
   const preOpenChallenges = challenges.filter((challenge: any) =>
