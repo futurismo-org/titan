@@ -97,7 +97,7 @@ const QuickActionList = (props: any) => {
       {error && <Error error={error} />}
       {<Spinner visible={loading} />}
       {!loading && challenges && (
-        <View>
+        <View style={{ marginBottom: 60 }}>
           <Content padder>
             <Title text="クイックアクション" />
             {challenges.map((challenge: any) => (
