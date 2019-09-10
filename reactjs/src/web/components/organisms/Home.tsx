@@ -8,7 +8,7 @@ import Challenge from '~/web/containers/challenges/ChallengeContainer';
 import Layout from '../templates/DefaultLayout';
 import Categories from '~/web/containers/CategoriesContainer';
 import Category from '~/web/containers/CategoryContainer';
-import Users from '../../containers/UsersContainer';
+// import Users from '../../containers/UsersContainer';
 import Settings from '~/web/containers/SettingsContainer';
 import Profile from '~/web/containers/ProfileContainer';
 import Info from './Info';
@@ -32,7 +32,7 @@ const Home = (props: any) => {
           render={props => <ProfileCategory {...props} />}
         />
         <Route path="/u/:id" render={props => <Profile {...props} />} />
-        <Route path="/users" render={props => <Users {...props} />} />
+        {/* <Route path="/users" render={props => <Users {...props} />} /> */}
         <Route path="/settings" render={props => <Settings {...props} />} />
         <Route
           path="/info/announce"
