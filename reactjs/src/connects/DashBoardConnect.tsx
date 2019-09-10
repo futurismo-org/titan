@@ -20,6 +20,7 @@ const mapStateToProps = (state: any, props: any) => {
     state.firestore.ordered.challenges
       .filter(
         (challenge: any) =>
+          !challenge.draft &&
           !challenge.freezed &&
           !challenge.sensitive &&
           !challenge.ios && // みための統一のためAndroidも含めてDashbardでは表示しない。
