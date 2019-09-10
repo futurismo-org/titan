@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-native';
 import DashBoard from '~/native/containers/DashBoardContainer';
 import Challenges from '~/native/containers/challenges/ChallengesContainer';
 import Categories from '~/native/containers/CategoriesContainer';
-import Users from '~/native/containers/UsersContainer';
+// import Users from '~/native/containers/UsersContainer';
 import Settings from '~/native/containers/SettingsContainer';
 import GeneralTopics from '~/native/components/molecules/GeneralTopics';
 import ProfileCategory from '~/native/containers/ProfileCategoryContainer';
@@ -19,7 +19,7 @@ const Home = (props: any) => {
     <Layout>
       <Switch>
         <Route path="/settings" render={props => <Settings {...props} />} />
-        <Route path="/users" render={props => <Users {...props} />} />
+        {/* <Route path="/users" render={props => <Users {...props} />} /> */}
         <Route path="/topics" render={props => <GeneralTopics {...props} />} />
         <Route path="/categories" render={props => <Categories {...props} />} />
         <Route path="/challenges" render={props => <Challenges {...props} />} />

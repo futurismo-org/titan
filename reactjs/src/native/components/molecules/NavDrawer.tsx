@@ -12,7 +12,7 @@ import {
 } from '~/constants/appInfo';
 
 import UserAvatar from '~/native/components/atoms/UserAvatar';
-import { twitterColor } from '~/lib/theme';
+// import { twitterColor } from '~/lib/theme';
 
 const NavDrawer = (props: any) => {
   const {
@@ -35,7 +35,7 @@ const NavDrawer = (props: any) => {
     { title: 'チャレンジ', key: '3', path: '/challenges' },
     { title: 'カテゴリ', key: '4', path: '/categories' },
     { title: 'トピック', key: '5', path: '/topics' },
-    { title: 'ランキング', key: '6', path: '/users' },
+    // { title: 'ランキング', key: '6', path: '/users' },
     {
       title: 'チャット',
       key: '7',
