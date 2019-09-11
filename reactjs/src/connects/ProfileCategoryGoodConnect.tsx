@@ -9,7 +9,9 @@ import { fetchHistories } from '~/actions/historyAction';
 import moment, {
   isClosed,
   formatDatetime,
-  formatYearDateLong
+  formatYearDateLong,
+  formatDateShort,
+  formatYearMonth
 } from '~/lib/moment';
 import { RESET, RECORD } from '~/lib/challenge';
 import { wrapShowN } from '~/lib/general';
@@ -184,7 +186,7 @@ const aggregateTimezone = (histories: any) => {
 const aggregateByWeek = (histories: any) => {
   const records = histories.filter((history: any) => history.type === RECORD);
 
-  const map = records.reduce((result: any, current: any) => {
+  const weeks = records.reduce((result: any, current: any) => {
     const weeksFromToday = moment(current.timestamp.toDate()).diff(
       moment(),
       'weeks'
@@ -205,7 +207,56 @@ const aggregateByWeek = (histories: any) => {
     return result;
   }, []);
 
-  return map;
+  return weeks
+    .map((data: any) => {
+      return {
+        duration: formatDateShort(
+          moment()
+            .subtract(data.duration, 'weeks')
+            .toDate()
+        ),
+        count: data.count
+      };
+    })
+    .reverse();
+};
+
+const aggregateByMonth = (histories: any) => {
+  const records = histories.filter((history: any) => history.type === RECORD);
+
+  const months = records.reduce((result: any, current: any) => {
+    const monthsFromToday = moment(current.timestamp.toDate()).diff(
+      moment(),
+      'months'
+    );
+
+    const element = result.find((p: any) => {
+      return p.duration === monthsFromToday;
+    });
+
+    if (element) {
+      element.count++;
+    } else {
+      result.push({
+        duration: monthsFromToday,
+        count: 1
+      });
+    }
+    return result;
+  }, []);
+
+  return months
+    .map((data: any) => {
+      return {
+        duration: formatYearMonth(
+          moment()
+            .subtract(data.duration, 'months')
+            .toDate()
+        ),
+        count: data.count
+      };
+    })
+    .reverse();
 };
 
 const mapStateToProps = (state: any, props: any) => {
@@ -245,6 +296,7 @@ const mapStateToProps = (state: any, props: any) => {
   const recordTimezones = aggregateTimezone(histories);
   const recordDaysOfTheWeek = aggregateDayOfTheWeek(histories);
   const recordAccWeeks = aggregateByWeek(histories);
+  const recordAccMonths = aggregateByMonth(histories);
 
   const resets = histories.filter((history: any) => history.type === RESET);
   const lastResetDate =
@@ -260,6 +312,7 @@ const mapStateToProps = (state: any, props: any) => {
       lastResetDate,
       summerized,
       recordAccWeeks,
+      recordAccMonths,
       challenges: challengeResults,
       recordTimezones,
       recordDaysOfTheWeek

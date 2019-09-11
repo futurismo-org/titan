@@ -108,7 +108,7 @@ const ProfileCategoryGood = (props: any) => {
                   <h3>積算回数(週別)</h3>
                   <ProfileCategoryRecordChart data={data.recordAccWeeks} />
                   <h3>積算回数(月別)</h3>
-                  <ProfileCategoryRecordChart data={data.resetAccs} />
+                  <ProfileCategoryRecordChart data={data.recordAccMonths} />
                   <h3>時間帯別統計</h3>
                   <ProfileCategoryResetTimezoneChart
                     data={data.recordTimezones}
