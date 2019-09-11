@@ -18,7 +18,7 @@ const ProfileCategoryResetChart = (props: any) => {
       <LineChart data={data}>
         <CartesianGrid />
         <XAxis dataKey="date" />
-        <YAxis />
+        <YAxis allowDecimals={false} />
         <Tooltip />
         <Legend />
         <Line

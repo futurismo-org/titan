@@ -11,13 +11,13 @@ import {
 } from 'recharts';
 import { primaryColor } from '~/lib/theme';
 
-const ProfileCategoryResetTimezoneChart = (props: any) => {
+const ProfileCategoryRecordChart = (props: any) => {
   const { data } = props;
   return (
     <ResponsiveContainer width="99%" aspect={4}>
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="hour" />
+        <XAxis dataKey="duration" />
         <YAxis allowDecimals={false} />
         <Tooltip />
         <Legend />
@@ -27,4 +27,4 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
   );
 };
 
-export default ProfileCategoryResetTimezoneChart;
+export default ProfileCategoryRecordChart;

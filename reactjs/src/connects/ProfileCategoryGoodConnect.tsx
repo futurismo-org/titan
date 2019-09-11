@@ -7,7 +7,6 @@ import {
 } from '~/actions/profileAction';
 import { fetchHistories } from '~/actions/historyAction';
 import moment, {
-  formatDateShort,
   isClosed,
   formatDatetime,
   formatYearDateLong
@@ -103,20 +102,6 @@ const summerizeChallenges = (challenges: any, categoryId: string) => {
     });
 };
 
-const calcAccHistories = (histories: any) => {
-  const resets = histories.filter((history: any) => history.type === RESET);
-
-  let count = 0;
-  return resets.map((data: any) => {
-    count++;
-
-    return {
-      count,
-      date: formatDateShort(data.timestamp.toDate())
-    };
-  });
-};
-
 const aggregateDayOfTheWeek = (histories: any) => {
   const records = histories.filter((history: any) => history.type === RECORD);
 
@@ -196,6 +181,33 @@ const aggregateTimezone = (histories: any) => {
   });
 };
 
+const aggregateByWeek = (histories: any) => {
+  const records = histories.filter((history: any) => history.type === RECORD);
+
+  const map = records.reduce((result: any, current: any) => {
+    const weeksFromToday = moment(current.timestamp.toDate()).diff(
+      moment(),
+      'weeks'
+    );
+
+    const element = result.find((p: any) => {
+      return p.duration === weeksFromToday;
+    });
+
+    if (element) {
+      element.count++;
+    } else {
+      result.push({
+        duration: weeksFromToday,
+        count: 1
+      });
+    }
+    return result;
+  }, []);
+
+  return map;
+};
+
 const mapStateToProps = (state: any, props: any) => {
   const { category, userShortId } = props;
   const categoryId = category.id;
@@ -230,9 +242,9 @@ const mapStateToProps = (state: any, props: any) => {
   const summerized = summerizeHistories(histories);
   const challengeResults = summerizeChallenges(challenges, categoryId);
 
-  const resetAccData = calcAccHistories(histories);
   const recordTimezones = aggregateTimezone(histories);
   const recordDaysOfTheWeek = aggregateDayOfTheWeek(histories);
+  const recordAccWeeks = aggregateByWeek(histories);
 
   const resets = histories.filter((history: any) => history.type === RESET);
   const lastResetDate =
@@ -247,7 +259,7 @@ const mapStateToProps = (state: any, props: any) => {
       maxDays: wrapShowN(profileCategory.maxDays),
       lastResetDate,
       summerized,
-      resetAccs: resetAccData,
+      recordAccWeeks,
       challenges: challengeResults,
       recordTimezones,
       recordDaysOfTheWeek

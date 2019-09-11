@@ -10,10 +10,10 @@ import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import { isMobile } from '~/web/lib/web';
-import ProfileCategoryResetChart from './ProfleCategoryResetChart';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
 import { CATEGORY_KIND_GOOD } from '~/lib/category';
+import ProfileCategoryRecordChart from './ProfleCategoryRecordChart';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -105,10 +105,10 @@ const ProfileCategoryGood = (props: any) => {
                 )}
                 <React.Fragment>
                   <Title text="記録統計" />
-                  <div>
-                    <h3>積算回数</h3>
-                    <ProfileCategoryResetChart data={data.resetAccs} />
-                  </div>
+                  <h3>積算回数(週別)</h3>
+                  <ProfileCategoryRecordChart data={data.recordAccWeeks} />
+                  <h3>積算回数(月別)</h3>
+                  <ProfileCategoryRecordChart data={data.resetAccs} />
                   <h3>時間帯別統計</h3>
                   <ProfileCategoryResetTimezoneChart
                     data={data.recordTimezones}
