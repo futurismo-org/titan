@@ -14,6 +14,7 @@ import { isMobile } from '~/web/lib/web';
 import ProfileCategoryResetChart from './ProfleCategoryResetChart';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+import { CATEGORY_KIND_BAD } from '~/lib/category';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -99,6 +100,7 @@ const ProfileCategoryBad = (props: any) => {
                     <ProfileCategoryChallenges
                       challenges={data.challenges}
                       userShortId={userShortId}
+                      categoryKind={CATEGORY_KIND_BAD}
                     />
                   </React.Fragment>
                 )}

@@ -8,12 +8,12 @@ import ChallengePostRecord from '../challenges/ChallengePostRecord';
 
 import Paper from '../../templates/PaperWrapper';
 import NoStyledLink from '../../atoms/NoStyledLink';
-import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import { isMobile } from '~/web/lib/web';
 import ProfileCategoryResetChart from './ProfleCategoryResetChart';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+import { CATEGORY_KIND_GOOD } from '~/lib/category';
 
 const CategoryButton = (props: any) => {
   const { categoryTitle, categoryId } = props;
@@ -27,7 +27,7 @@ const CategoryButton = (props: any) => {
   );
 };
 
-const ProfileCategoryBad = (props: any) => {
+const ProfileCategoryGood = (props: any) => {
   const {
     profileCategoryResourceId,
     fetchProfileCategory,
@@ -87,7 +87,7 @@ const ProfileCategoryBad = (props: any) => {
               >
                 <ChallengePostRecord days={data.days} />
                 <p style={{ fontSize: 20, textDecorationLine: 'underline' }}>
-                  {data.myBest}
+                  {metadata.joinedDate}
                 </p>
               </div>
             </div>
@@ -99,28 +99,23 @@ const ProfileCategoryBad = (props: any) => {
                     <ProfileCategoryChallenges
                       challenges={data.challenges}
                       userShortId={userShortId}
+                      categoryKind={CATEGORY_KIND_GOOD}
                     />
                   </React.Fragment>
                 )}
                 <React.Fragment>
-                  <Title text="継続記録統計" />
-                  <p>過去最高継続日数: {data.maxDays}日</p>
-                  <p>最終リセット日時: {data.lastResetDate}</p>
-                  <ProfileCategoryHistories histories={data.summerized} />
-                  <br />
-                  <br />
-                  <Title text="リセット統計" />
+                  <Title text="記録統計" />
                   <div>
                     <h3>積算回数</h3>
                     <ProfileCategoryResetChart data={data.resetAccs} />
                   </div>
                   <h3>時間帯別統計</h3>
                   <ProfileCategoryResetTimezoneChart
-                    data={data.resetTimezones}
+                    data={data.recordTimezones}
                   />
                   <h3>曜日別統計</h3>
                   <ProfileCategoryResetDaysOfTheWeekChart
-                    data={data.resetDaysOfTheWeek}
+                    data={data.recordDaysOfTheWeek}
                   />
                 </React.Fragment>
               </React.Fragment>
@@ -135,4 +130,4 @@ const ProfileCategoryBad = (props: any) => {
   );
 };
 
-export default ProfileCategoryBad;
+export default ProfileCategoryGood;

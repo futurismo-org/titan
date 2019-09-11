@@ -9,9 +9,10 @@ import { fetchHistories } from '~/actions/historyAction';
 import moment, {
   formatDateShort,
   isClosed,
-  formatDatetime
+  formatDatetime,
+  formatYearDateLong
 } from '~/lib/moment';
-import { RESET } from '~/lib/challenge';
+import { RESET, RECORD } from '~/lib/challenge';
 import { wrapShowN } from '~/lib/general';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -92,6 +93,7 @@ const summerizeChallenges = (challenges: any, categoryId: string) => {
         id: challenge.id,
         title: challenge.title,
         totalDuration: challenge.totalDuration,
+        totalCount: challenge.totalCount,
         resetCount: challenge.resetCount,
         percentage: challenge.totalDuration
           ? ((challenge.resetCount / challenge.totalDuration) * 100).toFixed(0)
@@ -116,9 +118,9 @@ const calcAccHistories = (histories: any) => {
 };
 
 const aggregateDayOfTheWeek = (histories: any) => {
-  const resets = histories.filter((history: any) => history.type === RESET);
+  const records = histories.filter((history: any) => history.type === RECORD);
 
-  const map = resets.reduce((result: any, current: any) => {
+  const map = records.reduce((result: any, current: any) => {
     const day = current.timestamp.toDate().getDay();
 
     const element = result.find((p: any) => {
@@ -161,9 +163,9 @@ const aggregateDayOfTheWeek = (histories: any) => {
 };
 
 const aggregateTimezone = (histories: any) => {
-  const resets = histories.filter((history: any) => history.type === RESET);
+  const records = histories.filter((history: any) => history.type === RECORD);
 
-  const map = resets.reduce((result: any, current: any) => {
+  const map = records.reduce((result: any, current: any) => {
     const hour = current.timestamp.toDate().getHours();
 
     const element = result.find((p: any) => {
@@ -208,12 +210,16 @@ const mapStateToProps = (state: any, props: any) => {
     category && profileCategory
       ? `${profileCategory.userDisplayName}さんの記録`
       : '';
+  const joinedDate = `${formatYearDateLong(
+    category.createdAt.toDate()
+  )}から開始`;
 
   const metadata = category && {
     categoryTitle: category.title,
     categoryDescription: category.description,
     categoryId: category.id,
-    headline
+    headline,
+    joinedDate
   };
 
   const histories = state.history.items.sort(
@@ -225,8 +231,8 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeResults = summerizeChallenges(challenges, categoryId);
 
   const resetAccData = calcAccHistories(histories);
-  const resetTimezones = aggregateTimezone(histories);
-  const resetDaysOfTheWeek = aggregateDayOfTheWeek(histories);
+  const recordTimezones = aggregateTimezone(histories);
+  const recordDaysOfTheWeek = aggregateDayOfTheWeek(histories);
 
   const resets = histories.filter((history: any) => history.type === RESET);
   const lastResetDate =
@@ -236,22 +242,15 @@ const mapStateToProps = (state: any, props: any) => {
 
   let data;
   if (profileCategory) {
-    const myBest = !profileCategory.toMaxDays
-      ? ''
-      : profileCategory.toMaxDays !== 0
-      ? `自己ベスト更新まであと${profileCategory.toMaxDays}日`
-      : '自己ベスト更新中！';
-
     data = {
       days: wrapShowN(profileCategory.days),
       maxDays: wrapShowN(profileCategory.maxDays),
       lastResetDate,
-      myBest,
       summerized,
       resetAccs: resetAccData,
       challenges: challengeResults,
-      resetTimezones,
-      resetDaysOfTheWeek
+      recordTimezones,
+      recordDaysOfTheWeek
     };
   } else {
     data = {};
