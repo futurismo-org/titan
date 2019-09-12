@@ -66,16 +66,27 @@ const mapStateToProps = (state: any, props: any) => {
     let newAccDays: number;
 
     if (challenge.recordStrategy === RECORD_STRATEGY_MULTI) {
-      tomorrow = !isDaysValid(days) ? 1 : days;
-      newPastDays = !isDaysValid(pastDays) ? 1 : pastDays;
-      newAccDays = !isDaysValid(accDays) ? 1 : accDays;
       if (
+        histories.filter((history: any) => isToday(history.timestamp.toDate()))
+          .length === 0
+      ) {
+        tomorrow = !isDaysValid(days) ? 1 : days + 1;
+        newPastDays = !isDaysValid(pastDays) ? 1 : pastDays + 1;
+        newScore = score + 1;
+        newAccDays = !isDaysValid(accDays) ? 1 : accDays + 1;
+      } else if (
         histories.filter((history: any) => isToday(history.timestamp.toDate()))
           .length < challenge.postLimitPerDay
       ) {
         newScore = score + 1;
+        tomorrow = !isDaysValid(days) ? 1 : days;
+        newPastDays = !isDaysValid(pastDays) ? 1 : pastDays;
+        newAccDays = !isDaysValid(accDays) ? 1 : accDays;
       } else {
         newScore = score;
+        tomorrow = !isDaysValid(days) ? 1 : days;
+        newPastDays = !isDaysValid(pastDays) ? 1 : pastDays;
+        newAccDays = !isDaysValid(accDays) ? 1 : accDays;
       }
     } else {
       tomorrow = !isDaysValid(days) ? 1 : days + 1;
