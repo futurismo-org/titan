@@ -11,7 +11,8 @@ const QuickActionChallengeButton = (props: any) => {
     resetHandler,
     history,
     showGiphy,
-    participantsRef
+    participantsRef,
+    recordStrategy
   } = props;
 
   const [value, loading, error] = useDocument(participantsRef);
@@ -22,7 +23,7 @@ const QuickActionChallengeButton = (props: any) => {
 
   const challenge = value && value.data();
   const recordDisabled =
-    challenge && !isPostPossible(challenge.histories, challenge.recordStrategy);
+    challenge && !isPostPossible(challenge.histories, recordStrategy);
 
   return (
     <React.Fragment>
