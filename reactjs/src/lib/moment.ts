@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment, { months } from 'moment';
 import 'moment/locale/ja';
 
 moment.locale('ja');
@@ -29,6 +29,10 @@ export const formatDatetimeShort = (date: Date): string =>
   moment(date).format('MM/DD HH:mm');
 
 export const formatYearDate = (date: Date) => moment(date).format('YYYY/MM/DD');
+export const formatYearDateLong = (date: Date) =>
+  moment(date).format('YYYY年MM月DD日');
+
+export const formatYearMonth = (date: Date) => moment(date).format('YYYY/MM');
 
 export const toISOLocalString = (d: Date) => {
   var z = (n: number) => (n < 10 ? '0' : '') + n;

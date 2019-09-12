@@ -17,10 +17,12 @@ const QuickActionChallengeButton = (props: any) => {
   const [value, loading, error] = useDocument(participantsRef);
 
   const writeRecord = recordHandler(null, history.push, () => showGiphy('win'));
-  const resetRecord = resetHandler(history.push, () => showGiphy('lose'));
+  const resetRecord =
+    !!resetHandler && resetHandler(history.push, () => showGiphy('lose'));
 
   const challenge = value && value.data();
-  const recordDisabled = !isPostPossible(challenge && challenge.histories);
+  const recordDisabled =
+    challenge && !isPostPossible(challenge.histories, challenge.recordStrategy);
 
   return (
     <React.Fragment>
@@ -37,11 +39,13 @@ const QuickActionChallengeButton = (props: any) => {
               <Text>記録する</Text>
             </Button>
           </Col>
-          <Col>
-            <Button full warning onPress={() => resetRecord(challenge)}>
-              <Text>リセット</Text>
-            </Button>
-          </Col>
+          {!!resetHandler && (
+            <Col>
+              <Button full warning onPress={() => resetRecord(challenge)}>
+                <Text>リセット</Text>
+              </Button>
+            </Col>
+          )}
         </React.Fragment>
       )}
     </React.Fragment>

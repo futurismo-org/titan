@@ -18,7 +18,7 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="day" />
-        <YAxis />
+        <YAxis allowDecimals={false} />
         <Tooltip />
         <Legend />
         <Bar dataKey="count" fill={primaryColor} />

@@ -28,15 +28,15 @@ export const GETUP_CHALLENGE_ID_LIST = [shortId.generate()];
 export const TITAN_USER_SHORT_ID = '4Lsomlnzla';
 export const TSUNE_USER_SHORT_ID = 'QQzMg4NKUq';
 
-export const DUMMY_USER_ID_LIST = [...Array(50).keys()].map((n: number) =>
+export const DUMMY_USER_ID_LIST = [...Array(30).keys()].map((n: number) =>
   shortId.generate()
 );
 
-export const DUMMY_TOPIC_ID_LIST = [...Array(100).keys()].map(
-  (n: number) => DUMMY_USER_ID_LIST[faker.random.number({ min: 0, max: 49 })]
+export const DUMMY_TOPIC_ID_LIST = [...Array(50).keys()].map(
+  (n: number) => DUMMY_USER_ID_LIST[faker.random.number({ min: 0, max: 29 })]
 );
 
-export const DUMMY_NOTE_ID_LIST = [...Array(100).keys()].map(
+export const DUMMY_NOTE_ID_LIST = [...Array(50).keys()].map(
   (n: number) => DUMMY_USER_ID_LIST[faker.random.number({ min: 0, max: 29 })]
 );
 

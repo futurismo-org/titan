@@ -4,6 +4,10 @@ import firebase from '~/lib/firebase';
 
 import { mergeCategory } from './profile';
 import { followUserChallengeTimeline } from './getstream';
+import {
+  RECORD_STRATEGY_SIMPLE,
+  RECORD_STRATEGY_MULTI
+} from '../constants/strategy';
 
 export const RECORD = 'RECORD';
 export const RESET = 'RESET';
@@ -386,13 +390,27 @@ export const isHideSensitive = (
   return !debugSensitive && (collectionSensitive && !userSettingSenstivie);
 };
 
-export const isPostPossible = (histories: any[] | undefined) => {
+export const isPostPossible = (
+  histories: any[] | undefined,
+  strategy: string
+) => {
   if (!histories) {
     return true;
   }
 
-  return (
+  // 何回も投稿してOK.
+  if (strategy === RECORD_STRATEGY_MULTI) {
+    return true;
+  }
+
+  // 本日まだなにも投稿がない
+  if (
+    strategy === RECORD_STRATEGY_SIMPLE &&
     histories.filter((history: any) => isToday(history.timestamp.toDate()))
       .length === 0
-  );
+  ) {
+    return true;
+  }
+
+  return false;
 };

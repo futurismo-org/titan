@@ -2,13 +2,14 @@ import React from 'react';
 
 import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
+import { brandWhite } from '../../../../lib/theme';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 const config = {
-  backgroundColor: '#fff',
-  backgroundGradientFrom: '#fff',
-  backgroundGradientTo: '#fff',
+  backgroundColor: brandWhite,
+  backgroundGradientFrom: brandWhite,
+  backgroundGradientTo: brandWhite,
   color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
   style: {
     borderRadius: 16
@@ -49,6 +50,7 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
       data={dataset}
       width={screenWidth - 50}
       height={220}
+      fromZero
       chartConfig={config}
     />
   );
