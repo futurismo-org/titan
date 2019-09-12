@@ -116,6 +116,7 @@ const createChallengeSeed = (args: any) => {
     notes: notesSeeds,
     hashtag: '#サンプルチャレンジ',
     draft: false,
+    recordStrategy: 'RECORD_STRATEGY_SIMPLE',
     ...args
   });
 };
@@ -128,6 +129,7 @@ const createCategorySeed = (args: any) => {
     overview: faker.lorem.paragraphs(),
     channelId: sampleGeneralChannelId,
     topics: topicsSeeds('categories', id),
+    kind: 'CATEGORY_KIND_GOOD',
     ...args
   });
 };
