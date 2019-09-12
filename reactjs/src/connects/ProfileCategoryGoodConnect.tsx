@@ -26,62 +26,6 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch
   );
 
-const summerizeHistories = (histories: any) => {
-  let summerized: any[] = [];
-
-  let startHistory: any | null = null;
-  let endHistory: any | null = null;
-  let count = 1;
-
-  histories.forEach((history: any) => {
-    if (
-      startHistory === null &&
-      endHistory === null &&
-      history.type === RESET
-    ) {
-      startHistory = history;
-      return;
-    }
-
-    if (
-      startHistory !== null &&
-      endHistory === null &&
-      history.type === RESET
-    ) {
-      endHistory = history;
-
-      const startDate = startHistory.timestamp.toDate();
-      const endDate = endHistory.timestamp.toDate();
-      const duration = moment.duration(moment(endDate).diff(startDate));
-
-      const days = duration.asDays();
-      const hours = duration.asHours() % 24;
-      const minutes = duration.asMinutes() % 60;
-      const durationMessage = `${days.toFixed(0)}日${hours.toFixed(
-        0
-      )}時間${minutes.toFixed(0)}分`;
-
-      const record = {
-        id: shortId.generate(),
-        startDate,
-        endDate,
-        duration: durationMessage,
-        attempt: count
-      };
-
-      summerized.push(record);
-
-      startHistory = endHistory;
-      endHistory = null;
-      count++;
-
-      return;
-    }
-  });
-
-  return summerized;
-};
-
 const summerizeChallenges = (challenges: any, categoryId: string) => {
   return challenges
     .filter(
@@ -290,7 +234,6 @@ const mapStateToProps = (state: any, props: any) => {
   );
 
   const challenges = state.profile.items.filter((challenge: any) => challenge);
-  const summerized = summerizeHistories(histories);
   const challengeResults = summerizeChallenges(challenges, categoryId);
 
   const recordTimezones = aggregateTimezone(histories);
@@ -310,7 +253,6 @@ const mapStateToProps = (state: any, props: any) => {
       days: wrapShowN(profileCategory.days),
       maxDays: wrapShowN(profileCategory.maxDays),
       lastResetDate,
-      summerized,
       recordAccWeeks,
       recordAccMonths,
       challenges: challengeResults,

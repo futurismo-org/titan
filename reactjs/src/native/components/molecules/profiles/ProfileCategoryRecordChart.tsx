@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BarChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
-import { brandWhite } from '~/lib/theme';
+import { brandWhite } from '../../../../lib/theme';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -16,10 +16,10 @@ const config = {
   }
 };
 
-const ProfileCategoryResetDaysOfTheWeekChart = (props: any) => {
+const ProfileCategoryResetTimezoneChart = (props: any) => {
   const { data } = props;
 
-  const labels = data.map((d: any) => d.day);
+  const labels = data.map((record: any) => record.duration);
   const counts = data.map((d: any) => d.count);
 
   const dataset = {
@@ -36,7 +36,7 @@ const ProfileCategoryResetDaysOfTheWeekChart = (props: any) => {
     // @ts-ignore
     <BarChart
       data={dataset}
-      width={screenWidth - 40}
+      width={screenWidth - 50}
       height={220}
       fromZero
       chartConfig={config}
@@ -44,4 +44,4 @@ const ProfileCategoryResetDaysOfTheWeekChart = (props: any) => {
   );
 };
 
-export default ProfileCategoryResetDaysOfTheWeekChart;
+export default ProfileCategoryResetTimezoneChart;

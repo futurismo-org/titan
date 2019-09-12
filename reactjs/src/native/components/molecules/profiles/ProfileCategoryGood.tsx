@@ -7,10 +7,11 @@ import Error from '../../atoms/Error';
 import Progress from '../../atoms/CircularProgress';
 import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
-import ProfileCategoryHistories from './ProfileCategoryHistories';
+import ProfileCategoryRecordChart from './ProfileCategoryRecordChart';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+import { CATEGORY_KIND_GOOD } from '~/lib/category';
 
 const Headline = (props: any) => {
   const { text } = props;
@@ -61,6 +62,7 @@ const ProfileCategoryBad = (props: any) => {
       {loading && <Progress />}
       {!loading &&
         metadata &&
+        data &&
         (Object.keys(data).length === 0 ? (
           <View
             style={{
@@ -77,12 +79,23 @@ const ProfileCategoryBad = (props: any) => {
           >
             <Title text={metadata.headline} />
             <ChallengePostRecord days={data.days} />
+            <Text />
+            <Text
+              style={{
+                fontSize: 20,
+                textDecorationLine: 'underline',
+                textAlign: 'center'
+              }}
+            >
+              {metadata.joinedDate}
+            </Text>
             {data.challenges.length !== 0 && (
               <React.Fragment>
                 <Headline text="チャレンジごとの実績" />
                 <ProfileCategoryChallenges
                   challenges={data.challenges}
                   userShortId={userShortId}
+                  categoryKind={CATEGORY_KIND_GOOD}
                 />
                 <Text />
               </React.Fragment>
@@ -105,22 +118,17 @@ const ProfileCategoryBad = (props: any) => {
                   {data.myBest}
                 </Text>
               </View>
-              <Headline text="継続記録統計" />
-              <Text>過去最高継続日数: {data.maxDays}日</Text>
-              <Text>最終リセット日時: {data.lastResetDate}</Text>
-              <ProfileCategoryHistories histories={data.summerized} />
-              <Text />
-              <Headline text="リセット統計" />
-              <Text />
-              {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
-              {/* <Subheading text="積算回数" />
-                <ProfileCategoryResetChart data={data.resetAccs} /> */}
+              <Headline text="記録統計" />
+              <Subheading text="積算回数(週別)" />
+              <ProfileCategoryRecordChart data={data.recordAccWeeks} />
+              <Subheading text="積算回数(月別)" />
+              <ProfileCategoryRecordChart data={data.recordAccMonths} />
               <Subheading text="時間帯別統計" />
-              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
+              <ProfileCategoryResetTimezoneChart data={data.recordTimezones} />
               <Text />
               <Subheading text="曜日別統計" />
               <ProfileCategoryResetDaysOfTheWeekChart
-                data={data.resetDaysOfTheWeek}
+                data={data.recordDaysOfTheWeek}
               />
             </React.Fragment>
             <Text />

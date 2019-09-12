@@ -11,6 +11,7 @@ import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
 import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
 import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+import { CATEGORY_KIND_BAD } from '~/lib/category';
 
 const Headline = (props: any) => {
   const { text } = props;
@@ -83,6 +84,7 @@ const ProfileCategoryBad = (props: any) => {
                 <ProfileCategoryChallenges
                   challenges={data.challenges}
                   userShortId={userShortId}
+                  categoryKind={CATEGORY_KIND_BAD}
                 />
                 <Text />
               </React.Fragment>
