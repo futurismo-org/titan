@@ -6,7 +6,8 @@ import { mergeCategory } from './profile';
 import { followUserChallengeTimeline } from './getstream';
 import {
   RECORD_STRATEGY_SIMPLE,
-  RECORD_STRATEGY_MULTI
+  RECORD_STRATEGY_MULTI,
+  RECORD_STRATEGY_RESET
 } from '../constants/strategy';
 
 export const RECORD = 'RECORD';
@@ -405,7 +406,8 @@ export const isPostPossible = (
 
   // 本日まだなにも投稿がない
   if (
-    strategy === RECORD_STRATEGY_SIMPLE &&
+    (strategy === RECORD_STRATEGY_SIMPLE ||
+      strategy === RECORD_STRATEGY_RESET) &&
     histories.filter((history: any) => isToday(history.timestamp.toDate()))
       .length === 0
   ) {
