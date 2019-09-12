@@ -21,7 +21,9 @@ import MarkdownView from '../../atoms/MarkdownView';
 import {
   RECORD_STRATEGY_SIMPLE,
   RECORD_STRATEGY_MULTI,
-  RECORD_STRATEGY_RESET
+  RECORD_STRATEGY_RESET,
+  RECORD_OPTION_NONE,
+  RECORD_OPTION_TIME
 } from '../../../../constants/strategy';
 
 const ChallengeForm = (props: any) => {
@@ -46,6 +48,7 @@ const ChallengeForm = (props: any) => {
   const [freezed, setFreezed] = useState(false);
   const [ios, setiOS] = useState(false);
   const [recordStrategy, setRecordStrategy] = useState(RECORD_STRATEGY_SIMPLE);
+  const [recordOption, setRecordOption] = useState(RECORD_OPTION_NONE);
   const [postLimitPerDay, setPostLimitPerDay] = useState(1);
 
   const [openedAt, setOpenedAt] = useState(
@@ -147,6 +150,11 @@ const ChallengeForm = (props: any) => {
     setRecordStrategy(e.target.value);
   };
 
+  const onRecordOptionChange = (e: any) => {
+    e.preventDefault();
+    setRecordOption(e.target.value);
+  };
+
   const onPostLimitPerDayChange = (e: any) => {
     e.preventDefault();
     setPostLimitPerDay(e.target.value);
@@ -183,6 +191,7 @@ const ChallengeForm = (props: any) => {
       freezed,
       ios,
       recordStrategy,
+      recordOption,
       postLimitPerDay: Number(postLimitPerDay)
     };
     firebase
@@ -232,6 +241,11 @@ const ChallengeForm = (props: any) => {
             challenge!.recordStrategy
               ? challenge!.recordStrategy
               : RECORD_STRATEGY_SIMPLE
+          );
+          setRecordOption(
+            challenge!.recordOption
+              ? challenge!.recordOption
+              : RECORD_OPTION_NONE
           );
           setPostLimitPerDay(
             challenge!.postLimitPerDay ? challenge!.postLimitPerDay : 1
@@ -372,41 +386,66 @@ const ChallengeForm = (props: any) => {
         {'iOS非表示'}
         <Switch checked={ios} onChange={oniOSChange} />
         <h2>記録の設定</h2>
-        <FormControl component="fieldset">
-          <FormLabel component="legend">記録ボタン制御</FormLabel>
-          <RadioGroup
-            aria-label="記録ボタン"
-            name="recordStrategy"
-            value={recordStrategy}
-            onChange={onRecordStrategyChange}
-            row
-          >
-            <FormControlLabel
-              value={RECORD_STRATEGY_SIMPLE}
-              control={<Radio color="primary" />}
-              label="記録"
-            />
-            <FormControlLabel
-              value={RECORD_STRATEGY_MULTI}
-              control={<Radio color="primary" />}
-              label="複数記録"
-            />
-            <FormControlLabel
-              value={RECORD_STRATEGY_RESET}
-              control={<Radio color="primary" />}
-              label="記録/リセット"
-            />
-          </RadioGroup>
-        </FormControl>
-        <TextField
-          value={postLimitPerDay}
-          variant="outlined"
-          margin="normal"
-          id="length"
-          disabled={recordStrategy !== RECORD_STRATEGY_MULTI}
-          label="最大投稿スコアカウント数"
-          onChange={onPostLimitPerDayChange}
-        />
+        <div>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">記録ボタン制御</FormLabel>
+            <RadioGroup
+              aria-label="記録ボタン"
+              name="recordStrategy"
+              value={recordStrategy}
+              onChange={onRecordStrategyChange}
+              row
+            >
+              <FormControlLabel
+                value={RECORD_STRATEGY_SIMPLE}
+                control={<Radio color="primary" />}
+                label="記録"
+              />
+              <FormControlLabel
+                value={RECORD_STRATEGY_MULTI}
+                control={<Radio color="primary" />}
+                label="複数記録"
+              />
+              <FormControlLabel
+                value={RECORD_STRATEGY_RESET}
+                control={<Radio color="primary" />}
+                label="記録/リセット"
+              />
+            </RadioGroup>
+          </FormControl>
+          <TextField
+            value={postLimitPerDay}
+            variant="outlined"
+            margin="normal"
+            id="length"
+            disabled={recordStrategy !== RECORD_STRATEGY_MULTI}
+            label="最大投稿スコアカウント数"
+            onChange={onPostLimitPerDayChange}
+          />
+        </div>
+        <div>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">記録オプション</FormLabel>
+            <RadioGroup
+              aria-label="記録オプション"
+              name="recordOption"
+              value={recordOption}
+              onChange={onRecordOptionChange}
+              row
+            >
+              <FormControlLabel
+                value={RECORD_OPTION_NONE}
+                control={<Radio color="primary" />}
+                label="なし"
+              />
+              <FormControlLabel
+                value={RECORD_OPTION_TIME}
+                control={<Radio color="primary" />}
+                label="実施時間"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
         <h2>概要プレビュー</h2>
         <MarkdownView text={overview} />
         <MarkdownView text={rules} />
