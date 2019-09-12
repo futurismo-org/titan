@@ -101,19 +101,20 @@ const ChallengeUserDashBoard = (props: any) => {
                 <ChallengeChart histories={user.histories} />
               </Grid>
               <Grid item>
+                <Typography variant="h6">参加日: {joinDate}</Typography>
+              </Grid>
+              <Grid item>
                 <ChallengeGrass
                   histories={user.histories}
                   openedAt={challenge.openedAt}
                   closedAt={challenge.closedAt}
                 />
               </Grid>
-              <Grid item>
-                <Typography variant="h6">参加日: {joinDate}</Typography>
-              </Grid>
               <Grid item style={{ width: '100%', height: '100%' }}>
                 <ChallengeHistories
                   histories={user.histories}
                   handler={deleteHistoryHandler}
+                  option={challenge.recordOption}
                 />
               </Grid>
             </Grid>

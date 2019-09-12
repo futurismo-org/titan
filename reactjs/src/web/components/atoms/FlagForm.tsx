@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { grey } from '@material-ui/core/colors';
-import { brandGray } from '~/lib/theme';
+import { brandGray, brandWhite } from '~/lib/theme';
 
 const GreyRadio = withStyles({
   root: {
@@ -109,22 +109,22 @@ const FlagForm = (props: any) => {
         }}
         InputProps={{
           style: {
-            color: '#fff'
+            color: brandWhite
           }
         }}
         FormHelperTextProps={{
           style: {
-            color: '#fff'
+            color: brandWhite
           }
         }}
         SelectProps={{
           style: {
-            color: '#fff'
+            color: brandWhite
           }
         }}
         InputLabelProps={{
           style: {
-            color: '#fff'
+            color: brandWhite
           }
         }}
         onChange={onContentChange}

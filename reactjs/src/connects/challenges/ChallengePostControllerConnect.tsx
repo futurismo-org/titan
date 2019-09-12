@@ -52,7 +52,8 @@ const mapStateToProps = (state: any, props: any) => {
       maxDays,
       pastDays,
       histories,
-      displayName
+      displayName,
+      minutes
     } = props;
 
     if (!isPostPossible(histories, challenge.recordStrategy)) {
@@ -108,7 +109,8 @@ const mapStateToProps = (state: any, props: any) => {
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
       challengeId,
       challengeTitle: challenge.title,
-      type: RECORD
+      type: RECORD,
+      minutes
     };
 
     const updateData: any = {
@@ -295,6 +297,7 @@ ${dashBoardURL}`;
     participantsRef,
     hide,
     recordStrategy: challenge.recordStrategy,
+    recordOption: challenge.recordOption,
     ...props
   };
 };
