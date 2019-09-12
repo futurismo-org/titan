@@ -1,4 +1,4 @@
-import moment, { months } from 'moment';
+import moment from 'moment';
 import 'moment/locale/ja';
 
 moment.locale('ja');

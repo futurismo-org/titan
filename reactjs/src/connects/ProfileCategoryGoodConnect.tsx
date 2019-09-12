@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import shortId from 'shortid';
 import {
   fetchProfileCategory,
   fetchProfileChallenges
