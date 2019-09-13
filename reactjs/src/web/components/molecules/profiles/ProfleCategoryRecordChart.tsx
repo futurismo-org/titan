@@ -12,7 +12,7 @@ import {
 import { primaryColor } from '~/lib/theme';
 
 const ProfileCategoryRecordChart = (props: any) => {
-  const { data } = props;
+  const { data, unit } = props;
 
   return (
     <ResponsiveContainer width="99%" aspect={4}>
@@ -22,7 +22,7 @@ const ProfileCategoryRecordChart = (props: any) => {
         <YAxis allowDecimals={false} />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" fill={primaryColor} />
+        <Bar dataKey={unit} fill={primaryColor} />
       </BarChart>
     </ResponsiveContainer>
   );

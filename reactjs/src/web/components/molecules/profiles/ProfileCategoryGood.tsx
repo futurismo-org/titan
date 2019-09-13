@@ -106,9 +106,15 @@ const ProfileCategoryGood = (props: any) => {
                 <React.Fragment>
                   <Title text="記録統計" />
                   <h3>積算回数(週別)</h3>
-                  <ProfileCategoryRecordChart data={data.recordAccWeeks} />
+                  <ProfileCategoryRecordChart
+                    data={data.recordAccWeeks}
+                    unit="count"
+                  />
                   <h3>積算回数(月別)</h3>
-                  <ProfileCategoryRecordChart data={data.recordAccMonths} />
+                  <ProfileCategoryRecordChart
+                    data={data.recordAccMonths}
+                    unit="count"
+                  />
                   <h3>時間帯別統計</h3>
                   <ProfileCategoryResetTimezoneChart
                     data={data.recordTimezones}
@@ -118,6 +124,16 @@ const ProfileCategoryGood = (props: any) => {
                     data={data.recordDaysOfTheWeek}
                   />
                 </React.Fragment>
+                {data.minutesByMonths.lenght !== 0 && (
+                  <React.Fragment>
+                    <Title text="実施時間統計" />
+                    <p>{data.totalMinutesMessage}</p>
+                    <ProfileCategoryRecordChart
+                      data={data.minutesByMonths}
+                      unit="minutes"
+                    />
+                  </React.Fragment>
+                )}
               </React.Fragment>
             ) : (
               <p>

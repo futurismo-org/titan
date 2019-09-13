@@ -202,6 +202,42 @@ const aggregateByMonth = (histories: any) => {
     .reverse();
 };
 
+const aggregateMinutesByMonth = (histories: any) => {
+  const months = histories.reduce((result: any, current: any) => {
+    const monthsFromToday = moment(current.timestamp.toDate()).diff(
+      moment(),
+      'months'
+    );
+
+    const element = result.find((p: any) => {
+      return p.duration === monthsFromToday;
+    });
+
+    if (element) {
+      element.count = element.count + current.minutes;
+    } else {
+      result.push({
+        duration: monthsFromToday,
+        count: current.minutes
+      });
+    }
+    return result;
+  }, []);
+
+  return months
+    .map((data: any) => {
+      return {
+        duration: formatYearMonth(
+          moment()
+            .subtract(data.duration, 'months')
+            .toDate()
+        ),
+        minutes: data.count
+      };
+    })
+    .reverse();
+};
+
 const mapStateToProps = (state: any, props: any) => {
   const { category, userShortId } = props;
   const categoryId = category.id;
@@ -239,6 +275,11 @@ const mapStateToProps = (state: any, props: any) => {
   const recordDaysOfTheWeek = aggregateDayOfTheWeek(histories);
   const recordAccWeeks = aggregateByWeek(histories);
   const recordAccMonths = aggregateByMonth(histories);
+  const minutesByMonths = aggregateMinutesByMonth(histories);
+  const totalMinutes = histories.reduce((p: any, x: any) => p + x.minutes, 0);
+  const totalMinutesMessage = `実施時間合計: ${Math.floor(
+    totalMinutes / 60
+  )}時間${totalMinutes % 60}分`;
 
   const resets = histories.filter((history: any) => history.type === RESET);
   const lastResetDate =
@@ -256,7 +297,9 @@ const mapStateToProps = (state: any, props: any) => {
       recordAccMonths,
       challenges: challengeResults,
       recordTimezones,
-      recordDaysOfTheWeek
+      recordDaysOfTheWeek,
+      minutesByMonths,
+      totalMinutesMessage
     };
   } else {
     data = {};
