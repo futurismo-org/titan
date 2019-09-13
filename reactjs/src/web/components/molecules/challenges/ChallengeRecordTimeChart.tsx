@@ -11,21 +11,21 @@ import {
 } from 'recharts';
 import { primaryColor } from '~/lib/theme';
 
-const ProfileCategoryRecordChart = (props: any) => {
+const ChallengeRecordTimeChart = (props: any) => {
   const { data } = props;
 
   return (
     <ResponsiveContainer width="99%" aspect={4}>
       <BarChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="duration" />
+        <XAxis dataKey="date" />
         <YAxis allowDecimals={false} />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" fill={primaryColor} />
+        <Bar dataKey="minutes" fill={primaryColor} />
       </BarChart>
     </ResponsiveContainer>
   );
 };
 
-export default ProfileCategoryRecordChart;
+export default ChallengeRecordTimeChart;

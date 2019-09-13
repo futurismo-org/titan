@@ -2,12 +2,60 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { setOgpInfo, resetOgpInfo } from '~/actions/ogpAction';
 import { fetchParticipant } from '~/actions/participantAction';
-import { formatDate } from '~/lib/moment';
+import moment, { formatDate, formatDateShort } from '~/lib/moment';
 
 import firebase from '~/lib/firebase';
 import { getCategoryId } from '~/lib/challenge';
 import { getCategoryDashboardPath } from '~/lib/url';
 import { RECORD_OPTION_TIME } from '~/constants/strategy';
+
+const aggregateDays = (histories: any[], openedAt: Date, closedAt: Date) => {
+  const map = histories.reduce((result: any, current: any) => {
+    const timestamp = current.timestamp;
+
+    const element = result.find((p: any) => {
+      return p.timestamp === timestamp;
+    });
+
+    if (element) {
+      element.count += current.minutes;
+    } else {
+      result.push({
+        timestamp,
+        count: current.minutes
+      });
+    }
+    return result;
+  }, []);
+
+  return [
+    ...Array(moment(closedAt).diff(moment(openedAt), 'days') + 1).keys()
+  ].map(n => {
+    const element = map.find((p: any) =>
+      moment(p.timestamp.toDate()).isSame(
+        moment(openedAt).add(n, 'days'),
+        'dates'
+      )
+    );
+    const date = formatDateShort(
+      moment(openedAt)
+        .add(n, 'days')
+        .toDate()
+    );
+
+    if (element) {
+      return {
+        date,
+        minutes: element.count
+      };
+    } else {
+      return {
+        date,
+        minutes: 0
+      };
+    }
+  });
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -49,6 +97,14 @@ const mapStateToProps = (state: any, props: any) => {
     )}時間${totalMinutes % 60}分`;
   }
 
+  const hoursByDay =
+    user &&
+    aggregateDays(
+      user.histories,
+      challenge.openedAt.toDate(),
+      challenge.closedAt.toDate()
+    );
+
   return {
     user,
     loading: state.participant.loading,
@@ -58,6 +114,7 @@ const mapStateToProps = (state: any, props: any) => {
     joinDate,
     categoryPath,
     totalMinutesMessage,
+    hoursByDay,
     ...props
   };
 };
