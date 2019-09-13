@@ -14,6 +14,7 @@ import TwitterButton from '../../atoms/TwitterButton';
 
 import { formatDays } from '~/lib/challenge';
 import PrimaryButton from '../../atoms/PrimaryButton';
+import { RECORD_OPTION_TIME } from '~/constants/strategy';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -39,7 +40,8 @@ const ChallengeUserDashBoard = (props: any) => {
     setOgpInfo,
     resetOgpInfo,
     deleteHistoryHandler,
-    categoryPath
+    categoryPath,
+    totalMinutesMessage
   } = props;
 
   const title = user ? `${user.displayName} さんの記録` : '';
@@ -110,6 +112,11 @@ const ChallengeUserDashBoard = (props: any) => {
                   closedAt={challenge.closedAt}
                 />
               </Grid>
+              {challenge.recordOption === RECORD_OPTION_TIME && (
+                <Grid item>
+                  <Typography variant="h6">{totalMinutesMessage}</Typography>
+                </Grid>
+              )}
               <Grid item style={{ width: '100%', height: '100%' }}>
                 <ChallengeHistories
                   histories={user.histories}

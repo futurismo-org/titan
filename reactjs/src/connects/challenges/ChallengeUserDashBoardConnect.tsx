@@ -7,6 +7,7 @@ import { formatDate } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 import { getCategoryId } from '~/lib/challenge';
 import { getCategoryDashboardPath } from '~/lib/url';
+import { RECORD_OPTION_TIME } from '~/constants/strategy';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -39,6 +40,15 @@ const mapStateToProps = (state: any, props: any) => {
   const categoryId = getCategoryId(challenge.categoryRef);
   const categoryPath = getCategoryDashboardPath(categoryId, userShortId);
 
+  let totalMinutesMessage = '';
+  if (challenge.recordOption === RECORD_OPTION_TIME) {
+    const totalMinutes =
+      user && user.histories.reduce((p: any, x: any) => p + x.minutes, 0);
+    totalMinutesMessage = `総実施時間: ${Math.floor(
+      totalMinutes / 60
+    )}時間${totalMinutes % 60}分`;
+  }
+
   return {
     user,
     loading: state.participant.loading,
@@ -47,6 +57,7 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     joinDate,
     categoryPath,
+    totalMinutesMessage,
     ...props
   };
 };
