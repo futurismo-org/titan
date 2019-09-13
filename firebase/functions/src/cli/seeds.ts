@@ -156,6 +156,7 @@ const createChallengeHistorySeed = (n: number) => {
     accDays: faker.random.number({ min: 0, max: 30 }),
     pastDays: faker.random.number({ min: 0, max: 30 }),
     type: array[Math.floor(Math.random() * array.length)],
+    minutes: faker.random.number({ min: 0, max: 30 }),
     diff: n
   };
 };
