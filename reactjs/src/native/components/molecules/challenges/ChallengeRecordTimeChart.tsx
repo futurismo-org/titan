@@ -17,21 +17,19 @@ const config = {
   decimalPlaces: 0
 };
 
-const ProfileCategoryResetTimezoneChart = (props: any) => {
+const ChallengeRecordTimeChart = (props: any) => {
   const { data } = props;
 
-  const labels = data
-    .map((record: any) => record.hour)
-    .filter((label: any) => label % 2 === 1);
+  const labels = [] as string[];
+  const minutes = [] as number[];
+  let tmp = 0;
 
-  let tmpCount = 0;
-  let accCounts: any[] = [];
-
-  data.forEach((d: any) => {
-    if (d.hour % 2 === 0) {
-      tmpCount = d.count;
-    } else {
-      accCounts.push(tmpCount + d.count);
+  data.map((record: any, i: number) => {
+    tmp += record.minutes;
+    if (i % 7 === 6) {
+      labels.push(record.date);
+      minutes.push(tmp);
+      tmp = 0;
     }
   });
 
@@ -39,7 +37,7 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
     labels,
     datasets: [
       {
-        data: accCounts,
+        data: minutes,
         color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
       }
     ]
@@ -57,4 +55,4 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
   );
 };
 
-export default ProfileCategoryResetTimezoneChart;
+export default ChallengeRecordTimeChart;

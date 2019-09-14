@@ -99,6 +99,7 @@
     "react-native-public-ip": "^1.0.1",
     "react-native-pull-to-refresh": "^2.1.3",
     "react-native-simple-radio-button": "^2.7.3",
+    "react-native-simple-time-picker": "^0.2.0",
     "react-native-simple-twitter": "^2.3.0",
     "react-native-snap-carousel": "^3.8.0",
     "react-native-table-component": "^1.2.0",

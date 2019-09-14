@@ -3,7 +3,7 @@ import FlagIcon from '@material-ui/icons/Flag';
 import { Modal } from '@material-ui/core';
 
 import styled from 'styled-components';
-import { brandDark as black } from '~/lib/theme';
+import { brandDark as black, brandWhite } from '~/lib/theme';
 
 import FlagForm from '~/web/containers/FlagFormContainer';
 
@@ -31,6 +31,7 @@ const Flag = (props: any) => {
     collectionType,
     collectionId
   } = props;
+
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -54,7 +55,7 @@ const Flag = (props: any) => {
           open={open}
           onClose={handleClose}
           style={{
-            color: '#fff'
+            color: brandWhite
           }}
         >
           <ModalContent>

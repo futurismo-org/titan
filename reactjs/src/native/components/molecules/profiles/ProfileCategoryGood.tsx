@@ -130,6 +130,16 @@ const ProfileCategoryBad = (props: any) => {
               <ProfileCategoryResetDaysOfTheWeekChart
                 data={data.recordDaysOfTheWeek}
               />
+              {data.minutesByMonths.lenght !== 0 && (
+                <React.Fragment>
+                  <Headline text="実施時間統計" />
+                  <Text>{data.totalMinutesMessage}</Text>
+                  <ProfileCategoryRecordChart
+                    data={data.minutesByMonths}
+                    unit="minutes"
+                  />
+                </React.Fragment>
+              )}
             </React.Fragment>
             <Text />
             <Button

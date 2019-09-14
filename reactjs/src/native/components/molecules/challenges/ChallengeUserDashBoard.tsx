@@ -12,6 +12,8 @@ import ChallengeStatistics from './ChallengeStatistics';
 import ChallengeRecord from './ChallengePostRecord';
 
 import { formatDays } from '~/lib/challenge';
+import { RECORD_OPTION_TIME } from '~/constants/strategy';
+import ChallengeRecordTimeChart from './ChallengeRecordTimeChart';
 
 const Space = () => <Text />;
 
@@ -26,7 +28,9 @@ const ChallengeUserDashBoard = (props: any) => {
     resourceId,
     deleteHistoryHandler,
     categoryPath,
-    history
+    history,
+    totalMinutesMessage,
+    hoursByDay
   } = props;
 
   useEffect(() => {
@@ -62,6 +66,12 @@ const ChallengeUserDashBoard = (props: any) => {
             closedAt={challenge.closedAt}
           />
           <Space /> */}
+          {challenge.recordOption === RECORD_OPTION_TIME && (
+            <React.Fragment>
+              <H2 style={{ textAlign: 'center' }}>{totalMinutesMessage}</H2>
+              <ChallengeRecordTimeChart data={hoursByDay} />
+            </React.Fragment>
+          )}
           <H2 style={{ textAlign: 'center' }}>参加日: {joinDate}</H2>
           <Space />
           <ChallengeHistories

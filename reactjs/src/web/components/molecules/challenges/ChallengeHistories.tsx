@@ -21,6 +21,7 @@ import { formatDatetime } from '~/lib/moment';
 import { wrapShowN, wrapShowS } from '~/lib/general';
 import { RESET, RECORD } from '~/lib/challenge';
 import { brandWhite, primaryColor } from '~/lib/theme';
+import { RECORD_OPTION_TIME } from '~/constants/strategy';
 
 const cellstyle = {
   backgroundColor: primaryColor,
@@ -49,24 +50,40 @@ const HistoryCellHead = (props: any) => (
   <TableCell style={cellstyle as any}>{props.children}</TableCell>
 );
 
-const HistoryHead = (props: any) => (
-  <TableHead>
-    <TableRow>
-      <HistoryCellHead>日時</HistoryCellHead>
-      <HistoryCellHead>タイプ</HistoryCellHead>
-      <HistoryCellHead>点数</HistoryCellHead>
-      <ConditionalTableCell head>連続</ConditionalTableCell>
-      <ConditionalTableCell head>累積</ConditionalTableCell>
-      <ConditionalTableCell head>過去</ConditionalTableCell>
-      <ConditionalTableCell head>経過</ConditionalTableCell>
-      {/* <ConditionalTableCell>操作</ConditionalTableCell> */}
-    </TableRow>
-  </TableHead>
-);
+const HistoryHead = (props: any) => {
+  const { option } = props;
+
+  return (
+    <TableHead>
+      <TableRow>
+        <HistoryCellHead>日時</HistoryCellHead>
+        <HistoryCellHead>タイプ</HistoryCellHead>
+        <HistoryCellHead>点数</HistoryCellHead>
+        <ConditionalTableCell head>連続</ConditionalTableCell>
+        <ConditionalTableCell head>累積</ConditionalTableCell>
+        <ConditionalTableCell head>過去</ConditionalTableCell>
+        <ConditionalTableCell head>経過</ConditionalTableCell>
+        {/* <ConditionalTableCell>操作</ConditionalTableCell> */}
+        {option === RECORD_OPTION_TIME && (
+          <HistoryCellHead>時間</HistoryCellHead>
+        )}
+      </TableRow>
+    </TableHead>
+  );
+};
 
 const HistoryRow = (props: any) => {
-  const { history } = props;
-  const { timestamp, score, type, days, diff, accDays, pastDays } = history;
+  const { history, option } = props;
+  const {
+    timestamp,
+    score,
+    type,
+    days,
+    diff,
+    accDays,
+    pastDays,
+    minutes
+  } = history;
 
   // const [open, setOpen] = React.useState(false);
 
@@ -89,6 +106,9 @@ const HistoryRow = (props: any) => {
       <ConditionalTableCell>{wrapShowN(accDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(pastDays)}</ConditionalTableCell>
       <ConditionalTableCell>{wrapShowN(diff)}</ConditionalTableCell>
+      {option === RECORD_OPTION_TIME && (
+        <TableCell>{wrapShowN(minutes)}</TableCell>
+      )}
       {/* <ConditionalTableCell>
         <Typography
           onClick={() => handleClickOpen()}
@@ -130,12 +150,12 @@ const HistoryRow = (props: any) => {
 };
 
 const ChallengeHistories = (props: any) => {
-  const { histories, handler } = props;
+  const { histories, handler, option } = props;
 
   return (
     <Paper>
       <Table size="small" style={{ marginTop: 20 }}>
-        <HistoryHead />
+        <HistoryHead option={option} />
         <TableBody>
           {histories
             .sort((x: any, y: any) => y.timestamp.seconds - x.timestamp.seconds)
@@ -145,6 +165,7 @@ const ChallengeHistories = (props: any) => {
                   key={history.id}
                   history={history}
                   handler={handler(history)}
+                  option={option}
                 />
               );
             })}
