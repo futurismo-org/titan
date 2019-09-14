@@ -213,12 +213,14 @@ const aggregateMinutesByMonth = (histories: any) => {
       return p.duration === monthsFromToday;
     });
 
+    const currentMinutes = current.minutes ? current.minutes : 0;
+
     if (element) {
-      element.count = element.count + current.minutes;
+      element.count = element.count + currentMinutes;
     } else {
       result.push({
         duration: monthsFromToday,
-        count: current.minutes
+        count: currentMinutes
       });
     }
     return result;
