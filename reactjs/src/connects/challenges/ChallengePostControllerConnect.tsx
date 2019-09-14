@@ -24,7 +24,8 @@ import { POST_TYPE_RECORD, POST_TYPE_RESET } from '~/constants/post';
 import { postUserChallengeHistory } from '~/lib/getstream';
 import {
   RECORD_STRATEGY_MULTI,
-  RECORD_STRATEGY_SIMPLE
+  RECORD_STRATEGY_SIMPLE,
+  RECORD_OPTION_TIME
 } from '~/constants/strategy';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
@@ -109,9 +110,12 @@ const mapStateToProps = (state: any, props: any) => {
       diff: moment().diff(moment(openedAt.toDate()), 'days'),
       challengeId,
       challengeTitle: challenge.title,
-      type: RECORD,
-      minutes
+      type: RECORD
     };
+
+    if (challenge.recordOption === RECORD_OPTION_TIME) {
+      Object.assign(newHistory, { minutes });
+    }
 
     const updateData: any = {
       days: tomorrow,
