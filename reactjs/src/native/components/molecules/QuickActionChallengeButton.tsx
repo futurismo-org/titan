@@ -5,7 +5,7 @@ import { useDocument } from 'react-firebase-hooks/firestore';
 import Modal from 'react-native-modal';
 import { isPostPossible } from '~/lib/challenge';
 import Error from '../atoms/Error';
-import { RECORD_OPTION_TIME } from '~/constants/strategy';
+import { RECORD_OPTION_TIME, RECORD_OPTION_NONE } from '~/constants/strategy';
 import ChallengePostRecordModalTimeForm from './challenges/ChallengePostRecordModalTimeForm';
 
 const QuickActionChallengeButton = (props: any) => {
@@ -57,13 +57,26 @@ const QuickActionChallengeButton = (props: any) => {
     return component;
   };
 
+  const onPressRecord = () => {
+    if (recordOption !== RECORD_OPTION_NONE) {
+      openModal();
+    } else {
+      writeRecord(data);
+    }
+  };
+
   return (
     <React.Fragment>
       {error && <Error error={error} />}
       {!loading && data && (
         <React.Fragment>
           <Col>
-            <Button full success onPress={openModal} disabled={recordDisabled}>
+            <Button
+              full
+              success
+              onPress={onPressRecord}
+              disabled={recordDisabled}
+            >
               <Text>記録する</Text>
             </Button>
             <Modal isVisible={modal} avoidKeyboard>
