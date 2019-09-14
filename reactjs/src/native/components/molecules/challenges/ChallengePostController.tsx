@@ -4,9 +4,13 @@ import AlertPro from 'react-native-alert-pro';
 import { withRouter } from 'react-router-native';
 import { useDocument } from 'react-firebase-hooks/firestore';
 
+import Modal from 'react-native-modal';
 import Error from '../../atoms/Error';
 import { successToastWithNoRedirect } from '../../atoms/Toast';
 import { isPostPossible } from '~/lib/challenge';
+
+import ChallengePostRecordModalTimeForm from './ChallengePostRecordModalTimeForm';
+import { RECORD_OPTION_TIME } from '~/constants/strategy';
 
 const ChallengePostController = (props: any) => {
   const {
@@ -16,7 +20,8 @@ const ChallengePostController = (props: any) => {
     hide,
     participantsRef,
     showGiphy,
-    recordStrategy
+    recordStrategy,
+    recordOption
   } = props;
 
   const [alert, setAlert] = useState();
@@ -37,6 +42,34 @@ const ChallengePostController = (props: any) => {
     data && data.histories,
     recordStrategy
   );
+
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
+
+  const ChallengePostRecordModalForm = (props: any) => {
+    const { option } = props;
+
+    let component = null;
+
+    if (option === RECORD_OPTION_TIME) {
+      component = (
+        <ChallengePostRecordModalTimeForm
+          closeHandler={closeModal}
+          postHandler={writeRecord}
+          data={data}
+        />
+      );
+    }
+
+    return component;
+  };
 
   return (
     <React.Fragment>
@@ -65,10 +98,13 @@ const ChallengePostController = (props: any) => {
                 style={{ margin: 2 }}
                 success
                 disabled={recordDisabled}
-                onPress={() => writeRecord(data)}
+                onPress={openModal}
               >
                 <Text>記録する</Text>
               </Button>
+              <Modal isVisible={modal} avoidKeyboard>
+                <ChallengePostRecordModalForm option={recordOption} />
+              </Modal>
               {!!resetHandler && (
                 <Button
                   warning
