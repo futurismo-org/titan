@@ -13,7 +13,8 @@ const config = {
   color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
   style: {
     borderRadius: 16
-  }
+  },
+  decimalPlaces: 0
 };
 
 const ProfileCategoryResetTimezoneChart = (props: any) => {
