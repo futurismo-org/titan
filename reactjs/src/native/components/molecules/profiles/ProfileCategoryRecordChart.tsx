@@ -17,17 +17,23 @@ const config = {
   decimalPlaces: 0
 };
 
-const ProfileCategoryResetTimezoneChart = (props: any) => {
-  const { data } = props;
+const ProfileCategoryRecordChart = (props: any) => {
+  const { data, unit } = props;
 
   const labels = data.map((record: any) => record.duration);
-  const counts = data.map((d: any) => d.count);
+  const dataSet = data.map((d: any) => {
+    if (unit === 'minutes') {
+      return d.minutes;
+    } else {
+      return d.count;
+    }
+  });
 
   const dataset = {
     labels,
     datasets: [
       {
-        data: counts,
+        data: dataSet,
         color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`
       }
     ]
@@ -45,4 +51,4 @@ const ProfileCategoryResetTimezoneChart = (props: any) => {
   );
 };
 
-export default ProfileCategoryResetTimezoneChart;
+export default ProfileCategoryRecordChart;
