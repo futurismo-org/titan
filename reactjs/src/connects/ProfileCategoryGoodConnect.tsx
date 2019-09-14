@@ -276,10 +276,18 @@ const mapStateToProps = (state: any, props: any) => {
   const recordAccWeeks = aggregateByWeek(histories);
   const recordAccMonths = aggregateByMonth(histories);
   const minutesByMonths = aggregateMinutesByMonth(histories);
-  const totalMinutes = histories.reduce((p: any, x: any) => p + x.minutes, 0);
+  const totalMinutes = histories
+    .filter((history: any) => history)
+    .reduce((p: any, x: any) => {
+      if (x.minutes) {
+        return p + x.minutes;
+      } else {
+        return p;
+      }
+    }, 0);
   const totalMinutesMessage = `実施時間合計: ${Math.floor(
     totalMinutes / 60
-  )}時間${totalMinutes % 60}分`;
+  ).toString()}時間${(totalMinutes % 60).toString()}分`;
 
   const resets = histories.filter((history: any) => history.type === RESET);
   const lastResetDate =
