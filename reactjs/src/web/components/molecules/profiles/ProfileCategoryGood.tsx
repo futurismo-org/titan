@@ -124,7 +124,7 @@ const ProfileCategoryGood = (props: any) => {
                     data={data.recordDaysOfTheWeek}
                   />
                 </React.Fragment>
-                {data.minutesByMonths.lenght !== 0 && (
+                {data.minutesByMonths && data.minutesByMonths.lenght !== 0 && (
                   <React.Fragment>
                     <Title text="実施時間統計" />
                     <p>{data.totalMinutesMessage}</p>
