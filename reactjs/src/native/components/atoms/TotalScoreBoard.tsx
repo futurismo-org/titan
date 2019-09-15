@@ -26,7 +26,7 @@ const TotalScoreBoard = (props: any) => {
 
   return (
     <View style={{ alignItems: 'center' }}>
-      <Text style={{ fontSize: 80 }}>{totalScore}</Text>
+      <Text style={{ fontSize: 80 }}>{totalScore || 0}</Text>
       <Text style={{ fontSize: 20 }}>score</Text>
     </View>
   );
