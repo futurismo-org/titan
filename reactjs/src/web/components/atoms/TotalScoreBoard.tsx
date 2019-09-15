@@ -27,7 +27,7 @@ const TotalScoreBoard = (props: any) => {
   return (
     <div style={{ justifyContent: 'center' }}>
       <Typography variant="h1" component="h2">
-        {totalScore}
+        {totalScore || 0}
       </Typography>
       <Typography variant="h5" component="p">
         {'score'}

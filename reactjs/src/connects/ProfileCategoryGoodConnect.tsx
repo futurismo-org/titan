@@ -203,6 +203,11 @@ const aggregateByMonth = (histories: any) => {
 };
 
 const aggregateMinutesByMonth = (histories: any) => {
+  const minutes = histories.filter((history: any) => history.minutes);
+  if (minutes.length === 0) {
+    return null;
+  }
+
   const months = histories.reduce((result: any, current: any) => {
     const monthsFromToday = moment(current.timestamp.toDate()).diff(
       moment(),
