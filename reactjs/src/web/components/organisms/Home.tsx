@@ -17,6 +17,7 @@ import Meigen from './Meigen';
 import Document from './Document';
 import Contact from './Contact';
 import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
+import Reviews from '~/web/containers/ReviewsContainer';
 
 const Home = (props: any) => {
   return (
