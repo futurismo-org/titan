@@ -10,7 +10,7 @@ import { successToastWithNoRedirect } from '../../atoms/Toast';
 import { isPostPossible } from '~/lib/challenge';
 
 import ChallengePostRecordModalTimeForm from './ChallengePostRecordModalTimeForm';
-import { RECORD_OPTION_TIME } from '~/constants/strategy';
+import { RECORD_OPTION_TIME, RECORD_OPTION_NONE } from '~/constants/strategy';
 
 const ChallengePostController = (props: any) => {
   const {
@@ -51,6 +51,14 @@ const ChallengePostController = (props: any) => {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const onPressRecordButton = (data: any) => {
+    if (recordOption === RECORD_OPTION_NONE) {
+      writeRecord(data);
+    } else {
+      openModal();
+    }
   };
 
   const ChallengePostRecordModalForm = (props: any) => {
@@ -98,7 +106,7 @@ const ChallengePostController = (props: any) => {
                 style={{ margin: 2 }}
                 success
                 disabled={recordDisabled}
-                onPress={openModal}
+                onPress={() => onPressRecordButton(data)}
               >
                 <Text>記録する</Text>
               </Button>
