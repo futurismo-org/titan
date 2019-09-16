@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '~/lib/theme';
 import Reviews from '../../containers/ReviewsContainer';
-// import Topic from '../../containers/TopicContainer';
+import Review from '../../containers/ReviewContainer';
 import ReviewForm from '../../containers/ReviewFormContainer';
 
 const ReviewContent = styled.div`
@@ -22,10 +22,10 @@ const GeneralReviews = (props: any) => {
           path="/u/:id/reviews/new"
           render={props => <ReviewForm {...props} />}
         />
-        {/* <Route
+        <Route
           path="/u/:id/reviews/:reviewId"
-          render={props => <Topic collection="general" {...props} />}
-        /> */}
+          render={props => <Review {...props} />}
+        />
         <Route path="/u/:id/reviews" render={props => <Reviews {...props} />} />
       </Switch>
     </ReviewContent>
