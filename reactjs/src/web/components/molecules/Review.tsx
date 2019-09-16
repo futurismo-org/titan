@@ -10,7 +10,15 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import { remove } from '~/lib/firebase';
 
 const Review = (props: any) => {
-  const { userReview, loading, isCurrentUser, editReviewPath, history } = props;
+  const {
+    userReview,
+    loading,
+    isCurrentUser,
+    editReviewPath,
+    history,
+    resourceId,
+    redirectPath
+  } = props;
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
     if (
@@ -44,7 +52,7 @@ const Review = (props: any) => {
             type="button"
             color="default"
             variant="contained"
-            // onClick={() => handleDelete(redirectPath, resourceId)}
+            onClick={() => handleDelete(redirectPath, resourceId)}
           >
             削除
           </Button>

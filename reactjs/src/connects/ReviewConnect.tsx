@@ -6,9 +6,25 @@ const mapStateToProps = (state: any, props: any) => {
   const userReview = state.firestore.data.userReview;
   const userShortId = props.match.params.id;
 
+  const redirectPath = `/u/${userShortId}/reviews`;
+  const resourceId =
+    isLoaded(userReview) &&
+    userReview &&
+    `/reviews/${userShortId}/posts/${userReview.id}`;
+
+  const currentUser = state.firebase.profile;
+  const isCurrentUser =
+    isLoaded(userReview) &&
+    userReview &&
+    currentUser &&
+    userReview.userId === currentUser.shortId;
+
   return {
     userShortId,
     userReview,
+    redirectPath,
+    resourceId,
+    isCurrentUser,
     loading: !isLoaded(userReview),
     ...props
   };
