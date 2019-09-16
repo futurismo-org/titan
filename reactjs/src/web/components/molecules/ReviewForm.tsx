@@ -7,10 +7,10 @@ import {
   FormControlLabel,
   Radio
 } from '@material-ui/core';
-
 import { withRouter } from 'react-router-dom';
+import moment from '~/lib/moment';
 
-const REVIEW_TYPE_DAYLY = '日次レビュー';
+const REVIEW_TYPE_DAILY = '日次レビュー';
 const REVIEW_TYPE_WEEKLY = '週次レビュー';
 const REVIEW_TYPE_MONTHLY = '月次レビュー';
 
@@ -18,7 +18,10 @@ const ReviewForm = (props: any) => {
   const { redirectPath, history, saveHandler } = props;
 
   const [text, setText] = useState('');
-  const [type, setType] = useState(REVIEW_TYPE_DAYLY);
+  const [type, setType] = useState(REVIEW_TYPE_DAILY);
+
+  const [startedAt, setStartedAt] = useState(moment().format('YYYY-MM-DD'));
+  const [endedAt, setEndedAt] = useState(moment().format('YYYY-MM-DD'));
 
   const onTextChange = (e: any) => {
     e.preventDefault();
@@ -28,6 +31,17 @@ const ReviewForm = (props: any) => {
   const onTypeChange = (e: any) => {
     e.preventDefault();
     setType(e.target.value);
+  };
+
+  const onStartedAtChange = (e: any) => {
+    e.preventDefault();
+    const date = e.target.value;
+    setStartedAt(date);
+  };
+  const onEndedAtChange = (e: any) => {
+    e.preventDefault();
+    const date = e.target.value;
+    setEndedAt(date);
   };
 
   const onSave = () => {
@@ -44,12 +58,30 @@ const ReviewForm = (props: any) => {
   return (
     <React.Fragment>
       <Grid container direction="row">
-        <Grid item>
+        <Grid item xs>
+          <TextField
+            id="startedAt"
+            label="開始日"
+            type="date"
+            value={startedAt}
+            onChange={onStartedAtChange}
+          />
+          {type !== REVIEW_TYPE_DAILY && (
+            <TextField
+              id="endedAt"
+              label="終了日"
+              type="date"
+              value={endedAt}
+              onChange={onEndedAtChange}
+            />
+          )}
+        </Grid>
+        <Grid item xs>
           <RadioGroup name="タイプ" value={type} onChange={onTypeChange} row>
             <FormControlLabel
-              value={REVIEW_TYPE_DAYLY}
+              value={REVIEW_TYPE_DAILY}
               control={<Radio color="primary" />}
-              label={REVIEW_TYPE_DAYLY}
+              label={REVIEW_TYPE_DAILY}
             />
             <FormControlLabel
               value={REVIEW_TYPE_WEEKLY}
