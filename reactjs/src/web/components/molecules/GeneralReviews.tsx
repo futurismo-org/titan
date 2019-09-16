@@ -14,10 +14,10 @@ const GeneralReviews = (props: any) => {
   return (
     <ReviewContent>
       <Switch>
-        {/* <Route
+        <Route
           path="/u/:id/reviews/:reviewId/edit"
-          render={props => <TopicForm collection="general" {...props} />}
-        /> */}
+          render={props => <ReviewForm {...props} />}
+        />
         <Route
           path="/u/:id/reviews/new"
           render={props => <ReviewForm {...props} />}

@@ -50,7 +50,11 @@ const ReviewForm = (props: any) => {
       return;
     }
 
-    saveHandler({ text, type })
+    const title = `${type}  ${startedAt} ${
+      type !== REVIEW_TYPE_DAILY ? `~ ${endedAt}` : ''
+    }`;
+
+    saveHandler(title, text, type)
       .then(() => window.alert('投稿しました。')) // eslint-disable-line
       .then(() => history.push(redirectPath));
   };

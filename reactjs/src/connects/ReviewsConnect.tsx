@@ -24,7 +24,7 @@ const queries = (props: any) => {
       storeAs: 'userReviews',
       subcollections: [
         {
-          collection: 'reviews'
+          collection: 'posts'
         }
       ]
     }
