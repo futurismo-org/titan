@@ -17,7 +17,7 @@ import Meigen from './Meigen';
 import Document from './Document';
 import Contact from './Contact';
 import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
-import Reviews from '~/web/containers/ReviewsContainer';
+import GeneralReviews from '../molecules/GeneralReviews';
 
 const Home = (props: any) => {
   return (
@@ -32,7 +32,10 @@ const Home = (props: any) => {
           path="/u/:userShortId/cat/:categoryId"
           render={props => <ProfileCategory {...props} />}
         />
-        <Route path="/u/:id/reviews" render={props => <Reviews {...props} />} />
+        <Route
+          path="/u/:id/reviews"
+          render={props => <GeneralReviews {...props} />}
+        />
         <Route path="/u/:id" render={props => <Profile {...props} />} />
         {/* <Route path="/users" render={props => <Users {...props} />} /> */}
         <Route path="/settings" render={props => <Settings {...props} />} />

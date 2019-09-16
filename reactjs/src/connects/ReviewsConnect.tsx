@@ -1,10 +1,15 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 const mapStateToProps = (state: any, props: any) => {
   const userReviews = state.firestore.ordered.userReviews;
+  const userShortId = props.match.params.id;
+
   return {
+    userShortId,
+    userReviews,
+    loading: !isLoaded(userReviews),
     ...props
   };
 };
