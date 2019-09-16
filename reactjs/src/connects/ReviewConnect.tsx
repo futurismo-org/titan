@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
 const mapStateToProps = (state: any, props: any) => {
-  const userReview = state.firestore.ordered.userReview;
+  const userReview = state.firestore.data.userReview;
   const userShortId = props.match.params.id;
 
   return {

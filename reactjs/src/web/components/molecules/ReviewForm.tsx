@@ -50,8 +50,8 @@ const ReviewForm = (props: any) => {
       return;
     }
 
-    const title = `${type}  ${startedAt} ${
-      type !== REVIEW_TYPE_DAILY ? `~ ${endedAt}` : ''
+    const title = `${type}: ${startedAt} ${
+      type !== REVIEW_TYPE_DAILY ? `- ${endedAt}` : ''
     }`;
 
     saveHandler(title, text, type)
