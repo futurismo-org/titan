@@ -1,6 +1,15 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
+import moment from '~/lib/moment';
+
+export const isChallengeOpening = (
+  targetDate: Date,
+  openedAt: Date,
+  closedAt: Date
+) =>
+  moment(targetDate).diff(moment(openedAt)) >= 0 &&
+  moment(targetDate).diff(moment(closedAt)) < 0;
 
 const mapStateToProps = (state: any, props: any) => {
   const userReview = state.firestore.data.userReview;
@@ -23,6 +32,29 @@ const mapStateToProps = (state: any, props: any) => {
     currentUser &&
     userReview.userId === currentUser.shortId;
 
+  const profileChallenges = state.firestore.ordered.profileChallenges;
+  const currentChallenges =
+    isLoaded(profileChallenges) &&
+    isLoaded(userReview) &&
+    profileChallenges
+      .filter((challenge: any) => {
+        if (!challenge.openedAt) return false;
+        if (!challenge.closedAt) return false;
+
+        console.log(
+          userReview.startedAt.toDate(),
+          challenge.openedAt.toDate(),
+          challenge.closedAt.toDate()
+        );
+
+        return isChallengeOpening(
+          userReview.startedAt.toDate(),
+          challenge.openedAt.toDate(),
+          challenge.closedAt.toDate()
+        );
+      })
+      .filter((challenge: any) => !challenge.freezed);
+
   return {
     userShortId,
     userReview,
@@ -30,7 +62,8 @@ const mapStateToProps = (state: any, props: any) => {
     resourceId,
     isCurrentUser,
     editReviewPath,
-    loading: !isLoaded(userReview),
+    currentChallenges,
+    loading: !isLoaded(userReview) || !isLoaded(profileChallenges),
     ...props
   };
 };
@@ -50,6 +83,12 @@ const queries = (props: any) => {
           doc: reviewId
         }
       ]
+    },
+    {
+      collection: 'profiles',
+      doc: userShortId,
+      storeAs: 'profileChallenges',
+      subcollections: [{ collection: 'challenges' }]
     }
   ];
 

@@ -8,6 +8,7 @@ import MarkdownView from '../atoms/MarkdownView';
 import NoStyledLink from '../atoms/NoStyledLink';
 
 import { remove } from '~/lib/firebase';
+import CollectionCard from '../atoms/CollectionCard';
 
 const Review = (props: any) => {
   const {
@@ -17,7 +18,8 @@ const Review = (props: any) => {
     editReviewPath,
     history,
     resourceId,
-    redirectPath
+    redirectPath,
+    currentChallenges
   } = props;
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
@@ -38,6 +40,15 @@ const Review = (props: any) => {
             <br />
             <MarkdownView text={userReview.text} />
           </Paper>
+        </React.Fragment>
+      )}
+      <br />
+      {!loading && currentChallenges && currentChallenges.length !== 0 && (
+        <React.Fragment>
+          <h3>参加中のチャレンジ</h3>
+          {currentChallenges.map((item: any) => (
+            <CollectionCard key={item.id} collection={item} type="challenges" />
+          ))}
         </React.Fragment>
       )}
       {isCurrentUser ? (
