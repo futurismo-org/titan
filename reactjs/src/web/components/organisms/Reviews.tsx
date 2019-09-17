@@ -7,6 +7,8 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import { formatYearDate } from '~/lib/moment';
 import { REVIEW_TYPE_DAILY, REVIEW_TYPE_WEEKLY } from '~/constants/review';
 
+import Paper from '../templates/PaperWrapper';
+
 const getColor = (type: string) => {
   if (type === REVIEW_TYPE_DAILY) {
     return 'default';
@@ -18,26 +20,26 @@ const getColor = (type: string) => {
 };
 
 const Reviews = (props: any) => {
-  const { userShortId, userReviews, loading } = props;
+  const {
+    userShortId,
+    dailyReviews,
+    weeklyReviews,
+    monthlyReviews,
+    loading
+  } = props;
 
-  return (
-    <React.Fragment>
-      <ListItem>
-        <ListItemText>
-          <Title text="レビュー" />
-        </ListItemText>
-        <PostButton
-          to={`/u/${userShortId}/reviews/new`}
-          type="button"
-          text="レビューを新規投稿"
-        />
-      </ListItem>
-      <Divider />
+  const RoutineReviews = (props: any) => {
+    const { reviews, title } = props;
+
+    if (reviews.length === 0) {
+      return null;
+    }
+
+    return (
       <React.Fragment>
-        {loading && <Progress />}
-        {!loading &&
-          userReviews &&
-          userReviews.map((userReview: any) => (
+        <Paper>
+          <h3>{title}</h3>
+          {reviews.map((userReview: any) => (
             <React.Fragment key={userReview.id}>
               <NoStyledLink to={`/u/${userShortId}/reviews/${userReview.id}`}>
                 <ListItem>
@@ -57,6 +59,34 @@ const Reviews = (props: any) => {
               <Divider />
             </React.Fragment>
           ))}
+        </Paper>
+      </React.Fragment>
+    );
+  };
+
+  return (
+    <React.Fragment>
+      <ListItem>
+        <ListItemText>
+          <Title text="レビュー" />
+        </ListItemText>
+        <PostButton
+          to={`/u/${userShortId}/reviews/new`}
+          type="button"
+          text="レビューを新規投稿"
+        />
+      </ListItem>
+      <React.Fragment>
+        {loading && <Progress />}
+        {!loading && (
+          <React.Fragment>
+            <RoutineReviews reviews={monthlyReviews} title="月次レビュー" />
+            <br />
+            <RoutineReviews reviews={weeklyReviews} title="週次レビュー" />
+            <br />
+            <RoutineReviews reviews={dailyReviews} title="日次レビュー" />
+          </React.Fragment>
+        )}
       </React.Fragment>
     </React.Fragment>
   );
