@@ -51,6 +51,7 @@ const Reviews = (props: any) => {
           text="レビューを新規投稿"
         />
       </ListItem>
+      <p>目標に対する実績を定期的に振り返りましょう。</p>
       <React.Fragment>
         {loading && <Progress />}
         {!loading && (
