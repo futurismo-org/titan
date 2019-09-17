@@ -11,6 +11,10 @@ const mapStateToProps = (state: any, props: any) => {
     isLoaded(userReview) &&
     userReview &&
     `/reviews/${userShortId}/posts/${userReview.id}`;
+  const editReviewPath =
+    isLoaded(userReview) &&
+    userReview &&
+    `/u/${userShortId}/reviews/${userReview.id}/edit`;
 
   const currentUser = state.firebase.profile;
   const isCurrentUser =
@@ -25,6 +29,7 @@ const mapStateToProps = (state: any, props: any) => {
     redirectPath,
     resourceId,
     isCurrentUser,
+    editReviewPath,
     loading: !isLoaded(userReview),
     ...props
   };

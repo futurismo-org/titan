@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   TextField,
   Button,
@@ -15,13 +15,29 @@ const REVIEW_TYPE_WEEKLY = '週次レビュー';
 const REVIEW_TYPE_MONTHLY = '月次レビュー';
 
 const ReviewForm = (props: any) => {
-  const { redirectPath, history, saveHandler } = props;
+  const {
+    redirectPath,
+    history,
+    saveHandler,
+    loading,
+    userReview,
+    isCreate
+  } = props;
 
   const [text, setText] = useState('');
   const [type, setType] = useState(REVIEW_TYPE_DAILY);
 
   const [startedAt, setStartedAt] = useState(moment().format('YYYY-MM-DD'));
   const [endedAt, setEndedAt] = useState(moment().format('YYYY-MM-DD'));
+
+  useEffect(() => {
+    if (!isCreate && !loading) {
+      setText(userReview.text);
+      setType(userReview.type);
+      setStartedAt(moment(userReview.startedAt.toDate()).format('YYYY-MM-DD'));
+      setEndedAt(moment(userReview.endedAt.toDate()).format('YYYY-MM-DD'));
+    }
+  }, [isCreate, loading, userReview]);
 
   const onTextChange = (e: any) => {
     e.preventDefault();
@@ -54,7 +70,7 @@ const ReviewForm = (props: any) => {
       type !== REVIEW_TYPE_DAILY ? `- ${endedAt}` : ''
     }`;
 
-    saveHandler(title, text, type)
+    saveHandler(title, text, type, new Date(startedAt), new Date(endedAt))
       .then(() => window.alert('投稿しました。')) // eslint-disable-line
       .then(() => history.push(redirectPath));
   };
