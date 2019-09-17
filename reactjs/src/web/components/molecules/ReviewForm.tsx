@@ -9,10 +9,11 @@ import {
 } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import moment from '~/lib/moment';
-
-const REVIEW_TYPE_DAILY = '日次レビュー';
-const REVIEW_TYPE_WEEKLY = '週次レビュー';
-const REVIEW_TYPE_MONTHLY = '月次レビュー';
+import {
+  REVIEW_TYPE_DAILY,
+  REVIEW_TYPE_WEEKLY,
+  REVIEW_TYPE_MONTHLY
+} from '~/constants/review';
 
 const ReviewForm = (props: any) => {
   const {
