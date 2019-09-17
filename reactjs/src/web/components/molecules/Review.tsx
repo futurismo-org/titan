@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
+import styled from 'styled-components';
 import Progress from '../atoms/CircularProgress';
 import Paper from '../templates/PaperWrapper';
 import Title from '../atoms/Title';
@@ -10,6 +11,18 @@ import NoStyledLink from '../atoms/NoStyledLink';
 import { remove } from '~/lib/firebase';
 import CollectionCard from '../atoms/CollectionCard';
 import ReviewListItem from '../atoms/ReviewListItem';
+import theme from '~/lib/theme';
+
+interface Props {
+  container?: any;
+  spacing?: number;
+}
+
+const StyledCardGrid = styled(Grid as React.SFC<Props>)`
+  && {
+    margin-top: ${theme.spacing(3)}px;
+  }
+`;
 
 const Review = (props: any) => {
   const {
@@ -49,9 +62,15 @@ const Review = (props: any) => {
       {!loading && currentChallenges && currentChallenges.length !== 0 && (
         <React.Fragment>
           <h3>参加中のチャレンジ</h3>
-          {currentChallenges.map((item: any) => (
-            <CollectionCard key={item.id} collection={item} type="challenges" />
-          ))}
+          <StyledCardGrid container spacing={4}>
+            {currentChallenges.map((item: any) => (
+              <CollectionCard
+                key={item.id}
+                collection={item}
+                type="challenges"
+              />
+            ))}
+          </StyledCardGrid>
         </React.Fragment>
       )}
       <br />
