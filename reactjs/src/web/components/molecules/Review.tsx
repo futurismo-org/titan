@@ -9,6 +9,7 @@ import NoStyledLink from '../atoms/NoStyledLink';
 
 import { remove } from '~/lib/firebase';
 import CollectionCard from '../atoms/CollectionCard';
+import ReviewListItem from '../atoms/ReviewListItem';
 
 const Review = (props: any) => {
   const {
@@ -19,7 +20,9 @@ const Review = (props: any) => {
     history,
     resourceId,
     redirectPath,
-    currentChallenges
+    currentChallenges,
+    currentReviews,
+    userShortId
   } = props;
 
   const handleDelete = (redirectPath: string, resourceId: string) => {
@@ -48,6 +51,19 @@ const Review = (props: any) => {
           <h3>参加中のチャレンジ</h3>
           {currentChallenges.map((item: any) => (
             <CollectionCard key={item.id} collection={item} type="challenges" />
+          ))}
+        </React.Fragment>
+      )}
+      <br />
+      {!loading && currentReviews && currentReviews.length !== 0 && (
+        <React.Fragment>
+          <h3>過去のレビュー記録</h3>
+          {currentReviews.map((item: any) => (
+            <ReviewListItem
+              key={item.id}
+              userReview={item}
+              userShortId={userShortId}
+            />
           ))}
         </React.Fragment>
       )}

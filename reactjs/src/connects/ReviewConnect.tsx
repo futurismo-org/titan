@@ -3,7 +3,7 @@ import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import moment from '~/lib/moment';
 
-export const isChallengeOpening = (
+export const isCurrentChallenge = (
   targetDate: Date,
   openedAt: Date,
   closedAt: Date
@@ -11,8 +11,17 @@ export const isChallengeOpening = (
   moment(targetDate).diff(moment(openedAt)) >= 0 &&
   moment(targetDate).diff(moment(closedAt)) < 0;
 
+export const isCurrentReview = (
+  targetDate: Date,
+  startedAt: Date,
+  endedAt: Date
+) =>
+  moment(targetDate).diff(moment(startedAt)) >= 0 &&
+  moment(targetDate).diff(moment(endedAt)) < 0;
+
 const mapStateToProps = (state: any, props: any) => {
   const userReview = state.firestore.data.userReview;
+  const userReviews = state.firestore.ordered.userReviews;
   const userShortId = props.match.params.id;
 
   const redirectPath = `/u/${userShortId}/reviews`;
@@ -41,19 +50,24 @@ const mapStateToProps = (state: any, props: any) => {
         if (!challenge.openedAt) return false;
         if (!challenge.closedAt) return false;
 
-        console.log(
-          userReview.startedAt.toDate(),
-          challenge.openedAt.toDate(),
-          challenge.closedAt.toDate()
-        );
-
-        return isChallengeOpening(
+        return isCurrentChallenge(
           userReview.startedAt.toDate(),
           challenge.openedAt.toDate(),
           challenge.closedAt.toDate()
         );
       })
       .filter((challenge: any) => !challenge.freezed);
+
+  const currentReviews =
+    isLoaded(userReviews) &&
+    isLoaded(userReview) &&
+    userReviews.filter((review: any) => {
+      return isCurrentReview(
+        review.endedAt.toDate(),
+        userReview.startedAt.toDate(),
+        userReview.endedAt.toDate()
+      );
+    });
 
   return {
     userShortId,
@@ -63,7 +77,11 @@ const mapStateToProps = (state: any, props: any) => {
     isCurrentUser,
     editReviewPath,
     currentChallenges,
-    loading: !isLoaded(userReview) || !isLoaded(profileChallenges),
+    currentReviews,
+    loading:
+      !isLoaded(userReview) ||
+      !isLoaded(profileChallenges) ||
+      !isLoaded(userReviews),
     ...props
   };
 };
@@ -73,6 +91,16 @@ const queries = (props: any) => {
   const reviewId = props.match.params.reviewId;
 
   const query = [
+    {
+      collection: 'reviews',
+      doc: userShortId,
+      storeAs: 'userReviews',
+      subcollections: [
+        {
+          collection: 'posts'
+        }
+      ]
+    },
     {
       collection: 'reviews',
       doc: userShortId,
