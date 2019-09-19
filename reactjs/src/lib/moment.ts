@@ -3,20 +3,21 @@ import 'moment/locale/ja';
 
 moment.locale('ja');
 
-export const now = new Date();
 export const nowMoment = moment();
 
 export const fromNow = (date: Date) => moment(date).fromNow() || '';
-export const isClosed = (date: Date) => moment(date).diff(now, 'days') <= 0;
-export const isToday = (date: Date) => moment(date).isSame(moment(now), 'days');
+export const isClosed = (date: Date) =>
+  moment(date).diff(new Date(), 'days') <= 0;
+export const isToday = (date: Date) =>
+  moment(date).isSame(moment(new Date()), 'days');
 export const isBeforeInDaysFromNow = (date: Date, days: number) => {
-  const isBefore = moment(date).isBefore(now);
-  const diff = moment(now).diff(date, 'days');
+  const isBefore = moment(date).isBefore(new Date());
+  const diff = moment(new Date()).diff(date, 'days');
   return isBefore && diff <= days;
 };
 
 export const getBeforeDateFromNow = (days: number) =>
-  moment(now)
+  moment(new Date())
     .subtract(days, 'days')
     .toDate();
 

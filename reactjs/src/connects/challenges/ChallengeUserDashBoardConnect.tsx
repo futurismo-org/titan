@@ -13,16 +13,20 @@ const aggregateDays = (histories: any[], openedAt: Date, closedAt: Date) => {
   const map = histories
     .filter((history: any) => history)
     .reduce((result: any, current: any) => {
+      const month = current.timestamp.toDate().getMonth();
+      const date = current.timestamp.toDate().getDate();
       const timestamp = current.timestamp;
 
       const element = result.find((p: any) => {
-        return p.timestamp === timestamp;
+        return p.month === month && p.date === date;
       });
 
       if (element) {
         element.count += current.minutes;
       } else {
         result.push({
+          date,
+          month,
           timestamp,
           count: current.minutes
         });

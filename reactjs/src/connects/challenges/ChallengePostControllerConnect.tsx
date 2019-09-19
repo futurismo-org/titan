@@ -11,7 +11,7 @@ import {
   isPostPossible
 } from '~/lib/challenge';
 
-import moment, { now, isToday } from '~/lib/moment';
+import moment, { isToday } from '~/lib/moment';
 import { getParticipantId } from '~/lib/resource';
 import { getChallengeDashboardPath } from '~/lib/url';
 import { mergeCategory } from '~/lib/profile';
@@ -102,7 +102,7 @@ const mapStateToProps = (state: any, props: any) => {
 
     const newHistory = {
       id: historyId,
-      timestamp: now,
+      timestamp: new Date(),
       score: newScore,
       days: tomorrow,
       accDays: newAccDays,
@@ -123,11 +123,11 @@ const mapStateToProps = (state: any, props: any) => {
       accDays: newAccDays,
       pastDays: newPastDays,
       maxDays: newMaxDays,
-      updatedAt: now,
+      updatedAt: new Date(),
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
-    if (!isDaysValid(days)) updateData.restartedAt = now;
+    if (!isDaysValid(days)) updateData.restartedAt = new Date();
 
     firebase
       .firestore()
@@ -205,7 +205,7 @@ ${dashBoardURL}`;
 
     const newHistory = {
       id: historyId,
-      timestamp: now,
+      timestamp: new Date(),
       score: newScore,
       days: 0,
       pastDays: 0,
@@ -218,12 +218,12 @@ ${dashBoardURL}`;
 
     const resetData = {
       restartedAt: null,
-      updatedAt: now,
+      updatedAt: new Date(),
       days: 0,
       pastDays: 0,
       score: newScore,
       accDays: newAccDays,
-      lastResetDate: now,
+      lastResetDate: new Date(),
       histories: firebase.firestore.FieldValue.arrayUnion(newHistory)
     };
 
