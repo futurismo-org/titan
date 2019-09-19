@@ -17,10 +17,12 @@ import { initializeReactotron } from '~/native/lib/reactotron';
 import '~/lib/fixtimerbug';
 import SplashHome from './Splash';
 
-import { isAndroid } from '~/native/lib/native';
+import { isAndroid, isiOS, appleIPHead } from '~/native/lib/native';
 import { sleep } from '~/lib/general';
 
 import firebase from '~/lib/firebase';
+import { configDemo } from '~/lib/config';
+import { getPublicIP } from '~/native/lib/network';
 
 const rrfConfig = {
   userProfile: 'users',
@@ -39,6 +41,13 @@ const App = (props: any) => {
   const [isFontReady, setIsFontReady] = useState(false);
 
   useEffect(() => {
+    getPublicIP().then((ip: string) => {
+      if (isiOS && ip.split('.')[0] === appleIPHead) {
+        const app = firebase.app();
+        app.delete().then(() => firebase.initializeApp(configDemo));
+      }
+    });
+
     Font.loadAsync({
       MPLUS1p: require('../../../../assets/fonts/MPLUS1p/MPLUS1p-Medium.ttf') // eslint-disable-line
     }).then(() => setIsFontReady(true));
