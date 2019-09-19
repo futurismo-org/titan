@@ -16,6 +16,7 @@ import { formatDays } from '~/lib/challenge';
 import PrimaryButton from '../../atoms/PrimaryButton';
 import { RECORD_OPTION_TIME } from '~/constants/strategy';
 import ChallengeRecordTimeChart from './ChallengeRecordTimeChart';
+import { isMobile } from '~/web/lib/web';
 
 const StyledCenterContainer = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ const ChallengeUserDashBoard = (props: any) => {
     deleteHistoryHandler,
     categoryPath,
     totalMinutesMessage,
+    todayMinutesMessage,
     hoursByDay
   } = props;
 
@@ -117,9 +119,12 @@ const ChallengeUserDashBoard = (props: any) => {
               {challenge.recordOption === RECORD_OPTION_TIME && (
                 <React.Fragment>
                   <Grid item>
+                    <Typography variant="h6">{todayMinutesMessage}</Typography>
+                  </Grid>
+                  <Grid item>
                     <Typography variant="h6">{totalMinutesMessage}</Typography>
                   </Grid>
-                  <ChallengeRecordTimeChart data={hoursByDay} />
+                  {!isMobile && <ChallengeRecordTimeChart data={hoursByDay} />}
                 </React.Fragment>
               )}
               <Grid item style={{ width: '100%', height: '100%' }}>

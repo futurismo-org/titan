@@ -51,24 +51,6 @@ const ChallengePostController = (props: any) => {
 
   const [value, loading, error] = useDocument(participantsRef);
 
-  const writeRecord = recordHandler(
-    window.alert, // eslint-disable-line
-    history.push
-  );
-
-  const resetRecord = !!resetHandler && resetHandler(history.push);
-
-  const confirm = (props: any) => {
-    const { days } = props;
-    if (!isDaysValid(days)) return;
-
-    /* eslint-disable */
-    if (window.confirm('本当にリセットしますか？')) {
-      resetRecord(props);
-    }
-    /* eslint-enable */
-  };
-
   const data = value && value.data();
 
   const recordDisabled = !isPostPossible(
@@ -86,12 +68,32 @@ const ChallengePostController = (props: any) => {
     setOpen(false);
   };
 
+  const writeRecord = recordHandler(
+    window.alert, // eslint-disable-line
+    history.push,
+    null,
+    handleClose
+  );
+
   const onPressRecordButton = (data: any) => {
     if (recordOption === RECORD_OPTION_NONE) {
       writeRecord(data);
     } else {
       handleOpen();
     }
+  };
+
+  const resetRecord = !!resetHandler && resetHandler(history.push);
+
+  const confirm = (props: any) => {
+    const { days } = props;
+    if (!isDaysValid(days)) return;
+
+    /* eslint-disable */
+    if (window.confirm('本当にリセットしますか？')) {
+      resetRecord(props);
+    }
+    /* eslint-enable */
   };
 
   const ChallengePostRecordModalForm = (props: any) => {

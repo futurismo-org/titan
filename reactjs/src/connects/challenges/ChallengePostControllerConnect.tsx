@@ -43,9 +43,12 @@ const mapStateToProps = (state: any, props: any) => {
 
   const profile = state.firebase.profile;
 
-  const recordHandler = (alert: any, redirect: any, gifty: any) => (
-    props: any
-  ) => {
+  const recordHandler = (
+    alert: any,
+    redirect: any,
+    gifty: any,
+    closeHandler: any
+  ) => (props: any) => {
     const {
       days,
       score,
@@ -133,6 +136,7 @@ const mapStateToProps = (state: any, props: any) => {
       .firestore()
       .doc(resourceId)
       .update(updateData)
+      .then(() => closeHandler && closeHandler())
       .then(() => gifty && gifty())
       .then(() => {
         const message = `${displayName}さんが計${newAccDays}日達成しました！

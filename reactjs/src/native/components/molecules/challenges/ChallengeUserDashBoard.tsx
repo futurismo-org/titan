@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { H1, Text, H2, Button } from 'native-base';
+import { H1, Text, H2, Button, View } from 'native-base';
 
 import { withRouter } from 'react-router-native';
 import TwitterButton from '../../atoms/TwitterButton';
@@ -30,6 +30,7 @@ const ChallengeUserDashBoard = (props: any) => {
     categoryPath,
     history,
     totalMinutesMessage,
+    todayMinutesMessage,
     hoursByDay
   } = props;
 
@@ -68,6 +69,7 @@ const ChallengeUserDashBoard = (props: any) => {
           <Space /> */}
           {challenge.recordOption === RECORD_OPTION_TIME && (
             <React.Fragment>
+              <H2 style={{ textAlign: 'center' }}>{todayMinutesMessage}</H2>
               <H2 style={{ textAlign: 'center' }}>{totalMinutesMessage}</H2>
               <ChallengeRecordTimeChart data={hoursByDay} />
             </React.Fragment>

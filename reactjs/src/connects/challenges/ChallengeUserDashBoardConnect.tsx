@@ -16,19 +16,20 @@ const aggregateDays = (histories: any[], openedAt: Date, closedAt: Date) => {
       const month = current.timestamp.toDate().getMonth();
       const date = current.timestamp.toDate().getDate();
       const timestamp = current.timestamp;
+      const minutes = current.minutes ? current.minutes : 0;
 
       const element = result.find((p: any) => {
         return p.month === month && p.date === date;
       });
 
       if (element) {
-        element.count += current.minutes;
+        element.count += minutes;
       } else {
         result.push({
           date,
           month,
           timestamp,
-          count: current.minutes
+          count: minutes
         });
       }
       return result;
@@ -95,6 +96,7 @@ const mapStateToProps = (state: any, props: any) => {
   const categoryPath = getCategoryDashboardPath(categoryId, userShortId);
 
   let totalMinutesMessage = '';
+  let todayMinutesMessage = '';
   if (challenge.recordOption === RECORD_OPTION_TIME) {
     const totalMinutes =
       user &&
@@ -108,6 +110,23 @@ const mapStateToProps = (state: any, props: any) => {
     totalMinutesMessage = `総実施時間: ${Math.floor(
       totalMinutes / 60
     ).toString()}時間${(totalMinutes % 60).toString()}分`;
+
+    const todayMinutes =
+      user &&
+      user.histories
+        .filter((history: any) =>
+          moment(history.timestamp.toDate()).isSame(moment(), 'days')
+        )
+        .reduce((p: any, x: any) => {
+          if (x.minutes) {
+            return p + x.minutes;
+          } else {
+            return p;
+          }
+        }, 0);
+    todayMinutesMessage = `本日: ${Math.floor(
+      todayMinutes / 60
+    ).toString()}時間${(todayMinutes % 60).toString()}分`;
   }
 
   const hoursByDay =
@@ -127,6 +146,7 @@ const mapStateToProps = (state: any, props: any) => {
     joinDate,
     categoryPath,
     totalMinutesMessage,
+    todayMinutesMessage,
     hoursByDay,
     ...props
   };
