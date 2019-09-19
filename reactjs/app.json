@@ -5,7 +5,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.11",
+    "version": "1.0.12",
     "orientation": "portrait",
     "icon": "./public/icon.png",
     "splash": {
@@ -21,7 +21,7 @@
       "icon": "./public/icon-ios.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.futurismo.titan",
-      "buildNumber": "2"
+      "buildNumber": "1"
     },
     "android": {
       "icon": "./public/icon-android.png",
