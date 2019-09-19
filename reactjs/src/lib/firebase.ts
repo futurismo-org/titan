@@ -18,19 +18,27 @@ if (firebase.apps.length === 0) {
   }
 }
 
-const firestore = firebase.firestore();
-
 export const remove = (resourceId: string) =>
-  firestore.doc(resourceId).delete();
+  firebase
+    .firestore()
+    .doc(resourceId)
+    .delete();
 
 export const create = (resourceId: string, data: any) =>
-  firestore.doc(resourceId).set(data);
+  firebase
+    .firestore()
+    .doc(resourceId)
+    .set(data);
 
 export const update = (resourceId: string, data: any) =>
-  firestore.doc(resourceId).set(data, { merge: true });
+  firebase
+    .firestore()
+    .doc(resourceId)
+    .set(data, { merge: true });
 
 export const isExist = (resourceId: string) =>
-  firestore
+  firebase
+    .firestore()
     .doc(resourceId)
     .get()
     .then(docSnapshot => docSnapshot.exists);
