@@ -3,7 +3,7 @@
     "name": "Titan",
     "slug": "titan-expo",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.12",
     "orientation": "portrait",
@@ -21,12 +21,12 @@
       "icon": "./public/icon-ios.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.futurismo.titan",
-      "buildNumber": "2"
+      "buildNumber": "3"
     },
     "android": {
       "icon": "./public/icon-android.png",
       "package": "com.futurismo.titan",
-      "versionCode": 11
+      "versionCode": 12
     },
     "androidStatusBar": {
       "backgroundColor": "#000000"

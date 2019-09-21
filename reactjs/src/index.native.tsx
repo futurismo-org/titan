@@ -3,7 +3,6 @@ import { activateKeepAwake } from 'expo-keep-awake';
 
 import { Analytics } from 'expo-analytics';
 import { Platform } from 'react-native';
-import Sentry from 'sentry-expo';
 import App from './native/components/organisms/App';
 
 const GA_TRACKING_ID = 'UA-137986489-3';
@@ -16,9 +15,6 @@ if (Platform.OS !== 'web') {
   // @ts-ignore
   window = undefined; // eslint-disable-line
 }
-
-// Sentry.enableInExpoDevelopment = true;
-Sentry.config(process.env.SENTRY_INSTALL_URL as string).install();
 
 /* eslint-disable */
 if (__DEV__) {
