@@ -4,6 +4,7 @@ import { Route, NativeRouter, BackButton, Switch } from 'react-router-native';
 import * as Expo from 'expo';
 import * as Font from 'expo-font';
 import { Alert } from 'react-native';
+import * as Sentry from 'sentry-expo';
 
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
@@ -35,6 +36,8 @@ const rrfProps = {
   dispatch: store.dispatch,
   createFirestoreInstance
 };
+
+Sentry.init();
 
 const App = (props: any) => {
   const [isSplashReady, setIsSplashReady] = useState(false);

@@ -13,6 +13,8 @@ import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
 import twitter, { TWLoginButton } from 'react-native-simple-twitter';
+// import * as AppleAuthentication from 'expo-apple-authentication';
+
 import firebase from '~/lib/firebase';
 import {
   // getTwitterAccessToken,
@@ -36,9 +38,14 @@ const AuthScreen = (props: any) => {
   const [password, setPassword] = useState('');
   const [oauthToken, setOauthToken] = useState('');
   const [oauthTokenSecret, setOauthTokenSecret] = useState('');
+  // const [isAppleSingInAvailable, setIsAppleSignInAvailable] = useState(false);
 
   useEffect(() => {
     twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
+
+    // AppleAuthentication.isAvailableAsync().then((result: any) =>
+    //   setIsAppleSignInAvailable(result)
+    // );
   }, []);
 
   const signInWithEmail = (email: string, password: string) => {
@@ -179,6 +186,32 @@ const AuthScreen = (props: any) => {
           <Text>メールでログイン</Text>
         </Button>
       </Form>
+      {/* https://github.com/expo/expo/issues/5690 */}
+      {/* {isAppleSingInAvailable && (
+        <AppleAuthentication.AppleAuthenticationButton
+          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+          cornerRadius={5}
+          onPress={() => {
+            try {
+              const credential = AppleAuthentication.signInAsync({
+                requestedScopes: [
+                  AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+                  AppleAuthentication.AppleAuthenticationScope.EMAIL
+                ]
+              });
+              // signed in
+            } catch (e) {
+              if (e.code === 'ERR_CANCELED') {
+                // handle that the user canceled the sign-in flow
+              } else {
+                // handle other errors
+              }
+            }
+          }}
+        />
+      )}
+      <Text /> */}
       <Text style={{ padding: 10 }}>
         ユーザ登録がまだの方も、ログインの延長でユーザ登録が可能です。
         登録の前に、利用規約とプライバシーポリシーをご確認ください。
