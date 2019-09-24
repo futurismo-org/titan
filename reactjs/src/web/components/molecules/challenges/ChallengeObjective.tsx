@@ -137,6 +137,17 @@ const ChallengeObjective = (props: any) => {
                     onChange={onWhyChange}
                   />
                   <ChallengeObjectiveDescription challenge={challenge} />
+                  <TextField
+                    value={why}
+                    variant="outlined"
+                    margin="normal"
+                    id="why"
+                    label="なぜやるのか(Why)"
+                    fullWidth
+                    multiline
+                    rows={8}
+                    onChange={onWhyChange}
+                  />
                 </React.Fragment>
               ) : (
                 <div>
