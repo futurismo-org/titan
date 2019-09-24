@@ -66,7 +66,7 @@ const ChallengeActivities = (props: any) => {
             >
               <Text
                 style={{ fontWeight: 'bold', fontSize: 20 }}
-              >{`${user.displayName}さんの努力ノート`}</Text>
+              >{`${user.displayName}さんの行動ノート`}</Text>
               <UserAvatar
                 photoURL={user.photoURL}
                 userId={user.shortId}

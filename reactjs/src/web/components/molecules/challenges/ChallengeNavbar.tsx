@@ -8,7 +8,11 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Grid from '@material-ui/core/Grid';
 
 import NoStyledLink from '../../atoms/NoStyledLink';
-import { getChallengeUserGoalPath, getChallengeDashboardPath } from '~/lib/url';
+import {
+  getChallengeUserGoalPath,
+  getChallengeDashboardPath,
+  getChallengeUserActivitiesPath
+} from '~/lib/url';
 
 const ChallengeNavbar = (props: any) => {
   const { challenge, userShortId, join } = props;
@@ -64,8 +68,14 @@ const ChallengeNavbar = (props: any) => {
         <NavItem to={`/c/${challengeId}/timeline`} text="タイムライン" />
         {join && (
           <NavItem
+            to={getChallengeUserActivitiesPath(challengeId, userShortId)}
+            text="行動ノート"
+          />
+        )}
+        {join && (
+          <NavItem
             to={getChallengeUserGoalPath(challengeId, userShortId)}
-            text="努力ノート"
+            text="目標ノート"
           />
         )}
         {join && (

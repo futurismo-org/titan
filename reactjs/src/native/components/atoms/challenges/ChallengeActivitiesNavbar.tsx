@@ -24,7 +24,7 @@ const ChallengeActivitiesNavbar = (props: any) => {
           justifyContent: 'center'
         }}
       >
-        <TouchableText text="努力日記" path={basePath} />
+        <TouchableText text="行動日記" path={basePath} />
       </Button>
       <Button
         bordered
