@@ -2,11 +2,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
-import firebase from '~/lib/firebase';
-import {
-  postUserChallengeObjective,
-  deleteUserChallengeObjective
-} from '~/lib/getstream';
 import { getChallengeUserGoalPath } from '~/lib/url';
 
 const mapStateToProps = (state: any, props: any) => {
