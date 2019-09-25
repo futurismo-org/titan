@@ -34,6 +34,10 @@ const ChallengeObjective = (props: any) => {
       setPlan(objective.plan ? objective.plan : '');
     } else {
       setWhat(initialWhat);
+      setWish('');
+      setOutcome('');
+      setObstacle('');
+      setPlan('');
     }
   }, [initialWhat, isLoaded, objective]);
 
