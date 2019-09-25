@@ -111,7 +111,7 @@ const ChallengeObjectiveForm = (props: any) => {
                 margin="normal"
                 required
                 id="what"
-                label="なにをやるのか(What)"
+                label="なにをやるのか？"
                 fullWidth
                 onChange={onWhatChange}
               />
@@ -120,7 +120,8 @@ const ChallengeObjectiveForm = (props: any) => {
                 <b>
                   <a href="https://amzn.to/2l5cfA4">WOOP</a>
                 </b>
-                に従って設計されています。入力は少し大変ですが、WOOPを使うと目標達成率は2倍になります。
+                に従って設計されています。入力は少し大変なので必須ではありません。
+                しかし、WOOPを使うと目標達成率は2倍になりますのでぜひ取り組んでください。
               </p>
               <h3>1. 願望(Wish)</h3>
               <p>
@@ -131,7 +132,7 @@ const ChallengeObjectiveForm = (props: any) => {
                 variant="outlined"
                 margin="normal"
                 id="wish"
-                label="なぜやるのか(Wish)"
+                label="なぜやるのか？"
                 fullWidth
                 multiline
                 rows={8}
@@ -156,7 +157,7 @@ const ChallengeObjectiveForm = (props: any) => {
               />
               <h3>3. 障害(Obstacle)</h3>
               <p>
-                成果を達成することを妨げる、障害になるものを詳細に書いてください。
+                目標を達成することを妨げる、障害になるものを詳細に書いてください。
               </p>
               <ul>
                 <li>どんな考え方が目標の達成をさまたげているのか？</li>
@@ -176,7 +177,7 @@ const ChallengeObjectiveForm = (props: any) => {
                 rows={8}
                 onChange={onObstacleChange}
               />
-              <h3>4. 計画(Planing)</h3>
+              <h3>4. 計画(Plan)</h3>
               <p>
                 障害が発生したときの対処方法を、
                 <a href="https://amzn.to/2lBHBhU">if-thenプランニング</a>

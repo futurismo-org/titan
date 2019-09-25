@@ -41,7 +41,7 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
   );
 };
 
-export const ChallengeObjectiveWishCard = (props: any) => {
+export const ChallengeObjectiveWOOPCard = (props: any) => {
   const { text } = props;
 
   return (
