@@ -34,7 +34,7 @@ const ChallengeObjectiveForm = (props: any) => {
   } = props;
 
   const [what, setWhat] = useState('');
-  const [why, setWhy] = useState('');
+  const [wish, setWish] = useState('');
   const [outcome, setOutcome] = useState('');
   const [obstacle, setObstacle] = useState('');
   const [plan, setPlan] = useState('');
@@ -43,7 +43,7 @@ const ChallengeObjectiveForm = (props: any) => {
     fetchUserWithShortId(userShortId);
     if (isLoaded) {
       setWhat(objective.what ? objective.what : '');
-      setWhy(objective.why ? objective.why : '');
+      setWish(objective.wish ? objective.wish : '');
       setOutcome(objective.outcome ? objective.outcome : '');
       setObstacle(objective.obstacle ? objective.obstacle : '');
       setPlan(objective.plan ? objective.plan : '');
@@ -51,7 +51,7 @@ const ChallengeObjectiveForm = (props: any) => {
   }, [fetchUserWithShortId, isLoaded, objective, userShortId]);
 
   const onWhatChange = onChange(setWhat);
-  const onWhyChange = onChange(setWhy);
+  const onWishChange = onChange(setWish);
   const onOutcomeChange = onChange(setOutcome);
   const onObstacleChange = onChange(setObstacle);
   const onPlanChange = onChange(setPlan);
@@ -61,7 +61,7 @@ const ChallengeObjectiveForm = (props: any) => {
     const onSave = () =>
       handleSave({
         what,
-        why,
+        wish,
         outcome,
         obstacle,
         plan,
@@ -127,15 +127,15 @@ const ChallengeObjectiveForm = (props: any) => {
                 この目標に取り組む理由を書いてください。とくに、強い願望を書いてください。
               </p>
               <TextField
-                value={why}
+                value={wish}
                 variant="outlined"
                 margin="normal"
-                id="why"
-                label="なぜやるのか(Why)"
+                id="wish"
+                label="なぜやるのか(Wish)"
                 fullWidth
                 multiline
                 rows={8}
-                onChange={onWhyChange}
+                onChange={onWishChange}
               />
               <h3>2. 成果(Outcome)</h3>
               <p>

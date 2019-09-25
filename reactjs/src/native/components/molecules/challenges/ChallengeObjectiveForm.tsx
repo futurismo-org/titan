@@ -4,20 +4,20 @@ import { Text, View, Textarea, Button } from 'native-base';
 import { brandWhite } from '~/lib/theme';
 
 const ChallengeObjectiveForm = (props: any) => {
-  const { inputWhat, inputWhy, saveHandler, cancelHandler, isLoaded } = props;
+  const { inputWhat, inputWish, saveHandler, cancelHandler, isLoaded } = props;
 
   const [what, setWhat] = useState('');
-  const [why, setWhy] = useState('');
+  const [wish, setWish] = useState('');
 
   useEffect(() => {
     if (isLoaded) {
       setWhat(inputWhat);
-      setWhy(inputWhy);
+      setWish(inputWish);
     } else {
       setWhat('');
-      setWhy('');
+      setWish('');
     }
-  }, [inputWhat, inputWhy, isLoaded]);
+  }, [inputWhat, inputWish, isLoaded]);
 
   return (
     <View
@@ -38,15 +38,15 @@ const ChallengeObjectiveForm = (props: any) => {
       <Textarea
         bordered
         rowSpan={4}
-        value={why}
-        onChangeText={(text: string) => setWhy(text)}
+        value={wish}
+        onChangeText={(text: string) => setWish(text)}
       />
       <Text />
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
         <Button onPress={cancelHandler} light>
           <Text>キャンセル</Text>
         </Button>
-        <Button onPress={saveHandler(what, why)} style={{ marginLeft: 5 }}>
+        <Button onPress={saveHandler(what, wish)} style={{ marginLeft: 5 }}>
           <Text>保存</Text>
         </Button>
       </View>

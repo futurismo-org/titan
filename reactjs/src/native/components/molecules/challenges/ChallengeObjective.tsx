@@ -4,7 +4,7 @@ import Modal from 'react-native-modal';
 import { TouchableOpacity } from 'react-native';
 import {
   ChallengeObjectiveWhatCard,
-  ChallengeObjectiveWhyCard
+  ChallengeObjectiveWishCard
 } from './ChallengeObjectiveCard';
 import ChallengeObjectiveForm from './ChallengeObjectiveForm';
 import { successToastWithNoRedirect } from '../../atoms/Toast';
@@ -38,8 +38,8 @@ const ChallengeObjective = (props: any) => {
     );
   };
 
-  const saveHandler = (what: any, why: any) => () =>
-    handleSave({ what, why })
+  const saveHandler = (what: any, wish: any) => () =>
+    handleSave({ what, wish })
       .then(() => successToastWithNoRedirect('目標を更新しました。'))
       .then(() => toggleModal());
 
@@ -47,7 +47,7 @@ const ChallengeObjective = (props: any) => {
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
   const what = isLoaded && objective ? objective.what : initialWhat;
-  const why = isLoaded && objective ? objective.why : '';
+  const wish = isLoaded && objective ? objective.wish : '';
 
   return (
     <React.Fragment>
@@ -58,7 +58,7 @@ const ChallengeObjective = (props: any) => {
             <View>
               <ChallengeObjectiveWhatCard text={what} />
               <Text />
-              {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
+              {!!wish && <ChallengeObjectiveWishCard text={wish} user={user} />}
             </View>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
               <ChallengeObjectiveFormButton />
@@ -85,7 +85,7 @@ const ChallengeObjective = (props: any) => {
         <Modal isVisible={modal} avoidKeyboard>
           <ChallengeObjectiveForm
             inputWhat={what}
-            inputWhy={why}
+            inputWish={wish}
             saveHandler={saveHandler}
             cancelHandler={cancelHandler}
             isLoaded={isLoaded}
