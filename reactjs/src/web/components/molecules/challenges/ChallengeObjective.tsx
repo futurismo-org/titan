@@ -3,26 +3,31 @@ import { Button, Grid } from '@material-ui/core';
 
 import {
   ChallengeObjectiveWhatCard,
-  ChallengeObjectiveWhyCard
+  ChallengeObjectiveWOOPCard
 } from './ChallengeObjectiveCard';
 import Progress from '../../atoms/CircularProgress';
 import NoStyledLink from '../../atoms/NoStyledLink';
 
 const ChallengeObjective = (props: any) => {
-  const { challenge, user, isMyProfile, objective, isLoaded, editPath } = props;
+  const { challenge, isMyProfile, objective, isLoaded, editPath } = props;
 
   const initialWhat = `${challenge.title}に毎日取り組みます！`;
 
   const [what, setWhat] = useState(initialWhat);
   const [why, setWhy] = useState('');
+  const [outcome, setOutcome] = useState('');
+  const [obstacle, setObstacle] = useState('');
+  const [plan, setPlan] = useState('');
 
   useEffect(() => {
     if (isLoaded) {
-      setWhat(objective ? objective.what : initialWhat);
-      setWhy(objective ? objective.why : '');
+      setWhat(objective.what ? objective.what : '');
+      setWhy(objective.why ? objective.why : '');
+      setOutcome(objective.outcome ? objective.outcome : '');
+      setObstacle(objective.obstacle ? objective.obstacle : '');
+      setPlan(objective.plan ? objective.plan : '');
     } else {
       setWhat(initialWhat);
-      setWhy('');
     }
   }, [initialWhat, isLoaded, objective]);
 
@@ -58,9 +63,12 @@ const ChallengeObjective = (props: any) => {
               <Grid item>
                 <div style={{ marginTop: 20, marginBottom: 20 }}>
                   <ChallengeObjectiveWhatCard text={what} />
-                  {!!why && (
-                    <ChallengeObjectiveWhyCard text={why} user={user} />
-                  )}
+                  <ChallengeObjectiveWOOPCard
+                    wish={why}
+                    outcome={outcome}
+                    obstacle={obstacle}
+                    plan={plan}
+                  />
                 </div>
               </Grid>
             </Grid>

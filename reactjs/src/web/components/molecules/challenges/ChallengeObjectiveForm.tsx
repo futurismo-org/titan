@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { Button, Grid, TextField } from '@material-ui/core';
+import { onChange } from '~/web/lib/web';
 
 const ChallengeObjectiveDescription = (props: any) => {
   const { challengeId } = props;
@@ -49,11 +50,6 @@ const ChallengeObjectiveForm = (props: any) => {
     }
   }, [fetchUserWithShortId, isLoaded, objective, userShortId]);
 
-  const onChange = (setter: any) => (e: any) => {
-    e.preventDefault();
-    setter(e.target.value);
-  };
-
   const onWhatChange = onChange(setWhat);
   const onWhyChange = onChange(setWhy);
   const onOutcomeChange = onChange(setOutcome);
@@ -100,7 +96,12 @@ const ChallengeObjectiveForm = (props: any) => {
           <div style={{ textAlign: 'right' }}>
             <ChallengeObjectiveFormButton />
           </div>
-          <Grid container direction="row" justify="center" alignItems="center">
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
             <Grid item>
               <ChallengeObjectiveDescription challengeId={challengeId} />
               <p>なにをやるのかを一言で入力してください。</p>
@@ -156,14 +157,14 @@ const ChallengeObjectiveForm = (props: any) => {
               <h3>3. 障害(Obstacle)</h3>
               <p>
                 成果を達成することを妨げる、障害になるものを詳細に書いてください。
-                <ul>
-                  <li>どんな考え方が目標の達成をさまたげているのか？</li>
-                  <li>どんな行動が目標の達成をさまたげているのか？</li>
-                  <li>どんな癖や習慣が目標の達成をさまたげているのか？</li>
-                  <li>どんな思い込みが目標の達成をさまたげているのか？</li>
-                  <li>どんな感情が目標の達成をさまたげているのか？</li>
-                </ul>
               </p>
+              <ul>
+                <li>どんな考え方が目標の達成をさまたげているのか？</li>
+                <li>どんな行動が目標の達成をさまたげているのか？</li>
+                <li>どんな癖や習慣が目標の達成をさまたげているのか？</li>
+                <li>どんな思い込みが目標の達成をさまたげているのか？</li>
+                <li>どんな感情が目標の達成をさまたげているのか？</li>
+              </ul>
               <TextField
                 value={obstacle}
                 variant="outlined"
