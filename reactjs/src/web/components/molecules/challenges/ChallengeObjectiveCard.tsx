@@ -2,8 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Card, { CardProps } from '@material-ui/core/Card';
 import { CardContent, List, ListItem, ListItemText } from '@material-ui/core';
-import MarkdownView from '~/web/components/atoms/MarkdownView';
 import { brandGray } from '~/lib/theme';
+import TextFieldView from '../../atoms/TextFieldView';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -54,7 +54,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
                 }
                 secondary={
                   <React.Fragment>
-                    <MarkdownView text={plan} />
+                    <TextFieldView text={plan} />
                   </React.Fragment>
                 }
                 disableTypography
@@ -69,7 +69,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
                 }
                 secondary={
                   <React.Fragment>
-                    <MarkdownView text={wish} />
+                    <TextFieldView text={wish} />
                   </React.Fragment>
                 }
                 disableTypography
@@ -84,7 +84,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
                 }
                 secondary={
                   <React.Fragment>
-                    <MarkdownView text={outcome} />
+                    <TextFieldView text={outcome} />
                   </React.Fragment>
                 }
                 disableTypography
@@ -99,7 +99,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
                 }
                 secondary={
                   <React.Fragment>
-                    <MarkdownView text={obstacle} />
+                    <TextFieldView text={obstacle} />
                   </React.Fragment>
                 }
                 disableTypography

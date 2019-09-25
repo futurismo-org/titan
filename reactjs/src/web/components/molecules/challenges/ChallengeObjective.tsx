@@ -50,9 +50,6 @@ const ChallengeObjective = (props: any) => {
       {!isLoaded && <Progress />}
       {isLoaded && (
         <React.Fragment>
-          <div style={{ textAlign: 'right' }}>
-            <ChallengeObjectiveFormButton />
-          </div>
           <React.Fragment>
             <Grid
               container
@@ -63,6 +60,9 @@ const ChallengeObjective = (props: any) => {
               <Grid item>
                 <div style={{ marginTop: 20, marginBottom: 20 }}>
                   <ChallengeObjectiveWhatCard text={what} />
+                  <div style={{ textAlign: 'right', marginTop: 20 }}>
+                    <ChallengeObjectiveFormButton />
+                  </div>
                   <ChallengeObjectiveWOOPCard
                     wish={wish}
                     outcome={outcome}

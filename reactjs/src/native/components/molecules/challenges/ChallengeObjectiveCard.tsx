@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, CardItem, Text, View } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
-import MarkdownView from '../../atoms/MarkdownView';
 
 export const ChallengeObjectiveWhatCard = (props: any) => {
   const { text } = props;
@@ -52,28 +51,28 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
           {!!plan && (
             <React.Fragment>
               <Text note>if-thenプランニング(Plan)</Text>
-              <MarkdownView text={plan} />
+              <Text>{plan}</Text>
               <Text />
             </React.Fragment>
           )}
           {!!wish && (
             <React.Fragment>
               <Text note>なぜやるのか？(Wish)</Text>
-              <MarkdownView text={wish} />
+              <Text>{wish}</Text>
               <Text />
             </React.Fragment>
           )}
           {!!outcome && (
             <React.Fragment>
               <Text note>最大の成果(Outcome)</Text>
-              <MarkdownView text={outcome} />
+              <Text>{outcome}</Text>
               <Text />
             </React.Fragment>
           )}
           {!!obstacle && (
             <React.Fragment>
               <Text note>目標を妨げるもの(Obstacle)</Text>
-              <MarkdownView text={obstacle} />
+              <Text>{obstacle}</Text>
               <Text />
             </React.Fragment>
           )}
