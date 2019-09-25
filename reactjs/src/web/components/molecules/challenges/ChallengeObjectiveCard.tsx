@@ -1,14 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Card, { CardProps } from '@material-ui/core/Card';
-import {
-  CardContent,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText
-} from '@material-ui/core';
-import UserAvatar from '../../atoms/UserAvatar';
+import { CardContent, List, ListItem, ListItemText } from '@material-ui/core';
 import MarkdownView from '~/web/components/atoms/MarkdownView';
 import { brandGray } from '~/lib/theme';
 
@@ -114,7 +107,9 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
             </ListItem>
           )}
         </List>
-      ) : null}
+      ) : (
+        <p>WOOP法をつかって目標をさらに分析しましょう。</p>
+      )}
     </Wrapper>
   );
 };
