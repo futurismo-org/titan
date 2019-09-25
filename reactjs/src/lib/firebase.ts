@@ -6,6 +6,7 @@ import { configDev, configProd } from './config';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import axios from './axios';
 
 if (firebase.apps.length === 0) {
   if (
@@ -123,5 +124,21 @@ export const isLogin = (state: any) =>
 export const lazyEvalValue = (target: any) =>
   isLoaded(target) ? target : null;
 export const lazyEvalValues = (items: any[]) => (isLoaded(items) ? items : []);
+
+export const createCustomToken = (token: string, isApple: boolean) => {
+  const data = {
+    token
+  };
+
+  if (isApple) {
+    axios.defaults.baseURL =
+      'https://us-central1-titan-apple-demo2.cloudfunctions.net/api';
+  }
+
+  return axios
+    .post('/firebase/create_token', data)
+    .then(res => res.data)
+    .catch(res => res.data);
+};
 
 export default firebase;

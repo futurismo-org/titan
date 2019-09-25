@@ -5,7 +5,8 @@ const functions = require('firebase-functions');
 const GETSTREAM_SERVER_LOCATION = 'us-east';
 
 const client =
-  process.env.APP_ENV === 'development'
+  process.env.APP_ENV === 'development' ||
+  process.env.APP_ENV === 'demonstration'
     ? getstream.connect(
         process.env.GETSTREAM_KEY,
         process.env.GETSTREAM_SECRET,

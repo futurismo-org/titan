@@ -12,6 +12,7 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 // const { postTweet, requestToken, accessToken } = require('./handlers/twitter');
 const { dashboard, topic, challenge } = require('./handlers/ogp');
 const { getToken } = require('./handlers/getstream');
+const { createToken } = require('./handlers/firebase');
 
 // stripe
 app.post('/charges', chargeProduct);
@@ -31,6 +32,9 @@ app.get('/c/:cid/overview', challenge);
 // getstream
 app.post('/getstream/register', getToken);
 app.post('/getstream/token', getToken);
+
+// firebase
+app.post('/firebase/create_token', createToken);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);

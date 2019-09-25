@@ -3,7 +3,8 @@ import Stripe from 'stripe';
 const functions = require('firebase-functions');
 
 const stripe =
-  process.env.APP_ENV === 'development'
+  process.env.APP_ENV === 'development' ||
+  process.env.APP_ENV === 'demonstration'
     ? new Stripe(process.env.STRIPE_SEC_KEY as string)
     : new Stripe(functions.config().stripe.secret_token);
 

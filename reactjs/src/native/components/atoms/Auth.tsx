@@ -13,9 +13,9 @@ import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
 import twitter, { TWLoginButton } from 'react-native-simple-twitter';
-// import * as AppleAuthentication from 'expo-apple-authentication';
+import * as AppleAuthentication from 'expo-apple-authentication';
 
-import firebase from '~/lib/firebase';
+import firebase, { createCustomToken } from '~/lib/firebase';
 import {
   // getTwitterAccessToken,
   // getTwitterRequestToken,
@@ -29,6 +29,9 @@ import TouchableText from './TouchableText';
 
 // import SubmitButton from './SubmitButton';
 import { successToast, errorToast } from './Toast';
+import { isiOS, appleIPHead } from '~/native/lib/native';
+import { getPublicIP } from '~/native/lib/network';
+import axios from '~/lib/axios';
 
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
@@ -38,14 +41,18 @@ const AuthScreen = (props: any) => {
   const [password, setPassword] = useState('');
   const [oauthToken, setOauthToken] = useState('');
   const [oauthTokenSecret, setOauthTokenSecret] = useState('');
-  // const [isAppleSingInAvailable, setIsAppleSignInAvailable] = useState(false);
+  const [isAppleSingInAvailable, setIsAppleSignInAvailable] = useState(false);
+
+  const [ip, setIP] = useState('');
 
   useEffect(() => {
     twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
 
-    // AppleAuthentication.isAvailableAsync().then((result: any) =>
-    //   setIsAppleSignInAvailable(result)
-    // );
+    AppleAuthentication.isAvailableAsync().then((result: any) =>
+      setIsAppleSignInAvailable(result)
+    );
+
+    getPublicIP().then((ip: string) => setIP(ip));
   }, []);
 
   const signInWithEmail = (email: string, password: string) => {
@@ -145,6 +152,30 @@ const AuthScreen = (props: any) => {
       .catch(error => errorToast(error.message));
   };
 
+  const signUpWithCustomToken = (token: string) => {
+    const isApple = isiOS && ip.split('.')[0] === appleIPHead;
+    return createCustomToken(token, isApple).then((token: string) => {
+      return firebase.auth().signInWithCustomToken(token);
+    });
+  };
+
+  const signInWithApple = () =>
+    AppleAuthentication.signInAsync({
+      requestedScopes: [
+        // AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+        AppleAuthentication.AppleAuthenticationScope.EMAIL
+      ]
+    })
+      .then((credential: any) => {
+        const token = credential.user;
+        return signUpWithCustomToken(token);
+      })
+      .then(credential => signInSuccessWithAuthResult(credential))
+      .then(() =>
+        successToast('/settings', history.push, LOGIN_MESSAGE_SUCCESS)
+      )
+      .catch(error => errorToast(error.message));
+
   return (
     <Container>
       <Button full rounded info>
@@ -186,32 +217,34 @@ const AuthScreen = (props: any) => {
           <Text>メールでログイン</Text>
         </Button>
       </Form>
-      {/* https://github.com/expo/expo/issues/5690 */}
-      {/* {isAppleSingInAvailable && (
-        <AppleAuthentication.AppleAuthenticationButton
-          buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-          cornerRadius={5}
-          onPress={() => {
-            try {
-              const credential = AppleAuthentication.signInAsync({
-                requestedScopes: [
-                  AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-                  AppleAuthentication.AppleAuthenticationScope.EMAIL
-                ]
-              });
-              // signed in
-            } catch (e) {
-              if (e.code === 'ERR_CANCELED') {
-                // handle that the user canceled the sign-in flow
-              } else {
-                // handle other errors
-              }
-            }
+      {isAppleSingInAvailable && (
+        <View
+          style={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
-        />
+        >
+          <Text />
+          <Text>
+            AppleIDはWebからのログインアカウントとは連携せず、アカウントの引き継ぎもできません。
+            iOSとWebの両方を利用する場合はTwitterかEmailでのユーザ登録をしてください。
+          </Text>
+          <Text />
+          <AppleAuthentication.AppleAuthenticationButton
+            buttonType={
+              AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
+            }
+            buttonStyle={
+              AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
+            }
+            cornerRadius={5}
+            style={{ width: 200, height: 44 }}
+            onPress={signInWithApple}
+          />
+        </View>
       )}
-      <Text /> */}
+      <Text />
       <Text style={{ padding: 10 }}>
         ユーザ登録がまだの方も、ログインの延長でユーザ登録が可能です。
         登録の前に、利用規約とプライバシーポリシーをご確認ください。

@@ -21,3 +21,14 @@ export const configProd = {
   appId: '1:654274743440:web:211ec9466f86a631',
   credential: admin.credential.applicationDefault()
 };
+
+export const configDemo = {
+  apiKey: 'AIzaSyCy5Ju3R5e_6XM4QwG68OAknU7JMkHMg9k',
+  authDomain: 'titan-apple-demo2.firebaseapp.com',
+  databaseURL: 'https://titan-apple-demo2.firebaseio.com',
+  projectId: 'titan-apple-demo2',
+  storageBucket: 'titan-apple-demo2.appspot.com',
+  messagingSenderId: '25620879331',
+  appId: '1:25620879331:web:6175c99b43499fcea172d6',
+  credential: admin.credential.applicationDefault()
+};
