@@ -1,30 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Button, Text } from 'native-base';
-import Modal from 'react-native-modal';
-import { TouchableOpacity } from 'react-native';
+import { withRouter } from 'react-router-native';
+import Progress from '~/native/components/atoms/CircularProgress';
 import {
-  ChallengeObjectiveWhatCard,
-  ChallengeObjectiveWhyCard
-} from './ChallengeObjectiveCard';
-import ChallengeObjectiveForm from './ChallengeObjectiveForm';
-import { successToastWithNoRedirect } from '../../atoms/Toast';
-import { brandGray } from '~/lib/theme';
+  ChallengeObjectiveWOOPCard,
+  ChallengeObjectiveWhatCard
+} from '~/native/components/molecules/challenges/ChallengeObjectiveCard';
 
 const ChallengeObjective = (props: any) => {
   const {
     challenge,
-    user,
     isMyProfile,
-    handleSave,
     objective,
-    isLoaded
+    isLoaded,
+    editPath,
+    history
   } = props;
 
-  const [modal, setModal] = useState(false);
+  const initialWhat = `${challenge.title}に毎日取り組みます！`;
 
-  const toggleModal = () => {
-    setModal(!modal);
-  };
+  const [what, setWhat] = useState(initialWhat);
+  const [wish, setWish] = useState('');
+  const [outcome, setOutcome] = useState('');
+  const [obstacle, setObstacle] = useState('');
+  const [plan, setPlan] = useState('');
+
+  useEffect(() => {
+    if (isLoaded && objective) {
+      setWhat(objective.what ? objective.what : '');
+      setWish(objective.wish ? objective.wish : '');
+      setOutcome(objective.outcome ? objective.outcome : '');
+      setObstacle(objective.obstacle ? objective.obstacle : '');
+      setPlan(objective.plan ? objective.plan : '');
+    } else {
+      setWhat(initialWhat);
+      setWish('');
+      setOutcome('');
+      setObstacle('');
+      setPlan('');
+    }
+  }, [initialWhat, isLoaded, objective]);
 
   const ChallengeObjectiveFormButton = (props: any) => {
     if (!isMyProfile) {
@@ -32,68 +47,38 @@ const ChallengeObjective = (props: any) => {
     }
 
     return (
-      <Button onPress={toggleModal}>
+      <Button onPress={() => history.push(editPath)}>
         <Text>編集</Text>
       </Button>
     );
   };
 
-  const saveHandler = (what: any, why: any) => () =>
-    handleSave({ what, why })
-      .then(() => successToastWithNoRedirect('目標を更新しました。'))
-      .then(() => toggleModal());
-
-  const cancelHandler = () => toggleModal();
-
-  const initialWhat = `${challenge.title}に毎日取り組みます！`;
-  const what = isLoaded && objective ? objective.what : initialWhat;
-  const why = isLoaded && objective ? objective.why : '';
-
   return (
     <React.Fragment>
-      {!isLoaded && null}
+      {!isLoaded && <Progress />}
       {isLoaded && (
         <React.Fragment>
-          <TouchableOpacity>
-            <View>
-              <ChallengeObjectiveWhatCard text={what} />
-              <Text />
-              {!!why && <ChallengeObjectiveWhyCard text={why} user={user} />}
-            </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-              <ChallengeObjectiveFormButton />
-            </View>
-          </TouchableOpacity>
-          {isMyProfile && (
-            <React.Fragment>
-              <Text />
-              <Text style={{ fontSize: 14, color: brandGray }}>
-                筋トレ３０日チャレンジを通じて達成したいことを書きます。
-                定量的(計測可能、数値)目標、自分でコントロール可能な目標を記入してください。
-                ここに書いたことはゴールボードでみんなと共有されます。
-              </Text>
-              <Text />
-              <Text style={{ fontSize: 14, color: brandGray }}>
-                なにをやるのかの入力欄に一言で目標を書いてください。(60字以内)
-                なぜやるのかの入力欄に目標に取り組む理由を詳しく書いてください。
-              </Text>
-            </React.Fragment>
-          )}
-        </React.Fragment>
-      )}
-      {isLoaded && (
-        <Modal isVisible={modal} avoidKeyboard>
-          <ChallengeObjectiveForm
-            inputWhat={what}
-            inputWhy={why}
-            saveHandler={saveHandler}
-            cancelHandler={cancelHandler}
-            isLoaded={isLoaded}
+          <ChallengeObjectiveWhatCard text={what} />
+          <Text />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end'
+            }}
+          >
+            <ChallengeObjectiveFormButton />
+          </View>
+          <Text />
+          <ChallengeObjectiveWOOPCard
+            wish={wish}
+            outcome={outcome}
+            obstacle={obstacle}
+            plan={plan}
           />
-        </Modal>
+        </React.Fragment>
       )}
     </React.Fragment>
   );
 };
 
-export default ChallengeObjective;
+export default withRouter(ChallengeObjective);

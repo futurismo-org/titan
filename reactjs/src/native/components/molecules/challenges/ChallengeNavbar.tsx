@@ -80,7 +80,7 @@ const ChallengeNavbar = (props: any) => {
               hideMenu(getChallengeUserActivitiesPath(challengeId, userShortId))
             }
           >
-            努力ノート
+            行動ノート
           </MenuItem>
         )}
         {join && (
@@ -89,7 +89,7 @@ const ChallengeNavbar = (props: any) => {
               hideMenu(getChallengeUserGoalPath(challengeId, userShortId))
             }
           >
-            目標設定
+            目標ノート
           </MenuItem>
         )}
         {join && (

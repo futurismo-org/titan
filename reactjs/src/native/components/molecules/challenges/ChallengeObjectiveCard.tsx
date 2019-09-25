@@ -41,13 +41,45 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
   );
 };
 
-export const ChallengeObjectiveWhyCard = (props: any) => {
-  const { text } = props;
+export const ChallengeObjectiveWOOPCard = (props: any) => {
+  const { wish, outcome, obstacle, plan } = props;
 
   return (
-    <View>
-      <Text note>なぜやるのか？</Text>
-      <Text>{text}</Text>
-    </View>
+    <React.Fragment>
+      {wish || outcome || obstacle || plan ? (
+        <View>
+          {!!plan && (
+            <React.Fragment>
+              <Text note>if-thenプランニング(Plan)</Text>
+              <Text>{plan}</Text>
+              <Text />
+            </React.Fragment>
+          )}
+          {!!wish && (
+            <React.Fragment>
+              <Text note>なぜやるのか？(Wish)</Text>
+              <Text>{wish}</Text>
+              <Text />
+            </React.Fragment>
+          )}
+          {!!outcome && (
+            <React.Fragment>
+              <Text note>最大の成果(Outcome)</Text>
+              <Text>{outcome}</Text>
+              <Text />
+            </React.Fragment>
+          )}
+          {!!obstacle && (
+            <React.Fragment>
+              <Text note>目標を妨げるもの(Obstacle)</Text>
+              <Text>{obstacle}</Text>
+              <Text />
+            </React.Fragment>
+          )}
+        </View>
+      ) : (
+        <Text>WOOP法をつかって目標をさらに分析しましょう。</Text>
+      )}
+    </React.Fragment>
   );
 };

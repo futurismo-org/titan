@@ -11,6 +11,7 @@ import Topic from '~/native/containers/TopicContainer';
 import Topics from '~/native/containers/TopicsContainer';
 import ChallengeGoals from '~/native/containers/challenges/ChallengeGoalsContainer';
 import ChallengeGoal from '~/native/containers/challenges/ChallengeGoalContainer';
+import ChallengeObjectiveForm from '~/native/containers/challenges/ChallengeObjectiveFormContainer';
 import ChallengeActivities from '~/native/containers/challenges/ChallengeActivitiesContainer';
 import ChallengeTimeline from '~/native/containers/challenges/ChallengeTimelineContainer';
 import ChallengeActivitiesSuccess from '~/native/containers/challenges/ChallengeActivitiesSuccessContainer';
@@ -73,6 +74,7 @@ const ChallengeBody = (props: any) => {
               <ChallengeTimeline challenge={challenge} {...props} />
             )}
           />
+          p
           <Route
             path="/c/:collectionId/t/:topicId/edit"
             render={props => <TopicForm collection="challenges" {...props} />}
@@ -93,6 +95,12 @@ const ChallengeBody = (props: any) => {
                 collectionId={challenge.id}
                 {...props}
               />
+            )}
+          />
+          <Route
+            path="/c/:id/u/:userShortId/goal/edit"
+            render={props => (
+              <ChallengeObjectiveForm challenge={challenge} {...props} />
             )}
           />
           <Route

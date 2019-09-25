@@ -13,6 +13,8 @@ import ChallengeOverview from './ChallengeOverview';
 import ChallengeUserSettings from '~/web/containers/challenges/ChallengeUserSettingsContainer';
 import ChallengeGoals from '~/web/containers/challenges/ChallengeGoalsContainer';
 import ChallengeGoal from '~/web/containers/challenges/ChallengeGoalContainer';
+import ChallengeActivities from '~/web/containers/challenges/ChallengeActivitiesContainer';
+import ChallengeObjectiveForm from '~/web/containers/challenges/ChallengeObjectiveFormContainer';
 
 import Flag from '~/web/containers/FlagContainer';
 
@@ -79,6 +81,18 @@ const ChallengeBody = (props: any) => {
         path="/c/:id/goals"
         render={props => (
           <ChallengeGoals challengeId={challenge.id} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/u/:userShortId/activities"
+        render={props => (
+          <ChallengeActivities challenge={challenge} {...props} />
+        )}
+      />
+      <Route
+        path="/c/:id/u/:userShortId/goal/edit"
+        render={props => (
+          <ChallengeObjectiveForm challenge={challenge} {...props} />
         )}
       />
       <Route

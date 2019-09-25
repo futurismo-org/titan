@@ -1,16 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Card, { CardProps } from '@material-ui/core/Card';
-import {
-  CardContent,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText
-} from '@material-ui/core';
-import UserAvatar from '../../atoms/UserAvatar';
-import MarkdownView from '~/web/components/atoms/MarkdownView';
+import { CardContent, List, ListItem, ListItemText } from '@material-ui/core';
 import { brandGray } from '~/lib/theme';
+import TextFieldView from '../../atoms/TextFieldView';
 
 const StyledText = styled.span`
   @media screen and (min-width: 768px) {
@@ -46,27 +39,77 @@ export const ChallengeObjectiveWhatCard = (props: any) => {
   );
 };
 
-export const ChallengeObjectiveWhyCard = (props: any) => {
-  const { text, user } = props;
+export const ChallengeObjectiveWOOPCard = (props: any) => {
+  const { wish, outcome, obstacle, plan } = props;
 
   return (
     <Wrapper>
-      <List>
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <UserAvatar photoURL={user.photoURL} userId={user.shortId} />
-          </ListItemAvatar>
-          <ListItemText
-            primary={<p style={{ color: brandGray }}>なぜやるのか?(Why)</p>}
-            secondary={
-              <React.Fragment>
-                <MarkdownView text={text} />
-              </React.Fragment>
-            }
-            disableTypography
-          />
-        </ListItem>
-      </List>
+      {wish || outcome || obstacle || plan ? (
+        <List>
+          {!!plan && (
+            <ListItem alignItems="flex-start">
+              <ListItemText
+                primary={
+                  <p style={{ color: brandGray }}>if-thenプランニング(Plan)</p>
+                }
+                secondary={
+                  <React.Fragment>
+                    <TextFieldView text={plan} />
+                  </React.Fragment>
+                }
+                disableTypography
+              />
+            </ListItem>
+          )}
+          {!!wish && (
+            <ListItem>
+              <ListItemText
+                primary={
+                  <p style={{ color: brandGray }}>なぜやるのか?(Wish)</p>
+                }
+                secondary={
+                  <React.Fragment>
+                    <TextFieldView text={wish} />
+                  </React.Fragment>
+                }
+                disableTypography
+              />
+            </ListItem>
+          )}
+          {!!outcome && (
+            <ListItem>
+              <ListItemText
+                primary={
+                  <p style={{ color: brandGray }}>最大の成果(Outcome)</p>
+                }
+                secondary={
+                  <React.Fragment>
+                    <TextFieldView text={outcome} />
+                  </React.Fragment>
+                }
+                disableTypography
+              />
+            </ListItem>
+          )}
+          {!!obstacle && (
+            <ListItem>
+              <ListItemText
+                primary={
+                  <p style={{ color: brandGray }}>目標を妨げるもの(Obstale)</p>
+                }
+                secondary={
+                  <React.Fragment>
+                    <TextFieldView text={obstacle} />
+                  </React.Fragment>
+                }
+                disableTypography
+              />
+            </ListItem>
+          )}
+        </List>
+      ) : (
+        <p>WOOP法をつかって目標をさらに分析しましょう。</p>
+      )}
     </Wrapper>
   );
 };

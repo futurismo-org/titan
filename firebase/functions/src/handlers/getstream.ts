@@ -2,7 +2,7 @@ const getstream = require('getstream');
 
 const functions = require('firebase-functions');
 
-const GETSTREAM_SERVER_LOCATION = 'tokyo';
+const GETSTREAM_SERVER_LOCATION = 'us-east';
 
 const client =
   process.env.APP_ENV === 'development'

@@ -2,11 +2,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 
-import firebase from '~/lib/firebase';
-import {
-  postUserChallengeObjective,
-  deleteUserChallengeObjective
-} from '~/lib/getstream';
+import { getChallengeUserGoalPath } from '~/lib/url';
 
 const mapStateToProps = (state: any, props: any) => {
   const user = props.user;
@@ -16,43 +12,20 @@ const mapStateToProps = (state: any, props: any) => {
   const challengeId = challenge.id;
 
   const objective = state.firestore.data.objectiveChallenge;
-  const isEdit = objective && !!objective.what;
 
   const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
+  const editPath = getChallengeUserGoalPath(challengeId, userShortId) + '/edit';
 
-  const handleSave = (data: any) => {
-    const updateData = {
-      id: challengeId,
-      userShortId: userShortId,
-      challengeId: challengeId,
-      challengeTitle: challenge.title,
-      userDisplayName: user.displayName,
-      userPhotoURL: user.photoURL,
-      updatedAt: new Date(),
-      ...data
-    };
-
-    return firebase
-      .firestore()
-      .doc(resourceId)
-      .set(updateData, { merge: true })
-      .then(async () => {
-        if (isEdit) {
-          await deleteUserChallengeObjective(userShortId, challengeId);
-        }
-        await postUserChallengeObjective(userShortId, challengeId, {
-          user,
-          what: data.what
-        });
-      });
-  };
+  const profile = state.firebase.profile;
+  const isMyProfile = userShortId === profile.shortId;
 
   return {
     resourceId,
     userShortId,
     challengeId,
-    handleSave,
     objective,
+    editPath,
+    isMyProfile,
     isLoaded: isLoaded(objective),
     ...props
   };
