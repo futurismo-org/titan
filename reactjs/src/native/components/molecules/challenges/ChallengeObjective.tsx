@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Button, Text } from 'native-base';
-import { TouchableOpacity } from 'react-native';
 import { withRouter } from 'react-router-native';
 import Progress from '~/native/components/atoms/CircularProgress';
 import {
@@ -55,27 +54,23 @@ const ChallengeObjective = (props: any) => {
       {!isLoaded && <Progress />}
       {isLoaded && (
         <React.Fragment>
-          <TouchableOpacity>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-                marginBottom: 20
-              }}
-            >
-              <ChallengeObjectiveFormButton />
-            </View>
-            <View>
-              <ChallengeObjectiveWhatCard text={what} />
-              <Text />
-              <ChallengeObjectiveWOOPCard
-                wish={wish}
-                outcome={outcome}
-                obstacle={obstacle}
-                plan={plan}
-              />
-            </View>
-          </TouchableOpacity>
+          <ChallengeObjectiveWhatCard text={what} />
+          <Text />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'flex-end'
+            }}
+          >
+            <ChallengeObjectiveFormButton />
+          </View>
+          <Text />
+          <ChallengeObjectiveWOOPCard
+            wish={wish}
+            outcome={outcome}
+            obstacle={obstacle}
+            plan={plan}
+          />
         </React.Fragment>
       )}
     </React.Fragment>

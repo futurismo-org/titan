@@ -46,7 +46,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
     <Wrapper>
       {wish || outcome || obstacle || plan ? (
         <List>
-          {plan && (
+          {!!plan && (
             <ListItem alignItems="flex-start">
               <ListItemText
                 primary={
@@ -61,7 +61,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
               />
             </ListItem>
           )}
-          {wish && (
+          {!!wish && (
             <ListItem>
               <ListItemText
                 primary={
@@ -76,7 +76,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
               />
             </ListItem>
           )}
-          {outcome && (
+          {!!outcome && (
             <ListItem>
               <ListItemText
                 primary={
@@ -91,7 +91,7 @@ export const ChallengeObjectiveWOOPCard = (props: any) => {
               />
             </ListItem>
           )}
-          {obstacle && (
+          {!!obstacle && (
             <ListItem>
               <ListItemText
                 primary={
