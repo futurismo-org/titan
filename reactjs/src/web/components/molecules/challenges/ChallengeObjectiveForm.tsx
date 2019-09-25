@@ -41,7 +41,7 @@ const ChallengeObjectiveForm = (props: any) => {
 
   useEffect(() => {
     fetchUserWithShortId(userShortId);
-    if (isLoaded) {
+    if (isLoaded && objective) {
       setWhat(objective.what ? objective.what : '');
       setWish(objective.wish ? objective.wish : '');
       setOutcome(objective.outcome ? objective.outcome : '');

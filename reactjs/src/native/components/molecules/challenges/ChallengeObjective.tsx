@@ -27,7 +27,7 @@ const ChallengeObjective = (props: any) => {
   const [plan, setPlan] = useState('');
 
   useEffect(() => {
-    if (isLoaded) {
+    if (isLoaded && objective) {
       setWhat(objective.what ? objective.what : '');
       setWish(objective.wish ? objective.wish : '');
       setOutcome(objective.outcome ? objective.outcome : '');
