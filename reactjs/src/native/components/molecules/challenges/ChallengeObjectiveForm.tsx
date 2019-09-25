@@ -28,13 +28,14 @@ const ChallengeObjectiveForm = (props: any) => {
   const [plan, setPlan] = useState('');
 
   useEffect(() => {
-    fetchUserWithShortId(userShortId);
     if (isLoaded && objective) {
       setWhat(objective.what ? objective.what : '');
       setWish(objective.wish ? objective.wish : '');
       setOutcome(objective.outcome ? objective.outcome : '');
       setObstacle(objective.obstacle ? objective.obstacle : '');
       setPlan(objective.plan ? objective.plan : '');
+    } else {
+      fetchUserWithShortId(userShortId);
     }
   }, [fetchUserWithShortId, isLoaded, objective, userShortId]);
 
