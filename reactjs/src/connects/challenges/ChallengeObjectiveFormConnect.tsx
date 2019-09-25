@@ -9,6 +9,7 @@ import {
 } from '~/lib/getstream';
 
 import { fetchUserWithShortId } from '../../actions/userAction';
+import { getChallengeUserGoalPath } from '~/lib/url';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
@@ -29,6 +30,7 @@ const mapStateToProps = (state: any, props: any) => {
   const isEdit = objective && !!objective.what;
 
   const resourceId = `/objectives/${userShortId}/challenges/${challengeId}`;
+  const redirectPath = getChallengeUserGoalPath(challengeId, userShortId);
 
   const handleSave = (data: any) => {
     const updateData = {
@@ -63,6 +65,7 @@ const mapStateToProps = (state: any, props: any) => {
     challengeId,
     handleSave,
     objective,
+    redirectPath,
     isLoaded: isLoaded(objective),
     ...props
   };

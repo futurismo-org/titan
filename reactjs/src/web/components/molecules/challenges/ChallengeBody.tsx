@@ -90,13 +90,13 @@ const ChallengeBody = (props: any) => {
         )}
       />
       <Route
-        path="/c/:id/u/:userShortId/goal"
+        path="/c/:id/u/:userShortId/goal/edit"
         render={props => (
           <ChallengeObjectiveForm challenge={challenge} {...props} />
         )}
       />
       <Route
-        path="/c/:id/u/:userShortId/goal/edit"
+        path="/c/:id/u/:userShortId/goal"
         render={props => <ChallengeGoal challenge={challenge} {...props} />}
       />
       <Route
