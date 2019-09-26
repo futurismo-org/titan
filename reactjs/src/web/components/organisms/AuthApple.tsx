@@ -23,7 +23,7 @@ const AuthApple = (props: any) => {
   }, []);
   /* eslint-enable */
 
-  return null;
+  return <React.Fragment />;
 };
 
 export default withRouter(connect(AuthApple));
