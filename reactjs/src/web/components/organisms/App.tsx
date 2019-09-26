@@ -40,6 +40,7 @@ const App = (props: any) => {
       initializeReactotron();
     }
 
+    // AppleIDからのリダイレクトを処理する苦し紛れの方法
     /* eslint-disable */
     const url = location.href;
     if (url.includes('/apple/callback_auth#/')) {

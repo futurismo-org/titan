@@ -13,7 +13,6 @@ const { chargeProduct, validCoupon } = require('./handlers/stripe');
 const { dashboard, topic, challenge } = require('./handlers/ogp');
 const { getToken } = require('./handlers/getstream');
 const { createToken } = require('./handlers/firebase');
-const { callbackAppleAuth } = require('./handlers/apple');
 
 // stripe
 app.post('/charges', chargeProduct);
@@ -36,9 +35,6 @@ app.post('/getstream/token', getToken);
 
 // firebase
 app.post('/firebase/create_token', createToken);
-
-// apple
-app.get('/apple/callback_auth', callbackAppleAuth);
 
 // register endpoints
 exports.api = functions.https.onRequest(app);
