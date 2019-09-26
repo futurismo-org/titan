@@ -8,6 +8,7 @@ import firebase from '~/lib/firebase';
 
 import theme from '~/lib/theme';
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
+import { requestAppleAuth } from '~/lib/apple';
 
 const StyledContainer = styled.div`
   && {
@@ -48,7 +49,9 @@ const Auth = (props: any) => {
           />
           <div style={{ textAlign: 'center' }}>
             <p>or</p>
-            <img src="images/AppleIdButton.png" alt="AppleIDButton" />
+            <div role="button" onClick={requestAppleAuth}>
+              <img src="images/AppleIdButton.png" alt="AppleIDButton" />
+            </div>
           </div>
         </DialogContent>
       </Dialog>
