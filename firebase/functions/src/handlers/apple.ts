@@ -1,17 +1,18 @@
-const appleSignin = require('apple-signin');
-
-exports.requestAppleAuth = (req: any, res: any) => {
-  const options = {
-    clientID: 'com.futurismo.titan.web', // identifier of Apple Service ID.
-    redirectUri:
-      'https://us-central1-titan-241022.cloudfunctions.net/api/apple/callback_auth'
-  };
-
-  const url = appleSignin.getAuthorizationUrl(options);
-  return res.status(200).json(url);
-};
+const jwt = require('jsonwebtoken');
 
 exports.callbackAppleAuth = (req: any, res: any) => {
-  console.log(req);
-  return res.status(200);
+  const token = req.query.id_token;
+  const decoded = jwt.decode(token);
+
+  res.send(
+    '<h1>Wellcome Back</h1>' +
+      '<h3>Appleから渡される値</h3>' +
+      '<pre style="border:1px solid gray;">' +
+      JSON.stringify(req.query, null, 4) +
+      '</pre>' +
+      '<h3>id_tokenをデコード</h3>' +
+      '<pre style="border:1px solid gray;">' +
+      JSON.stringify(decoded, null, 4) +
+      '</pre>'
+  );
 };

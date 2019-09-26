@@ -8,7 +8,6 @@ import firebase from '~/lib/firebase';
 
 import theme from '~/lib/theme';
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
-import { requestAppleAuth } from '~/lib/apple';
 
 const StyledContainer = styled.div`
   && {
@@ -17,7 +16,18 @@ const StyledContainer = styled.div`
 `;
 
 const onClickAppleButton = () => {
-  requestAppleAuth().then((url: string) => (window.location.href = url)); // eslint-disable-line
+  const ENDPOINT_URL = 'https://appleid.apple.com';
+  const url = new URL(ENDPOINT_URL);
+  url.pathname = '/auth/authorize';
+
+  url.searchParams.append('response_type', 'code+id_token');
+  url.searchParams.append('client_id', 'com.futurismo.titan.web');
+  url.searchParams.append(
+    'redirect_uri',
+    'https://titan-fire.com/apple/callback_auth'
+  );
+
+  window.location.href = url.toString(); // eslint-disable-line
 };
 
 const Auth = (props: any) => {
