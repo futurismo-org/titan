@@ -55,6 +55,10 @@ jobs:
           command: cp reactjs/build/index.html firebase/functions/lib
 
       - run:
+          name: 'Copy package.json(production)'
+          command: cp firebase/functions/package.json firebase/functions/lib
+
+      - run:
           name: 'Deploy to Functions(production)'
           working_directory: firebase/functions
           command: APP_ENV=production ../../node_modules/.bin/firebase deploy --only functions -P production --token "$FIREBASE_TOKEN"

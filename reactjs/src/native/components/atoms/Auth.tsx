@@ -226,11 +226,6 @@ const AuthScreen = (props: any) => {
           }}
         >
           <Text />
-          <Text>
-            AppleIDはWebからのログインアカウントとは連携せず、アカウントの引き継ぎもできません。
-            iOSとWebの両方を利用する場合はTwitterかEmailでのユーザ登録をしてください。
-          </Text>
-          <Text />
           <AppleAuthentication.AppleAuthenticationButton
             buttonType={
               AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN

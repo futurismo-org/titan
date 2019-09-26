@@ -39,6 +39,19 @@ const App = (props: any) => {
     if (process.env.REACT_APP_ENV === 'development') {
       initializeReactotron();
     }
+
+    // AppleIDからのリダイレクトを処理する苦し紛れの方法
+    /* eslint-disable */
+    const url = location.href;
+    if (url.includes('/apple/callback_auth#/')) {
+      const correctURL = url.replace(
+        '/apple/callback_auth#/',
+        '/#/apple/callback_auth?'
+      );
+
+      window.location.href = correctURL;
+    }
+    /* eslint-enable */
   }, []);
 
   return (

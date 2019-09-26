@@ -18,6 +18,7 @@ import Document from './Document';
 import Contact from './Contact';
 import ProfileCategory from '~/web/containers/ProfileCategoryContainer';
 import GeneralReviews from '../molecules/GeneralReviews';
+import AuthApple from './AuthApple';
 
 const Home = (props: any) => {
   return (
@@ -61,6 +62,10 @@ const Home = (props: any) => {
         <Route
           path="/guidelines"
           render={props => <Document id="guidelines" {...props} />}
+        />
+        <Route
+          path="/apple/callback_auth"
+          render={props => <AuthApple {...props} />}
         />
         <Route path="/" render={props => <DashBoard {...props} />} />
       </Switch>

@@ -8,13 +8,27 @@ import firebase from '~/lib/firebase';
 
 import theme from '~/lib/theme';
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
-import { requestAppleAuth } from '~/lib/apple';
 
 const StyledContainer = styled.div`
   && {
     margin: ${theme.spacing(1)}px;
   }
 `;
+
+const onClickAppleButton = () => {
+  const ENDPOINT_URL = 'https://appleid.apple.com';
+  const url = new URL(ENDPOINT_URL);
+  url.pathname = '/auth/authorize';
+
+  url.searchParams.append('client_id', 'com.futurismo.titan.web');
+  url.searchParams.append(
+    'redirect_uri',
+    'https://titan-fire.com/apple/callback_auth'
+  );
+
+  const redirectURL = url.toString() + '&response_type=code+id_token';
+  window.location.href = redirectURL; // eslint-disable-line
+};
 
 const Auth = (props: any) => {
   const { onClose, title, signInSuccessWithAuthResult, open } = props;
@@ -49,7 +63,11 @@ const Auth = (props: any) => {
           />
           <div style={{ textAlign: 'center' }}>
             <p>or</p>
-            <div role="button" onClick={requestAppleAuth}>
+            <div
+              role="button"
+              onClick={onClickAppleButton}
+              style={{ cursor: 'pointer' }}
+            >
               <img src="images/AppleIdButton.png" alt="AppleIDButton" />
             </div>
           </div>
