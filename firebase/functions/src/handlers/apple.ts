@@ -1,17 +1,17 @@
-import axios from 'axios';
-
 const appleSignin = require('apple-signin');
 
 exports.requestAppleAuth = (req: any, res: any) => {
   const options = {
-    clientID: 'com.futurismo.titan', // identifier of Apple Service ID.
-    redirectUri: 'https://titan-fire.com/apple/callback_auth'
+    clientID: 'com.futurismo.titan.web', // identifier of Apple Service ID.
+    redirectUri:
+      'https://us-central1-titan-241022.cloudfunctions.net/api/apple/callback_auth'
   };
 
-  const authorizationUrl = appleSignin.getAuthorizationUrl(options);
-  axios.get(authorizationUrl);
+  const url = appleSignin.getAuthorizationUrl(options);
+  return res.status(200).json(url);
 };
 
 exports.callbackAppleAuth = (req: any, res: any) => {
   console.log(req);
+  return res.status(200);
 };

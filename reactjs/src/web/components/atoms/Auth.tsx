@@ -16,6 +16,10 @@ const StyledContainer = styled.div`
   }
 `;
 
+const onClickAppleButton = () => {
+  requestAppleAuth().then((url: string) => (window.location.href = url)); // eslint-disable-line
+};
+
 const Auth = (props: any) => {
   const { onClose, title, signInSuccessWithAuthResult, open } = props;
 
@@ -49,7 +53,11 @@ const Auth = (props: any) => {
           />
           <div style={{ textAlign: 'center' }}>
             <p>or</p>
-            <div role="button" onClick={requestAppleAuth}>
+            <div
+              role="button"
+              onClick={onClickAppleButton}
+              style={{ cursor: 'pointer' }}
+            >
               <img src="images/AppleIdButton.png" alt="AppleIDButton" />
             </div>
           </div>
