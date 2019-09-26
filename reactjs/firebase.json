@@ -24,10 +24,6 @@
         "function": "api"
       },
       {
-        "source": "/apple/callback_auth",
-        "function": "api"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

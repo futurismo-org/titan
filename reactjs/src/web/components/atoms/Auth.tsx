@@ -20,14 +20,14 @@ const onClickAppleButton = () => {
   const url = new URL(ENDPOINT_URL);
   url.pathname = '/auth/authorize';
 
-  url.searchParams.append('response_type', 'code+id_token');
   url.searchParams.append('client_id', 'com.futurismo.titan.web');
   url.searchParams.append(
     'redirect_uri',
     'https://titan-fire.com/apple/callback_auth'
   );
 
-  window.location.href = url.toString(); // eslint-disable-line
+  const redirectURL = url.toString() + '&response_type=code+id_token';
+  window.location.href = redirectURL; // eslint-disable-line
 };
 
 const Auth = (props: any) => {

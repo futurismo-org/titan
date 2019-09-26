@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 exports.callbackAppleAuth = (req: any, res: any) => {
+  console.log(req);
+
   const token = req.query.id_token;
   const decoded = jwt.decode(token);
 
