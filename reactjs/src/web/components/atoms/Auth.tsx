@@ -46,6 +46,10 @@ const Auth = (props: any) => {
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
+          <div style={{ textAlign: 'center' }}>
+            <p>or</p>
+            <img src="images/AppleIdButton.png" alt="AppleIDButton" />
+          </div>
         </DialogContent>
       </Dialog>
     </StyledContainer>
