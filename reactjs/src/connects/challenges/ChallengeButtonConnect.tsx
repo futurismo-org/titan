@@ -62,6 +62,8 @@ const mapStateToProps = (state: any, props: any) => {
       title: challenge.title,
       description: challenge.description,
       sensitive: challenge.sensitive ? challenge.sensitive : false,
+      freezed: challenge.freezed ? challenge.freezed : false,
+      ios: challenge.ios ? challenge.ios : false,
       challengeId,
       userShortId,
       openedAt: challenge.openedAt,
@@ -76,6 +78,7 @@ const mapStateToProps = (state: any, props: any) => {
       createdAt: new Date(),
       updatedAt: new Date(),
       sensitive: challenge.sensitive ? challenge.sensitive : false, // categoryの値はとれないが、まあchallengeがsensiveなら同じ
+      ios: challenge.ios ? challenge.ios : false,
       ref: challenge.categoryRef,
       categoryId,
       userShortId,
