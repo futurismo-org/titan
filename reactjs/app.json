@@ -21,7 +21,8 @@
       "icon": "./public/icon-ios.png",
       "supportsTablet": true,
       "bundleIdentifier": "com.futurismo.titan",
-      "buildNumber": "3"
+      "buildNumber": "5",
+      "usesAppleSignIn": true
     },
     "android": {
       "icon": "./public/icon-android.png",
