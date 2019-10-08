@@ -84,6 +84,8 @@ const Info = (props: any) => {
               <NoStyledExternalLink
                 href={TITAN_GOOGLE_PLAY_STORE}
                 style={{ textDecoration: 'underline' }}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Androidアプリ[Google Play]
               </NoStyledExternalLink>
@@ -95,6 +97,8 @@ const Info = (props: any) => {
               <NoStyledExternalLink
                 href={TITAN_APPLE_STORE}
                 style={{ textDecoration: 'underline' }}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 iOSアプリ[Apple Store]
               </NoStyledExternalLink>
