@@ -11,7 +11,8 @@ import NoStyledExternalLink from '../atoms/NoStyledExternalLink';
 import NoStyledLink from '../atoms/NoStyledLink';
 import {
   // TITAN_LANDING_PAGE,
-  TITAN_GOOGLE_PLAY_STORE
+  TITAN_GOOGLE_PLAY_STORE,
+  TITAN_APPLE_STORE
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
@@ -92,10 +93,10 @@ const Info = (props: any) => {
           <ListItem>
             <ListItemText>
               <NoStyledExternalLink
-                href="#"
+                href={TITAN_APPLE_STORE}
                 style={{ textDecoration: 'underline' }}
               >
-                iOSアプリ[Apple Store](準備中)
+                iOSアプリ[Apple Store]
               </NoStyledExternalLink>
             </ListItemText>
           </ListItem>

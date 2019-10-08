@@ -16,6 +16,8 @@ export const TITAN_DISCORD_INVITE_URL = 'https://discord.gg/S3t5WgE';
 
 export const TITAN_GOOGLE_PLAY_STORE =
   'https://play.google.com/store/apps/details?id=com.futurismo.titan';
+export const TITAN_APPLE_STORE =
+  'https://apps.apple.com/us/app/titan-%E7%BF%92%E6%85%A3%E3%83%81%E3%83%A3%E3%83%AC%E3%83%B3%E3%82%B8%E3%81%A7%E8%87%AA%E5%88%86%E3%82%92%E5%A4%89%E3%81%88%E3%82%8Bsns/id1474759445';
 
 const urlMap = new Map();
 urlMap.set('development', APP_DEVELOPMENT_URL);

@@ -43,13 +43,11 @@ const CategoryHeader = (props: any) => {
   return (
     <MainFeaturedPost>
       {/* Increase the priority of the hero background image */}
-      {
-        <img
-          style={{ display: 'none' }}
-          src={getRandomImageURL()}
-          alt="background"
-        />
-      }
+      <img
+        style={{ display: 'none' }}
+        src={getRandomImageURL()}
+        alt="background"
+      />
       <Overlay />
       <Grid container>
         <Grid item md={6}>

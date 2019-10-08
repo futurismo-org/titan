@@ -375,15 +375,15 @@ const ChallengeForm = (props: any) => {
           multiline
           onChange={onRulesChange}
         />
-        {'下書き'}
+        下書き
         <Switch checked={draft} onChange={onDraftChange} />
-        {'おすすめ'}
+        おすすめ
         <Switch checked={pinned} onChange={onPinnedChange} />
-        {'センシティブな内容'}
+        センシティブな内容
         <Switch checked={sensitive} onChange={onSensitiveChange} />
-        {'凍結'}
+        凍結
         <Switch checked={freezed} onChange={onFreezedChange} />
-        {'iOS非表示'}
+        iOS非表示
         <Switch checked={ios} onChange={oniOSChange} />
         <h2>記録の設定</h2>
         <div>

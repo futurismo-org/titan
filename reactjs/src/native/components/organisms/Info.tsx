@@ -6,7 +6,8 @@ import Title from '../atoms/Title';
 
 import {
   APP_PRODUCTION_URL,
-  TITAN_GOOGLE_PLAY_STORE
+  TITAN_GOOGLE_PLAY_STORE,
+  TITAN_APPLE_STORE
 } from '~/constants/appInfo';
 import { BUILD_TIMESTAMP, BUILD_COMMIT_ID } from '~/constants/buildInfo'; // eslint-disable-line
 
@@ -61,8 +62,8 @@ const Info = (props: any) => {
         )}
         {isiOS && (
           <ListItem>
-            <Text onPress={() => Linking.openURL('#')}>
-              Apple Store(準備中)
+            <Text onPress={() => Linking.openURL(TITAN_APPLE_STORE)}>
+              Apple Store
             </Text>
           </ListItem>
         )}

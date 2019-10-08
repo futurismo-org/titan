@@ -21,9 +21,7 @@ const MadeWithLove = () => {
   return (
     <React.Fragment>
       <Typography align="center" variant="body2" color="textSecondary">
-        {'Built with fire by the '}
-        {'Futurismo'}
-        {' team.'}
+        Built with fire by the Futurismo team.
       </Typography>
       <Typography align="center" variant="body2" color="textSecondary">
         {`©${moment().year()} All Rights Reserved.`}

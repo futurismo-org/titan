@@ -189,11 +189,11 @@ const CategoryForm = (props: any) => {
           onChange={onChallengeRefsChange}
         />
         <div>
-          {'センシティブな内容'}
+          センシティブな内容
           <Switch checked={sensitive} onChange={onSensitiveChange} />
-          {'凍結'}
+          凍結
           <Switch checked={freezed} onChange={onFreezedChange} />
-          {'iOS非表示'}
+          iOS非表示
           <Switch checked={ios} onChange={oniOSChange} />
         </div>
         <FormControl component="fieldset">

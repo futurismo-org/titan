@@ -56,13 +56,11 @@ const ChallengeHeader = (props: any) => {
 
   return (
     <MainFeaturedPost>
-      {
-        <img
-          style={{ display: 'none' }}
-          src={getRandomImageURL()}
-          alt="background"
-        />
-      }
+      <img
+        style={{ display: 'none' }}
+        src={getRandomImageURL()}
+        alt="background"
+      />
       <Overlay />
       <Grid container>
         <Grid item md={9}>

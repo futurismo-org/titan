@@ -30,7 +30,7 @@ const TotalScoreBoard = (props: any) => {
         {totalScore || 0}
       </Typography>
       <Typography variant="h5" component="p">
-        {'score'}
+        score
       </Typography>
     </div>
   );

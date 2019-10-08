@@ -31,7 +31,7 @@ const ReloadModal = (props: any) => {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {'新しいバージョンがあります'}
+        新しいバージョンがあります
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">

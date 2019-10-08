@@ -37,7 +37,9 @@ const rrfProps = {
   createFirestoreInstance
 };
 
-Sentry.init();
+Sentry.init({
+  dsn: 'https://a8a41e913c14464cafa9f8ee665956f8@sentry.io/1517744'
+});
 
 const App = (props: any) => {
   const [isSplashReady, setIsSplashReady] = useState(false);

@@ -95,7 +95,7 @@ const QuickActionList = (props: any) => {
   return (
     <React.Fragment>
       {error && <Error error={error} />}
-      {<Spinner visible={loading} />}
+      <Spinner visible={loading} />
       {!loading && challenges && (
         <View style={{ marginBottom: 60 }}>
           <Content padder>
