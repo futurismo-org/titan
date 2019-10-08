@@ -4,8 +4,10 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 [![CircleCI](https://circleci.com/gh/futurismo-org/titan/tree/master.svg?style=svg)](https://circleci.com/gh/futurismo-org/titan/tree/master)
 
-- https://titan-fire.netlify.com
-- https://titan-fire.com
+- LP: https://titan-fire.netlify.com
+- Web: https://titan-fire.com
+- Android: http://bit.ly/2LYbJP0
+- iOS: https://apple.co/31UPFKp
 
 ## 概要
 
@@ -18,8 +20,6 @@
 ユーザは大会に参加することで、みんなと一緒に習慣をみにつけることを目指すことができます。
 このアプリは、ライフログのような記録と視覚化のアプリとは違い、
 ユーザ同士の交流や情報共有のプラットホームを提供します。
-
-一言いうと、Titanはヘルスケア業界のKaggleです。
 
 - [紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito)
 - [紹介用動画](https://www.youtube.com/watch?v=XE7E-SuJ2Ug)
