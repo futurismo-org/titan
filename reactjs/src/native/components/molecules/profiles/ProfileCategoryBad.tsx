@@ -9,8 +9,8 @@ import Title from '../../atoms/Title';
 import ChallengePostRecord from '../challenges/ChallengePostRecord';
 import ProfileCategoryHistories from './ProfileCategoryHistories';
 import ProfileCategoryChallenges from './ProfileCategoryChallenges';
-import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
-import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
+// import ProfileCategoryResetTimezoneChart from './ProfileCategoryResetTimezoneChart';
+// import ProfileCategoryResetDaysOfTheWeekChart from './ProfileCategoryResetDaysOfTheWeekChart';
 import { CATEGORY_KIND_BAD } from '~/lib/category';
 
 const Headline = (props: any) => {
@@ -20,12 +20,12 @@ const Headline = (props: any) => {
   );
 };
 
-const Subheading = (props: any) => {
-  const { text } = props;
-  return (
-    <Text style={[material.subheading, { fontWeight: 'bold' }]}>{text}</Text>
-  );
-};
+// const Subheading = (props: any) => {
+//   const { text } = props;
+//   return (
+//     <Text style={[material.subheading, { fontWeight: 'bold' }]}>{text}</Text>
+//   );
+// };
 
 const ProfileCategoryBad = (props: any) => {
   const {
@@ -42,6 +42,8 @@ const ProfileCategoryBad = (props: any) => {
     history,
     userShortId
   } = props;
+
+  console.log(data.resetDaysOfTheWeek);
 
   useEffect(() => {
     fetchProfileCategory(profileCategoryResourceId);
@@ -80,6 +82,7 @@ const ProfileCategoryBad = (props: any) => {
             <ChallengePostRecord days={data.days} />
             {data.challenges.length !== 0 && (
               <React.Fragment>
+                <Text />
                 <Headline text="チャレンジごとの実績" />
                 <ProfileCategoryChallenges
                   challenges={data.challenges}
@@ -111,19 +114,20 @@ const ProfileCategoryBad = (props: any) => {
               <Text>過去最高継続日数: {data.maxDays}日</Text>
               <Text>最終リセット日時: {data.lastResetDate}</Text>
               <ProfileCategoryHistories histories={data.summerized} />
-              <Text />
-              <Headline text="リセット統計" />
-              <Text />
+              {/* <Text /> */}
+              {/* <Headline text="リセット統計" />
+              <Text /> */}
               {/* スマホではきついので封印。やるならば、月や年単位でまとめる */}
               {/* <Subheading text="積算回数" />
                 <ProfileCategoryResetChart data={data.resetAccs} /> */}
-              <Subheading text="時間帯別統計" />
-              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} />
-              <Text />
-              <Subheading text="曜日別統計" />
+              {/* <Subheading text="時間帯別統計" />
+              <ProfileCategoryResetTimezoneChart data={data.resetTimezones} /> */}
+              {/* <Text /> */}
+              {/* クラッシュするのでいったんマスク */}
+              {/* <Subheading text="曜日別統計" />
               <ProfileCategoryResetDaysOfTheWeekChart
                 data={data.resetDaysOfTheWeek}
-              />
+              /> */}
             </React.Fragment>
             <Text />
             <Button
