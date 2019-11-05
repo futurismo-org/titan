@@ -107,12 +107,12 @@ const ActivityFooter = withRouter((props: any) => {
               >
                 Tweet
               </Text>
-              <Text
+              {/* <Text
                 style={{ color: brandGray, fontSize: 14 }}
                 onPress={() => setEdit(true)}
               >
                 編集
-              </Text>
+              </Text> */}
             </React.Fragment>
           )}
           {!edit && (

@@ -211,13 +211,13 @@ const ChallengeNoteMemo = (props: any) => {
             >
               Tweet
             </span>{' '}
-            <span
+            {/* <span
               style={{ cursor: 'pointer' }}
               role="button"
               onClick={() => setEdit(true)}
             >
               編集
-            </span>{' '}
+            </span>{' '} */}
             <span
               role="button"
               style={{ cursor: 'pointer' }}
