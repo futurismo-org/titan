@@ -21,10 +21,6 @@
 このアプリは、ライフログのような記録と視覚化のアプリとは違い、
 ユーザ同士の交流や情報共有のプラットホームを提供します。
 
-- [紹介用スライド](https://speakerdeck.com/titan/titanshao-jie-yong-suraito)
-- [紹介用動画](https://www.youtube.com/watch?v=XE7E-SuJ2Ug)
-- [紹介用動画 2](https://www.youtube.com/watch?v=ZROFd9xv-Og)
-
 ## 開発スタートガイド
 
 ### Environment
