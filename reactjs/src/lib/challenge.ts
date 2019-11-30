@@ -1,5 +1,5 @@
 import { firestore } from 'firebase';
-import moment, { nowMoment, isToday } from '~/lib/moment';
+import moment, { isToday } from '~/lib/moment';
 import firebase from '~/lib/firebase';
 
 import { mergeCategory } from './profile';
@@ -78,13 +78,13 @@ export const isChallengeClosed = (closedAt: Date) =>
   0;
 
 export const isChallengeOpened = (openedAt: Date) =>
-  nowMoment.diff(moment(openedAt)) >= 0;
+  moment().diff(moment(openedAt)) >= 0;
 
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
-  nowMoment.diff(moment(openedAt)) >= 0 && nowMoment.diff(moment(closedAt)) < 0;
+  moment().diff(moment(openedAt)) >= 0 && moment().diff(moment(closedAt)) < 0;
 
 export const isChallengeWillOpen = (openedAt: Date, days: number) =>
-  nowMoment.diff(moment(openedAt)) <= days;
+  moment().diff(moment(openedAt)) <= days;
 
 export const rankChallengeParticipants = (participants: any): any[] => {
   const users = participants

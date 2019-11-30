@@ -3,8 +3,6 @@ import 'moment/locale/ja';
 
 moment.locale('ja');
 
-export const nowMoment = moment();
-
 export const fromNow = (date: Date) => moment(date).fromNow() || '';
 export const isClosed = (date: Date) =>
   moment(date).diff(new Date(), 'days') <= 0;

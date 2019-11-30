@@ -24,11 +24,10 @@ const mapStateToProps = (state: any, props: any) => {
           !challenge.freezed &&
           !challenge.sensitive &&
           !challenge.ios && // みための統一のためAndroidも含めてDashbardでは表示しない。
-          (isChallengeOpening(
+          isChallengeOpening(
             challenge.openedAt.toDate(),
             challenge.closedAt.toDate()
-          ) ||
-            isChallengeWillOpen(challenge.openedAt.toDate(), 7))
+          )
       )
       .slice(0, 4);
 
