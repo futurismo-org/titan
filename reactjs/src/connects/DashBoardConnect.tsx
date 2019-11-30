@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import { showSensitive, hideSensitive } from '~/actions/sensitiveAction';
-import { isChallengeOpening, isChallengeWillOpen } from '~/lib/challenge';
+import { isChallengeOpening } from '~/lib/challenge';
 import { isLogin } from '~/lib/firebase';
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
