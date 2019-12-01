@@ -81,7 +81,7 @@ export const isChallengeOpened = (openedAt: Date) =>
   moment().isAfter(moment(openedAt));
 
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
-  moment().isAfter(moment(openedAt)) && moment().isBefore(moment(closedAt));
+  moment().isBetween(moment(openedAt), moment(closedAt));
 
 export const isChallengeWillOpen = (openedAt: Date, days: number) =>
   moment().diff(moment(openedAt)) <= days;

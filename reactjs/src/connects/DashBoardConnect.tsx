@@ -52,8 +52,7 @@ const mapStateToProps = (state: any, props: any) => {
 const queries = (props: any) => [
   {
     collection: 'challenges',
-    orderByKey: ['updatedAt', 'desc'],
-    limit: 12
+    orderByKey: ['updatedAt', 'desc']
   },
   {
     collection: 'categories',
