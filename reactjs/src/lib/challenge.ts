@@ -19,7 +19,7 @@ export const PAST_DAYS = '過去連続日数';
 export const challengePeriod = (challenge: any) => {
   const openedAt = moment(challenge.openedAt.toDate());
   const closedAt = moment(challenge.closedAt.toDate());
-  const today = moment();
+  const today = moment().utcOffset(9);
 
   if (openedAt.diff(today, 'days') >= 0) {
     return `${openedAt.fromNow()}に開始`;
@@ -78,13 +78,22 @@ export const isChallengeClosed = (closedAt: Date) =>
   0;
 
 export const isChallengeOpened = (openedAt: Date) =>
-  moment().diff(moment(openedAt)) >= 0;
+  moment()
+    .utcOffset(9)
+    .diff(moment(openedAt)) >= 0;
 
 export const isChallengeOpening = (openedAt: Date, closedAt: Date) =>
-  moment().diff(moment(openedAt)) >= 0 && moment().diff(moment(closedAt)) < 0;
+  moment()
+    .utcOffset(9)
+    .diff(moment(openedAt)) >= 0 &&
+  moment()
+    .utcOffset(9)
+    .diff(moment(closedAt)) < 0;
 
 export const isChallengeWillOpen = (openedAt: Date, days: number) =>
-  moment().diff(moment(openedAt)) <= days;
+  moment()
+    .utcOffset(9)
+    .diff(moment(openedAt)) <= days;
 
 export const rankChallengeParticipants = (participants: any): any[] => {
   const users = participants
