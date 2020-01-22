@@ -16405,13 +16405,13 @@ react-native-simple-time-picker@^0.2.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-simple-twitter@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-simple-twitter/-/react-native-simple-twitter-2.4.1.tgz#2813245dac177ffe123f953a0d3820fee0da9978"
-  integrity sha512-zPcyV3/kghQrZ/JCz/5TrFZAEwq2KWsWJxRhKwoJjhiMbhQ3dDaXw+NSdiF/PSHzl3G8X/WmeWMkNGoHfgoHuw==
+react-native-simple-twitter@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-simple-twitter/-/react-native-simple-twitter-3.0.6.tgz#602105490e8b7cf4205db7ac4544c1e6b7338f81"
+  integrity sha512-ZDIycnG/+ALZXNujv9FKvf98BnrcKU/znrNYrYjJrYzaOrESW6IGFFME7ZUFzt9k9ziwebT4Y352i252A0/+iA==
   dependencies:
     crypto-js "^3.1.9-1"
-    react-native-webview "^7.4.3"
+    react-native-webview "^8.0.1"
 
 react-native-snap-carousel@^3.8.0:
   version "3.8.1"
@@ -16502,10 +16502,18 @@ react-native-web@^0.11.4:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-react-native-webview@^7.4.3:
-  version "7.4.3"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-7.4.3.tgz#e00e92e17f7389d84d09f5900652501ff2665915"
-  integrity sha512-4n72B2D7n1xOQSoCSD1qk9D7JksyT4d6nk8QG9guZKZn3KXQL5EejwE2yhh1TxZRQpr+OD3a96rb+rA/UEnvrQ==
+react-native-webview@7.0.5:
+  version "7.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-7.0.5.tgz#1dd9d4f2856bda86a40222eca3612bf2152bacd3"
+  integrity sha512-FWY3tjbyV3Uhuw1JxJ0zs2HspJ5HAsIfkJaquURsVWQnTdZPnkSQjHWQp0PzGIwJ1PPVOA/gnhRmd7SZU/Br5Q==
+  dependencies:
+    escape-string-regexp "1.0.5"
+    invariant "2.2.4"
+
+react-native-webview@^8.0.1:
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-8.0.4.tgz#4951df32bd54f6fa16bc0eda5e6e6762d8b83ba8"
+  integrity sha512-XEatna1wwF43Rg500HaDIC/MS2IAob/PvjkTePCevs9wQz90SwERTjGZNuM2WxH+JwrZrxoilGBOn34vQTTJkw==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
@@ -19751,6 +19759,11 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
+
+twitter-d@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/twitter-d/-/twitter-d-0.4.0.tgz#3b7e2dd480c38699f4199124b77511c6f7bc8e29"
+  integrity sha512-t8z7qqq0yt1dD7BUISRvASw9mtYRMSTTVzmkvjz8oM9ZN++LEC6Ix8WEXZS0RtswnGgwdSPTxY9qyHcYgPexdA==
 
 type-check@~0.3.2:
   version "0.3.2"

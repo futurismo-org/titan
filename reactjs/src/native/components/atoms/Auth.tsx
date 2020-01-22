@@ -12,7 +12,8 @@ import {
 import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
 import { Keyboard } from 'react-native';
-import twitter, { TWLoginButton } from 'react-native-simple-twitter';
+// import twitter, { TWLoginButton } from 'react-native-simple-twitter';
+import { useTwitter } from 'react-native-simple-twitter';
 import * as AppleAuthentication from 'expo-apple-authentication';
 
 import firebase, { createCustomToken } from '~/lib/firebase';
@@ -31,7 +32,7 @@ import TouchableText from './TouchableText';
 import { successToast, errorToast } from './Toast';
 import { isiOS, appleIPHead } from '~/native/lib/native';
 import { getPublicIP } from '~/native/lib/network';
-import axios from '~/lib/axios';
+// import axios from '~/lib/axios';
 
 const LOGIN_MESSAGE_SUCCESS = 'ログインに成功しました';
 
@@ -43,11 +44,18 @@ const AuthScreen = (props: any) => {
   const [oauthTokenSecret, setOauthTokenSecret] = useState('');
   const [isAppleSingInAvailable, setIsAppleSignInAvailable] = useState(false);
 
+  const [me, setMe] = useState<any>({});
+  const [token, setToken] = useState({});
+
   const [ip, setIP] = useState('');
+  const { twitter, TWModal } = useTwitter({
+    onSuccess: (user, accessToken) => {
+      setMe(user);
+      setToken(accessToken);
+    }
+  });
 
   useEffect(() => {
-    twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
-
     AppleAuthentication.isAvailableAsync().then((result: any) =>
       setIsAppleSignInAvailable(result)
     );
@@ -126,6 +134,14 @@ const AuthScreen = (props: any) => {
   //     .catch(error => errorToast(error.message));
   // };
 
+  const onLoginPress = async () => {
+    try {
+      await twitter.login();
+    } catch (e) {
+      console.log(e.errors);
+    }
+  };
+
   const onGetAccessToken = ({
     oauth_token: token,
     oauth_token_secret: tokenSecret
@@ -143,6 +159,8 @@ const AuthScreen = (props: any) => {
       oauthToken,
       oauthTokenSecret
     );
+
+    console.log('onsuccess');
 
     firebase
       .auth()
