@@ -12,17 +12,11 @@ import {
 import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
 import { Keyboard, AsyncStorage, TouchableOpacity } from 'react-native';
-// import twitter, { TWLoginButton } from 'react-native-simple-twitter';
 import { useTwitter } from 'react-native-simple-twitter';
 import * as AppleAuthentication from 'expo-apple-authentication';
 
 import firebase, { createCustomToken } from '~/lib/firebase';
-import {
-  // getTwitterAccessToken,
-  // getTwitterRequestToken,
-  TWITTER_CONSUMER_KEY,
-  TWITTER_CONSUMER_SECRET
-} from '~/lib/twitter';
+import { TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET } from '~/lib/twitter';
 
 import { TITAN_TERMS_OF_USE, TITAN_PRIVACY_POLICY } from '~/constants/appInfo';
 
