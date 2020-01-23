@@ -9,8 +9,6 @@ const mapStateToProps = (state: any, props: any) => {
   ) => {
     const { user } = credentials;
 
-    console.log('singInSuccessWithAuthResult');
-
     const isTwitter =
       credentials.additionalUserInfo &&
       credentials.additionalUserInfo.providerId === 'twitter.com';

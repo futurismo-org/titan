@@ -11,7 +11,7 @@ import {
 } from 'native-base';
 import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
-import { Keyboard } from 'react-native';
+import { Keyboard, AsyncStorage, TouchableOpacity } from 'react-native';
 // import twitter, { TWLoginButton } from 'react-native-simple-twitter';
 import { useTwitter } from 'react-native-simple-twitter';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -40,8 +40,6 @@ const AuthScreen = (props: any) => {
   const { history, signInSuccessWithAuthResult } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [oauthToken, setOauthToken] = useState('');
-  const [oauthTokenSecret, setOauthTokenSecret] = useState('');
   const [isAppleSingInAvailable, setIsAppleSignInAvailable] = useState(false);
 
   const [me, setMe] = useState<any>({});
@@ -56,12 +54,69 @@ const AuthScreen = (props: any) => {
   });
 
   useEffect(() => {
+    twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
+
+    /* check AsyncStorage */
+    AsyncStorage.getItem('token').then(async accessToken => {
+      if (accessToken !== null) {
+        const userToken = JSON.parse(accessToken);
+        twitter.setAccessToken(
+          userToken.oauth_token,
+          userToken.oauth_token_secret
+        );
+
+        /* eslint-disable */
+        const options = {
+          include_entities: false,
+          skip_status: true,
+          include_email: true
+        };
+        /* eslint-enable */
+
+        try {
+          const response = await twitter.api(
+            'GET',
+            'account/verify_credentials.json',
+            options
+          );
+        } catch (e) {
+          console.log(e.errors);
+        }
+      }
+    });
+
     AppleAuthentication.isAvailableAsync().then((result: any) =>
       setIsAppleSignInAvailable(result)
     );
 
     getPublicIP().then((ip: string) => setIP(ip));
-  }, []);
+  }, [twitter]);
+
+  useEffect(() => {
+    // @ts-ignore
+    if (token.oauth_token && token.oauth_token_secret && me) {
+      const saveToAsyncStorage = async () => {
+        await AsyncStorage.setItem('token', JSON.stringify(token));
+        await AsyncStorage.setItem('user', JSON.stringify(me));
+
+        const credential = firebase.auth.TwitterAuthProvider.credential(
+          // @ts-ignore
+          token.oauth_token,
+          // @ts-ignore
+          token.oauth_token_secret
+        );
+
+        firebase
+          .auth()
+          .signInWithCredential(credential)
+          .then(credential => signInSuccessWithAuthResult(credential))
+          .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+          .catch(error => errorToast(error.message));
+      };
+
+      saveToAsyncStorage();
+    }
+  }, [history.push, me, signInSuccessWithAuthResult, token]);
 
   const signInWithEmail = (email: string, password: string) => {
     // キーボードは閉じる
@@ -134,40 +189,12 @@ const AuthScreen = (props: any) => {
   //     .catch(error => errorToast(error.message));
   // };
 
-  const onLoginPress = async () => {
+  const signInWithTwitter = async () => {
     try {
       await twitter.login();
     } catch (e) {
       console.log(e.errors);
     }
-  };
-
-  const onGetAccessToken = ({
-    oauth_token: token,
-    oauth_token_secret: tokenSecret
-  }: any) => {
-    setOauthToken(token);
-    setOauthTokenSecret(tokenSecret);
-  };
-
-  const onError = (err: any) => {
-    errorToast(err.message);
-  };
-
-  const onSuccess = async (user: any) => {
-    const credential = firebase.auth.TwitterAuthProvider.credential(
-      oauthToken,
-      oauthTokenSecret
-    );
-
-    console.log('onsuccess');
-
-    firebase
-      .auth()
-      .signInWithCredential(credential)
-      .then(credential => signInSuccessWithAuthResult(credential))
-      .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
-      .catch(error => errorToast(error.message));
   };
 
   const signUpWithCustomToken = (token: string) => {
@@ -197,14 +224,11 @@ const AuthScreen = (props: any) => {
   return (
     <Container>
       <Button full rounded info>
-        <TWLoginButton
-          onGetAccessToken={onGetAccessToken}
-          onSuccess={onSuccess}
-          onError={onError}
-        >
+        <TouchableOpacity onPress={signInWithTwitter}>
           <Text>Twitterでログイン</Text>
-        </TWLoginButton>
+        </TouchableOpacity>
       </Button>
+      <TWModal />
       <Text />
       <Text style={{ textAlign: 'center' }}>または</Text>
       <Form>
