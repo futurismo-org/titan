@@ -11,7 +11,7 @@ import {
 } from 'native-base';
 import { withRouter } from 'react-router-native';
 // import { AuthSession } from 'expo';
-import { Keyboard, AsyncStorage, TouchableOpacity } from 'react-native';
+import { Keyboard, TouchableOpacity } from 'react-native';
 import { useTwitter } from 'react-native-simple-twitter';
 import * as AppleAuthentication from 'expo-apple-authentication';
 
@@ -60,26 +60,19 @@ const AuthScreen = (props: any) => {
   useEffect(() => {
     // @ts-ignore
     if (token.oauth_token && token.oauth_token_secret && me) {
-      const saveToAsyncStorage = async () => {
-        await AsyncStorage.setItem('token', JSON.stringify(token));
-        await AsyncStorage.setItem('user', JSON.stringify(me));
+      const credential = firebase.auth.TwitterAuthProvider.credential(
+        // @ts-ignore
+        token.oauth_token,
+        // @ts-ignore
+        token.oauth_token_secret
+      );
 
-        const credential = firebase.auth.TwitterAuthProvider.credential(
-          // @ts-ignore
-          token.oauth_token,
-          // @ts-ignore
-          token.oauth_token_secret
-        );
-
-        firebase
-          .auth()
-          .signInWithCredential(credential)
-          .then(credential => signInSuccessWithAuthResult(credential))
-          .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
-          .catch(error => errorToast(error.message));
-      };
-
-      saveToAsyncStorage();
+      firebase
+        .auth()
+        .signInWithCredential(credential)
+        .then(credential => signInSuccessWithAuthResult(credential))
+        .then(() => successToast('/', history.push, LOGIN_MESSAGE_SUCCESS))
+        .catch(error => errorToast(error.message));
     }
   }, [history.push, me, signInSuccessWithAuthResult, token]);
 
