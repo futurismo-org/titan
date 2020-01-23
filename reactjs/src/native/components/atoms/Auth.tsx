@@ -50,35 +50,6 @@ const AuthScreen = (props: any) => {
   useEffect(() => {
     twitter.setConsumerKey(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
 
-    /* check AsyncStorage */
-    AsyncStorage.getItem('token').then(async accessToken => {
-      if (accessToken !== null) {
-        const userToken = JSON.parse(accessToken);
-        twitter.setAccessToken(
-          userToken.oauth_token,
-          userToken.oauth_token_secret
-        );
-
-        /* eslint-disable */
-        const options = {
-          include_entities: false,
-          skip_status: true,
-          include_email: true
-        };
-        /* eslint-enable */
-
-        try {
-          const response = await twitter.api(
-            'GET',
-            'account/verify_credentials.json',
-            options
-          );
-        } catch (e) {
-          console.log(e.errors);
-        }
-      }
-    });
-
     AppleAuthentication.isAvailableAsync().then((result: any) =>
       setIsAppleSignInAvailable(result)
     );
