@@ -25,7 +25,8 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 0, // TODO あとで消す
     '@typescript-eslint/no-explicit-any': 0, // TODO あとで消す,
     'no-control-regex': 0,
-    '@typescript-eslint/explicit-member-accessibility': 0
+    '@typescript-eslint/explicit-member-accessibility': 0,
+    'import/extensions': ['.js', '.jsx', '.json', '.ts', '.tsx']
   },
   parser: '@typescript-eslint/parser',
   settings: {
